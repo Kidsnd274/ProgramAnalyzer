@@ -33,4 +33,4 @@ Samuel Tee | 97248388 | samuel_tee@u.nus.edu | Windows 11/CLion
 Feng Zhunyi| 94601623 | e0492447@u.nus.edu   | Mac Intel/CLion
 Deng Huaiyu| 89209155 | e0564878@u.nus.edu   | Mac Intel/CLion
 Qu Mingsi | 82964528 | e0316059@u.nus.edu   | Windows10/CLion
-
+Li Lehao | 93746634 | e0492462@u.nus.edu | Mac Intel/CLion
