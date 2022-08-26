@@ -24,9 +24,10 @@ void TestWrapper::parse(std::string filename) {
   SourceProcessor *sp = new SourceProcessor();
   fstream *fileObj = new fstream;
   fileObj->open(filename, ios_base::in);
-  sp->processSIMPLE(fileObj);
-
-  fileObj->close();
+  if (fileObj->is_open()) {
+      sp->processSIMPLE(fileObj);
+      fileObj->close();
+  }
   delete fileObj;
   delete sp;
 }
