@@ -47,6 +47,18 @@ std::vector<std::string> Lexer::delimitBySpace() {
     return result;
 }
 
+std::vector<std::string> Lexer::delimitBySpaceUsingFS() {
+    std::vector<std::string> result;
+    std::string rawInput;
+
+    while (std::getline(*fileStream, rawInput, ' ')) {
+        if (rawInput == "") continue;
+        result.push_back(rawInput);
+    }
+
+    return result;
+}
+
 std::vector<std::string> Lexer::tokenize() {
     std::vector<std::string> firstPass = delimitBySpace();
     std::vector<std::string> result;
