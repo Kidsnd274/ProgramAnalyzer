@@ -12,6 +12,10 @@
 #include "ErrorToken.h"
 #include "ConstToken.h"
 #include "NameToken.h"
+#include "ReadToken.h"
+#include "PrintToken.h"
+#include "IfToken.h"
+#include "WhileToken.h"
 
 Token Token::createTerminal(std::string s) {
     if(s == "(") {
@@ -36,7 +40,17 @@ Token Token::createTerminal(std::string s) {
 }
 
 Token Token::createNonTerminal(std::string s) {
-
+    if (s == "read") {
+        return ReadToken(s);
+    } else if (s == "print") {
+        return PrintToken(s);
+    } else if (s == "while") {
+        return WhileToken(s);
+    } else if (s == "if") {
+        return IfToken(s);
+    } else {
+        return NameToken(s);
+    }
 }
 
 Token Token::createConstToken(std::string s) {
