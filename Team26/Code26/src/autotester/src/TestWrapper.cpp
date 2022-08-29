@@ -19,6 +19,17 @@ TestWrapper::TestWrapper() {
 void TestWrapper::parse(std::string filename) {
 	// call your parser to do the parsing
   // ...rest of your code...
+
+  // Test code for Lexer
+  SourceProcessor *sp = new SourceProcessor();
+  fstream *fileObj = new fstream;
+  fileObj->open(filename, ios_base::in);
+  if (fileObj->is_open()) {
+      sp->processSIMPLE(fileObj);
+      fileObj->close();
+  }
+  delete fileObj;
+  delete sp;
 }
 
 // method to evaluating a query
