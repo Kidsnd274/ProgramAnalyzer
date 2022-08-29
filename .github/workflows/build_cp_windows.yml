@@ -31,7 +31,7 @@ jobs:
       - name: Build Project
         shell: bash
         run: |
-          cd Team00/Code00
+          cd Team26/Code26
           mkdir build
           cd build
           cmake -A Win32 ..
