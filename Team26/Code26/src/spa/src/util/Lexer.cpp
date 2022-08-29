@@ -1,7 +1,7 @@
 #include "Lexer.h"
 #include <sstream>
 
-void Lexer::splitWord(std::vector<std::string> &res, std::string &toParse) {
+void Lexer::splitWord(std::vector<Token> &res, std::string &toParse) {
     int i = 0;
     while(i < toParse.size()) {
         char c = toParse[i];
@@ -11,22 +11,34 @@ void Lexer::splitWord(std::vector<std::string> &res, std::string &toParse) {
             continue;
         }
 
-        if(std::isalnum(c)) {
+        if(std::isdigit(c)) {
+            int j = i;
+            while(j < toParse.size() && std::isdigit(toParse[j])) {
+                j++;
+            }
+            Token token = Token::createConstToken(toParse.substr(i, j-i));
+            res.push_back(token);
+            i = j;
+        } else if(std::isalnum(c)) {
             int j = i;
             while(j < toParse.size() && std::isalnum(toParse[j])) {
                 j++;
             }
-            res.push_back(toParse.substr(i, j-i));
+            Token token = Token::createNonTerminal(toParse.substr(i, j-i));
+            res.push_back(token);
             i = j;
         } else if((c == '<' || c == '>' || c == '=' || c == '!') && (i + 1 < toParse.size() && toParse[i+1] == '=')){
-            res.push_back(toParse.substr(i, 2));
+            Token token = Token::createTerminal(toParse.substr(i, 2));
+            res.push_back(token);
             i = i + 2;
         } else if((c == '|' || c == '&') && (i + 1 < toParse.size() && toParse[i+1] == c)){
-            res.push_back(toParse.substr(i, 2));
+            Token token = Token::createTerminal(toParse.substr(i, 2));
+            res.push_back(token);
             i = i + 2;
         } else {
             //in case of junk unaccepted characters, just add it into the list first and deal with it later to ensure progress.
-            res.push_back(toParse.substr(i, 1));
+            Token token = Token::createTerminal(toParse.substr(i, 1));
+            res.push_back(token);
             i++;
         }
     }
@@ -59,9 +71,9 @@ std::vector<std::string> Lexer::delimitBySpaceUsingFS() {
     return result;
 }
 
-std::vector<std::string> Lexer::tokenize() {
+std::vector<Token> Lexer::tokenize() {
     std::vector<std::string> firstPass = delimitBySpace();
-    std::vector<std::string> result;
+    std::vector<Token> result;
 
     for(auto &s : firstPass) {
         splitWord(result, s);

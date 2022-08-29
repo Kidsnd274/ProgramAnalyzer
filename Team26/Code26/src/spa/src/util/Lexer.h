@@ -3,6 +3,7 @@
 #include <fstream>
 #include <string>
 #include <vector>
+#include "Token.h"
 
 class Lexer {
 private:
@@ -17,9 +18,9 @@ public:
     Lexer(std::fstream *fileStream) {
         this->fileStream = fileStream;
     }
-    void splitWord(std::vector<std::string>&, std::string&);
+    void splitWord(std::vector<Token>&, std::string&);
     std::vector<std::string> delimitBySpace();
     std::vector<std::string> delimitBySpaceUsingFS();
-    std::vector<std::string> tokenize();
+    std::vector<Token> tokenize();
 };
 
