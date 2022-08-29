@@ -9,4 +9,5 @@ public:
     }
     static Token createTerminal(std::string s);
     static Token createNonTerminal(std::string s);
+    static Token createConstToken(std::string s);
 };

@@ -10,6 +10,8 @@
 #include "CondToken.h"
 #include "OpToken.h"
 #include "ErrorToken.h"
+#include "ConstToken.h"
+#include "NameToken.h"
 
 Token Token::createTerminal(std::string s) {
     if(s == "(") {
@@ -35,4 +37,8 @@ Token Token::createTerminal(std::string s) {
 
 Token Token::createNonTerminal(std::string s) {
 
+}
+
+Token Token::createConstToken(std::string s) {
+    return ConstToken(s);
 }
