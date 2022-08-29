@@ -4,9 +4,11 @@
 #include <string>
 #include <iostream>
 #include <list>
+#include <fstream>
 
 // include your other headers here
 #include "AbstractWrapper.h"
+#include "sp/SourceProcessor.h"
 
 class TestWrapper : public AbstractWrapper {
  public:
