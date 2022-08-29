@@ -16,6 +16,7 @@
 #include "PrintToken.h"
 #include "IfToken.h"
 #include "WhileToken.h"
+#include "ProcedureToken.h"
 
 Token Token::createTerminal(std::string s) {
     if(s == "(") {
@@ -40,7 +41,9 @@ Token Token::createTerminal(std::string s) {
 }
 
 Token Token::createNonTerminal(std::string s) {
-    if (s == "read") {
+    if(s == "procedure") {
+       return ProcedureToken(s);
+    } else if (s == "read") {
         return ReadToken(s);
     } else if (s == "print") {
         return PrintToken(s);
