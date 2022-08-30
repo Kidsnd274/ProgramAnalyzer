@@ -131,5 +131,4 @@ int main() {
         std::string s = Tokenization::m.at(t.tokenType);
         std::cout << s + " ";
     }
-
 }
