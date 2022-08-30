@@ -34,7 +34,7 @@ jobs:
           cd Team26/Code26
           mkdir build
           cd build
-          cmake -A Win32 ..
+          cmake ..
           cmake --build . --target unit_testing --config Release
           cmake --build . --target integration_testing --config Release
           cmake --build . --target autotester --config Release
