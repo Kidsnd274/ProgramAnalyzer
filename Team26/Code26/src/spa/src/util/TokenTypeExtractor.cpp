@@ -2,7 +2,7 @@
 
 #include "TokenTypeExtractor.h"
 
-std::map<std::string, TokenType> terminalTokenMap = {
+std::map<std::string, TokenType> TokenTypeExtractor::terminalTokenMap = {
         { "(", TokenType::LParenToken },
         { ")", TokenType::RParenToken },
         { "{", TokenType::LCurlyToken },
@@ -24,7 +24,7 @@ std::map<std::string, TokenType> terminalTokenMap = {
         { "%", TokenType::OpToken },
 };
 
-std::map<std::string, TokenType> nonTerminalTokenMap = {
+std::map<std::string, TokenType> TokenTypeExtractor::nonTerminalTokenMap = {
         { "procedure", TokenType::ProcedureToken },
         { "read", TokenType::ReadToken },
         { "print", TokenType::PrintToken },
@@ -33,11 +33,15 @@ std::map<std::string, TokenType> nonTerminalTokenMap = {
 };
 
 Token TokenTypeExtractor::createTerminal(std::string s) {
+    Token test1 = Token("error", TokenType::ErrorToken);
+    Token test2 = Token("error", TokenType::ErrorToken);
+
     if (terminalTokenMap.count(s)) {
         TokenType tokenType = terminalTokenMap.at(s);
         return {s, tokenType};
     } else {
-        return {"Error", TokenType::ErrorToken};
+        // TODO: Does ErrorToken store the string s?
+        return {s, TokenType::ErrorToken};
     }
 }
 

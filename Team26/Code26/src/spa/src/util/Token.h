@@ -29,4 +29,9 @@ public:
         tokenString = s;
         tokenType = tt;
     }
+
+    TokenType getTokenType() const;
+    std::string getTokenString() const;
 };
+
+bool operator== (const Token &leftToken, const Token &rightToken);
