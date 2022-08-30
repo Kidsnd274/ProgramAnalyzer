@@ -23,7 +23,7 @@ std::pair<EntityType, bool> parseEntity(Tokenization::Token token) {
 std::pair<RelationType, bool> parseRelation(Tokenization::Token token) {
     if (relationMap.find(token.nameValue) == relationMap.end()) {
         // not found
-        return std::make_pair(INVALID_RELATION_TYPE, false);
+        return {INVALID_RELATION_TYPE, false};
     } else {
         // found
         return {relationMap.at(token.nameValue), true};
