@@ -1,13 +1,32 @@
 #include <string>
 
+enum class TokenType {
+    LParenToken,
+    RParenToken,
+    LCurlyToken,
+    RCurlyToken,
+    AssignToken,
+    RelationToken,
+    CondToken,
+    OpToken,
+    ErrorToken,
+    ConstToken,
+    NameToken,
+    ReadToken,
+    PrintToken,
+    IfToken,
+    WhileToken,
+    ProcedureToken,
+};
+
 class Token {
 private:
+    TokenType tokenType;
     std::string tokenString;
+
 public:
-    Token(std::string s) {
+    Token(std::string s, TokenType tt) {
         tokenString = s;
+        tokenType = tt;
     }
-    static Token createTerminal(std::string s);
-    static Token createNonTerminal(std::string s);
-    static Token createConstToken(std::string s);
 };
