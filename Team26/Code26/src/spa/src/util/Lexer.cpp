@@ -16,7 +16,7 @@ void Lexer::splitWord(std::vector<Token> &res, std::string &toParse) {
             while(j < toParse.size() && std::isdigit(toParse[j])) {
                 j++;
             }
-            Token token = Token::createConstToken(toParse.substr(i, j-i));
+            Token token = TokenTypeExtractor::createConst(toParse.substr(i, j-i));
             res.push_back(token);
             i = j;
         } else if(std::isalnum(c)) {
@@ -24,20 +24,20 @@ void Lexer::splitWord(std::vector<Token> &res, std::string &toParse) {
             while(j < toParse.size() && std::isalnum(toParse[j])) {
                 j++;
             }
-            Token token = Token::createNonTerminal(toParse.substr(i, j-i));
+            Token token = TokenTypeExtractor::createNonTerminal(toParse.substr(i, j-i));
             res.push_back(token);
             i = j;
         } else if((c == '<' || c == '>' || c == '=' || c == '!') && (i + 1 < toParse.size() && toParse[i+1] == '=')){
-            Token token = Token::createTerminal(toParse.substr(i, 2));
+            Token token = TokenTypeExtractor::createTerminal(toParse.substr(i, 2));
             res.push_back(token);
             i = i + 2;
         } else if((c == '|' || c == '&') && (i + 1 < toParse.size() && toParse[i+1] == c)){
-            Token token = Token::createTerminal(toParse.substr(i, 2));
+            Token token = TokenTypeExtractor::createTerminal(toParse.substr(i, 2));
             res.push_back(token);
             i = i + 2;
         } else {
             //in case of junk unaccepted characters, just add it into the list first and deal with it later to ensure progress.
-            Token token = Token::createTerminal(toParse.substr(i, 1));
+            Token token = TokenTypeExtractor::createTerminal(toParse.substr(i, 1));
             res.push_back(token);
             i++;
         }

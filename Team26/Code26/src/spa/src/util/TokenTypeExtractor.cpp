@@ -32,7 +32,7 @@ std::map<std::string, TokenType> nonTerminalTokenMap = {
         { "if", TokenType::IfToken },
 };
 
-Token TokenTypeExtractor::createTerminalToken(std::string s) {
+Token TokenTypeExtractor::createTerminal(std::string s) {
     if (terminalTokenMap.count(s)) {
         TokenType tokenType = terminalTokenMap.at(s);
         return {s, tokenType};
@@ -42,7 +42,7 @@ Token TokenTypeExtractor::createTerminalToken(std::string s) {
 }
 
 // TODO: This function repeats the above one, consider merging them!
-Token TokenTypeExtractor::createNonTerminalToken(std::string s) {
+Token TokenTypeExtractor::createNonTerminal(std::string s) {
     if (nonTerminalTokenMap.count(s)) {
         TokenType tokenType = nonTerminalTokenMap.at(s);
         return {s, tokenType};
@@ -51,6 +51,6 @@ Token TokenTypeExtractor::createNonTerminalToken(std::string s) {
     }
 }
 
-Token TokenTypeExtractor::createConstToken(std::string s) {
+Token TokenTypeExtractor::createConst(std::string s) {
     return {s, TokenType::ConstToken};
 }
