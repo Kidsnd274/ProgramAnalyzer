@@ -1,7 +1,7 @@
 #ifndef QUERYSTRUCT_H
 #define QUERYSTRUCT_H
 
-#include<QueryProcessorTypes.h>
+#include "QueryProcessorTypes.h"
 #include<string>
 
 /*
@@ -28,3 +28,5 @@ private:
                 PATTERN_LIST& patternList,
                 CANDIDATE_LIST& candidateList);
 };
+
+#endif

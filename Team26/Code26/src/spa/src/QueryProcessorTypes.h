@@ -94,7 +94,7 @@ struct PatternStruct {
  */
 struct CandidateStruct {
     CandidateType typeOfCandidate;
-    String resultString;
+    std::string resultString;
 };
 
 typedef std::unordered_map<std::string, EntityType> DECLARED_SYNONYM_MAP;
