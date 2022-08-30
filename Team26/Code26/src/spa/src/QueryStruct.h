@@ -27,6 +27,15 @@ private:
     QueryStruct(DECLARED_SYNONYM_MAP& declaredSynonymMap,
                 PATTERN_LIST& patternList,
                 CANDIDATE_LIST& candidateList);
+
+public:
+    DECLARED_SYNONYM_MAP getDeclaredSynonymMap();
+    SUCH_THAT_LIST getSuchThatList();
+    PATTERN_LIST getPatternList();
+    CANDIDATE_LIST getCandidateList();
+
+    void addSuchThatClause(RelationStruct relationToAdd);
+    void addPatternClause(PatternStruct patternToAdd);
 };
 
-#endif
+#endif // QUERYSTRUCT_H

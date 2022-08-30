@@ -102,4 +102,4 @@ typedef std::vector<RelationStruct> SUCH_THAT_LIST;
 typedef std::vector<PatternStruct> PATTERN_LIST;
 typedef std::vector<CandidateStruct> CANDIDATE_LIST;
 
-#endif QUERYPROCESSORTYPES_H
+#endif // QUERYPROCESSORTYPES_H
