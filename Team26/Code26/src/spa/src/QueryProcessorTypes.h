@@ -4,6 +4,7 @@
 #include<string>
 #include<unordered_map>
 #include<vector>
+#include <map>
 
 /*
  * Enum of the Design Entities in Program Query Language.
@@ -22,6 +23,18 @@ enum EntityType {
     INVALID_ENTITY_TYPE
 };
 
+std::map<std::string, EntityType> entityMap = {{"stmt", STATEMENT},
+                                               {"read", READ},
+                                               {"print", PRINT},
+                                               {"call", CALL},
+                                               {"while", WHILE},
+                                               {"if", IF},
+                                               {"assign", ASSIGN},
+                                               {"variable", VARIABLE},
+                                               {"constant", CONSTANT},
+                                               {"procedure", PROCEDURE},
+                                               {"", INVALID_ENTITY_TYPE}};
+
 /*
  * Enum of the Relation Types in Program Query Language.
  */
@@ -30,12 +43,18 @@ enum RelationType {
     FOLLOWS_T,  // Follows*(stmtRef, stmtRef)
     PARENT, // Parent(stmtRef, stmtRef)
     PARENT_T,   // Parent*(stmtRef, stmtRef)
-    USES_S, // Uses(stmtRef, stmtRef)
-    USES_P, // Uses(entRef, entRef)
-    MODIFIES_S, // Modifies(stmtRef, stmtRef)
-    MODIFIES_P,  // Modifies(entRef, entRef)
+    USES_S,
+    MODIFIES_S,
     INVALID_RELATION_TYPE
 };
+
+std::map<std::string, RelationType> relationMap = {{"Follows", FOLLOWS},
+                                                   {"Follows*", FOLLOWS_T},
+                                                   {"Parent", PARENT},
+                                                   {"Parent*", PARENT_T},
+                                                   {"Uses", USES_S},
+                                                   {"Modifies", MODIFIES_S},
+                                                   {"", INVALID_RELATION_TYPE}};
 
 /*
  * Enum of the Pattern Types in Program Query Language.

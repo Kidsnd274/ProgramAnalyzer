@@ -31,7 +31,8 @@ enum TokenType {
     MODULE,
     NAME,
     INTEGER,
-    WHITESPACE
+    WHITESPACE,
+
 };
 
 namespace Tokenization {
