@@ -29,3 +29,7 @@ QueryStruct::QueryStruct(DECLARED_SYNONYM_MAP &declaredSynonymMap,
     this->patternList = patternList;
     this->candidateList = candidateList;
 }
+
+int main() {
+    return 0;
+}
