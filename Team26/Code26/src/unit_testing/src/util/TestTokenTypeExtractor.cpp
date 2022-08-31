@@ -124,24 +124,24 @@ TEST_CASE("Test_createTerminal_positive") {
         REQUIRE(createdToken == expectedToken);
     }
 
-    SECTION("/ OpToken") {
+    SECTION("/ FactorToken") {
         std::string tokenString = "/";
         Token createdToken = TokenTypeExtractor::createTerminal(tokenString);
-        Token expectedToken = Token(tokenString, TokenType::OpToken);
+        Token expectedToken = Token(tokenString, TokenType::FactorToken);
         REQUIRE(createdToken == expectedToken);
     }
 
-    SECTION("* OpToken") {
+    SECTION("* FactorToken") {
         std::string tokenString = "*";
         Token createdToken = TokenTypeExtractor::createTerminal(tokenString);
-        Token expectedToken = Token(tokenString, TokenType::OpToken);
+        Token expectedToken = Token(tokenString, TokenType::FactorToken);
         REQUIRE(createdToken == expectedToken);
     }
 
-    SECTION("% OpToken") {
+    SECTION("% FactorToken") {
         std::string tokenString = "%";
         Token createdToken = TokenTypeExtractor::createTerminal(tokenString);
-        Token expectedToken = Token(tokenString, TokenType::OpToken);
+        Token expectedToken = Token(tokenString, TokenType::FactorToken);
         REQUIRE(createdToken == expectedToken);
     }
 }
