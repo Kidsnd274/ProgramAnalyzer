@@ -217,6 +217,13 @@ TEST_CASE("Test_createNonTerminal_positive") {
         Token expectedToken = Token(tokenString, TokenType::NameToken);
         REQUIRE(createdToken == expectedToken);
     }
+
+    SECTION("Call Token") {
+        std::string tokenString = "call";
+        Token createdToken = TokenTypeExtractor::createNonTerminal(tokenString);
+        Token expectedToken = Token(tokenString, TokenType::CallToken);
+        REQUIRE(createdToken == expectedToken);
+    }
 }
 
 TEST_CASE("Test_createConst") {

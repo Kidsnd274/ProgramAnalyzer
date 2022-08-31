@@ -19,6 +19,7 @@ enum class TokenType {
     ElseToken,
     WhileToken,
     ProcedureToken,
+    CallToken
 };
 
 class Token {

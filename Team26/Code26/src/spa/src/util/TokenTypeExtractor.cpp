@@ -32,6 +32,7 @@ std::map<std::string, TokenType> TokenTypeExtractor::nonTerminalTokenMap = {
         { "if", TokenType::IfToken },
         { "then", TokenType::ThenToken },
         { "else", TokenType::ElseToken },
+        { "call", TokenType::CallToken },
 };
 
 Token TokenTypeExtractor::createTerminal(std::string s) {
