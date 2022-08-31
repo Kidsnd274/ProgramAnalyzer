@@ -21,7 +21,7 @@ enum class TokenType {
     ProcedureToken,
     CallToken,
     SemiColonToken,
-    ExclaimationToken,
+    FactorToken,
 };
 
 class Token {

@@ -6,15 +6,18 @@
 class Parser {
 private:
     TokenStack* tokenStack;
+    int statementCount;
 
 public:
     Parser(std::vector<Token> ts) {
         tokenStack = new TokenStack(ts);
+        statementCount = 1;
     }
 
     ~Parser() {
         delete tokenStack;
     }
+
     void parseSimple();
     void parseProcedure();
     void parseStatementList();
@@ -41,4 +44,8 @@ public:
     void parseRelFactor();
     void parseRelationToken();
     void parseConst();
+    void parseTerm();
+    void parseFactor();
+    void parseOp();
+    void parseFactorToken();
 };

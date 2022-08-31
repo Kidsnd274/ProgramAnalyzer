@@ -19,9 +19,9 @@ std::unordered_map<std::string, TokenType> TokenTypeExtractor::terminalTokenMap 
         { "&", TokenType::CondToken },
         { "+", TokenType::OpToken },
         { "-", TokenType::OpToken },
-        { "/", TokenType::OpToken },
-        { "*", TokenType::OpToken },
-        { "%", TokenType::OpToken },
+        { "/", TokenType::FactorToken },
+        { "*", TokenType::FactorToken },
+        { "%", TokenType::FactorToken },
         { ";", TokenType::SemiColonToken },
 };
 

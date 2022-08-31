@@ -102,15 +102,20 @@ void Parser::parseRelationToken() {
     }
 }
 
+void Parser::parseOp() {
+    if(tokenStack->getNext().getTokenType() != TokenType::OpToken) {
+        //throw SyntaxErrorException
+    }
+}
+
 void Parser::parseStatementList() {
-    int numOfStatements = 0;
+    int oldStatementCount = statementCount;
 
     while(tokenStack->hasNextToken() && tokenStack->peekNext().getTokenType() != TokenType::RCurlyToken) {
         parseStatement();
-        numOfStatements++;
     }
 
-    if(!numOfStatements){
+    if(oldStatementCount == statementCount){
         //throw SyntaxErrorException
     }
 }
@@ -143,6 +148,7 @@ void Parser::parseStatement() {
             //throw SyntaxErrorException
             break;
     }
+    statementCount++;
 }
 
 void Parser::parseAssign() {
@@ -199,5 +205,58 @@ void Parser::parseRelFactor() {
         parseConst();
     } else {
         parseExpression();
+    }
+}
+
+void Parser::parseWhile() {
+    tokenStack->getNext(); //consume While Token
+    parseLParen();
+    parseCond();
+    parseRParen();
+    parseLCurly();
+    parseStatementList();
+    parseRCurly();
+}
+
+void Parser::parseRead() {
+    tokenStack->getNext(); //consume Read Token
+    string varName = parseName();
+}
+
+void Parser::parsePrint() {
+    tokenStack->getNext(); //consume Print Token
+    string varName = parseName();
+}
+
+void Parser::parseCall() {
+    tokenStack->getNext(); //consume Call Token
+    string varName = parseName();
+}
+
+void Parser::parseExpression() {
+    parseTerm();
+    while(tokenStack->peekNext().getTokenType() == TokenType::OpToken) {
+        parseOp();
+        parseFactor();
+    }
+}
+
+void Parser::parseTerm() {
+    parseFactor();
+    while(tokenStack->peekNext().getTokenType() == TokenType::FactorToken) {
+        parseFactorToken();
+        parseFactor();
+    }
+}
+
+void Parser::parseFactor() {
+    if(tokenStack->peekNext().getTokenType() == TokenType::NameToken) {
+        parseName();
+    } else if (tokenStack->peekNext().getTokenType() == TokenType::ConstToken) {
+        parseConst();
+    } else {
+        parseLParen();
+        parseExpression();
+        parseRParen();
     }
 }
