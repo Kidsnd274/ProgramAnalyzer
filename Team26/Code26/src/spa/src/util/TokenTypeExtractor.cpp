@@ -1,5 +1,3 @@
-#pragma once
-
 #include "TokenTypeExtractor.h"
 
 std::unordered_map<std::string, TokenType> TokenTypeExtractor::terminalTokenMap = {

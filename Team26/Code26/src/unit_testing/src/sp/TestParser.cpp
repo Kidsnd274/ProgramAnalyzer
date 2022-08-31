@@ -1,4 +1,3 @@
-#pragma once
 #include "sp/Parser.h"
 #include "util/TokenTypeExtractor.h"
 #include "catch.hpp"

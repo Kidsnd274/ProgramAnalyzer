@@ -1,5 +1,6 @@
 #include <string>
-
+#ifndef SPA_TOKEN_H
+#define SPA_TOKEN_H
 enum class TokenType {
     LParenToken,
     RParenToken,
@@ -41,3 +42,4 @@ public:
 };
 
 bool operator== (const Token &leftToken, const Token &rightToken);
+#endif
