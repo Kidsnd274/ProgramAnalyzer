@@ -1,5 +1,4 @@
 #include "Parser.h"
-
 #include "../PKB.h"
 #include "util/ast/TNode.h"
 
@@ -107,6 +106,12 @@ void Parser::parseRelationToken() {
 
 void Parser::parseOp() {
     if(tokenStack->getNext().getTokenType() != TokenType::OpToken) {
+        throw SyntaxErrorException();
+    }
+}
+
+void Parser::parseFactorToken() {
+    if(tokenStack->getNext().getTokenType() != TokenType::FactorToken) {
         throw SyntaxErrorException();
     }
 }
@@ -225,11 +230,13 @@ void Parser::parseWhile() {
 void Parser::parseRead() {
     tokenStack->getNext(); //consume Read Token
     string varName = parseName();
+    parseSemiColon();
 }
 
 void Parser::parsePrint() {
     tokenStack->getNext(); //consume Print Token
     string varName = parseName();
+    parseSemiColon();
 }
 
 void Parser::parseCall() {
