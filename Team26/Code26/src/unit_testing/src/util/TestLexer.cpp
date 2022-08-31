@@ -21,6 +21,7 @@ TEST_CASE("Basic Lexer test on valid SIMPLE", "This is a test for a very small a
                                    TokenTypeExtractor::createConst("1"),
                                    TokenTypeExtractor::createTerminal(";"),
                                    TokenTypeExtractor::createTerminal("}")};
+
     REQUIRE(res == expected);
 }
 

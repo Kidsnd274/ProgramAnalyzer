@@ -1,3 +1,6 @@
+#pragma  once
+#ifndef SPA_TOKENTYPEEXTRACTOR_H
+#define SPA_TOKENTYPEEXTRACTOR_H
 #include <unordered_map>
 #include "Token.h"
 
@@ -10,3 +13,4 @@ public:
     static Token createNonTerminal(std::string s);
     static Token createConst(std::string s);
 };
+#endif

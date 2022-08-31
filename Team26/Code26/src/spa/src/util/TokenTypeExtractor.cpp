@@ -1,5 +1,3 @@
-#pragma once
-
 #include "TokenTypeExtractor.h"
 
 std::unordered_map<std::string, TokenType> TokenTypeExtractor::terminalTokenMap = {
@@ -16,7 +14,7 @@ std::unordered_map<std::string, TokenType> TokenTypeExtractor::terminalTokenMap 
         { "!=", TokenType::RelationToken },
         { "!", TokenType::CondToken },
         { "||", TokenType::CondToken },
-        { "&", TokenType::CondToken },
+        { "&&", TokenType::CondToken },
         { "+", TokenType::OpToken },
         { "-", TokenType::OpToken },
         { "/", TokenType::FactorToken },

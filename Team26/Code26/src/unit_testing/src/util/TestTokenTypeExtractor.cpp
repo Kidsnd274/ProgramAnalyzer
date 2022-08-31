@@ -103,8 +103,8 @@ TEST_CASE("Test_createTerminal_positive") {
         REQUIRE(createdToken == expectedToken);
     }
 
-    SECTION("& CondToken") {
-        std::string tokenString = "&";
+    SECTION("&& CondToken") {
+        std::string tokenString = "&&";
         Token createdToken = TokenTypeExtractor::createTerminal(tokenString);
         Token expectedToken = Token(tokenString, TokenType::CondToken);
         REQUIRE(createdToken == expectedToken);

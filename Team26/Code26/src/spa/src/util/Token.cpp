@@ -15,7 +15,7 @@ bool Token::isNonTerminal() {
         tokenType == TokenType::NameToken || tokenType == TokenType::ProcedureToken ||
         tokenType == TokenType::CallToken || tokenType == TokenType::IfToken ||
         tokenType == TokenType::ElseToken || tokenType == TokenType::WhileToken ||
-        tokenType == TokenType::ThenToken || tokenType == TokenType:: ReadToken ||
+        tokenType == TokenType::ThenToken || tokenType == TokenType::ReadToken ||
         tokenType == TokenType::PrintToken;
 }
 

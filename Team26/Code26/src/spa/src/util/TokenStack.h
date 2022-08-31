@@ -1,3 +1,4 @@
+#pragma  once
 #include <vector>
 #include "Token.h"
 
@@ -8,6 +9,7 @@ private:
 
 public:
     TokenStack(std::vector<Token> ts) {
+        tokenPointer = 0;
         tokenStack = ts;
     }
     Token getNext();
