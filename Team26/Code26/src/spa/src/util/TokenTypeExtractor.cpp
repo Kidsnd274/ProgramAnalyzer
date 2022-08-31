@@ -2,7 +2,7 @@
 
 #include "TokenTypeExtractor.h"
 
-std::map<std::string, TokenType> TokenTypeExtractor::terminalTokenMap = {
+std::unordered_map<std::string, TokenType> TokenTypeExtractor::terminalTokenMap = {
         { "(", TokenType::LParenToken },
         { ")", TokenType::RParenToken },
         { "{", TokenType::LCurlyToken },
@@ -24,7 +24,7 @@ std::map<std::string, TokenType> TokenTypeExtractor::terminalTokenMap = {
         { "%", TokenType::OpToken },
 };
 
-std::map<std::string, TokenType> TokenTypeExtractor::nonTerminalTokenMap = {
+std::unordered_map<std::string, TokenType> TokenTypeExtractor::nonTerminalTokenMap = {
         { "procedure", TokenType::ProcedureToken },
         { "read", TokenType::ReadToken },
         { "print", TokenType::PrintToken },
@@ -36,9 +36,6 @@ std::map<std::string, TokenType> TokenTypeExtractor::nonTerminalTokenMap = {
 };
 
 Token TokenTypeExtractor::createTerminal(std::string s) {
-    Token test1 = Token("error", TokenType::ErrorToken);
-    Token test2 = Token("error", TokenType::ErrorToken);
-
     if (terminalTokenMap.count(s)) {
         TokenType tokenType = terminalTokenMap.at(s);
         return {s, tokenType};
@@ -48,7 +45,6 @@ Token TokenTypeExtractor::createTerminal(std::string s) {
     }
 }
 
-// TODO: This function repeats the above one, consider merging them!
 Token TokenTypeExtractor::createNonTerminal(std::string s) {
     if (nonTerminalTokenMap.count(s)) {
         TokenType tokenType = nonTerminalTokenMap.at(s);
