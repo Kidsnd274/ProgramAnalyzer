@@ -242,6 +242,7 @@ void Parser::parsePrint() {
 void Parser::parseCall() {
     tokenStack->getNext(); //consume Call Token
     string varName = parseName();
+    parseSemiColon();
 }
 
 void Parser::parseExpression() {
