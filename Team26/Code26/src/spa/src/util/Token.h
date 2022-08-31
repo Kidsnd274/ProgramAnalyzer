@@ -15,6 +15,8 @@ enum class TokenType {
     ReadToken,
     PrintToken,
     IfToken,
+    ThenToken,
+    ElseToken,
     WhileToken,
     ProcedureToken,
 };
