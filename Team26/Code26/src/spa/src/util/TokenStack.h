@@ -7,6 +7,9 @@ private:
     int tokenPointer;
 
 public:
+    TokenStack(std::vector<Token> ts) {
+        tokenStack = ts;
+    }
     Token getNext();
     bool hasNextToken();
     Token peekNext();
