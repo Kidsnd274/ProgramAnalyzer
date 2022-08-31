@@ -20,27 +20,29 @@ void Parser::parseSimple() {
     }
 }
 
-shared_ptr<ProcedureNode> Parser::parseProcedure() {
-    string name = parseName();
+void Parser::parseProcedure() {
+    std::string name = parseName();
     parseLCurly();
-    vector<shared_ptr<IStatementNode>> stmtList = parseStatementList();
+    parseStatementList();
     parseRCurly();
-    return make_shared<ProcedureNode>(-1, name, stmtList);
 }
 
-string Parser::parseName() {
+std::string Parser::parseName() {
     if(!tokenStack->peekNext().isNonTerminal()) {
         throw SyntaxErrorException();
     }
 
-    string name = tokenStack->getNext().getTokenString();
+    std::string name = tokenStack->getNext().getTokenString();
     return name;
 }
 
-void Parser::parseConst() {
-    if(tokenStack->getNext().getTokenType() != TokenType::ConstToken) {
+std::string Parser::parseConst() {
+    if(tokenStack->peekNext().getTokenType() != TokenType::ConstToken) {
         throw SyntaxErrorException();
     }
+
+    std::string cons = tokenStack->getNext().getTokenString();
+    return cons;
 }
 
 void Parser::parseLCurly() {
@@ -109,61 +111,55 @@ void Parser::parseOp() {
     }
 }
 
-std::vector<shared_ptr<IStatementNode>> Parser::parseStatementList() {
+void Parser::parseStatementList() {
     int oldStatementCount = statementCount;
-    std::vector<shared_ptr<IStatementNode>> stmtList;
 
     while(tokenStack->hasNextToken() && tokenStack->peekNext().getTokenType() != TokenType::RCurlyToken) {
-        shared_ptr<IStatementNode> stmt = parseStatement();
-        stmtList.push_back(stmt);
+        parseStatement();
     }
 
     if(oldStatementCount == statementCount){
         throw SyntaxErrorException();
     }
-    return stmtList;
 }
 
-shared_ptr<IStatementNode> Parser::parseStatement() {
+void Parser::parseStatement() {
     if(!tokenStack->peekNext().isNonTerminal()) {
         throw SyntaxErrorException();
     }
 
     TokenType t = tokenStack->peekNext().getTokenType();
-    shared_ptr<IStatementNode> res(nullptr);
     switch(t) {
         case TokenType::NameToken:
-            res = std::move(parseAssign());
+            parseAssign();
             break;
         case TokenType::IfToken:
-            res = std::move(parseIf());
+            parseIf();
             break;
         case TokenType::WhileToken:
-            res = std::move(parseWhile());
+            parseWhile();
             break;
         case TokenType::ReadToken:
-            res = std::move(parseRead());
+            parseRead();
             break;
         case TokenType::PrintToken:
-            res = std::move(parsePrint());
+            parsePrint();
             break;
         case TokenType::CallToken:
-            res = std::move(parseCall());
+            parseCall();
             break;
         default:
-            //throw SyntaxErrorException
+            throw SyntaxErrorException();
             break;
     }
     statementCount++;
 }
 
-shared_ptr<AssignNode> Parser::parseAssign() {
+void Parser::parseAssign() {
     string varAssigned = tokenStack->getNext().getTokenString();
     parseAssignToken();
-    shared_ptr<ITermNode> exp = parseExpression();
+    parseExpression();
     parseSemiColon();
-    shared_ptr<VariableNode> var = make_shared<VariableNode>(statementCount, varAssigned);
-    return make_shared<AssignNode>(statementCount, var, exp);
 }
 
 void Parser::parseIf() {
