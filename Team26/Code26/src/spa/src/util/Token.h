@@ -35,6 +35,7 @@ public:
 
     TokenType getTokenType() const;
     std::string getTokenString() const;
+    bool isNonTerminal();
 };
 
 bool operator== (const Token &leftToken, const Token &rightToken);
