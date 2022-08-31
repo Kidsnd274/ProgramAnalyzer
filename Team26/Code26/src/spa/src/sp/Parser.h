@@ -33,4 +33,12 @@ public:
     void parseRParen();
     void parseExpression();
     void parseWhile();
+    void parseAssignToken();
+    void parseSemiColon();
+    void parseThen();
+    void parseElse();
+    void parseCondToken();
+    void parseRelFactor();
+    void parseRelationToken();
+    void parseConst();
 };

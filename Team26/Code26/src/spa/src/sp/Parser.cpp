@@ -36,6 +36,12 @@ string Parser::parseName() {
     return name;
 }
 
+void Parser::parseConst() {
+    if(tokenStack->getNext().getTokenType() != TokenType::ConstToken) {
+        //throw SyntaxErrorException
+    }
+}
+
 void Parser::parseLCurly() {
     if(tokenStack->getNext().getTokenType() != TokenType::LCurlyToken) {
         //throw SyntaxErrorException
@@ -44,6 +50,54 @@ void Parser::parseLCurly() {
 
 void Parser::parseRCurly() {
     if(tokenStack->getNext().getTokenType() != TokenType::RCurlyToken) {
+        //throw SyntaxErrorException
+    }
+}
+
+void Parser::parseLParen() {
+    if(tokenStack->getNext().getTokenType() != TokenType::LParenToken) {
+        //throw SyntaxErrorException
+    }
+}
+
+void Parser::parseRParen() {
+    if(tokenStack->getNext().getTokenType() != TokenType::RParenToken) {
+        //throw SyntaxErrorException
+    }
+}
+
+void Parser::parseAssignToken() {
+    if(tokenStack->getNext().getTokenType() != TokenType::AssignToken) {
+        //throw SyntaxErrorException
+    }
+}
+
+void Parser::parseSemiColon() {
+    if(tokenStack->getNext().getTokenType() != TokenType::SemiColonToken) {
+        //throw SyntaxErrorException
+    }
+}
+
+void Parser::parseThen() {
+    if(tokenStack->getNext().getTokenType() != TokenType::ThenToken) {
+        //throw SyntaxErrorException
+    }
+}
+
+void Parser::parseElse() {
+    if(tokenStack->getNext().getTokenType() != TokenType::ElseToken) {
+        //throw SyntaxErrorException
+    }
+}
+
+void Parser::parseCondToken() {
+    if(tokenStack->getNext().getTokenType() != TokenType::CondToken) {
+        //throw SyntaxErrorException
+    }
+}
+
+void Parser::parseRelationToken() {
+    if(tokenStack->getNext().getTokenType() != TokenType::RelationToken) {
         //throw SyntaxErrorException
     }
 }
@@ -65,7 +119,7 @@ void Parser::parseStatement() {
     if(!tokenStack->peekNext().isNonTerminal()) {
         //throw SyntaxErrorException
     }
-    TokenType t = tokenStack->getNext().getTokenType();
+    TokenType t = tokenStack->peekNext().getTokenType();
     switch(t) {
         case TokenType::NameToken:
             parseAssign();
@@ -88,5 +142,62 @@ void Parser::parseStatement() {
         default:
             //throw SyntaxErrorException
             break;
+    }
+}
+
+void Parser::parseAssign() {
+    string varAssigned = tokenStack->getNext().getTokenString();
+    parseAssignToken();
+    parseExpression();
+    parseSemiColon();
+}
+
+void Parser::parseIf() {
+    tokenStack->getNext(); //consume If Token.
+    parseLParen();
+    parseCond();
+    parseRParen();
+    parseThen();
+    parseLCurly();
+    parseStatementList();
+    parseRCurly();
+    parseElse();
+    parseLCurly();
+    parseStatementList();
+    parseRCurly();
+}
+
+void Parser::parseCond() {
+    if(tokenStack->peekNext().getTokenType() == TokenType::CondToken) {
+        parseCondToken();
+        parseLParen();
+        parseCond();
+        parseRParen();
+    } else if (tokenStack->peekNext().getTokenType() == TokenType::LParenToken) {
+        parseLParen();
+        parseCond();
+        parseRParen();
+        parseCondToken();
+        parseLParen();
+        parseCond();
+        parseRParen();
+    } else {
+        parseRel();
+    }
+}
+
+void Parser::parseRel() {
+    parseRelFactor();
+    parseRelationToken();
+    parseRelFactor();
+}
+
+void Parser::parseRelFactor() {
+    if(tokenStack->peekNext().getTokenType() == TokenType::NameToken) {
+        parseName();
+    } else if (tokenStack->peekNext().getTokenType() == TokenType::ConstToken) {
+        parseConst();
+    } else {
+        parseExpression();
     }
 }

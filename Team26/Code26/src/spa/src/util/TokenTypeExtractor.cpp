@@ -22,6 +22,7 @@ std::unordered_map<std::string, TokenType> TokenTypeExtractor::terminalTokenMap 
         { "/", TokenType::OpToken },
         { "*", TokenType::OpToken },
         { "%", TokenType::OpToken },
+        { ";", TokenType::SemiColonToken },
 };
 
 std::unordered_map<std::string, TokenType> TokenTypeExtractor::nonTerminalTokenMap = {
