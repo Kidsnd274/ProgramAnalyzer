@@ -1,7 +1,7 @@
 #include "Parser.h"
 
 #include "../PKB.h"
-#include "../TNode.h"
+#include "util/ast/TNode.h"
 
 void Parser::parseSimple() {
     int numOfProcedures = 0;
