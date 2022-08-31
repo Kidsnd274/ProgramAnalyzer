@@ -1,11 +1,11 @@
-#include "IExpressionNode.h"
+#include "ITermNode.h"
 
-class ConstantNode : IExpressionNode {
+class ConstantNode : ITermNode {
 private:
     int constant;
 
 public:
-    ConstantNode(int sN, int cstant) : IExpressionNode(sN) {
+    ConstantNode(int sN, int cstant) : ITermNode(sN) {
         constant = cstant;
     }
 };
