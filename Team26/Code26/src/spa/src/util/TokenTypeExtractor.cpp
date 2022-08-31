@@ -30,7 +30,7 @@ std::map<std::string, TokenType> TokenTypeExtractor::nonTerminalTokenMap = {
         { "print", TokenType::PrintToken },
         { "while", TokenType::WhileToken },
         { "if", TokenType::IfToken },
-        { "the", TokenType::ThenToken },
+        { "then", TokenType::ThenToken },
         { "else", TokenType::ElseToken },
 };
 

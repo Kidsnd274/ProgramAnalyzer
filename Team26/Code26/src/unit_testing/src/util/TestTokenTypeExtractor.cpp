@@ -197,6 +197,20 @@ TEST_CASE("Test_createNonTerminal_positive") {
         REQUIRE(createdToken == expectedToken);
     }
 
+    SECTION("then Token") {
+        std::string tokenString = "then";
+        Token createdToken = TokenTypeExtractor::createNonTerminal(tokenString);
+        Token expectedToken = Token(tokenString, TokenType::ThenToken);
+        REQUIRE(createdToken == expectedToken);
+    }
+
+    SECTION("else Token") {
+        std::string tokenString = "else";
+        Token createdToken = TokenTypeExtractor::createNonTerminal(tokenString);
+        Token expectedToken = Token(tokenString, TokenType::ElseToken);
+        REQUIRE(createdToken == expectedToken);
+    }
+
     SECTION("Name Token") {
         std::string tokenString = "SomethingElse";
         Token createdToken = TokenTypeExtractor::createNonTerminal(tokenString);
