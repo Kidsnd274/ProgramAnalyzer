@@ -1,11 +1,11 @@
-#include "TNode.h"
+#include "IExpressionNode.h"
 #include "util/Token.h"
 
-class VariableNode : public TNode {
+class VariableNode : public IExpressionNode {
 private:
     std::string variableName;
 public:
-    VariableNode(int sN, std::string t) : TNode(sN) {
+    VariableNode(int sN, std::string t) : IExpressionNode(sN) {
         variableName = t;
     }
 
