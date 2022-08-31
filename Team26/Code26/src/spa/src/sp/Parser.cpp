@@ -11,25 +11,26 @@ void Parser::parseSimple() {
             parseProcedure();
             numOfProcedures++;
         } else {
-            //throw SyntaxErrorException
+            throw SyntaxErrorException();
         }
     }
 
     if(!numOfProcedures){
-        //throw SyntaxErrorException
+        throw SyntaxErrorException();
     }
 }
 
-void Parser::parseProcedure() {
-    parseName();
+shared_ptr<ProcedureNode> Parser::parseProcedure() {
+    string name = parseName();
     parseLCurly();
-    parseStatementList();
+    vector<shared_ptr<IStatementNode>> stmtList = parseStatementList();
     parseRCurly();
+    return make_shared<ProcedureNode>(-1, name, stmtList);
 }
 
 string Parser::parseName() {
     if(!tokenStack->peekNext().isNonTerminal()) {
-        //throw SyntaxErrorException
+        throw SyntaxErrorException();
     }
 
     string name = tokenStack->getNext().getTokenString();
@@ -38,111 +39,116 @@ string Parser::parseName() {
 
 void Parser::parseConst() {
     if(tokenStack->getNext().getTokenType() != TokenType::ConstToken) {
-        //throw SyntaxErrorException
+        throw SyntaxErrorException();
     }
 }
 
 void Parser::parseLCurly() {
     if(tokenStack->getNext().getTokenType() != TokenType::LCurlyToken) {
-        //throw SyntaxErrorException
+        throw SyntaxErrorException();
     }
 }
 
 void Parser::parseRCurly() {
     if(tokenStack->getNext().getTokenType() != TokenType::RCurlyToken) {
-        //throw SyntaxErrorException
+        throw SyntaxErrorException();
     }
 }
 
 void Parser::parseLParen() {
     if(tokenStack->getNext().getTokenType() != TokenType::LParenToken) {
-        //throw SyntaxErrorException
+        throw SyntaxErrorException();
     }
 }
 
 void Parser::parseRParen() {
     if(tokenStack->getNext().getTokenType() != TokenType::RParenToken) {
-        //throw SyntaxErrorException
+        throw SyntaxErrorException();
     }
 }
 
 void Parser::parseAssignToken() {
     if(tokenStack->getNext().getTokenType() != TokenType::AssignToken) {
-        //throw SyntaxErrorException
+        throw SyntaxErrorException();
     }
 }
 
 void Parser::parseSemiColon() {
     if(tokenStack->getNext().getTokenType() != TokenType::SemiColonToken) {
-        //throw SyntaxErrorException
+        throw SyntaxErrorException();
     }
 }
 
 void Parser::parseThen() {
     if(tokenStack->getNext().getTokenType() != TokenType::ThenToken) {
-        //throw SyntaxErrorException
+        throw SyntaxErrorException();
     }
 }
 
 void Parser::parseElse() {
     if(tokenStack->getNext().getTokenType() != TokenType::ElseToken) {
-        //throw SyntaxErrorException
+        throw SyntaxErrorException();
     }
 }
 
 void Parser::parseCondToken() {
     if(tokenStack->getNext().getTokenType() != TokenType::CondToken) {
-        //throw SyntaxErrorException
+        throw SyntaxErrorException();
     }
 }
 
 void Parser::parseRelationToken() {
     if(tokenStack->getNext().getTokenType() != TokenType::RelationToken) {
-        //throw SyntaxErrorException
+        throw SyntaxErrorException();
     }
 }
 
 void Parser::parseOp() {
     if(tokenStack->getNext().getTokenType() != TokenType::OpToken) {
-        //throw SyntaxErrorException
+        throw SyntaxErrorException();
     }
 }
 
-void Parser::parseStatementList() {
+std::vector<shared_ptr<IStatementNode>> Parser::parseStatementList() {
     int oldStatementCount = statementCount;
+    std::vector<shared_ptr<IStatementNode>> stmtList;
 
     while(tokenStack->hasNextToken() && tokenStack->peekNext().getTokenType() != TokenType::RCurlyToken) {
-        parseStatement();
+        shared_ptr<IStatementNode> stmt = parseStatement();
+        stmtList.push_back(stmt);
     }
 
     if(oldStatementCount == statementCount){
-        //throw SyntaxErrorException
+        throw SyntaxErrorException();
     }
+    return stmtList;
 }
 
-void Parser::parseStatement() {
+shared_ptr<IStatementNode> Parser::parseStatement() {
     if(!tokenStack->peekNext().isNonTerminal()) {
-        //throw SyntaxErrorException
+        throw SyntaxErrorException();
     }
+
     TokenType t = tokenStack->peekNext().getTokenType();
+    shared_ptr<IStatementNode> res(nullptr);
     switch(t) {
         case TokenType::NameToken:
-            parseAssign();
+            res = std::move(parseAssign());
             break;
         case TokenType::IfToken:
-            parseIf();
+            res = std::move(parseIf());
             break;
         case TokenType::WhileToken:
-            parseWhile();
+            res = std::move(parseWhile());
             break;
         case TokenType::ReadToken:
-            parseRead();
+            res = std::move(parseRead());
             break;
         case TokenType::PrintToken:
-            parsePrint();
+            res = std::move(parsePrint());
             break;
         case TokenType::CallToken:
-            parseCall();
+            res = std::move(parseCall());
             break;
         default:
             //throw SyntaxErrorException
@@ -151,11 +157,13 @@ void Parser::parseStatement() {
     statementCount++;
 }
 
-void Parser::parseAssign() {
+shared_ptr<AssignNode> Parser::parseAssign() {
     string varAssigned = tokenStack->getNext().getTokenString();
     parseAssignToken();
-    parseExpression();
+    shared_ptr<ITermNode> exp = parseExpression();
     parseSemiColon();
+    shared_ptr<VariableNode> var = make_shared<VariableNode>(statementCount, varAssigned);
+    return make_shared<AssignNode>(statementCount, var, exp);
 }
 
 void Parser::parseIf() {
