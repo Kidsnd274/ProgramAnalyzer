@@ -4,7 +4,6 @@ int TNode::getStatementNumber() {
     return statementNumber;
 }
 
-// TODO: For Samuel, double check that this is the correct way of checking if a shared_ptr is nullptr (eg. ConstantValue node type shld return this as false)
 bool TNode::hasLeftNode() {
     return leftNode != nullptr;
 }
