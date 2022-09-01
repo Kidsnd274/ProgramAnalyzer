@@ -1,17 +1,20 @@
 #include <memory>
 #include <vector>
-#include "ConditionalOperatorNode.h"
-#include "IStatementNode.h"
+#include "StatementNode.h"
+#include "TNode.h"
 
-class WhileNode : public IStatementNode {
+class WhileNode : public StatementNode {
 private:
-    std::shared_ptr<ConditionalOperatorNode> conditionalExpression;
-    std::vector<std::shared_ptr<IStatementNode>> statementList;
+    std::shared_ptr<TNode> conditionalExpression;
+    std::vector<std::shared_ptr<StatementNode>> statementList;
 
 public:
-    WhileNode(int sN, std::shared_ptr<ConditionalOperatorNode> cON,
-            std::vector<std::shared_ptr<IStatementNode>> sl) : IStatementNode(sN) {
-        conditionalExpression = std::move(cON);
-        statementList = std::move(sl);
+    WhileNode(int statementNumber, std::shared_ptr<TNode> conditionalExpression,
+            std::vector<std::shared_ptr<StatementNode>> statementList) : StatementNode(statementNumber) {
+        this->conditionalExpression = std::move(conditionalExpression);
+        this->statementList = std::move(statementList);
     };
+
+    std::shared_ptr<TNode> getConditionalExpression();
+    std::vector<std::shared_ptr<StatementNode>> getStatementList();
 };

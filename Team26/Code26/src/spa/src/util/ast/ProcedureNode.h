@@ -1,14 +1,20 @@
 #include <string>
-#include "IStatementNode.h"
+#include <memory>
+#include <utility>
+#include <vector>
+#include "StatementNode.h"
 
-class ProcedureNode : public TNode {
+class ProcedureNode {
 private:
     std::string procedureName;
-    std::vector<std::shared_ptr<IStatementNode>> stmtList;
+    std::vector<std::shared_ptr<StatementNode>> stmtList;
 
 public:
-    ProcedureNode(int sN, std::string pN, std::vector<std::shared_ptr<IStatementNode>> sl) : TNode(sN) {
-        procedureName = pN;
-        stmtList = sl;
+    ProcedureNode(std::string pN, std::vector<std::shared_ptr<StatementNode>> sl) {
+        procedureName = std::move(pN);
+        stmtList = std::move(sl);
     }
+
+    std::string getProcedureName();
+    std::vector<std::shared_ptr<StatementNode>> getStatementList();
 };
