@@ -163,6 +163,17 @@ TEST_CASE("Parse Cond") {
         REQUIRE_NOTHROW(pr.parseCond());
     }
 
+    SECTION("invalid Cond at the front") {
+        std::vector<Token> v = {Token("||", TokenType::CondToken),
+                                Token("(", TokenType::LParenToken),
+                                Token("x", TokenType::NameToken),
+                                Token("<=", TokenType::RelationToken),
+                                Token("y", TokenType::NameToken),
+                                Token(")", TokenType::RParenToken)};
+        Parser pr(v);
+        REQUIRE_THROWS(pr.parseCond());
+    }
+
     SECTION("And Condition") {
         std::vector<Token> v = {Token("(", TokenType::LParenToken),
                                 Token("!", TokenType::CondToken),

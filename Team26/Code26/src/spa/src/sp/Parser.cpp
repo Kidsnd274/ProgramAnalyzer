@@ -134,6 +134,7 @@ void Parser::parseStatement() {
     }
 
     TokenType t = tokenStack->peekNext().getTokenType();
+    //TODO check if the next variable is assign before parsing as the test cases might include variables that have keywords as the names
     switch(t) {
         case TokenType::NameToken:
             parseAssign();
@@ -183,7 +184,8 @@ void Parser::parseIf() {
 }
 
 void Parser::parseCond() {
-    if(tokenStack->peekNext().getTokenType() == TokenType::CondToken) {
+    if(tokenStack->peekNext().getTokenType() == TokenType::CondToken
+    && tokenStack->peekNext().getTokenString() == "!") {
         parseCondToken();
         parseLParen();
         parseCond();
@@ -208,6 +210,7 @@ void Parser::parseRel() {
 }
 
 void Parser::parseRelFactor() {
+    //TODO check if the variable is a non-terminal as the test case may include keyword as variable names
     if(tokenStack->peekNext().getTokenType() == TokenType::NameToken) {
         parseName();
     } else if (tokenStack->peekNext().getTokenType() == TokenType::ConstToken) {
@@ -262,6 +265,7 @@ void Parser::parseTerm() {
 }
 
 void Parser::parseFactor() {
+    //TODO check if the variable is a non-terminal as the test case may include keyword as variable names
     if(tokenStack->peekNext().getTokenType() == TokenType::NameToken) {
         parseName();
     } else if (tokenStack->peekNext().getTokenType() == TokenType::ConstToken) {
