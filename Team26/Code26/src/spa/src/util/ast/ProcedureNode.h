@@ -7,12 +7,12 @@
 class ProcedureNode {
 private:
     std::string procedureName;
-    std::vector<std::shared_ptr<StatementNode>> stmtList;
+    std::vector<std::shared_ptr<StatementNode>> statementList;
 
 public:
-    ProcedureNode(std::string pN, std::vector<std::shared_ptr<StatementNode>> sl) {
-        procedureName = std::move(pN);
-        stmtList = std::move(sl);
+    ProcedureNode(std::string procedureName, std::vector<std::shared_ptr<StatementNode>> statementList) {
+        this->procedureName = std::move(procedureName);
+        this->statementList = std::move(statementList);
     }
 
     std::string getProcedureName();

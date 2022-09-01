@@ -29,21 +29,24 @@ public:
     }
 
     int getStatementNumber();
-    bool hasRightNode();
     bool hasLeftNode();
-    bool hasValue();
+    bool hasRightNode();
     NodeType getNodeType();
     std::shared_ptr<TNode> getLeftNode();
     std::shared_ptr<TNode> getRightNode();
     std::string getValue();
 
     // Static Constructors
-    static std::shared_ptr<TNode> createConstantValue(std::string value);
-    static std::shared_ptr<TNode> createVariableName(std::string value);
-    static std::shared_ptr<TNode> createTerm(std::string operand, std::shared_ptr<TNode> leftNode,
+    static std::shared_ptr<TNode> createConstantValue(int statementNumber, std::string value);
+    static std::shared_ptr<TNode> createVariableName(int statementNumber, std::string variableName);
+    static std::shared_ptr<TNode> createTerm(int statementNumber, std::string operand, std::shared_ptr<TNode> leftNode,
                                              std::shared_ptr<TNode> rightNode);
-    static std::shared_ptr<TNode> createConditionalExpression(std::string compareOperand,
+    static std::shared_ptr<TNode> createConditionalExpression(int statementNumber, std::string compareOperand,
                                                               std::shared_ptr<TNode> leftNode,
                                                               std::shared_ptr<TNode> rightNode);
-    static std::shared_ptr<TNode> createLogicalNotConditionalExpression(std::shared_ptr<TNode> conditionalExpression);
+    static std::shared_ptr<TNode> createNOTConditionalExpression(int statementNumber, std::string logicalNotOperand,
+                                                                        std::shared_ptr<TNode> conditionalExpression);
+    static std::shared_ptr<TNode> createRelationalExpression(int statementNumber, std::string relationOperand,
+                                                             std::shared_ptr<TNode> leftNode,
+                                                             std::shared_ptr<TNode> rightNode);
 };
