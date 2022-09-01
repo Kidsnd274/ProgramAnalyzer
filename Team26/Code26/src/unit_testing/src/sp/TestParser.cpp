@@ -1,8 +1,6 @@
 #include "sp/Parser.h"
-#include "util/TokenTypeExtractor.h"
 #include "catch.hpp"
 #include <vector>
-#include <iostream>
 
 std::vector<Token> validEasySimpleTokens = {Token("procedure", TokenType::ProcedureToken),
                                             Token("test", TokenType::NameToken),
