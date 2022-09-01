@@ -2,6 +2,7 @@
 #define SPA_TOKENIZER_H
 
 #include <vector>
+#include <string>
 
 enum TokenType {
     LBRACE,

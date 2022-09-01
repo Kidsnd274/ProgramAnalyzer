@@ -8,7 +8,7 @@
 #endif //SPA_QUERYPREPROCESSOR_H
 
 namespace QueryPreprocessor{
-    std::pair<EntityType, bool> mapEntity(Tokenization::Token token);
-    std::pair<RelationType, bool> mapRelation(Tokenization::Token token);
+    std::pair<QueryProcessorTypes::EntityType, bool> mapEntity(Tokenization::Token token);
+    std::pair<QueryProcessorTypes::RelationType, bool> mapRelation(Tokenization::Token token);
     void parseToken(std::vector<Tokenization::Token> tokens);
 }
