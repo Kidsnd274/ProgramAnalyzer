@@ -89,11 +89,32 @@ TEST_CASE("Parse Read") {
 }
 
 TEST_CASE("Parse Expression") {
-    std::vector<Token> v = {Token("x", TokenType::NameToken),
-                            Token("+", TokenType::OpToken),
-                            Token("1", TokenType::ConstToken)};
-    Parser pr(v);
-    REQUIRE_NOTHROW(pr.parseExpression());
+    SECTION("1 operator") {
+        std::vector<Token> v = {Token("x", TokenType::NameToken),
+                                Token("+", TokenType::OpToken),
+                                Token("1", TokenType::ConstToken)};
+        Parser pr(v);
+        REQUIRE_NOTHROW(pr.parseExpression());
+    }
+
+    SECTION("2 operators") {
+        std::vector<Token> v = {Token("x", TokenType::NameToken),
+                                Token("+", TokenType::OpToken),
+                                Token("y", TokenType::NameToken),
+                                Token("*", TokenType::FactorToken),
+                                Token("3", TokenType::ConstToken)};
+        Parser pr(v);
+        REQUIRE_NOTHROW(pr.parseExpression());
+    }
+    //TODO this test case is broken... should not accept this
+//    SECTION("1 operator but invalid") {
+//        std::vector<Token> v = {Token("x", TokenType::NameToken),
+//                                Token("y", TokenType::NameToken),
+//                                Token("+", TokenType::OpToken),
+//                                Token("1", TokenType::ConstToken)};
+//        Parser pr(v);
+//        REQUIRE_NOTHROW(pr.parseExpression());
+//    }
 }
 
 TEST_CASE("Parse If") {

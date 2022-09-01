@@ -252,8 +252,9 @@ void Parser::parseExpression() {
     parseTerm();
     while(tokenStack->peekNext().getTokenType() == TokenType::OpToken) {
         parseOp();
-        parseFactor();
+        parseTerm();
     }
+    //TODO check for bad syntax
 }
 
 void Parser::parseTerm() {
