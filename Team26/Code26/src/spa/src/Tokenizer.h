@@ -2,6 +2,7 @@
 #define SPA_TOKENIZER_H
 
 #include <vector>
+#include <string>
 
 enum TokenType {
     LBRACE,
@@ -31,7 +32,8 @@ enum TokenType {
     MODULE,
     NAME,
     INTEGER,
-    WHITESPACE
+    WHITESPACE,
+
 };
 
 namespace Tokenization {

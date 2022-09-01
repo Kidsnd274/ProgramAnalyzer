@@ -10,32 +10,34 @@
  */
 class QueryStruct {
 private:
-    DECLARED_SYNONYM_MAP declaredSynonymMap;
-    SUCH_THAT_LIST suchThatList;
-    PATTERN_LIST patternList;
-    CANDIDATE_LIST candidateList;
+    QueryProcessorTypes::DECLARED_SYNONYM_MAP declaredSynonymMap;
+    QueryProcessorTypes::SUCH_THAT_LIST suchThatList;
+    QueryProcessorTypes::PATTERN_LIST patternList;
+    QueryProcessorTypes::CANDIDATE_LIST candidateList;
 
-    QueryStruct(DECLARED_SYNONYM_MAP& declaredSynonymMap,
-                SUCH_THAT_LIST& suchThatList,
-                PATTERN_LIST& patternList,
-                CANDIDATE_LIST& candidateList);
-
-    QueryStruct(DECLARED_SYNONYM_MAP& declaredSynonymMap,
-                SUCH_THAT_LIST& suchThatList,
-                CANDIDATE_LIST& candidateList);
-
-    QueryStruct(DECLARED_SYNONYM_MAP& declaredSynonymMap,
-                PATTERN_LIST& patternList,
-                CANDIDATE_LIST& candidateList);
 
 public:
-    DECLARED_SYNONYM_MAP getDeclaredSynonymMap();
-    SUCH_THAT_LIST getSuchThatList();
-    PATTERN_LIST getPatternList();
-    CANDIDATE_LIST getCandidateList();
+    QueryStruct() = default;
+    QueryStruct(QueryProcessorTypes::DECLARED_SYNONYM_MAP& declaredSynonymMap,
+                QueryProcessorTypes::SUCH_THAT_LIST& suchThatList,
+                QueryProcessorTypes::PATTERN_LIST& patternList,
+                QueryProcessorTypes::CANDIDATE_LIST& candidateList);
 
-    void addSuchThatClause(RelationStruct relationToAdd);
-    void addPatternClause(PatternStruct patternToAdd);
+    QueryStruct(QueryProcessorTypes::DECLARED_SYNONYM_MAP& declaredSynonymMap,
+                QueryProcessorTypes::SUCH_THAT_LIST& suchThatList,
+                QueryProcessorTypes::CANDIDATE_LIST& candidateList);
+
+    QueryStruct(QueryProcessorTypes::DECLARED_SYNONYM_MAP& declaredSynonymMap,
+                QueryProcessorTypes::PATTERN_LIST& patternList,
+                QueryProcessorTypes::CANDIDATE_LIST& candidateList);
+
+    QueryProcessorTypes::DECLARED_SYNONYM_MAP getDeclaredSynonymMap();
+    QueryProcessorTypes::SUCH_THAT_LIST getSuchThatList();
+    QueryProcessorTypes::PATTERN_LIST getPatternList();
+    QueryProcessorTypes::CANDIDATE_LIST getCandidateList();
+
+    void addSuchThatClause(QueryProcessorTypes::RelationStruct relationToAdd);
+    void addPatternClause(QueryProcessorTypes::PatternStruct patternToAdd);
 };
 
 #endif // QUERYSTRUCT_H
