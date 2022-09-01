@@ -1,6 +1,6 @@
 #pragma once
 
-#include <vector>
+#include <unordered_set>
 #include "util/TokenStack.h"
 #include "SyntaxErrorException.h"
 
@@ -18,6 +18,15 @@ public:
     ~Parser() {
         delete tokenStack;
     }
+
+    std::unordered_set<std::string> variables;
+    std::unordered_set<std::string> constants;
+    std::vector<int> assigns;
+    std::vector<int> whiles;
+    std::vector<int> ifs;
+    std::vector<int> reads;
+    std::vector<int> prints;
+    std::vector<int> calls;
 
     void parseSimple();
     void parseProcedure();

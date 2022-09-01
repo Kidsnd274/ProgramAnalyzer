@@ -158,17 +158,21 @@ void Parser::parseStatement() {
             throw SyntaxErrorException();
             break;
     }
-    statementCount++;
 }
 
 void Parser::parseAssign() {
     string varAssigned = tokenStack->getNext().getTokenString();
+    int currStatement = statementCount++;
+    //cout << " variable: " << varAssigned;
+    variables.insert(varAssigned);
     parseAssignToken();
     parseExpression();
     parseSemiColon();
+    assigns.push_back(currStatement);
 }
 
 void Parser::parseIf() {
+    int currStatement = statementCount++;
     tokenStack->getNext(); //consume If Token.
     parseLParen();
     parseCond();
@@ -181,6 +185,7 @@ void Parser::parseIf() {
     parseLCurly();
     parseStatementList();
     parseRCurly();
+    ifs.push_back(currStatement);
 }
 
 void Parser::parseCond() {
@@ -212,15 +217,20 @@ void Parser::parseRel() {
 void Parser::parseRelFactor() {
     //TODO check if the variable is a non-terminal as the test case may include keyword as variable names
     if(tokenStack->peekNext().getTokenType() == TokenType::NameToken) {
+        string name = tokenStack->peekNext().getTokenString();
         parseName();
+        variables.insert(name);
     } else if (tokenStack->peekNext().getTokenType() == TokenType::ConstToken) {
+        string constant = tokenStack->peekNext().getTokenString();
         parseConst();
+        constants.insert(constant);
     } else {
         parseExpression();
     }
 }
 
 void Parser::parseWhile() {
+    int currStatement = statementCount++;
     tokenStack->getNext(); //consume While Token
     parseLParen();
     parseCond();
@@ -228,24 +238,33 @@ void Parser::parseWhile() {
     parseLCurly();
     parseStatementList();
     parseRCurly();
+    whiles.push_back(currStatement);
 }
 
 void Parser::parseRead() {
+    int currStatement = statementCount++;
     tokenStack->getNext(); //consume Read Token
     string varName = parseName();
     parseSemiColon();
+    reads.push_back(currStatement);
+    variables.insert(varName);
 }
 
 void Parser::parsePrint() {
+    int currStatement = statementCount++;
     tokenStack->getNext(); //consume Print Token
     string varName = parseName();
     parseSemiColon();
+    prints.push_back(currStatement);
+    variables.insert(varName);
 }
 
 void Parser::parseCall() {
+    int currStatement = statementCount++;
     tokenStack->getNext(); //consume Call Token
     string varName = parseName();
     parseSemiColon();
+    calls.push_back(currStatement);
 }
 
 void Parser::parseExpression() {
@@ -254,7 +273,7 @@ void Parser::parseExpression() {
         parseOp();
         parseTerm();
     }
-    //TODO check for bad syntax
+    //TODO check for bad syntax: name, name
 }
 
 void Parser::parseTerm() {
@@ -268,9 +287,15 @@ void Parser::parseTerm() {
 void Parser::parseFactor() {
     //TODO check if the variable is a non-terminal as the test case may include keyword as variable names
     if(tokenStack->peekNext().getTokenType() == TokenType::NameToken) {
+        string name = tokenStack->peekNext().getTokenString();
+        //cout << " variable: " << name;
         parseName();
+        variables.insert(name);
     } else if (tokenStack->peekNext().getTokenType() == TokenType::ConstToken) {
+        string constant = tokenStack->peekNext().getTokenString();
+        //cout << " const: " << constant;
         parseConst();
+        constants.insert(constant);
     } else {
         parseLParen();
         parseExpression();
