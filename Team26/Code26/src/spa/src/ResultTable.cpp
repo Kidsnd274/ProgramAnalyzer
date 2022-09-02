@@ -28,6 +28,7 @@ namespace pql {
         isInitialized = true;
     }
 
+
     bool ResultTable::deleteColFromTable(const std::string &sName) {
         if (!isSynonymPresent(sName)) {
             return false;
