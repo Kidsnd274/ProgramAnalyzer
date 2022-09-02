@@ -10,5 +10,6 @@ typedef short PROC;
 
 class PKB {
 public:
-	static bool getUses (/* Stmt stmtlineno, Var var */);
+	static bool getModifies (/* Stmt stmtlineno, Var var */);
+    static
 };
