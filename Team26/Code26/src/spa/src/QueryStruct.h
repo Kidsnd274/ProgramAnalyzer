@@ -34,6 +34,7 @@ public:
     PATTERN_LIST getPatternList();
     CANDIDATE_LIST getCandidateList();
 
+    void addSynonymToDeclaredSynonymMap() noexcept(false);
     void addSuchThatClause(RelationStruct relationToAdd);
     void addPatternClause(PatternStruct patternToAdd);
 };
