@@ -7,9 +7,9 @@
 #include <map>
 
 namespace QueryProcessorTypes {
-/*
- * Enum of the Design Entities in Program Query Language.
- */
+    /*
+     * Enum of the Design Entities in Program Query Language.
+     */
     enum EntityType {
         STATEMENT,
         READ,
@@ -36,9 +36,9 @@ namespace QueryProcessorTypes {
                                                    {"procedure", PROCEDURE},
                                                    {"",          INVALID_ENTITY_TYPE}};
 
-/*
- * Enum of the Relation Types in Program Query Language.
- */
+    /*
+     * Enum of the Relation Types in Program Query Language.
+     */
     enum RelationType {
         FOLLOWS,    // Follows(stmtRef, stmtRef)
         FOLLOWS_T,  // Follows*(stmtRef, stmtRef)
@@ -57,29 +57,30 @@ namespace QueryProcessorTypes {
                                                        {"Modifies", MODIFIES_S},
                                                        {"",         INVALID_RELATION_TYPE}};
 
-/*
- * Enum of the Pattern Types in Program Query Language.
- */
+    /*
+     * Enum of the Pattern Types in Program Query Language.
+     */
     enum PatternType {
         ASSIGN_PATTERN, // pattern syn_assign(entRef, expression_spec)
         INVALID_PATTERN_TYPE
     };
 
-/*
- * Enum of the Evaluation Result Candidate Types
- */
+    /*
+     * Enum of the Evaluation Result Candidate Types
+     */
     enum CandidateType {
         STMT_NO,    // Select stmt | read | print | call | while | if | assign
         VAR_NAME,
         PROCEDURE_NAME,
         CONST_VALUE,
+        BOOLEAN,    // Select Boolean
         EMPTY_RESULT,   // No entities matching the query. Return empty result.
         SYNTACTICALLY_INVALID_QUERY // Return empty result.
     };
 
-/*
- * Enum of Argument Types in Relation or Pattern.
- */
+    /*
+     * Enum of Argument Types in Relation or Pattern.
+     */
     enum ArgumentType {
         STMT_SYNONYM,
         VAR_SYNONYM,
@@ -91,31 +92,43 @@ namespace QueryProcessorTypes {
         INVALID_ARGUMENT_TYPE
     };
 
-/*
- * The structure to represent a certain relation.
- */
+    /*
+     * The structure to represent an entity.
+     */
+    struct EntityStruct {
+        EntityType typeOfEntity;
+        std::string nameOfEntity;
+    };
+
+    struct ArgumentStruct {
+        ArgumentType typeOfArgument;
+        std::string nameOfArgument;
+    };
+    /*
+     * The structure to represent a certain relation.
+     */
     struct RelationStruct {
         RelationType typeOfRelation;
-        ArgumentType arg1;
-        ArgumentType arg2;
+        ArgumentStruct arg1;
+        ArgumentStruct arg2;
     };
 
 
-/*
- * The structure to represent a certain pattern.
- */
+    /*
+     * The structure to represent a certain pattern.
+     */
     struct PatternStruct {
         PatternType typeOfPattern;
-        ArgumentType arg1;
-        ArgumentType arg2;
+        ArgumentStruct arg1;
+        ArgumentStruct arg2;
     };
 
-/*
- * The structure to represent a certain candidate.
- */
+    /*
+     * The structure to represent a certain candidate.
+     */
     struct CandidateStruct {
         CandidateType typeOfCandidate;
-        std::string resultString;
+        EntityStruct entityOfCandidate;
     };
 
     typedef std::unordered_map<std::string, EntityType> DECLARED_SYNONYM_MAP;
