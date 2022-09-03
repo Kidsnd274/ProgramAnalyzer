@@ -39,6 +39,8 @@ public:
     std::shared_ptr<TNode> getRightNode();
     std::string getValue();
 
+    static bool isSameTree(const std::shared_ptr<TNode> &t1, const std::shared_ptr<TNode> &t2);
+
     // Static Constructors
     static std::shared_ptr<TNode> createConstantValue(int statementNumber, std::string value);
     static std::shared_ptr<TNode> createVariableName(int statementNumber, std::string variableName);
