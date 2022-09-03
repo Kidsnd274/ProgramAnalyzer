@@ -8,8 +8,8 @@
 using namespace std;
 typedef short PROC;
 
-class PKB {
+class PKBQueryInterface {
 public:
-	static bool getModifies (/* Stmt stmtlineno, Var var */);
-    static
+	//static bool getModifies (/* Stmt stmtlineno, Var var */);
+    vector<string> getAllEntity(EntityType);
 };

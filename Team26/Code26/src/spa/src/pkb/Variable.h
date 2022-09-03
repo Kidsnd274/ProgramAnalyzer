@@ -1,8 +1,16 @@
 //
 // Created by QMS on 30/8/2022.
 //
+#pragma once
 
-#ifndef SPA_VARIABLE_H
-#define SPA_VARIABLE_H
+#include <stdio.h>
+#include <string>
 
-#endif //SPA_VARIABLE_H
+using namespace std;
+
+class Variable {
+public:
+    string name;
+    int value;
+};
+
