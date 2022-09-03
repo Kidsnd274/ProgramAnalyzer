@@ -3,8 +3,14 @@
 
 #include <vector>
 #include <string>
+#include <iostream>
+#include <map>
+#include <regex>
+#include <utility>
+#include "QueryStruct.h"
+#include "QueryPreprocessor.h"
 
-namespace Tokenization {
+namespace QPS {
     enum TokenType {
         LBRACE,
         RBRACE,
@@ -51,6 +57,6 @@ namespace Tokenization {
 
 
 
-} // Tokenization
+}
 
 #endif //SPA_TOKENIZER_H

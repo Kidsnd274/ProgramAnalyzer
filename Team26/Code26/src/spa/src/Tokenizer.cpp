@@ -1,13 +1,6 @@
-#include <iostream>
-#include <string>
-#include <map>
-#include <regex>
-#include <utility>
-#include <vector>
 #include "Tokenizer.h"
-#include "QueryPreprocessor.h"
 
-namespace Tokenization {
+namespace QPS {
     std::map<TokenType, std::string> m = {
             { LBRACE, "LBRACE" },
             { RBRACE, "RBRACE" },
@@ -130,16 +123,16 @@ namespace Tokenization {
 
 
 int main() {
-    std::vector<Tokenization::Token> tokens;
+    std::vector<QPS::Token> tokens;
     std::vector<int> tmp = {0, 0, 1, 2};
-    Tokenization::tokenize(std::cin, tokens);
+    QPS::tokenize(std::cin, tokens);
     std::cout << typeid(tmp).name() << std::endl;
-    for (Tokenization::Token t : tokens) {
-        std::string s = Tokenization::m.at(t.tokenType);
+    for (QPS::Token t : tokens) {
+        std::string s = QPS::m.at(t.tokenType);
         std::cout << s + " ";
     }
 
 
     std::cout << "Start parsing query";
-    QueryPreprocessor::parseToken(tokens);
+    QPS::parseToken(tokens);
 }
