@@ -1,5 +1,6 @@
 #include "sp/Parser.h"
 #include "catch.hpp"
+#include "util/ast/TNode.h"
 #include <vector>
 
 std::vector<Token> validEasySimpleTokens = {Token("procedure", TokenType::ProcedureToken),
@@ -94,7 +95,11 @@ TEST_CASE("Parse Expression") {
                                 Token("+", TokenType::OpToken),
                                 Token("1", TokenType::ConstToken)};
         Parser pr(v);
-        REQUIRE_NOTHROW(pr.parseExpression());
+        std::shared_ptr<TNode> expected =
+                TNode::createTerm(1, "+", TNode::createVariableName(1, "x"), TNode::createConstantValue(1, "1"));
+        std::shared_ptr<TNode> actual(nullptr);
+        REQUIRE_NOTHROW(actual = pr.parseExpression());
+        REQUIRE(TNode::isSameTree(expected, actual));
     }
 
     SECTION("2 operators") {
@@ -103,8 +108,33 @@ TEST_CASE("Parse Expression") {
                                 Token("y", TokenType::NameToken),
                                 Token("*", TokenType::FactorToken),
                                 Token("3", TokenType::ConstToken)};
+        std::shared_ptr<TNode> expected =
+                TNode::createTerm(1, "+", TNode::createVariableName(1, "x"),
+                                  TNode::createTerm(1, "*",TNode::createVariableName(1, "y"),
+                                                    TNode::createConstantValue(1, "3")));
+        std::shared_ptr<TNode> actual(nullptr);
         Parser pr(v);
-        REQUIRE_NOTHROW(pr.parseExpression());
+        REQUIRE_NOTHROW(actual = pr.parseExpression());
+        REQUIRE(TNode::isSameTree(expected, actual));
+    }
+
+    SECTION("3 operators") {
+        std::vector<Token> v = {Token("z", TokenType::NameToken),
+                                Token("*", TokenType::FactorToken),
+                                Token("x", TokenType::NameToken),
+                                Token("+", TokenType::OpToken),
+                                Token("y", TokenType::NameToken),
+                                Token("/", TokenType::FactorToken),
+                                Token("3", TokenType::ConstToken)};
+        std::shared_ptr<TNode> expected =
+                TNode::createTerm(1, "+", TNode::createTerm(1, "*", TNode::createVariableName(1, "z"),
+                                                            TNode::createVariableName(1, "x")),
+                                  TNode::createTerm(1, "/",TNode::createVariableName(1, "y"),
+                                                    TNode::createConstantValue(1, "3")));
+        std::shared_ptr<TNode> actual(nullptr);
+        Parser pr(v);
+        REQUIRE_NOTHROW(actual = pr.parseExpression());
+        REQUIRE(TNode::isSameTree(expected, actual));
     }
     //TODO this test case is broken... should not accept this
 //    SECTION("1 operator but invalid") {
