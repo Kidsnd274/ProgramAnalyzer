@@ -110,8 +110,9 @@ namespace QPS {
             std::cout << it.first + " : " + entityToString(it.second);
         }
 
-        for (CandidateStruct candidateStruct : container.getCandidateList()) {
-            std::cout << candidateToString(candidateStruct.typeOfCandidate) + ": " + candidateStruct.entityOfCandidate.nameOfEntity ;
+
+        for (QueryProcessorTypes::CandidateStruct candidateStruct : container.getCandidateList()) {
+            std::cout << QueryProcessorTypes::candidateToString(candidateStruct.typeOfCandidate) + ": " + candidateStruct.entityOfCandidate.nameOfEntity;
         }
     }
 

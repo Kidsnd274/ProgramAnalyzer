@@ -24,7 +24,7 @@ namespace QPS {
         INVALID_ENTITY_TYPE
     };
 
-    std::map<std::string, EntityType> entityMap = {{"stmt",      STATEMENT},
+    const std::map<std::string, EntityType> entityMap = {{"stmt",      STATEMENT},
                                                    {"read",      READ},
                                                    {"print",     PRINT},
                                                    {"call",      CALL},
@@ -52,7 +52,7 @@ namespace QPS {
         INVALID_RELATION_TYPE
     };
 
-    std::map<std::string, RelationType> relationMap = {{"Follows",  FOLLOWS},
+    const std::map<std::string, RelationType> relationMap = {{"Follows",  FOLLOWS},
                                                        {"Follows*", FOLLOWS_T},
                                                        {"Parent",   PARENT},
                                                        {"Parent*",  PARENT_T},
