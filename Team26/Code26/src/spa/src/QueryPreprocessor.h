@@ -10,5 +10,5 @@
 namespace QueryPreprocessor{
     std::pair<QueryProcessorTypes::EntityType, bool> mapEntity(Tokenization::Token token);
     std::pair<QueryProcessorTypes::RelationType, bool> mapRelation(Tokenization::Token token);
-    void parseToken(std::vector<Tokenization::Token> tokens);
+    void parseToken(std::vector<Tokenization::Token> &tokens);
 }

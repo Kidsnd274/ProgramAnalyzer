@@ -3,7 +3,9 @@
 #include <map>
 #include <regex>
 #include <utility>
+#include <vector>
 #include "Tokenizer.h"
+#include "QueryPreprocessor.h"
 
 namespace Tokenization {
     std::map<TokenType, std::string> m = {
@@ -82,10 +84,10 @@ namespace Tokenization {
         return token;
     }
 
-    std::vector<Token> tokenize(std::istream& stream) {
+    std::vector<Token> tokenize(std::istream& stream, std::vector<Token> &tokens) {
         std::vector<Token> tokenizedResult;
 //        std::vector<std::string> splitString = splitToLines(stream);
-        std::vector<std::string> splitString = {"select v such that uses(a, v) 223 _ 3 <= >=", "hhhh"};
+        std::vector<std::string> splitString = {"variable v Select v"};
 
         int lineNumber = 0;
         for (std::string s : splitString) {
@@ -117,15 +119,27 @@ namespace Tokenization {
             }
             lineNumber++;
         }
+        std::copy(tokenizedResult.begin(), tokenizedResult.end(), std::back_inserter(tokens));
         return tokenizedResult;
+    }
 
+    bool isSuchThat(Token token) {
+        return token.nameValue == "Such";
     }
 } // Tokenization
 
+
 int main() {
-    std::vector<Tokenization::Token> tokens = Tokenization::tokenize(std::cin);
+    std::vector<Tokenization::Token> tokens;
+    std::vector<int> tmp = {0, 0, 1, 2};
+    Tokenization::tokenize(std::cin, tokens);
+    std::cout << typeid(tmp).name() << std::endl;
     for (Tokenization::Token t : tokens) {
         std::string s = Tokenization::m.at(t.tokenType);
         std::cout << s + " ";
     }
+
+
+    std::cout << "Start parsing query";
+    QueryPreprocessor::parseToken(tokens);
 }
