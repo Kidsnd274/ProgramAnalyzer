@@ -5,8 +5,6 @@
 #ifndef SPA_STATEMENT_H
 #define SPA_STATEMENT_H
 
-#pragma once
-
 #include <stdio.h>
 #include <string>
 
@@ -17,7 +15,8 @@ enum StmtType {
     ASSIGN,
     WHILE,
     IF,
-    PRINT
+    PRINT,
+    CALL
 };
 
 class Statement {

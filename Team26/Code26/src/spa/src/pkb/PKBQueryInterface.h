@@ -5,6 +5,8 @@
 #include <string>
 #include <vector>
 
+#include "QueryProcessorTypes.h"
+
 using namespace std;
 typedef short PROC;
 
