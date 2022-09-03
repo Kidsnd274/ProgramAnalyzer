@@ -21,13 +21,15 @@ namespace QPS {
     };
 
     class QueryStruct {
-    public:
+    private:
         DECLARED_SYNONYM_MAP declaredSynonymMap;
         SUCH_THAT_LIST suchThatList;
         PATTERN_LIST patternList;
         CANDIDATE_LIST candidateList;
+
+    public:
         QueryStatus queryStatus;
-        QPS::ResultTable resultTable;
+        ResultTable resultTable;
 
     public:
         QueryStruct(DECLARED_SYNONYM_MAP &declaredSynonymMap,
