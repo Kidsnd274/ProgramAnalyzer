@@ -72,7 +72,3 @@ namespace QPS {
         this->candidateList.emplace_back(candidateToAdd);
     }
 }
-
-//int main() {
-//    return 0;
-//}

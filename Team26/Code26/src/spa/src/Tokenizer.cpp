@@ -81,7 +81,7 @@ namespace QPS {
     std::vector<Token> tokenize(std::istream& stream, std::vector<Token> &tokens) {
         std::vector<Token> tokenizedResult;
 //        std::vector<std::string> splitString = splitToLines(stream);
-        std::vector<std::string> splitString = {"variable v Select v"};
+        std::vector<std::string> splitString = {"variable v1 v2 Select v1"};
 
         int lineNumber = 0;
         for (std::string s : splitString) {
@@ -97,12 +97,16 @@ namespace QPS {
                         Token t;
                         if (pair.first == NAME) {
                             t = createToken(NAME, lineNumber, pos, match.str(), 0);
+                            tokenizedResult.push_back(t);
                         } else if (pair.first == INTEGER) {
                            t = createToken(INTEGER, lineNumber, pos, "", std::stoi(match.str()));
+                            tokenizedResult.push_back(t);
+                        } else if (pair.first == WHITESPACE){
                         } else {
                             t = createToken(pair.first, lineNumber, pos, "", 0);
+                            tokenizedResult.push_back(t);
                         }
-                        tokenizedResult.push_back(t);
+
                         s = s.substr(match.str().size());
                     }
 
@@ -125,15 +129,12 @@ namespace QPS {
 
 int main() {
     std::vector<QPS::Token> tokens;
-    std::vector<int> tmp = {0, 0, 1, 2};
     QPS::tokenize(std::cin, tokens);
-    std::cout << typeid(tmp).name() << std::endl;
     for (QPS::Token t : tokens) {
         std::string s = QPS::m.at(t.tokenType);
-        std::cout << s + " ";
+        std::cout << s + " " << std::endl;
     }
 
-
-    std::cout << "Start parsing query";
+    std::cout << "Start parsing query" << std::endl;
     QPS::parseToken(tokens);
 }

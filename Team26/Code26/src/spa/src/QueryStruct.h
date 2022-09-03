@@ -7,6 +7,7 @@
 #include <utility>
 #include<vector>
 #include<map>
+#include <iostream>
 
 
 /*
@@ -53,9 +54,6 @@ namespace QPS {
 
         CANDIDATE_LIST getCandidateList();
 
-        void addDeclaredSynonymMap(EntityType entityType, const std::string &s) {
-            this->declaredSynonymMap.insert({s, entityType});
-        }
 
         void addCandidateList(CandidateType typeOfCandidate, std::string s,
                               EntityType entityType) {
@@ -65,8 +63,14 @@ namespace QPS {
         }
 
         EntityType getDeclaration(std::string s) {
-            auto entityType = this->declaredSynonymMap.find(s);
-            return entityType->second;
+            if (this->declaredSynonymMap.find(s) == this->declaredSynonymMap.end()) {
+                // not found
+                return INVALID_ENTITY_TYPE;
+            } else {
+                // found
+                auto entityType = this->declaredSynonymMap.find(s);
+                return entityType->second;
+            }
         }
 
         void addSynonym(EntityType, std::string nameOfEntity);

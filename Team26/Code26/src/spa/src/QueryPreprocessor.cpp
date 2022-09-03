@@ -19,12 +19,13 @@ namespace QPS {
         }
 
         void addDeclaration(EntityType entityType, std::string s) {
-            queryStruct.addDeclaredSynonymMap(entityType, s);
+            std::cout << "add declaration" << s << std::endl;
+            this->queryStruct.addSynonym(entityType, s);
         }
 
         void addCandidateList(EntityType entityType, std::string s) {
             CandidateType candidateType = mapEntityToCandidate(entityType);
-            queryStruct.addCandidateList(candidateType, std::move(s), entityType);
+            this->queryStruct.addCandidateList(candidateType, std::move(s), entityType);
         }
 
         DECLARED_SYNONYM_MAP getDeclarationMap() {
@@ -45,14 +46,14 @@ namespace QPS {
     std::pair<int, bool> parseDeclaration(std::vector<QPS::Token> &tokens,
                                           int pos,
                                           EntityType entityType,
-                                          Container container);
+                                          Container &container);
 
-    std::pair<int, bool> parseSelect(std::vector<QPS::Token> &tokens, int pos, Container container);
+    std::pair<int, bool> parseSelect(std::vector<QPS::Token> &tokens, int pos, Container &container);
 
     void parseToken(std::vector<QPS::Token> &tokens) {
         Container container = Container(tokens);
         int tokenPos = 0;
-        while (!tokens.empty()) {
+        while (tokenPos < tokens.size()) {
             QPS::Token curr = tokens[tokenPos];
             std::pair<EntityType, bool> entityMappingResult = mapEntity(curr);
             std::pair<RelationType, bool> relationMappingResult = mapRelation(curr);
@@ -70,19 +71,25 @@ namespace QPS {
                         tokenPos++;
                         std::pair<int, bool> result = parseDeclaration(tokens, tokenPos, VARIABLE,
                                                                        container);
+
                         if (result.second) {
-                            tokenPos = result.first;
+                            tokenPos = result.first - 1;
                         } else {
                             // Invalid query
+                            tokenPos--;
                         }
+                        break;
                     }
                     case CONSTANT:
                     case PROCEDURE:
-                    case INVALID_ENTITY_TYPE:
+                    case INVALID_ENTITY_TYPE: {
+                        std::cout << "invalid entity" << std::endl;
                         return ;
+                    }
                 }
             } else if (relationMappingResult.second) {
                 // Valid entity
+
                 switch (relationMappingResult.first) {
                     case FOLLOWS:
                     case FOLLOWS_T:
@@ -91,26 +98,32 @@ namespace QPS {
                     case USES_S:
                     case MODIFIES_S:
                     case INVALID_RELATION_TYPE:
-                        return;
+                    {
+                        std::cout << "invalid relation" << std::endl;
+                        return ;
+                    }
                 }
 
             } else if (curr.tokenType == QPS::NAME && curr.nameValue == "Select") {
                 std::pair<int, bool> result = parseSelect(tokens, tokenPos, container);
+                if (result.second) {
+                    tokenPos = result.first - 1;
+                }
             } else {
                 // Invalid entity
 
             }
             tokenPos++;
         }
-        std::cout << "Finish parsing";
+
+        std::cout << "Finish parsing" << std::endl;
+        std::cout << "Declaration:" << std::endl;
         for (auto& it: container.getDeclarationMap()) {
-            // Do stuff
-            std::cout << it.first + " : " + entityToString(it.second);
+            std::cout << it.first << " : " << entityToString(it.second)  << std::endl;
         }
-
-
+        std::cout << "Candidate:" << std::endl;
         for (QPS::CandidateStruct candidateStruct : container.getCandidateList()) {
-            std::cout << QPS::candidateToString(candidateStruct.typeOfCandidate) + ": " + candidateStruct.entityOfCandidate.nameOfEntity;
+            std::cout << QPS::candidateToString(candidateStruct.typeOfCandidate) + ": " + candidateStruct.entityOfCandidate.nameOfEntity  << std::endl;
         }
     }
 
@@ -118,41 +131,59 @@ namespace QPS {
     std::pair<int, bool> parseDeclaration(std::vector<QPS::Token> &tokens,
                                           int pos,
                                           EntityType entityType,
-                                          Container container) {
+                                          Container &container) {
         std::vector<std::string> entityNames;
-        while (!isEntity(tokens[pos].nameValue)) {
+        std::cout << "parse declaration: " << tokens[pos].nameValue << std::endl;
+        while (pos < tokens.size() && !isEntity(tokens[pos].nameValue) && tokens[pos].nameValue != "Select") {
             QPS::Token curr = tokens[pos];
             if (curr.tokenType == QPS::WHITESPACE) {
                 pos++;
                 continue;
             }
             if (curr.tokenType == QPS::NAME) {
+                std::cout << "parse declaration: name" << std::endl;
                 container.addDeclaration(entityType, curr.nameValue);
                 pos++;
-                continue;
             } else {
                 return {pos, false};
             }
 
         }
+
+        if (tokens[pos].nameValue == "Select") {
+            return {pos, true};
+        } else if (pos >= tokens.size()) {
+            return {-1, false};
+        } else {
+            return {pos, true};
+        }
+
     }
 
-    std::pair<int, bool> parseSelect(std::vector<QPS::Token> &tokens, int pos, Container container) {
-        while (!QPS::isSuchThat(tokens[pos])) {
+    std::pair<int, bool> parseSelect(std::vector<QPS::Token> &tokens, int pos, Container &container) {
+        while (pos < tokens.size() && !QPS::isSuchThat(tokens[pos])) {
             QPS::Token curr = tokens[pos];
-            if (curr.tokenType == QPS::WHITESPACE) {
+            if (curr.tokenType == QPS::NAME && curr.nameValue == "Select") {
                 pos++;
-                continue;
-            }
-            if (curr.tokenType == QPS::NAME) {
+            } else if (curr.tokenType == QPS::NAME && curr.nameValue != "Select") {
+                std::cout << "select: " << curr.nameValue << std::endl;
                 EntityType entityType = container.getQueryStruct().getDeclaration(curr.nameValue);
-                container.addCandidateList(entityType, curr.nameValue);
-                pos++;
-                continue;
+                if (entityType != INVALID_ENTITY_TYPE) {
+                    container.addCandidateList(entityType, curr.nameValue);
+                    pos++;
+                } else {
+                    return {pos, false};
+                }
+
             } else {
                 return {pos, false};
             }
 
+        }
+        if (pos <= tokens.size()) {
+            return {pos, true};
+        } else {
+            return {-1, false};
         }
     }
 
