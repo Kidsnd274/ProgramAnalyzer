@@ -30,6 +30,30 @@ QueryStruct::QueryStruct(QueryProcessorTypes::DECLARED_SYNONYM_MAP &declaredSyno
     this->candidateList = candidateList;
 }
 
+DECLARED_SYNONYM_MAP QueryStruct::getDeclaredSynonymMap() {
+    return this->declaredSynonymMap;
+}
+
+SUCH_THAT_LIST QueryStruct::getSuchThatList() {
+    return this->suchThatList;
+}
+
+PATTERN_LIST QueryStruct::getPatternList() {
+    return this->patternList;
+}
+
+CANDIDATE_LIST QueryStruct::getCandidateList() {
+    return this->candidateList;
+}
+
+void QueryStruct::addSuchThatClause(RelationStruct relationToAdd) {
+    this->suchThatList.emplace_back(relationToAdd);
+}
+
+void QueryStruct::addPatternClause(PatternStruct patternToAdd) {
+    this->patternList.emplace_back(patternToAdd);
+}
+
 
 int main() {
     return 0;
