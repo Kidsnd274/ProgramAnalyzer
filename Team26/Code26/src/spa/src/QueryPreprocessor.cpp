@@ -32,7 +32,7 @@ namespace QueryPreprocessor{
 
         void addCandidateList(QueryProcessorTypes::EntityType entityType, std::string s) {
             QueryProcessorTypes::CandidateType candidateType = QueryProcessorTypes::mapEntityToCandidate(entityType);
-            queryStruct.addCandidateList(candidateType, std::move(s));
+            queryStruct.addCandidateList(candidateType, std::move(s), entityType);
         }
 
         QueryProcessorTypes::DECLARED_SYNONYM_MAP getDeclarationMap() {

@@ -27,19 +27,17 @@ public:
                 QueryProcessorTypes::PATTERN_LIST& patternList,
                 QueryProcessorTypes::CANDIDATE_LIST& candidateList);
 
-    QueryProcessorTypes::DECLARED_SYNONYM_MAP getDeclaredSynonymMap() {
-        return declaredSynonymMap;
-    }
+    QueryProcessorTypes::DECLARED_SYNONYM_MAP getDeclaredSynonymMap();
     QueryProcessorTypes::SUCH_THAT_LIST getSuchThatList();
     QueryProcessorTypes::PATTERN_LIST getPatternList();
-    QueryProcessorTypes::CANDIDATE_LIST getCandidateList() {
-        return candidateList;
-    }
+    QueryProcessorTypes::CANDIDATE_LIST getCandidateList();
     void addDeclaredSynonymMap(QueryProcessorTypes::EntityType entityType, const std::string& s) {
         this->declaredSynonymMap.insert({s, entityType});
     }
-    void addCandidateList(QueryProcessorTypes::CandidateType typeOfCandidate, std::string s) {
-        QueryProcessorTypes::CandidateStruct candidateStruct = {typeOfCandidate, std::move(s)};
+    void addCandidateList(QueryProcessorTypes::CandidateType typeOfCandidate, std::string s,
+                          QueryProcessorTypes::EntityType entityType) {
+        QueryProcessorTypes::EntityStruct entityStruct = {entityType, s};
+        QueryProcessorTypes::CandidateStruct candidateStruct = {typeOfCandidate, entityStruct};
         this->candidateList.push_back(candidateStruct);
     }
 
