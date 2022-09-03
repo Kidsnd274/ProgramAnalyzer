@@ -8,7 +8,9 @@
 #include "Tokenizer.h"
 
 namespace QPS {
-    void parseToken(std::vector<QPS::Token> &tokens);
+    std::pair<EntityType, bool> mapEntity(Token token);
+    std::pair<RelationType, bool> mapRelation(Token token);
+    void parseToken(std::vector<Token> &tokens);
 }
 
 

@@ -8,7 +8,7 @@
 #include <regex>
 #include <utility>
 #include "QueryStruct.h"
-#include "QueryPreprocessor.h"
+#include "QueryProcessorTypes.h"
 
 namespace QPS {
     enum TokenType {
@@ -40,7 +40,6 @@ namespace QPS {
         NAME,
         INTEGER,
         WHITESPACE,
-
     };
 
     struct Token {
@@ -54,9 +53,6 @@ namespace QPS {
     std::vector<Token> tokenize(std::istream& string);
     Token createToken(TokenType t, int lineNUmber, int inLinePosition, std::string nameValue, int integerValue);
     bool isSuchThat(Token token);
-
-
-
 }
 
 #endif //SPA_TOKENIZER_H

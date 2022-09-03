@@ -1,4 +1,5 @@
 #include "Tokenizer.h"
+#include "QueryPreprocessor.h"
 
 namespace QPS {
     std::map<TokenType, std::string> m = {

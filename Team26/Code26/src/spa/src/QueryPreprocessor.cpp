@@ -2,8 +2,6 @@
 
 
 namespace QPS {
-    std::pair<EntityType, bool> mapEntity(QPS::Token token);
-    std::pair<RelationType, bool> mapRelation(QPS::Token token);
     class Container {
     private:
         std::vector<QPS::Token> tokens;
@@ -111,8 +109,8 @@ namespace QPS {
         }
 
 
-        for (QueryProcessorTypes::CandidateStruct candidateStruct : container.getCandidateList()) {
-            std::cout << QueryProcessorTypes::candidateToString(candidateStruct.typeOfCandidate) + ": " + candidateStruct.entityOfCandidate.nameOfEntity;
+        for (QPS::CandidateStruct candidateStruct : container.getCandidateList()) {
+            std::cout << QPS::candidateToString(candidateStruct.typeOfCandidate) + ": " + candidateStruct.entityOfCandidate.nameOfEntity;
         }
     }
 
