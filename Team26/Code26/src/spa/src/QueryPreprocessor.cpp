@@ -117,7 +117,7 @@ namespace QueryPreprocessor{
         }
 
         for (QueryProcessorTypes::CandidateStruct candidateStruct : container.getCandidateList()) {
-            std::cout << QueryProcessorTypes::candidateToString(candidateStruct.typeOfCandidate) + ": " + candidateStruct.resultString ;
+            std::cout << QueryProcessorTypes::candidateToString(candidateStruct.typeOfCandidate) + ": " + candidateStruct.entityOfCandidate.nameOfEntity;
         }
     }
 

@@ -6,5 +6,5 @@ target_include_directories(spa PUBLIC ${CMAKE_CURRENT_SOURCE_DIR}/src)
 add_executable(ResultTable src/ResultTable.cpp)
 set (CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -std=c++11")
 add_executable(QueryStruct src/QueryStruct.cpp)
-add_executable(Tokenizer src/Tokenizer.cpp)
+add_executable(Tokenizer src/Tokenizer.cpp src/QueryPreprocessor.cpp src/QueryStruct.cpp src/QueryProcessorTypes.cpp)
 

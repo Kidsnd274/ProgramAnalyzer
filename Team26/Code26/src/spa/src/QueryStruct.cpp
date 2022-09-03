@@ -75,6 +75,6 @@ void QueryStruct::addCandidate(QueryProcessorTypes::CandidateStruct candidateToA
     this->candidateList.emplace_back(candidateToAdd);
 }
 
-int main() {
-    return 0;
-}
+//int main() {
+//    return 0;
+//}
