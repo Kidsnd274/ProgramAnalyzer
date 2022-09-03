@@ -1,7 +1,8 @@
 #include "QueryProcessorTypes.h"
-namespace QueryProcessorTypes {
+
+namespace QPS {
     bool isEntity(const std::string& value) {
-        if (QueryProcessorTypes::entityMap.find(value) == QueryProcessorTypes::entityMap.end()) {
+        if (QPS::entityMap.find(value) == QPS::entityMap.end()) {
             return false;
         } else {
             return true;
@@ -9,7 +10,7 @@ namespace QueryProcessorTypes {
     }
 
     bool isRelation(const std::string& value) {
-        if (QueryProcessorTypes::relationMap.find(value) == QueryProcessorTypes::relationMap.end()) {
+        if (QPS::relationMap.find(value) == QPS::relationMap.end()) {
             return false;
         } else {
             return true;
@@ -39,38 +40,38 @@ namespace QueryProcessorTypes {
 
     std::string entityToString(EntityType entityType) {
         switch (entityType) {
-            case QueryProcessorTypes::STATEMENT: {
+            case QPS::STATEMENT: {
                 return "stmt";
             }
-            case QueryProcessorTypes::READ: {
+            case QPS::READ: {
                 return "read";
             }
-            case QueryProcessorTypes::PRINT: {
+            case QPS::PRINT: {
                 return "print";
             }
-            case QueryProcessorTypes::CALL: {
+            case QPS::CALL: {
                 return "call";
             }
-            case QueryProcessorTypes::WHILE: {
+            case QPS::WHILE: {
                 return "while";
             }
-            case QueryProcessorTypes::IF: {
+            case QPS::IF: {
                 return "if";
             }
-            case QueryProcessorTypes::ASSIGN: {
+            case QPS::ASSIGN: {
                 return "assign";
             }
-            case QueryProcessorTypes::VARIABLE: {
+            case QPS::VARIABLE: {
                 return "variable";
             }
 
-            case QueryProcessorTypes::CONSTANT: {
+            case QPS::CONSTANT: {
                 return "constant";
             }
-            case QueryProcessorTypes::PROCEDURE: {
+            case QPS::PROCEDURE: {
                 return "procedure";
             }
-            case QueryProcessorTypes::INVALID_ENTITY_TYPE:
+            case QPS::INVALID_ENTITY_TYPE:
                 return "invalid";
 
         }

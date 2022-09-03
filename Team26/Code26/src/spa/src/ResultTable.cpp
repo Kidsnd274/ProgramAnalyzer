@@ -8,7 +8,7 @@
 #include <iostream>
 
 
-namespace pql {
+namespace QPS {
     ResultTable::ResultTable(const std::vector<std::string>& sNames, const std::unordered_set<std::vector<std::string>, StringVectorHash >& entries) {
         colNum = 0;
         for (const std::string& sName: sNames) {
@@ -139,11 +139,11 @@ int main() {
     std::vector<std::string> v1 = { "A", "B", "C" };
     std::vector<std::string> v2 = { "A", "B", "D" };
     std::vector<std::string> v3 = { "A", "B", "E" };
-    std::unordered_set<std::vector<std::string>, pql::StringVectorHash> entries;
+    std::unordered_set<std::vector<std::string>, QPS::StringVectorHash> entries;
     entries.insert(v1);
     entries.insert(v2);
     entries.insert(v3);
-    pql::ResultTable rt(v, entries);
+    QPS::ResultTable rt(v, entries);
     rt.printTable();
     rt.deleteColFromTable("A");
     rt.printTable();
@@ -158,7 +158,7 @@ int main() {
     std::vector<std::string> names = {"B", "C"};
     std::vector<std::string> names2 = {"A", "B", "C"};
     std::vector<std::string> names3 = {"C", "B"};
-    std::unordered_set<std::vector<std::string>, pql::StringVectorHash> values2;
+    std::unordered_set<std::vector<std::string>, QPS::StringVectorHash> values2;
     bool absent2 = rt.getSynonymsValues(names2, values2);
     bool present2 = rt.getSynonymsValues(names, values2);
     for (auto& pair: values2) {

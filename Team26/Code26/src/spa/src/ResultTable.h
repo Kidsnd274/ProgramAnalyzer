@@ -6,7 +6,7 @@
 #include <string>
 
 
-namespace pql {
+namespace QPS {
     /**
  * The hashing method of a pair of strings
  */

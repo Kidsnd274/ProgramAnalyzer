@@ -4,9 +4,9 @@
 #include<string>
 #include<unordered_map>
 #include<vector>
-#include <map>
+#include<map>
 
-namespace QueryProcessorTypes {
+namespace QPS {
     /*
      * Enum of the Design Entities in Program Query Language.
      */
