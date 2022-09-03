@@ -131,6 +131,47 @@ namespace QPS {
     void suspendExecution(const std::string& errorMsg) {
         throw errorMsg;
     }
+
+    void ResultTable::addColumnAndMerge(std::string nameOfSynonym, std::vector<std::string> entities) {
+        this->colNum++;
+        this->rowNum = this->rowNum * entities.size();
+        this->synonymColRef.insert(std::make_pair(nameOfSynonym, colNum));
+        std::vector<std::vector<std::string>> newTable;
+        for (auto iter1 = this->table.begin(); iter1 != this->table.end(); iter1++) { // iter1: row of original table
+            for (auto iter2 = entities.begin(); iter2 != entities.end(); iter2++) { // iter2: row of new column
+                iter1->emplace_back(*iter2);
+                newTable.emplace_back(*iter1);
+            }
+        }
+        this->table = newTable;
+    }
+
+    void ResultTable::filterRows(QPS::SUCH_THAT_LIST suchThatList) {
+        std::vector<std::vector<std::string>> newTable;
+        for (auto row_iter = this->table.begin(); row_iter != this->table.end(); row_iter++) {
+            if (followsRelation(*row_iter, suchThatList)) {
+                newTable.emplace_back(*row_iter);
+            }
+        }
+        this->table = newTable;
+    }
+
+    bool ResultTable::followsRelation(std::vector<std::string> &row, QPS::SUCH_THAT_LIST suchThatList) {
+        for (auto relation : suchThatList) {
+            RelationStruct realRelation;
+            realRelation.typeOfRelation = relation.typeOfRelation;
+            realRelation.arg1 = {
+                    relation.arg1.typeOfArgument,
+                    row.at(this->synonymColRef.find(relation.arg1.nameOfArgument)->second)
+            };
+            if (PKB.existRelation(realRelation)) { // TODO: Add method to PKB-QPS API.
+                continue;
+            } else {
+                return false;
+            }
+        }
+        return true;
+    }
 }
 
 int main() {
