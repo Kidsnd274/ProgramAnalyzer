@@ -3,11 +3,7 @@
 
 #include "QueryProcessorTypes.h"
 #include<string>
-
-/*
- * The data structure to represent the input query string.
- * After parsing, all information about the query will be stored in this QueryStruct data structure.
- */
+#include <utility>
 class QueryStruct {
 private:
     QueryProcessorTypes::DECLARED_SYNONYM_MAP declaredSynonymMap;
@@ -31,13 +27,28 @@ public:
                 QueryProcessorTypes::PATTERN_LIST& patternList,
                 QueryProcessorTypes::CANDIDATE_LIST& candidateList);
 
-    QueryProcessorTypes::DECLARED_SYNONYM_MAP getDeclaredSynonymMap();
+    QueryProcessorTypes::DECLARED_SYNONYM_MAP getDeclaredSynonymMap() {
+        return declaredSynonymMap;
+    }
     QueryProcessorTypes::SUCH_THAT_LIST getSuchThatList();
     QueryProcessorTypes::PATTERN_LIST getPatternList();
-    QueryProcessorTypes::CANDIDATE_LIST getCandidateList();
+    QueryProcessorTypes::CANDIDATE_LIST getCandidateList() {
+        return candidateList;
+    }
+    void addDeclaredSynonymMap(QueryProcessorTypes::EntityType entityType, const std::string& s) {
+        this->declaredSynonymMap.insert({s, entityType});
+    }
+    void addCandidateList(QueryProcessorTypes::CandidateType typeOfCandidate, std::string s) {
+        QueryProcessorTypes::CandidateStruct candidateStruct = {typeOfCandidate, std::move(s)};
+        this->candidateList.push_back(candidateStruct);
+    }
+
+    QueryProcessorTypes::EntityType getDeclaration(std::string s) {
+        auto entityType = this-> declaredSynonymMap.find(s);
+        return entityType->second;
+    }
 
     void addSuchThatClause(QueryProcessorTypes::RelationStruct relationToAdd);
     void addPatternClause(QueryProcessorTypes::PatternStruct patternToAdd);
 };
-
 #endif // QUERYSTRUCT_H

@@ -36,6 +36,9 @@ namespace QueryProcessorTypes {
                                                    {"procedure", PROCEDURE},
                                                    {"",          INVALID_ENTITY_TYPE}};
 
+    bool isEntity(const std::string&);
+
+
 /*
  * Enum of the Relation Types in Program Query Language.
  */
@@ -56,6 +59,8 @@ namespace QueryProcessorTypes {
                                                        {"Uses",     USES_S},
                                                        {"Modifies", MODIFIES_S},
                                                        {"",         INVALID_RELATION_TYPE}};
+
+    bool isRelation(std::string);
 
 /*
  * Enum of the Pattern Types in Program Query Language.
@@ -122,6 +127,11 @@ namespace QueryProcessorTypes {
     typedef std::vector<RelationStruct> SUCH_THAT_LIST;
     typedef std::vector<PatternStruct> PATTERN_LIST;
     typedef std::vector<CandidateStruct> CANDIDATE_LIST;
+
+    CandidateType mapEntityToCandidate(EntityType entityType);
+    std::string entityToString(EntityType entityType);
+    std::string candidateToString(CandidateType candidateType);
+
 
 }
 #endif // QUERYPROCESSORTYPES_H

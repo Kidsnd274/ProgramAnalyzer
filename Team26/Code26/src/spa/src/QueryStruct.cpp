@@ -30,6 +30,7 @@ QueryStruct::QueryStruct(QueryProcessorTypes::DECLARED_SYNONYM_MAP &declaredSyno
     this->candidateList = candidateList;
 }
 
+
 int main() {
     return 0;
 }
