@@ -51,12 +51,12 @@ std::vector<Token> invalidSimpleTokens = {Token("procedure", TokenType::Procedur
                                           Token("1", TokenType::ConstToken),
                                           Token(";", TokenType::SemiColonToken),
                                           Token("}", TokenType::RCurlyToken)};
-TEST_CASE("Basic Parser Test with valid program", "This is to make sure that the current minimal parser does not throw a syntax error") {
+TEST_CASE("Basic Parser Test with valid program") {
     Parser p(validSimpleTokens);
     REQUIRE_NOTHROW(p.parseSimple());
 }
 
-TEST_CASE("Basic Parser Test with invalid program", "This is to make sure that the current minimal parser does throw a syntax error") {
+TEST_CASE("Basic Parser Test with invalid program") {
     Parser p(invalidSimpleTokens);
     REQUIRE_THROWS(p.parseSimple());
 }

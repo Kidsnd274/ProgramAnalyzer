@@ -3,7 +3,8 @@
 
 class PrintNode : public StatementNode {
     std::string variableName;
-
+    
+public:
     PrintNode(int statementNumber, std::string variableName) : StatementNode(statementNumber) {
         this->variableName = variableName;
     }

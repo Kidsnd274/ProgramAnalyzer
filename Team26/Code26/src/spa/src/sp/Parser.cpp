@@ -1,6 +1,5 @@
 #include "Parser.h"
 #include "../PKB.h"
-#include "util/ast/TNode.h"
 
 void Parser::parseSimple() {
     int numOfProcedures = 0;
@@ -19,11 +18,13 @@ void Parser::parseSimple() {
     }
 }
 
-void Parser::parseProcedure() {
+std::shared_ptr<ProcedureNode> Parser::parseProcedure() {
     std::string name = parseName();
     parseLCurly();
-    parseStatementList();
+    std::vector<std::shared_ptr<StatementNode>> stmtList = parseStatementList();
     parseRCurly();
+
+    return make_shared<ProcedureNode>(name, stmtList);
 }
 
 std::string Parser::parseName() {
@@ -116,164 +117,201 @@ void Parser::parseFactorToken() {
     }
 }
 
-void Parser::parseStatementList() {
+std::vector<std::shared_ptr<StatementNode>> Parser::parseStatementList() {
     int oldStatementCount = statementCount;
 
+    std::vector<std::shared_ptr<StatementNode>> stmtList;
+
     while(tokenStack->hasNextToken() && tokenStack->peekNext().getTokenType() != TokenType::RCurlyToken) {
-        parseStatement();
+        std::shared_ptr<StatementNode> stmt = parseStatement();
+        stmtList.push_back(stmt);
     }
 
     if(oldStatementCount == statementCount){
         throw SyntaxErrorException();
     }
+
+    return stmtList;
 }
 
-void Parser::parseStatement() {
+std::shared_ptr<StatementNode> Parser::parseStatement() {
     if(!tokenStack->peekNext().isNonTerminal()) {
         throw SyntaxErrorException();
     }
 
     TokenType t = tokenStack->peekNext().getTokenType();
     //TODO check if the next variable is assign before parsing as the test cases might include variables that have keywords as the names
+    std::shared_ptr<StatementNode> stmt(nullptr);
+
     switch(t) {
         case TokenType::NameToken:
-            parseAssign();
+            stmt = std::move(parseAssign());
             break;
         case TokenType::IfToken:
-            parseIf();
+            stmt = std::move(parseIf());
             break;
         case TokenType::WhileToken:
-            parseWhile();
+            stmt = std::move(parseWhile());
             break;
         case TokenType::ReadToken:
-            parseRead();
+            stmt = std::move(parseRead());
             break;
         case TokenType::PrintToken:
-            parsePrint();
+            stmt = std::move(parsePrint());
             break;
         case TokenType::CallToken:
-            parseCall();
+            stmt = std::move(parseCall());
             break;
         default:
             throw SyntaxErrorException();
             break;
     }
     statementCount++;
+    return stmt;
 }
 
-void Parser::parseAssign() {
+std::shared_ptr<AssignNode> Parser::parseAssign() {
     string varAssigned = tokenStack->getNext().getTokenString();
     parseAssignToken();
-    parseExpression();
+    std::shared_ptr<TNode> expr = std::move(parseExpression());
     parseSemiColon();
+
+    return make_shared<AssignNode>(statementCount, varAssigned, expr);
 }
 
-void Parser::parseIf() {
+std::shared_ptr<IfNode> Parser::parseIf() {
     tokenStack->getNext(); //consume If Token.
+    int currentStmt = statementCount;
+
     parseLParen();
-    parseCond();
+    std::shared_ptr<TNode> cond = std::move(parseCond());
     parseRParen();
     parseThen();
     parseLCurly();
-    parseStatementList();
+    std::vector<std::shared_ptr<StatementNode>> ifStatementList = parseStatementList();
     parseRCurly();
     parseElse();
     parseLCurly();
-    parseStatementList();
+    std::vector<std::shared_ptr<StatementNode>> elseStatementList = parseStatementList();
     parseRCurly();
+
+    return make_shared<IfNode>(currentStmt, cond, ifStatementList, elseStatementList);
 }
 
-void Parser::parseCond() {
+std::shared_ptr<TNode> Parser::parseCond() {
     if(tokenStack->peekNext().getTokenType() == TokenType::CondToken
     && tokenStack->peekNext().getTokenString() == "!") {
         parseCondToken();
         parseLParen();
-        parseCond();
+        std::shared_ptr<TNode> cond = std::move(parseCond());
         parseRParen();
+        return TNode::createNOTConditionalExpression(statementCount, "!", cond);
     } else if (tokenStack->peekNext().getTokenType() == TokenType::LParenToken) {
         parseLParen();
-        parseCond();
+        std::shared_ptr<TNode> cond = std::move(parseCond());
         parseRParen();
+        string condToken = tokenStack->peekNext().getTokenString();
         parseCondToken();
         parseLParen();
-        parseCond();
+        std::shared_ptr<TNode> cond2 = std::move(parseCond());
         parseRParen();
+        return TNode::createConditionalExpression(statementCount, condToken, cond, cond2);
     } else {
-        parseRel();
+        return parseRel();
     }
 }
 
-void Parser::parseRel() {
-    parseRelFactor();
+std::shared_ptr<TNode> Parser::parseRel() {
+    std::shared_ptr<TNode> relFactor = std::move(parseRelFactor());
+    string relToken = tokenStack->peekNext().getTokenString();
     parseRelationToken();
-    parseRelFactor();
+    std::shared_ptr<TNode> relFactor2 = std::move(parseRelFactor());
+
+    return TNode::createRelationalExpression(statementCount, relToken, relFactor, relFactor2);
 }
 
-void Parser::parseRelFactor() {
+std::shared_ptr<TNode> Parser::parseRelFactor() {
     //TODO check if the variable is a non-terminal as the test case may include keyword as variable names
     if(tokenStack->peekNext().getTokenType() == TokenType::NameToken) {
-        parseName();
+        std::string name = parseName();
+        return TNode::createVariableName(statementCount, name);
     } else if (tokenStack->peekNext().getTokenType() == TokenType::ConstToken) {
-        parseConst();
+        std::string constant = parseConst();
+        return TNode::createConstantValue(statementCount, constant);
     } else {
-        parseExpression();
+        return parseExpression();
     }
 }
 
-void Parser::parseWhile() {
+std::shared_ptr<WhileNode> Parser::parseWhile() {
     tokenStack->getNext(); //consume While Token
     parseLParen();
-    parseCond();
+    std::shared_ptr<TNode> cond = std::move(parseCond());
     parseRParen();
     parseLCurly();
-    parseStatementList();
+    std::vector<std::shared_ptr<StatementNode>> statementList = parseStatementList();
     parseRCurly();
+
+    return make_shared<WhileNode>(statementCount, cond, statementList);
 }
 
-void Parser::parseRead() {
+std::shared_ptr<ReadNode> Parser::parseRead() {
     tokenStack->getNext(); //consume Read Token
     string varName = parseName();
     parseSemiColon();
+    return make_shared<ReadNode>(statementCount, varName);
 }
 
-void Parser::parsePrint() {
+std::shared_ptr<PrintNode> Parser::parsePrint() {
     tokenStack->getNext(); //consume Print Token
     string varName = parseName();
     parseSemiColon();
+    return make_shared<PrintNode>(statementCount, varName);
 }
 
-void Parser::parseCall() {
+std::shared_ptr<CallNode> Parser::parseCall() {
     tokenStack->getNext(); //consume Call Token
     string varName = parseName();
     parseSemiColon();
+    return make_shared<CallNode>(statementCount, varName);
 }
 
-void Parser::parseExpression() {
-    parseTerm();
+std::shared_ptr<TNode> Parser::parseExpression() {
+    std::shared_ptr<TNode> base = std::move(parseTerm());
     while(tokenStack->peekNext().getTokenType() == TokenType::OpToken) {
+        std::string operand = tokenStack->peekNext().getTokenString();
         parseOp();
-        parseTerm();
+        std::shared_ptr<TNode> term2 = std::move(parseTerm());
+        base = TNode::createTerm(statementCount, operand, base, term2);
     }
+    return base;
     //TODO check for bad syntax
 }
 
-void Parser::parseTerm() {
-    parseFactor();
+std::shared_ptr<TNode> Parser::parseTerm() {
+    std::shared_ptr<TNode> base = std::move(parseFactor());
     while(tokenStack->peekNext().getTokenType() == TokenType::FactorToken) {
+        std::string operand = tokenStack->peekNext().getTokenString();
         parseFactorToken();
-        parseFactor();
+        std::shared_ptr<TNode> factor2 = std::move(parseFactor());
+
+        base = TNode::createTerm(statementCount, operand, base, factor2);
     }
+    return base;
 }
 
-void Parser::parseFactor() {
+std::shared_ptr<TNode> Parser::parseFactor() {
     //TODO check if the variable is a non-terminal as the test case may include keyword as variable names
     if(tokenStack->peekNext().getTokenType() == TokenType::NameToken) {
-        parseName();
+        std::string name = parseName();
+        return TNode::createVariableName(statementCount, name);
     } else if (tokenStack->peekNext().getTokenType() == TokenType::ConstToken) {
-        parseConst();
+        std::string constant = parseConst();
+        return TNode::createConstantValue(statementCount, constant);
     } else {
         parseLParen();
-        parseExpression();
+        std::shared_ptr<TNode> expr = std::move(parseExpression());
         parseRParen();
+        return expr;
     }
 }

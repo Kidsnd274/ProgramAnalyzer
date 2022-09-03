@@ -1,3 +1,6 @@
+#ifndef SPA_UTIL_AST_TNODE_H
+#define SPA_UTIL_AST_TNODE_H
+
 #include <memory>
 #include <string>
 #include <utility>
@@ -50,3 +53,4 @@ public:
                                                              std::shared_ptr<TNode> leftNode,
                                                              std::shared_ptr<TNode> rightNode);
 };
+#endif
