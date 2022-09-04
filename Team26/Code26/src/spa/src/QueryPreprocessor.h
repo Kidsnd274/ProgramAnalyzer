@@ -1,14 +1,18 @@
-#include <utility>
-#include "Tokenizer.h"
-#include "QueryProcessorTypes.h"
-
 #ifndef SPA_QUERYPREPROCESSOR_H
 #define SPA_QUERYPREPROCESSOR_H
 
-#endif //SPA_QUERYPREPROCESSOR_H
+#include <utility>
+#include <map>
+#include <iostream>
+#include "QueryProcessorTypes.h"
+#include "QueryManager.h"
+#include "Tokenizer.h"
 
-namespace QueryPreprocessor{
-    std::pair<QueryProcessorTypes::EntityType, bool> mapEntity(Tokenization::Token token);
-    std::pair<QueryProcessorTypes::RelationType, bool> mapRelation(Tokenization::Token token);
-    void parseToken(std::vector<Tokenization::Token> tokens);
+namespace QPS {
+    std::pair<EntityType, bool> mapEntity(Token token);
+    std::pair<RelationType, bool> mapRelation(Token token);
+    void parseToken(std::vector<Token> &tokens, Container &container);
 }
+
+
+#endif //SPA_QUERYPREPROCESSOR_H

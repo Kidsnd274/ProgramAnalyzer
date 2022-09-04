@@ -4,12 +4,12 @@
 #include<string>
 #include<unordered_map>
 #include<vector>
-#include <map>
+#include<map>
 
-namespace QueryProcessorTypes {
-/*
- * Enum of the Design Entities in Program Query Language.
- */
+namespace QPS {
+    /*
+     * Enum of the Design Entities in Program Query Language.
+     */
     enum EntityType {
         STATEMENT,
         READ,
@@ -24,7 +24,7 @@ namespace QueryProcessorTypes {
         INVALID_ENTITY_TYPE
     };
 
-    std::map<std::string, EntityType> entityMap = {{"stmt",      STATEMENT},
+    const std::map<std::string, EntityType> entityMap = {{"stmt",      STATEMENT},
                                                    {"read",      READ},
                                                    {"print",     PRINT},
                                                    {"call",      CALL},
@@ -35,6 +35,9 @@ namespace QueryProcessorTypes {
                                                    {"constant",  CONSTANT},
                                                    {"procedure", PROCEDURE},
                                                    {"",          INVALID_ENTITY_TYPE}};
+
+    bool isEntity(const std::string&);
+
 
 /*
  * Enum of the Relation Types in Program Query Language.
@@ -49,13 +52,15 @@ namespace QueryProcessorTypes {
         INVALID_RELATION_TYPE
     };
 
-    std::map<std::string, RelationType> relationMap = {{"Follows",  FOLLOWS},
+    const std::map<std::string, RelationType> relationMap = {{"Follows",  FOLLOWS},
                                                        {"Follows*", FOLLOWS_T},
                                                        {"Parent",   PARENT},
                                                        {"Parent*",  PARENT_T},
                                                        {"Uses",     USES_S},
                                                        {"Modifies", MODIFIES_S},
                                                        {"",         INVALID_RELATION_TYPE}};
+
+    bool isRelation(std::string);
 
 /*
  * Enum of the Pattern Types in Program Query Language.
@@ -65,21 +70,22 @@ namespace QueryProcessorTypes {
         INVALID_PATTERN_TYPE
     };
 
-/*
- * Enum of the Evaluation Result Candidate Types
- */
+    /*
+     * Enum of the Evaluation Result Candidate Types
+     */
     enum CandidateType {
         STMT_NO,    // Select stmt | read | print | call | while | if | assign
         VAR_NAME,
         PROCEDURE_NAME,
         CONST_VALUE,
+        BOOLEAN,    // Select Boolean
         EMPTY_RESULT,   // No entities matching the query. Return empty result.
         SYNTACTICALLY_INVALID_QUERY // Return empty result.
     };
 
-/*
- * Enum of Argument Types in Relation or Pattern.
- */
+    /*
+     * Enum of Argument Types in Relation or Pattern.
+     */
     enum ArgumentType {
         STMT_SYNONYM,
         VAR_SYNONYM,
@@ -91,37 +97,54 @@ namespace QueryProcessorTypes {
         INVALID_ARGUMENT_TYPE
     };
 
-/*
- * The structure to represent a certain relation.
- */
+    /*
+     * The structure to represent an entity.
+     */
+    struct EntityStruct {
+        EntityType typeOfEntity;
+        std::string nameOfEntity;
+    };
+
+    struct ArgumentStruct {
+        ArgumentType typeOfArgument;
+        std::string nameOfArgument;
+    };
+    /*
+     * The structure to represent a certain relation.
+     */
     struct RelationStruct {
         RelationType typeOfRelation;
-        ArgumentType arg1;
-        ArgumentType arg2;
+        ArgumentStruct arg1;
+        ArgumentStruct arg2;
     };
 
 
-/*
- * The structure to represent a certain pattern.
- */
+    /*
+     * The structure to represent a certain pattern.
+     */
     struct PatternStruct {
         PatternType typeOfPattern;
-        ArgumentType arg1;
-        ArgumentType arg2;
+        ArgumentStruct arg1;
+        ArgumentStruct arg2;
     };
 
-/*
- * The structure to represent a certain candidate.
- */
+    /*
+     * The structure to represent a certain candidate.
+     */
     struct CandidateStruct {
         CandidateType typeOfCandidate;
-        std::string resultString;
+        EntityStruct entityOfCandidate;
     };
 
     typedef std::unordered_map<std::string, EntityType> DECLARED_SYNONYM_MAP;
     typedef std::vector<RelationStruct> SUCH_THAT_LIST;
     typedef std::vector<PatternStruct> PATTERN_LIST;
     typedef std::vector<CandidateStruct> CANDIDATE_LIST;
+
+    CandidateType mapEntityToCandidate(EntityType entityType);
+    std::string entityToString(EntityType entityType);
+    std::string candidateToString(CandidateType candidateType);
+
 
 }
 #endif // QUERYPROCESSORTYPES_H
