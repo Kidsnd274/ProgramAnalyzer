@@ -42,6 +42,35 @@ namespace QPS {
         WHITESPACE,
     };
 
+    const std::map<TokenType, std::string> tokenMap = {
+            { LBRACE, "LBRACE" },
+            { RBRACE, "RBRACE" },
+            { LPAREN, "LPAREN" },
+            { RPAREN, "RPAREN" },
+            { SEMICOLON, "SEMICOLON" },
+            { COMMA, "COMMA" },
+            { UNDERSCORE, "UNDERSCORE" },
+            { DOUBLE_QUOTE, "DOUBLE_QUOTE" },
+            { SINGLE_EQ, "SINGLE_EQ" },
+            { NOT, "NOT" },
+            { DOUBLE_AND, "DOUBLE_AND" },
+            { DOUBLE_OR, "DOUBLE_OR" },
+            { DOUBLE_EQ, "DOUBLE_EQ" },
+            { NOT_EQ, "NOT_EQ" },
+            { GT, "GT" },
+            { GTE, "GTE" },
+            { LT, "LT" },
+            { LTE, "LTE" },
+            { PLUS, "PLUS" },
+            { MINUS, "MINUS" },
+            { MULTIPLY, "MULTIPLY" },
+            { DIVIDE, "DIV" },
+            { MODULE, "MOD" },
+            { NAME, "NAME" },
+            { INTEGER, "INTEGER" },
+            { WHITESPACE, "WHITESPACE" },
+    };
+
     struct Token {
         TokenType tokenType;
         int lineNumber;
@@ -50,7 +79,7 @@ namespace QPS {
         int integerValue;
     };
 
-    std::vector<Token> tokenize(std::istream& string);
+    std::vector<Token> tokenize(std::istream& stream, std::vector<Token> &tokens);
     Token createToken(TokenType t, int lineNUmber, int inLinePosition, std::string nameValue, int integerValue);
     bool isSuchThat(Token token);
 }

@@ -2,35 +2,6 @@
 #include "QueryPreprocessor.h"
 
 namespace QPS {
-    std::map<TokenType, std::string> m = {
-            { LBRACE, "LBRACE" },
-            { RBRACE, "RBRACE" },
-            { LPAREN, "LPAREN" },
-            { RPAREN, "RPAREN" },
-            { SEMICOLON, "SEMICOLON" },
-            { COMMA, "COMMA" },
-            { UNDERSCORE, "UNDERSCORE" },
-            { DOUBLE_QUOTE, "DOUBLE_QUOTE" },
-            { SINGLE_EQ, "SINGLE_EQ" },
-            { NOT, "NOT" },
-            { DOUBLE_AND, "DOUBLE_AND" },
-            { DOUBLE_OR, "DOUBLE_OR" },
-            { DOUBLE_EQ, "DOUBLE_EQ" },
-            { NOT_EQ, "NOT_EQ" },
-            { GT, "GT" },
-            { GTE, "GTE" },
-            { LT, "LT" },
-            { LTE, "LTE" },
-            { PLUS, "PLUS" },
-            { MINUS, "MINUS" },
-            { MULTIPLY, "MULTIPLY" },
-            { DIVIDE, "DIV" },
-            { MODULE, "MOD" },
-            { NAME, "NAME" },
-            { INTEGER, "INTEGER" },
-            { WHITESPACE, "WHITESPACE" },
-    };
-
     std::vector<std::pair<TokenType, std::string>> matchingRules = {{ LBRACE, "^(\\{)" },
                                                                     { RBRACE, "^(\\})" },
                                                                     { LPAREN, "^(\\()" },
@@ -123,14 +94,14 @@ namespace QPS {
 } // Tokenization
 
 
-int main() {
-    std::vector<QPS::Token> tokens;
-    QPS::tokenize(std::cin, tokens);
-    for (QPS::Token t : tokens) {
-        std::string s = QPS::m.at(t.tokenType);
-        std::cout << s + " " << std::endl;
-    }
-
-    std::cout << "Start parsing query" << std::endl;
-    QPS::parseToken(tokens);
-}
+//int main() {
+//    std::vector<QPS::Token> tokens;
+//    QPS::tokenize(std::cin, tokens);
+//    for (QPS::Token t : tokens) {
+//        std::string s = QPS::tokenMap.at(t.tokenType);
+//        std::cout << s + " " << std::endl;
+//    }
+//
+//    std::cout << "Start parsing query" << std::endl;
+//    QPS::parseToken(tokens);
+//}

@@ -3,10 +3,11 @@
 
 #include "QueryProcessorTypes.h"
 #include "QueryStruct.h"
+
 namespace QPS {
     class BasicQueryEvaluator {
     public:
-        void evaluateQuery(QueryStruct);
+        void evaluateQuery(QueryStruct& query);
     };
 }
 

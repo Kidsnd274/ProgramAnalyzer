@@ -31,7 +31,9 @@ namespace QPS {
         ResultTable(){
             isInitialized = false;
             colNum = 0;
-            rowNum = 0;
+            rowNum = 1;
+            std::vector<std::string> emptyRow;
+            this->table.emplace_back(emptyRow);
         }
         ResultTable(const std::vector<std::string>& sNames, const std::unordered_set<std::vector<std::string>, StringVectorHash>& entries);
         bool deleteColFromTable(const std::string& sName);
