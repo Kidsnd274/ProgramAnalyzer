@@ -177,7 +177,7 @@ std::shared_ptr<AssignNode> Parser::parseAssign() {
     std::shared_ptr<TNode> expr = std::move(parseExpression());
     parseSemiColon();
 
-    return make_shared<AssignNode>(currStatement, varAssigned, expr);
+    return AssignNode::createAssignNode(currStatement, varAssigned, expr);
 }
 
 std::shared_ptr<IfNode> Parser::parseIf() {
@@ -196,7 +196,7 @@ std::shared_ptr<IfNode> Parser::parseIf() {
     std::vector<std::shared_ptr<StatementNode>> elseStatementList = parseStatementList();
     parseRCurly();
 
-    return make_shared<IfNode>(currStatement, cond, ifStatementList, elseStatementList);
+    return IfNode::createIfNode(currStatement, cond, ifStatementList, elseStatementList);
 }
 
 std::shared_ptr<TNode> Parser::parseCond() {
@@ -254,7 +254,7 @@ std::shared_ptr<WhileNode> Parser::parseWhile() {
     std::vector<std::shared_ptr<StatementNode>> statementList = parseStatementList();
     parseRCurly();
 
-    return make_shared<WhileNode>(currStatement, cond, statementList);
+    return WhileNode::createWhileNode(currStatement, cond, statementList);
 }
 
 std::shared_ptr<ReadNode> Parser::parseRead() {
@@ -262,7 +262,8 @@ std::shared_ptr<ReadNode> Parser::parseRead() {
     int currStatement = statementCount++;
     string varName = parseName();
     parseSemiColon();
-    return make_shared<ReadNode>(currStatement, varName);
+
+    return ReadNode::createReadNode(currStatement, varName);
 }
 
 std::shared_ptr<PrintNode> Parser::parsePrint() {
@@ -270,7 +271,8 @@ std::shared_ptr<PrintNode> Parser::parsePrint() {
     int currStatement = statementCount++;
     string varName = parseName();
     parseSemiColon();
-    return make_shared<PrintNode>(currStatement, varName);
+
+    return PrintNode::createPrintNode(currStatement, varName);
 }
 
 std::shared_ptr<CallNode> Parser::parseCall() {
@@ -278,7 +280,8 @@ std::shared_ptr<CallNode> Parser::parseCall() {
     int currStatement = statementCount++;
     string varName = parseName();
     parseSemiColon();
-    return make_shared<CallNode>(currStatement, varName);
+
+    return CallNode::createCallNode(currStatement, varName);
 }
 
 std::shared_ptr<TNode> Parser::parseExpression() {
