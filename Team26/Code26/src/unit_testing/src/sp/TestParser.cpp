@@ -62,6 +62,15 @@ TEST_CASE("Basic Parser Test with invalid program") {
     REQUIRE_THROWS(p.parseSimple());
 }
 
+// TODO need to implement a way to recursive compare StatementNodes/ProcedureNodes
+//TEST_CASE("Parse basic procedure") {
+//    Parser p(validSimpleTokens);
+//    std::shared_ptr<ProcedureNode> actual(nullptr);
+//    std::vector<std::shared_ptr<StatementNode>> stmtList = {std::make_shared<ReadNode>(1 , "x")};
+//    std::shared_ptr<ProcedureNode> expected = std::make_shared<ProcedureNode>("test", stmtList);
+//    REQUIRE_THROWS(actual = p.parseProcedure());
+//}
+
 TEST_CASE("Parse Assign") {
     std::vector<Token> v = {Token("x", TokenType::NameToken),
                             Token("=", TokenType::AssignToken),
