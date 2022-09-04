@@ -30,32 +30,40 @@ public:
 
     void parseSimple();
     std::shared_ptr<ProcedureNode> parseProcedure();
+
+    //Methods that return shared_ptr to StatementNode
     std::vector<std::shared_ptr<StatementNode>> parseStatementList();
     std::shared_ptr<StatementNode> parseStatement();
     std::shared_ptr<IfNode> parseIf();
+    std::shared_ptr<WhileNode> parseWhile();
     std::shared_ptr<AssignNode> parseAssign();
     std::shared_ptr<ReadNode> parseRead();
     std::shared_ptr<PrintNode> parsePrint();
     std::shared_ptr<CallNode> parseCall();
+
+    //Methods that return shared_ptr to TNode
     std::shared_ptr<TNode> parseCond();
+    std::shared_ptr<TNode> parseRelFactor();
     std::shared_ptr<TNode> parseRel();
+    std::shared_ptr<TNode> parseExpression();
+    std::shared_ptr<TNode> parseTerm();
+    std::shared_ptr<TNode> parseFactor();
+
+    //Methods that validates and returns the value of a token
     std::string parseName();
+    std::string parseConst();
+
+    //Methods that validates a token
     void parseLCurly();
     void parseRCurly();
     void parseLParen();
     void parseRParen();
-    std::shared_ptr<TNode> parseExpression();
-    std::shared_ptr<WhileNode> parseWhile();
     void parseAssignToken();
     void parseSemiColon();
     void parseThen();
     void parseElse();
     void parseCondToken();
-    std::shared_ptr<TNode> parseRelFactor();
     void parseRelationToken();
-    std::string parseConst();
-    std::shared_ptr<TNode> parseTerm();
-    std::shared_ptr<TNode> parseFactor();
     void parseOp();
     void parseFactorToken();
 };
