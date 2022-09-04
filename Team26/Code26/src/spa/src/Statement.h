@@ -10,18 +10,20 @@
 
 using namespace std;
 
-enum StmtType {
-    READ,
-    ASSIGN,
-    WHILE,
-    IF,
-    PRINT,
-    CALL
-};
+namespace StatementType {
+    enum StmtType {
+        READ,
+        ASSIGN,
+        WHILE,
+        IF,
+        PRINT,
+        CALL
+    };
+}
 
 class Statement {
 public:
-    StmtType type;
+    StatementType::StmtType type;
     int lineNumber;
 };
 
