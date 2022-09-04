@@ -102,7 +102,8 @@ TEST_CASE("Parse Expression") {
     SECTION("1 operator") {
         std::vector<Token> v = {Token("x", TokenType::NameToken),
                                 Token("+", TokenType::OpToken),
-                                Token("1", TokenType::ConstToken)};
+                                Token("1", TokenType::ConstToken),
+                                Token(";", TokenType::SemiColonToken)};
         Parser pr(v);
         std::shared_ptr<TNode> expected =
                 TNode::createTerm(1, "+", TNode::createVariableName(1, "x"), TNode::createConstantValue(1, "1"));
@@ -116,7 +117,8 @@ TEST_CASE("Parse Expression") {
                                 Token("+", TokenType::OpToken),
                                 Token("y", TokenType::NameToken),
                                 Token("*", TokenType::FactorToken),
-                                Token("3", TokenType::ConstToken)};
+                                Token("3", TokenType::ConstToken),
+                                Token(";", TokenType::SemiColonToken)};
         std::shared_ptr<TNode> expected =
                 TNode::createTerm(1, "+", TNode::createVariableName(1, "x"),
                                   TNode::createTerm(1, "*",TNode::createVariableName(1, "y"),
@@ -134,7 +136,8 @@ TEST_CASE("Parse Expression") {
                                 Token("+", TokenType::OpToken),
                                 Token("y", TokenType::NameToken),
                                 Token("/", TokenType::FactorToken),
-                                Token("3", TokenType::ConstToken)};
+                                Token("3", TokenType::ConstToken),
+                                Token(";", TokenType::SemiColonToken)};
         std::shared_ptr<TNode> expected =
                 TNode::createTerm(1, "+", TNode::createTerm(1, "*", TNode::createVariableName(1, "z"),
                                                             TNode::createVariableName(1, "x")),
@@ -153,7 +156,8 @@ TEST_CASE("Parse Expression") {
                                 Token("+", TokenType::OpToken),
                                 Token("y", TokenType::NameToken),
                                 Token("/", TokenType::FactorToken),
-                                Token("3", TokenType::ConstToken)};
+                                Token("3", TokenType::ConstToken),
+                                Token(";", TokenType::SemiColonToken)};
         std::shared_ptr<TNode> expected =
                 TNode::createTerm(1, "+", TNode::createTerm(1, "-", TNode::createVariableName(1, "z"),
                                                             TNode::createVariableName(1, "x")),
@@ -169,7 +173,8 @@ TEST_CASE("Parse Expression") {
 //        std::vector<Token> v = {Token("x", TokenType::NameToken),
 //                                Token("y", TokenType::NameToken),
 //                                Token("+", TokenType::OpToken),
-//                                Token("1", TokenType::ConstToken)};
+//                                Token("1", TokenType::ConstToken),
+//                                Token(";", TokenType::SemiColonToken)};
 //        Parser pr(v);
 //        REQUIRE_NOTHROW(pr.parseExpression());
 //    }
