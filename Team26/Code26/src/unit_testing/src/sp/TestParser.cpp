@@ -136,6 +136,25 @@ TEST_CASE("Parse Expression") {
         REQUIRE_NOTHROW(actual = pr.parseExpression());
         REQUIRE(TNode::isSameTree(expected, actual));
     }
+
+    SECTION("3 operators with minus") {
+        std::vector<Token> v = {Token("z", TokenType::NameToken),
+                                Token("-", TokenType::FactorToken),
+                                Token("x", TokenType::NameToken),
+                                Token("+", TokenType::OpToken),
+                                Token("y", TokenType::NameToken),
+                                Token("/", TokenType::FactorToken),
+                                Token("3", TokenType::ConstToken)};
+        std::shared_ptr<TNode> expected =
+                TNode::createTerm(1, "+", TNode::createTerm(1, "-", TNode::createVariableName(1, "z"),
+                                                            TNode::createVariableName(1, "x")),
+                                  TNode::createTerm(1, "/",TNode::createVariableName(1, "y"),
+                                                    TNode::createConstantValue(1, "3")));
+        std::shared_ptr<TNode> actual(nullptr);
+        Parser pr(v);
+        REQUIRE_NOTHROW(actual = pr.parseExpression());
+        REQUIRE(TNode::isSameTree(expected, actual));
+    }
     //TODO this test case is broken... should not accept this
 //    SECTION("1 operator but invalid") {
 //        std::vector<Token> v = {Token("x", TokenType::NameToken),
