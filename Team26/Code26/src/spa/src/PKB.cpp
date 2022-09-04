@@ -3,9 +3,6 @@
 #include <string>
 #include <vector>
 
-using namespace std;
-//using namespace StatementType;
-
 #include "PKB.h"
 #include "TNode.h"
 #include "VarTable.h"
@@ -14,6 +11,9 @@ using namespace std;
 #include "StatementTable.h"
 #include "PKBParserInterface.h"
 #include "PKBQueryInterface.h"
+
+using namespace std;
+//using namespace StatementType;
 
 ProcedureTable* PKB::procedureTable = new ProcedureTable();
 VarTable* PKB::varTable = new VarTable();
@@ -48,42 +48,42 @@ void PKBParserInterface::addConst(int value){
 
 void PKBParserInterface::addReadStatement(int statementNumber) {
     Statement stmt;
-    stmt.type = StmtType->READ;
+    stmt.type = StatementType::READ;
     stmt.lineNumber = statementNumber;
     PKB::statementTable->insertStmt(stmt);
 }
 
 void PKBParserInterface::addAssignStatement(int statementNumber) {
     Statement stmt;
-    stmt.type = StmtType->ASSIGN;
+    stmt.type = StatementType::ASSIGN;
     stmt.lineNumber = statementNumber;
     PKB::statementTable->insertStmt(stmt);
 }
 
 void PKBParserInterface::addWhileStatement(int statementNumber) {
     Statement stmt;
-    stmt.type = StmtType->WHILE;
+    stmt.type = StatementType::WHILE;
     stmt.lineNumber = statementNumber;
     PKB::statementTable->insertStmt(stmt);
 }
 
 void PKBParserInterface::addIfStatement(int statementNumber) {
     Statement stmt;
-    stmt.type = StmtType->IF;
+    stmt.type = StatementType::IF;
     stmt.lineNumber = statementNumber;
     PKB::statementTable->insertStmt(stmt);
 }
 
 void PKBParserInterface::addPrintStatement(int statementNumber) {
     Statement stmt;
-    stmt.type = StmtType->PRINT;
+    stmt.type = StatementType::PRINT;
     stmt.lineNumber = statementNumber;
     PKB::statementTable->insertStmt(stmt);
 }
 
-vector<string> getAllEntity(EntityType) {
+vector<string> getAllEntity(EntityType type) {
     vector<string> result;
-    switch(EntityType) {
+    switch(type) {
         case STATEMENT:
             result = PKB::statementTable->getAllStmts();
             break;

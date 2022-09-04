@@ -14,5 +14,5 @@ typedef short PROC;
 class PKBQueryInterface {
 public:
 	//static bool getModifies (/* Stmt stmtlineno, Var var */);
-    vector<string> getAllEntity(EntityType);
+    vector<string> getAllEntity(EntityType type);
 };
