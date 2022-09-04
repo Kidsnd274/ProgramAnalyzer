@@ -62,17 +62,18 @@ namespace QPS {
         std::vector<std::string> splitResult;
         std::string currLine;
         while (std::getline(stream, currLine)) {
-            std::cout << currLine;
             splitResult.push_back(currLine);
+//            std::cout << currLine << std::endl;
         }
+//        for (std::string s : splitResult) {
+//            std::cout << s << std::endl;
+//        }
         return splitResult;
     }
 
-    Token createToken(TokenType t, int lineNUmber, int inLinePosition, std::string nameValue, int integerValue) {
+    Token createToken(TokenType t, std::string nameValue, int integerValue) {
         Token token{};
         token.tokenType = t;
-        token.lineNumber = lineNUmber;
-        token.inLinePosition = inLinePosition;
         token.nameValue = std::move(nameValue);
         token.integerValue = integerValue;
         return token;
@@ -81,9 +82,7 @@ namespace QPS {
     std::vector<Token> tokenize(std::istream& stream, std::vector<Token> &tokens) {
         std::vector<Token> tokenizedResult;
 //        std::vector<std::string> splitString = splitToLines(stream);
-        std::vector<std::string> splitString = {"variable v1 v2 Select v1"};
-
-        int lineNumber = 0;
+        std::vector<std::string> splitString = {"variable v1, v2,  v3;",  "Select v3"};
         for (std::string s : splitString) {
             std::smatch match;
             int length = s.size();
@@ -93,20 +92,18 @@ namespace QPS {
                 for (const std::pair<TokenType, std::string>& pair : matchingRules) {
                     if (std::regex_search(s, match, std::regex(pair.second))) {
                         isMatched = true;
-                        int pos = length - s.size();
                         Token t;
                         if (pair.first == NAME) {
-                            t = createToken(NAME, lineNumber, pos, match.str(), 0);
+                            t = createToken(NAME, match.str(), 0);
                             tokenizedResult.push_back(t);
                         } else if (pair.first == INTEGER) {
-                           t = createToken(INTEGER, lineNumber, pos, "", std::stoi(match.str()));
+                           t = createToken(INTEGER, "", std::stoi(match.str()));
                             tokenizedResult.push_back(t);
                         } else if (pair.first == WHITESPACE){
                         } else {
-                            t = createToken(pair.first, lineNumber, pos, "", 0);
+                            t = createToken(pair.first, "", 0);
                             tokenizedResult.push_back(t);
                         }
-
                         s = s.substr(match.str().size());
                     }
 
@@ -115,7 +112,6 @@ namespace QPS {
                     std::cout << "syntax error";
                 }
             }
-            lineNumber++;
         }
         std::copy(tokenizedResult.begin(), tokenizedResult.end(), std::back_inserter(tokens));
         return tokenizedResult;

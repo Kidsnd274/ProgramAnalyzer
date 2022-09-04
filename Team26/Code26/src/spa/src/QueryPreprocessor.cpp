@@ -2,13 +2,23 @@
 
 
 namespace QPS {
+    enum Status{
+        INITIALIZED,
+        START_PARSE_DECLARATION,
+        FINISH_PARSE_DECLARATION,
+        START_PARSE_SELECT,
+        FINISH_PARSE_SELECT
+    };
+
     class Container {
     private:
         std::vector<QPS::Token> tokens;
         QueryStruct queryStruct;
+        Status status;
 
     public:
         Container() = default;
+
         explicit Container(std::vector<QPS::Token>& tokens) {
             DECLARED_SYNONYM_MAP declaredSynonymMap;
             SUCH_THAT_LIST suchThatList;
@@ -16,6 +26,15 @@ namespace QPS {
             PATTERN_LIST patternList;
             this->tokens = tokens;
             this->queryStruct = QueryStruct(declaredSynonymMap, suchThatList, patternList, candidateList);
+            this->status = INITIALIZED;
+        }
+
+        Status getStatus() {
+            return this->status;
+        }
+
+        void setStatus(Status status1) {
+            this->status = status1;
         }
 
         void addDeclaration(EntityType entityType, std::string s) {
@@ -53,6 +72,7 @@ namespace QPS {
     void parseToken(std::vector<QPS::Token> &tokens) {
         Container container = Container(tokens);
         int tokenPos = 0;
+        container.setStatus(START_PARSE_DECLARATION);
         while (tokenPos < tokens.size()) {
             QPS::Token curr = tokens[tokenPos];
             std::pair<EntityType, bool> entityMappingResult = mapEntity(curr);
@@ -105,11 +125,13 @@ namespace QPS {
                 }
 
             } else if (curr.tokenType == QPS::NAME && curr.nameValue == "Select") {
+                container.setStatus(START_PARSE_SELECT);
                 std::pair<int, bool> result = parseSelect(tokens, tokenPos, container);
                 if (result.second) {
                     tokenPos = result.first - 1;
                 }
-            } else {
+                container.setStatus(FINISH_PARSE_SELECT);
+            }  else {
                 // Invalid entity
 
             }
@@ -134,25 +156,20 @@ namespace QPS {
                                           Container &container) {
         std::vector<std::string> entityNames;
         std::cout << "parse declaration: " << tokens[pos].nameValue << std::endl;
-        while (pos < tokens.size() && !isEntity(tokens[pos].nameValue) && tokens[pos].nameValue != "Select") {
+        while (pos < tokens.size() && tokens[pos].tokenType != QPS::SEMICOLON) {
             QPS::Token curr = tokens[pos];
-            if (curr.tokenType == QPS::WHITESPACE) {
-                pos++;
-                continue;
-            }
-            if (curr.tokenType == QPS::NAME) {
+            if (curr.tokenType == QPS::COMMA) {
+                std::cout << "comma" <<std::endl;
+            } else if (curr.tokenType == QPS::NAME) {
                 std::cout << "parse declaration: name" << std::endl;
                 container.addDeclaration(entityType, curr.nameValue);
-                pos++;
             } else {
                 return {pos, false};
             }
-
+            pos++;
         }
 
-        if (tokens[pos].nameValue == "Select") {
-            return {pos, true};
-        } else if (pos >= tokens.size()) {
+        if (pos >= tokens.size()) {
             return {-1, false};
         } else {
             return {pos, true};
