@@ -96,6 +96,13 @@ namespace QPS {
                 return "invalid";
             }
 
+            case PROCEDURE_NAME: {
+                return "procedure";
+            }
+
+            case BOOLEAN: {
+                return "bool";
+            }
         }
     }
 }
