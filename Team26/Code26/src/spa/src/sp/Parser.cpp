@@ -166,22 +166,23 @@ std::shared_ptr<StatementNode> Parser::parseStatement() {
             throw SyntaxErrorException();
             break;
     }
-    statementCount++;
+
     return stmt;
 }
 
 std::shared_ptr<AssignNode> Parser::parseAssign() {
+    int currStatement = statementCount++;
     string varAssigned = tokenStack->getNext().getTokenString();
     parseAssignToken();
     std::shared_ptr<TNode> expr = std::move(parseExpression());
     parseSemiColon();
 
-    return make_shared<AssignNode>(statementCount, varAssigned, expr);
+    return make_shared<AssignNode>(currStatement, varAssigned, expr);
 }
 
 std::shared_ptr<IfNode> Parser::parseIf() {
     tokenStack->getNext(); //consume If Token.
-    int currentStmt = statementCount;
+    int currStatement = statementCount++;
 
     parseLParen();
     std::shared_ptr<TNode> cond = std::move(parseCond());
@@ -195,7 +196,7 @@ std::shared_ptr<IfNode> Parser::parseIf() {
     std::vector<std::shared_ptr<StatementNode>> elseStatementList = parseStatementList();
     parseRCurly();
 
-    return make_shared<IfNode>(currentStmt, cond, ifStatementList, elseStatementList);
+    return make_shared<IfNode>(currStatement, cond, ifStatementList, elseStatementList);
 }
 
 std::shared_ptr<TNode> Parser::parseCond() {
@@ -245,6 +246,7 @@ std::shared_ptr<TNode> Parser::parseRelFactor() {
 
 std::shared_ptr<WhileNode> Parser::parseWhile() {
     tokenStack->getNext(); //consume While Token
+    int currStatement = statementCount++;
     parseLParen();
     std::shared_ptr<TNode> cond = std::move(parseCond());
     parseRParen();
@@ -252,28 +254,31 @@ std::shared_ptr<WhileNode> Parser::parseWhile() {
     std::vector<std::shared_ptr<StatementNode>> statementList = parseStatementList();
     parseRCurly();
 
-    return make_shared<WhileNode>(statementCount, cond, statementList);
+    return make_shared<WhileNode>(currStatement, cond, statementList);
 }
 
 std::shared_ptr<ReadNode> Parser::parseRead() {
     tokenStack->getNext(); //consume Read Token
+    int currStatement = statementCount++;
     string varName = parseName();
     parseSemiColon();
-    return make_shared<ReadNode>(statementCount, varName);
+    return make_shared<ReadNode>(currStatement, varName);
 }
 
 std::shared_ptr<PrintNode> Parser::parsePrint() {
     tokenStack->getNext(); //consume Print Token
+    int currStatement = statementCount++;
     string varName = parseName();
     parseSemiColon();
-    return make_shared<PrintNode>(statementCount, varName);
+    return make_shared<PrintNode>(currStatement, varName);
 }
 
 std::shared_ptr<CallNode> Parser::parseCall() {
     tokenStack->getNext(); //consume Call Token
+    int currStatement = statementCount++;
     string varName = parseName();
     parseSemiColon();
-    return make_shared<CallNode>(statementCount, varName);
+    return make_shared<CallNode>(currStatement, varName);
 }
 
 std::shared_ptr<TNode> Parser::parseExpression() {
@@ -285,7 +290,7 @@ std::shared_ptr<TNode> Parser::parseExpression() {
         base = TNode::createTerm(statementCount, operand, base, term2);
     }
     return base;
-    //TODO check for bad syntax
+    //TODO check for bad syntax: name, name
 }
 
 std::shared_ptr<TNode> Parser::parseTerm() {
