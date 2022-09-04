@@ -92,7 +92,8 @@ TEST_CASE("Parse Expression") {
     SECTION("1 operator") {
         std::vector<Token> v = {Token("x", TokenType::NameToken),
                                 Token("+", TokenType::OpToken),
-                                Token("1", TokenType::ConstToken)};
+                                Token("1", TokenType::ConstToken),
+                                Token(";", TokenType::SemiColonToken)};
         Parser pr(v);
         REQUIRE_NOTHROW(pr.parseExpression());
     }
@@ -102,7 +103,8 @@ TEST_CASE("Parse Expression") {
                                 Token("+", TokenType::OpToken),
                                 Token("y", TokenType::NameToken),
                                 Token("*", TokenType::FactorToken),
-                                Token("3", TokenType::ConstToken)};
+                                Token("3", TokenType::ConstToken),
+                                Token(";", TokenType::SemiColonToken)};
         Parser pr(v);
         REQUIRE_NOTHROW(pr.parseExpression());
     }
