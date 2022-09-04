@@ -1,11 +1,7 @@
-#include <iostream>
-#include <string>
-#include <map>
-#include <regex>
-#include <utility>
 #include "Tokenizer.h"
+#include "QueryPreprocessor.h"
 
-namespace Tokenization {
+namespace QPS {
     std::map<TokenType, std::string> m = {
             { LBRACE, "LBRACE" },
             { RBRACE, "RBRACE" },
@@ -82,10 +78,10 @@ namespace Tokenization {
         return token;
     }
 
-    std::vector<Token> tokenize(std::istream& stream) {
+    std::vector<Token> tokenize(std::istream& stream, std::vector<Token> &tokens) {
         std::vector<Token> tokenizedResult;
 //        std::vector<std::string> splitString = splitToLines(stream);
-        std::vector<std::string> splitString = {"select v such that uses(a, v) 223 _ 3 <= >=", "hhhh"};
+        std::vector<std::string> splitString = {"variable v1 v2 Select v1"};
 
         int lineNumber = 0;
         for (std::string s : splitString) {
@@ -101,12 +97,16 @@ namespace Tokenization {
                         Token t;
                         if (pair.first == NAME) {
                             t = createToken(NAME, lineNumber, pos, match.str(), 0);
+                            tokenizedResult.push_back(t);
                         } else if (pair.first == INTEGER) {
                            t = createToken(INTEGER, lineNumber, pos, "", std::stoi(match.str()));
+                            tokenizedResult.push_back(t);
+                        } else if (pair.first == WHITESPACE){
                         } else {
                             t = createToken(pair.first, lineNumber, pos, "", 0);
+                            tokenizedResult.push_back(t);
                         }
-                        tokenizedResult.push_back(t);
+
                         s = s.substr(match.str().size());
                     }
 
@@ -117,15 +117,24 @@ namespace Tokenization {
             }
             lineNumber++;
         }
+        std::copy(tokenizedResult.begin(), tokenizedResult.end(), std::back_inserter(tokens));
         return tokenizedResult;
+    }
 
+    bool isSuchThat(Token token) {
+        return token.nameValue == "Such";
     }
 } // Tokenization
 
+
 int main() {
-    std::vector<Tokenization::Token> tokens = Tokenization::tokenize(std::cin);
-    for (Tokenization::Token t : tokens) {
-        std::string s = Tokenization::m.at(t.tokenType);
-        std::cout << s + " ";
+    std::vector<QPS::Token> tokens;
+    QPS::tokenize(std::cin, tokens);
+    for (QPS::Token t : tokens) {
+        std::string s = QPS::m.at(t.tokenType);
+        std::cout << s + " " << std::endl;
     }
+
+    std::cout << "Start parsing query" << std::endl;
+    QPS::parseToken(tokens);
 }

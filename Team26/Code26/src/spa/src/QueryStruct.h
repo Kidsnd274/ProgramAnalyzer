@@ -2,42 +2,86 @@
 #define QUERYSTRUCT_H
 
 #include "QueryProcessorTypes.h"
+#include "ResultTable.h"
 #include<string>
+#include <utility>
+#include<vector>
+#include<map>
+#include <iostream>
+
 
 /*
  * The data structure to represent the input query string.
  * After parsing, all information about the query will be stored in this QueryStruct data structure.
  */
-class QueryStruct {
-private:
-    QueryProcessorTypes::DECLARED_SYNONYM_MAP declaredSynonymMap;
-    QueryProcessorTypes::SUCH_THAT_LIST suchThatList;
-    QueryProcessorTypes::PATTERN_LIST patternList;
-    QueryProcessorTypes::CANDIDATE_LIST candidateList;
+namespace QPS {
+    enum QueryStatus {
+        EVALUATION_NOT_STARTED,
+        EVALUATION_COMPLETED,
+        EVALUATION_ERROR
+    };
+
+    class QueryStruct {
+    private:
+        DECLARED_SYNONYM_MAP declaredSynonymMap;
+        SUCH_THAT_LIST suchThatList;
+        PATTERN_LIST patternList;
+        CANDIDATE_LIST candidateList;
+
+    public:
+        QueryStatus queryStatus;
+        ResultTable resultTable;
+
+    public:
+        QueryStruct(DECLARED_SYNONYM_MAP &declaredSynonymMap,
+                    SUCH_THAT_LIST &suchThatList,
+                    PATTERN_LIST &patternList,
+                    CANDIDATE_LIST &candidateList);
+
+        QueryStruct(DECLARED_SYNONYM_MAP &declaredSynonymMap,
+                    SUCH_THAT_LIST &suchThatList,
+                    CANDIDATE_LIST &candidateList);
+
+        QueryStruct(DECLARED_SYNONYM_MAP &declaredSynonymMap,
+                    PATTERN_LIST &patternList,
+                    CANDIDATE_LIST &candidateList);
+
+        QueryStruct();
+
+        DECLARED_SYNONYM_MAP getDeclaredSynonymMap();
+
+        SUCH_THAT_LIST getSuchThatList();
+
+        PATTERN_LIST getPatternList();
+
+        CANDIDATE_LIST getCandidateList();
 
 
-public:
-    QueryStruct() = default;
-    QueryStruct(QueryProcessorTypes::DECLARED_SYNONYM_MAP& declaredSynonymMap,
-                QueryProcessorTypes::SUCH_THAT_LIST& suchThatList,
-                QueryProcessorTypes::PATTERN_LIST& patternList,
-                QueryProcessorTypes::CANDIDATE_LIST& candidateList);
+        void addCandidateList(CandidateType typeOfCandidate, std::string s,
+                              EntityType entityType) {
+            EntityStruct entityStruct = {entityType, s};
+            CandidateStruct candidateStruct = {typeOfCandidate, entityStruct};
+            this->candidateList.push_back(candidateStruct);
+        }
 
-    QueryStruct(QueryProcessorTypes::DECLARED_SYNONYM_MAP& declaredSynonymMap,
-                QueryProcessorTypes::SUCH_THAT_LIST& suchThatList,
-                QueryProcessorTypes::CANDIDATE_LIST& candidateList);
+        EntityType getDeclaration(std::string s) {
+            if (this->declaredSynonymMap.find(s) == this->declaredSynonymMap.end()) {
+                // not found
+                return INVALID_ENTITY_TYPE;
+            } else {
+                // found
+                auto entityType = this->declaredSynonymMap.find(s);
+                return entityType->second;
+            }
+        }
 
-    QueryStruct(QueryProcessorTypes::DECLARED_SYNONYM_MAP& declaredSynonymMap,
-                QueryProcessorTypes::PATTERN_LIST& patternList,
-                QueryProcessorTypes::CANDIDATE_LIST& candidateList);
+        void addSynonym(EntityType, std::string nameOfEntity);
 
-    QueryProcessorTypes::DECLARED_SYNONYM_MAP getDeclaredSynonymMap();
-    QueryProcessorTypes::SUCH_THAT_LIST getSuchThatList();
-    QueryProcessorTypes::PATTERN_LIST getPatternList();
-    QueryProcessorTypes::CANDIDATE_LIST getCandidateList();
+        void addSuchThatClause(RelationStruct relationToAdd);
 
-    void addSuchThatClause(QueryProcessorTypes::RelationStruct relationToAdd);
-    void addPatternClause(QueryProcessorTypes::PatternStruct patternToAdd);
-};
+        void addPatternClause(PatternStruct patternToAdd);
 
+        void addCandidate(CandidateStruct);
+    };
+}
 #endif // QUERYSTRUCT_H
