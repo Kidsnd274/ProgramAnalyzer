@@ -1,6 +1,7 @@
 #pragma  once
 #include <vector>
 #include "Token.h"
+#include "EndOfFileException.h"
 
 class TokenStack {
 private:

@@ -2,7 +2,7 @@
 
 Token TokenStack::getNext() {
     if(!hasNextToken()) {
-        //throw EndOfFileException
+        throw EndOfFileException();
     }
 
     return tokenStack[tokenPointer++];
@@ -13,7 +13,7 @@ bool TokenStack::hasNextToken() {
 }
 Token TokenStack::peekNext() {
     if(!hasNextToken()) {
-        //throw EndOfFileException
+        throw EndOfFileException();
     }
 
     return tokenStack[tokenPointer];
