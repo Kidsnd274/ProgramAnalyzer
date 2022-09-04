@@ -5,8 +5,8 @@
 #include "ResultTable.h"
 #include<string>
 #include <utility>
-#include<vector>
-#include<map>
+#include <vector>
+#include <map>
 #include <iostream>
 
 

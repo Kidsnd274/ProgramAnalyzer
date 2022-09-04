@@ -164,11 +164,11 @@ namespace QPS {
                     relation.arg1.typeOfArgument,
                     row.at(this->synonymColRef.find(relation.arg1.nameOfArgument)->second)
             };
-            if (PKB.existRelation(realRelation)) { // TODO: Add method to PKB-QPS API.
-                continue;
-            } else {
-                return false;
-            }
+//            if (PKB.existRelation(realRelation)) {
+//                continue;
+//            } else {
+//                return false;
+//            }
         }
         return true;
     }
