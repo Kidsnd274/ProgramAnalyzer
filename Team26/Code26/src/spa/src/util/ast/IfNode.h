@@ -21,4 +21,9 @@ public:
     std::shared_ptr<TNode> getConditionalExpression();
     std::vector<std::shared_ptr<StatementNode>> getIfStatementList();
     std::vector<std::shared_ptr<StatementNode>> getElseStatementList();
+
+    static std::shared_ptr<IfNode> createIfNode(int statementNumber, std::shared_ptr<TNode> conditionalExpression,
+                                                std::vector<std::shared_ptr<StatementNode>> ifStatementList,
+                                                std::vector<std::shared_ptr<StatementNode>> elseStatementList);
+
 };

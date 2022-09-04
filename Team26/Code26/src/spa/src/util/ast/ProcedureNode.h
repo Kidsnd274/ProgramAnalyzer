@@ -17,4 +17,7 @@ public:
 
     std::string getProcedureName();
     std::vector<std::shared_ptr<StatementNode>> getStatementList();
+
+    static std::shared_ptr<ProcedureNode> createProcedureNode(std::string procedureName,
+                                                              std::vector<std::shared_ptr<StatementNode>> statementList);
 };

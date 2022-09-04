@@ -1,3 +1,4 @@
+#include <memory>
 #include <string>
 #include "StatementNode.h"
 
@@ -10,4 +11,6 @@ public:
     }
 
     std::string getProcedureName();
+
+    static std::shared_ptr<CallNode> createCallNode(int statementNumber, std::string procedureName);
 };

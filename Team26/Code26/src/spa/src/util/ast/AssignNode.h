@@ -16,4 +16,7 @@ public:
 
     std::string getVariableName();
     std::shared_ptr<TNode> getExpression();
+
+    static std::shared_ptr<AssignNode> createAssignNode(int statementNumber, std::string variableName,
+                                                        std::shared_ptr<TNode> expression);
 };

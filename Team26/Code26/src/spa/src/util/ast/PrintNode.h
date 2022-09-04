@@ -1,3 +1,4 @@
+#include <memory>
 #include <string>
 #include "StatementNode.h"
 
@@ -10,4 +11,6 @@ public:
     }
 
     std::string getVariableName();
+
+    static std::shared_ptr<PrintNode> createPrintNode(int statementNumber, std::string variableName);
 };
