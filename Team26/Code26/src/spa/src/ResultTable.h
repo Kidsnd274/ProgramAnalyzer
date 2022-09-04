@@ -36,10 +36,16 @@ namespace QPS {
         ResultTable(const std::vector<std::string>& sNames, const std::unordered_set<std::vector<std::string>, StringVectorHash>& entries);
         bool deleteColFromTable(const std::string& sName);
         void deleteRowFromTable(const int row);
-        bool isSynonymPresent(const std::string& sName);
+        bool isSynonymPresent(const std::string& sName) const;
         bool getSynonymValue(const std::string& sName, std::vector<std::string>& values);
         bool getSynonymsValues(const std::vector<std::string>& sNames, std::unordered_set<std::vector<std::string>, StringVectorHash>& values);
-
+        void mergeTable(const ResultTable& otherTable);
+        void compareTableSynonyms(const ResultTable& otherTable, std::vector<std::string>& commonSynonyms, std::vector<int>& otherUniqueCols, std::vector<int>& otherCommonCols, std::vector<int>& thisCommonCols, std::vector<std::string> &otherUniqueSynonyms);
+        void mergeWithoutSameSynonym(const ResultTable &otherTable, const std::vector<int>& otherUniqueCols);
+        void updateSynonymColRef(const std::vector<std::string> &otherUniqueSynonyms);
+        void commonSynonymValueSet(const std::vector<int> &commonSynonymCols, std::unordered_map<std::vector<std::string>, std::vector<int>, StringVectorHash> &resultSet);
+        void mergeWithSameSynonyms(std::unordered_map<std::vector<std::string>, std::vector<int>, StringVectorHash> &resultSet, const ResultTable& otherTable, std::vector<int>& otherUniqueCols, std::vector<int>& otherCommonCols);
+        void deleteDuplicateRows();
         /**
          * Add a new column to the result table. This new column is all the entities of a new synonym.
          * This method will take the cartesian product of set A and B, where set A is the set of original rows and
@@ -70,6 +76,7 @@ namespace QPS {
         //for debug purpose
         void printTable();
         void printStringVector(std::vector<std::string> v);
+        void printIntVector(std::vector<int> v);
     };
 
     void suspendExecution(const std::string& errorMsg);
