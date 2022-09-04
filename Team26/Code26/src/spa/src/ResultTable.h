@@ -76,6 +76,7 @@ namespace QPS {
         //for debug purpose
         void printTable();
         void printStringVector(std::vector<std::string> v);
+        void printIntVector(std::vector<int> v);
     };
 
     void suspendExecution(const std::string& errorMsg);
