@@ -277,9 +277,9 @@ namespace QPS {
     }
 
     void ResultTable::addColumnAndMerge(std::string nameOfSynonym, std::vector<std::string> entities) {
-        this->colNum++;
         this->rowNum = this->rowNum * entities.size();
         this->synonymColRef.insert(std::make_pair(nameOfSynonym, colNum));
+        this->colNum++;
         std::vector<std::vector<std::string>> newTable;
         for (auto iter1 = this->table.begin(); iter1 != this->table.end(); iter1++) { // iter1: row of original table
             for (auto iter2 = entities.begin(); iter2 != entities.end(); iter2++) { // iter2: row of new column
@@ -316,6 +316,14 @@ namespace QPS {
 //            }
         }
         return true;
+    }
+
+    std::vector<std::vector<std::string>> ResultTable::getTable() {
+        return this->table;
+    }
+
+    std::unordered_map<std::string, int> ResultTable::getSynonymColRef() {
+        return this->synonymColRef;
     }
 }
 //

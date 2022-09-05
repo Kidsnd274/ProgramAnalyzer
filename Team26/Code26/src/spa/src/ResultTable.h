@@ -77,6 +77,8 @@ namespace QPS {
         bool followsRelation(std::vector<std::string>& row, SUCH_THAT_LIST suchThatList);
         //for debug purpose
         void printTable();
+        std::vector<std::vector<std::string>> getTable();
+        std::unordered_map<std::string, int> getSynonymColRef();
         void printStringVector(std::vector<std::string> v);
         void printIntVector(std::vector<int> v);
     };

@@ -6,6 +6,7 @@
 #include "QueryResultProjector.h"
 #include <vector>
 #include <iostream>
+#include <cstdio>
 
 namespace QPS {
     void QueryManager::handleQuery() {
@@ -19,7 +20,11 @@ namespace QPS {
         basicQueryEvaluator.evaluateQuery(query); // Call basicQueryEvaluator to evaluate the query. Store the result in query.resultTable.
 
         QPS::QueryResultProjector queryResultProjector = QPS::QueryResultProjector();
-        queryResultProjector.projectResult(query); // Call queryResultProjector to format and print out the query result.
+//        queryResultProjector.projectResult(query); // Call queryResultProjector to format and print out the query result.
+        std::cout << queryResultProjector.getSelectTuples(query) << std::endl;
+        // for test only
+//        puts("\nPrint Result Table:");
+//        query.resultTable.printTable();
     }
 }
 
