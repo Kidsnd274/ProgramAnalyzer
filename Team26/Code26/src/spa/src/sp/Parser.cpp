@@ -3,7 +3,6 @@
 
 void Parser::parseSimple() {
     int numOfProcedures = 0;
-
     while(tokenStack->hasNextToken()) {
         if (tokenStack->getNext().getTokenType() == TokenType::ProcedureToken) {
             parseProcedure();
@@ -19,11 +18,12 @@ void Parser::parseSimple() {
 }
 
 std::shared_ptr<ProcedureNode> Parser::parseProcedure() {
+    int currStatement = statementCount;
     std::string name = parseName();
     parseLCurly();
     std::vector<std::shared_ptr<StatementNode>> stmtList = parseStatementList();
     parseRCurly();
-
+    pkbInterface.addProcedure(name, currStatement, statementCount);
     return make_shared<ProcedureNode>(name, stmtList);
 }
 
@@ -173,9 +173,11 @@ std::shared_ptr<StatementNode> Parser::parseStatement() {
 std::shared_ptr<AssignNode> Parser::parseAssign() {
     int currStatement = statementCount++;
     string varAssigned = tokenStack->getNext().getTokenString();
+    pkbInterface->addVariable(varAssigned);
     parseAssignToken();
     std::shared_ptr<TNode> expr = std::move(parseExpression());
     parseSemiColon();
+    pkbInterface->addAssignStatement(currStatement);
 
     return AssignNode::createAssignNode(currStatement, varAssigned, expr);
 }
@@ -195,6 +197,8 @@ std::shared_ptr<IfNode> Parser::parseIf() {
     parseLCurly();
     std::vector<std::shared_ptr<StatementNode>> elseStatementList = parseStatementList();
     parseRCurly();
+
+    pkbInterface->addIfStatement(currStatement);
 
     return IfNode::createIfNode(currStatement, cond, ifStatementList, elseStatementList);
 }
@@ -235,9 +239,11 @@ std::shared_ptr<TNode> Parser::parseRelFactor() {
     //TODO check if the variable is a non-terminal as the test case may include keyword as variable names
     if(tokenStack->peekNext().getTokenType() == TokenType::NameToken) {
         std::string name = parseName();
+        pkbInterface->addVariable(name);
         return TNode::createVariableName(statementCount, name);
     } else if (tokenStack->peekNext().getTokenType() == TokenType::ConstToken) {
         std::string constant = parseConst();
+        pkbInterface->addConst(std::stoi(constant));
         return TNode::createConstantValue(statementCount, constant);
     } else {
         return parseExpression();
@@ -254,6 +260,8 @@ std::shared_ptr<WhileNode> Parser::parseWhile() {
     std::vector<std::shared_ptr<StatementNode>> statementList = parseStatementList();
     parseRCurly();
 
+    pkbInterface->addWhileStatement(currStatement);
+
     return WhileNode::createWhileNode(currStatement, cond, statementList);
 }
 
@@ -261,7 +269,10 @@ std::shared_ptr<ReadNode> Parser::parseRead() {
     tokenStack->getNext(); //consume Read Token
     int currStatement = statementCount++;
     string varName = parseName();
+    pkbInterface->addVariable(varName);
     parseSemiColon();
+
+    pkbInterface->addReadStatement(currStatement);
 
     return ReadNode::createReadNode(currStatement, varName);
 }
@@ -270,11 +281,15 @@ std::shared_ptr<PrintNode> Parser::parsePrint() {
     tokenStack->getNext(); //consume Print Token
     int currStatement = statementCount++;
     string varName = parseName();
+    pkbInterface->addVariable(varName);
     parseSemiColon();
+
+    pkbInterface->addPrintStatement(currStatement);
 
     return PrintNode::createPrintNode(currStatement, varName);
 }
 
+//TODO not for milestone 1
 std::shared_ptr<CallNode> Parser::parseCall() {
     tokenStack->getNext(); //consume Call Token
     int currStatement = statementCount++;
@@ -312,9 +327,11 @@ std::shared_ptr<TNode> Parser::parseFactor() {
     //TODO check if the variable is a non-terminal as the test case may include keyword as variable names
     if(tokenStack->peekNext().getTokenType() == TokenType::NameToken) {
         std::string name = parseName();
+        pkbInterface->addVariable(name);
         return TNode::createVariableName(statementCount, name);
     } else if (tokenStack->peekNext().getTokenType() == TokenType::ConstToken) {
         std::string constant = parseConst();
+        pkbInterface->addConst(std::stoi(constant));
         return TNode::createConstantValue(statementCount, constant);
     } else {
         parseLParen();
