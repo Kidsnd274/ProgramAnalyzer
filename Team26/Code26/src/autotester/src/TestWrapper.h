@@ -11,20 +11,19 @@
 #include "sp/SourceProcessor.h"
 #include "PKBInterface.h"
 
-class TestWrapper : public AbstractWrapper {
- public:
+class TestWrapper : public AbstractWrapper {public:
     PKBInterface *pkbInterface;
-  // default constructor
-  TestWrapper();
+    // default constructor
+    TestWrapper();
   
-  // destructor
-  ~TestWrapper();
+    // destructor
+    ~TestWrapper();
   
-  // method for parsing the SIMPLE source
-  virtual void parse(std::string filename);
+    // method for parsing the SIMPLE source
+    virtual void parse(std::string filename);
   
-  // method for evaluating a query
-  virtual void evaluate(std::string query, std::list<std::string>& results);
+    // method for evaluating a query
+    virtual void evaluate(std::string query, std::list<std::string>& results);
 };
 
 #endif
