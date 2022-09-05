@@ -12,16 +12,16 @@
 #include "util/ast/ReadNode.h"
 #include "util/ast/PrintNode.h"
 #include "util/ast/CallNode.h"
-#include "PKBParserInterface.h"
+#include "PKBInterface.h"
 
 class Parser {
 private:
     TokenStack* tokenStack;
     int statementCount;
-    PKBParserInterface* pkbInterface;
+    PKBInterface* pkbInterface;
 
 public:
-    Parser(std::vector<Token> ts, PKBParserInterface* pkbParserInterface) {
+    Parser(std::vector<Token> ts, PKBInterface* pkbParserInterface) {
         tokenStack = new TokenStack(ts);
         statementCount = 1;
         pkbInterface = pkbParserInterface;

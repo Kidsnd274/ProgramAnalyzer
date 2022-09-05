@@ -5,11 +5,16 @@
 #include <string>
 #include <vector>
 
+#include "QueryProcessorTypes.h"
+#include "PKB.h"
+
 using namespace std;
+using namespace QPS;
 typedef short PROC;
 
-class PKBParserInterface {
+class PKBInterface {
 public:
+    static PKB* pkb;
 	//static void addAST (/* Tnode AST */);
     void addProcedure(string name, int startingStmtNo, int endingStmtNo);
     void addVariable(string name);
@@ -19,5 +24,6 @@ public:
     void addWhileStatement(int statementNumber);
     void addIfStatement(int statementNumber);
     void addPrintStatement(int statementNumber);
+    vector<string> getAllEntity(EntityType type);
 
 };
