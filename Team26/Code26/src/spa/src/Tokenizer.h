@@ -79,7 +79,7 @@ namespace QPS {
         int integerValue;
     };
 
-    std::vector<Token> tokenize(std::istream& stream, std::vector<Token> &tokens);
+    std::vector<Token> tokenize(std::string queryString, std::vector<Token> &tokens);
     Token createToken(TokenType t, int lineNUmber, int inLinePosition, std::string nameValue, int integerValue);
     bool isSuchThat(Token token);
 }

@@ -65,7 +65,7 @@ namespace QPS {
 
     class QueryManager {
     public:
-        void handleQuery(PKBInterface* pkb);
+        void handleQuery(PKBInterface* pkb, std::string queryString);
     };
 }
 

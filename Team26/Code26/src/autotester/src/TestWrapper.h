@@ -9,9 +9,11 @@
 // include your other headers here
 #include "AbstractWrapper.h"
 #include "sp/SourceProcessor.h"
+#include "PKBInterface.h"
 
 class TestWrapper : public AbstractWrapper {
  public:
+    PKBInterface *pkbInterface;
   // default constructor
   TestWrapper();
   
