@@ -1,70 +1,29 @@
-#include "QueryProcessorTypes.h"
 #include "QueryPreprocessor.h"
 #include "QueryStruct.h"
 #include "Tokenizer.h"
 #include "QueryManager.h"
 #include "QueryEvaluator.h"
-#include "ResultTable.h"
 #include "QueryResultProjector.h"
 #include <vector>
-#include <map>
-#include <cstdio>
 #include <iostream>
 
 namespace QPS {
+    void QueryManager::handleQuery() {
+        std::vector<QPS::Token> tokens; // Initialize a vector of Token to store the tokens.
+        QPS::tokenize(std::cin, tokens); // Call tokenizer to read in PQL and tokenize it into tokens.
+        QPS::Container container = QPS::Container(tokens); // Initialize a container to store the result of tokenization.
+        QPS::parseToken(tokens, container); // Call QPS parser to parse the tokens into Query Structure. Store the result in container.queryStruct.
 
-    class QueryManager {
+        QPS::QueryStruct query = container.getQueryStruct(); // Get the result of parsing.
+        QPS::BasicQueryEvaluator basicQueryEvaluator = QPS::BasicQueryEvaluator();
+        basicQueryEvaluator.evaluateQuery(query); // Call basicQueryEvaluator to evaluate the query. Store the result in query.resultTable.
 
-    };
+        QPS::QueryResultProjector queryResultProjector = QPS::QueryResultProjector();
+        queryResultProjector.projectResult(query); // Call queryResultProjector to format and print out the query result.
+    }
 }
-//
-//int main() {
-//    std::vector<QPS::Token> tokens;
-//    QPS::tokenize(std::cin, tokens);
-//    for (QPS::Token t : tokens) {
-//        std::string s = QPS::tokenMap.at(t.tokenType);
-//        std::cout << s + " " << std::endl;
-//    }
-//
-//    std::cout << "Start parsing query" << std::endl;
-//    QPS::Container container = QPS::Container(tokens);
-//    QPS::parseToken(tokens, container);
-//
-//    QPS::BasicQueryEvaluator basicQueryEvaluator = QPS::BasicQueryEvaluator();
-//    QPS::QueryStruct query = container.getQueryStruct();
-//
-////    printf("%s\n", "Query: candidate list");
-////    for (QPS::CandidateStruct candidateStruct : container.getCandidateList()) {
-////        std::cout << QPS::candidateToString(candidateStruct.typeOfCandidate) + ": " + candidateStruct.entityOfCandidate.nameOfEntity  << std::endl;
-////    }
-//
-////    std::cout << "Declaration:" << std::endl;
-////    for (auto& it: container.getDeclarationMap()) {
-////        std::cout << it.first << " : " << entityToString(it.second)  << std::endl;
-////    }
-////
-////    printf("%s\n", "Query: candidate list");
-////    printf("len: %d\n", query.getCandidateList().size());
-////    for (auto iter : query.getCandidateList()) {
-////        std::cout << iter.entityOfCandidate.nameOfEntity << " " << iter.entityOfCandidate.typeOfEntity << iter.typeOfCandidate << std::endl;
-////    }
-////
-////    printf("%s\n", "Query: Synonym list");
-////    for (auto iter : query.getDeclaredSynonymMap()) {
-////        std::cout << entityToString(iter.second) << " " << iter.first << std::endl;
-////    }
-////
-////    printf("len: %d\n", query.getCandidateList().size());
-////    for (auto iter : query.getCandidateList()) {
-////        std::cout << iter.entityOfCandidate.nameOfEntity << iter.entityOfCandidate.typeOfEntity << iter.typeOfCandidate << std::endl;
-////    }
-////
-//    basicQueryEvaluator.evaluateQuery(query);
-////    std::cout << "query status" << query.queryStatus << std::endl;
-////    query.resultTable.printTable();
-////    std::vector<std::string> result;
-////    query.resultTable.getSynonymValue(query.getCandidateList().begin()->entityOfCandidate.nameOfEntity, result);
-////    query.resultTable.printStringVector(result);
-//    QPS::QueryResultProjector queryResultProjector;
-//    queryResultProjector.projectResult(query);
-//}
+
+int main() {
+    QPS::QueryManager queryManager = QPS::QueryManager();
+    queryManager.handleQuery();
+}

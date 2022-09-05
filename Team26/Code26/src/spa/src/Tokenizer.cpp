@@ -52,8 +52,8 @@ namespace QPS {
 
     std::vector<Token> tokenize(std::istream& stream, std::vector<Token> &tokens) {
         std::vector<Token> tokenizedResult;
-//        std::vector<std::string> splitString = splitToLines(stream);
-        std::vector<std::string> splitString = {"variable v1, v2,  v3;",  "Select v3"};
+        std::vector<std::string> splitString = splitToLines(stream);
+//        std::vector<std::string> splitString = {"variable v1, v2,  v3;",  "Select v3"}; // for test only.
         for (std::string s : splitString) {
             std::smatch match;
             int length = s.size();

@@ -1,7 +1,3 @@
-//
-// Created by 乐灏 Cheese on 2022/9/4.
-//
-
 #ifndef SPA_QUERYMANAGER_H
 #define SPA_QUERYMANAGER_H
 
@@ -66,5 +62,11 @@ namespace QPS {
             return this->queryStruct;
         }
     };
+
+    class QueryManager {
+    public:
+        void handleQuery();
+    };
 }
+
 #endif //SPA_QUERYMANAGER_H
