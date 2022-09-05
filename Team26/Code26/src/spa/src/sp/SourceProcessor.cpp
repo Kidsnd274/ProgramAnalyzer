@@ -1,8 +1,9 @@
 #include "SourceProcessor.h"
 #include <iostream>
 
-using namespace std;
-
-void SourceProcessor::processSIMPLE(fstream* sourceFile) {
-
+void SourceProcessor::processSIMPLE(std::string sourceFile) {
+    Lexer lexer(sourceFile);
+    std::vector<Token> tokens = lexer.tokenize();
+    Parser parser(tokens, pkbInterface);
+    parser.parseSimple();
 }
