@@ -85,7 +85,7 @@ namespace QPS {
         }
         std::copy(tokenizedResult.begin(), tokenizedResult.end(), std::back_inserter(tokens));
 
-        std::cout << "finish tokenizing" << std::endl;
+//        std::cout << "finish tokenizing" << std::endl;
         return tokenizedResult;
     }
 

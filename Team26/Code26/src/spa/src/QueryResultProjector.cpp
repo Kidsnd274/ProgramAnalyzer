@@ -21,14 +21,14 @@ namespace QPS {
         std::vector<std::vector<std::string>> table = query.resultTable.getTable();
         std::unordered_set<std::string> rowStringSet;
         for (auto row : table) {
-            std::string rowString = "(";
+            std::string rowString; // = "("
             for (auto candidate : query.getCandidateList()) {
                 int colNumber = query.resultTable.getSynonymColRef().find(
                         candidate.entityOfCandidate.nameOfEntity)->second;
-                rowString += row.at(colNumber) + ", ";
+                rowString += row.at(colNumber);
             }
-            rowString[rowString.length() - 2] = ')';
-            rowString[rowString.length() - 1] = '\n';
+//            rowString[rowString.length() - 2] = ')';
+//            rowString[rowString.length() - 1] = '\n';
             if (rowStringSet.find(rowString) == rowStringSet.end()) {
                 resultString += rowString;
                 rowStringSet.insert(rowString);

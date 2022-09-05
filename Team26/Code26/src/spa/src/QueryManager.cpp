@@ -21,7 +21,7 @@ namespace QPS {
         basicQueryEvaluator.evaluateQuery(query, pkb); // Call basicQueryEvaluator to evaluate the query. Store the result in query.resultTable.
 
         QPS::QueryResultProjector queryResultProjector = QPS::QueryResultProjector();
-//        queryResultProjector.projectResult(query); // Call queryResultProjector to format and print out the query result.
+        queryResultProjector.getSelectTuples(query, results); // Call queryResultProjector to format and print out the query result.
 //        std::cout << queryResultProjector.getSelectTuples(query, results) << std::endl;
         // for test only
 //        puts("\nPrint Result Table:");

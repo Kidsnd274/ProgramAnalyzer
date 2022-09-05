@@ -186,15 +186,15 @@ namespace QPS {
             tokenPos++;
         }
 
-        std::cout << "Finish parsing" << std::endl;
-        std::cout << "Declaration:" << std::endl;
-        for (auto& it: container.getDeclarationMap()) {
-            std::cout << it.first << " : " << entityToString(it.second)  << std::endl;
-        }
-        std::cout << "Candidate:" << std::endl;
-        for (QPS::CandidateStruct candidateStruct : container.getCandidateList()) {
-            std::cout << QPS::candidateToString(candidateStruct.typeOfCandidate) + ": " + candidateStruct.entityOfCandidate.nameOfEntity  << std::endl;
-        }
+//        std::cout << "Finish parsing" << std::endl;
+//        std::cout << "Declaration:" << std::endl;
+//        for (auto& it: container.getDeclarationMap()) {
+//            std::cout << it.first << " : " << entityToString(it.second)  << std::endl;
+//        }
+//        std::cout << "Candidate:" << std::endl;
+//        for (QPS::CandidateStruct candidateStruct : container.getCandidateList()) {
+//            std::cout << QPS::candidateToString(candidateStruct.typeOfCandidate) + ": " + candidateStruct.entityOfCandidate.nameOfEntity  << std::endl;
+//        }
     }
 
 
