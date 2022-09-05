@@ -23,7 +23,7 @@ std::shared_ptr<ProcedureNode> Parser::parseProcedure() {
     parseLCurly();
     std::vector<std::shared_ptr<StatementNode>> stmtList = parseStatementList();
     parseRCurly();
-    pkbInterface.addProcedure(name, currStatement, statementCount);
+    pkbInterface->addProcedure(name, currStatement, statementCount);
     return make_shared<ProcedureNode>(name, stmtList);
 }
 
