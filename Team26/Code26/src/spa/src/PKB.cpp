@@ -4,7 +4,7 @@
 #include <vector>
 
 #include "PKB.h"
-#include "TNode.h"
+#include "util/ast/TNode.h"
 #include "VarTable.h"
 #include "ConstantTable.h"
 #include "ProcedureTable.h"

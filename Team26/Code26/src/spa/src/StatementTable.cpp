@@ -23,7 +23,7 @@ vector<string> StatementTable::getAllStmts() {
 vector<string> StatementTable::getAllReads() {
     vector<string> result;
     for (Statement stmt: this->statementList) {
-        if (stmt.type == READ) {
+        if (stmt.type == StatementType::READ) {
             result.push_back(std::to_string(stmt.lineNumber));
         }
     }
@@ -33,7 +33,7 @@ vector<string> StatementTable::getAllReads() {
 vector<string> StatementTable::getAllAssigns() {
     vector<string> result;
     for (Statement stmt: this->statementList) {
-        if (stmt.type == ASSIGN) {
+        if (stmt.type == StatementType::ASSIGN) {
             result.push_back(std::to_string(stmt.lineNumber));
         }
     }
@@ -43,7 +43,7 @@ vector<string> StatementTable::getAllAssigns() {
 vector<string> StatementTable::getAllWhiles() {
     vector<string> result;
     for (Statement stmt: this->statementList) {
-        if (stmt.type == WHILE) {
+        if (stmt.type == StatementType::WHILE) {
             result.push_back(std::to_string(stmt.lineNumber));
         }
     }
@@ -53,7 +53,7 @@ vector<string> StatementTable::getAllWhiles() {
 vector<string> StatementTable::getAllIfs() {
     vector<string> result;
     for (Statement stmt: this->statementList) {
-        if (stmt.type == IF) {
+        if (stmt.type == StatementType::IF) {
             result.push_back(std::to_string(stmt.lineNumber));
         }
     }
@@ -63,7 +63,7 @@ vector<string> StatementTable::getAllIfs() {
 vector<string> StatementTable::getAllPrints() {
     vector<string> result;
     for (Statement stmt: this->statementList) {
-        if (stmt.type == PRINT) {
+        if (stmt.type == StatementType::PRINT) {
             result.push_back(std::to_string(stmt.lineNumber));
         }
     }
@@ -73,7 +73,7 @@ vector<string> StatementTable::getAllPrints() {
 vector<string> StatementTable::getAllCalls() {
     vector<string> result;
     for (Statement stmt: this->statementList) {
-        if (stmt.type == CALL) {
+        if (stmt.type == StatementType::CALL) {
             result.push_back(std::to_string(stmt.lineNumber));
         }
     }
