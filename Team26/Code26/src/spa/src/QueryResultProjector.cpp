@@ -1,7 +1,7 @@
 #include "QueryResultProjector.h"
-
+#include <list>
 namespace QPS {
-    void QueryResultProjector::projectResult(QPS::QueryStruct queryStruct) {
+    void QueryResultProjector::projectResult(QPS::QueryStruct queryStruct, std::list<std::string>& results) {
         ResultTable resultTable = queryStruct.resultTable;
         CANDIDATE_LIST candidateList = queryStruct.getCandidateList();
         std::vector<std::string> synonymNames;
@@ -12,10 +12,11 @@ namespace QPS {
         resultTable.getSynonymsValues(synonymNames, values);
         ResultTable result = ResultTable(synonymNames, values);
         result.deleteDuplicateRows();
+
         result.printTable();
     }
 
-    std::string QueryResultProjector::getSelectTuples(QPS::QueryStruct query) {
+    std::string QueryResultProjector::getSelectTuples(QPS::QueryStruct query, std::list<std::string>& results) {
         std::string resultString;
         std::vector<std::vector<std::string>> table = query.resultTable.getTable();
         std::unordered_set<std::string> rowStringSet;
@@ -32,6 +33,9 @@ namespace QPS {
                 resultString += rowString;
                 rowStringSet.insert(rowString);
             }
+        }
+        for (auto &s: rowStringSet) {
+            results.push_back(s);
         }
         return resultString;
     }

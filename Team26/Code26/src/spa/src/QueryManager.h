@@ -4,6 +4,7 @@
 #include "Tokenizer.h"
 #include "QueryStruct.h"
 #include "PKBInterface.h"
+#include <list>
 
 namespace QPS {
     enum Status{
@@ -65,7 +66,7 @@ namespace QPS {
 
     class QueryManager {
     public:
-        void handleQuery(PKBInterface* pkb, std::string queryString);
+        void handleQuery(PKBInterface* pkb, std::string queryString, std::list<std::string>& results);
     };
 }
 

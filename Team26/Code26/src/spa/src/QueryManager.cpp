@@ -7,9 +7,10 @@
 #include <vector>
 #include <iostream>
 #include <cstdio>
+#include <list>
 
 namespace QPS {
-    void QueryManager::handleQuery(PKBInterface* pkb, std::string queryString) {
+    void QueryManager::handleQuery(PKBInterface* pkb, std::string queryString, std::list<std::string>& results) {
         std::vector<QPS::Token> tokens; // Initialize a vector of SPToken to store the tokens.
         QPS::tokenize(queryString, tokens); // Call tokenizer to read in PQL and tokenize it into tokens.
         QPS::Container container = QPS::Container(tokens); // Initialize a container to store the result of tokenization.
@@ -21,7 +22,7 @@ namespace QPS {
 
         QPS::QueryResultProjector queryResultProjector = QPS::QueryResultProjector();
 //        queryResultProjector.projectResult(query); // Call queryResultProjector to format and print out the query result.
-        std::cout << queryResultProjector.getSelectTuples(query) << std::endl;
+//        std::cout << queryResultProjector.getSelectTuples(query, results) << std::endl;
         // for test only
 //        puts("\nPrint Result Table:");
 //        query.resultTable.printTable();

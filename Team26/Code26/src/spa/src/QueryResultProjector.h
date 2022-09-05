@@ -3,12 +3,13 @@
 
 #include "QueryStruct.h"
 #include "ResultTable.h"
+#include <list>
 
 namespace QPS {
     class QueryResultProjector {
     public:
-        void projectResult(QPS::QueryStruct queryStruct);
-        std::string getSelectTuples(QPS::QueryStruct query);
+        void projectResult(QPS::QueryStruct queryStruct, std::list<std::string>& results);
+        std::string getSelectTuples(QPS::QueryStruct query, std::list<std::string>& results);
     };
 }
 
