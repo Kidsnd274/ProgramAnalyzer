@@ -19,13 +19,97 @@ namespace QPS {
             if (entityMappingResult.second) {
                 // Valid entity
                 switch (entityMappingResult.first) {
-                    case STATEMENT:
-                    case READ:
-                    case PRINT:
-                    case CALL:
-                    case WHILE:
-                    case IF:
-                    case ASSIGN:
+                    case STATEMENT: {
+                        tokenPos++;
+                        std::pair<int, bool> result = parseDeclaration(tokens, tokenPos, STATEMENT,
+                                                                       container);
+
+                        if (result.second) {
+                            tokenPos = result.first - 1;
+                        } else {
+                            // Invalid query
+                            tokenPos--;
+                        }
+                        break;
+                    }
+                    case READ: {
+                        tokenPos++;
+                        std::pair<int, bool> result = parseDeclaration(tokens, tokenPos, READ,
+                                                                       container);
+
+                        if (result.second) {
+                            tokenPos = result.first - 1;
+                        } else {
+                            // Invalid query
+                            tokenPos--;
+                        }
+                        break;
+                    }
+                    case PRINT: {
+                        tokenPos++;
+                        std::pair<int, bool> result = parseDeclaration(tokens, tokenPos, PRINT,
+                                                                       container);
+
+                        if (result.second) {
+                            tokenPos = result.first - 1;
+                        } else {
+                            // Invalid query
+                            tokenPos--;
+                        }
+                        break;
+                    }
+                    case CALL: {
+                        tokenPos++;
+                        std::pair<int, bool> result = parseDeclaration(tokens, tokenPos, CALL,
+                                                                       container);
+
+                        if (result.second) {
+                            tokenPos = result.first - 1;
+                        } else {
+                            // Invalid query
+                            tokenPos--;
+                        }
+                        break;
+                    }
+                    case WHILE: {
+                        tokenPos++;
+                        std::pair<int, bool> result = parseDeclaration(tokens, tokenPos, WHILE,
+                                                                       container);
+
+                        if (result.second) {
+                            tokenPos = result.first - 1;
+                        } else {
+                            // Invalid query
+                            tokenPos--;
+                        }
+                        break;
+                    }
+                    case IF: {
+                        tokenPos++;
+                        std::pair<int, bool> result = parseDeclaration(tokens, tokenPos, IF,
+                                                                       container);
+
+                        if (result.second) {
+                            tokenPos = result.first - 1;
+                        } else {
+                            // Invalid query
+                            tokenPos--;
+                        }
+                        break;
+                    }
+                    case ASSIGN: {
+                        tokenPos++;
+                        std::pair<int, bool> result = parseDeclaration(tokens, tokenPos, ASSIGN,
+                                                                       container);
+
+                        if (result.second) {
+                            tokenPos = result.first - 1;
+                        } else {
+                            // Invalid query
+                            tokenPos--;
+                        }
+                        break;
+                    }
                     case VARIABLE: {
                         tokenPos++;
                         std::pair<int, bool> result = parseDeclaration(tokens, tokenPos, VARIABLE,
@@ -39,8 +123,33 @@ namespace QPS {
                         }
                         break;
                     }
-                    case CONSTANT:
-                    case PROCEDURE:
+                    case CONSTANT:{
+                        tokenPos++;
+                        std::pair<int, bool> result = parseDeclaration(tokens, tokenPos, CONSTANT,
+                                                                       container);
+
+                        if (result.second) {
+                            tokenPos = result.first - 1;
+                        } else {
+                            // Invalid query
+                            tokenPos--;
+                        }
+                        break;
+                    }
+
+                    case PROCEDURE: {
+                        tokenPos++;
+                        std::pair<int, bool> result = parseDeclaration(tokens, tokenPos, PROCEDURE,
+                                                                       container);
+
+                        if (result.second) {
+                            tokenPos = result.first - 1;
+                        } else {
+                            // Invalid query
+                            tokenPos--;
+                        }
+                        break;
+                    }
                     case INVALID_ENTITY_TYPE: {
                         std::cout << "invalid entity" << std::endl;
                         return ;
@@ -94,13 +203,13 @@ namespace QPS {
                                           EntityType entityType,
                                           Container &container) {
         std::vector<std::string> entityNames;
-        std::cout << "parse declaration: " << tokens[pos].nameValue << std::endl;
+//        std::cout << "parse declaration: " << tokens[pos].nameValue << std::endl;
         while (pos < tokens.size() && tokens[pos].tokenType != QPS::SEMICOLON) {
             QPS::Token curr = tokens[pos];
             if (curr.tokenType == QPS::COMMA) {
-                std::cout << "comma" <<std::endl;
+//                std::cout << "comma" <<std::endl;
             } else if (curr.tokenType == QPS::NAME) {
-                std::cout << "parse declaration: name" << std::endl;
+//                std::cout << "parse declaration: name" << std::endl;
                 container.addDeclaration(entityType, curr.nameValue);
             } else {
                 return {pos, false};
@@ -122,7 +231,7 @@ namespace QPS {
             if (curr.tokenType == QPS::NAME && curr.nameValue == "Select") {
                 pos++;
             } else if (curr.tokenType == QPS::NAME && curr.nameValue != "Select") {
-                std::cout << "select: " << curr.nameValue << std::endl;
+//                std::cout << "select: " << curr.nameValue << std::endl;
                 EntityType entityType = container.getQueryStruct().getDeclaration(curr.nameValue);
                 if (entityType != INVALID_ENTITY_TYPE) {
                     container.addCandidateList(entityType, curr.nameValue);
@@ -131,6 +240,8 @@ namespace QPS {
                     return {pos, false};
                 }
 
+            } else if (curr.tokenType == QPS::COMMA){
+                pos++;
             } else {
                 return {pos, false};
             }

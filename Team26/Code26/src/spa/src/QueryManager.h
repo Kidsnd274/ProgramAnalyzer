@@ -1,7 +1,3 @@
-//
-// Created by 乐灏 Cheese on 2022/9/4.
-//
-
 #ifndef SPA_QUERYMANAGER_H
 #define SPA_QUERYMANAGER_H
 
@@ -45,7 +41,6 @@ namespace QPS {
         }
 
         void addDeclaration(EntityType entityType, std::string s) {
-            std::cout << "add declaration" << s << std::endl;
             this->queryStruct.addSynonym(entityType, s);
         }
 
@@ -66,5 +61,11 @@ namespace QPS {
             return this->queryStruct;
         }
     };
+
+    class QueryManager {
+    public:
+        void handleQuery();
+    };
 }
+
 #endif //SPA_QUERYMANAGER_H

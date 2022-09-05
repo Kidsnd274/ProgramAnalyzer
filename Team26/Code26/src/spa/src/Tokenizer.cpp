@@ -30,15 +30,17 @@ namespace QPS {
 
                                                                     { WHITESPACE, "^(\\s+)" } };
     std::vector<std::string> splitToLines(std::istream& stream) {
+        std::string line;
         std::vector<std::string> splitResult;
-        std::string currLine;
-        while (std::getline(stream, currLine)) {
-            splitResult.push_back(currLine);
-//            std::cout << currLine << std::endl;
+
+        while(std::getline(std::cin, line)){
+            if (line.empty()){
+                break;
+            }
+            splitResult.push_back(line);
+//            std::cout << line << std::endl;
         }
-//        for (std::string s : splitResult) {
-//            std::cout << s << std::endl;
-//        }
+
         return splitResult;
     }
 
@@ -52,8 +54,8 @@ namespace QPS {
 
     std::vector<Token> tokenize(std::istream& stream, std::vector<Token> &tokens) {
         std::vector<Token> tokenizedResult;
-//        std::vector<std::string> splitString = splitToLines(stream);
-        std::vector<std::string> splitString = {"variable v1, v2,  v3;",  "Select v3"};
+        std::vector<std::string> splitString = splitToLines(stream);
+//        std::vector<std::string> splitString = {"variable v1, v2,  v3;",  "Select v3"}; // for test only.
         for (std::string s : splitString) {
             std::smatch match;
             int length = s.size();
@@ -85,6 +87,8 @@ namespace QPS {
             }
         }
         std::copy(tokenizedResult.begin(), tokenizedResult.end(), std::back_inserter(tokens));
+
+        std::cout << "finish tokenizing" << std::endl;
         return tokenizedResult;
     }
 
