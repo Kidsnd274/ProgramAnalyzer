@@ -23,7 +23,7 @@ namespace QPS {
     }
 }
 
-//int main() {
-//    QPS::QueryManager queryManager = QPS::QueryManager();
-//    queryManager.handleQuery();
-//}
+int main() {
+    QPS::QueryManager queryManager = QPS::QueryManager();
+    queryManager.handleQuery();
+}
