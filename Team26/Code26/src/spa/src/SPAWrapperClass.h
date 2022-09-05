@@ -4,7 +4,7 @@
 #include "QueryManager.h"
 #include "PKBInterface.h"
 
-
+void processSIMPLE (std::string sourcefile);
 class SPAWrapperClass {
 };
 

@@ -1,4 +1,5 @@
 #include "TestWrapper.h"
+#include "SPAWrapperClass.h"
 
 // implementation code of WrapperFactory - do NOT modify the next 5 lines
 AbstractWrapper* WrapperFactory::wrapper = 0;
@@ -9,10 +10,13 @@ AbstractWrapper* WrapperFactory::createWrapper() {
 // Do not modify the following line
 volatile bool AbstractWrapper::GlobalStop = false;
 
+
 // a default constructor
 TestWrapper::TestWrapper() {
   // create any objects here as instance variables of this class
   // as well as any initialization required for your spa program
+  std::string validSimple = "procedure test {\n  read x;\n  x = x + 1;\n}";
+  processSIMPLE (validSimple);
 }
 
 // method for parsing the SIMPLE source
