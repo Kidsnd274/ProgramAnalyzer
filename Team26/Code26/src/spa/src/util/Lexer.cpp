@@ -1,7 +1,7 @@
 #include "Lexer.h"
 #include <sstream>
 
-void Lexer::splitWord(std::vector<Token> &res, std::string &toParse) {
+void Lexer::splitWord(std::vector<SPToken> &res, std::string &toParse) {
     int i = 0;
     while(i < toParse.size()) {
         char c = toParse[i];
@@ -16,7 +16,7 @@ void Lexer::splitWord(std::vector<Token> &res, std::string &toParse) {
             while(j < toParse.size() && std::isdigit(toParse[j])) {
                 j++;
             }
-            Token token = TokenTypeExtractor::createConst(toParse.substr(i, j-i));
+            SPToken token = TokenTypeExtractor::createConst(toParse.substr(i, j - i));
             res.push_back(token);
             i = j;
         } else if(std::isalnum(c)) {
@@ -24,20 +24,20 @@ void Lexer::splitWord(std::vector<Token> &res, std::string &toParse) {
             while(j < toParse.size() && std::isalnum(toParse[j])) {
                 j++;
             }
-            Token token = TokenTypeExtractor::createNonTerminal(toParse.substr(i, j-i));
+            SPToken token = TokenTypeExtractor::createNonTerminal(toParse.substr(i, j - i));
             res.push_back(token);
             i = j;
         } else if((c == '<' || c == '>' || c == '=' || c == '!') && (i + 1 < toParse.size() && toParse[i+1] == '=')){
-            Token token = TokenTypeExtractor::createTerminal(toParse.substr(i, 2));
+            SPToken token = TokenTypeExtractor::createTerminal(toParse.substr(i, 2));
             res.push_back(token);
             i = i + 2;
         } else if((c == '|' || c == '&') && (i + 1 < toParse.size() && toParse[i+1] == c)){
-            Token token = TokenTypeExtractor::createTerminal(toParse.substr(i, 2));
+            SPToken token = TokenTypeExtractor::createTerminal(toParse.substr(i, 2));
             res.push_back(token);
             i = i + 2;
         } else {
             //in case of junk unaccepted characters, just add it into the list first and deal with it later to ensure progress.
-            Token token = TokenTypeExtractor::createTerminal(toParse.substr(i, 1));
+            SPToken token = TokenTypeExtractor::createTerminal(toParse.substr(i, 1));
             res.push_back(token);
             i++;
         }
@@ -71,9 +71,9 @@ std::vector<std::string> Lexer::delimitBySpaceUsingFS() {
     return result;
 }
 
-std::vector<Token> Lexer::tokenize() {
+std::vector<SPToken> Lexer::tokenize() {
     std::vector<std::string> firstPass = delimitBySpace();
-    std::vector<Token> result;
+    std::vector<SPToken> result;
 
     for(auto &s : firstPass) {
         splitWord(result, s);

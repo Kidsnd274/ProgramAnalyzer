@@ -4,7 +4,7 @@
 void Parser::parseSimple() {
     int numOfProcedures = 0;
     while(tokenStack->hasNextToken()) {
-        if (tokenStack->getNext().getTokenType() == TokenType::ProcedureToken) {
+        if (tokenStack->getNext().getTokenType() == SPTokenType::ProcedureToken) {
             parseProcedure();
             numOfProcedures++;
         } else {
@@ -37,7 +37,7 @@ std::string Parser::parseName() {
 }
 
 std::string Parser::parseConst() {
-    if(tokenStack->peekNext().getTokenType() != TokenType::ConstToken) {
+    if(tokenStack->peekNext().getTokenType() != SPTokenType::ConstToken) {
         throw SyntaxErrorException();
     }
 
@@ -46,73 +46,73 @@ std::string Parser::parseConst() {
 }
 
 void Parser::parseLCurly() {
-    if(tokenStack->getNext().getTokenType() != TokenType::LCurlyToken) {
+    if(tokenStack->getNext().getTokenType() != SPTokenType::LCurlyToken) {
         throw SyntaxErrorException();
     }
 }
 
 void Parser::parseRCurly() {
-    if(tokenStack->getNext().getTokenType() != TokenType::RCurlyToken) {
+    if(tokenStack->getNext().getTokenType() != SPTokenType::RCurlyToken) {
         throw SyntaxErrorException();
     }
 }
 
 void Parser::parseLParen() {
-    if(tokenStack->getNext().getTokenType() != TokenType::LParenToken) {
+    if(tokenStack->getNext().getTokenType() != SPTokenType::LParenToken) {
         throw SyntaxErrorException();
     }
 }
 
 void Parser::parseRParen() {
-    if(tokenStack->getNext().getTokenType() != TokenType::RParenToken) {
+    if(tokenStack->getNext().getTokenType() != SPTokenType::RParenToken) {
         throw SyntaxErrorException();
     }
 }
 
 void Parser::parseAssignToken() {
-    if(tokenStack->getNext().getTokenType() != TokenType::AssignToken) {
+    if(tokenStack->getNext().getTokenType() != SPTokenType::AssignToken) {
         throw SyntaxErrorException();
     }
 }
 
 void Parser::parseSemiColon() {
-    if(tokenStack->getNext().getTokenType() != TokenType::SemiColonToken) {
+    if(tokenStack->getNext().getTokenType() != SPTokenType::SemiColonToken) {
         throw SyntaxErrorException();
     }
 }
 
 void Parser::parseThen() {
-    if(tokenStack->getNext().getTokenType() != TokenType::ThenToken) {
+    if(tokenStack->getNext().getTokenType() != SPTokenType::ThenToken) {
         throw SyntaxErrorException();
     }
 }
 
 void Parser::parseElse() {
-    if(tokenStack->getNext().getTokenType() != TokenType::ElseToken) {
+    if(tokenStack->getNext().getTokenType() != SPTokenType::ElseToken) {
         throw SyntaxErrorException();
     }
 }
 
 void Parser::parseCondToken() {
-    if(tokenStack->getNext().getTokenType() != TokenType::CondToken) {
+    if(tokenStack->getNext().getTokenType() != SPTokenType::CondToken) {
         throw SyntaxErrorException();
     }
 }
 
 void Parser::parseRelationToken() {
-    if(tokenStack->getNext().getTokenType() != TokenType::RelationToken) {
+    if(tokenStack->getNext().getTokenType() != SPTokenType::RelationToken) {
         throw SyntaxErrorException();
     }
 }
 
 void Parser::parseOp() {
-    if(tokenStack->getNext().getTokenType() != TokenType::OpToken) {
+    if(tokenStack->getNext().getTokenType() != SPTokenType::OpToken) {
         throw SyntaxErrorException();
     }
 }
 
 void Parser::parseFactorToken() {
-    if(tokenStack->getNext().getTokenType() != TokenType::FactorToken) {
+    if(tokenStack->getNext().getTokenType() != SPTokenType::FactorToken) {
         throw SyntaxErrorException();
     }
 }
@@ -122,7 +122,7 @@ std::vector<std::shared_ptr<StatementNode>> Parser::parseStatementList() {
 
     std::vector<std::shared_ptr<StatementNode>> stmtList;
 
-    while(tokenStack->hasNextToken() && tokenStack->peekNext().getTokenType() != TokenType::RCurlyToken) {
+    while(tokenStack->hasNextToken() && tokenStack->peekNext().getTokenType() != SPTokenType::RCurlyToken) {
         std::shared_ptr<StatementNode> stmt = parseStatement();
         stmtList.push_back(stmt);
     }
@@ -139,27 +139,27 @@ std::shared_ptr<StatementNode> Parser::parseStatement() {
         throw SyntaxErrorException();
     }
 
-    TokenType t = tokenStack->peekNext().getTokenType();
+    SPTokenType t = tokenStack->peekNext().getTokenType();
     //TODO check if the next variable is assign before parsing as the test cases might include variables that have keywords as the names
     std::shared_ptr<StatementNode> stmt(nullptr);
 
     switch(t) {
-        case TokenType::NameToken:
+        case SPTokenType::NameToken:
             stmt = std::move(parseAssign());
             break;
-        case TokenType::IfToken:
+        case SPTokenType::IfToken:
             stmt = std::move(parseIf());
             break;
-        case TokenType::WhileToken:
+        case SPTokenType::WhileToken:
             stmt = std::move(parseWhile());
             break;
-        case TokenType::ReadToken:
+        case SPTokenType::ReadToken:
             stmt = std::move(parseRead());
             break;
-        case TokenType::PrintToken:
+        case SPTokenType::PrintToken:
             stmt = std::move(parsePrint());
             break;
-        case TokenType::CallToken:
+        case SPTokenType::CallToken:
             stmt = std::move(parseCall());
             break;
         default:
@@ -183,7 +183,7 @@ std::shared_ptr<AssignNode> Parser::parseAssign() {
 }
 
 std::shared_ptr<IfNode> Parser::parseIf() {
-    tokenStack->getNext(); //consume If Token.
+    tokenStack->getNext(); //consume If SPToken.
     int currStatement = statementCount++;
 
     parseLParen();
@@ -204,14 +204,14 @@ std::shared_ptr<IfNode> Parser::parseIf() {
 }
 
 std::shared_ptr<TNode> Parser::parseCond() {
-    if(tokenStack->peekNext().getTokenType() == TokenType::CondToken
+    if(tokenStack->peekNext().getTokenType() == SPTokenType::CondToken
     && tokenStack->peekNext().getTokenString() == "!") {
         parseCondToken();
         parseLParen();
         std::shared_ptr<TNode> cond = std::move(parseCond());
         parseRParen();
         return TNode::createNOTConditionalExpression(statementCount, "!", cond);
-    } else if (tokenStack->peekNext().getTokenType() == TokenType::LParenToken) {
+    } else if (tokenStack->peekNext().getTokenType() == SPTokenType::LParenToken) {
         parseLParen();
         std::shared_ptr<TNode> cond = std::move(parseCond());
         parseRParen();
@@ -237,11 +237,11 @@ std::shared_ptr<TNode> Parser::parseRel() {
 
 std::shared_ptr<TNode> Parser::parseRelFactor() {
     //TODO check if the variable is a non-terminal as the test case may include keyword as variable names
-    if(tokenStack->peekNext().getTokenType() == TokenType::NameToken) {
+    if(tokenStack->peekNext().getTokenType() == SPTokenType::NameToken) {
         std::string name = parseName();
         pkbInterface->addVariable(name);
         return TNode::createVariableName(statementCount, name);
-    } else if (tokenStack->peekNext().getTokenType() == TokenType::ConstToken) {
+    } else if (tokenStack->peekNext().getTokenType() == SPTokenType::ConstToken) {
         std::string constant = parseConst();
         pkbInterface->addConst(std::stoi(constant));
         return TNode::createConstantValue(statementCount, constant);
@@ -251,7 +251,7 @@ std::shared_ptr<TNode> Parser::parseRelFactor() {
 }
 
 std::shared_ptr<WhileNode> Parser::parseWhile() {
-    tokenStack->getNext(); //consume While Token
+    tokenStack->getNext(); //consume While SPToken
     int currStatement = statementCount++;
     parseLParen();
     std::shared_ptr<TNode> cond = std::move(parseCond());
@@ -266,7 +266,7 @@ std::shared_ptr<WhileNode> Parser::parseWhile() {
 }
 
 std::shared_ptr<ReadNode> Parser::parseRead() {
-    tokenStack->getNext(); //consume Read Token
+    tokenStack->getNext(); //consume Read SPToken
     int currStatement = statementCount++;
     string varName = parseName();
     pkbInterface->addVariable(varName);
@@ -278,7 +278,7 @@ std::shared_ptr<ReadNode> Parser::parseRead() {
 }
 
 std::shared_ptr<PrintNode> Parser::parsePrint() {
-    tokenStack->getNext(); //consume Print Token
+    tokenStack->getNext(); //consume Print SPToken
     int currStatement = statementCount++;
     string varName = parseName();
     pkbInterface->addVariable(varName);
@@ -291,7 +291,7 @@ std::shared_ptr<PrintNode> Parser::parsePrint() {
 
 //TODO not for milestone 1
 std::shared_ptr<CallNode> Parser::parseCall() {
-    tokenStack->getNext(); //consume Call Token
+    tokenStack->getNext(); //consume Call SPToken
     int currStatement = statementCount++;
     string varName = parseName();
     parseSemiColon();
@@ -301,7 +301,7 @@ std::shared_ptr<CallNode> Parser::parseCall() {
 
 std::shared_ptr<TNode> Parser::parseExpression() {
     std::shared_ptr<TNode> base = std::move(parseTerm());
-    while(tokenStack->peekNext().getTokenType() == TokenType::OpToken) {
+    while(tokenStack->peekNext().getTokenType() == SPTokenType::OpToken) {
         std::string operand = tokenStack->peekNext().getTokenString();
         parseOp();
         std::shared_ptr<TNode> term2 = std::move(parseTerm());
@@ -313,7 +313,7 @@ std::shared_ptr<TNode> Parser::parseExpression() {
 
 std::shared_ptr<TNode> Parser::parseTerm() {
     std::shared_ptr<TNode> base = std::move(parseFactor());
-    while(tokenStack->peekNext().getTokenType() == TokenType::FactorToken) {
+    while(tokenStack->peekNext().getTokenType() == SPTokenType::FactorToken) {
         std::string operand = tokenStack->peekNext().getTokenString();
         parseFactorToken();
         std::shared_ptr<TNode> factor2 = std::move(parseFactor());
@@ -325,11 +325,11 @@ std::shared_ptr<TNode> Parser::parseTerm() {
 
 std::shared_ptr<TNode> Parser::parseFactor() {
     //TODO check if the variable is a non-terminal as the test case may include keyword as variable names
-    if(tokenStack->peekNext().getTokenType() == TokenType::NameToken) {
+    if(tokenStack->peekNext().getTokenType() == SPTokenType::NameToken) {
         std::string name = parseName();
         pkbInterface->addVariable(name);
         return TNode::createVariableName(statementCount, name);
-    } else if (tokenStack->peekNext().getTokenType() == TokenType::ConstToken) {
+    } else if (tokenStack->peekNext().getTokenType() == SPTokenType::ConstToken) {
         std::string constant = parseConst();
         pkbInterface->addConst(std::stoi(constant));
         return TNode::createConstantValue(statementCount, constant);

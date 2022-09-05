@@ -4,231 +4,231 @@
 using namespace std;
 
 TEST_CASE("Test_createTerminal_positive") {
-    SECTION("Token Autotest") {
+    SECTION("SPToken Autotest") {
         for (const auto& [key, value] : TokenTypeExtractor::terminalTokenMap) {
-            Token createdToken = TokenTypeExtractor::createTerminal(key);
-            Token expectedToken = Token(key, value);
+            SPToken createdToken = TokenTypeExtractor::createTerminal(key);
+            SPToken expectedToken = SPToken(key, value);
             REQUIRE(createdToken == expectedToken);
         }
     }
 
     SECTION("LParenToken") {
         std::string tokenString = "(";
-        Token createdToken = TokenTypeExtractor::createTerminal(tokenString);
-        Token expectedToken = Token(tokenString, TokenType::LParenToken);
+        SPToken createdToken = TokenTypeExtractor::createTerminal(tokenString);
+        SPToken expectedToken = SPToken(tokenString, SPTokenType::LParenToken);
         REQUIRE(createdToken == expectedToken);
     }
 
     SECTION("RParenToken") {
         std::string tokenString = ")";
-        Token createdToken = TokenTypeExtractor::createTerminal(tokenString);
-        Token expectedToken = Token(tokenString, TokenType::RParenToken);
+        SPToken createdToken = TokenTypeExtractor::createTerminal(tokenString);
+        SPToken expectedToken = SPToken(tokenString, SPTokenType::RParenToken);
         REQUIRE(createdToken == expectedToken);
     }
 
     SECTION("LCurlyToken") {
         std::string tokenString = "{";
-        Token createdToken = TokenTypeExtractor::createTerminal(tokenString);
-        Token expectedToken = Token(tokenString, TokenType::LCurlyToken);
+        SPToken createdToken = TokenTypeExtractor::createTerminal(tokenString);
+        SPToken expectedToken = SPToken(tokenString, SPTokenType::LCurlyToken);
         REQUIRE(createdToken == expectedToken);
     }
 
     SECTION("RCurlyToken") {
         std::string tokenString = "}";
-        Token createdToken = TokenTypeExtractor::createTerminal(tokenString);
-        Token expectedToken = Token(tokenString, TokenType::RCurlyToken);
+        SPToken createdToken = TokenTypeExtractor::createTerminal(tokenString);
+        SPToken expectedToken = SPToken(tokenString, SPTokenType::RCurlyToken);
         REQUIRE(createdToken == expectedToken);
     }
 
     SECTION("AssignToken") {
         std::string tokenString = "=";
-        Token createdToken = TokenTypeExtractor::createTerminal(tokenString);
-        Token expectedToken = Token(tokenString, TokenType::AssignToken);
+        SPToken createdToken = TokenTypeExtractor::createTerminal(tokenString);
+        SPToken expectedToken = SPToken(tokenString, SPTokenType::AssignToken);
         REQUIRE(createdToken == expectedToken);
     }
 
     SECTION("> RelationToken") {
         std::string tokenString = ">";
-        Token createdToken = TokenTypeExtractor::createTerminal(tokenString);
-        Token expectedToken = Token(tokenString, TokenType::RelationToken);
+        SPToken createdToken = TokenTypeExtractor::createTerminal(tokenString);
+        SPToken expectedToken = SPToken(tokenString, SPTokenType::RelationToken);
         REQUIRE(createdToken == expectedToken);
     }
 
     SECTION("< RelationToken") {
         std::string tokenString = "<";
-        Token createdToken = TokenTypeExtractor::createTerminal(tokenString);
-        Token expectedToken = Token(tokenString, TokenType::RelationToken);
+        SPToken createdToken = TokenTypeExtractor::createTerminal(tokenString);
+        SPToken expectedToken = SPToken(tokenString, SPTokenType::RelationToken);
         REQUIRE(createdToken == expectedToken);
     }
 
     SECTION(">= RelationToken") {
         std::string tokenString = ">=";
-        Token createdToken = TokenTypeExtractor::createTerminal(tokenString);
-        Token expectedToken = Token(tokenString, TokenType::RelationToken);
+        SPToken createdToken = TokenTypeExtractor::createTerminal(tokenString);
+        SPToken expectedToken = SPToken(tokenString, SPTokenType::RelationToken);
         REQUIRE(createdToken == expectedToken);
     }
 
     SECTION("<= RelationToken") {
         std::string tokenString = "<=";
-        Token createdToken = TokenTypeExtractor::createTerminal(tokenString);
-        Token expectedToken = Token(tokenString, TokenType::RelationToken);
+        SPToken createdToken = TokenTypeExtractor::createTerminal(tokenString);
+        SPToken expectedToken = SPToken(tokenString, SPTokenType::RelationToken);
         REQUIRE(createdToken == expectedToken);
     }
 
     SECTION("== RelationToken") {
         std::string tokenString = "==";
-        Token createdToken = TokenTypeExtractor::createTerminal(tokenString);
-        Token expectedToken = Token(tokenString, TokenType::RelationToken);
+        SPToken createdToken = TokenTypeExtractor::createTerminal(tokenString);
+        SPToken expectedToken = SPToken(tokenString, SPTokenType::RelationToken);
         REQUIRE(createdToken == expectedToken);
     }
 
     SECTION("!= RelationToken") {
         std::string tokenString = "!=";
-        Token createdToken = TokenTypeExtractor::createTerminal(tokenString);
-        Token expectedToken = Token(tokenString, TokenType::RelationToken);
+        SPToken createdToken = TokenTypeExtractor::createTerminal(tokenString);
+        SPToken expectedToken = SPToken(tokenString, SPTokenType::RelationToken);
         REQUIRE(createdToken == expectedToken);
     }
 
     SECTION("! CondToken") {
         std::string tokenString = "!";
-        Token createdToken = TokenTypeExtractor::createTerminal(tokenString);
-        Token expectedToken = Token(tokenString, TokenType::CondToken);
+        SPToken createdToken = TokenTypeExtractor::createTerminal(tokenString);
+        SPToken expectedToken = SPToken(tokenString, SPTokenType::CondToken);
         REQUIRE(createdToken == expectedToken);
     }
 
     SECTION("|| CondToken") {
         std::string tokenString = "||";
-        Token createdToken = TokenTypeExtractor::createTerminal(tokenString);
-        Token expectedToken = Token(tokenString, TokenType::CondToken);
+        SPToken createdToken = TokenTypeExtractor::createTerminal(tokenString);
+        SPToken expectedToken = SPToken(tokenString, SPTokenType::CondToken);
         REQUIRE(createdToken == expectedToken);
     }
 
     SECTION("&& CondToken") {
         std::string tokenString = "&&";
-        Token createdToken = TokenTypeExtractor::createTerminal(tokenString);
-        Token expectedToken = Token(tokenString, TokenType::CondToken);
+        SPToken createdToken = TokenTypeExtractor::createTerminal(tokenString);
+        SPToken expectedToken = SPToken(tokenString, SPTokenType::CondToken);
         REQUIRE(createdToken == expectedToken);
     }
 
     SECTION("+ OpToken") {
         std::string tokenString = "+";
-        Token createdToken = TokenTypeExtractor::createTerminal(tokenString);
-        Token expectedToken = Token(tokenString, TokenType::OpToken);
+        SPToken createdToken = TokenTypeExtractor::createTerminal(tokenString);
+        SPToken expectedToken = SPToken(tokenString, SPTokenType::OpToken);
         REQUIRE(createdToken == expectedToken);
     }
 
     SECTION("- OpToken") {
         std::string tokenString = "-";
-        Token createdToken = TokenTypeExtractor::createTerminal(tokenString);
-        Token expectedToken = Token(tokenString, TokenType::OpToken);
+        SPToken createdToken = TokenTypeExtractor::createTerminal(tokenString);
+        SPToken expectedToken = SPToken(tokenString, SPTokenType::OpToken);
         REQUIRE(createdToken == expectedToken);
     }
 
     SECTION("/ FactorToken") {
         std::string tokenString = "/";
-        Token createdToken = TokenTypeExtractor::createTerminal(tokenString);
-        Token expectedToken = Token(tokenString, TokenType::FactorToken);
+        SPToken createdToken = TokenTypeExtractor::createTerminal(tokenString);
+        SPToken expectedToken = SPToken(tokenString, SPTokenType::FactorToken);
         REQUIRE(createdToken == expectedToken);
     }
 
     SECTION("* FactorToken") {
         std::string tokenString = "*";
-        Token createdToken = TokenTypeExtractor::createTerminal(tokenString);
-        Token expectedToken = Token(tokenString, TokenType::FactorToken);
+        SPToken createdToken = TokenTypeExtractor::createTerminal(tokenString);
+        SPToken expectedToken = SPToken(tokenString, SPTokenType::FactorToken);
         REQUIRE(createdToken == expectedToken);
     }
 
     SECTION("% FactorToken") {
         std::string tokenString = "%";
-        Token createdToken = TokenTypeExtractor::createTerminal(tokenString);
-        Token expectedToken = Token(tokenString, TokenType::FactorToken);
+        SPToken createdToken = TokenTypeExtractor::createTerminal(tokenString);
+        SPToken expectedToken = SPToken(tokenString, SPTokenType::FactorToken);
         REQUIRE(createdToken == expectedToken);
     }
 }
 
 TEST_CASE("Test_createTerminal_negative") {
     std::string rubbish = "test";
-    Token createdToken = TokenTypeExtractor::createTerminal(rubbish);
-    Token expectedToken = Token(rubbish, TokenType::ErrorToken);
+    SPToken createdToken = TokenTypeExtractor::createTerminal(rubbish);
+    SPToken expectedToken = SPToken(rubbish, SPTokenType::ErrorToken);
     REQUIRE(createdToken == expectedToken);
 }
 
 TEST_CASE("Test_createNonTerminal_positive") {
-    SECTION("Token Autotest") {
+    SECTION("SPToken Autotest") {
         for (const auto& [key, value] : TokenTypeExtractor::nonTerminalTokenMap) {
-            Token createdToken = TokenTypeExtractor::createNonTerminal(key);
-            Token expectedToken = Token(key, value);
+            SPToken createdToken = TokenTypeExtractor::createNonTerminal(key);
+            SPToken expectedToken = SPToken(key, value);
             REQUIRE(createdToken == expectedToken);
         }
     }
 
-    SECTION("procedure Token") {
+    SECTION("procedure SPToken") {
         std::string tokenString = "procedure";
-        Token createdToken = TokenTypeExtractor::createNonTerminal(tokenString);
-        Token expectedToken = Token(tokenString, TokenType::ProcedureToken);
+        SPToken createdToken = TokenTypeExtractor::createNonTerminal(tokenString);
+        SPToken expectedToken = SPToken(tokenString, SPTokenType::ProcedureToken);
         REQUIRE(createdToken == expectedToken);
     }
 
-    SECTION("read Token") {
+    SECTION("read SPToken") {
         std::string tokenString = "read";
-        Token createdToken = TokenTypeExtractor::createNonTerminal(tokenString);
-        Token expectedToken = Token(tokenString, TokenType::ReadToken);
+        SPToken createdToken = TokenTypeExtractor::createNonTerminal(tokenString);
+        SPToken expectedToken = SPToken(tokenString, SPTokenType::ReadToken);
         REQUIRE(createdToken == expectedToken);
     }
 
-    SECTION("print Token") {
+    SECTION("print SPToken") {
         std::string tokenString = "print";
-        Token createdToken = TokenTypeExtractor::createNonTerminal(tokenString);
-        Token expectedToken = Token(tokenString, TokenType::PrintToken);
+        SPToken createdToken = TokenTypeExtractor::createNonTerminal(tokenString);
+        SPToken expectedToken = SPToken(tokenString, SPTokenType::PrintToken);
         REQUIRE(createdToken == expectedToken);
     }
 
-    SECTION("while Token") {
+    SECTION("while SPToken") {
         std::string tokenString = "while";
-        Token createdToken = TokenTypeExtractor::createNonTerminal(tokenString);
-        Token expectedToken = Token(tokenString, TokenType::WhileToken);
+        SPToken createdToken = TokenTypeExtractor::createNonTerminal(tokenString);
+        SPToken expectedToken = SPToken(tokenString, SPTokenType::WhileToken);
         REQUIRE(createdToken == expectedToken);
     }
 
-    SECTION("if Token") {
+    SECTION("if SPToken") {
         std::string tokenString = "if";
-        Token createdToken = TokenTypeExtractor::createNonTerminal(tokenString);
-        Token expectedToken = Token(tokenString, TokenType::IfToken);
+        SPToken createdToken = TokenTypeExtractor::createNonTerminal(tokenString);
+        SPToken expectedToken = SPToken(tokenString, SPTokenType::IfToken);
         REQUIRE(createdToken == expectedToken);
     }
 
-    SECTION("then Token") {
+    SECTION("then SPToken") {
         std::string tokenString = "then";
-        Token createdToken = TokenTypeExtractor::createNonTerminal(tokenString);
-        Token expectedToken = Token(tokenString, TokenType::ThenToken);
+        SPToken createdToken = TokenTypeExtractor::createNonTerminal(tokenString);
+        SPToken expectedToken = SPToken(tokenString, SPTokenType::ThenToken);
         REQUIRE(createdToken == expectedToken);
     }
 
-    SECTION("else Token") {
+    SECTION("else SPToken") {
         std::string tokenString = "else";
-        Token createdToken = TokenTypeExtractor::createNonTerminal(tokenString);
-        Token expectedToken = Token(tokenString, TokenType::ElseToken);
+        SPToken createdToken = TokenTypeExtractor::createNonTerminal(tokenString);
+        SPToken expectedToken = SPToken(tokenString, SPTokenType::ElseToken);
         REQUIRE(createdToken == expectedToken);
     }
 
-    SECTION("Name Token") {
+    SECTION("Name SPToken") {
         std::string tokenString = "SomethingElse";
-        Token createdToken = TokenTypeExtractor::createNonTerminal(tokenString);
-        Token expectedToken = Token(tokenString, TokenType::NameToken);
+        SPToken createdToken = TokenTypeExtractor::createNonTerminal(tokenString);
+        SPToken expectedToken = SPToken(tokenString, SPTokenType::NameToken);
         REQUIRE(createdToken == expectedToken);
     }
 
-    SECTION("Call Token") {
+    SECTION("Call SPToken") {
         std::string tokenString = "call";
-        Token createdToken = TokenTypeExtractor::createNonTerminal(tokenString);
-        Token expectedToken = Token(tokenString, TokenType::CallToken);
+        SPToken createdToken = TokenTypeExtractor::createNonTerminal(tokenString);
+        SPToken expectedToken = SPToken(tokenString, SPTokenType::CallToken);
         REQUIRE(createdToken == expectedToken);
     }
 }
 
 TEST_CASE("Test_createConst") {
     std::string tokenString = "9";
-    Token createdToken = TokenTypeExtractor::createConst(tokenString);
-    Token expectedToken = Token(tokenString, TokenType::ConstToken);
+    SPToken createdToken = TokenTypeExtractor::createConst(tokenString);
+    SPToken expectedToken = SPToken(tokenString, SPTokenType::ConstToken);
     REQUIRE(createdToken == expectedToken);
 }

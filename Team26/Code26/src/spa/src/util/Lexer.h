@@ -18,9 +18,9 @@ public:
     Lexer(std::fstream *fileStream) {
         this->fileStream = fileStream;
     }
-    void splitWord(std::vector<Token>&, std::string&);
+    void splitWord(std::vector<SPToken>&, std::string&);
     std::vector<std::string> delimitBySpace();
     std::vector<std::string> delimitBySpaceUsingFS();
-    std::vector<Token> tokenize();
+    std::vector<SPToken> tokenize();
 };
 

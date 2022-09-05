@@ -10,7 +10,7 @@
 
 namespace QPS {
     void QueryManager::handleQuery(PKBInterface* pkb) {
-        std::vector<QPS::Token> tokens; // Initialize a vector of Token to store the tokens.
+        std::vector<QPS::Token> tokens; // Initialize a vector of SPToken to store the tokens.
         QPS::tokenize(std::cin, tokens); // Call tokenizer to read in PQL and tokenize it into tokens.
         QPS::Container container = QPS::Container(tokens); // Initialize a container to store the result of tokenization.
         QPS::parseToken(tokens, container); // Call QPS parser to parse the tokens into Query Structure. Store the result in container.queryStruct.
@@ -28,7 +28,7 @@ namespace QPS {
     }
 }
 
-int main() {
-    QPS::QueryManager queryManager = QPS::QueryManager();
-//    queryManager.handleQuery();
-}
+//int main() {
+//    QPS::QueryManager queryManager = QPS::QueryManager();
+////    queryManager.handleQuery();
+//}

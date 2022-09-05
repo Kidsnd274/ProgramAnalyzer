@@ -1,6 +1,6 @@
 #include "TokenStack.h"
 
-Token TokenStack::getNext() {
+SPToken TokenStack::getNext() {
     if(!hasNextToken()) {
         throw EndOfFileException();
     }
@@ -11,7 +11,7 @@ Token TokenStack::getNext() {
 bool TokenStack::hasNextToken() {
     return tokenPointer < tokenStack.size();
 }
-Token TokenStack::peekNext() {
+SPToken TokenStack::peekNext() {
     if(!hasNextToken()) {
         throw EndOfFileException();
     }

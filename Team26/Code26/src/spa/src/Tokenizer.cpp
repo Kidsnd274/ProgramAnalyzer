@@ -99,9 +99,9 @@ namespace QPS {
 
 
 //int main() {
-//    std::vector<QPS::Token> tokens;
+//    std::vector<QPS::SPToken> tokens;
 //    QPS::tokenize(std::cin, tokens);
-//    for (QPS::Token t : tokens) {
+//    for (QPS::SPToken t : tokens) {
 //        std::string s = QPS::tokenMap.at(t.tokenType);
 //        std::cout << s + " " << std::endl;
 //    }

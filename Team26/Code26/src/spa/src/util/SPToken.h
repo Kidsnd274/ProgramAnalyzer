@@ -2,7 +2,7 @@
 #ifndef SPA_TOKEN_H
 #define SPA_TOKEN_H
 
-enum class TokenType {
+enum class SPTokenType {
     LParenToken,
     RParenToken,
     LCurlyToken,
@@ -26,21 +26,21 @@ enum class TokenType {
     FactorToken,
 };
 
-class Token {
+class SPToken {
 private:
-    TokenType tokenType;
+    SPTokenType tokenType;
     std::string tokenString;
 
 public:
-    Token(std::string s, TokenType tt) {
+    SPToken(std::string s, SPTokenType tt) {
         tokenString = s;
         tokenType = tt;
     }
 
-    TokenType getTokenType() const;
+    SPTokenType getTokenType() const;
     std::string getTokenString() const;
     bool isNonTerminal();
 };
 
-bool operator== (const Token &leftToken, const Token &rightToken);
+bool operator== (const SPToken &leftToken, const SPToken &rightToken);
 #endif

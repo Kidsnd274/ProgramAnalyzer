@@ -15,14 +15,15 @@ volatile bool AbstractWrapper::GlobalStop = false;
 TestWrapper::TestWrapper() {
   // create any objects here as instance variables of this class
   // as well as any initialization required for your spa program
-  std::string validSimple = "procedure test {\n  read x;\n  x = x + 1;\n}";
-  processSIMPLE (validSimple);
+
 }
 
 // method for parsing the SIMPLE source
 void TestWrapper::parse(std::string filename) {
 	// call your parser to do the parsing
   // ...rest of your code...
+    std::string validSimple = "procedure test {\n  read x;\n  x = x + 1 + 3;\n print y;\n }";
+    processSIMPLE (validSimple);
 }
 
 // method to evaluating a query

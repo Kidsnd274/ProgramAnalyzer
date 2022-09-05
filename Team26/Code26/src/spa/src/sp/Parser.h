@@ -21,7 +21,7 @@ private:
     PKBInterface* pkbInterface;
 
 public:
-    Parser(std::vector<Token> ts, PKBInterface* pkbParserInterface) {
+    Parser(std::vector<SPToken> ts, PKBInterface* pkbParserInterface) {
         tokenStack = new TokenStack(ts);
         statementCount = 1;
         pkbInterface = pkbParserInterface;

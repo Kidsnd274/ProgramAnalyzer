@@ -1,19 +1,19 @@
 #pragma  once
 #include <vector>
-#include "Token.h"
+#include "SPToken.h"
 #include "EndOfFileException.h"
 
 class TokenStack {
 private:
-    std::vector<Token> tokenStack;
+    std::vector<SPToken> tokenStack;
     int tokenPointer;
 
 public:
-    TokenStack(std::vector<Token> ts) {
+    TokenStack(std::vector<SPToken> ts) {
         tokenPointer = 0;
         tokenStack = ts;
     }
-    Token getNext();
+    SPToken getNext();
     bool hasNextToken();
-    Token peekNext();
+    SPToken peekNext();
 };
