@@ -41,7 +41,6 @@ namespace QPS {
         }
 
         void addDeclaration(EntityType entityType, std::string s) {
-            std::cout << "add declaration" << s << std::endl;
             this->queryStruct.addSynonym(entityType, s);
         }
 

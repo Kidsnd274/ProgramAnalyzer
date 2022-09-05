@@ -38,7 +38,9 @@ namespace QPS {
                 break;
             }
             splitResult.push_back(line);
+//            std::cout << line << std::endl;
         }
+
         return splitResult;
     }
 
@@ -85,6 +87,8 @@ namespace QPS {
             }
         }
         std::copy(tokenizedResult.begin(), tokenizedResult.end(), std::back_inserter(tokens));
+
+        std::cout << "finish tokenizing" << std::endl;
         return tokenizedResult;
     }
 
