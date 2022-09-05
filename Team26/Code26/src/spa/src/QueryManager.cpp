@@ -9,7 +9,7 @@
 #include <cstdio>
 
 namespace QPS {
-    void QueryManager::handleQuery() {
+    void QueryManager::handleQuery(PKBInterface* pkb) {
         std::vector<QPS::Token> tokens; // Initialize a vector of Token to store the tokens.
         QPS::tokenize(std::cin, tokens); // Call tokenizer to read in PQL and tokenize it into tokens.
         QPS::Container container = QPS::Container(tokens); // Initialize a container to store the result of tokenization.
@@ -17,7 +17,7 @@ namespace QPS {
 
         QPS::QueryStruct query = container.getQueryStruct(); // Get the result of parsing.
         QPS::BasicQueryEvaluator basicQueryEvaluator = QPS::BasicQueryEvaluator();
-        basicQueryEvaluator.evaluateQuery(query); // Call basicQueryEvaluator to evaluate the query. Store the result in query.resultTable.
+        basicQueryEvaluator.evaluateQuery(query, pkb); // Call basicQueryEvaluator to evaluate the query. Store the result in query.resultTable.
 
         QPS::QueryResultProjector queryResultProjector = QPS::QueryResultProjector();
 //        queryResultProjector.projectResult(query); // Call queryResultProjector to format and print out the query result.
@@ -30,5 +30,5 @@ namespace QPS {
 
 int main() {
     QPS::QueryManager queryManager = QPS::QueryManager();
-    queryManager.handleQuery();
+//    queryManager.handleQuery();
 }

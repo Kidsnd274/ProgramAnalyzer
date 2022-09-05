@@ -3,11 +3,12 @@
 
 #include "QueryProcessorTypes.h"
 #include "QueryStruct.h"
+#include "PKBInterface.h"
 
 namespace QPS {
     class BasicQueryEvaluator {
     public:
-        void evaluateQuery(QueryStruct& query);
+        static void evaluateQuery(QueryStruct& query, PKBInterface *pkb);
     };
 }
 
