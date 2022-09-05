@@ -13,9 +13,9 @@ namespace QPS {
                     iter.second,
                     iter.first
             };
-            std::vector<std::string> entities = std::vector<std::string> {"a", "b", "c", "d"};
-//            std::vector<std::string> entities = PKB.getAllEntities(entityStruct); // TODO: Add method to PKB-QPS API.
-            query.resultTable.addColumnAndMerge(iter.first, entities);
+            std::vector<std::string> entities = std::vector<std::string> {"a", "b", "c", "d"}; // for test only
+//            std::vector<std::string> entities = PKB.getAllEntities(entityStruct.typeOfEntity); // TODO: Add method to PKB-QPS API.
+            query.resultTable.addColumnAndMerge(entityStruct.nameOfEntity, entities);
             query.resultTable.filterRows(query.getSuchThatList());
         }
     }

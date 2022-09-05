@@ -8,6 +8,7 @@ namespace QPS {
     class QueryResultProjector {
     public:
         void projectResult(QPS::QueryStruct queryStruct);
+        std::string getSelectTuples(QPS::QueryStruct query);
     };
 }
 
