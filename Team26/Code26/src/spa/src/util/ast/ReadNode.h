@@ -1,10 +1,16 @@
 #include <memory>
-#include "VariableNode.h"
+#include <string>
+#include "StatementNode.h"
 
-class ReadNode : public TNode {
-    std::shared_ptr<VariableNode> variableNode;
+class ReadNode : public StatementNode {
+    std::string variableName;
 
-    ReadNode(int sN, std::shared_ptr<VariableNode> vN) : TNode(sN) {
-        variableNode = std::move(vN);
+public:
+    ReadNode(int statementNumber, std::string variableName) : StatementNode(statementNumber) {
+        this->variableName = variableName;
     }
+
+    std::string getVariableName();
+
+    static std::shared_ptr<ReadNode> createReadNode(int statementNumber, std::string variableName);
 };

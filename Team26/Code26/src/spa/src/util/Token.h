@@ -1,6 +1,7 @@
 #include <string>
 #ifndef SPA_TOKEN_H
 #define SPA_TOKEN_H
+
 enum class TokenType {
     LParenToken,
     RParenToken,

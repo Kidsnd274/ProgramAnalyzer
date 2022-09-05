@@ -1,20 +1,29 @@
 #include <memory>
 #include <vector>
-#include "ConditionalOperatorNode.h"
-#include "IStatementNode.h"
+#include "StatementNode.h"
+#include "TNode.h"
 
-class IfNode : public IStatementNode {
+class IfNode : public StatementNode {
 private:
-    std::shared_ptr<ConditionalOperatorNode> conditionalExpression;
-    std::vector<std::shared_ptr<IStatementNode>> ifStatementList;
-    std::vector<std::shared_ptr<IStatementNode>> elseStatementList;
+    std::shared_ptr<TNode> conditionalExpression;
+    std::vector<std::shared_ptr<StatementNode>> ifStatementList;
+    std::vector<std::shared_ptr<StatementNode>> elseStatementList;
 
 public:
-    IfNode(int sN, std::shared_ptr<ConditionalOperatorNode> cON,
-           std::vector<std::shared_ptr<IStatementNode>> iSL,
-           std::vector<std::shared_ptr<IStatementNode>> eSL) : IStatementNode(sN) {
-        conditionalExpression = std::move(cON);
-        ifStatementList = std::move(iSL);
-        elseStatementList = std::move(eSL);
+    IfNode(int statementNumber, std::shared_ptr<TNode> conditionalExpression,
+           std::vector<std::shared_ptr<StatementNode>> ifStatementList,
+           std::vector<std::shared_ptr<StatementNode>> elseStatementList) : StatementNode(statementNumber) {
+        this->conditionalExpression = std::move(conditionalExpression);
+        this->ifStatementList = std::move(ifStatementList);
+        this->elseStatementList = std::move(elseStatementList);
     }
+
+    std::shared_ptr<TNode> getConditionalExpression();
+    std::vector<std::shared_ptr<StatementNode>> getIfStatementList();
+    std::vector<std::shared_ptr<StatementNode>> getElseStatementList();
+
+    static std::shared_ptr<IfNode> createIfNode(int statementNumber, std::shared_ptr<TNode> conditionalExpression,
+                                                std::vector<std::shared_ptr<StatementNode>> ifStatementList,
+                                                std::vector<std::shared_ptr<StatementNode>> elseStatementList);
+
 };

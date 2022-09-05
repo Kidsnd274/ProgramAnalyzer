@@ -1,5 +1,5 @@
 #include "SyntaxErrorException.h"
 
 char *SyntaxErrorException::what() {
-    return (char *) "Concrete Syntax Violated!";
+    return (char*) "Concrete Syntax Violated!";
 }

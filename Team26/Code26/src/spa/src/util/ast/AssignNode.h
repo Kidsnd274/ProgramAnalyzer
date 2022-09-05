@@ -1,19 +1,22 @@
 #include <memory>
+#include <string>
+#include "StatementNode.h"
+#include "TNode.h"
 
-#include "ITermNode.h"
-#include "IStatementNode.h"
-#include "VariableNode.h"
-
-class AssignNode : public IStatementNode {
+class AssignNode : public StatementNode {
 private:
-    std::shared_ptr<VariableNode> leftNode;
-    std::shared_ptr<ITermNode> rightNode;
+    std::string variableName;
+    std::shared_ptr<TNode> expression;
 
 public:
-    AssignNode(int sN, std::shared_ptr<VariableNode> lN,
-               std::shared_ptr<ITermNode> rN) : IStatementNode(sN) {
-        leftNode = std::move(lN);
-        rightNode = std::move(rN);
+    AssignNode(int statementNumber, std::string variableName, std::shared_ptr<TNode> expression) : StatementNode(statementNumber) {
+        this->variableName = std::move(variableName);
+        this->expression = std::move(expression);
     }
-};
 
+    std::string getVariableName();
+    std::shared_ptr<TNode> getExpression();
+
+    static std::shared_ptr<AssignNode> createAssignNode(int statementNumber, std::string variableName,
+                                                        std::shared_ptr<TNode> expression);
+};

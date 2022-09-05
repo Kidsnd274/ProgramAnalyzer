@@ -5,7 +5,7 @@
 std::string validSimple = "procedure test {\n  read x;\n  x = x + 1;\n}";
 std::string invalidSimple = "procedure test {\n  if(x < = y) then {\n read x;\n} else {\n read y;\n }\n   x = x + 1;\n}";
 
-TEST_CASE("Basic Lexer test on valid SIMPLE", "This is a test for a very small and basic SIMPLE program") {
+TEST_CASE("Basic Lexer test on valid SIMPLE") {
     Lexer lexer(validSimple);
     std::vector<Token> res = lexer.tokenize();
     std::vector<Token> expected = {TokenTypeExtractor::createNonTerminal("procedure"),
