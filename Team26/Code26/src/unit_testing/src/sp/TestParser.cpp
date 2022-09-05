@@ -119,6 +119,7 @@ TEST_CASE("Parse Expression") {
                                 Token("*", TokenType::FactorToken),
                                 Token("3", TokenType::ConstToken),
                                 Token(";", TokenType::SemiColonToken)};
+
         std::shared_ptr<TNode> expected =
                 TNode::createTerm(1, "+", TNode::createVariableName(1, "x"),
                                   TNode::createTerm(1, "*",TNode::createVariableName(1, "y"),
