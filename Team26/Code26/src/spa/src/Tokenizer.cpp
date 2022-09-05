@@ -30,15 +30,15 @@ namespace QPS {
 
                                                                     { WHITESPACE, "^(\\s+)" } };
     std::vector<std::string> splitToLines(std::istream& stream) {
+        std::string line;
         std::vector<std::string> splitResult;
-        std::string currLine;
-        while (std::getline(stream, currLine)) {
-            splitResult.push_back(currLine);
-//            std::cout << currLine << std::endl;
+
+        while(std::getline(std::cin, line)){
+            if (line.empty()){
+                break;
+            }
+            splitResult.push_back(line);
         }
-//        for (std::string s : splitResult) {
-//            std::cout << s << std::endl;
-//        }
         return splitResult;
     }
 
