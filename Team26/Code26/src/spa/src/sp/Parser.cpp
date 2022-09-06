@@ -1,5 +1,5 @@
 #include "Parser.h"
-#include "../PKB.h"
+#include "pkb/PKB.h"
 
 void Parser::parseSimple() {
     int numOfProcedures = 0;

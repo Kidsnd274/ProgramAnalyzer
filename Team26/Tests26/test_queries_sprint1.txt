@@ -23,3 +23,8 @@ read r;
 Select r;
 1
 5000
+6 - Simple constant and variable
+constant c; variable v;
+Select v, c;
+p1, p3, x1, x3, y1, y3, z1, z3
+5000

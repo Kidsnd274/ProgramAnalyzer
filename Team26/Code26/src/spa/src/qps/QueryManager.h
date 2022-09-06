@@ -3,7 +3,7 @@
 
 #include "Tokenizer.h"
 #include "QueryStruct.h"
-#include "PKBInterface.h"
+#include "pkb/PKBInterface.h"
 #include <list>
 
 namespace QPS {

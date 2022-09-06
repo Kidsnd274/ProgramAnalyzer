@@ -5,7 +5,7 @@
 #include <string>
 #include <vector>
 
-#include "QueryProcessorTypes.h"
+#include "qps/QueryProcessorTypes.h"
 #include "PKB.h"
 
 using namespace std;

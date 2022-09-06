@@ -1,7 +1,7 @@
 #include "sp/Parser.h"
 #include "catch.hpp"
 #include "util/ast/TNode.h"
-#include "PKBInterface.h"
+#include "pkb/PKBInterface.h"
 #include <vector>
 
 PKBInterface pkbInterface = PKBInterface();

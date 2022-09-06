@@ -1,7 +1,7 @@
 #include "QueryProcessorTypes.h"
 #include "QueryStruct.h"
 #include "QueryEvaluator.h"
-#include "PKBInterface.h"
+#include "pkb/PKBInterface.h"
 
 namespace QPS {
     void BasicQueryEvaluator::evaluateQuery(QueryStruct& query, PKBInterface* pkb) {

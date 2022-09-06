@@ -12,7 +12,7 @@
 #include "util/ast/ReadNode.h"
 #include "util/ast/PrintNode.h"
 #include "util/ast/CallNode.h"
-#include "PKBInterface.h"
+#include "pkb/PKBInterface.h"
 
 class Parser {
 private:

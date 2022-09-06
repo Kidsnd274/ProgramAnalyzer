@@ -3,7 +3,7 @@
 
 #include "QueryProcessorTypes.h"
 #include "QueryStruct.h"
-#include "PKBInterface.h"
+#include "pkb/PKBInterface.h"
 
 namespace QPS {
     class BasicQueryEvaluator {

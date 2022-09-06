@@ -1,7 +1,7 @@
 #include <fstream>
 #include "../util/Lexer.h"
 #include "Parser.h"
-#include "PKBInterface.h"
+#include "pkb/PKBInterface.h"
 
 using namespace std;
 
