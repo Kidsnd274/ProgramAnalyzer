@@ -1,14 +1,18 @@
 #include <fstream>
 #include "../util/Lexer.h"
-
-//#ifndef SPA_SOURCEPROCESSOR_H not sure what these do
-//#define SPA_SOURCEPROCESSOR_H
-
-//#endif //SPA_SOURCEPROCESSOR_H
+#include "Parser.h"
+#include "pkb/PKBInterface.h"
 
 using namespace std;
 
 class SourceProcessor {
+private:
+    PKBInterface* pkbInterface;
+
 public:
-    void processSIMPLE(fstream* sourceFile);
+    SourceProcessor(PKBInterface* pkbInterface) {
+        this->pkbInterface = pkbInterface;
+    }
+
+    void processSIMPLE(std::string sourceFile);
 };

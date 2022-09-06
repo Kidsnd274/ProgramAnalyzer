@@ -1,0 +1,10 @@
+procedure sprint1 {
+    read x;
+    print y;
+    x = x + 1;
+    if(x < y) then {
+        x = z + y * 3;
+    } else {
+        print p;
+    }
+}
