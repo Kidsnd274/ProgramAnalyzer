@@ -1,0 +1,30 @@
+1 - Simple test with constants
+constant c;
+Select c;
+1, 3
+5000
+2 - Simple test with variables
+variable v;
+Select v;
+p, x, y, z
+5000
+3 - Simple test with if
+if i;
+Select i;
+4
+5000
+4 - Simple test with print
+print p;
+Select p;
+2, 6
+5000
+5 - Simple test with read
+read r;
+Select r;
+1
+5000
+6 - Simple constant and variable
+constant c; variable v;
+Select v, c;
+p1, p3, x1, x3, y1, y3, z1, z3
+5000
