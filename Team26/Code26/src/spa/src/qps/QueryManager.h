@@ -4,7 +4,10 @@
 #include "Tokenizer.h"
 #include "QueryStruct.h"
 #include "pkb/PKBInterface.h"
+#include "QueryProcessorTypes.h"
 #include <list>
+#include <vector>
+#include <string>
 
 namespace QPS {
     enum Status{
@@ -66,7 +69,21 @@ namespace QPS {
 
     class QueryManager {
     public:
+        static PKBInterface* pkb;
         void handleQuery(PKBInterface* pkb, std::string queryString, std::list<std::string>& results);
+
+        static void setPKBInterface(PKBInterface *pkb) {
+            QueryManager::pkb = pkb;
+        }
+
+        /**
+         * Call PKB interface to get all the names of entity of a certain type.
+         *
+         * @return A vector of string.
+         */
+        static std::vector<std::string> getAllEntitiesFromPKB(QPS::EntityType entityType) {
+            return QueryManager::pkb->getAllEntity(entityType);
+        }
     };
 }
 
