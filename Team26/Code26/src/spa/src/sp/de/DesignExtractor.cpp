@@ -41,6 +41,8 @@ void DesignExtractor::traverse(std::shared_ptr<StatementNode> ptr, std::shared_p
         for(int i = 0; i < stmtList.size(); ++i) {
             traverse(stmtList[i], e);
         }
+
+        e->popFromStack();
     } else if (ptr->getStatementType() == statementType::ASSIGN) {
         e->extractFromAssign(std::static_pointer_cast<AssignNode>(ptr));
     } else if (ptr->getStatementType() == statementType::READ) {
