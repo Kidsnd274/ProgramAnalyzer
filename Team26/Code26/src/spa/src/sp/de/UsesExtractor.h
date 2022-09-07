@@ -11,7 +11,7 @@ public:
     void extractFromRead(std::shared_ptr<ReadNode> ptr) override {};
     void extractFromPrint(std::shared_ptr<PrintNode> ptr) override;
     void extractFromAssign(std::shared_ptr<AssignNode> ptr) override;
-    void extractFromCond(std::shared_ptr<TNode> ptr);
+    void extractFromExpressionTree(std::shared_ptr<TNode> ptr);
     void extractFromStatementsWithCond(int stmtNumber, std::shared_ptr<TNode> cond);
 };
 
