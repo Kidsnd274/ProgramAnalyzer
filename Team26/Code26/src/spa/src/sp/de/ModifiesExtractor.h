@@ -9,5 +9,6 @@ public:
     void extractFromRead(std::shared_ptr<ReadNode> ptr) override;
     void extractFromPrint(std::shared_ptr<PrintNode> ptr) override {};
     void extractFromAssign(std::shared_ptr<AssignNode> ptr) override;
+    void extractFromModifiesStatements(std::string varModified, int stmtNumber);
 };
 
