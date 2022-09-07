@@ -6,7 +6,7 @@ class CallNode : public StatementNode {
     std::string procedureName;
 
 public:
-    CallNode(int statementNumber, std::string procedureName) : StatementNode(statementNumber) {
+    CallNode(int statementNumber, std::string procedureName) : StatementNode(statementNumber, statementType::CALL) {
         this->procedureName = procedureName;
     }
 

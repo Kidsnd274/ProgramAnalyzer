@@ -9,7 +9,7 @@ private:
     std::shared_ptr<TNode> expression;
 
 public:
-    AssignNode(int statementNumber, std::string variableName, std::shared_ptr<TNode> expression) : StatementNode(statementNumber) {
+    AssignNode(int statementNumber, std::string variableName, std::shared_ptr<TNode> expression) : StatementNode(statementNumber, statementType::ASSIGN) {
         this->variableName = std::move(variableName);
         this->expression = std::move(expression);
     }

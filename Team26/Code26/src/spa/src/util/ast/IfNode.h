@@ -12,7 +12,7 @@ private:
 public:
     IfNode(int statementNumber, std::shared_ptr<TNode> conditionalExpression,
            std::vector<std::shared_ptr<StatementNode>> ifStatementList,
-           std::vector<std::shared_ptr<StatementNode>> elseStatementList) : StatementNode(statementNumber) {
+           std::vector<std::shared_ptr<StatementNode>> elseStatementList) : StatementNode(statementNumber, statementType::IF) {
         this->conditionalExpression = std::move(conditionalExpression);
         this->ifStatementList = std::move(ifStatementList);
         this->elseStatementList = std::move(elseStatementList);
