@@ -35,7 +35,9 @@ public:
     }
 
     int popFromStack() {
+        int val = callStack.top();
         callStack.pop();
+        return val;
     }
 
     virtual void extractFromProcedure(std::shared_ptr<ProcedureNode> ptr) = 0;

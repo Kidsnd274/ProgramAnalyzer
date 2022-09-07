@@ -82,7 +82,7 @@ TEST_CASE("Parse Assign") {
                             SPToken("1", SPTokenType::ConstToken),
                             SPToken(";", SPTokenType::SemiColonToken)};
     Parser pa(v, &pkbInterface);
-    REQUIRE_NOTHROW(pa.parseAssign());
+    REQUIRE_NOTHROW(pa.parseAssign(1));
 }
 
 TEST_CASE("Parse Print") {
@@ -90,7 +90,7 @@ TEST_CASE("Parse Print") {
                             SPToken("x", SPTokenType::NameToken),
                             SPToken(";", SPTokenType::SemiColonToken)};
     Parser pp(v, &pkbInterface);
-    REQUIRE_NOTHROW(pp.parsePrint());
+    REQUIRE_NOTHROW(pp.parsePrint(1));
 }
 
 TEST_CASE("Parse Read") {
@@ -98,7 +98,7 @@ TEST_CASE("Parse Read") {
                             SPToken("x", SPTokenType::NameToken),
                             SPToken(";", SPTokenType::SemiColonToken)};
     Parser pr(v, &pkbInterface);
-    REQUIRE_NOTHROW(pr.parseRead());
+    REQUIRE_NOTHROW(pr.parseRead(1));
 }
 
 TEST_CASE("Parse Expression") {
@@ -204,7 +204,7 @@ TEST_CASE("Parse If") {
                             SPToken(";", SPTokenType::SemiColonToken),
                             SPToken("}", SPTokenType::RCurlyToken)};
     Parser pr(v, &pkbInterface);
-    REQUIRE_NOTHROW(pr.parseIf());
+    REQUIRE_NOTHROW(pr.parseIf(1));
 }
 
 TEST_CASE("Parse While") {
@@ -220,7 +220,7 @@ TEST_CASE("Parse While") {
                             SPToken(";", SPTokenType::SemiColonToken),
                             SPToken("}", SPTokenType::RCurlyToken)};
     Parser pr(v, &pkbInterface);
-    REQUIRE_NOTHROW(pr.parseWhile());
+    REQUIRE_NOTHROW(pr.parseWhile(1));
 }
 
 TEST_CASE("Parse Call") {
@@ -228,7 +228,7 @@ TEST_CASE("Parse Call") {
                             SPToken("DummyProcedure", SPTokenType::NameToken),
                             SPToken(";", SPTokenType::SemiColonToken),};
     Parser pr(v, &pkbInterface);
-    REQUIRE_NOTHROW(pr.parseCall());
+    REQUIRE_NOTHROW(pr.parseCall(1));
 }
 
 TEST_CASE("Parse Cond") {

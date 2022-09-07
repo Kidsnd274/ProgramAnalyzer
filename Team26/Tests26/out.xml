@@ -1,59 +1,77 @@
 <?xml-stylesheet type="text/xsl" href="analysis.xsl"?>
 <test_results>
 <info>
-<name>Debug</name><parsing_time_taken>1.000000</parsing_time_taken>
+<name>autotester</name><parsing_time_taken>0.520000</parsing_time_taken>
 </info>
 <queries>
 <query>
 <id ReturnTuple="1" CondNum="1" RelNum="0" comment="Simple test with constants">1</id><querystr><![CDATA[constant c; Select c;]]></querystr>
-<stuans>1,3</stuans>
+<stuans>3,1</stuans>
 <correct>1,3</correct>
-<time_taken>21.000000</time_taken>
+<time_taken>4.270000</time_taken>
 <passed/>
 </query>
 <query>
 <id ReturnTuple="1" CondNum="1" RelNum="0" comment="Simple test with variables">2</id><querystr><![CDATA[variable v; Select v;]]></querystr>
-<stuans>p,x,y,z</stuans>
+<stuans>p,z,y,x</stuans>
 <correct>p,x,y,z</correct>
-<time_taken>23.000000</time_taken>
+<time_taken>3.439000</time_taken>
 <passed/>
 </query>
 <query>
 <id ReturnTuple="1" CondNum="1" RelNum="0" comment="Simple test with if">3</id><querystr><![CDATA[if i; Select i;]]></querystr>
-<stuans>4</stuans>
+<stuans></stuans>
 <correct>4</correct>
-<time_taken>29.000000</time_taken>
-<passed/>
-</query>
-<query>
-<id ReturnTuple="1" CondNum="1" RelNum="0" comment="Simple test with print">4</id><querystr><![CDATA[print p; Select p;]]></querystr>
-<stuans>2,6</stuans>
-<correct>2,6</correct>
-<time_taken>22.000000</time_taken>
-<passed/>
-</query>
-<query>
-<id ReturnTuple="1" CondNum="1" RelNum="0" comment="Simple test with read">5</id><querystr><![CDATA[read r; Select r;]]></querystr>
-<stuans>1</stuans>
-<correct>1</correct>
-<time_taken>20.000000</time_taken>
-<passed/>
-</query>
-<query>
-<id ReturnTuple="1" CondNum="1" RelNum="0" comment="Simple constant and variable">6</id><querystr><![CDATA[constant c; variable v; Select v, c;]]></querystr>
-<stuans>z3,p1,x1,y1,p3,x3,z1,y3</stuans>
-<correct>1</correct>
-<time_taken>34.000000</time_taken>
+<time_taken>3.212000</time_taken>
 <failed>
-<missing>1</missing>
-<additional>p1,p3,x1,x3,y1,y3,z1,z3</additional>
+<missing>4</missing>
+<additional></additional>
 <summary>
 <expected>1</expected>
 <matched>0</matched>
 <missing>1</missing>
-<additional>8</additional>
+<additional>0</additional>
 </summary>
 </failed>
+</query>
+<query>
+<id ReturnTuple="1" CondNum="1" RelNum="0" comment="Simple test with print">4</id><querystr><![CDATA[print p; Select p;]]></querystr>
+<stuans></stuans>
+<correct>2,6</correct>
+<time_taken>3.155000</time_taken>
+<failed>
+<missing>2,6</missing>
+<additional></additional>
+<summary>
+<expected>2</expected>
+<matched>0</matched>
+<missing>2</missing>
+<additional>0</additional>
+</summary>
+</failed>
+</query>
+<query>
+<id ReturnTuple="1" CondNum="1" RelNum="0" comment="Simple test with read">5</id><querystr><![CDATA[read r; Select r;]]></querystr>
+<stuans></stuans>
+<correct>1</correct>
+<time_taken>3.109000</time_taken>
+<failed>
+<missing>1</missing>
+<additional></additional>
+<summary>
+<expected>1</expected>
+<matched>0</matched>
+<missing>1</missing>
+<additional>0</additional>
+</summary>
+</failed>
+</query>
+<query>
+<id ReturnTuple="1" CondNum="1" RelNum="0" comment="Simple constant and variable">6</id><querystr><![CDATA[constant c; variable v; Select v, c;]]></querystr>
+<stuans>p3,p1,z3,y3,x1,z1,y1,x3</stuans>
+<correct>p1,p3,x1,x3,y1,y3,z1,z3</correct>
+<time_taken>4.480000</time_taken>
+<passed/>
 </query>
 </queries>
 </test_results>
