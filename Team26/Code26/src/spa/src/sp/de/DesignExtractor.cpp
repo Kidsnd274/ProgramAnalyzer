@@ -10,6 +10,7 @@ void DesignExtractor::traverse(std::shared_ptr<ProcedureNode> ptr, std::shared_p
     e->setProcedureName(ptr->getProcedureName());
     std::stack<int> s;
     e->setStack(s);
+    e->extractFromProcedure(ptr);
     std::vector<std::shared_ptr<StatementNode>> stmtList = ptr->getStatementList();
     for (auto stmt : stmtList) {
         traverse(stmt, e);

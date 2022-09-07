@@ -18,6 +18,7 @@ public:
         this->pkb = pkb;
     }
     virtual ~Extractor() = default;
+
     std::string getProcedureName() {
         return procName;
     }
@@ -37,6 +38,7 @@ public:
         callStack.pop();
     }
 
+    virtual void extractFromProcedure(std::shared_ptr<ProcedureNode> ptr) = 0;
     virtual void extractFromIf(std::shared_ptr<IfNode> ptr) = 0;
     virtual void extractFromWhile(std::shared_ptr<WhileNode> ptr) = 0;
     virtual void extractFromRead(std::shared_ptr<ReadNode> ptr) = 0;

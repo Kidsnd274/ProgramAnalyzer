@@ -18,12 +18,14 @@ class Parser {
 private:
     TokenStack* tokenStack;
     int statementCount;
+    int statementListNumber;
     PKBInterface* pkbInterface;
 
 public:
     Parser(std::vector<SPToken> ts, PKBInterface* pkbParserInterface) {
         tokenStack = new TokenStack(ts);
         statementCount = 1;
+        statementListNumber = 1;
         pkbInterface = pkbParserInterface;
     }
 
@@ -36,13 +38,13 @@ public:
 
     //Methods that return shared_ptr to StatementNode
     std::vector<std::shared_ptr<StatementNode>> parseStatementList();
-    std::shared_ptr<StatementNode> parseStatement();
-    std::shared_ptr<IfNode> parseIf();
-    std::shared_ptr<WhileNode> parseWhile();
-    std::shared_ptr<AssignNode> parseAssign();
-    std::shared_ptr<ReadNode> parseRead();
-    std::shared_ptr<PrintNode> parsePrint();
-    std::shared_ptr<CallNode> parseCall();
+    std::shared_ptr<StatementNode> parseStatement(int stmtListNum);
+    std::shared_ptr<IfNode> parseIf(int stmtListNum);
+    std::shared_ptr<WhileNode> parseWhile(int stmtListNum);
+    std::shared_ptr<AssignNode> parseAssign(int stmtListNum);
+    std::shared_ptr<ReadNode> parseRead(int stmtListNum);
+    std::shared_ptr<PrintNode> parsePrint(int stmtListNum);
+    std::shared_ptr<CallNode> parseCall(int stmtListNum);
 
     //Methods that return shared_ptr to TNode
     std::shared_ptr<TNode> parseCond();
