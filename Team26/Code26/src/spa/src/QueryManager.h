@@ -12,7 +12,9 @@ namespace QPS {
         START_PARSE_DECLARATION,
         FINISH_PARSE_DECLARATION,
         START_PARSE_SELECT,
-        FINISH_PARSE_SELECT
+        FINISH_PARSE_SELECT,
+        START_PARSE_SUCH,
+        FINISH_PARSE_SUCH,
     };
 
     class Container {
@@ -51,12 +53,21 @@ namespace QPS {
             this->queryStruct.addCandidateList(candidateType, std::move(s), entityType);
         }
 
+        void addSuchThatClause(RelationType relationType, ArgumentStruct ARG1, ArgumentStruct ARG2) {
+            RelationStruct relationStruct = {relationType, std::move(ARG1), std::move(ARG2)};
+            this->queryStruct.addSuchThatClause(relationStruct);
+        }
+
         DECLARED_SYNONYM_MAP getDeclarationMap() {
             return this->queryStruct.getDeclaredSynonymMap();
         }
 
         CANDIDATE_LIST  getCandidateList(){
             return this->queryStruct.getCandidateList();
+        }
+
+        SUCH_THAT_LIST getSuchThatList() {
+            return this->queryStruct.getSuchThatList();
         }
 
         QueryStruct getQueryStruct() {

@@ -77,6 +77,61 @@ namespace QPS {
         }
     }
 
+    std::string ARGToString (ArgumentType argumentType) {
+        switch (argumentType) {
+
+            case STMT_SYNONYM:{
+                return "STMT_SYNONYM";
+            }
+            case VAR_SYNONYM:{
+                return "VAR_SYNONYM";
+            }
+            case PROCEDURE_SYNONYM:{
+                return "PROCEDURE_SYNONYM";
+            }
+            case CONST_SYNONYM:{
+                return "CONST_SYNONYM";
+            }
+            case NAME_OF_ENTITY:{
+                return "NAME_OF_ENTITY";
+            }
+            case NUMBER:{
+                return "NUMBER";
+            }
+            case WILDCARD:{
+                return "WILDCARD";
+            }
+            case INVALID_ARGUMENT_TYPE:{
+                return "INVALID_ARGUMENT_TYPE";
+            }
+        }
+    }
+    std::string relationToString (RelationType relationType) {
+        switch (relationType) {
+
+            case FOLLOWS:{
+                return "follows";
+            }
+            case FOLLOWS_T:{
+                return "follows*";
+            }
+            case PARENT:{
+                return "parent";
+            }
+            case PARENT_T:{
+                return "parent*";
+            }
+            case USES_S:{
+                return "uses";
+            }
+            case MODIFIES_S:{
+                return "modifies";
+            }
+            case INVALID_RELATION_TYPE:{
+                return "Invalid";
+            }
+        }
+    }
     std::string candidateToString(CandidateType candidateType) {
         switch (candidateType) {
             case STMT_NO: {

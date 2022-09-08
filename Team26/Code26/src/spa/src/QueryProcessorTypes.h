@@ -47,8 +47,8 @@ namespace QPS {
         FOLLOWS_T,  // Follows*(stmtRef, stmtRef)
         PARENT, // Parent(stmtRef, stmtRef)
         PARENT_T,   // Parent*(stmtRef, stmtRef)
-        USES_S,
-        MODIFIES_S,
+        USES,
+        MODIFIES,
         INVALID_RELATION_TYPE
     };
 
@@ -56,8 +56,8 @@ namespace QPS {
                                                        {"Follows*", FOLLOWS_T},
                                                        {"Parent",   PARENT},
                                                        {"Parent*",  PARENT_T},
-                                                       {"Uses",     USES_S},
-                                                       {"Modifies", MODIFIES_S},
+                                                       {"Uses",     USES},
+                                                       {"Modifies", MODIFIES},
                                                        {"",         INVALID_RELATION_TYPE}};
 
     bool isRelation(std::string);
@@ -144,6 +144,8 @@ namespace QPS {
     CandidateType mapEntityToCandidate(EntityType entityType);
     std::string entityToString(EntityType entityType);
     std::string candidateToString(CandidateType candidateType);
+    std::string relationToString (RelationType relationType);
+    std::string ARGToString (ArgumentType argumentType);
 
 
 }
