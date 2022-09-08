@@ -47,8 +47,10 @@ namespace QPS {
         FOLLOWS_T,  // Follows*(stmtRef, stmtRef)
         PARENT, // Parent(stmtRef, stmtRef)
         PARENT_T,   // Parent*(stmtRef, stmtRef)
-        USES,
-        MODIFIES,
+        USES_S,
+        MODIFIES_S,
+        USES_P,
+        MODIFIES_P,
         INVALID_RELATION_TYPE
     };
 
@@ -56,8 +58,8 @@ namespace QPS {
                                                        {"Follows*", FOLLOWS_T},
                                                        {"Parent",   PARENT},
                                                        {"Parent*",  PARENT_T},
-                                                       {"Uses",     USES},
-                                                       {"Modifies", MODIFIES},
+                                                       {"Uses",     USES_S},
+                                                       {"Modifies", MODIFIES_S},
                                                        {"",         INVALID_RELATION_TYPE}};
 
     bool isRelation(std::string);

@@ -1,5 +1,5 @@
 1 - Simple test with constants
 constant c; variable v;
-Select c, v such that Uses(1, 2)
+Select c, v such that Modifies(v, c)
 1, 3
 5000

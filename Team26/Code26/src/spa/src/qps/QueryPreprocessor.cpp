@@ -210,8 +210,54 @@ namespace QPS {
                             }
                             break;
                         }
-                        case USES:
-                        case MODIFIES:
+                        case USES_S: {
+                            tokenPos++;
+                            std::pair<int, bool> result = parseRelationStmtStmt(tokens, tokenPos,
+                                                                                USES_S, container);
+                            if (result.second) {
+                                tokenPos = result.first - 1;
+                            } else {
+                                // Invalid query
+                                tokenPos--;
+                            }
+                            break;
+                        }
+                        case MODIFIES_S:{
+                            tokenPos++;
+                            std::pair<int, bool> result = parseRelationStmtStmt(tokens, tokenPos,
+                                                                               MODIFIES_S, container);
+                            if (result.second) {
+                                tokenPos = result.first - 1;
+                            } else {
+                                // Invalid query
+                                tokenPos--;
+                            }
+                            break;
+                        }
+                        case USES_P: {
+                            tokenPos++;
+                            std::pair<int, bool> result = parseRelationStmtStmt(tokens, tokenPos,
+                                                                               USES_P, container);
+                            if (result.second) {
+                                tokenPos = result.first - 1;
+                            } else {
+                                // Invalid query
+                                tokenPos--;
+                            }
+                            break;
+                        }
+                        case MODIFIES_P:{
+                            tokenPos++;
+                            std::pair<int, bool> result = parseRelationStmtStmt(tokens, tokenPos,
+                                                                              MODIFIES_P, container);
+                            if (result.second) {
+                                tokenPos = result.first - 1;
+                            } else {
+                                // Invalid query
+                                tokenPos--;
+                            }
+                            break;
+                        }
                         case INVALID_RELATION_TYPE:
                         {
                             std::cout << "invalid relation" << std::endl;
@@ -316,6 +362,7 @@ namespace QPS {
         }
     }
 
+
     std::pair<int, bool> parseRelationStmtStmt(std::vector<QPS::Token> &tokens,
                                                int pos, RelationType relationType,
                                                Container &container) {
@@ -407,6 +454,7 @@ namespace QPS {
             return {{}, false};
         }
     }
+
 
 
     std::pair<EntityType, bool> mapEntity(QPS::Token token) {

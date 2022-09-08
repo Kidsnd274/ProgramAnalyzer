@@ -122,10 +122,16 @@ namespace QPS {
                 return "parent*";
             }
             case USES_S:{
-                return "uses";
+                return "uses_s";
+            }
+            case USES_P: {
+                return "uses_p";
             }
             case MODIFIES_S:{
-                return "modifies";
+                return "modifies_s";
+            }
+            case MODIFIES_P: {
+                return "modifies_p";
             }
             case INVALID_RELATION_TYPE:{
                 return "Invalid";
