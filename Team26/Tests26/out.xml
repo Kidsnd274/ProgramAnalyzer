@@ -1,28 +1,28 @@
 <?xml-stylesheet type="text/xsl" href="analysis.xsl"?>
 <test_results>
 <info>
-<name>autotester</name><parsing_time_taken>0.342000</parsing_time_taken>
+<name>autotester</name><parsing_time_taken>0.374000</parsing_time_taken>
 </info>
 <queries>
 <query>
 <id ReturnTuple="1" CondNum="1" RelNum="0" comment="Simple test with constants">1</id><querystr><![CDATA[constant c; Select c;]]></querystr>
 <stuans>3,1</stuans>
 <correct>1,3</correct>
-<time_taken>2.861000</time_taken>
+<time_taken>2.753000</time_taken>
 <passed/>
 </query>
 <query>
 <id ReturnTuple="1" CondNum="1" RelNum="0" comment="Simple test with variables">2</id><querystr><![CDATA[variable v; Select v;]]></querystr>
 <stuans>p,z,y,x</stuans>
 <correct>p,x,y,z</correct>
-<time_taken>2.576000</time_taken>
+<time_taken>2.380000</time_taken>
 <passed/>
 </query>
 <query>
 <id ReturnTuple="1" CondNum="1" RelNum="0" comment="Simple test with if">3</id><querystr><![CDATA[if i; Select i;]]></querystr>
 <stuans></stuans>
 <correct>4</correct>
-<time_taken>2.093000</time_taken>
+<time_taken>2.138000</time_taken>
 <failed>
 <missing>4</missing>
 <additional></additional>
@@ -38,7 +38,7 @@
 <id ReturnTuple="1" CondNum="1" RelNum="0" comment="Simple test with print">4</id><querystr><![CDATA[print p; Select p;]]></querystr>
 <stuans></stuans>
 <correct>2,6</correct>
-<time_taken>2.224000</time_taken>
+<time_taken>1.985000</time_taken>
 <failed>
 <missing>2,6</missing>
 <additional></additional>
@@ -54,7 +54,7 @@
 <id ReturnTuple="1" CondNum="1" RelNum="0" comment="Simple test with read">5</id><querystr><![CDATA[read r; Select r;]]></querystr>
 <stuans></stuans>
 <correct>1</correct>
-<time_taken>2.163000</time_taken>
+<time_taken>1.993000</time_taken>
 <failed>
 <missing>1</missing>
 <additional></additional>
@@ -70,7 +70,7 @@
 <id ReturnTuple="1" CondNum="1" RelNum="0" comment="Simple constant and variable">6</id><querystr><![CDATA[constant c; variable v; Select v, c;]]></querystr>
 <stuans>p3,p1,z3,y3,x1,z1,y1,x3</stuans>
 <correct>p1,p3,x1,x3,y1,y3,z1,z3</correct>
-<time_taken>5.303000</time_taken>
+<time_taken>5.273000</time_taken>
 <passed/>
 </query>
 </queries>

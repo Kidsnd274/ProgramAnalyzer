@@ -5,7 +5,8 @@ void Parser::parseSimple() {
     int numOfProcedures = 0;
     while(tokenStack->hasNextToken()) {
         if (tokenStack->getNext().getTokenType() == SPTokenType::ProcedureToken) {
-            parseProcedure();
+            std::shared_ptr<ProcedureNode> pn = parseProcedure();
+            de->extract(pn);
             numOfProcedures++;
         } else {
             throw SyntaxErrorException();
