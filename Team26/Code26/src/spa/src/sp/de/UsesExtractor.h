@@ -3,7 +3,7 @@
 #include <queue>
 class UsesExtractor : public Extractor {
 public:
-    UsesExtractor(PKBInterface &pkb) : Extractor(pkb){}
+    UsesExtractor(PKBInterface *pkb) : Extractor(pkb){}
 
     void extractFromProcedure(std::shared_ptr<ProcedureNode> ptr) override{};
     void extractFromIf(std::shared_ptr<IfNode> ptr) override;

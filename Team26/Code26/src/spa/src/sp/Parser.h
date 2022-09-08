@@ -5,14 +5,7 @@
 #include "util/TokenStack.h"
 #include "SyntaxErrorException.h"
 #include "util/ast/TNode.h"
-#include "util/ast/ProcedureNode.h"
-#include "util/ast/AssignNode.h"
-#include "util/ast/IfNode.h"
-#include "util/ast/WhileNode.h"
-#include "util/ast/ReadNode.h"
-#include "util/ast/PrintNode.h"
-#include "util/ast/CallNode.h"
-#include "pkb/PKBInterface.h"
+#include "de/DesignExtractor.h"
 
 class Parser {
 private:
@@ -20,6 +13,8 @@ private:
     int statementCount;
     int statementListNumber;
     PKBInterface* pkbInterface;
+    //TODO sam help me check if there is a need to destroy this pointer
+    DesignExtractorInterface* de;
 
 public:
     Parser(std::vector<SPToken> ts, PKBInterface* pkbParserInterface) {
@@ -27,6 +22,7 @@ public:
         statementCount = 1;
         statementListNumber = 1;
         pkbInterface = pkbParserInterface;
+        de = new DesignExtractor(pkbInterface);
     }
 
     ~Parser() {

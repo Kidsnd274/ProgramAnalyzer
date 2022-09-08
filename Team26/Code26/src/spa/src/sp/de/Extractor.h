@@ -15,8 +15,8 @@ private:
     std::stack<int> callStack;
     std::string procName;
 public:
-    PKBInterface pkb;
-    Extractor(PKBInterface &pkb) {
+    PKBInterface* pkb;
+    Extractor(PKBInterface *pkb) {
         this->pkb = pkb;
     }
     virtual ~Extractor() = default;
