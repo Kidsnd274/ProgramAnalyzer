@@ -7,6 +7,7 @@
 #include "UsesExtractor.h"
 class DesignExtractorInterface {
 public:
+    virtual ~DesignExtractorInterface() = default;
     virtual void extract(std::shared_ptr<ProcedureNode> p) = 0;
 };
 

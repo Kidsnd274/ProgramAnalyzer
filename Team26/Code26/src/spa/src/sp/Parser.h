@@ -27,6 +27,7 @@ public:
 
     ~Parser() {
         delete tokenStack;
+        delete de;
     }
 
     void parseSimple();

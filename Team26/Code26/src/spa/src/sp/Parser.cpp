@@ -178,7 +178,7 @@ std::shared_ptr<AssignNode> Parser::parseAssign(int stmtListNum) {
     parseAssignToken();
     std::shared_ptr<TNode> expr = std::move(parseExpression());
     parseSemiColon();
-    //pkbInterface->addAssignStatement(currStatement, stmtListNum);
+    //pkbInterface->addAssignStatement(currStatement, stmtListNum, *expr);
 
     return AssignNode::createAssignNode(currStatement, varAssigned, expr);
 }
