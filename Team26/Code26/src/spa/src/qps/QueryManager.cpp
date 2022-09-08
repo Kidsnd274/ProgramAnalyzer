@@ -11,7 +11,10 @@
 #include <list>
 
 namespace QPS {
+    PKBInterface* QueryManager::pkb;
+
     void QueryManager::handleQuery(PKBInterface* pkb, std::string queryString, std::list<std::string>& results) {
+        QueryManager::setPKBInterface(pkb);
         std::vector<QPS::Token> tokens; // Initialize a vector of SPToken to store the tokens.
         QPS::tokenize(std::move(queryString), tokens); // Call tokenizer to read in PQL and tokenize it into tokens.
         std::cout << "==========tokenizing-----------" << std::endl;
@@ -23,14 +26,10 @@ namespace QPS {
 
         QPS::QueryStruct query = container.getQueryStruct(); // Get the result of parsing.
         QPS::BasicQueryEvaluator basicQueryEvaluator = QPS::BasicQueryEvaluator();
-        basicQueryEvaluator.evaluateQuery(query, pkb); // Call basicQueryEvaluator to evaluate the query. Store the result in query.resultTable.
+        basicQueryEvaluator.evaluateQuery(query); // Call basicQueryEvaluator to evaluate the query. Store the result in query.resultTable.
 
         QPS::QueryResultProjector queryResultProjector = QPS::QueryResultProjector();
         queryResultProjector.getSelectTuples(query, results); // Call queryResultProjector to format and print out the query result.
-//        std::cout << queryResultProjector.getSelectTuples(query, results) << std::endl;
-        // for test only
-//        puts("\nPrint Result Table:");
-//        query.resultTable.printTable();
     }
 }
 

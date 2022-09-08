@@ -1,5 +1,5 @@
 #include "Tokenizer.h"
-#include "QueryPreprocessor.h"
+#include "qps/QueryPreprocessor.h"
 
 namespace QPS {
     std::vector<std::pair<TokenType, std::string>> matchingRules = {{ LBRACE, "^(\\{)" },
