@@ -96,6 +96,7 @@ namespace QPS {
         NAME_OF_ENTITY,
         NUMBER,
         WILDCARD,
+        EXPRESSION,
         INVALID_ARGUMENT_TYPE
     };
 
@@ -126,6 +127,7 @@ namespace QPS {
      */
     struct PatternStruct {
         PatternType typeOfPattern;
+        std::string assign_syn;
         ArgumentStruct arg1;
         ArgumentStruct arg2;
     };

@@ -8,6 +8,7 @@ namespace QPS {
                                           Container &container);
 
     std::pair<int, bool> parseSelect(std::vector<QPS::Token> &tokens, int pos, Container &container);
+    std::pair<int, bool> parsePattern(std::vector<QPS::Token> &tokens, int pos, Container &container);
     std::pair<int, bool> parseRelationStmtStmt(std::vector<QPS::Token> &tokens, int pos, RelationType relationType, Container &container);
 
     void parseToken(std::vector<QPS::Token> &tokens, Container& container) {
@@ -275,10 +276,12 @@ namespace QPS {
                 container.setStatus(FINISH_PARSE_SELECT);
             }  else if (curr.tokenType == QPS::NAME && curr.nameValue == "such") {
                 container.setStatus(START_PARSE_SUCH);
-                std::cout << "parse such" << std::endl;
             }  else if (curr.tokenType == QPS::NAME && curr.nameValue == "that" && container.getStatus() == START_PARSE_SUCH) {
                 container.setStatus(FINISH_PARSE_SUCH);
-                std::cout << "parse that" << std::endl;
+            } else if (curr.tokenType == QPS::NAME && curr.nameValue == "pattern") {
+                tokenPos++;
+                std::pair<int, bool> result = parsePattern(tokens, tokenPos, container);
+
             } else {
                 // Invalid entity
 
@@ -286,7 +289,7 @@ namespace QPS {
             tokenPos++;
         }
 
-        std::cout << "Finish parsing" << std::endl;
+//        std::cout << "Finish parsing" << std::endl;
         std::cout << "Declaration:" << std::endl;
         for (auto& it: container.getDeclarationMap()) {
             std::cout << it.first << " : " << entityToString(it.second)  << std::endl;
@@ -301,8 +304,92 @@ namespace QPS {
             std::cout << QPS::relationToString(relationStruct.typeOfRelation) + ": " + relationStruct.arg1.nameOfArgument + " - "+ QPS::ARGToString(relationStruct.arg1.typeOfArgument)
                     + "  " + relationStruct.arg2.nameOfArgument + " - " + QPS::ARGToString(relationStruct.arg2.typeOfArgument)<< std::endl;
         }
+
+        std::cout << "Pattern:" << std::endl;
+        PATTERN_LIST patternList = container.getPatternList();
+        for (const PatternStruct& patternStruct: patternList) {
+            std::cout << patternStruct.arg1.nameOfArgument + " - "+ QPS::ARGToString(patternStruct.arg1.typeOfArgument)
+                         + "  " + patternStruct.arg2.nameOfArgument + " - " + QPS::ARGToString(patternStruct.arg2.typeOfArgument)<< std::endl;
+        }
     }
 
+    std::pair<int, bool> parsePattern (std::vector<QPS::Token> &tokens,
+                                       int pos,
+                                       Container &container) {
+        std::string assign_syn;
+        std::string expression;
+//        std::cout << "parse pattern" << std::endl;
+        if (pos < tokens.size() && tokens[pos].tokenType == NAME) {
+            DECLARED_SYNONYM_MAP declarationMap = container.getDeclarationMap();
+            auto iterator = declarationMap.find( tokens[pos].nameValue);
+            if (iterator->second != ASSIGN) {
+                return {pos, false};
+            } else {
+                assign_syn = iterator->first;
+                pos++;
+            }
+        } else {
+            return {pos, false};
+        }
+        if (pos < tokens.size() && tokens[pos].tokenType == LPAREN) {
+            pos++;
+//            std::cout << "parse (" << std::endl;
+        } else {
+            return {pos, false};
+        }
+
+        std::pair<ArgumentStruct,bool> ARG1;
+        if (pos < tokens.size() && (tokens[pos].tokenType == NAME)) {
+            ARG1 = convertStringToARG(tokens[pos], container);
+//            std::cout << "parse first arg" << std::endl;
+            pos++;
+        } else {
+            return {pos, false};
+        }
+
+        if (pos < tokens.size() && tokens[pos].tokenType == COMMA) {
+            pos++;
+//            std::cout << "parse comma" << std::endl;
+        } else {
+            return {pos, false};
+        }
+
+        //parse expression specific
+//        std::cout << "parse expression specific" << std::endl;
+        if (tokens[pos].tokenType == UNDERSCORE) {
+            expression += "_";
+            pos++;
+        }
+        if (tokens[pos].tokenType == DOUBLE_QUOTE) {
+            pos++;
+            while (pos < tokens.size() && tokens[pos].tokenType != DOUBLE_QUOTE) {
+                expression += tokens[pos].nameValue;
+                pos++;
+            }
+
+            if (pos < tokens.size()) {
+                pos++;
+            } else {
+                return {pos, false};
+            }
+
+            if (tokens[pos].tokenType == UNDERSCORE) {
+                expression += "_";
+                pos++;
+            }
+        }
+
+        if (pos < tokens.size() && tokens[pos].tokenType == RPAREN) {
+            pos++;
+//            std::cout << "parse )" << std::endl;
+        } else {
+            return {pos, false};
+        }
+
+        ArgumentStruct aStruct = {EXPRESSION, expression};
+        container.addPatternClause(ASSIGN_PATTERN, assign_syn, ARG1.first, aStruct);
+        return {pos, true};
+    }
 
     std::pair<int, bool> parseDeclaration(std::vector<QPS::Token> &tokens,
                                           int pos,
@@ -366,19 +453,19 @@ namespace QPS {
     std::pair<int, bool> parseRelationStmtStmt(std::vector<QPS::Token> &tokens,
                                                int pos, RelationType relationType,
                                                Container &container) {
-        std::cout << "parse stmt" << std::endl;
+//        std::cout << "parse stmt" << std::endl;
         std::pair<ArgumentStruct,bool> ARG1, ARG2;
 
         if (pos < tokens.size() && tokens[pos].tokenType == LPAREN) {
             pos++;
-            std::cout << "parse (" << std::endl;
+//            std::cout << "parse (" << std::endl;
         } else {
             return {pos, false};
         }
 
         if (pos < tokens.size() && (tokens[pos].tokenType == NAME || tokens[pos].tokenType == INTEGER)) {
             ARG1 = convertStringToARG(tokens[pos], container);
-            std::cout << "parse first arg" << std::endl;
+//            std::cout << "parse first arg" << std::endl;
             pos++;
         } else {
             return {pos, false};
@@ -386,14 +473,14 @@ namespace QPS {
 
         if (pos < tokens.size() && tokens[pos].tokenType == COMMA) {
             pos++;
-            std::cout << "parse comma" << std::endl;
+//            std::cout << "parse comma" << std::endl;
         } else {
             return {pos, false};
         }
 
         if (pos < tokens.size() && (tokens[pos].tokenType == NAME || tokens[pos].tokenType == INTEGER)) {
             ARG2 = convertStringToARG(tokens[pos], container);
-            std::cout << "parse second arg" << std::endl;
+//            std::cout << "parse second arg" << std::endl;
             pos++;
         } else {
             return {pos, false};
@@ -401,13 +488,13 @@ namespace QPS {
 
         if (pos < tokens.size() && tokens[pos].tokenType == RPAREN) {
             pos++;
-            std::cout << "parse )" << std::endl;
+//            std::cout << "parse )" << std::endl;
         } else {
             return {pos, false};
         }
         if (ARG1.second && ARG2.second) {
             container.addSuchThatClause(relationType, ARG1.first, ARG2.first);
-            std::cout << "parse stmt finish" << std::endl;
+//            std::cout << "parse stmt finish" << std::endl;
             return {pos, true};
         } else {
             return {pos, false};

@@ -61,6 +61,11 @@ namespace QPS {
             this->queryStruct.addSuchThatClause(relationStruct);
         }
 
+        void addPatternClause(PatternType typeOfPattern, std::string assign_syn, ArgumentStruct arg1, ArgumentStruct arg2) {
+            PatternStruct patternStruct = {typeOfPattern, std::move(assign_syn),std::move(arg1),std::move(arg2)};
+            this->queryStruct.addPatternClause(patternStruct);
+        }
+
         DECLARED_SYNONYM_MAP getDeclarationMap() {
             return this->queryStruct.getDeclaredSynonymMap();
         }
@@ -71,6 +76,10 @@ namespace QPS {
 
         SUCH_THAT_LIST getSuchThatList() {
             return this->queryStruct.getSuchThatList();
+        }
+
+        PATTERN_LIST getPatternList() {
+            return this->queryStruct.getPatternList();
         }
 
         QueryStruct getQueryStruct() {

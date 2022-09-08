@@ -73,7 +73,7 @@ namespace QPS {
                         tokenizedResult.push_back(t);
                     } else if (pair.first == WHITESPACE){
                     } else {
-                        std::cout << tokenMap.at(pair.first) << std::endl;
+//                        std::cout << tokenMap.at(pair.first) << std::endl;
                         t = createToken(pair.first, match.str());
                         tokenizedResult.push_back(t);
                     }

@@ -104,6 +104,10 @@ namespace QPS {
             case INVALID_ARGUMENT_TYPE:{
                 return "INVALID_ARGUMENT_TYPE";
             }
+            case EXPRESSION:{
+                return "EXPRESSION";
+            }
+
         }
     }
     std::string relationToString (RelationType relationType) {
