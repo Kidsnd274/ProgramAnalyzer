@@ -30,8 +30,9 @@ void UsesExtractor::extractFromExpressionTree(std::shared_ptr<TNode> ptr) {
     if(varSet.empty()) return;
 
     std::vector<int> v = getAllItemsInStack();
-    for(auto i : v) {
-        for(auto &var : varSet) {
+    for(auto &var : varSet) {
+        //pkb.addUses(getProcedureName(), var);
+        for(auto i : v) {
             //pkb.addUses(i, var);
         }
     }
@@ -39,6 +40,7 @@ void UsesExtractor::extractFromExpressionTree(std::shared_ptr<TNode> ptr) {
 
 void UsesExtractor::extractFromPrint(std::shared_ptr<PrintNode> ptr) {
     std::string varUsed = ptr->getVariableName();
+    //pkb.addUses(getProcedureName(), varUsed);
     std::vector<int> v = getAllItemsInStack();
     for(auto i : v) {
         //pkb.addUses(i, varUsed);
