@@ -1,3 +1,5 @@
+#ifndef SPA_SP_DE_EXTRACTOR_H
+#define SPA_SP_DE_EXTRACTOR_H
 #include <stack>
 #include <string>
 #include "util/ast/IfNode.h"
@@ -65,3 +67,4 @@ public:
     //Does nothing for Milestone 1
     void extractFromCall(std::shared_ptr<CallNode> ptr) {}
 };
+#endif
