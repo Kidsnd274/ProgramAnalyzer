@@ -1,6 +1,6 @@
 #include "DesignExtractorInterface.h"
 #include "pkb/PKBInterface.h"
-class DesignExtractor : public DesignExtractorInterface{
+class DesignExtractor : public DesignExtractorInterface {
 private:
     PKBInterface* pkbInterface;
     std::vector<std::shared_ptr<Extractor>> extractorList;

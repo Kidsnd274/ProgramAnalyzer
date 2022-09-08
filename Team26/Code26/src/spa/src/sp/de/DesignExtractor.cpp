@@ -19,7 +19,7 @@ void DesignExtractor::traverse(std::shared_ptr<ProcedureNode> ptr, std::shared_p
 
 void DesignExtractor::traverse(std::shared_ptr<StatementNode> ptr, std::shared_ptr<Extractor> e) {
     if (ptr->getStatementType() == statementType::IF) {
-        shared_ptr<IfNode> t = std::static_pointer_cast<IfNode>(ptr);
+        std::shared_ptr<IfNode> t = std::static_pointer_cast<IfNode>(ptr);
         e->extractFromIf(t);
 
         std::vector<std::shared_ptr<StatementNode>> stmtList = t->getIfStatementList();
