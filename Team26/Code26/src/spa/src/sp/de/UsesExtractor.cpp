@@ -31,19 +31,19 @@ void UsesExtractor::extractFromExpressionTree(std::shared_ptr<TNode> ptr) {
 
     std::vector<int> v = getAllItemsInStack();
     for(auto &var : varSet) {
-        //pkb.addUses(getProcedureName(), var);
+        pkb->addUses(getProcedureName(), var);
         for(auto i : v) {
-            //pkb.addUses(i, var);
+            pkb->addUses(i, var);
         }
     }
 }
 
 void UsesExtractor::extractFromPrint(std::shared_ptr<PrintNode> ptr) {
     std::string varUsed = ptr->getVariableName();
-    //pkb.addUses(getProcedureName(), varUsed);
+    pkb->addUses(getProcedureName(), varUsed);
     std::vector<int> v = getAllItemsInStack();
     for(auto i : v) {
-        //pkb.addUses(i, varUsed);
+        pkb->addUses(i, varUsed);
     }
 }
 

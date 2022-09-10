@@ -113,3 +113,33 @@ vector<string> PKBInterface::getAllEntity(EntityType type) {
     }
     return result;
 }
+
+void PKBInterface::addFollows(int stmt1Number, int stmt2Number) {
+
+}
+
+void PKBInterface::addModifies(int stmtNumber, std::string varModified) {
+
+}
+
+void PKBInterface::addModifies(std::string procedureName, std::string varModified) {
+
+}
+
+void PKBInterface::addParent(int parentStmtNumber, int stmtNumber) {
+
+}
+
+void PKBInterface::addParentStar(int parentStmtNumber, int stmtNumber) {
+
+}
+
+void PKBInterface::addUses(int stmtNumber, std::string variableUsed) {
+
+}
+
+void PKBInterface::addUses(std::string procedureName, std::string variableUsed) {
+
+}
+
+
