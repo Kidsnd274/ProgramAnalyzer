@@ -20,6 +20,7 @@ void FollowsExtractor::extractFromIf(std::shared_ptr<IfNode> ptr) {
     }
 }
 
+
 void FollowsExtractor::extractFromWhile(std::shared_ptr<WhileNode> ptr) {
     pushToStack(ptr->getStatementNumber());
     std::vector<std::shared_ptr<StatementNode>> stmtList = ptr->getStatementList();
