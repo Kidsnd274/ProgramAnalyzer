@@ -1,31 +1,33 @@
 #include "PKBInterfaceStubForDE.h"
 
-template<> void PKBInterfaceStubForDE<int, int>::addFollows(int stmt1Number, int stmt2Number) {
-    this->unorderedMap[stmt1Number] = stmt2Number;
+void PKBInterfaceStubForDE::addFollows(int stmt1Number, int stmt2Number) {
+    this->followsMap[stmt1Number] = stmt2Number;
 }
 
-//template<> void PKBInterfaceStubForDE<int, std::string>::addModifies(int stmtNumber, std::string varModified) {
-//
-//}
-//
-//template<> void PKBInterfaceStubForDE<std::string, std::string>::addModifies(std::string procedureName,
-//                                                                             std::string varModified) {
-//
-//}
-//
-//template<> void PKBInterfaceStubForDE<int, int>::addParent(int parentStmtNumber, int stmtNumber) {
-//
-//}
-//
-//template<> void PKBInterfaceStubForDE<int, int>::addParentStar(int parentStmtNumber, int stmtNumber) {
-//
-//}
-//
-//template<> void PKBInterfaceStubForDE<int, std::string>::addUses(int stmtNumber, std::string variableUsed) {
-//
-//}
-//
-//template<> void PKBInterfaceStubForDE<std::string, std::string>::addUses(std::string procedureName,
-//                                                                         std::string variableUsed) {
-//
-//}
+void PKBInterfaceStubForDE::addParent(int parentStmtNumber, int stmtNumber) {
+    this->parentMapIntInt[stmtNumber] = parentStmtNumber;
+}
+
+void PKBInterfaceStubForDE::addParentStar(int parentStmtNumber, int stmtNumber) {
+    this->parentStarMapIntInt[stmtNumber] = parentStmtNumber;
+}
+
+void PKBInterfaceStubForDE::addModifies(int stmtNumber, std::string varModified) {
+    auto newPair = std::pair<int, std::string>(stmtNumber, varModified);
+    this->modifiesMapIntString.insert(newPair);
+}
+
+void PKBInterfaceStubForDE::addModifies(std::string procedureName, std::string varModified) {
+    auto newPair = std::pair<std::string, std::string>(procedureName, varModified);
+    this->modifiesMapStringString.insert(newPair);
+}
+
+void PKBInterfaceStubForDE::addUses(int stmtNumber, std::string variableUsed) {
+    auto newPair = std::pair<int, std::string>(stmtNumber, variableUsed);
+    this->usesMapIntString.insert(newPair);
+}
+
+void PKBInterfaceStubForDE::addUses(std::string procedureName, std::string variableUsed) {
+    auto newPair = std::pair<std::string, std::string>(procedureName, variableUsed);
+    this->usesMapStringString.insert(newPair);
+}
