@@ -41,6 +41,7 @@ void UsesExtractor::extractFromExpressionTree(std::shared_ptr<TNode> ptr) {
 void UsesExtractor::extractFromPrint(std::shared_ptr<PrintNode> ptr) {
     std::string varUsed = ptr->getVariableName();
     pkb->addUses(getProcedureName(), varUsed);
+    pkb->addUses(ptr->getStatementNumber(), varUsed);
     std::vector<int> v = getAllItemsInStack();
     for(auto i : v) {
         pkb->addUses(i, varUsed);

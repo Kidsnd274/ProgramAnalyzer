@@ -61,7 +61,7 @@ std::shared_ptr<ProcedureNode> generateMilestone1Test_nestlevel1() {
     std::shared_ptr<IfNode> statement4 = std::move(generateSimpleIfNode(4));
     std::shared_ptr<WhileNode> statement5 = std::move(generateSimpleWhileNode(11));
     std::vector<std::shared_ptr<StatementNode>> stmtList = {statement1, statement2, statement3, statement4, statement5};
-    return ProcedureNode::createProcedureNode("milestone1_nestlevel1", stmtList);
+    return ProcedureNode::createProcedureNode("milestone1NestLevel1", stmtList);
 }
 
 // Individual extractor tests
@@ -162,14 +162,14 @@ TEST_CASE("Main Extract Interface") {
         REQUIRE(pkbInterface->modifiesMapIntString == modifiesMapIntString);
 
         std::unordered_multimap<std::string, std::string> modifiesMapStringString = {
-                {"milestone1_nestlevel1", "x"}, // Procedure
-                {"milestone1_nestlevel1", "x"},
-                {"milestone1_nestlevel1", "x"}, // WRONG should have 5 each
-                {"milestone1_nestlevel1", "x"},
-                {"milestone1_nestlevel1", "y"},
-                {"milestone1_nestlevel1", "y"},
-                {"milestone1_nestlevel1", "y"},
-                {"milestone1_nestlevel1", "y"},
+                {"milestone1NestLevel1", "x"}, // Procedure
+                {"milestone1NestLevel1", "x"},
+                {"milestone1NestLevel1", "x"},
+                {"milestone1NestLevel1", "x"},
+                {"milestone1NestLevel1", "y"},
+                {"milestone1NestLevel1", "y"},
+                {"milestone1NestLevel1", "y"},
+                {"milestone1NestLevel1", "y"},
         };
         REQUIRE(pkbInterface->modifiesMapStringString == modifiesMapStringString);
 
@@ -191,19 +191,21 @@ TEST_CASE("Main Extract Interface") {
                 {13, "y"},
                 {11, "y"},
         };
-//        REQUIRE(pkbInterface->usesMapIntString == usesMapIntString);
+        REQUIRE(pkbInterface->usesMapIntString == usesMapIntString);
 
         std::unordered_multimap<std::string, std::string> usesMapStringString = {
-                {"milestone1_nestlevel1", "x"}, // Procedure
-                {"milestone1_nestlevel1", "x"},
-                {"milestone1_nestlevel1", "x"},
-                {"milestone1_nestlevel1", "x"},
-                {"milestone1_nestlevel1", "y"},
-                {"milestone1_nestlevel1", "y"},
-                {"milestone1_nestlevel1", "y"},
-                {"milestone1_nestlevel1", "y"},
+                {"milestone1NestLevel1", "x"}, // Procedure
+                {"milestone1NestLevel1", "x"},
+                {"milestone1NestLevel1", "x"},
+                {"milestone1NestLevel1", "x"},
+                {"milestone1NestLevel1", "x"},
+                {"milestone1NestLevel1", "x"},
+                {"milestone1NestLevel1", "y"},
+                {"milestone1NestLevel1", "y"},
+                {"milestone1NestLevel1", "y"},
+                {"milestone1NestLevel1", "y"},
         };
-//        REQUIRE(pkbInterface->usesMapStringString == usesMapStringString);
+        REQUIRE(pkbInterface->usesMapStringString == usesMapStringString);
 
         delete pkbInterface;
     }
