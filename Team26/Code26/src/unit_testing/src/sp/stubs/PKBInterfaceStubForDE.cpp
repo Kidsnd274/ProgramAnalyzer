@@ -31,3 +31,23 @@ void PKBInterfaceStubForDE::addUses(std::string procedureName, std::string varia
     auto newPair = std::pair<std::string, std::string>(procedureName, variableUsed);
     this->usesMapStringString.insert(newPair);
 }
+
+void PKBInterfaceStubForDE::addReadStatement(int statementNumber, int stmtListNum) {
+    this->statements.insert({statementNumber, stmtListNum});
+}
+
+void PKBInterfaceStubForDE::addAssignStatement(int statementNumber, int stmtListNum, std::shared_ptr<TNode> ptr) {
+    this->statements.insert({statementNumber, stmtListNum});
+}
+
+void PKBInterfaceStubForDE::addWhileStatement(int statementNumber, int stmtListNum) {
+    this->statements.insert({statementNumber, stmtListNum});
+}
+
+void PKBInterfaceStubForDE::addIfStatement(int statementNumber, int stmtListNum) {
+    this->statements.insert({statementNumber, stmtListNum});
+}
+
+void PKBInterfaceStubForDE::addPrintStatement(int statementNumber, int stmtListNum) {
+    this->statements.insert({statementNumber, stmtListNum});
+}

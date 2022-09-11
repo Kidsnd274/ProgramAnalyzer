@@ -178,7 +178,7 @@ std::shared_ptr<AssignNode> Parser::parseAssign(int stmtListNum) {
     parseAssignToken();
     std::shared_ptr<TNode> expr = std::move(parseExpression());
     parseSemiColon();
-    //pkbInterface->addAssignStatement(currStatement, stmtListNum, *expr);
+    pkbInterface->addAssignStatement(currStatement, stmtListNum, expr);
 
     return AssignNode::createAssignNode(currStatement, varAssigned, expr);
 }
@@ -198,8 +198,7 @@ std::shared_ptr<IfNode> Parser::parseIf(int stmtListNum) {
     parseLCurly();
     std::vector<std::shared_ptr<StatementNode>> elseStatementList = parseStatementList();
     parseRCurly();
-
-    //pkbInterface->addIfStatement(currStatement, stmtListNum);
+    pkbInterface->addIfStatement(currStatement, stmtListNum);
 
     return IfNode::createIfNode(currStatement, cond, ifStatementList, elseStatementList);
 }
@@ -261,7 +260,7 @@ std::shared_ptr<WhileNode> Parser::parseWhile(int stmtListNum) {
     std::vector<std::shared_ptr<StatementNode>> statementList = parseStatementList();
     parseRCurly();
 
-    //pkbInterface->addWhileStatement(currStatement, stmtListNum);
+    pkbInterface->addWhileStatement(currStatement, stmtListNum);
 
     return WhileNode::createWhileNode(currStatement, cond, statementList);
 }
@@ -273,7 +272,7 @@ std::shared_ptr<ReadNode> Parser::parseRead(int stmtListNum) {
     pkbInterface->addVariable(varName);
     parseSemiColon();
 
-    //pkbInterface->addReadStatement(currStatement, stmtListNum);
+    pkbInterface->addReadStatement(currStatement, stmtListNum);
 
     return ReadNode::createReadNode(currStatement, varName);
 }
@@ -285,7 +284,7 @@ std::shared_ptr<PrintNode> Parser::parsePrint(int stmtListNum) {
     pkbInterface->addVariable(varName);
     parseSemiColon();
 
-    //pkbInterface->addPrintStatement(currStatement, stmtListNum);
+    pkbInterface->addPrintStatement(currStatement, stmtListNum);
 
     return PrintNode::createPrintNode(currStatement, varName);
 }

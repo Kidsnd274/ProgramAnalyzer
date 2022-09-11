@@ -34,4 +34,10 @@ public:
     virtual void addParentStar(int parentStmtNumber, int stmtNumber); // TODO: might let qps handle in the future
     virtual void addUses(int stmtNumber, std::string variableUsed);
     virtual void addUses(std::string procedureName, std::string variableUsed);
+    //Temporary methods to test Follows*
+    virtual void addReadStatement(int statementNumber, int stmtListNum){};
+    virtual void addAssignStatement(int statementNumber, int stmtListNum,  std::shared_ptr<TNode> ptr){};
+    virtual void addWhileStatement(int statementNumber, int stmtListNum){};
+    virtual void addIfStatement(int statementNumber, int stmtListNum){};
+    virtual void addPrintStatement(int statementNumber, int stmtListNum){};
 };
