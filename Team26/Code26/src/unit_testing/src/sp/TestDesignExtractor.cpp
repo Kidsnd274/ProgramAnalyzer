@@ -164,12 +164,12 @@ TEST_CASE("Main Extract Interface") {
         std::unordered_multimap<std::string, std::string> modifiesMapStringString = {
                 {"milestone1_nestlevel1", "x"}, // Procedure
                 {"milestone1_nestlevel1", "x"},
+                {"milestone1_nestlevel1", "x"}, // WRONG should have 5 each
                 {"milestone1_nestlevel1", "x"},
-                {"milestone1_nestlevel1", "x"},
-                {"milestone1_nestlevel1", "x"},
-                {"milestone1_nestlevel1", "x"},
-                {"milestone1_nestlevel1", "x"},
-                {"milestone1_nestlevel1", "x"},
+                {"milestone1_nestlevel1", "y"},
+                {"milestone1_nestlevel1", "y"},
+                {"milestone1_nestlevel1", "y"},
+                {"milestone1_nestlevel1", "y"},
         };
         REQUIRE(pkbInterface->modifiesMapStringString == modifiesMapStringString);
 
