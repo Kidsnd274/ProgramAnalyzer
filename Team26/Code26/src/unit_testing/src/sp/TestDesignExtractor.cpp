@@ -53,7 +53,7 @@ std::shared_ptr<WhileNode> generateSimpleWhileNode(int startingNo) {
     return WhileNode::createWhileNode(startingNo, condExpr, stmtList);
 }
 
-TEST_CASE("Follows Extractor Tests") { // not working
+TEST_CASE("FollowsExtractor Tests") {
     SECTION("Extract from Procedure Test") {
         auto *pkbInterface = new PKBInterfaceStubForDE<int, int>();
         FollowsExtractor followsExtractor = FollowsExtractor(pkbInterface);
