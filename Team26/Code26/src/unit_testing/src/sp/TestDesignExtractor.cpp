@@ -53,7 +53,7 @@ std::shared_ptr<WhileNode> generateSimpleWhileNode(int startingNo) {
     return WhileNode::createWhileNode(startingNo, condExpr, stmtList);
 }
 
-std::shared_ptr<ProcedureNode> generateMilestone1Test_nestlevel1() {
+std::shared_ptr<ProcedureNode> generateMilestone1TestNestlevel1() {
     std::shared_ptr<TNode> expr = std::move(generateSimpleTNode(1));
     std::shared_ptr<AssignNode> statement1 = std::move(AssignNode::createAssignNode(1, "x", expr));
     std::shared_ptr<PrintNode> statement2 = std::move(PrintNode::createPrintNode(2, "y"));
@@ -114,7 +114,7 @@ TEST_CASE("Main Extract Interface") {
     SECTION("Nesting Level 1") {
         auto *pkbInterface = new PKBInterfaceStubForDE();
         DesignExtractor designExtractor = DesignExtractor(pkbInterface);
-        std::shared_ptr<ProcedureNode> mainNode = std::move(generateMilestone1Test_nestlevel1());
+        std::shared_ptr<ProcedureNode> mainNode = std::move(generateMilestone1TestNestlevel1());
         designExtractor.extract(mainNode);
 
         auto correctFollowsMap = std::unordered_map<int, int>();
