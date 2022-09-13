@@ -2,7 +2,7 @@
 #include "catch.hpp"
 #include <vector>
 
-std::string validSimple = "procedure test {\n  read x;\n  x = x + 1;\n}";
+std::string validSimple = "procedure test {\n  read x;\n  x = var1231a + 1;\n}";
 std::string invalidSimple = "procedure test {\n  if(x < = y) then {\n read x;\n} else {\n read y;\n }\n   x = x + 1;\n}";
 
 TEST_CASE("Basic Lexer test on valid SIMPLE") {
@@ -16,7 +16,7 @@ TEST_CASE("Basic Lexer test on valid SIMPLE") {
                                      TokenTypeExtractor::createTerminal(";"),
                                      TokenTypeExtractor::createNonTerminal("x"),
                                      TokenTypeExtractor::createTerminal("="),
-                                     TokenTypeExtractor::createNonTerminal("x"),
+                                     TokenTypeExtractor::createNonTerminal("var1231a"),
                                      TokenTypeExtractor::createTerminal("+"),
                                      TokenTypeExtractor::createConst("1"),
                                      TokenTypeExtractor::createTerminal(";"),

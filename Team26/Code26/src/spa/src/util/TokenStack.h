@@ -16,4 +16,5 @@ public:
     SPToken getNext();
     bool hasNextToken();
     SPToken peekNext();
+    bool isNextTokenAssign();
 };

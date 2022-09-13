@@ -144,6 +144,11 @@ std::shared_ptr<StatementNode> Parser::parseStatement(int stmtListNum) {
     //TODO check if the next variable is assign before parsing as the test cases might include variables that have keywords as the names
     std::shared_ptr<StatementNode> stmt(nullptr);
 
+    if(tokenStack->isNextTokenAssign()) {
+        stmt = std::move(parseAssign(stmtListNum));
+        return stmt;
+    }
+
     switch(t) {
         case SPTokenType::NameToken:
             stmt = std::move(parseAssign(stmtListNum));

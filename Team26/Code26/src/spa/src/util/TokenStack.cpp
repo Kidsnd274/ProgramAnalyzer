@@ -18,3 +18,7 @@ SPToken TokenStack::peekNext() {
 
     return tokenStack[tokenPointer];
 }
+
+bool TokenStack::isNextTokenAssign() {
+    return (tokenPointer + 1) < tokenStack.size() && tokenStack[tokenPointer + 1].getTokenType() == SPTokenType::AssignToken;
+}
