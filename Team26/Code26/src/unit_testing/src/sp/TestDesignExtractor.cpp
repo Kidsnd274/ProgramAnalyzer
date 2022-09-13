@@ -8,6 +8,11 @@ std::shared_ptr<TNode> generateSimpleTNode(int statementNo) {
                                        std::move(TNode::createConstantValue(statementNo, "1")));
 }
 
+std::shared_ptr<TNode> generateTwoVariableTNode(int statementNo) {
+    return TNode::createTerm(statementNo, "+", std::move(TNode::createVariableName(statementNo, "x")),
+                             std::move(TNode::createVariableName(statementNo, "z")));
+}
+
 std::shared_ptr<TNode> generateSimpleCondStmt(int statementNo) {
     return TNode::createConditionalExpression(statementNo, "<", std::move(TNode::createVariableName(statementNo, "x")),
                              std::move(TNode::createConstantValue(statementNo, "1")));
@@ -53,6 +58,34 @@ std::shared_ptr<WhileNode> generateSimpleWhileNode(int startingNo) {
     return WhileNode::createWhileNode(startingNo, condExpr, stmtList);
 }
 
+std::shared_ptr<IfNode> generateTwoNestedIfNode(int startingNo) {
+    std::shared_ptr<TNode> condExpr = std::move(generateSimpleCondStmt(startingNo));
+    std::shared_ptr<TNode> expr = std::move(generateSimpleTNode(startingNo + 1));
+    std::shared_ptr<AssignNode> ifStmt1 = std::move(AssignNode::createAssignNode(startingNo + 1, "x", expr));
+    std::shared_ptr<WhileNode> ifStmt2 = std::move(generateSimpleWhileNode(startingNo + 2));
+
+    std::shared_ptr<TNode> expr2 = std::move(generateTwoVariableTNode(startingNo + 6));
+    std::shared_ptr<AssignNode> elseStmt1 = std::move(AssignNode::createAssignNode(startingNo + 6, "x", expr2));
+    std::shared_ptr<PrintNode> elseStmt2 = std::move(PrintNode::createPrintNode(startingNo + 7, "y"));
+    std::shared_ptr<ReadNode> elseStmt3 = std::move(ReadNode::createReadNode(startingNo + 8, "y"));
+
+    std::vector<std::shared_ptr<StatementNode>> ifStmtList = {ifStmt1, ifStmt2};
+    std::vector<std::shared_ptr<StatementNode>> elseStmtList = {elseStmt1, elseStmt2, elseStmt3};
+
+    return IfNode::createIfNode(startingNo, condExpr, ifStmtList, elseStmtList);
+}
+
+std::shared_ptr<WhileNode> generateTwoNestedWhileLoop(int startingNo) {
+    std::shared_ptr<TNode> condExpr = std::move(generateSimpleCondStmt(startingNo));
+
+    std::shared_ptr<TNode> expr = std::move(generateSimpleTNode(startingNo + 1));
+    std::shared_ptr<AssignNode> stmt1 = std::move(AssignNode::createAssignNode(startingNo + 1, "x", expr));
+    std::shared_ptr<IfNode> stmt2 = std::move(generateSimpleIfNode(startingNo + 2));
+    std::vector<std::shared_ptr<StatementNode>> stmtList = {stmt1, stmt2};
+
+    return WhileNode::createWhileNode(startingNo, condExpr, stmtList);
+}
+
 std::shared_ptr<ProcedureNode> generateMilestone1TestNestlevel1() {
     std::shared_ptr<TNode> expr = std::move(generateSimpleTNode(1));
     std::shared_ptr<AssignNode> statement1 = std::move(AssignNode::createAssignNode(1, "x", expr));
@@ -62,6 +95,17 @@ std::shared_ptr<ProcedureNode> generateMilestone1TestNestlevel1() {
     std::shared_ptr<WhileNode> statement5 = std::move(generateSimpleWhileNode(11));
     std::vector<std::shared_ptr<StatementNode>> stmtList = {statement1, statement2, statement3, statement4, statement5};
     return ProcedureNode::createProcedureNode("milestone1NestLevel1", stmtList);
+}
+
+std::shared_ptr<ProcedureNode> generateMilestone1TestNestlevel2() {
+    std::shared_ptr<TNode> expr = std::move(generateTwoVariableTNode(1));
+    std::shared_ptr<AssignNode> statement1 = std::move(AssignNode::createAssignNode(1, "x", expr));
+    std::shared_ptr<PrintNode> statement2 = std::move(PrintNode::createPrintNode(2, "y"));
+    std::shared_ptr<ReadNode> statement3 = std::move(ReadNode::createReadNode(3, "y"));
+    std::shared_ptr<IfNode> statement4 = std::move(generateTwoNestedIfNode(4));
+    std::shared_ptr<WhileNode> statement5 = std::move(generateTwoNestedWhileLoop(13));
+    std::vector<std::shared_ptr<StatementNode>> stmtList = {statement1, statement2, statement3, statement4, statement5};
+    return ProcedureNode::createProcedureNode("milestone1NestLevel2", stmtList);
 }
 
 // Individual extractor tests
@@ -211,7 +255,30 @@ TEST_CASE("Main Extract Interface") {
     }
 
     SECTION("Nesting Level 2") {
-        REQUIRE(true);
+        auto *pkbInterface = new PKBInterfaceStubForDE();
+        DesignExtractor designExtractor = DesignExtractor(pkbInterface);
+        std::shared_ptr<ProcedureNode> mainNode = std::move(generateMilestone1TestNestlevel2());
+        designExtractor.extract(mainNode);
+
+        std::unordered_map<int, int> correctFollowsMap = {
+                {1, 2},
+                {2, 3},
+                {3, 4},
+                {5, 6},
+                {7, 8},
+                {8, 9},
+                {10, 11},
+                {11, 12},
+                {4, 13},
+                {14, 15},
+                {16, 17},
+                {17, 18},
+                {19, 20},
+                {20, 21}
+        };
+        REQUIRE(pkbInterface->followsMap == correctFollowsMap);
+
+
     }
 
     SECTION("Nesting Level 3") {
