@@ -467,7 +467,7 @@ namespace QPS {
                                                int pos, RelationType relationType,
                                                Container &container) {
 //        std::cout << "parse stmt" << std::endl;
-        std::pair<ArgumentStruct,bool> ARG1, ARG2;
+        std::pair<ArgumentStruct, Exception> ARG1, ARG2;
 
         if (pos < tokens.size() && tokens[pos].tokenType == LPAREN) {
             pos++;
@@ -477,7 +477,7 @@ namespace QPS {
         }
 
         if (pos < tokens.size() && (tokens[pos].tokenType == NAME || tokens[pos].tokenType == INTEGER)) {
-            ARG1 = convertStringToARG(tokens[pos], container);
+            ARG1 = convertStringToStmtRef(tokens[pos], container);
 //            std::cout << "parse first arg" << std::endl;
             pos++;
         } else {
@@ -492,7 +492,7 @@ namespace QPS {
         }
 
         if (pos < tokens.size() && (tokens[pos].tokenType == NAME || tokens[pos].tokenType == INTEGER)) {
-            ARG2 = convertStringToARG(tokens[pos], container);
+            ARG2 = convertStringToStmtRef(tokens[pos], container);
 //            std::cout << "parse second arg" << std::endl;
             pos++;
         } else {
@@ -505,12 +505,50 @@ namespace QPS {
         } else {
             return {pos, INVALID_RELATION_SYNTAX};
         }
-        if (ARG1.second && ARG2.second) {
+        if (ARG1.second == VALID && ARG2.second == VALID) {
             container.addSuchThatClause(relationType, ARG1.first, ARG2.first);
 //            std::cout << "parse stmt finish" << std::endl;
             return {pos, VALID};
         } else {
-            return {pos, UNDECLARED_ENTITY_SUCH_THAT};
+            if (ARG1.second != VALID) {
+                return {pos, ARG1.second};
+            } else {
+                return {pos, ARG2.second};
+            }
+
+        }
+    }
+
+    std::pair<ArgumentStruct, Exception> convertStringToStmtRef (Token &token, Container &container) {
+        if (token.tokenType == INTEGER) {
+            return {{NUMBER, token.nameValue}, VALID};
+        } else if (token.tokenType == NAME) {
+            DECLARED_SYNONYM_MAP declarationMap = container.getDeclarationMap();
+            auto iterator = declarationMap.find(token.nameValue);
+            if (iterator == declarationMap.end()) {
+                return {{}, UNDECLARED_ENTITY_SUCH_THAT};
+            } else {
+                EntityType entityType = iterator->second;
+                switch (entityType) {
+                    case STATEMENT:
+                    case READ:
+                    case PRINT:
+                    case CALL:
+                    case WHILE:
+                    case IF:
+                    case ASSIGN:{
+                        return {{STMT_SYNONYM, token.nameValue}, VALID};
+                    }
+                    case PROCEDURE:
+                    case VARIABLE:
+                    case CONSTANT:
+                    case INVALID_ENTITY_TYPE:{
+                        return {{INVALID_ARGUMENT_TYPE, token.nameValue}, INVALID_RELATION_CONTENT};
+                    }
+                }
+            }
+        } else {
+            return {{}, INVALID_RELATION_SYNTAX};
         }
     }
 
