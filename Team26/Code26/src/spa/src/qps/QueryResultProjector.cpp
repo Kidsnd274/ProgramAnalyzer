@@ -25,18 +25,17 @@ namespace QPS {
             for (auto candidate : query.getCandidateList()) {
                 int colNumber = query.resultTable.getSynonymColRef().find(
                         candidate.entityOfCandidate.nameOfEntity)->second;
-                rowString += row.at(colNumber);
+                rowString += row.at(colNumber) + " ";
             }
-//            rowString[rowString.length() - 2] = ')';
-//            rowString[rowString.length() - 1] = '\n';
+            rowString = rowString.substr(0, rowString.length() - 1); //remove last space
             if (rowStringSet.find(rowString) == rowStringSet.end()) {
-                resultString += rowString;
+                resultString += rowString + ", ";
                 rowStringSet.insert(rowString);
             }
         }
         for (auto &s: rowStringSet) {
             results.push_back(s);
         }
-        return resultString;
+        return resultString.substr(0, resultString.length() - 2);
     }
 }

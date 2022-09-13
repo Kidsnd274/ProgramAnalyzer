@@ -68,13 +68,13 @@ namespace QPS {
         void filterRows(SUCH_THAT_LIST suchThatList);
 
         /**
-         * Check whether the given row follows the list of relation.
+         * Check whether the given row follows the given relation.
          *
          * @param row The given row.
-         * @param suchThatList The given list of relation.
+         * @param relation The given relation.
          * @return bool
          */
-        bool followsRelation(std::vector<std::string>& row, SUCH_THAT_LIST suchThatList);
+        bool followsRelation(std::vector<std::string>& row, QPS::RelationStruct relation);
         //for debug purpose
         void printTable();
         std::vector<std::vector<std::string>> getTable();
