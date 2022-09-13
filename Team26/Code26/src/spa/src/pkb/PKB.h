@@ -17,7 +17,7 @@ class StatementTable;
 
 class PKB {
 public:
-    static ProcedureTable*  procedureTable;
+    static ProcedureTable* procedureTable;
 	static VarTable* varTable;
     static ConstantTable* constantTable;
     static StatementTable* statementTable;

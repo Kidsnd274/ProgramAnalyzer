@@ -24,6 +24,14 @@ public:
     void addWhileStatement(int statementNumber);
     void addIfStatement(int statementNumber);
     void addPrintStatement(int statementNumber);
+
+    void addModifies(int statementNumber, string varName);
+    void addUses(int statementNumber, string varName);
+    void addParent(int parentStatementNumber, int statementNumber);
+    void addParentStar(int parentStatementNumber, int statementNumber);
+    void addFollows(int frontStatementNumber, int backStatementNumber);
+
     vector<string> getAllEntity(EntityType type);
+    bool existRelation(RelationStruct relation);
 
 };

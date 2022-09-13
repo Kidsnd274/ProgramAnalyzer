@@ -34,7 +34,7 @@ void PKBInterface::addVariable(string name) {
     pkb->varTable->insertVar(var);
 }
 
-void PKBInterface::addConst(int value){
+void PKBInterface::addConst(int value) {
     pkb->constantTable->insertConst(value);
 }
 
@@ -71,6 +71,26 @@ void PKBInterface::addPrintStatement(int statementNumber) {
     stmt.type = StatementType::PRINT;
     stmt.lineNumber = statementNumber;
     pkb->statementTable->insertStmt(stmt);
+}
+
+void PKBInterface::addModifies(int statementNumber, string varName) {
+
+}
+
+void PKBInterface::addUses(int statementNumber, string varName) {
+
+}
+
+void PKBInterface::addParent(int parentStatementNumber, int statementNumber) {
+
+}
+
+void PKBInterface::addParentStar(int parentStatementNumber, int statementNumber) {
+
+}
+
+void PKBInterface::addFollows(int frontStatementNumber, int backStatementNumber) {
+
 }
 
 vector<string> PKBInterface::getAllEntity(EntityType type) {
@@ -112,4 +132,8 @@ vector<string> PKBInterface::getAllEntity(EntityType type) {
             break;
     }
     return result;
+}
+
+bool existRelation(RelationStruct relation) {
+
 }
