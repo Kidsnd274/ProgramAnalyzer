@@ -16,6 +16,7 @@ namespace QPS {
         container.setStatus(START_PARSE_DECLARATION);
         while (tokenPos < tokens.size()) {
             QPS::Token curr = tokens[tokenPos];
+//            std::cout << curr.nameValue << std::endl;
             std::pair<EntityType, bool> entityMappingResult = mapEntity(curr);
             std::pair<RelationType, bool> relationMappingResult = mapRelation(tokens, tokenPos);
             if (entityMappingResult.second) {
@@ -27,7 +28,7 @@ namespace QPS {
                                                                        container);
 
                         if (result.second == VALID) {
-                            tokenPos = result.first - 1;
+                            tokenPos = result.first;
                         } else {
                             // Invalid query
                             return result.second;
@@ -40,7 +41,7 @@ namespace QPS {
                                                                        container);
 
                         if (result.second == VALID) {
-                            tokenPos = result.first - 1;
+                            tokenPos = result.first;
                         } else {
                             // Invalid query
                             return result.second;
@@ -53,7 +54,7 @@ namespace QPS {
                                                                        container);
 
                         if (result.second == VALID) {
-                            tokenPos = result.first - 1;
+                            tokenPos = result.first;
                         } else {
                             // Invalid query
                             return result.second;
@@ -66,7 +67,7 @@ namespace QPS {
                                                                        container);
 
                         if (result.second == VALID) {
-                            tokenPos = result.first - 1;
+                            tokenPos = result.first;
                         } else {
                             // Invalid query
                             return result.second;
@@ -79,7 +80,7 @@ namespace QPS {
                                                                        container);
 
                         if (result.second == VALID) {
-                            tokenPos = result.first - 1;
+                            tokenPos = result.first;
                         } else {
                             // Invalid query
                             return result.second;
@@ -92,7 +93,7 @@ namespace QPS {
                                                                        container);
 
                         if (result.second == VALID) {
-                            tokenPos = result.first - 1;
+                            tokenPos = result.first;
                         } else {
                             // Invalid query
                             return result.second;
@@ -105,7 +106,7 @@ namespace QPS {
                                                                        container);
 
                         if (result.second == VALID) {
-                            tokenPos = result.first - 1;
+                            tokenPos = result.first;
                         } else {
                             // Invalid query
                             return result.second;
@@ -118,7 +119,7 @@ namespace QPS {
                                                                        container);
 
                         if (result.second == VALID) {
-                            tokenPos = result.first - 1;
+                            tokenPos = result.first;
                         } else {
                             // Invalid query
                             return result.second;
@@ -131,7 +132,7 @@ namespace QPS {
                                                                        container);
 
                         if (result.second == VALID) {
-                            tokenPos = result.first - 1;
+                            tokenPos = result.first;
                         } else {
                             // Invalid query
                             return result.second;
@@ -145,7 +146,7 @@ namespace QPS {
                                                                        container);
 
                         if (result.second == VALID) {
-                            tokenPos = result.first - 1;
+                            tokenPos = result.first;
                         } else {
                             // Invalid query
                             return result.second;
@@ -287,6 +288,8 @@ namespace QPS {
                 std::pair<int, Exception> result = parsePattern(tokens, tokenPos, container);
                 if (result.second != VALID) {
                     return result.second;
+                } else {
+                    tokenPos = result.first;
                 }
 
             } else {
@@ -332,7 +335,8 @@ namespace QPS {
             DECLARED_SYNONYM_MAP declarationMap = container.getDeclarationMap();
             auto iterator = declarationMap.find( tokens[pos].nameValue);
             if (iterator->second != ASSIGN) {
-                return {pos, INVALID_PATTERN_NAME};
+                std::cout << "UNDECLARED_ENTITY_PATTERN" << std::endl;
+                return {pos, UNDECLARED_ENTITY_PATTERN};
             } else {
                 assign_syn = iterator->first;
                 pos++;
@@ -422,6 +426,7 @@ namespace QPS {
         if (pos >= tokens.size()) {
             return {-1, INVALID_DECLARATION};
         } else {
+//            std::cout << "Finish parsing declaration" << std::endl;
             return {pos, VALID};
         }
 

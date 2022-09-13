@@ -132,7 +132,7 @@ namespace QPS {
             case INVALID_PATTERN_SYNTAX:{
                 return "INVALID_PATTERN_SYNTAX";
             }
-            case UNDECLARED_ENTITY:{
+            case UNDECLARED_ENTITY_PATTERN:{
                 return "UNDECLARED_ENTITY";
             }
             case UNMATCHED_QUERY_TYPE:{
