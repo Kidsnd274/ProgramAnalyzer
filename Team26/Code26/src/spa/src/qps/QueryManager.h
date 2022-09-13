@@ -105,6 +105,7 @@ namespace QPS {
             return QueryManager::pkb->getAllEntity(entityType);
         }
     };
+
 }
 
 #endif //SPA_QUERYMANAGER_H

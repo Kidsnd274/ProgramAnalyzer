@@ -91,7 +91,7 @@ namespace QPS {
         return tokenizedResult;
     }
 
-    bool isSuchThat(Token token) {
+    bool isSuchThat(const Token& token) {
         return token.nameValue == "Such";
     }
 } // Tokenization

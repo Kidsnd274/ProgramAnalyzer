@@ -85,6 +85,23 @@ namespace QPS {
         SYNTACTICALLY_INVALID_QUERY // Return empty result.
     };
 
+    enum Exception {
+        INVALID_ENTITY,
+        INVALID_RELATION_SYNTAX,
+        INVALID_SELECT,
+        INVALID_SUCH_THAT,
+        INVALID_PATTERN_NAME,
+        INVALID_PATTERN_SYNTAX,
+        UNDECLARED_ENTITY,
+        UNMATCHED_QUERY_TYPE,
+        INVALID_RELATION,
+        INVALID_RELATION_CONTENT,
+        INVALID_PATTERN_CONTENT,
+        INVALID_DECLARATION,
+        VALID
+    };
+
+
     /*
      * Enum of Argument Types in Relation or Pattern.
      */
@@ -150,6 +167,7 @@ namespace QPS {
     std::string candidateToString(CandidateType candidateType);
     std::string relationToString (RelationType relationType);
     std::string ARGToString (ArgumentType argumentType);
+    std::string exceptionToStringQPS(Exception e);
 
 
 }

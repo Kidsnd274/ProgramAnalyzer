@@ -22,8 +22,11 @@ namespace QPS {
 //            std::cout << token.nameValue << std::endl;
 //        }
         QPS::Container container = QPS::Container(tokens); // Initialize a container to store the result of tokenization.
-        QPS::parseToken(tokens, container); // Call QPS parser to parse the tokens into Query Structure. Store the result in container.queryStruct.
-
+        Exception parsingException = QPS::parseToken(tokens, container); // Call QPS parser to parse the tokens into Query Structure. Store the result in container.queryStruct.
+        if (parsingException != VALID) {
+            std::cout << exceptionToStringQPS(parsingException) << std::endl;
+            return ;
+        }
         QPS::QueryStruct query = container.getQueryStruct(); // Get the result of parsing.
         QPS::BasicQueryEvaluator basicQueryEvaluator = QPS::BasicQueryEvaluator();
         basicQueryEvaluator.evaluateQuery(query); // Call basicQueryEvaluator to evaluate the query. Store the result in query.resultTable.

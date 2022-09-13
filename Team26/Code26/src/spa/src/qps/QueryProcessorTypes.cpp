@@ -110,6 +110,51 @@ namespace QPS {
 
         }
     }
+
+    std::string exceptionToStringQPS(Exception e) {
+        switch (e) {
+
+            case INVALID_ENTITY:{
+                return "INVALID_ENTITY";
+            }
+            case INVALID_RELATION_SYNTAX:{
+                return "}";
+            }
+            case INVALID_SELECT:{
+                return "INVALID_SELECT";
+            }
+            case INVALID_SUCH_THAT:{
+                return "INVALID_SUCH_THAT";
+            }
+            case INVALID_PATTERN_NAME:{
+                return "INVALID_PATTERN_NAME";
+            }
+            case INVALID_PATTERN_SYNTAX:{
+                return "INVALID_PATTERN_SYNTAX";
+            }
+            case UNDECLARED_ENTITY:{
+                return "UNDECLARED_ENTITY";
+            }
+            case UNMATCHED_QUERY_TYPE:{
+                return "UNMATCHED_QUERY_TYPE";
+            }
+            case INVALID_RELATION:{
+                return "INVALID_RELATION";
+            }
+            case INVALID_RELATION_CONTENT:{
+                return "INVALID_RELATION_CONTENT";
+            }
+            case INVALID_PATTERN_CONTENT:{
+                return "INVALID_PATTERN_CONTENT";
+            }
+            case INVALID_DECLARATION:{
+                return "INVALID_DECLARATION";
+            }
+            case VALID:{
+                return "VALID";
+            }
+        }
+    }
     std::string relationToString (RelationType relationType) {
         switch (relationType) {
 

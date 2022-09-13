@@ -2,16 +2,16 @@
 #include "QueryManager.h"
 
 namespace QPS {
-    std::pair<int, bool> parseDeclaration(std::vector<QPS::Token> &tokens,
+    std::pair<int, Exception> parseDeclaration(std::vector<QPS::Token> &tokens,
                                           int pos,
                                           EntityType entityType,
                                           Container &container);
 
-    std::pair<int, bool> parseSelect(std::vector<QPS::Token> &tokens, int pos, Container &container);
-    std::pair<int, bool> parsePattern(std::vector<QPS::Token> &tokens, int pos, Container &container);
-    std::pair<int, bool> parseRelationStmtStmt(std::vector<QPS::Token> &tokens, int pos, RelationType relationType, Container &container);
+    std::pair<int, Exception> parseSelect(std::vector<QPS::Token> &tokens, int pos, Container &container);
+    std::pair<int, Exception> parsePattern(std::vector<QPS::Token> &tokens, int pos, Container &container);
+    std::pair<int, Exception> parseRelationStmtStmt(std::vector<QPS::Token> &tokens, int pos, RelationType relationType, Container &container);
 
-    void parseToken(std::vector<QPS::Token> &tokens, Container& container) {
+    Exception parseToken(std::vector<QPS::Token> &tokens, Container& container) {
         int tokenPos = 0;
         container.setStatus(START_PARSE_DECLARATION);
         while (tokenPos < tokens.size()) {
@@ -23,138 +23,138 @@ namespace QPS {
                 switch (entityMappingResult.first) {
                     case STATEMENT: {
                         tokenPos++;
-                        std::pair<int, bool> result = parseDeclaration(tokens, tokenPos, STATEMENT,
+                        std::pair<int, Exception> result = parseDeclaration(tokens, tokenPos, STATEMENT,
                                                                        container);
 
-                        if (result.second) {
+                        if (result.second == VALID) {
                             tokenPos = result.first - 1;
                         } else {
                             // Invalid query
-                            tokenPos--;
+                            return result.second;
                         }
                         break;
                     }
                     case READ: {
                         tokenPos++;
-                        std::pair<int, bool> result = parseDeclaration(tokens, tokenPos, READ,
+                        std::pair<int, Exception> result = parseDeclaration(tokens, tokenPos, READ,
                                                                        container);
 
-                        if (result.second) {
+                        if (result.second == VALID) {
                             tokenPos = result.first - 1;
                         } else {
                             // Invalid query
-                            tokenPos--;
+                            return result.second;
                         }
                         break;
                     }
                     case PRINT: {
                         tokenPos++;
-                        std::pair<int, bool> result = parseDeclaration(tokens, tokenPos, PRINT,
+                        std::pair<int, Exception> result = parseDeclaration(tokens, tokenPos, PRINT,
                                                                        container);
 
-                        if (result.second) {
+                        if (result.second == VALID) {
                             tokenPos = result.first - 1;
                         } else {
                             // Invalid query
-                            tokenPos--;
+                            return result.second;
                         }
                         break;
                     }
                     case CALL: {
                         tokenPos++;
-                        std::pair<int, bool> result = parseDeclaration(tokens, tokenPos, CALL,
+                        std::pair<int, Exception> result = parseDeclaration(tokens, tokenPos, CALL,
                                                                        container);
 
-                        if (result.second) {
+                        if (result.second == VALID) {
                             tokenPos = result.first - 1;
                         } else {
                             // Invalid query
-                            tokenPos--;
+                            return result.second;
                         }
                         break;
                     }
                     case WHILE: {
                         tokenPos++;
-                        std::pair<int, bool> result = parseDeclaration(tokens, tokenPos, WHILE,
+                        std::pair<int, Exception> result = parseDeclaration(tokens, tokenPos, WHILE,
                                                                        container);
 
-                        if (result.second) {
+                        if (result.second == VALID) {
                             tokenPos = result.first - 1;
                         } else {
                             // Invalid query
-                            tokenPos--;
+                            return result.second;
                         }
                         break;
                     }
                     case IF: {
                         tokenPos++;
-                        std::pair<int, bool> result = parseDeclaration(tokens, tokenPos, IF,
+                        std::pair<int, Exception> result = parseDeclaration(tokens, tokenPos, IF,
                                                                        container);
 
-                        if (result.second) {
+                        if (result.second == VALID) {
                             tokenPos = result.first - 1;
                         } else {
                             // Invalid query
-                            tokenPos--;
+                            return result.second;
                         }
                         break;
                     }
                     case ASSIGN: {
                         tokenPos++;
-                        std::pair<int, bool> result = parseDeclaration(tokens, tokenPos, ASSIGN,
+                        std::pair<int, Exception> result = parseDeclaration(tokens, tokenPos, ASSIGN,
                                                                        container);
 
-                        if (result.second) {
+                        if (result.second == VALID) {
                             tokenPos = result.first - 1;
                         } else {
                             // Invalid query
-                            tokenPos--;
+                            return result.second;
                         }
                         break;
                     }
                     case VARIABLE: {
                         tokenPos++;
-                        std::pair<int, bool> result = parseDeclaration(tokens, tokenPos, VARIABLE,
+                        std::pair<int, Exception> result = parseDeclaration(tokens, tokenPos, VARIABLE,
                                                                        container);
 
-                        if (result.second) {
+                        if (result.second == VALID) {
                             tokenPos = result.first - 1;
                         } else {
                             // Invalid query
-                            tokenPos--;
+                            return result.second;
                         }
                         break;
                     }
                     case CONSTANT:{
                         tokenPos++;
-                        std::pair<int, bool> result = parseDeclaration(tokens, tokenPos, CONSTANT,
+                        std::pair<int, Exception> result = parseDeclaration(tokens, tokenPos, CONSTANT,
                                                                        container);
 
-                        if (result.second) {
+                        if (result.second == VALID) {
                             tokenPos = result.first - 1;
                         } else {
                             // Invalid query
-                            tokenPos--;
+                            return result.second;
                         }
                         break;
                     }
 
                     case PROCEDURE: {
                         tokenPos++;
-                        std::pair<int, bool> result = parseDeclaration(tokens, tokenPos, PROCEDURE,
+                        std::pair<int, Exception> result = parseDeclaration(tokens, tokenPos, PROCEDURE,
                                                                        container);
 
-                        if (result.second) {
+                        if (result.second == VALID) {
                             tokenPos = result.first - 1;
                         } else {
                             // Invalid query
-                            tokenPos--;
+                            return result.second;
                         }
                         break;
                     }
                     case INVALID_ENTITY_TYPE: {
                         std::cout << "invalid entity" << std::endl;
-                        return ;
+                        return INVALID_ENTITY;
                     }
                 }
             } else if (relationMappingResult.second) {
@@ -165,125 +165,132 @@ namespace QPS {
                     switch (relationMappingResult.first) {
                         case FOLLOWS: {
                             tokenPos++;
-                            std::pair<int, bool> result = parseRelationStmtStmt(tokens, tokenPos,
+                            std::pair<int, Exception> result = parseRelationStmtStmt(tokens, tokenPos,
                                                                                 FOLLOWS, container);
-                            if (result.second) {
+                            if (result.second == VALID) {
                                 tokenPos = result.first - 1;
                             } else {
                                 // Invalid query
-                                tokenPos--;
+                                return result.second;
                             }
                             break;
                         }
                         case FOLLOWS_T: {
                             tokenPos += 2;
-                            std::pair<int, bool> result = parseRelationStmtStmt(tokens, tokenPos,
+                            std::pair<int, Exception> result = parseRelationStmtStmt(tokens, tokenPos,
                                                                                 FOLLOWS_T, container);
-                            if (result.second) {
+                            if (result.second == VALID) {
                                 tokenPos = result.first - 1;
                             } else {
                                 // Invalid query
-                                tokenPos--;
+                                return result.second;
                             }
                             break;
                         }
                         case PARENT: {
                             tokenPos++;
-                            std::pair<int, bool> result = parseRelationStmtStmt(tokens, tokenPos,
+                            std::pair<int, Exception> result = parseRelationStmtStmt(tokens, tokenPos,
                                                                                 PARENT, container);
-                            if (result.second) {
+                            if (result.second == VALID) {
                                 tokenPos = result.first - 1;
                             } else {
                                 // Invalid query
-                                tokenPos--;
+                                return result.second;
                             }
                             break;
                         }
                         case PARENT_T: {
                             tokenPos += 2;
-                            std::pair<int, bool> result = parseRelationStmtStmt(tokens, tokenPos,
+                            std::pair<int, Exception> result = parseRelationStmtStmt(tokens, tokenPos,
                                                                                 PARENT_T, container);
-                            if (result.second) {
+                            if (result.second == VALID) {
                                 tokenPos = result.first - 1;
                             } else {
                                 // Invalid query
-                                tokenPos--;
+                                return result.second;
                             }
                             break;
                         }
                         case USES_S: {
                             tokenPos++;
-                            std::pair<int, bool> result = parseRelationStmtStmt(tokens, tokenPos,
+                            std::pair<int, Exception> result = parseRelationStmtStmt(tokens, tokenPos,
                                                                                 USES_S, container);
-                            if (result.second) {
+                            if (result.second == VALID) {
                                 tokenPos = result.first - 1;
                             } else {
                                 // Invalid query
-                                tokenPos--;
+                                return result.second;
                             }
                             break;
                         }
                         case MODIFIES_S:{
                             tokenPos++;
-                            std::pair<int, bool> result = parseRelationStmtStmt(tokens, tokenPos,
+                            std::pair<int, Exception> result = parseRelationStmtStmt(tokens, tokenPos,
                                                                                MODIFIES_S, container);
-                            if (result.second) {
+                            if (result.second == VALID) {
                                 tokenPos = result.first - 1;
                             } else {
                                 // Invalid query
-                                tokenPos--;
+                                return result.second;
                             }
                             break;
                         }
                         case USES_P: {
                             tokenPos++;
-                            std::pair<int, bool> result = parseRelationStmtStmt(tokens, tokenPos,
+                            std::pair<int, Exception> result = parseRelationStmtStmt(tokens, tokenPos,
                                                                                USES_P, container);
-                            if (result.second) {
+                            if (result.second == VALID) {
                                 tokenPos = result.first - 1;
                             } else {
                                 // Invalid query
-                                tokenPos--;
+                                return result.second;
                             }
                             break;
                         }
                         case MODIFIES_P:{
                             tokenPos++;
-                            std::pair<int, bool> result = parseRelationStmtStmt(tokens, tokenPos,
+                            std::pair<int, Exception> result = parseRelationStmtStmt(tokens, tokenPos,
                                                                               MODIFIES_P, container);
-                            if (result.second) {
+                            if (result.second == VALID) {
                                 tokenPos = result.first - 1;
                             } else {
                                 // Invalid query
-                                tokenPos--;
+                                return result.second;
                             }
                             break;
                         }
                         case INVALID_RELATION_TYPE:
                         {
                             std::cout << "invalid relation" << std::endl;
-                            return ;
+                            return INVALID_RELATION;
                         }
                     }
                 }
 
             } else if (curr.tokenType == QPS::NAME && curr.nameValue == "Select") {
                 container.setStatus(START_PARSE_SELECT);
-                std::pair<int, bool> result = parseSelect(tokens, tokenPos, container);
-                if (result.second) {
+                std::pair<int, Exception> result = parseSelect(tokens, tokenPos, container);
+                if (result.second == VALID) {
                     tokenPos = result.first - 1;
+                } else {
+                    return INVALID_SELECT;
                 }
                 container.setStatus(FINISH_PARSE_SELECT);
             }  else if (curr.tokenType == QPS::NAME && curr.nameValue == "such") {
                 container.setStatus(START_PARSE_SUCH);
             }  else if (curr.tokenType == QPS::NAME && curr.nameValue == "that" && container.getStatus() == START_PARSE_SUCH) {
                 container.setStatus(FINISH_PARSE_SUCH);
+            } else if (container.getStatus() == START_PARSE_SUCH && (curr.tokenType != QPS::NAME || curr.nameValue != "that")) {
+                return INVALID_SUCH_THAT;
             } else if (curr.tokenType == QPS::NAME && curr.nameValue == "pattern") {
                 tokenPos++;
-                std::pair<int, bool> result = parsePattern(tokens, tokenPos, container);
+                std::pair<int, Exception> result = parsePattern(tokens, tokenPos, container);
+                if (result.second != VALID) {
+                    return result.second;
+                }
 
             } else {
-                // Invalid entity
+               return UNMATCHED_QUERY_TYPE;
 
             }
             tokenPos++;
@@ -311,9 +318,11 @@ namespace QPS {
             std::cout << patternStruct.arg1.nameOfArgument + " - "+ QPS::ARGToString(patternStruct.arg1.typeOfArgument)
                          + "  " + patternStruct.arg2.nameOfArgument + " - " + QPS::ARGToString(patternStruct.arg2.typeOfArgument)<< std::endl;
         }
+
+        return VALID;
     }
 
-    std::pair<int, bool> parsePattern (std::vector<QPS::Token> &tokens,
+    std::pair<int, Exception> parsePattern (std::vector<QPS::Token> &tokens,
                                        int pos,
                                        Container &container) {
         std::string assign_syn;
@@ -323,19 +332,19 @@ namespace QPS {
             DECLARED_SYNONYM_MAP declarationMap = container.getDeclarationMap();
             auto iterator = declarationMap.find( tokens[pos].nameValue);
             if (iterator->second != ASSIGN) {
-                return {pos, false};
+                return {pos, INVALID_PATTERN_NAME};
             } else {
                 assign_syn = iterator->first;
                 pos++;
             }
         } else {
-            return {pos, false};
+            return {pos, INVALID_PATTERN_NAME};
         }
         if (pos < tokens.size() && tokens[pos].tokenType == LPAREN) {
             pos++;
 //            std::cout << "parse (" << std::endl;
         } else {
-            return {pos, false};
+            return {pos, INVALID_PATTERN_SYNTAX};
         }
 
         std::pair<ArgumentStruct,bool> ARG1;
@@ -344,14 +353,14 @@ namespace QPS {
 //            std::cout << "parse first arg" << std::endl;
             pos++;
         } else {
-            return {pos, false};
+            return {pos, INVALID_PATTERN_CONTENT};
         }
 
         if (pos < tokens.size() && tokens[pos].tokenType == COMMA) {
             pos++;
 //            std::cout << "parse comma" << std::endl;
         } else {
-            return {pos, false};
+            return {pos, INVALID_PATTERN_SYNTAX};
         }
 
         //parse expression specific
@@ -370,7 +379,7 @@ namespace QPS {
             if (pos < tokens.size()) {
                 pos++;
             } else {
-                return {pos, false};
+                return {pos, INVALID_PATTERN_CONTENT};
             }
 
             if (tokens[pos].tokenType == UNDERSCORE) {
@@ -383,15 +392,15 @@ namespace QPS {
             pos++;
 //            std::cout << "parse )" << std::endl;
         } else {
-            return {pos, false};
+            return {pos, INVALID_PATTERN_SYNTAX};
         }
 
         ArgumentStruct aStruct = {EXPRESSION, expression};
         container.addPatternClause(ASSIGN_PATTERN, assign_syn, ARG1.first, aStruct);
-        return {pos, true};
+        return {pos, VALID};
     }
 
-    std::pair<int, bool> parseDeclaration(std::vector<QPS::Token> &tokens,
+    std::pair<int, Exception> parseDeclaration(std::vector<QPS::Token> &tokens,
                                           int pos,
                                           EntityType entityType,
                                           Container &container) {
@@ -405,20 +414,20 @@ namespace QPS {
 //                std::cout << "parse declaration: name" << std::endl;
                 container.addDeclaration(entityType, curr.nameValue);
             } else {
-                return {pos, false};
+                return {pos, INVALID_DECLARATION};
             }
             pos++;
         }
 
         if (pos >= tokens.size()) {
-            return {-1, false};
+            return {-1, INVALID_DECLARATION};
         } else {
-            return {pos, true};
+            return {pos, VALID};
         }
 
     }
 
-    std::pair<int, bool> parseSelect(std::vector<QPS::Token> &tokens, int pos, Container &container) {
+    std::pair<int, Exception> parseSelect(std::vector<QPS::Token> &tokens, int pos, Container &container) {
         while (pos < tokens.size() && !QPS::isSuchThat(tokens[pos])) {
             QPS::Token curr = tokens[pos];
             if (curr.tokenType == QPS::NAME && curr.nameValue == "Select") {
@@ -430,27 +439,27 @@ namespace QPS {
                     container.addCandidateList(entityType, curr.nameValue);
                     pos++;
                 } else {
-                    return {pos, false};
+                    return {pos, INVALID_ENTITY};
                 }
 
             } else if (curr.tokenType == QPS::COMMA){
                 pos++;
             } else if (curr.tokenType == QPS::NAME && curr.nameValue == "such"){
-                return {pos, true};
+                return {pos, VALID};
             } else {
-                return {pos, false};
+                return {pos, INVALID_SELECT};
             }
 
         }
         if (pos <= tokens.size()) {
-            return {pos, true};
+            return {pos, VALID};
         } else {
-            return {-1, false};
+            return {pos, INVALID_SELECT};
         }
     }
 
 
-    std::pair<int, bool> parseRelationStmtStmt(std::vector<QPS::Token> &tokens,
+    std::pair<int, Exception> parseRelationStmtStmt(std::vector<QPS::Token> &tokens,
                                                int pos, RelationType relationType,
                                                Container &container) {
 //        std::cout << "parse stmt" << std::endl;
@@ -460,7 +469,7 @@ namespace QPS {
             pos++;
 //            std::cout << "parse (" << std::endl;
         } else {
-            return {pos, false};
+            return {pos, INVALID_RELATION_SYNTAX};
         }
 
         if (pos < tokens.size() && (tokens[pos].tokenType == NAME || tokens[pos].tokenType == INTEGER)) {
@@ -468,14 +477,14 @@ namespace QPS {
 //            std::cout << "parse first arg" << std::endl;
             pos++;
         } else {
-            return {pos, false};
+            return {pos, INVALID_RELATION_CONTENT};
         }
 
         if (pos < tokens.size() && tokens[pos].tokenType == COMMA) {
             pos++;
 //            std::cout << "parse comma" << std::endl;
         } else {
-            return {pos, false};
+            return {pos, INVALID_RELATION_SYNTAX};
         }
 
         if (pos < tokens.size() && (tokens[pos].tokenType == NAME || tokens[pos].tokenType == INTEGER)) {
@@ -483,21 +492,21 @@ namespace QPS {
 //            std::cout << "parse second arg" << std::endl;
             pos++;
         } else {
-            return {pos, false};
+            return {pos, INVALID_RELATION_CONTENT};
         }
 
         if (pos < tokens.size() && tokens[pos].tokenType == RPAREN) {
             pos++;
 //            std::cout << "parse )" << std::endl;
         } else {
-            return {pos, false};
+            return {pos, INVALID_RELATION_SYNTAX};
         }
         if (ARG1.second && ARG2.second) {
             container.addSuchThatClause(relationType, ARG1.first, ARG2.first);
 //            std::cout << "parse stmt finish" << std::endl;
-            return {pos, true};
+            return {pos, VALID};
         } else {
-            return {pos, false};
+            return {pos, INVALID_RELATION_CONTENT};
         }
     }
 
