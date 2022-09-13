@@ -313,7 +313,6 @@ std::shared_ptr<TNode> Parser::parseExpression() {
         base = TNode::createTerm(statementCount, operand, base, term2);
     }
     return base;
-    //TODO check for bad syntax: name, name
 }
 
 std::shared_ptr<TNode> Parser::parseTerm() {
