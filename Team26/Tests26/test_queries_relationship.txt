@@ -1,5 +1,5 @@
 1 - Simple test with constants
 constant c; variable v; assign a;
 Select a, v such that Modifies(a, v) pattern a(v, "(x+y) * z")
-1, 3
+9 x, 5 x, 3 x, 11 z, 10 z, 6 y, 7 z
 50000

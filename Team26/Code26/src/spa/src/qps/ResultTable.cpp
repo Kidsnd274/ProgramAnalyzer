@@ -216,13 +216,27 @@ namespace QPS {
         return;
     }
 
-    void ResultTable::deleteDuplicateRows() {
+    void ResultTable::deleteDuplicateRows(const std::vector<std::string> &sNames) {
         std::unordered_set<std::string> presentRows;
+        std::vector<int> sPos;
+        bool sNamesSelected = false;
+        if (sNames.size() != 0) {
+            for (auto sName: sNames) {
+                sPos.push_back(synonymColRef.find(sName)->second);
+            }
+            sNamesSelected = true;
+        }
         int rows = table.size();
         for (int row = rows - 1; row >= 0; row--) {
             std::string s = "";
-            for (auto &entry: table[row]) {
-                s += entry + "|";
+            if (sNamesSelected) {
+                for (auto col: sPos) {
+                    s += table[row][col] + "|";
+                }
+            } else {
+                for (auto &entry: table[row]) {
+                    s += entry + "|";
+                }
             }
             if (presentRows.find(s) != presentRows.end()) {
                 deleteRowFromTable(row);
