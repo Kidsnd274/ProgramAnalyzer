@@ -530,14 +530,26 @@ namespace QPS {
             } else {
                 EntityType entityType = iterator->second;
                 switch (entityType) {
-                    case STATEMENT:
-                    case READ:
-                    case PRINT:
-                    case CALL:
-                    case WHILE:
-                    case IF:
-                    case ASSIGN:{
+                    case STATEMENT: {
                         return {{STMT_SYNONYM, token.nameValue}, VALID};
+                    }
+                    case READ: {
+                        return {{READ_SYNONYM, token.nameValue}, VALID};
+                    }
+                    case PRINT: {
+                        return {{PRINT_SYNONYM, token.nameValue}, VALID};
+                    }
+                    case CALL: {
+                        return {{CALL_SYNONYM, token.nameValue}, VALID};
+                    }
+                    case WHILE:{
+                        return {{WHILE_SYNONYM, token.nameValue}, VALID};
+                    }
+                    case IF:{
+                        return {{IF_SYNONYM, token.nameValue}, VALID};
+                    }
+                    case ASSIGN:{
+                        return {{ASSIGN_SYNONYM, token.nameValue}, VALID};
                     }
                     case PROCEDURE:
                     case VARIABLE:

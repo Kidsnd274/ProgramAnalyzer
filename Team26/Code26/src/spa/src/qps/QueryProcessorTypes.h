@@ -107,6 +107,12 @@ namespace QPS {
      * Enum of Argument Types in Relation or Pattern.
      */
     enum ArgumentType {
+        IF_SYNONYM,
+        WHILE_SYNONYM,
+        READ_SYNONYM,
+        PRINT_SYNONYM,
+        CALL_SYNONYM,
+        ASSIGN_SYNONYM,
         STMT_SYNONYM,
         VAR_SYNONYM,
         PROCEDURE_SYNONYM,
