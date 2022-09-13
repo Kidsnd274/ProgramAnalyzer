@@ -9,7 +9,7 @@ void PKBInterfaceStubForDE::addParent(int parentStmtNumber, int stmtNumber) {
 }
 
 void PKBInterfaceStubForDE::addParentStar(int parentStmtNumber, int stmtNumber) {
-    this->parentStarMapIntInt[stmtNumber] = parentStmtNumber;
+    this->parentStarMapIntInt.insert({parentStmtNumber, stmtNumber});
 }
 
 void PKBInterfaceStubForDE::addModifies(int stmtNumber, std::string varModified) {

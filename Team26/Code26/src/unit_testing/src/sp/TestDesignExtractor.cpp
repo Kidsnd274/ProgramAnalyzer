@@ -185,7 +185,7 @@ TEST_CASE("Main Extract Interface") {
         correctParentMap[13] = 11;
         correctParentMap[14] = 11;
         REQUIRE(pkbInterface->parentMapIntInt == correctParentMap);
-        REQUIRE(pkbInterface->parentStarMapIntInt == correctParentMap); // only one nesting level
+        //REQUIRE(pkbInterface->parentStarMapIntInt == correctParentMap); // only one nesting level
 
         std::unordered_multimap<int, std::string> modifiesMapIntString = {
                 {1, "x"}, // Assign
@@ -278,7 +278,167 @@ TEST_CASE("Main Extract Interface") {
         };
         REQUIRE(pkbInterface->followsMap == correctFollowsMap);
 
+        std::unordered_map<int, int> correctParentMap = {
+                {5,4},
+                {6,4},
+                {10,4},
+                {11,4},
+                {12,4},
+                {7,6},
+                {8,6},
+                {9,6},
+                {14,13},
+                {15,13},
+                {16,15},
+                {17,15},
+                {18,15},
+                {19,15},
+                {21,15},
+                {20,15},
+        };
 
+        std::unordered_multimap<int, int> correctParentStarMap = {
+                {4,5},
+                {4,6},
+                {4,10},
+                {4,11},
+                {4,12},
+                {6,7},
+                {6,8},
+                {6,9},
+                {13,14},
+                {13,15},
+                {15,16},
+                {15,17},
+                {15,18},
+                {15,19},
+                {15,20},
+                {15,21},
+                {4,7},
+                {4,8},
+                {4,9},
+                {13,16},
+                {13,17},
+                {13,18},
+                {13,19},
+                {13,20},
+                {13,21},
+        };
+
+        REQUIRE(pkbInterface->parentMapIntInt == correctParentMap);
+        REQUIRE(pkbInterface->parentStarMapIntInt == correctParentStarMap);
+
+        std::unordered_multimap<int, std::string> modifiesMapIntString = {
+                {1, "x"}, // Assign
+                {3, "y"},
+                {5, "x"},
+                {7, "x"},
+                {9, "y"},
+                {10, "x"},
+                {12, "y"},
+                {6, "x"},
+                {6, "y"},
+                {4, "x"},
+                {4, "x"},
+                {4, "y"},
+                {4, "x"},
+                {4, "y"},
+                {14, "x"},
+                {13, "x"},
+                {13, "x"},
+                {15, "x"},
+                {16, "x"},
+                {13, "y"},
+                {15, "y"},
+                {18, "y"},
+                {13, "x"},
+                {15, "x"},
+                {20, "x"},
+                {13, "y"},
+                {15, "y"},
+                {21, "y"}
+        };
+
+        REQUIRE(pkbInterface->modifiesMapIntString == modifiesMapIntString);
+
+        std::unordered_multimap<std::string, std::string> modifiesMapStringString = {
+                {"milestone1NestLevel2", "x"}, // Procedure
+                {"milestone1NestLevel2", "x"},
+                {"milestone1NestLevel2", "x"},
+                {"milestone1NestLevel2", "x"},
+                {"milestone1NestLevel2", "x"},
+                {"milestone1NestLevel2", "x"},
+                {"milestone1NestLevel2", "x"},
+                {"milestone1NestLevel2", "y"},
+                {"milestone1NestLevel2", "y"},
+                {"milestone1NestLevel2", "y"},
+                {"milestone1NestLevel2", "y"},
+                {"milestone1NestLevel2", "y"}
+        };
+        REQUIRE(pkbInterface->modifiesMapStringString == modifiesMapStringString);
+
+        std::unordered_multimap<int, std::string> usesMapIntString = {
+                {1, "x"},
+                {1, "z"},
+                {2, "y"},
+                {4, "x"}, // If cond
+                {5, "x"},
+                {4, "x"},
+                {6, "x"},
+                {4, "x"},
+                {7, "x"},
+                {6, "x"},
+                {4, "x"},
+                {8, "y"},
+                {6, "y"},
+                {4, "y"},
+                {10, "x"},
+                {10, "z"},
+                {4, "x"},
+                {4, "z"},
+                {11, "y"},
+                {4, "y"},
+                {13, "x"},
+                {14, "x"},
+                {13, "x"},
+                {15, "x"},
+                {13, "x"},
+                {16, "x"},
+                {15, "x"},
+                {13, "x"},
+                {17, "y"},
+                {15, "y"},
+                {13, "y"},
+                {20, "x"},
+                {15, "x"},
+                {13, "x"},
+                {19, "y"},
+                {15, "y"},
+                {13, "y"},
+        };
+        REQUIRE(pkbInterface->usesMapIntString == usesMapIntString);
+
+        std::unordered_multimap<std::string, std::string> usesMapStringString = {
+                {"milestone1NestLevel2", "x"}, // Procedure
+                {"milestone1NestLevel2", "x"},
+                {"milestone1NestLevel2", "x"},
+                {"milestone1NestLevel2", "x"},
+                {"milestone1NestLevel2", "x"},
+                {"milestone1NestLevel2", "x"},
+                {"milestone1NestLevel2", "x"},
+                {"milestone1NestLevel2", "x"},
+                {"milestone1NestLevel2", "x"},
+                {"milestone1NestLevel2", "x"},
+                {"milestone1NestLevel2", "x"},
+                {"milestone1NestLevel2", "y"},
+                {"milestone1NestLevel2", "y"},
+                {"milestone1NestLevel2", "y"},
+                {"milestone1NestLevel2", "y"},
+                {"milestone1NestLevel2", "y"},
+                {"milestone1NestLevel2", "z"},
+                {"milestone1NestLevel2", "z"}
+        };
+        REQUIRE(pkbInterface->usesMapStringString == usesMapStringString);
     }
 
     SECTION("Nesting Level 3") {

@@ -4,7 +4,7 @@ class PKBInterfaceStubForDE : public PKBInterface {
 public:
     std::unordered_map<int, int> followsMap;
     std::unordered_map<int, int> parentMapIntInt;
-    std::unordered_map<int, int> parentStarMapIntInt;
+    std::unordered_multimap<int, int> parentStarMapIntInt;
     std::unordered_multimap<int, std::string> modifiesMapIntString;
     std::unordered_multimap<std::string, std::string> modifiesMapStringString;
     std::unordered_multimap<int, std::string> usesMapIntString;
