@@ -47,7 +47,12 @@ namespace QPS {
         void updateSynonymColRef(const std::vector<std::string> &otherUniqueSynonyms);
         void commonSynonymValueSet(const std::vector<int> &commonSynonymCols, std::unordered_map<std::vector<std::string>, std::vector<int>, StringVectorHash> &resultSet);
         void mergeWithSameSynonyms(std::unordered_map<std::vector<std::string>, std::vector<int>, StringVectorHash> &resultSet, const ResultTable& otherTable, std::vector<int>& otherUniqueCols, std::vector<int>& otherCommonCols);
-        void deleteDuplicateRows();
+        /**
+         * Delete duplicate rows in the table. Two rows are duplicate if the values of the selected synonym
+         * are the same.
+         * @param sNames selected synonyms to compare.
+         */
+        void deleteDuplicateRows(const std::vector<std::string>& sNames);
         /**
          * Add a new column to the result table. This new column is all the entities of a new synonym.
          * This method will take the cartesian product of set A and B, where set A is the set of original rows and
@@ -68,13 +73,13 @@ namespace QPS {
         void filterRows(SUCH_THAT_LIST suchThatList);
 
         /**
-         * Check whether the given row follows the list of relation.
+         * Check whether the given row follows the given relation.
          *
          * @param row The given row.
-         * @param suchThatList The given list of relation.
+         * @param relation The given relation.
          * @return bool
          */
-        bool followsRelation(std::vector<std::string>& row, SUCH_THAT_LIST suchThatList);
+        bool followsRelation(std::vector<std::string>& row, QPS::RelationStruct relation);
         //for debug purpose
         void printTable();
         std::vector<std::vector<std::string>> getTable();
