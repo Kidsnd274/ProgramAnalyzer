@@ -77,6 +77,119 @@ namespace QPS {
         }
     }
 
+    std::string ARGToString (ArgumentType argumentType) {
+        switch (argumentType) {
+
+            case STMT_SYNONYM:{
+                return "STMT_SYNONYM";
+            }
+            case VAR_SYNONYM:{
+                return "VAR_SYNONYM";
+            }
+            case PROCEDURE_SYNONYM:{
+                return "PROCEDURE_SYNONYM";
+            }
+            case CONST_SYNONYM:{
+                return "CONST_SYNONYM";
+            }
+            case NAME_OF_ENTITY:{
+                return "NAME_OF_ENTITY";
+            }
+            case NUMBER:{
+                return "NUMBER";
+            }
+            case WILDCARD:{
+                return "WILDCARD";
+            }
+            case INVALID_ARGUMENT_TYPE:{
+                return "INVALID_ARGUMENT_TYPE";
+            }
+            case EXPRESSION:{
+                return "EXPRESSION";
+            }
+
+        }
+    }
+
+    std::string exceptionToStringQPS(Exception e) {
+        switch (e) {
+
+            case INVALID_ENTITY:{
+                return "INVALID_ENTITY";
+            }
+            case INVALID_RELATION_SYNTAX:{
+                return "}";
+            }
+            case INVALID_SELECT:{
+                return "INVALID_SELECT";
+            }
+            case INVALID_SUCH_THAT:{
+                return "INVALID_SUCH_THAT";
+            }
+            case INVALID_PATTERN_NAME:{
+                return "INVALID_PATTERN_NAME";
+            }
+            case INVALID_PATTERN_SYNTAX:{
+                return "INVALID_PATTERN_SYNTAX";
+            }
+            case UNDECLARED_ENTITY_PATTERN:{
+                return "UNDECLARED_ENTITY_PATTERN";
+            }
+            case UNDECLARED_ENTITY_SUCH_THAT:{
+                return "UNDECLARED_ENTITY_SUCH_THAT";
+            }
+            case UNMATCHED_QUERY_TYPE:{
+                return "UNMATCHED_QUERY_TYPE";
+            }
+            case INVALID_RELATION:{
+                return "INVALID_RELATION";
+            }
+            case INVALID_RELATION_CONTENT:{
+                return "INVALID_RELATION_CONTENT";
+            }
+            case INVALID_PATTERN_CONTENT:{
+                return "INVALID_PATTERN_CONTENT";
+            }
+            case INVALID_DECLARATION:{
+                return "INVALID_DECLARATION";
+            }
+            case VALID:{
+                return "VALID";
+            }
+        }
+    }
+    std::string relationToString (RelationType relationType) {
+        switch (relationType) {
+
+            case FOLLOWS:{
+                return "follows";
+            }
+            case FOLLOWS_T:{
+                return "follows*";
+            }
+            case PARENT:{
+                return "parent";
+            }
+            case PARENT_T:{
+                return "parent*";
+            }
+            case USES_S:{
+                return "uses_s";
+            }
+            case USES_P: {
+                return "uses_p";
+            }
+            case MODIFIES_S:{
+                return "modifies_s";
+            }
+            case MODIFIES_P: {
+                return "modifies_p";
+            }
+            case INVALID_RELATION_TYPE:{
+                return "Invalid";
+            }
+        }
+    }
     std::string candidateToString(CandidateType candidateType) {
         switch (candidateType) {
             case STMT_NO: {

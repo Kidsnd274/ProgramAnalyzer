@@ -4,7 +4,10 @@
 #include "Tokenizer.h"
 #include "QueryStruct.h"
 #include "pkb/PKBInterface.h"
+#include "QueryProcessorTypes.h"
 #include <list>
+#include <vector>
+#include <string>
 
 namespace QPS {
     enum Status{
@@ -12,7 +15,9 @@ namespace QPS {
         START_PARSE_DECLARATION,
         FINISH_PARSE_DECLARATION,
         START_PARSE_SELECT,
-        FINISH_PARSE_SELECT
+        FINISH_PARSE_SELECT,
+        START_PARSE_SUCH,
+        FINISH_PARSE_SUCH,
     };
 
     class Container {
@@ -51,12 +56,30 @@ namespace QPS {
             this->queryStruct.addCandidateList(candidateType, std::move(s), entityType);
         }
 
+        void addSuchThatClause(RelationType relationType, ArgumentStruct ARG1, ArgumentStruct ARG2) {
+            RelationStruct relationStruct = {relationType, std::move(ARG1), std::move(ARG2)};
+            this->queryStruct.addSuchThatClause(relationStruct);
+        }
+
+        void addPatternClause(PatternType typeOfPattern, std::string assign_syn, ArgumentStruct arg1, ArgumentStruct arg2) {
+            PatternStruct patternStruct = {typeOfPattern, std::move(assign_syn),std::move(arg1),std::move(arg2)};
+            this->queryStruct.addPatternClause(patternStruct);
+        }
+
         DECLARED_SYNONYM_MAP getDeclarationMap() {
             return this->queryStruct.getDeclaredSynonymMap();
         }
 
         CANDIDATE_LIST  getCandidateList(){
             return this->queryStruct.getCandidateList();
+        }
+
+        SUCH_THAT_LIST getSuchThatList() {
+            return this->queryStruct.getSuchThatList();
+        }
+
+        PATTERN_LIST getPatternList() {
+            return this->queryStruct.getPatternList();
         }
 
         QueryStruct getQueryStruct() {
@@ -66,8 +89,23 @@ namespace QPS {
 
     class QueryManager {
     public:
+        static PKBInterface* pkb;
         void handleQuery(PKBInterface* pkb, std::string queryString, std::list<std::string>& results);
+
+        static void setPKBInterface(PKBInterface *pkb) {
+            QueryManager::pkb = pkb;
+        }
+
+        /**
+         * Call PKB interface to get all the names of entity of a certain type.
+         *
+         * @return A vector of string.
+         */
+        static std::vector<std::string> getAllEntitiesFromPKB(QPS::EntityType entityType) {
+            return QueryManager::pkb->getAllEntity(entityType);
+        }
     };
+
 }
 
 #endif //SPA_QUERYMANAGER_H
