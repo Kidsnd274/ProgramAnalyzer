@@ -8,14 +8,10 @@
 
 using namespace std;
 
-void VarTable::insertVar(Variable var) {
+void VarTable::insertVar(string var) {
     this->varList.push_back(var);
 }
 
 vector<string> VarTable::getAllVariables() {
-    vector<string> result;
-    for (Variable var: this->varList) {
-        result.push_back(var.name);
-    }
-    return result;
+    return this->varList;
 }
