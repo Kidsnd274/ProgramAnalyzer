@@ -334,8 +334,7 @@ namespace QPS {
         if (pos < tokens.size() && tokens[pos].tokenType == NAME) {
             DECLARED_SYNONYM_MAP declarationMap = container.getDeclarationMap();
             auto iterator = declarationMap.find( tokens[pos].nameValue);
-            if (iterator->second != ASSIGN) {
-                std::cout << "UNDECLARED_ENTITY_PATTERN" << std::endl;
+            if (iterator == declarationMap.end() || iterator->second != ASSIGN) {
                 return {pos, UNDECLARED_ENTITY_PATTERN};
             } else {
                 assign_syn = iterator->first;
@@ -511,7 +510,7 @@ namespace QPS {
 //            std::cout << "parse stmt finish" << std::endl;
             return {pos, VALID};
         } else {
-            return {pos, INVALID_RELATION_CONTENT};
+            return {pos, UNDECLARED_ENTITY_SUCH_THAT};
         }
     }
 

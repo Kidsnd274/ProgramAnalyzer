@@ -1,5 +1,5 @@
 1 - Simple test with constants
 constant c; variable v; assign a;
-Select c, v such that Modifies(v, c) pattern a1(v, "(x+y) * z")
+Select c, v such that Modifies(v, c) pattern a(v, "(x+y) * z")
 1, 3
 5000

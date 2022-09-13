@@ -1,8 +1,24 @@
 <?xml-stylesheet type="text/xsl" href="analysis.xsl"?>
 <test_results>
 <info>
-<name>autotester</name><parsing_time_taken>0.469000</parsing_time_taken>
+<name>autotester</name><parsing_time_taken>0.356000</parsing_time_taken>
 </info>
 <queries>
 <query>
-<id ReturnTuple="1" Modifies="1" Pattern="1" SuchThat="1" CondNum="4" RelNum="1" comment="Simple test with constants">1</id><querystr><![CDATA[constant c; variable v; assign a; Select c, v such that Modifies(v, c) pattern a1(v, "(x+y) * z")]]></querystr>
+<id ReturnTuple="1" Modifies="1" Pattern="1" SuchThat="1" CondNum="4" RelNum="1" comment="Simple test with constants">1</id><querystr><![CDATA[constant c; variable v; ssign a; Select c, v such that Modifies(v, c) pattern a(v, "(x+y) * z")]]></querystr>
+<stuans></stuans>
+<correct>1,3</correct>
+<time_taken>56.268000</time_taken>
+<failed>
+<missing>1,3</missing>
+<additional></additional>
+<summary>
+<expected>2</expected>
+<matched>0</matched>
+<missing>2</missing>
+<additional>0</additional>
+</summary>
+</failed>
+</query>
+</queries>
+</test_results>
