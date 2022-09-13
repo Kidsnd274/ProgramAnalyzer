@@ -171,30 +171,63 @@ TEST_CASE("Testing Follows*") {
 //}
 
 TEST_CASE("Parse Assign") {
-    std::vector<SPToken> v = {SPToken("x", SPTokenType::NameToken),
-                            SPToken("=", SPTokenType::AssignToken),
-                            SPToken("x", SPTokenType::NameToken),
-                            SPToken("+", SPTokenType::OpToken),
-                            SPToken("1", SPTokenType::ConstToken),
-                            SPToken(";", SPTokenType::SemiColonToken)};
-    Parser pa(v, &pkbInterface);
-    REQUIRE_NOTHROW(pa.parseAssign(1));
+    SECTION("variable names not keywords") {
+        std::vector<SPToken> v = {SPToken("x", SPTokenType::NameToken),
+                                  SPToken("=", SPTokenType::AssignToken),
+                                  SPToken("x", SPTokenType::NameToken),
+                                  SPToken("+", SPTokenType::OpToken),
+                                  SPToken("1", SPTokenType::ConstToken),
+                                  SPToken(";", SPTokenType::SemiColonToken)};
+        Parser pa(v, &pkbInterface);
+        REQUIRE_NOTHROW(pa.parseAssign(1));
+    }
+
+    SECTION("variable names are keywords") {
+        std::vector<SPToken> v = {SPToken("read", SPTokenType::ReadToken),
+                                  SPToken("=", SPTokenType::AssignToken),
+                                  SPToken("while", SPTokenType::WhileToken),
+                                  SPToken("+", SPTokenType::OpToken),
+                                  SPToken("1", SPTokenType::ConstToken),
+                                  SPToken(";", SPTokenType::SemiColonToken)};
+        Parser pa(v, &pkbInterface);
+        REQUIRE_NOTHROW(pa.parseAssign(1));
+    }
 }
 
 TEST_CASE("Parse Print") {
-    std::vector<SPToken> v = {SPToken("print", SPTokenType::PrintToken),
-                            SPToken("x", SPTokenType::NameToken),
-                            SPToken(";", SPTokenType::SemiColonToken)};
-    Parser pp(v, &pkbInterface);
-    REQUIRE_NOTHROW(pp.parsePrint(1));
+    SECTION("variable names not keywords") {
+        std::vector<SPToken> v = {SPToken("print", SPTokenType::PrintToken),
+                                  SPToken("x", SPTokenType::NameToken),
+                                  SPToken(";", SPTokenType::SemiColonToken)};
+        Parser pp(v, &pkbInterface);
+        REQUIRE_NOTHROW(pp.parsePrint(1));
+    }
+
+    SECTION("variable names are keywords") {
+        std::vector<SPToken> v = {SPToken("print", SPTokenType::PrintToken),
+                                  SPToken("if", SPTokenType::IfToken),
+                                  SPToken(";", SPTokenType::SemiColonToken)};
+        Parser pp(v, &pkbInterface);
+        REQUIRE_NOTHROW(pp.parsePrint(1));
+    }
 }
 
 TEST_CASE("Parse Read") {
-    std::vector<SPToken> v = {SPToken("read", SPTokenType::PrintToken),
-                            SPToken("x", SPTokenType::NameToken),
-                            SPToken(";", SPTokenType::SemiColonToken)};
-    Parser pr(v, &pkbInterface);
-    REQUIRE_NOTHROW(pr.parseRead(1));
+    SECTION("variable names not keywords") {
+        std::vector<SPToken> v = {SPToken("read", SPTokenType::ReadToken),
+                                  SPToken("x", SPTokenType::NameToken),
+                                  SPToken(";", SPTokenType::SemiColonToken)};
+        Parser pr(v, &pkbInterface);
+        REQUIRE_NOTHROW(pr.parseRead(1));
+    }
+
+    SECTION("variable names are keywords") {
+        std::vector<SPToken> v = {SPToken("read", SPTokenType::ReadToken),
+                                  SPToken("print", SPTokenType::PrintToken),
+                                  SPToken(";", SPTokenType::SemiColonToken)};
+        Parser pr(v, &pkbInterface);
+        REQUIRE_NOTHROW(pr.parseRead(1));
+    }
 }
 
 TEST_CASE("Parse Expression") {
