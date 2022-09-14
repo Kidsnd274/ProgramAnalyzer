@@ -310,7 +310,9 @@ namespace QPS {
     void ResultTable::filterRowsBySuchThatList(QPS::SUCH_THAT_LIST suchThatList) {
         std::vector<std::vector<std::string>> newTable;
         for (auto relation: suchThatList) {
-            bool relationshipSynonymsPresent = isSynonymPresent(relation.arg1.nameOfArgument) && isSynonymPresent(relation.arg2.nameOfArgument);
+            bool relationshipSynonymsPresent =
+                    (!QPS::isArgumentTypeSynonym(relation.arg1.typeOfArgument) || isSynonymPresent(relation.arg1.nameOfArgument))
+                    && (!QPS::isArgumentTypeSynonym(relation.arg2.typeOfArgument) || isSynonymPresent(relation.arg2.nameOfArgument));
             if (!relationshipSynonymsPresent) {
                 continue;
             }
@@ -327,8 +329,8 @@ namespace QPS {
         std::vector<std::vector<std::string>> newTable;
         for (auto pattern : patternList) {
             bool patternSynonymsPresent = isSynonymPresent(pattern.assign_syn)
-                    && isSynonymPresent(pattern.arg1.nameOfArgument)
-                    && isSynonymPresent(pattern.arg2.nameOfArgument);
+                    && (!QPS::isArgumentTypeSynonym(pattern.arg1.typeOfArgument) || isSynonymPresent(pattern.arg1.nameOfArgument))
+                    && (!QPS::isArgumentTypeSynonym(pattern.arg2.typeOfArgument) || isSynonymPresent(pattern.arg2.nameOfArgument));
             if (!patternSynonymsPresent) {
                 continue;
             }
