@@ -5,6 +5,9 @@
 #include "QueryStruct.h"
 #include "pkb/PKBInterface.h"
 #include "QueryProcessorTypes.h"
+#include "util/ast/AssignNode.h"
+#include "util/ast/StatementNode.h"
+#include "util/ast/TNode.h"
 #include <list>
 #include <vector>
 #include <string>
@@ -111,7 +114,7 @@ namespace QPS {
          * @param assignRef The statement reference.
          * @return A pointer of AST TNode.
          */
-        static std::shared_ptr<TNode> getAssignTNode(std::string assignRef) {
+        static std::shared_ptr<AssignNode> getAssignTNode(std::string assignRef) {
 //            return QueryManager::pkb->getAssignTNode(assignRef);
         }
 

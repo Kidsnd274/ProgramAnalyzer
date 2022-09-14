@@ -381,6 +381,14 @@ namespace QPS {
 
     }
 
+    bool isPatternMatched(QPS::PatternStruct pattern) {
+        shared_ptr<AssignNode> assignNode = QueryManager::getAssignTNode(pattern.assign_syn);
+        // check variable names
+
+        // check expressions
+
+    }
+
     std::vector<std::vector<std::string>> ResultTable::getTable() {
         return this->table;
     }
