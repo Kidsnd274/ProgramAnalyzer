@@ -92,7 +92,8 @@ namespace QPS {
         INVALID_SUCH_THAT,
         INVALID_PATTERN_NAME,
         INVALID_PATTERN_SYNTAX,
-        UNDECLARED_ENTITY,
+        UNDECLARED_ENTITY_PATTERN,
+        UNDECLARED_ENTITY_SUCH_THAT,
         UNMATCHED_QUERY_TYPE,
         INVALID_RELATION,
         INVALID_RELATION_CONTENT,
@@ -106,6 +107,12 @@ namespace QPS {
      * Enum of Argument Types in Relation or Pattern.
      */
     enum ArgumentType {
+        IF_SYNONYM,
+        WHILE_SYNONYM,
+        READ_SYNONYM,
+        PRINT_SYNONYM,
+        CALL_SYNONYM,
+        ASSIGN_SYNONYM,
         STMT_SYNONYM,
         VAR_SYNONYM,
         PROCEDURE_SYNONYM,

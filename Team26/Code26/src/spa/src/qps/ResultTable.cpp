@@ -1,4 +1,5 @@
 #include "ResultTable.h"
+#include "../../../../Tests26/QPS/PKBStub.h"
 
 #include <string>
 #include <unordered_map>
@@ -215,12 +216,27 @@ namespace QPS {
         return;
     }
 
-    void ResultTable::deleteDuplicateRows() {
+    void ResultTable::deleteDuplicateRows(const std::vector<std::string> &sNames) {
         std::unordered_set<std::string> presentRows;
-        for (int row = 0; row < table.size(); row++) {
+        std::vector<int> sPos;
+        bool sNamesSelected = false;
+        if (sNames.size() != 0) {
+            for (auto sName: sNames) {
+                sPos.push_back(synonymColRef.find(sName)->second);
+            }
+            sNamesSelected = true;
+        }
+        int rows = table.size();
+        for (int row = rows - 1; row >= 0; row--) {
             std::string s = "";
-            for (auto &entry: table[row]) {
-                s += entry + "|";
+            if (sNamesSelected) {
+                for (auto col: sPos) {
+                    s += table[row][col] + "|";
+                }
+            } else {
+                for (auto &entry: table[row]) {
+                    s += entry + "|";
+                }
             }
             if (presentRows.find(s) != presentRows.end()) {
                 deleteRowFromTable(row);
@@ -291,32 +307,45 @@ namespace QPS {
         this->table = newTable;
     }
 
-    void ResultTable::filterRowsBySuchThatList(QPS::SUCH_THAT_LIST suchThatList) {
+    void ResultTable::filterRows(QPS::SUCH_THAT_LIST suchThatList) {
         std::vector<std::vector<std::string>> newTable;
-        for (auto row_iter = this->table.begin(); row_iter != this->table.end(); row_iter++) {
-            if (followsRelation(*row_iter, suchThatList)) {
-                newTable.emplace_back(*row_iter);
+        for (auto relation: suchThatList) {
+            bool relationshipSynonymsPresent = isSynonymPresent(relation.arg1.nameOfArgument) && isSynonymPresent(relation.arg2.nameOfArgument);
+            if (!relationshipSynonymsPresent) {
+                continue;
             }
+            for (auto row_iter = this->table.begin(); row_iter != this->table.end(); row_iter++) {
+                if (followsRelation(*row_iter, relation)) {
+                    newTable.emplace_back(*row_iter);
+                }
+            }
+            this->table = newTable;
         }
-        this->table = newTable;
     }
 
-    bool ResultTable::followsRelation(std::vector<std::string> &row, QPS::SUCH_THAT_LIST suchThatList) {
-        for (auto relation : suchThatList) {
-            RelationStruct realRelation;
-            realRelation.typeOfRelation = relation.typeOfRelation;
-            realRelation.arg1 = {
-                    relation.arg1.typeOfArgument,
-                    row.at(this->synonymColRef.find(relation.arg1.nameOfArgument)->second)
-            };
-
-            if (PKB.existRelation(realRelation)) { // TODO: Add method to PKB-QPS API.
-                continue;
-            } else {
-                return false;
-            }
+    bool ResultTable::followsRelation(std::vector<std::string> &row, QPS::RelationStruct relation) {
+        RelationStruct realRelation;
+        realRelation.typeOfRelation = relation.typeOfRelation;
+        realRelation.arg1 = {
+                relation.arg1.typeOfArgument,
+                row.at(this->synonymColRef.find(relation.arg1.nameOfArgument)->second)
+        };
+        realRelation.arg2 = {
+                relation.arg2.typeOfArgument,
+                row.at(this->synonymColRef.find(relation.arg2.nameOfArgument)->second)
+        };
+//            std::cout << realRelation.arg2.typeOfArgument << std::endl;
+//            std::cout << realRelation.arg2.nameOfArgument << std::endl;
+//            if (PKB.existRelation(realRelation)) { // TODO: Add method to PKB-QPS API.
+//                continue;
+//            } else {
+//                return false;
+//            }
+        if (QPSTests::PKBStub::existRelation(realRelation)) {
+            return true;
+        } else {
+            return false;
         }
-        return true;
     }
 
     std::vector<std::vector<std::string>> ResultTable::getTable() {
