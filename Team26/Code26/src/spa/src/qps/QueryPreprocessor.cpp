@@ -355,6 +355,9 @@ namespace QPS {
             ARG1 = convertStringToARG(tokens[pos], container);
 //            std::cout << "parse first arg" << std::endl;
             pos++;
+        } else if (pos < tokens.size() && tokens[pos].tokenType == WILDCARD_TOKEN) {
+            ARG1 = {{WILDCARD, "_"}, VALID};
+            pos++;
         } else {
             return {pos, INVALID_PATTERN_CONTENT};
         }
@@ -480,6 +483,9 @@ namespace QPS {
             ARG1 = convertStringToStmtRef(tokens[pos], container);
 //            std::cout << "parse first arg" << std::endl;
             pos++;
+        } else if (pos < tokens.size() && tokens[pos].tokenType == WILDCARD_TOKEN) {
+            ARG2 = {{WILDCARD, "_"}, VALID};
+            pos++;
         } else {
             return {pos, INVALID_RELATION_CONTENT};
         }
@@ -491,7 +497,12 @@ namespace QPS {
             return {pos, INVALID_RELATION_SYNTAX};
         }
 
-        if (pos < tokens.size() && (tokens[pos].tokenType == NAME || tokens[pos].tokenType == INTEGER)) {
+        if (pos < tokens.size() && tokens[pos].tokenType == DOUBLE_QUOTE && tokens[pos+2].tokenType == DOUBLE_QUOTE
+            && tokens[pos + 1].tokenType == NAME) {
+            std::string actual_name = tokens[pos + 1].nameValue;
+            ARG2 = {{ACTUAL_NAME, actual_name}, VALID};
+            pos += 3;
+        } else if (pos < tokens.size() && (tokens[pos].tokenType == NAME || tokens[pos].tokenType == INTEGER)) {
             ARG2 = convertStringToStmtRef(tokens[pos], container);
 //            std::cout << "parse second arg" << std::endl;
             pos++;
@@ -519,9 +530,11 @@ namespace QPS {
         }
     }
 
+
+
     std::pair<ArgumentStruct, Exception> convertStringToStmtRef (Token &token, Container &container) {
         if (token.tokenType == INTEGER) {
-            return {{NUMBER, token.nameValue}, VALID};
+            return {{ACTUAL_NAME, token.nameValue}, VALID};
         } else if (token.tokenType == NAME) {
             DECLARED_SYNONYM_MAP declarationMap = container.getDeclarationMap();
             auto iterator = declarationMap.find(token.nameValue);
