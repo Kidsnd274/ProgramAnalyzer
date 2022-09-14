@@ -117,12 +117,29 @@ namespace QPS {
         VAR_SYNONYM,
         PROCEDURE_SYNONYM,
         CONST_SYNONYM,
-        NAME_OF_ENTITY,
+        ACTUAL_NAME,
         NUMBER,
         WILDCARD,
         EXPRESSION,
         INVALID_ARGUMENT_TYPE
     };
+
+    bool isArgumentTypeSynonym(QPS::ArgumentType argumentType) {
+        switch (argumentType) {
+            case IF_SYNONYM:
+            case WHILE_SYNONYM:
+            case READ_SYNONYM:
+            case PRINT_SYNONYM:
+            case CALL_SYNONYM:
+            case ASSIGN_SYNONYM:
+            case STMT_SYNONYM:
+            case VAR_SYNONYM:
+            case PROCEDURE_SYNONYM:
+            case CONST_SYNONYM:
+                return true;
+        }
+        return false;
+    }
 
     enum ExpressionMatchingType {
         EXACT_MATCHING,
@@ -181,7 +198,6 @@ namespace QPS {
     std::string relationToString (RelationType relationType);
     std::string ARGToString (ArgumentType argumentType);
     std::string exceptionToStringQPS(Exception e);
-
 
 }
 #endif // QUERYPROCESSORTYPES_H

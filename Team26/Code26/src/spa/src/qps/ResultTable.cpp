@@ -344,6 +344,7 @@ namespace QPS {
     bool ResultTable::followsRelation(std::vector<std::string> &row, QPS::RelationStruct relation) {
         RelationStruct realRelation; // replace the synonyms in relationStruct by their actual name in result table.
         realRelation.typeOfRelation = relation.typeOfRelation;
+        if ()
         realRelation.arg1 = {
                 relation.arg1.typeOfArgument,
                 row.at(this->synonymColRef.find(relation.arg1.nameOfArgument)->second)

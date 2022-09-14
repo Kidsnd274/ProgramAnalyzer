@@ -92,8 +92,8 @@ namespace QPS {
             case CONST_SYNONYM:{
                 return "CONST_SYNONYM";
             }
-            case NAME_OF_ENTITY:{
-                return "NAME_OF_ENTITY";
+            case ACTUAL_NAME:{
+                return "ACTUAL_NAME";
             }
             case NUMBER:{
                 return "NUMBER";
