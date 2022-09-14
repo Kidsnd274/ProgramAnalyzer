@@ -344,27 +344,34 @@ namespace QPS {
     bool ResultTable::followsRelation(std::vector<std::string> &row, QPS::RelationStruct relation) {
         RelationStruct realRelation; // replace the synonyms in relationStruct by their actual name in result table.
         realRelation.typeOfRelation = relation.typeOfRelation;
-        if ()
-        realRelation.arg1 = {
-                relation.arg1.typeOfArgument,
-                row.at(this->synonymColRef.find(relation.arg1.nameOfArgument)->second)
-        };
-        realRelation.arg2 = {
-                relation.arg2.typeOfArgument,
-                row.at(this->synonymColRef.find(relation.arg2.nameOfArgument)->second)
-        };
-//            std::cout << realRelation.arg2.typeOfArgument << std::endl;
-//            std::cout << realRelation.arg2.nameOfArgument << std::endl;
-//            if (PKB.existRelation(realRelation)) { // TODO: Add method to PKB-QPS API.
-//                continue;
-//            } else {
-//                return false;
-//            }
-        if (QPSTests::PKBStub::existRelation(realRelation)) { // for test only.
+        if (QPS::isArgumentTypeSynonym(relation.arg1.typeOfArgument)) {
+            realRelation.arg1 = {
+                    relation.arg1.typeOfArgument,
+                    row.at(this->synonymColRef.find(relation.arg1.nameOfArgument)->second)
+            };
+        } else {
+            realRelation.arg1 = relation.arg1;
+        }
+        if (QPS::isArgumentTypeSynonym(relation.arg2.typeOfArgument)) {
+            realRelation.arg2 = {
+                    relation.arg2.typeOfArgument,
+                    row.at(this->synonymColRef.find(relation.arg2.nameOfArgument)->second)
+            };
+        } else {
+            realRelation.arg2 = relation.arg2;
+        }
+        std::cout << realRelation.arg2.typeOfArgument << std::endl; // for test only
+        std::cout << realRelation.arg2.nameOfArgument << std::endl;
+        if (QueryManager::isRelationExist(realRelation)) {
             return true;
         } else {
             return false;
         }
+//        if (QPSTests::PKBStub::existRelation(realRelation)) { // for test only.
+//            return true;
+//        } else {
+//            return false;
+//        }
     }
 
     bool ResultTable::followsPattern(std::vector<std::string> &row, QPS::PatternStruct pattern) {
