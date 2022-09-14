@@ -19,6 +19,7 @@ namespace QPS {
             query.resultTable.addColumnAndMerge(entityStruct.nameOfEntity, entities);
             query.resultTable.deleteDuplicateRows({}); //duplicate if values are the same for all synonyms
             query.resultTable.filterRowsBySuchThatList(query.getSuchThatList());
+            query.resultTable.filterRowsByPatternList(query.getPatternList());
         }
     }
 }
