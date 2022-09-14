@@ -117,6 +117,12 @@ namespace QPS {
         INVALID_ARGUMENT_TYPE
     };
 
+    enum ExpressionMatchingType {
+        EXACT_MATCHING,
+        PARTIAL_MATCHING,
+        WILDCARD_MATCHING
+    };
+
     /*
      * The structure to represent an entity.
      */

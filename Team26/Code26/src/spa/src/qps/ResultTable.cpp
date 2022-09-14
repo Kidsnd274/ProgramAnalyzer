@@ -291,7 +291,7 @@ namespace QPS {
         this->table = newTable;
     }
 
-    void ResultTable::filterRows(QPS::SUCH_THAT_LIST suchThatList) {
+    void ResultTable::filterRowsBySuchThatList(QPS::SUCH_THAT_LIST suchThatList) {
         std::vector<std::vector<std::string>> newTable;
         for (auto row_iter = this->table.begin(); row_iter != this->table.end(); row_iter++) {
             if (followsRelation(*row_iter, suchThatList)) {
@@ -309,11 +309,12 @@ namespace QPS {
                     relation.arg1.typeOfArgument,
                     row.at(this->synonymColRef.find(relation.arg1.nameOfArgument)->second)
             };
-//            if (PKB.existRelation(realRelation)) { // TODO: Add method to PKB-QPS API.
-//                continue;
-//            } else {
-//                return false;
-//            }
+
+            if (PKB.existRelation(realRelation)) { // TODO: Add method to PKB-QPS API.
+                continue;
+            } else {
+                return false;
+            }
         }
         return true;
     }

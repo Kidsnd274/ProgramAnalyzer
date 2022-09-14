@@ -65,7 +65,15 @@ namespace QPS {
          *
          * @param suchThatList List of given relation.
          */
-        void filterRows(SUCH_THAT_LIST suchThatList);
+        void filterRowsBySuchThatList(SUCH_THAT_LIST suchThatList);
+
+        /**
+         * This method checks whether each row in result table follows to the given pattern list.
+         * If a row does not follow the list of pattern, delete that row.
+         *
+         * @param patternList List of given pattern.
+         */
+        void filterRowsByPatternList(PATTERN_LIST patternList);
 
         /**
          * Check whether the given row follows the list of relation.
@@ -75,6 +83,15 @@ namespace QPS {
          * @return bool
          */
         bool followsRelation(std::vector<std::string>& row, SUCH_THAT_LIST suchThatList);
+
+        /**
+         * Check whether the given row follows the list of pattern.
+         *
+         * @param row
+         * @param patternList
+         * @return
+         */
+        bool followsPattern(std::vector<std::string>& row, PATTERN_LIST patternList);
         //for debug purpose
         void printTable();
         std::vector<std::vector<std::string>> getTable();
