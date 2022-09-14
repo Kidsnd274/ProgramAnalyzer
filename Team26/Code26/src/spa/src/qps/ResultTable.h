@@ -70,16 +70,34 @@ namespace QPS {
          *
          * @param suchThatList List of given relation.
          */
-        void filterRows(SUCH_THAT_LIST suchThatList);
+        void filterRowsBySuchThatList(SUCH_THAT_LIST suchThatList);
 
         /**
-         * Check whether the given row follows the given relation.
+         * Checks whether each row in result table follows to the given patterns.
+         * If a row does not follow the list of patterns, delete that row.
+         *
+         * @param patternList List of given patterns.
+         */
+        void filterRowsByPatternList(PATTERN_LIST patternList);
+
+        /**
+         * Checks whether the given row follows the given relation.
          *
          * @param row The given row.
          * @param relation The given relation.
          * @return bool
          */
         bool followsRelation(std::vector<std::string>& row, QPS::RelationStruct relation);
+
+        /**
+         * Checks whether the given row follows the given pattern.
+         *
+         * @param row The given row.
+         * @param pattern The given pattern.
+         * @return bool
+         */
+        bool followsPattern(std::vector<std::string> &row, QPS::PatternStruct pattern);
+
         //for debug purpose
         void printTable();
         std::vector<std::vector<std::string>> getTable();

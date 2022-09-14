@@ -307,7 +307,7 @@ namespace QPS {
         this->table = newTable;
     }
 
-    void ResultTable::filterRows(QPS::SUCH_THAT_LIST suchThatList) {
+    void ResultTable::filterRowsBySuchThatList(QPS::SUCH_THAT_LIST suchThatList) {
         std::vector<std::vector<std::string>> newTable;
         for (auto relation: suchThatList) {
             bool relationshipSynonymsPresent = isSynonymPresent(relation.arg1.nameOfArgument) && isSynonymPresent(relation.arg2.nameOfArgument);
@@ -323,8 +323,26 @@ namespace QPS {
         }
     }
 
+    void ResultTable::filterRowsByPatternList(QPS::PATTERN_LIST patternList) {
+        std::vector<std::vector<std::string>> newTable;
+        for (auto pattern : patternList) {
+            bool patternSynonymsPresent = isSynonymPresent(pattern.assign_syn)
+                    && isSynonymPresent(pattern.arg1.nameOfArgument)
+                    && isSynonymPresent(pattern.arg2.nameOfArgument);
+            if (!patternSynonymsPresent) {
+                continue;
+            }
+            for (auto row_iter = this->table.begin(); row_iter != this->table.end(); row_iter++) {
+                if (followsPattern(*row_iter, pattern)) {
+                    newTable.emplace_back(*row_iter);
+                }
+            }
+            this->table = newTable;
+        }
+    }
+
     bool ResultTable::followsRelation(std::vector<std::string> &row, QPS::RelationStruct relation) {
-        RelationStruct realRelation;
+        RelationStruct realRelation; // replace the synonyms in relationStruct by their actual name in result table.
         realRelation.typeOfRelation = relation.typeOfRelation;
         realRelation.arg1 = {
                 relation.arg1.typeOfArgument,
@@ -341,11 +359,16 @@ namespace QPS {
 //            } else {
 //                return false;
 //            }
-        if (QPSTests::PKBStub::existRelation(realRelation)) {
+        if (QPSTests::PKBStub::existRelation(realRelation)) { // for test only.
             return true;
         } else {
             return false;
         }
+    }
+
+    bool ResultTable::followsPattern(std::vector<std::string> &row, QPS::PatternStruct pattern) {
+        PatternStruct realPattern; // replace the synonyms in patternStruct by their actual name in result table.
+
     }
 
     std::vector<std::vector<std::string>> ResultTable::getTable() {
