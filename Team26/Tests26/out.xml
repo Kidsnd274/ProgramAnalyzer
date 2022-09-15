@@ -1,14 +1,14 @@
 <?xml-stylesheet type="text/xsl" href="analysis.xsl"?>
 <test_results>
 <info>
-<name>autotester</name><parsing_time_taken>0.267000</parsing_time_taken>
+<name>autotester</name><parsing_time_taken>0.320000</parsing_time_taken>
 </info>
 <queries>
 <query>
-<id ReturnTuple="1" Follows="1" UnnamedVar="2" Pattern="1" SuchThat="1" CondNum="6" RelNum="1" comment="Simple test with constants">1</id><querystr><![CDATA[constant c; variable v; assign a; print p; Select a such that Follows(p, 1) pattern a (_, _"x")]]></querystr>
+<id ReturnTuple="1" Follows="1" UnnamedVar="2" Pattern="1" SuchThat="1" CondNum="6" RelNum="1" comment="Simple test with constants">1</id><querystr><![CDATA[constant c; variable v; assign a; print p; Select a such that Follows(p, 1) pattern a (_, _"x"_)]]></querystr>
 <stuans></stuans>
 <correct>9</correct>
-<time_taken>51.776000</time_taken>
+<time_taken>58.125000</time_taken>
 <failed>
 <missing>9</missing>
 <additional></additional>

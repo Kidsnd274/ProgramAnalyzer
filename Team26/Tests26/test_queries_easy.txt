@@ -1,5 +1,5 @@
 1 - Simple test with constants
 constant c; variable v; assign a; print p;
-Select a such that Follows(p, 1) pattern a (_, _"x")
+Select a such that Follows(p, 1) pattern a (_, _"x"_)
 9
 50000

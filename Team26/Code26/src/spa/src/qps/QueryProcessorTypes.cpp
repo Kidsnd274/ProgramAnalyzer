@@ -126,7 +126,6 @@ namespace QPS {
             case EXPRESSION:{
                 return "EXPRESSION";
             }
-
             case IF_SYNONYM:{
                 return "IF_SYNONYM";
             }
