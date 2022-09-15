@@ -4,7 +4,6 @@
 #include <unordered_set>
 #include <vector>
 #include <string>
-#include "qps/QueryProcessorTypes.h"
 #include "qps/QueryManager.h"
 
 namespace QPS {

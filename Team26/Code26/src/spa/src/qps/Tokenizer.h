@@ -7,8 +7,7 @@
 #include <map>
 #include <regex>
 #include <utility>
-#include "qps/QueryStruct.h"
-#include "qps/QueryProcessorTypes.h"
+#include "QueryProcessorTypes.h"
 
 namespace QPS {
     enum TokenType {

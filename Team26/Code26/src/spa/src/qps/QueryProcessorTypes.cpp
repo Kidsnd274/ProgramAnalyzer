@@ -17,6 +17,25 @@ namespace QPS {
         }
     }
 
+
+    bool isArgumentTypeSynonym(QPS::ArgumentType argumentType) {
+        switch (argumentType) {
+            case IF_SYNONYM:
+            case WHILE_SYNONYM:
+            case READ_SYNONYM:
+            case PRINT_SYNONYM:
+            case CALL_SYNONYM:
+            case ASSIGN_SYNONYM:
+            case STMT_SYNONYM:
+            case VAR_SYNONYM:
+            case PROCEDURE_SYNONYM:
+            case CONST_SYNONYM:
+                return true;
+            default:
+                return false;
+        }
+    }
+
     CandidateType mapEntityToCandidate(EntityType entityType) {
         switch (entityType) {
             case VARIABLE:

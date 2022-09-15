@@ -124,22 +124,6 @@ namespace QPS {
         INVALID_ARGUMENT_TYPE
     };
 
-    bool isArgumentTypeSynonym(QPS::ArgumentType argumentType) {
-        switch (argumentType) {
-            case IF_SYNONYM:
-            case WHILE_SYNONYM:
-            case READ_SYNONYM:
-            case PRINT_SYNONYM:
-            case CALL_SYNONYM:
-            case ASSIGN_SYNONYM:
-            case STMT_SYNONYM:
-            case VAR_SYNONYM:
-            case PROCEDURE_SYNONYM:
-            case CONST_SYNONYM:
-                return true;
-        }
-        return false;
-    }
 
     enum ExpressionMatchingType {
         EXACT_MATCHING,
@@ -193,6 +177,7 @@ namespace QPS {
     typedef std::vector<CandidateStruct> CANDIDATE_LIST;
 
     CandidateType mapEntityToCandidate(EntityType entityType);
+    bool isArgumentTypeSynonym(QPS::ArgumentType argumentType);
     std::string entityToString(EntityType entityType);
     std::string candidateToString(CandidateType candidateType);
     std::string relationToString (RelationType relationType);
