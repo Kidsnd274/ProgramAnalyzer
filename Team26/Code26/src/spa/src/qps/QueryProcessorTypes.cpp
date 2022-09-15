@@ -127,6 +127,24 @@ namespace QPS {
                 return "EXPRESSION";
             }
 
+            case IF_SYNONYM:{
+                return "IF_SYNONYM";
+            }
+            case WHILE_SYNONYM:{
+                return "WHILE_SYNONYM";
+            }
+            case READ_SYNONYM:{
+                return "READ_SYNONYM";
+            }
+            case PRINT_SYNONYM:{
+                return "PRINT_SYNONYM";
+            }
+            case CALL_SYNONYM:{
+                return "CALL_SYNONYM";
+            }
+            case ASSIGN_SYNONYM:{
+                return "ASSIGN_SYNONYM";
+            }
         }
     }
 
