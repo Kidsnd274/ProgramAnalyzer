@@ -17,7 +17,7 @@ namespace QPS {
         QPS::tokenize(std::move(queryString), tokens); // Call tokenizer to read in PQL and tokenize it into tokens.
 //        std::cout << "==========tokenizing-----------" << std::endl;
 //        for (QPS::Token token : tokens) {
-//            std::cout << token.nameValue << std::endl;
+//            std::cout << token.nameValue + " "+ tokenMap.at(token.tokenType) << std::endl;
 //        }
         QPS::Container container = QPS::Container(tokens); // Initialize a container to store the result of tokenization.
         Exception parsingException = QPS::parseToken(tokens, container); // Call QPS parser to parse the tokens into Query Structure. Store the result in container.queryStruct.
