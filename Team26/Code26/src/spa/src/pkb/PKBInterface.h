@@ -15,15 +15,15 @@ typedef short PROC;
 class PKBInterface {
 public:
     static PKB* pkb;
-	//static void addAST (/* Tnode AST */);
+
     void addProcedure(string name, int startingStmtNo, int endingStmtNo);
     void addVariable(string name);
     void addConst(int value);
-    void addReadStatement(int statementNumber);
-    void addAssignStatement(int statementNumber);
-    void addWhileStatement(int statementNumber);
-    void addIfStatement(int statementNumber);
-    void addPrintStatement(int statementNumber);
+    void addReadStatement(int statementNumber, int statementListNumber);
+    void addAssignStatement(int statementNumber, int statementListNumber, shared_ptr<TNode> rootNode);
+    void addWhileStatement(int statementNumber, int statementListNumber);
+    void addIfStatement(int statementNumber, int statementListNumber);
+    void addPrintStatement(int statementNumber, int statementListNumber);
 
     void addModifies(int statementNumber, string varName);
     void addUses(int statementNumber, string varName);
@@ -34,5 +34,4 @@ public:
 
     vector<string> getAllEntity(EntityType type);
     bool existRelation(RelationStruct relation);
-
 };

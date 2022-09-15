@@ -42,38 +42,44 @@ void PKBInterface::addConst(int value) {
     pkb->constantTable->insertConst(value);
 }
 
-void PKBInterface::addReadStatement(int statementNumber) {
+void PKBInterface::addReadStatement(int statementNumber, int statementListNumber) {
     Statement stmt;
     stmt.type = StatementType::READ;
     stmt.lineNumber = statementNumber;
+    stmt.statementListNumber = statementListNumber;
     pkb->statementTable->insertStmt(stmt);
 }
 
-void PKBInterface::addAssignStatement(int statementNumber) {
+void PKBInterface::addAssignStatement(int statementNumber, int statementListNumber, shared_ptr<TNode> rootNode) {
     Statement stmt;
     stmt.type = StatementType::ASSIGN;
     stmt.lineNumber = statementNumber;
+    stmt.statementListNumber = statementListNumber;
+    stmt.rootNode = rootNode;
     pkb->statementTable->insertStmt(stmt);
 }
 
-void PKBInterface::addWhileStatement(int statementNumber) {
+void PKBInterface::addWhileStatement(int statementNumber, int statementListNumber) {
     Statement stmt;
     stmt.type = StatementType::WHILE;
     stmt.lineNumber = statementNumber;
+    stmt.statementListNumber = statementListNumber;
     pkb->statementTable->insertStmt(stmt);
 }
 
-void PKBInterface::addIfStatement(int statementNumber) {
+void PKBInterface::addIfStatement(int statementNumber, int statementListNumber) {
     Statement stmt;
     stmt.type = StatementType::IF;
     stmt.lineNumber = statementNumber;
+    stmt.statementListNumber = statementListNumber;
     pkb->statementTable->insertStmt(stmt);
 }
 
-void PKBInterface::addPrintStatement(int statementNumber) {
+void PKBInterface::addPrintStatement(int statementNumber, int statementListNumber) {
     Statement stmt;
     stmt.type = StatementType::PRINT;
     stmt.lineNumber = statementNumber;
+    stmt.statementListNumber = statementListNumber;
     pkb->statementTable->insertStmt(stmt);
 }
 
@@ -143,9 +149,6 @@ vector<string> PKBInterface::getAllEntity(EntityType type) {
 }
 
 bool existRelation(RelationStruct relation) {
-<<<<<<< HEAD
     RelationType typeOfRelation = relation.typeOfRelation;
-=======
-
->>>>>>> 411b764992c53fe330c41c01ec544c7ad5a4abbd
+    return true;
 }
