@@ -303,6 +303,7 @@ namespace QPS {
         }
 
         std::cout << "Finish parsing" << std::endl;
+
         return VALID;
     }
 

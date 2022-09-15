@@ -98,7 +98,6 @@ namespace QPS {
 
     std::string ARGToString (ArgumentType argumentType) {
         switch (argumentType) {
-
             case STMT_SYNONYM:{
                 return "STMT_SYNONYM";
             }
@@ -126,7 +125,6 @@ namespace QPS {
             case EXPRESSION:{
                 return "EXPRESSION";
             }
-
         }
     }
 
