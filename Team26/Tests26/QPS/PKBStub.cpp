@@ -9,5 +9,6 @@ namespace QPSTests{
         if (got != relationshipMap.end() && got->second == relation.arg2.nameOfArgument) {
             return true;
         }
+        return false;
     }
 }

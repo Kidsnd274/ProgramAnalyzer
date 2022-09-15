@@ -5,6 +5,7 @@
 #include <map>
 #include <iostream>
 #include "QueryProcessorTypes.h"
+#include "Container.h"
 #include "QueryManager.h"
 #include "Tokenizer.h"
 
