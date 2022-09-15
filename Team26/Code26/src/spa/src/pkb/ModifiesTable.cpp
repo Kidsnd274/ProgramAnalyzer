@@ -21,3 +21,15 @@ bool ModifiesTable::existModifies(int stmtLineNumber, string varName) {
     }
     return false;
 }
+
+bool ModifiesTable::existStatement(int stmtLineNumber) {
+    unordered_map<int,string> list = this->modifiesList;
+    if (list.find(stmtLineNumber) != list.end()) {
+        return true;
+    }
+    return false;
+}
+
+string ModifiesTable::getModifiesVar(int stmtLineNumber) {
+    return this->modifiesList[stmtLineNumber];
+}

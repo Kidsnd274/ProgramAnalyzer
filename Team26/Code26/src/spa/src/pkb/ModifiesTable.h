@@ -18,6 +18,8 @@ private:
 public:
     void insertModifies(int stmtLineNumber, string varName);
     bool existModifies(int stmtLineNumber, string varName);
+    bool existStatement(int stmtLineNumber);
+    string getModifiesVar(int stmtLineNumber);
 };
 
 #endif //SPA_MODIFIESTABLE_H

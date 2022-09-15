@@ -6,6 +6,8 @@
 #include <iostream>
 #include <string>
 #include <vector>
+#include <cassert>
+#include <memory>
 
 #include "PKB.h"
 #include "util/ast/TNode.h"
@@ -20,6 +22,7 @@
 #include "ParentStarTable.h"
 #include "FollowsTable.h"
 #include "FollowsStarTable.h"
+#include "util/ast/AssignNode.h"
 
 using namespace std;
 //using namespace StatementType;
@@ -109,7 +112,7 @@ void PKBInterface::addFollowsStar(int frontStatementNumber, int backStatementNum
 
 vector<string> PKBInterface::getAllEntity(EntityType type) {
     vector<string> result;
-    switch(type) {
+    switch (type) {
         case STATEMENT:
             result = pkb->statementTable->getAllStmts();
             break;
@@ -148,7 +151,56 @@ vector<string> PKBInterface::getAllEntity(EntityType type) {
     return result;
 }
 
-bool existRelation(RelationStruct relation) {
+bool PKBInterface::existRelation(RelationStruct relation) {
     RelationType typeOfRelation = relation.typeOfRelation;
-    return true;
+    ArgumentStruct arg1 = relation.arg1;
+    ArgumentStruct arg2 = relation.arg2;
+    bool result;
+    switch (typeOfRelation) {
+        case QPS::FOLLOWS:
+            assert(arg1.typeOfArgument == QPS::STMT_SYNONYM);
+            assert(arg2.typeOfArgument == QPS::STMT_SYNONYM);
+            result = pkb->followsTable->existFollows(stoi(arg1.nameOfArgument), stoi(arg2.nameOfArgument));
+            break;
+        case QPS::FOLLOWS_T:
+            assert(arg1.typeOfArgument == QPS::STMT_SYNONYM);
+            assert(arg2.typeOfArgument == QPS::STMT_SYNONYM);
+            result = pkb->followsStarTable->existFollowsStar(stoi(arg1.nameOfArgument), stoi(arg2.nameOfArgument));
+            break;
+        case QPS::PARENT:
+            assert(arg1.typeOfArgument == QPS::STMT_SYNONYM);
+            assert(arg2.typeOfArgument == QPS::STMT_SYNONYM);
+            result = pkb->parentTable->existParent(stoi(arg1.nameOfArgument), stoi(arg2.nameOfArgument));
+            break;
+        case QPS::PARENT_T:
+            assert(arg1.typeOfArgument == QPS::STMT_SYNONYM);
+            assert(arg2.typeOfArgument == QPS::STMT_SYNONYM);
+            result = pkb->parentStarTable->existParentStar(stoi(arg1.nameOfArgument), stoi(arg2.nameOfArgument));
+            break;
+        case QPS::MODIFIES_S:
+            assert(arg1.typeOfArgument == QPS::STMT_SYNONYM);
+            assert(arg2.typeOfArgument == QPS::VAR_SYNONYM);
+            result = pkb->modifiesTable->existModifies(stoi(arg1.nameOfArgument), arg2.nameOfArgument);
+            break;
+        case QPS::USES_S:
+            assert(arg1.typeOfArgument == QPS::STMT_SYNONYM);
+            assert(arg2.typeOfArgument == QPS::VAR_SYNONYM);
+            result = pkb->usesTable->existUses(stoi(arg1.nameOfArgument), arg2.nameOfArgument);
+            break;
+        default:
+            result = false;
+            break;
+    }
+    return result;
+}
+
+shared_ptr<AssignNode> PKBInterface::getAssignTNode(string assignRef) {
+    int assignStmtNo = stoi(assignRef);
+    assert(pkb->modifiesTable->existStatement(assignStmtNo) == true);
+    string varName = pkb->modifiesTable->getModifiesVar(assignStmtNo);
+    Statement assignStmt = pkb->statementTable->getStmtByLineNumber(assignStmtNo);
+    assert(assignStmt.type == StatementType::ASSIGN);
+    shared_ptr<TNode> tNode = assignStmt.rootNode;
+
+    return AssignNode::createAssignNode(assignStmtNo, varName, tNode);
 }

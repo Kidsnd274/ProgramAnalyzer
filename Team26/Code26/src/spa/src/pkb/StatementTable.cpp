@@ -12,6 +12,10 @@ void StatementTable::insertStmt(Statement stmt) {
     this->statementList.push_back(stmt);
 }
 
+vector<Statement> StatementTable::getStatementList() {
+    return this->statementList;
+}
+
 vector<string> StatementTable::getAllStmts() {
     vector<string> result;
     for (Statement stmt: this->statementList) {
@@ -75,6 +79,17 @@ vector<string> StatementTable::getAllCalls() {
     for (Statement stmt: this->statementList) {
         if (stmt.type == StatementType::CALL) {
             result.push_back(std::to_string(stmt.lineNumber));
+        }
+    }
+    return result;
+}
+
+Statement StatementTable::getStmtByLineNumber(int stmtNo) {
+    Statement result;
+    for (Statement stmt: this->statementList) {
+        if (stmt.lineNumber == stmtNo) {
+            result = stmt;
+            break;
         }
     }
     return result;

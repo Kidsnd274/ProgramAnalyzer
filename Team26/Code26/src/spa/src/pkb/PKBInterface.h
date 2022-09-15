@@ -4,6 +4,7 @@
 #include <iostream>
 #include <string>
 #include <vector>
+#include <memory>
 
 #include "qps/QueryProcessorTypes.h"
 #include "PKB.h"
@@ -34,4 +35,5 @@ public:
 
     vector<string> getAllEntity(EntityType type);
     bool existRelation(RelationStruct relation);
+    shared_ptr<AssignNode> getAssignTNode(string assignRef);
 };
