@@ -39,14 +39,32 @@ bool TNode::isSameTree(const std::shared_ptr<TNode> &t1, const std::shared_ptr<T
            TNode::isSameTree(t1->getLeftNode(), t2->getLeftNode()) && TNode::isSameTree(t1->getRightNode(), t2->getRightNode());
 }
 
-bool TNode::isSubTree(const std::shared_ptr<TNode> &t1, const std::shared_ptr<TNode> &t2) {
+bool TNode::matchSubTree(const std::shared_ptr<TNode> &t1, const std::shared_ptr<TNode> &t2, const WildcardPosition pos) {
+    if (t1 == nullptr) {
+        return t2 == nullptr;
+    }
+
+    if (t2 == nullptr) {
+        return pos != WildcardPosition::NONE;
+    }
+
     if (isSameTree(t1, t2)) {
         return true;
     }
-    return isSubTree(t1->getLeftNode(), t2) || isSubTree(t1->getRightNode(), t2);
+
+    switch (pos) {
+        case WildcardPosition::NONE:
+            return false;
+        case WildcardPosition::LEFT:
+            return matchSubTree(t1->getRightNode(), t2, WildcardPosition::LEFT);
+        case WildcardPosition::RIGHT:
+            return matchSubTree(t1->getLeftNode(), t2, WildcardPosition::RIGHT);
+        case WildcardPosition::BOTH:
+            return matchSubTree(t1->getLeftNode(), t2, WildcardPosition::BOTH) || matchSubTree(t1->getRightNode(), t2, WildcardPosition::BOTH);
+        default:
+            return false; //Should not reach here
+    }
 }
-
-
 
 // Static Constructors
 std::shared_ptr<TNode> TNode::createConstantValue(int statementNumber, std::string value) {
