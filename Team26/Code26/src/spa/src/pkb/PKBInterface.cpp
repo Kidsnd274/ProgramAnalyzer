@@ -143,5 +143,9 @@ vector<string> PKBInterface::getAllEntity(EntityType type) {
 }
 
 bool existRelation(RelationStruct relation) {
+<<<<<<< HEAD
     RelationType typeOfRelation = relation.typeOfRelation;
+=======
+
+>>>>>>> 411b764992c53fe330c41c01ec544c7ad5a4abbd
 }

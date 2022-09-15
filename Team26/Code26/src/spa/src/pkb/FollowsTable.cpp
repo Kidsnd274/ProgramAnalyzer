@@ -15,7 +15,7 @@ void FollowsTable::insertFollows(int frontStmtLineNumber, int backStmtLineNumber
 }
 
 bool FollowsTable::existFollows(int frontStmtLineNumber, int backStmtLineNumber) {
-    unordered_map<int,int> list = this->followsList;
+    unordered_map<int, int> list = this->followsList;
     if (list.find(frontStmtLineNumber) != list.end() && list[frontStmtLineNumber] == backStmtLineNumber) {
         return true;
     }
