@@ -337,7 +337,7 @@ namespace QPS {
             ARG1 = convertStringToARG(tokens[pos], container);
 //            std::cout << "parse first arg" << std::endl;
             pos++;
-        } else if (pos < tokens.size() && tokens[pos].tokenType == WILDCARD_TOKEN) {
+        } else if (pos < tokens.size() && tokens[pos].tokenType == UNDERSCORE) {
             ARG1 = {{WILDCARD, "_"}, VALID};
             pos++;
         } else {
@@ -360,6 +360,9 @@ namespace QPS {
         if (tokens[pos].tokenType == DOUBLE_QUOTE) {
             pos++;
             while (pos < tokens.size() && tokens[pos].tokenType != DOUBLE_QUOTE) {
+                if (tokens[pos].tokenType == UNDERSCORE) {
+                    return {pos, INVALID_PATTERN_CONTENT};
+                }
                 expression += tokens[pos].nameValue;
                 pos++;
             }
