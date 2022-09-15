@@ -8,6 +8,8 @@
 
 #include "qps/QueryProcessorTypes.h"
 #include "PKB.h"
+#include "util/ast/AssignNode.h"
+#include "util/ast/TNode.h"
 
 using namespace std;
 using namespace QPS;

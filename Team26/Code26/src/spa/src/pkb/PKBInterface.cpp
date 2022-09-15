@@ -22,7 +22,6 @@
 #include "ParentStarTable.h"
 #include "FollowsTable.h"
 #include "FollowsStarTable.h"
-#include "util/ast/AssignNode.h"
 
 using namespace std;
 //using namespace StatementType;
