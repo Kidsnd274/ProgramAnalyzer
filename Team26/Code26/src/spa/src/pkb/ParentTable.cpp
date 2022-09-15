@@ -4,14 +4,20 @@
 #include <stdio.h>
 #include <string>
 #include <vector>
-#include "Modifies.h"
-#include "ModifiesTable.h"
+#include <algorithm>
+#include "ParentTable.h"
 
 using namespace std;
 
-void ModifiesTable::insertModifies(Modifies modifies) {
-    this->modifiesList.push_back(modifies);
+void ParentTable::insertParent(int parentStmtLineNumber, int childStmtLineNumber) {
+    std::pair<int,int> parent (parentStmtLineNumber, childStmtLineNumber);
+    this->parentList.insert(parent);
 }
-bool ModifiesTable::existModifies(Modifies modifies) {
 
+bool ParentTable::existParent(int parentStmtLineNumber, int childStmtLineNumber) {
+    unordered_map<int,int> list = this->parentList;
+    if (list.find(parentStmtLineNumber) != list.end() && list[parentStmtLineNumber] == childStmtLineNumber) {
+        return true;
+    }
+    return false;
 }

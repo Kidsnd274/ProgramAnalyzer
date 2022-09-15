@@ -8,16 +8,16 @@
 #include <stdio.h>
 #include <string>
 #include <vector>
-#include "Statement.h"
+#include <unordered_map>
 
 using namespace std;
 
 class ModifiesTable {
 private:
-    unordered_map<Statement, string> modifiesList;
+    unordered_map<int, string> modifiesList;
 public:
-    void insertModifies(Statement statement, string varName);
-    bool existModifies(Statement statement, string varName);
+    void insertModifies(int stmtLineNumber, string varName);
+    bool existModifies(int stmtLineNumber, string varName);
 };
 
 #endif //SPA_MODIFIESTABLE_H

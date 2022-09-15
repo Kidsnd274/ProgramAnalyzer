@@ -2,22 +2,22 @@
 // Created by QMS on 13/9/2022.
 //
 
-#ifndef SPA_MODIFIESTABLE_H
-#define SPA_MODIFIESTABLE_H
+#ifndef SPA_USESTABLE_H
+#define SPA_USESTABLE_H
 
 #include <stdio.h>
 #include <string>
 #include <vector>
-#include "Modifies.h"
+#include <unordered_map>
 
 using namespace std;
 
-class ModifiesTable {
+class UsesTable {
 private:
-    vector<Modifies> modifiesList;
+    unordered_map<int, string> usesList;
 public:
-    void insertModifies(Modifies modifies);
-    bool existModifies(Modifies modifies);
+    void insertUses(int stmtLineNumber, string varName);
+    bool existUses(int stmtLineNumber, string varName);
 };
 
-#endif //SPA_MODIFIESTABLE_H
+#endif //SPA_USESTABLE_H

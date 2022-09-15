@@ -2,22 +2,22 @@
 // Created by QMS on 13/9/2022.
 //
 
-#ifndef SPA_MODIFIESTABLE_H
-#define SPA_MODIFIESTABLE_H
+#ifndef SPA_PARENTSTARTABLE_H
+#define SPA_PARENTSTARTABLE_H
 
 #include <stdio.h>
 #include <string>
 #include <vector>
-#include "Modifies.h"
+#include <unordered_map>
 
 using namespace std;
 
-class ModifiesTable {
+class ParentStarTable {
 private:
-    vector<Modifies> modifiesList;
+    unordered_map<int, int> parentStarList;
 public:
-    void insertModifies(Modifies modifies);
-    bool existModifies(Modifies modifies);
+    void insertParentStar(int parentStmtLineNumber, int childStmtLineNumber);
+    bool existParentStar(int parentStmtLineNumber, int childStmtLineNumber);
 };
 
-#endif //SPA_MODIFIESTABLE_H
+#endif //SPA_PARENTSTARTABLE_H

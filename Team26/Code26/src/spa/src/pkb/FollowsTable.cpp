@@ -4,14 +4,20 @@
 #include <stdio.h>
 #include <string>
 #include <vector>
-#include "Modifies.h"
-#include "ModifiesTable.h"
+#include <algorithm>
+#include "FollowsTable.h"
 
 using namespace std;
 
-void ModifiesTable::insertModifies(Modifies modifies) {
-    this->modifiesList.push_back(modifies);
+void FollowsTable::insertFollows(int frontStmtLineNumber, int backStmtLineNumber) {
+    std::pair<int,int> follows (frontStmtLineNumber, backStmtLineNumber);
+    this->followsList.insert(follows);
 }
-bool ModifiesTable::existModifies(Modifies modifies) {
 
+bool FollowsTable::existFollows(int frontStmtLineNumber, int backStmtLineNumber) {
+    unordered_map<int,int> list = this->followsList;
+    if (list.find(frontStmtLineNumber) != list.end() && list[frontStmtLineNumber] == backStmtLineNumber) {
+        return true;
+    }
+    return false;
 }

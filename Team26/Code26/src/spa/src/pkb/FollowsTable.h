@@ -2,22 +2,22 @@
 // Created by QMS on 13/9/2022.
 //
 
-#ifndef SPA_MODIFIESTABLE_H
-#define SPA_MODIFIESTABLE_H
+#ifndef SPA_FOLLOWSTABLE_H
+#define SPA_FOLLOWSTABLE_H
 
 #include <stdio.h>
 #include <string>
 #include <vector>
-#include "Modifies.h"
+#include <unordered_map>
 
 using namespace std;
 
-class ModifiesTable {
+class FollowsTable {
 private:
-    vector<Modifies> modifiesList;
+    unordered_map<int, int> followsList;
 public:
-    void insertModifies(Modifies modifies);
-    bool existModifies(Modifies modifies);
+    void insertFollows(int frontStmtLineNumber, int backStmtLineNumber);
+    bool existFollows(int frontStmtLineNumber, int backStmtLineNumber);
 };
 
-#endif //SPA_MODIFIESTABLE_H
+#endif //SPA_FOLLOWSTABLE_H

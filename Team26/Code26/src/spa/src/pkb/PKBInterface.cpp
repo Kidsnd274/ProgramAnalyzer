@@ -14,6 +14,12 @@
 #include "ProcedureTable.h"
 #include "StatementTable.h"
 #include "PKBInterface.h"
+#include "ModifiesTable.h"
+#include "UsesTable.h"
+#include "ParentTable.h"
+#include "ParentStarTable.h"
+#include "FollowsTable.h"
+#include "FollowsStarTable.h"
 
 using namespace std;
 //using namespace StatementType;
@@ -29,9 +35,7 @@ void PKBInterface::addProcedure(std::string name, int startingStmtNo, int ending
 }
 
 void PKBInterface::addVariable(string name) {
-    Variable var;
-    var.name = name;
-    pkb->varTable->insertVar(var);
+    pkb->varTable->insertVar(name);
 }
 
 void PKBInterface::addConst(int value) {
@@ -74,23 +78,27 @@ void PKBInterface::addPrintStatement(int statementNumber) {
 }
 
 void PKBInterface::addModifies(int statementNumber, string varName) {
-
+    pkb->modifiesTable->insertModifies(statementNumber, varName);
 }
 
 void PKBInterface::addUses(int statementNumber, string varName) {
-
+    pkb->usesTable->insertUses(statementNumber, varName);
 }
 
-void PKBInterface::addParent(int parentStatementNumber, int statementNumber) {
-
+void PKBInterface::addParent(int parentStatementNumber, int childStatementNumber) {
+    pkb->parentTable->insertParent(parentStatementNumber, childStatementNumber);
 }
 
-void PKBInterface::addParentStar(int parentStatementNumber, int statementNumber) {
-
+void PKBInterface::addParentStar(int parentStatementNumber, int childStatementNumber) {
+    pkb->parentStarTable->insertParentStar(parentStatementNumber, childStatementNumber);
 }
 
 void PKBInterface::addFollows(int frontStatementNumber, int backStatementNumber) {
+    pkb->followsTable->insertFollows(frontStatementNumber, backStatementNumber);
+}
 
+void PKBInterface::addFollowsStar(int frontStatementNumber, int backStatementNumber) {
+    pkb->followsStarTable->insertFollowsStar(frontStatementNumber, backStatementNumber);
 }
 
 vector<string> PKBInterface::getAllEntity(EntityType type) {
@@ -135,5 +143,5 @@ vector<string> PKBInterface::getAllEntity(EntityType type) {
 }
 
 bool existRelation(RelationStruct relation) {
-
+    RelationType typeOfRelation = relation.typeOfRelation;
 }

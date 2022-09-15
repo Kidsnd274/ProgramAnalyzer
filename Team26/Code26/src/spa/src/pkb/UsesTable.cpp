@@ -4,14 +4,20 @@
 #include <stdio.h>
 #include <string>
 #include <vector>
-#include "Modifies.h"
-#include "ModifiesTable.h"
+#include <algorithm>
+#include "UsesTable.h"
 
 using namespace std;
 
-void ModifiesTable::insertModifies(Modifies modifies) {
-    this->modifiesList.push_back(modifies);
+void UsesTable::insertUses(int stmtLineNumber, string varName) {
+    std::pair<int,string> uses (stmtLineNumber, varName);
+    this->usesList.insert(uses);
 }
-bool ModifiesTable::existModifies(Modifies modifies) {
 
+bool UsesTable::existUses(int stmtLineNumber, string varName) {
+    unordered_map<int,string> list = this->usesList;
+    if (list.find(stmtLineNumber) != list.end() && list[stmtLineNumber] == varName) {
+        return true;
+    }
+    return false;
 }

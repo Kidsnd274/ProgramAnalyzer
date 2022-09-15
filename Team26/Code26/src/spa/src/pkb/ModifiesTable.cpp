@@ -9,10 +9,15 @@
 
 using namespace std;
 
-void ModifiesTable::insertModifies(Statement statement, string varName) {
-    this->modifiesList.insert(make_pair(statement, varName));
+void ModifiesTable::insertModifies(int stmtLineNumber, string varName) {
+    std::pair<int,string> modifies (stmtLineNumber, varName);
+    this->modifiesList.insert(modifies);
 }
-bool ModifiesTable::existModifies(Modifies modifies) {
-    vector<Modifies> list = this->modifiesList;
-    if (std::find(list.begin(), list.end(), modifies) != list.end())
+
+bool ModifiesTable::existModifies(int stmtLineNumber, string varName) {
+    unordered_map<int,string> list = this->modifiesList;
+    if (list.find(stmtLineNumber) != list.end() && list[stmtLineNumber] == varName) {
+        return true;
+    }
+    return false;
 }

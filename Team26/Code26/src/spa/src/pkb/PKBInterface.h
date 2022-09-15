@@ -27,9 +27,10 @@ public:
 
     void addModifies(int statementNumber, string varName);
     void addUses(int statementNumber, string varName);
-    void addParent(int parentStatementNumber, int statementNumber);
-    void addParentStar(int parentStatementNumber, int statementNumber);
+    void addParent(int parentStatementNumber, int childStatementNumber);
+    void addParentStar(int parentStatementNumber, int childStatementNumber);
     void addFollows(int frontStatementNumber, int backStatementNumber);
+    void addFollowsStar(int frontStatementNumber, int backStatementNumber);
 
     vector<string> getAllEntity(EntityType type);
     bool existRelation(RelationStruct relation);
