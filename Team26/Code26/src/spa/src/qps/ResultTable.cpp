@@ -378,15 +378,44 @@ namespace QPS {
 
     bool ResultTable::followsPattern(std::vector<std::string> &row, QPS::PatternStruct pattern) {
         PatternStruct realPattern; // replace the synonyms in patternStruct by their actual name in result table.
-
+        realPattern.typeOfPattern = pattern.typeOfPattern;
+        realPattern.assign_syn = row.at(this->synonymColRef.find(pattern.assign_syn)->second);
+        if (QPS::isArgumentTypeSynonym(pattern.arg1.typeOfArgument)) {
+            realPattern.arg1 = {
+                    pattern.arg1.typeOfArgument,
+                    row.at(this->synonymColRef.find(pattern.arg1.nameOfArgument)->second)
+            };
+        } else {
+            realPattern.arg1 = pattern.arg1;
+        }
+        if (QPS::isArgumentTypeSynonym(pattern.arg2.typeOfArgument)) {
+            realPattern.arg2 = {
+                    pattern.arg2.typeOfArgument,
+                    row.at(this->synonymColRef.find(pattern.arg2.nameOfArgument)->second)
+            };
+        } else {
+            realPattern.arg2 = pattern.arg2;
+        }
+        std::cout << realPattern.arg2.typeOfArgument << std::endl; // for test only
+        std::cout << realPattern.arg2.nameOfArgument << std::endl;
+        if (ResultTable::isPatternMatched(realPattern)) {
+            return true;
+        } else {
+            return false;
+        }
     }
 
-    bool isPatternMatched(QPS::PatternStruct pattern) {
+    bool ResultTable::isPatternMatched(QPS::PatternStruct pattern) {
         shared_ptr<AssignNode> assignNode = QueryManager::getAssignTNode(pattern.assign_syn);
         // check variable names
-
+        std::string varName = assignNode->getVariableName();
+        if (varName != pattern.arg1.nameOfArgument) {
+            return false;
+        }
         // check expressions
-
+        std::shared_ptr<TNode> expression = assignNode->getExpression();
+        shared_ptr<TNode> node = TNode::createVariableName(0, pattern.arg2.nameOfArgument);
+        return TNode::isSubTree(expression, node);
     }
 
     std::vector<std::vector<std::string>> ResultTable::getTable() {

@@ -39,6 +39,15 @@ bool TNode::isSameTree(const std::shared_ptr<TNode> &t1, const std::shared_ptr<T
            TNode::isSameTree(t1->getLeftNode(), t2->getLeftNode()) && TNode::isSameTree(t1->getRightNode(), t2->getRightNode());
 }
 
+bool TNode::isSubTree(const std::shared_ptr<TNode> &t1, const std::shared_ptr<TNode> &t2) {
+    if (isSameTree(t1, t2)) {
+        return true;
+    }
+    return isSubTree(t1->getLeftNode(), t2) || isSubTree(t1->getRightNode(), t2);
+}
+
+
+
 // Static Constructors
 std::shared_ptr<TNode> TNode::createConstantValue(int statementNumber, std::string value) {
     return std::make_shared<TNode>(statementNumber, NodeType::ConstantValue, value, nullptr, nullptr);

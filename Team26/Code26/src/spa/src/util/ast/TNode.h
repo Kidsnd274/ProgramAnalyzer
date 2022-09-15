@@ -41,6 +41,13 @@ public:
 
     static bool isSameTree(const std::shared_ptr<TNode> &t1, const std::shared_ptr<TNode> &t2);
 
+    /**
+     * Return true if t2 is a subtree of t1.
+     *
+     * @return bool
+     */
+    static bool isSubTree(const std::shared_ptr<TNode> &t1, const std::shared_ptr<TNode> &t2);
+
     // Static Constructors
     static std::shared_ptr<TNode> createConstantValue(int statementNumber, std::string value);
     static std::shared_ptr<TNode> createVariableName(int statementNumber, std::string variableName);
