@@ -16,6 +16,7 @@ namespace QPS {
     std::pair<ArgumentStruct, bool> convertStringToEntARG (Token &token, Container &container);
     std::pair<ArgumentStruct, Exception> convertStringToStmtRef (Token &token, Container &container);
     Exception parseToken(std::vector<Token> &tokens, Container &container);
+    std::pair<ArgumentStruct, Exception> convertStringToEntRef (Token &token, Container &container);
 }
 
 
