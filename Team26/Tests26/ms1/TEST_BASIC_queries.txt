@@ -56,7 +56,7 @@ Select c such that Follows(_, _)
 12 - select follows* wildcard
 stmt s;
 Select s such that Follows*(_, s)
-2, 7, 10
+2, 7, 10, 4, 8
 5000
 13 - select parent synonym
 assign a; if ifs;
@@ -118,7 +118,7 @@ assign a;
 Select a pattern a (_, "  z")
 6
 5000
-24 - select pattern of subexpression 
+24 - select pattern of subexpression
 assign a;
 Select a pattern a("a", _"1"_)
 2, 5, 9, 10
