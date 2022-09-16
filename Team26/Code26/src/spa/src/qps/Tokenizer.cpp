@@ -27,7 +27,7 @@ namespace QPS {
                                                                     { MODULE, "^(%)" },
                                                                     { NAME, "^([a-zA-Z]\\w*)\\b" },
                                                                     { INTEGER, "^(\\d+)" },
-
+                                                                    {STAR, "^(\\*)"},
                                                                     { WHITESPACE, "^(\\s+)" } };
     std::vector<std::string> splitToLines(std::istream& stream) {
         std::string line;
@@ -44,16 +44,17 @@ namespace QPS {
         return splitResult;
     }
 
-    Token createToken(TokenType t, std::string nameValue, int integerValue) {
+    Token createToken(TokenType t, std::string nameValue) {
         Token token{};
         token.tokenType = t;
         token.nameValue = std::move(nameValue);
-        token.integerValue = integerValue;
         return token;
     }
 
     std::vector<Token> tokenize(std::string queryString, std::vector<Token> &tokens) {
         std::vector<Token> tokenizedResult;
+//        std::cout << "=====query string ====" << std::endl;
+//        std::cout << queryString << std::endl;
 //        std::vector<std::string> splitString = splitToLines(stream);
 //        std::vector<std::string> splitString = {"variable v1, v2,  v3;",  "Select v3"}; // for test only.
         std::smatch match;
@@ -65,14 +66,15 @@ namespace QPS {
                     isMatched = true;
                     Token t;
                     if (pair.first == NAME) {
-                        t = createToken(NAME, match.str(), 0);
+                        t = createToken(NAME, match.str());
                         tokenizedResult.push_back(t);
                     } else if (pair.first == INTEGER) {
-                        t = createToken(INTEGER, "", std::stoi(match.str()));
+                        t = createToken(INTEGER, match.str());
                         tokenizedResult.push_back(t);
                     } else if (pair.first == WHITESPACE){
                     } else {
-                        t = createToken(pair.first, "", 0);
+//                        std::cout << tokenMap.at(pair.first) << std::endl;
+                        t = createToken(pair.first, match.str());
                         tokenizedResult.push_back(t);
                     }
                     queryString = queryString.substr(match.str().size());
@@ -89,16 +91,18 @@ namespace QPS {
         return tokenizedResult;
     }
 
-    bool isSuchThat(Token token) {
+    bool isSuchThat(const Token& token) {
         return token.nameValue == "Such";
     }
 } // Tokenization
-
-
+//
+//
 //int main() {
-//    std::vector<QPS::SPToken> tokens;
-//    QPS::tokenize(std::cin, tokens);
-//    for (QPS::SPToken t : tokens) {
+//    std::vector<QPS::Token> tokens;
+//    std::string queryString;
+//    std::cin >> queryString;
+//    QPS::tokenize(queryString, tokens);
+//    for (QPS::Token t : tokens) {
 //        std::string s = QPS::tokenMap.at(t.tokenType);
 //        std::cout << s + " " << std::endl;
 //    }

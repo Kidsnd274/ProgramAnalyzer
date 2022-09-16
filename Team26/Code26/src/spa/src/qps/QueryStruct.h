@@ -3,7 +3,7 @@
 
 #include "QueryProcessorTypes.h"
 #include "ResultTable.h"
-#include<string>
+#include <string>
 #include <utility>
 #include <vector>
 #include <map>

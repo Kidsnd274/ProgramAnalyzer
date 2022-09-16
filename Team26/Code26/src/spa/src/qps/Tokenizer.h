@@ -40,6 +40,7 @@ namespace QPS {
         NAME,
         INTEGER,
         WHITESPACE,
+        STAR
     };
 
     const std::map<TokenType, std::string> tokenMap = {
@@ -48,6 +49,7 @@ namespace QPS {
             { LPAREN, "LPAREN" },
             { RPAREN, "RPAREN" },
             { SEMICOLON, "SEMICOLON" },
+            {STAR, "STAR"},
             { COMMA, "COMMA" },
             { UNDERSCORE, "UNDERSCORE" },
             { DOUBLE_QUOTE, "DOUBLE_QUOTE" },
@@ -73,15 +75,12 @@ namespace QPS {
 
     struct Token {
         TokenType tokenType;
-        int lineNumber;
-        int inLinePosition;
         std::string nameValue;
-        int integerValue;
     };
 
     std::vector<Token> tokenize(std::string queryString, std::vector<Token> &tokens);
     Token createToken(TokenType t, int lineNUmber, int inLinePosition, std::string nameValue, int integerValue);
-    bool isSuchThat(Token token);
+    bool isSuchThat(const Token& token);
 }
 
 #endif //SPA_TOKENIZER_H

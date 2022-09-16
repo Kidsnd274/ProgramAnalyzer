@@ -4,9 +4,12 @@
 #include <iostream>
 #include <string>
 #include <vector>
+#include <memory>
 
 #include "qps/QueryProcessorTypes.h"
 #include "PKB.h"
+#include "util/ast/AssignNode.h"
+#include "util/ast/TNode.h"
 
 using namespace std;
 using namespace QPS;
@@ -15,29 +18,26 @@ typedef short PROC;
 class PKBInterface {
 public:
     static PKB* pkb;
-	//static void addAST (/* Tnode AST */);
+
     void addProcedure(string name, int startingStmtNo, int endingStmtNo);
     void addVariable(string name);
     void addConst(int value);
-    void addReadStatement(int statementNumber);
-    void addAssignStatement(int statementNumber);
-    void addWhileStatement(int statementNumber);
-    void addIfStatement(int statementNumber);
-    void addPrintStatement(int statementNumber);
-    vector<string> getAllEntity(EntityType type);
+    void addReadStatement(int statementNumber, int statementListNumber);
+    void addAssignStatement(int statementNumber, int statementListNumber, shared_ptr<TNode> rootNode);
+    void addWhileStatement(int statementNumber, int statementListNumber);
+    void addIfStatement(int statementNumber, int statementListNumber);
+    void addPrintStatement(int statementNumber, int statementListNumber);
 
-    // Methods for Design Extractor
-    virtual void addFollows(int stmt1Number, int stmt2Number);
-    virtual void addModifies(int stmtNumber, std::string varModified);
-    virtual void addModifies(std::string procedureName, std::string varModified);
-    virtual void addParent(int parentStmtNumber, int stmtNumber);
-    virtual void addParentStar(int parentStmtNumber, int stmtNumber); // TODO: might let qps handle in the future
-    virtual void addUses(int stmtNumber, std::string variableUsed);
-    virtual void addUses(std::string procedureName, std::string variableUsed);
-    //Temporary methods to test Follows*
-    virtual void addReadStatement(int statementNumber, int stmtListNum){};
-    virtual void addAssignStatement(int statementNumber, int stmtListNum,  std::shared_ptr<TNode> ptr){};
-    virtual void addWhileStatement(int statementNumber, int stmtListNum){};
-    virtual void addIfStatement(int statementNumber, int stmtListNum){};
-    virtual void addPrintStatement(int statementNumber, int stmtListNum){};
+    virtual void addModifies(int statementNumber, string varName);
+    virtual void addModifies(std::string procedureName, std::string varName);
+    virtual void addUses(int statementNumber, string varName);
+    virtual void addUses(std::string procedureName, std::string varName);
+    virtual void addParent(int parentStatementNumber, int childStatementNumber);
+    virtual void addParentStar(int parentStatementNumber, int childStatementNumber);
+    virtual void addFollows(int frontStatementNumber, int backStatementNumber);
+    virtual void addFollowsStar(int frontStatementNumber, int backStatementNumber);
+
+    vector<string> getAllEntity(EntityType type);
+    bool existRelation(RelationStruct relation);
+    shared_ptr<AssignNode> getAssignTNode(string assignRef);
 };

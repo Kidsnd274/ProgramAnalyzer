@@ -7,16 +7,15 @@
 
 //#pragma once
 #include <string>
-#include "Variable.h"
 
 using namespace std;
 
 class VarTable {
 private:
-    vector<Variable> varList;
+    vector<string> varList;
 
 public:
-    void insertVar(Variable var);
+    void insertVar(string var);
     vector<string> getAllVariables();
 };
 
