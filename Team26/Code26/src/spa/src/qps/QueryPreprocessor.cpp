@@ -719,7 +719,7 @@ namespace QPS {
 
 
 
-    std::pair<EntityType, bool> mapEntity(QPS::Token token) {
+    std::pair<EntityType, bool> mapEntity(const QPS::Token& token) {
         if (token.tokenType != QPS::NAME) {
             return {INVALID_ENTITY_TYPE, false};
         }
