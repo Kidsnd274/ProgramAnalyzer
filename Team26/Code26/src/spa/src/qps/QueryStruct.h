@@ -19,7 +19,9 @@ namespace QPS {
     enum QueryStatus {
         EVALUATION_NOT_STARTED,
         EVALUATION_COMPLETED,
-        EVALUATION_ERROR
+        EVALUATION_ERROR,
+        SEMANTIC_ERROR,
+        SYNTAX_ERROR
     };
 
     class QueryStruct {
