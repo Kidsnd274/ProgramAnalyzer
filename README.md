@@ -17,8 +17,8 @@
 
 Item | Version
 -|-
-OS | Windows 10
-Toolchain | Microsoft Visual Studio Enterprise 2019 Version 16.11.0
+OS | MacOS
+Toolchain | CMake 3.21.1
 C++ Standard | C++17
 
 ### Additional Build Instructions
