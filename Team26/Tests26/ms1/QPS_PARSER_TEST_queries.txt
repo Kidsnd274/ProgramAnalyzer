@@ -1,0 +1,136 @@
+1 - comment
+while w;
+Select w such that Parent(w, 7)
+none
+5000
+1 - comment
+while w;
+Select w such that Parent("Foo", 7)
+none
+5000
+1 - comment
+while w; stmt s;
+Select w such that Parent(w, s)
+none
+5000
+1 - comment
+while w; stmt s;
+Select w such that Parent(w, _)
+none
+5000
+1 - comment
+while w; stmt s;
+Select w such that Parent(_, s)
+none
+5000
+1 - comment
+while w; stmt s;
+Select w such that Parent(_, _)
+none
+5000
+1 - comment
+while w; stmt s;
+Select w such that Parent*(_, w)
+none
+5000
+1 - comment
+while w; stmt s;
+Select w such that Follows(w, s)
+none
+5000
+1 - comment
+while w; stmt s;
+Select w such that Follows(w, _)
+none
+5000
+1 - comment
+while w; stmt s;
+Select w such that Follows(_, s)
+none
+5000
+1 - comment
+while w; stmt s;
+Select w such that Follows(1, s)
+none
+5000
+1 - comment
+while w; stmt s;
+Select w such that Follows(w, 2)
+none
+5000
+1 - comment
+while w; stmt s;
+Select w such that Follows*(w, s)
+none
+5000
+1 - comment
+while w; stmt s; assign a; variable v;
+Select w such that Uses(a, v)
+none
+5000
+1 - comment
+while w; stmt s; assign a; variable v;
+Select w such that Uses(a, _)
+none
+5000
+1 - comment
+while w; stmt s; assign a; variable v;
+Select w such that Uses(_, v)
+none
+5000
+1 - comment
+while w; stmt s; assign a; variable v;
+Select w such that Uses(a, "x")
+none
+5000
+1 - comment
+while w; stmt s; assign a; variable v;
+Select w such that Uses("Foo", v)
+none
+5000
+1 - comment
+while w; stmt s; assign a; variable v;
+Select w such that Uses(_, "x")
+none
+5000
+1 - comment
+while w; stmt s; assign a; variable v;
+Select w such that Modifies(a, v)
+none
+5000
+1 - comment
+while w; stmt s; assign a; variable v;
+Select w such that Modifies(a, _)
+none
+5000
+1 - comment
+while w; stmt s; assign a; variable v;
+Select w such that Modifies(_, v)
+none
+5000
+1 - comment
+while w; stmt s; assign a; variable v;
+Select w such that Modifies(a, "x")
+none
+5000
+1 - comment
+while w; stmt s; assign a; variable v;
+Select w pattern a(v, _)
+none
+5000
+while w; stmt s; assign a; variable v;
+Select w pattern a(_, v)
+none
+5000
+while w; stmt s; assign a; variable v;
+Select w pattern a(v, v)
+none
+5000
+while w; stmt s; assign a; variable v;
+Select w pattern a(v, _"x"_)
+none
+5000
+while w; stmt s; assign a; variable v;
+Select w pattern a(v, "x")
+none
+5000
