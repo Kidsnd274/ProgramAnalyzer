@@ -485,8 +485,8 @@ namespace QPS {
             ARG1 = convertStringToStmtRef(tokens[pos], container);
 //            std::cout << "parse first arg" << std::endl;
             pos++;
-        } else if (pos < tokens.size() && tokens[pos].tokenType == WILDCARD_TOKEN) {
-            ARG2 = {{WILDCARD, "_"}, VALID};
+        } else if (pos < tokens.size() && tokens[pos].tokenType == UNDERSCORE) {
+            ARG1 = {{WILDCARD, "_"}, VALID};
             pos++;
         } else {
             return {pos, INVALID_RELATION_CONTENT};
@@ -507,6 +507,9 @@ namespace QPS {
         } else if (pos < tokens.size() && (tokens[pos].tokenType == NAME || tokens[pos].tokenType == INTEGER)) {
             ARG2 = convertStringToStmtRef(tokens[pos], container);
 //            std::cout << "parse second arg" << std::endl;
+            pos++;
+        } else if (pos < tokens.size() && tokens[pos].tokenType == UNDERSCORE) {
+            ARG2 = {{WILDCARD, "_"}, VALID};
             pos++;
         } else {
             return {pos, INVALID_RELATION_CONTENT};
@@ -556,7 +559,7 @@ namespace QPS {
             ARG1 = convertStringToStmtRef(tokens[pos], container);
 //            std::cout << "parse first arg" << std::endl;
             pos++;
-        } else if (pos < tokens.size() && tokens[pos].tokenType == WILDCARD_TOKEN) {
+        } else if (pos < tokens.size() && tokens[pos].tokenType == UNDERSCORE) {
             ARG1 = {{WILDCARD, "_"}, VALID};
             pos++;
         } else if (pos < tokens.size() && tokens[pos].tokenType == DOUBLE_QUOTE && tokens[pos+2].tokenType == DOUBLE_QUOTE
