@@ -26,6 +26,7 @@ namespace QPS {
                 // Valid entity
                 if (container.getStatus() != START_PARSE_DECLARATION) {
                     // Invalid status for parsing declaration
+                    return INVALID_DECLARATION;
                 } else {
                     switch (entityMappingResult.first) {
                         case STATEMENT: {
@@ -168,6 +169,7 @@ namespace QPS {
                 // Valid relation
                 if (container.getStatus() != START_PARSE_SUCH_CLAUSE) {
                     // Invalid query that doesn't have such that
+                    return INVALID_RELATION_SYNTAX;
                 } else {
                     switch (relationMappingResult.first) {
                         case FOLLOWS: {

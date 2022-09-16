@@ -21,12 +21,40 @@ namespace QPS {
 //        }
         QPS::Container container = QPS::Container(tokens); // Initialize a container to store the result of tokenization.
         Exception parsingException = QPS::parseToken(tokens, container); // Call QPS parser to parse the tokens into Query Structure. Store the result in container.queryStruct.
-        if (parsingException != VALID) {
-            std::cout << exceptionToStringQPS(parsingException) << std::endl;
-            return ;
-        } else {
-            std::cout << "VALID" << std::endl;
+//        if (parsingException != VALID) {
+//            std::cout << exceptionToStringQPS(parsingException) << std::endl;
+//            return ;
+//        } else {
+//            std::cout << "VALID" << std::endl;
+//        }
+        std::cout << exceptionToStringQPS(parsingException) << std::endl;
+        QueryStatus queryStatus;
+
+        switch (parsingException) {
+            case INVALID_ENTITY:
+            case INVALID_RELATION_SYNTAX:
+            case INVALID_SELECT:
+            case INVALID_SUCH_THAT:
+            case INVALID_PATTERN_NAME:
+            case INVALID_PATTERN_SYNTAX:
+            case UNDECLARED_ENTITY_PATTERN:
+            case UNDECLARED_ENTITY_SUCH_THAT:
+            case INVALID_DECLARATION:
+            case UNMATCHED_QUERY_TYPE:
+            case INVALID_RELATION: {
+                queryStatus = SYNTAX_ERROR;
+                break;
+            }
+            case INVALID_RELATION_CONTENT:
+            case INVALID_PATTERN_CONTENT:{
+                queryStatus = SEMANTIC_ERROR;
+                break;
+            }
+            case VALID: {
+                queryStatus = VALID_QUERY
+            }
         }
+
 
         //////////////// for test only /////////////////
 //        std::cout << "————————Declaration————————" << std::endl;
@@ -56,6 +84,7 @@ namespace QPS {
         //////////////// for test only /////////////////
 
         QPS::QueryStruct query = container.getQueryStruct(); // Get the result of parsing.
+        query.queryStatus = QPS::EVALUATION_ERROR;
         QPS::BasicQueryEvaluator basicQueryEvaluator = QPS::BasicQueryEvaluator();
         basicQueryEvaluator.evaluateQuery(query); // Call basicQueryEvaluator to evaluate the query. Store the result in query.resultTable.
 
