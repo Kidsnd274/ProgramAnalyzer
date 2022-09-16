@@ -2,14 +2,19 @@
 #include "QueryStruct.h"
 #include "QueryEvaluator.h"
 #include "QueryManager.h"
+#include <iostream>
 
 namespace QPS {
     void BasicQueryEvaluator::evaluateQuery(QueryStruct& query) {
+        query.generateUsedSynonymList();
         if (query.queryStatus == QPS::EVALUATION_COMPLETED
             || query.queryStatus == QPS::EVALUATION_ERROR) {
             return;
         }
         for (auto iter : query.getDeclaredSynonymMap()) {
+            if (!query.isSynonymUsed(iter.first)) {
+                continue;
+            }
             QPS::EntityStruct entityStruct = {
                     iter.second,
                     iter.first

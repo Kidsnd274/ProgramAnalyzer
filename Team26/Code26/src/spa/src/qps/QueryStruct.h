@@ -28,11 +28,11 @@ namespace QPS {
         SUCH_THAT_LIST suchThatList;
         PATTERN_LIST patternList;
         CANDIDATE_LIST candidateList;
-        unordered_set<std::string> usedSynonymList;
 
     public:
         QueryStatus queryStatus;
         ResultTable resultTable;
+        unordered_set<std::string> usedSynonymList;
 
     public:
         QueryStruct(DECLARED_SYNONYM_MAP &declaredSynonymMap,
@@ -87,6 +87,7 @@ namespace QPS {
 
         void addUsedSynonym(std::string);
 
+        void generateUsedSynonymList();
         /**
          * Checks whether the given synonym is used in query
          * as candidate or argument.
