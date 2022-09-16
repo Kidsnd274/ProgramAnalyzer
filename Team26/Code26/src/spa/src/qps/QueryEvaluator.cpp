@@ -21,10 +21,13 @@ namespace QPS {
             };
 //            std::vector<std::string> entities = std::vector<std::string> {"a", "b", "c", "d"}; // for test only
             std::vector<std::string> entities = QueryManager::getAllEntitiesFromPKB(entityStruct.typeOfEntity);
+            std::cout << entities.size() << std::endl;
             query.resultTable.addColumnAndMerge(entityStruct.nameOfEntity, entities);
-            query.resultTable.deleteDuplicateRows({}); //duplicate if values are the same for all synonyms
+//            query.resultTable.deleteDuplicateRows({}); //duplicate if values are the same for all synonyms
             query.resultTable.filterRowsBySuchThatList(query.getSuchThatList());
             query.resultTable.filterRowsByPatternList(query.getPatternList());
+            std::cout << query.resultTable.getTable().size() << std::endl;
         }
+        query.resultTable.printTable();
     }
 }

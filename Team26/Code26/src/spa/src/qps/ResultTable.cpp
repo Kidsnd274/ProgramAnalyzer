@@ -286,14 +286,15 @@ namespace QPS {
         std::cout << s + "\n";
     }
 
-    void ResultTable::addColumnAndMerge(const std::string& nameOfSynonym, const std::vector<std::string>& entities) {
+    void ResultTable::addColumnAndMerge(std::string nameOfSynonym, std::vector<std::string> entities) {
         this->rowNum = this->rowNum * entities.size();
         this->synonymColRef.insert(std::make_pair(nameOfSynonym, colNum));
         this->colNum++;
         std::vector<std::vector<std::string>> newTable;
-        for (auto newRow : this->table) { // iter1: row of original table
-            for (auto & entity : entities) { // iter2: row of new column
-                newRow.emplace_back(entity);
+        for (auto iter1 = this->table.begin(); iter1 != this->table.end(); iter1++) { // iter1: row of original table
+            for (auto iter2 = entities.begin(); iter2 != entities.end(); iter2++) { // iter2: row of new column
+                std::vector<std::string> newRow = *iter1;
+                newRow.emplace_back(*iter2);
                 newTable.emplace_back(newRow);
             }
         }

@@ -103,7 +103,7 @@ namespace QPS {
          * @param nameOfSynonym Name of the new synonym.
          * @param entities All the entities of this new synonym.
          */
-        void addColumnAndMerge(const std::string& nameOfSynonym, const std::vector<std::string>& entities);
+        void addColumnAndMerge(std::string nameOfSynonym, std::vector<std::string> entities);
 
         /**
          * Each row in result table is a set of possible bindings of synonyms to entities.
