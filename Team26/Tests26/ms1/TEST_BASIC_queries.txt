@@ -31,12 +31,12 @@ Select s such that Follows(pt, s)
 8 - select follows* synonyms
 read rd; while w;
 Select w such that Follows*(rd, w)
-7
+8
 5000
 9 - select follows entity
 stmt s;
 Select s such that Follows(7, s)
-none
+8
 5000
 10 - select follows* entity
 stmt s;
@@ -51,7 +51,7 @@ Select c such that Follows(_, _)
 12 - select follows* wildcard
 stmt s;
 Select s such that Follows*(_, s)
-2, 4, 7
+2, 7, 10
 5000
 13 - select parent synonym
 assign a; if ifs;
@@ -61,32 +61,32 @@ Select a such that Parent(ifs, a)
 14 - select parent* synonym
 while w; stmt s;
 Select s such that Parent*(w, s)
-8, 9
+9, 10
 5000
 15 - select parent entity
 stmt s;
-Select s such that Parent(s, 9)
-8
+Select s such that Parent(s, 10)
+9
 5000
 16 - select parent* entity
 stmt s;
-Select s such that Parent*(s, 9)
-7, 8
+Select s such that Parent*(s, 10)
+9
 5000
 17 - select parent wildcard
 if ifs; variable v; assign a; stmt s;
 Select ifs such that Parent(ifs, _)
-4
+5, 6
 5000
 18 - select parent* wildcard
 call cl; constant c; while w; stmt s;
 Select s such that Parent*(_, s)
-5, 6, 8, 9
+5, 6, 9, 10
 5000
 18 - select uses statement synonym
 variable v; stmt s;
 Select s such that Uses(s, v)
-1, 2, 4, 5, 6
+1, 4, 5, 6, 8, 9, 10
 5000
 19 - select uses with entity
 variable v;
