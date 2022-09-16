@@ -1,5 +1,40 @@
-1 - Simple test with constants
+1 - Simple test with Modifies
 constant c; variable v; assign a;
-Select a, v such that Modifies(a, v) pattern a(v, "(x+y) * z")
+Select a, v such that Modifies(a, "x")
+5 z, 9 x, 5 p, 5 x, 3 x, 9 z, 3 y, 9 p, 5 y, 3 z, 9 y, 3 p
+5000
+2 - Simple test with Modifies
+constant c; variable v; assign a;
+Select a, v such that Modifies(a, v)
 9 x, 5 x, 3 x, 11 z, 10 z, 6 y, 7 z
-50000
+5000
+3 - Simple test with Modifies
+constant c; variable v; assign a;
+Select a, v such that Modifies(a, "k")
+
+5000
+4 - Simple test with Modifies
+constant c; variable v; assign a;
+Select a, v such that Modifies(a, k)
+
+5000
+5 - Simple test with Uses
+constant c; variable v; assign a;
+Select a, v such that Uses(a, "x")
+5 z, 9 x, 5 p, 5 x, 3 x, 9 z, 3 y, 9 p, 5 y, 3 z, 9 y, 3 p
+5000
+6 - Simple test with Uses
+constant c; variable v; assign a;
+Select a, v such that Uses(a, v)
+9 x, 5 x, 3 x, 11 z, 10 z, 6 y, 7 z
+5000
+7 - Simple test with Uses
+constant c; variable v; assign a;
+Select a, v such that Uses(a, "k")
+
+5000
+8 - Simple test with Uses
+constant c; variable v; assign a;
+Select a, v such that Uses(a, k)
+
+5000

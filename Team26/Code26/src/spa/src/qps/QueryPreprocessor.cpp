@@ -340,6 +340,15 @@ namespace QPS {
         } else if (pos < tokens.size() && tokens[pos].tokenType == UNDERSCORE) {
             ARG1 = {{WILDCARD, "_"}, VALID};
             pos++;
+        } else if (pos < tokens.size() && tokens[pos].tokenType == DOUBLE_QUOTE) {
+            pos++;
+            std::string actualName;
+            while (pos < tokens.size() && tokens[pos].tokenType != DOUBLE_QUOTE) {
+                actualName += tokens[pos].nameValue;
+                pos++;
+            }
+            ARG1 = {{ACTUAL_NAME, actualName}, VALID};
+            pos++;
         } else {
             return {pos, INVALID_PATTERN_CONTENT};
         }

@@ -362,31 +362,96 @@ namespace QPS {
         } else {
             realRelation.arg2 = relation.arg2;
         }
-        std::cout << realRelation.arg2.typeOfArgument << std::endl; // for test only
-        std::cout << realRelation.arg2.nameOfArgument << std::endl;
-        if (QueryManager::isRelationExist(realRelation)) {
-            return true;
-        } else {
-            return false;
-        }
-//        if (QPSTests::PKBStub::existRelation(realRelation)) { // for test only.
+//        std::cout << realRelation.arg2.typeOfArgument << std::endl; // for test only
+//        std::cout << realRelation.arg2.nameOfArgument << std::endl;
+//        if (QueryManager::isRelationExist(realRelation)) {
 //            return true;
 //        } else {
 //            return false;
 //        }
+        if (QPSTests::PKBStub::existRelation(realRelation)) { // for test only.
+            return true;
+        } else {
+            return false;
+        }
     }
 
     bool ResultTable::followsPattern(std::vector<std::string> &row, QPS::PatternStruct pattern) {
         PatternStruct realPattern; // replace the synonyms in patternStruct by their actual name in result table.
-
+        realPattern.typeOfPattern = pattern.typeOfPattern;
+        realPattern.assign_syn = row.at(this->synonymColRef.find(pattern.assign_syn)->second);
+        if (QPS::isArgumentTypeSynonym(pattern.arg1.typeOfArgument)) {
+            realPattern.arg1 = {
+                    pattern.arg1.typeOfArgument,
+                    row.at(this->synonymColRef.find(pattern.arg1.nameOfArgument)->second)
+            };
+        } else {
+            realPattern.arg1 = pattern.arg1;
+        }
+        if (QPS::isArgumentTypeSynonym(pattern.arg2.typeOfArgument)) {
+            realPattern.arg2 = {
+                    pattern.arg2.typeOfArgument,
+                    row.at(this->synonymColRef.find(pattern.arg2.nameOfArgument)->second)
+            };
+        } else {
+            realPattern.arg2 = pattern.arg2;
+        }
+//        std::cout << realPattern.arg2.typeOfArgument << std::endl; // for test only
+//        std::cout << realPattern.arg2.nameOfArgument << std::endl;
+        if (ResultTable::isPatternMatched(realPattern)) {
+            return true;
+        } else {
+            return false;
+        }
     }
 
-    bool isPatternMatched(QPS::PatternStruct pattern) {
+    //Issues: when match non-existent symbol: VALID
+    bool ResultTable::isPatternMatched(QPS::PatternStruct pattern) {
         shared_ptr<AssignNode> assignNode = QueryManager::getAssignTNode(pattern.assign_syn);
         // check variable names
-
+        std::string varName = assignNode->getVariableName();
+        if (pattern.arg1.typeOfArgument != WILDCARD && varName != pattern.arg1.nameOfArgument) {
+            return false;
+        }
+        //Check position of wildcard and get a trimmed string.
+        char wildcard = '_';
+        WildcardPosition pos;
+        std::string trimmedString;
+        bool firstCharIsUnderscore =pattern.arg2.nameOfArgument[0] == wildcard;
+        bool lastCharIsUnderscore = pattern.arg2.nameOfArgument[pattern.arg2.nameOfArgument.length() - 1] == wildcard;
+        if (firstCharIsUnderscore) {
+            if (lastCharIsUnderscore) {
+                pos = WildcardPosition::BOTH;
+                trimmedString = pattern.arg2.nameOfArgument.substr(1, pattern.arg2.nameOfArgument.length() - 2);
+            } else {
+                pos = WildcardPosition::LEFT;
+                trimmedString = pattern.arg2.nameOfArgument.substr(1, pattern.arg2.nameOfArgument.length() - 1);
+            }
+        } else {
+            if (lastCharIsUnderscore) {
+                pos = WildcardPosition::RIGHT;
+                trimmedString = pattern.arg2.nameOfArgument.substr(0, pattern.arg2.nameOfArgument.length() - 1);
+            } else {
+                pos = WildcardPosition::NONE;
+                trimmedString = pattern.arg2.nameOfArgument;
+            }
+        }
+        //Check type of pattern be constant matching or variable matching.
+        shared_ptr<TNode> node = nullptr;
+        for (int i = 0; i < pattern.arg2.nameOfArgument.length(); i++) {
+            if (pattern.arg2.nameOfArgument[i] == wildcard) {
+                continue;
+            } else if (isdigit(pattern.arg2.nameOfArgument[i])){
+                node = TNode::createConstantValue(0, trimmedString);
+                break;
+            } else {
+                node = TNode::createVariableName(0, trimmedString);
+                break;
+            }
+        }
         // check expressions
-
+        std::shared_ptr<TNode> expression = assignNode->getExpression();
+        return TNode::matchSubTree(expression, node, pos);
     }
 
     std::vector<std::vector<std::string>> ResultTable::getTable() {
