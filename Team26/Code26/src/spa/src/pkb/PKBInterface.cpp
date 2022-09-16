@@ -292,7 +292,7 @@ bool PKBInterface::existRelation(const RelationStruct& relation) {
                 }
             } else {
                 if (isArg2Wildcard) {
-                    result = pkb->usesTable->existUses(stoi(arg1.nameOfArgument), 0);
+                    result = pkb->usesTable->existUses(stoi(arg1.nameOfArgument), std::string());
                 } else {
                     result = pkb->usesTable->existUses(stoi(arg1.nameOfArgument), arg2.nameOfArgument);
                 }
