@@ -342,6 +342,9 @@ namespace QPS {
         std::pair<ArgumentStruct,bool> ARG1, ARG2;
         if (pos < tokens.size() && (tokens[pos].tokenType == NAME)) {
             ARG1 = convertStringToARG(tokens[pos], container);
+            if (!ARG1.second || ARG1.first.typeOfArgument != VAR_SYNONYM) {
+                return {pos, INVALID_PATTERN_CONTENT};
+            }
             pos++;
         } else if (pos < tokens.size() && tokens[pos].tokenType == UNDERSCORE) {
             ARG1 = {{WILDCARD, "_"}, VALID};
@@ -557,7 +560,7 @@ namespace QPS {
             pos++;
         } else if (pos < tokens.size() && tokens[pos].tokenType == UNDERSCORE) {
             ARG1 = {{WILDCARD, "_"}, VALID};
-            return {pos, INVALID_RELATION_CONTENT}
+            return {pos, INVALID_RELATION_CONTENT};
         } else if (pos < tokens.size() && tokens[pos].tokenType == DOUBLE_QUOTE && tokens[pos+2].tokenType == DOUBLE_QUOTE
                    && tokens[pos + 1].tokenType == NAME) {
             std::string actual_name = tokens[pos + 1].nameValue;
