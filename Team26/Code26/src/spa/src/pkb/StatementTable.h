@@ -17,6 +17,7 @@ private:
     vector<Statement> statementList;
 public:
     void insertStmt(Statement stmt);
+    vector<Statement> getStatementList();
     vector<string> getAllStmts();
     vector<string> getAllReads();
     vector<string> getAllAssigns();
@@ -24,6 +25,7 @@ public:
     vector<string> getAllIfs();
     vector<string> getAllPrints();
     vector<string> getAllCalls();
+    Statement getStmtByLineNumber(int stmtNo);
 };
 
 #endif //SPA_STATEMENTTABLE_H

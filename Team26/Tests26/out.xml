@@ -20,5 +20,44 @@
 </summary>
 </failed>
 </query>
+<query>
+<id ReturnTuple="1" CondNum="1" RelNum="0" comment="Simple test with print">4</id><querystr><![CDATA[print p; Select p;]]></querystr>
+<stuans></stuans>
+<correct>2,6</correct>
+<time_taken>1.755000</time_taken>
+<failed>
+<missing>2,6</missing>
+<additional></additional>
+<summary>
+<expected>2</expected>
+<matched>0</matched>
+<missing>2</missing>
+<additional>0</additional>
+</summary>
+</failed>
+</query>
+<query>
+<id ReturnTuple="1" CondNum="1" RelNum="0" comment="Simple test with read">5</id><querystr><![CDATA[read r; Select r;]]></querystr>
+<stuans></stuans>
+<correct>1</correct>
+<time_taken>1.654000</time_taken>
+<failed>
+<missing>1</missing>
+<additional></additional>
+<summary>
+<expected>1</expected>
+<matched>0</matched>
+<missing>1</missing>
+<additional>0</additional>
+</summary>
+</failed>
+</query>
+<query>
+<id ReturnTuple="1" CondNum="1" RelNum="0" comment="Simple constant and variable">6</id><querystr><![CDATA[constant c; variable v; Select v, c;]]></querystr>
+<stuans>p3,p1,z3,y3,x1,z1,y1,x3</stuans>
+<correct>p1,p3,x1,x3,y1,y3,z1,z3</correct>
+<time_taken>4.495000</time_taken>
+<passed/>
+</query>
 </queries>
 </test_results>

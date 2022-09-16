@@ -1,7 +1,7 @@
 #include "sp/Parser.h"
 #include "catch.hpp"
 #include "util/ast/TNode.h"
-#include "pkb/PKBInterface.h"
+#include "./stubs/PKBInterfaceStubForDE.h"
 #include <vector>
 
 PKBInterface pkbInterface = PKBInterface();
@@ -13,6 +13,7 @@ std::vector<SPToken> validEasySimpleTokens = {SPToken("procedure", SPTokenType::
                                             SPToken("x", SPTokenType::NameToken),
                                             SPToken(";", SPTokenType::SemiColonToken),
                                             SPToken("}", SPTokenType::RCurlyToken)};
+
 std::vector<SPToken> validSimpleTokens = {SPToken("procedure", SPTokenType::ProcedureToken),
                                         SPToken("test", SPTokenType::NameToken),
                                         SPToken("{", SPTokenType::LCurlyToken),
@@ -26,6 +27,7 @@ std::vector<SPToken> validSimpleTokens = {SPToken("procedure", SPTokenType::Proc
                                         SPToken("1", SPTokenType::ConstToken),
                                         SPToken(";", SPTokenType::SemiColonToken),
                                         SPToken("}", SPTokenType::RCurlyToken)};
+
 std::vector<SPToken> invalidSimpleTokens = {SPToken("procedure", SPTokenType::ProcedureToken),
                                           SPToken("test", SPTokenType::NameToken),
                                           SPToken("{", SPTokenType::LCurlyToken),
@@ -55,6 +57,142 @@ std::vector<SPToken> invalidSimpleTokens = {SPToken("procedure", SPTokenType::Pr
                                           SPToken("1", SPTokenType::ConstToken),
                                           SPToken(";", SPTokenType::SemiColonToken),
                                           SPToken("}", SPTokenType::RCurlyToken)};
+
+std::vector<SPToken> testFollowsStar = {SPToken("procedure", SPTokenType::ProcedureToken),
+                                          SPToken("milestone1NestLevel1", SPTokenType::NameToken),
+                                          SPToken("{", SPTokenType::LCurlyToken),
+                                          SPToken("x", SPTokenType::NameToken),
+                                          SPToken("=", SPTokenType::AssignToken),
+                                          SPToken("x", SPTokenType::NameToken),
+                                          SPToken("+", SPTokenType::OpToken),
+                                          SPToken("1", SPTokenType::ConstToken),
+                                          SPToken(";", SPTokenType::SemiColonToken),
+                                          SPToken("print", SPTokenType::PrintToken),
+                                          SPToken("y", SPTokenType::NameToken),
+                                          SPToken(";", SPTokenType::SemiColonToken),
+                                          SPToken("read", SPTokenType::ReadToken),
+                                          SPToken("y", SPTokenType::NameToken),
+                                          SPToken(";", SPTokenType::SemiColonToken),
+                                          SPToken("if", SPTokenType::IfToken),
+                                          SPToken("(", SPTokenType::LParenToken),
+                                          SPToken("x", SPTokenType::NameToken),
+                                          SPToken("<", SPTokenType::RelationToken),
+                                          SPToken("1", SPTokenType::ConstToken),
+                                          SPToken(")", SPTokenType::RParenToken),
+                                          SPToken("then", SPTokenType::ThenToken),
+                                          SPToken("{", SPTokenType::LCurlyToken),
+                                          SPToken("x", SPTokenType::NameToken),
+                                          SPToken("=", SPTokenType::AssignToken),
+                                          SPToken("x", SPTokenType::NameToken),
+                                          SPToken("+", SPTokenType::OpToken),
+                                          SPToken("1", SPTokenType::ConstToken),
+                                          SPToken(";", SPTokenType::SemiColonToken),
+                                          SPToken("print", SPTokenType::PrintToken),
+                                          SPToken("y", SPTokenType::NameToken),
+                                          SPToken(";", SPTokenType::SemiColonToken),
+                                          SPToken("read", SPTokenType::ReadToken),
+                                          SPToken("y", SPTokenType::NameToken),
+                                          SPToken(";", SPTokenType::SemiColonToken),
+                                          SPToken("}", SPTokenType::RCurlyToken),
+                                          SPToken("else", SPTokenType::ElseToken),
+                                          SPToken("{", SPTokenType::LCurlyToken),
+                                          SPToken("print", SPTokenType::PrintToken),
+                                          SPToken("y", SPTokenType::NameToken),
+                                          SPToken(";", SPTokenType::SemiColonToken),
+                                          SPToken("x", SPTokenType::NameToken),
+                                          SPToken("=", SPTokenType::AssignToken),
+                                          SPToken("x", SPTokenType::NameToken),
+                                          SPToken("+", SPTokenType::OpToken),
+                                          SPToken("1", SPTokenType::ConstToken),
+                                          SPToken(";", SPTokenType::SemiColonToken),
+                                          SPToken("read", SPTokenType::ReadToken),
+                                          SPToken("y", SPTokenType::NameToken),
+                                          SPToken(";", SPTokenType::SemiColonToken),
+                                          SPToken("}", SPTokenType::RCurlyToken),
+                                          SPToken("while", SPTokenType::WhileToken),
+                                          SPToken("(", SPTokenType::LParenToken),
+                                          SPToken("x", SPTokenType::NameToken),
+                                          SPToken("<", SPTokenType::RelationToken),
+                                          SPToken("1", SPTokenType::ConstToken),
+                                          SPToken(")", SPTokenType::RParenToken),
+                                          SPToken("{", SPTokenType::LCurlyToken),
+                                          SPToken("x", SPTokenType::NameToken),
+                                          SPToken("=", SPTokenType::AssignToken),
+                                          SPToken("x", SPTokenType::NameToken),
+                                          SPToken("+", SPTokenType::OpToken),
+                                          SPToken("1", SPTokenType::ConstToken),
+                                          SPToken(";", SPTokenType::SemiColonToken),
+                                          SPToken("print", SPTokenType::PrintToken),
+                                          SPToken("y", SPTokenType::NameToken),
+                                          SPToken(";", SPTokenType::SemiColonToken),
+                                          SPToken("read", SPTokenType::ReadToken),
+                                          SPToken("y", SPTokenType::NameToken),
+                                          SPToken(";", SPTokenType::SemiColonToken),
+                                          SPToken("}", SPTokenType::RCurlyToken),
+                                          SPToken("}", SPTokenType::RCurlyToken)};
+
+std::vector<SPToken> testVariableNamesAreKeywords = {
+        SPToken("procedure", SPTokenType::ProcedureToken),
+        SPToken("procedure", SPTokenType::ProcedureToken),
+        SPToken("{", SPTokenType::LCurlyToken),
+        SPToken("print", SPTokenType::PrintToken),
+        SPToken("=", SPTokenType::AssignToken),
+        SPToken("read", SPTokenType::ReadToken),
+        SPToken("+", SPTokenType::OpToken),
+        SPToken("1", SPTokenType::ConstToken),
+        SPToken(";", SPTokenType::SemiColonToken),
+        SPToken("read", SPTokenType::ReadToken),
+        SPToken("print", SPTokenType::PrintToken),
+        SPToken(";", SPTokenType::SemiColonToken),
+        SPToken("print", SPTokenType::PrintToken),
+        SPToken("read", SPTokenType::ReadToken),
+        SPToken(";", SPTokenType::SemiColonToken),
+        SPToken("if", SPTokenType::IfToken),
+        SPToken("(", SPTokenType::LParenToken),
+        SPToken("if", SPTokenType::IfToken),
+        SPToken(">", SPTokenType::RelationToken),
+        SPToken("1", SPTokenType::ConstToken),
+        SPToken(")", SPTokenType::RParenToken),
+        SPToken("then", SPTokenType::ThenToken),
+        SPToken("{", SPTokenType::LCurlyToken),
+        SPToken("else", SPTokenType::ElseToken),
+        SPToken("=", SPTokenType::AssignToken),
+        SPToken("else", SPTokenType::ElseToken),
+        SPToken("+", SPTokenType::OpToken),
+        SPToken("1", SPTokenType::ConstToken),
+        SPToken(";", SPTokenType::SemiColonToken),
+        SPToken("}", SPTokenType::RCurlyToken),
+        SPToken("else", SPTokenType::ElseToken),
+        SPToken("{", SPTokenType::LCurlyToken),
+        SPToken("if", SPTokenType::IfToken),
+        SPToken("=", SPTokenType::AssignToken),
+        SPToken("if", SPTokenType::IfToken),
+        SPToken("+", SPTokenType::OpToken),
+        SPToken("1", SPTokenType::ConstToken),
+        SPToken(";", SPTokenType::SemiColonToken),
+        SPToken("}", SPTokenType::RCurlyToken),
+        SPToken("while", SPTokenType::WhileToken),
+        SPToken("(", SPTokenType::LParenToken),
+        SPToken("while", SPTokenType::WhileToken),
+        SPToken(">", SPTokenType::RelationToken),
+        SPToken("1", SPTokenType::ConstToken),
+        SPToken(")", SPTokenType::RParenToken),
+        SPToken("{", SPTokenType::LCurlyToken),
+        SPToken("while", SPTokenType::WhileToken),
+        SPToken("=", SPTokenType::AssignToken),
+        SPToken("while", SPTokenType::WhileToken),
+        SPToken("+", SPTokenType::OpToken),
+        SPToken("1", SPTokenType::ConstToken),
+        SPToken(";", SPTokenType::SemiColonToken),
+        SPToken("}", SPTokenType::RCurlyToken),
+        SPToken("}", SPTokenType::RCurlyToken)
+};
+
+TEST_CASE("Basic Parser Test with valid program with keywords as variable names") {
+    Parser p(testVariableNamesAreKeywords, &pkbInterface);
+    REQUIRE_NOTHROW(p.parseSimple());
+}
+
 TEST_CASE("Basic Parser Test with valid program") {
     Parser p(validSimpleTokens, &pkbInterface);
     REQUIRE_NOTHROW(p.parseSimple());
@@ -63,6 +201,27 @@ TEST_CASE("Basic Parser Test with valid program") {
 TEST_CASE("Basic Parser Test with invalid program") {
     Parser p(invalidSimpleTokens, &pkbInterface);
     REQUIRE_THROWS(p.parseSimple());
+}
+
+TEST_CASE("Testing Follows*") {
+    auto *pkbInterfaceStub = new PKBInterfaceStubForDE();
+    Parser p(testFollowsStar, pkbInterfaceStub);
+    REQUIRE_NOTHROW(p.parseSimple());
+    REQUIRE(pkbInterfaceStub->statements[1] == pkbInterfaceStub->statements[2]);
+    REQUIRE(pkbInterfaceStub->statements[2] == pkbInterfaceStub->statements[3]);
+    REQUIRE(pkbInterfaceStub->statements[3] == pkbInterfaceStub->statements[4]);
+    REQUIRE_FALSE(pkbInterfaceStub->statements[4] == pkbInterfaceStub->statements[5]);
+    REQUIRE(pkbInterfaceStub->statements[4] == pkbInterfaceStub->statements[11]);
+    REQUIRE(pkbInterfaceStub->statements[5] == pkbInterfaceStub->statements[6]);
+    REQUIRE(pkbInterfaceStub->statements[6] == pkbInterfaceStub->statements[7]);
+    REQUIRE_FALSE(pkbInterfaceStub->statements[7] == pkbInterfaceStub->statements[8]);
+    REQUIRE(pkbInterfaceStub->statements[8] == pkbInterfaceStub->statements[9]);
+    REQUIRE(pkbInterfaceStub->statements[9] == pkbInterfaceStub->statements[10]);
+    REQUIRE_FALSE(pkbInterfaceStub->statements[10] == pkbInterfaceStub->statements[1]);
+    REQUIRE_FALSE(pkbInterfaceStub->statements[10] == pkbInterfaceStub->statements[11]);
+    REQUIRE_FALSE(pkbInterfaceStub->statements[10] == pkbInterfaceStub->statements[13]);
+    REQUIRE(pkbInterfaceStub->statements[12] == pkbInterfaceStub->statements[13]);
+    REQUIRE(pkbInterfaceStub->statements[13] == pkbInterfaceStub->statements[14]);
 }
 
 // TODO need to implement a way to recursive compare StatementNodes/ProcedureNodes
@@ -75,30 +234,63 @@ TEST_CASE("Basic Parser Test with invalid program") {
 //}
 
 TEST_CASE("Parse Assign") {
-    std::vector<SPToken> v = {SPToken("x", SPTokenType::NameToken),
-                            SPToken("=", SPTokenType::AssignToken),
-                            SPToken("x", SPTokenType::NameToken),
-                            SPToken("+", SPTokenType::OpToken),
-                            SPToken("1", SPTokenType::ConstToken),
-                            SPToken(";", SPTokenType::SemiColonToken)};
-    Parser pa(v, &pkbInterface);
-    REQUIRE_NOTHROW(pa.parseAssign());
+    SECTION("variable names not keywords") {
+        std::vector<SPToken> v = {SPToken("x", SPTokenType::NameToken),
+                                  SPToken("=", SPTokenType::AssignToken),
+                                  SPToken("x", SPTokenType::NameToken),
+                                  SPToken("+", SPTokenType::OpToken),
+                                  SPToken("1", SPTokenType::ConstToken),
+                                  SPToken(";", SPTokenType::SemiColonToken)};
+        Parser pa(v, &pkbInterface);
+        REQUIRE_NOTHROW(pa.parseAssign(1));
+    }
+
+    SECTION("variable names are keywords") {
+        std::vector<SPToken> v = {SPToken("read", SPTokenType::ReadToken),
+                                  SPToken("=", SPTokenType::AssignToken),
+                                  SPToken("while", SPTokenType::WhileToken),
+                                  SPToken("+", SPTokenType::OpToken),
+                                  SPToken("1", SPTokenType::ConstToken),
+                                  SPToken(";", SPTokenType::SemiColonToken)};
+        Parser pa(v, &pkbInterface);
+        REQUIRE_NOTHROW(pa.parseAssign(1));
+    }
 }
 
 TEST_CASE("Parse Print") {
-    std::vector<SPToken> v = {SPToken("print", SPTokenType::PrintToken),
-                            SPToken("x", SPTokenType::NameToken),
-                            SPToken(";", SPTokenType::SemiColonToken)};
-    Parser pp(v, &pkbInterface);
-    REQUIRE_NOTHROW(pp.parsePrint());
+    SECTION("variable names not keywords") {
+        std::vector<SPToken> v = {SPToken("print", SPTokenType::PrintToken),
+                                  SPToken("x", SPTokenType::NameToken),
+                                  SPToken(";", SPTokenType::SemiColonToken)};
+        Parser pp(v, &pkbInterface);
+        REQUIRE_NOTHROW(pp.parsePrint(1));
+    }
+
+    SECTION("variable names are keywords") {
+        std::vector<SPToken> v = {SPToken("print", SPTokenType::PrintToken),
+                                  SPToken("if", SPTokenType::IfToken),
+                                  SPToken(";", SPTokenType::SemiColonToken)};
+        Parser pp(v, &pkbInterface);
+        REQUIRE_NOTHROW(pp.parsePrint(1));
+    }
 }
 
 TEST_CASE("Parse Read") {
-    std::vector<SPToken> v = {SPToken("read", SPTokenType::PrintToken),
-                            SPToken("x", SPTokenType::NameToken),
-                            SPToken(";", SPTokenType::SemiColonToken)};
-    Parser pr(v, &pkbInterface);
-    REQUIRE_NOTHROW(pr.parseRead());
+    SECTION("variable names not keywords") {
+        std::vector<SPToken> v = {SPToken("read", SPTokenType::ReadToken),
+                                  SPToken("x", SPTokenType::NameToken),
+                                  SPToken(";", SPTokenType::SemiColonToken)};
+        Parser pr(v, &pkbInterface);
+        REQUIRE_NOTHROW(pr.parseRead(1));
+    }
+
+    SECTION("variable names are keywords") {
+        std::vector<SPToken> v = {SPToken("read", SPTokenType::ReadToken),
+                                  SPToken("print", SPTokenType::PrintToken),
+                                  SPToken(";", SPTokenType::SemiColonToken)};
+        Parser pr(v, &pkbInterface);
+        REQUIRE_NOTHROW(pr.parseRead(1));
+    }
 }
 
 TEST_CASE("Parse Expression") {
@@ -204,7 +396,7 @@ TEST_CASE("Parse If") {
                             SPToken(";", SPTokenType::SemiColonToken),
                             SPToken("}", SPTokenType::RCurlyToken)};
     Parser pr(v, &pkbInterface);
-    REQUIRE_NOTHROW(pr.parseIf());
+    REQUIRE_NOTHROW(pr.parseIf(1));
 }
 
 TEST_CASE("Parse While") {
@@ -220,7 +412,7 @@ TEST_CASE("Parse While") {
                             SPToken(";", SPTokenType::SemiColonToken),
                             SPToken("}", SPTokenType::RCurlyToken)};
     Parser pr(v, &pkbInterface);
-    REQUIRE_NOTHROW(pr.parseWhile());
+    REQUIRE_NOTHROW(pr.parseWhile(1));
 }
 
 TEST_CASE("Parse Call") {
@@ -228,7 +420,7 @@ TEST_CASE("Parse Call") {
                             SPToken("DummyProcedure", SPTokenType::NameToken),
                             SPToken(";", SPTokenType::SemiColonToken),};
     Parser pr(v, &pkbInterface);
-    REQUIRE_NOTHROW(pr.parseCall());
+    REQUIRE_NOTHROW(pr.parseCall(1));
 }
 
 TEST_CASE("Parse Cond") {

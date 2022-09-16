@@ -7,6 +7,8 @@
 
 #include <stdio.h>
 #include <string>
+#include <memory>
+#include "util/ast/TNode.h"
 
 using namespace std;
 
@@ -25,6 +27,8 @@ class Statement {
 public:
     StatementType::StmtType type;
     int lineNumber;
+    int statementListNumber;
+    shared_ptr<TNode> rootNode;
 };
 
 

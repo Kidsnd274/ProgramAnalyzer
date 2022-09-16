@@ -6,7 +6,7 @@ class ReadNode : public StatementNode {
     std::string variableName;
 
 public:
-    ReadNode(int statementNumber, std::string variableName) : StatementNode(statementNumber) {
+    ReadNode(int statementNumber, std::string variableName) : StatementNode(statementNumber, statementType::READ) {
         this->variableName = variableName;
     }
 

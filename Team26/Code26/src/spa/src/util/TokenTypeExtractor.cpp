@@ -53,6 +53,12 @@ SPToken TokenTypeExtractor::createNonTerminal(std::string s) {
     }
 }
 
+bool isValidInteger(std::string &s) {
+    if(s.size() > 1 && s[0] == '0') return false;
+    return true;
+}
+
 SPToken TokenTypeExtractor::createConst(std::string s) {
+    if(!isValidInteger(s)) throw SyntaxErrorException();
     return {s, SPTokenType::ConstToken};
 }

@@ -3,6 +3,7 @@
 #define SPA_TOKENTYPEEXTRACTOR_H
 #include <unordered_map>
 #include "SPToken.h"
+#include "sp/SyntaxErrorException.h"
 
 class TokenTypeExtractor {
 public:
