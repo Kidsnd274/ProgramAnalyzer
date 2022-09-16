@@ -1,8 +1,3 @@
-//
-// Created by QMS on 13/9/2022.
-//
-#include <stdio.h>
-#include <string>
 #include <vector>
 #include <algorithm>
 #include "ParentTable.h"
@@ -10,14 +5,41 @@
 using namespace std;
 
 void ParentTable::insertParent(int parentStmtLineNumber, int childStmtLineNumber) {
-    std::pair<int,int> parent (parentStmtLineNumber, childStmtLineNumber);
-    this->parentList.insert(parent);
+    std::pair<int,vector<int>> parent (parentStmtLineNumber, childStmtLineNumber);
+    if (this->parentList.find(parentStmtLineNumber) != parentList.end()) {
+        this->parentList[parentStmtLineNumber].push_back(childStmtLineNumber);
+    } else {
+        this->parentList.insert(parent);
+    }
 }
 
 bool ParentTable::existParent(int parentStmtLineNumber, int childStmtLineNumber) {
-    unordered_map<int,int> list = this->parentList;
-    if (list.find(parentStmtLineNumber) != list.end() && list[parentStmtLineNumber] == childStmtLineNumber) {
-        return true;
+    unordered_map<int,vector<int>> list = this->parentList;
+    bool isParentWildcard = parentStmtLineNumber == 0;
+    bool isChildWildcard = childStmtLineNumber == 0;
+    if (isParentWildcard && isChildWildcard) {
+        return list.size() != 0;
     }
-    return false;
+    if (isParentWildcard) {
+        for (auto &p: list) {
+            if (std::find(p.second.begin(), p.second.end(), childStmtLineNumber) != p.second.end()) {
+                return true;
+            }
+        }
+        return false;
+    }
+    if (isChildWildcard) {
+        if (list.find(parentStmtLineNumber) != list.end()) {
+            return list[parentStmtLineNumber].size() != 0;
+        }
+    }
+    //Both not wildcard
+    if (list.find(parentStmtLineNumber) != list.end()) {
+        vector<int> children = list[parentStmtLineNumber];
+        if (std::find(children.begin(), children.end(), childStmtLineNumber) != children.end()) {
+            return true;
+        } else {
+            return false;
+        }
+    }
 }
