@@ -47,7 +47,7 @@ namespace QPS {
          * @return bool.
          */
         static bool isRelationExist(RelationStruct relationStruct) {
-            return QueryManager::pkb->existRelation(relationStruct);
+            return QueryManager::pkb->existRelation(std::move(relationStruct));
         }
     };
 

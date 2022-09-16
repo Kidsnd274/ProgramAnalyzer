@@ -292,9 +292,8 @@ namespace QPS {
                 if (result.second != VALID) {
                     return result.second;
                 } else {
-                    tokenPos = result.first;
+                    tokenPos = result.first - 1;
                 }
-
             } else {
                return UNMATCHED_QUERY_TYPE;
 

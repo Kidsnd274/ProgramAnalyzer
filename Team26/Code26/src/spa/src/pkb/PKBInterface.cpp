@@ -5,6 +5,7 @@
 #include<stdio.h>
 #include <iostream>
 #include <string>
+#include <utility>
 #include <vector>
 #include <cassert>
 #include <memory>
@@ -30,7 +31,7 @@ PKB* PKBInterface::pkb = new PKB();
 
 void PKBInterface::addProcedure(std::string name, int startingStmtNo, int endingStmtNo) {
     Procedure proc;
-    proc.name = name;
+    proc.name = std::move(name);
     proc.startingStmtNo = startingStmtNo;
     proc.endingStmtNo = endingStmtNo;
     pkb->procedureTable->insertProc(proc);
@@ -57,7 +58,7 @@ void PKBInterface::addAssignStatement(int statementNumber, int statementListNumb
     stmt.type = StatementType::ASSIGN;
     stmt.lineNumber = statementNumber;
     stmt.statementListNumber = statementListNumber;
-    stmt.rootNode = rootNode;
+    stmt.rootNode = std::move(rootNode);
     pkb->statementTable->insertStmt(stmt);
 }
 
@@ -86,11 +87,11 @@ void PKBInterface::addPrintStatement(int statementNumber, int statementListNumbe
 }
 
 void PKBInterface::addModifies(int statementNumber, string varName) {
-    pkb->modifiesTable->insertModifies(statementNumber, varName);
+    pkb->modifiesTable->insertModifies(statementNumber, std::move(varName));
 }
 
 void PKBInterface::addUses(int statementNumber, string varName) {
-    pkb->usesTable->insertUses(statementNumber, varName);
+    pkb->usesTable->insertUses(statementNumber, std::move(varName));
 }
 
 void PKBInterface::addParent(int parentStatementNumber, int childStatementNumber) {
@@ -150,13 +151,13 @@ vector<string> PKBInterface::getAllEntity(EntityType type) {
     return result;
 }
 
-bool PKBInterface::existRelation(RelationStruct relation) {
+bool PKBInterface::existRelation(const RelationStruct& relation) {
     RelationType typeOfRelation = relation.typeOfRelation;
     ArgumentStruct arg1 = relation.arg1;
     ArgumentStruct arg2 = relation.arg2;
     bool isArg1Wildcard = arg1.typeOfArgument == QPS::WILDCARD;
     bool isArg2Wildcard = arg2.typeOfArgument == QPS::WILDCARD;
-    bool result;
+    bool result = false;
     switch (typeOfRelation) {
         case QPS::FOLLOWS:
 //            assert(arg1.typeOfArgument == QPS::STMT_SYNONYM);
@@ -167,6 +168,32 @@ bool PKBInterface::existRelation(RelationStruct relation) {
 //            assert(arg1.typeOfArgument == QPS::STMT_SYNONYM);
 //            assert(arg2.typeOfArgument == QPS::STMT_SYNONYM);
 //            result = pkb->followsStarTable->existFollowsStar(stoi(arg1.nameOfArgument), stoi(arg2.nameOfArgument));
+            if (arg1.typeOfArgument == WILDCARD && arg2.typeOfArgument == WILDCARD) {
+                result = true;
+                break;
+            }
+            if (arg1.typeOfArgument == WILDCARD) {
+                Statement stmt2 = pkb->statementTable->getStmtByLineNumber(stoi(arg2.nameOfArgument));
+                result = false;
+                for (Statement statement : pkb->statementTable->getStatementList()) {
+                    if (statement.statementListNumber == stmt2.statementListNumber && statement.lineNumber < stmt2.lineNumber) {
+                        result = true;
+                        break;
+                    }
+                }
+                break;
+            }
+            if (arg2.typeOfArgument == WILDCARD) {
+                Statement stmt1 = pkb->statementTable->getStmtByLineNumber(stoi(arg2.nameOfArgument));
+                result = false;
+                for (Statement statement : pkb->statementTable->getStatementList()) {
+                    if (statement.statementListNumber == stmt1.statementListNumber && statement.lineNumber > stmt1.lineNumber) {
+                        result = true;
+                        break;
+                    }
+                }
+                break;
+            }
             Statement stmt1 = pkb->statementTable->getStmtByLineNumber(stoi(arg1.nameOfArgument));
             Statement stmt2 = pkb->statementTable->getStmtByLineNumber(stoi(arg2.nameOfArgument));
             if (stmt1.statementListNumber == stmt2.statementListNumber && stmt1.lineNumber < stmt2.lineNumber) {
@@ -224,16 +251,14 @@ bool PKBInterface::existRelation(RelationStruct relation) {
             result = false;
             break;
         case USES_P:
-            break;
         case MODIFIES_P:
-            break;
         case INVALID_RELATION_TYPE:
             break;
     }
     return result;
 }
 
-shared_ptr<AssignNode> PKBInterface::getAssignTNode(string assignRef) {
+shared_ptr<AssignNode> PKBInterface::getAssignTNode(const string& assignRef) {
     int assignStmtNo = stoi(assignRef);
     assert(pkb->modifiesTable->existStatement(assignStmtNo) == true);
     string varName = pkb->modifiesTable->getModifiesVar(assignStmtNo);
