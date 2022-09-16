@@ -7,8 +7,7 @@
 namespace QPS {
     void BasicQueryEvaluator::evaluateQuery(QueryStruct& query) {
         query.generateUsedSynonymList();
-        if (query.queryStatus == QPS::EVALUATION_COMPLETED
-            || query.queryStatus == QPS::EVALUATION_ERROR) {
+        if (query.queryStatus != QPS::EVALUATION_NOT_STARTED) {
             return;
         }
         for (auto iter : query.getDeclaredSynonymMap()) {
@@ -19,14 +18,13 @@ namespace QPS {
                     iter.second,
                     iter.first
             };
-//            std::vector<std::string> entities = std::vector<std::string> {"a", "b", "c", "d"}; // for test only
             std::vector<std::string> entities = QueryManager::getAllEntitiesFromPKB(entityStruct.typeOfEntity);
             std::cout << entities.size() << std::endl;
             query.resultTable.addColumnAndMerge(entityStruct.nameOfEntity, entities);
-//            query.resultTable.deleteDuplicateRows({}); //duplicate if values are the same for all synonyms
+            query.resultTable.deleteDuplicateRows({}); //duplicate if values are the same for all synonyms
             query.resultTable.filterRowsBySuchThatList(query.getSuchThatList());
             query.resultTable.filterRowsByPatternList(query.getPatternList());
-//            std::cout << query.resultTable.getTable().size() << std::endl;
+            query.queryStatus = QPS::EVALUATION_COMPLETED;
         }
 //        query.resultTable.printTable();
     }
