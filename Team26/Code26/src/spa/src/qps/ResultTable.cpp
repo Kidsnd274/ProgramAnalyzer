@@ -105,15 +105,15 @@ namespace QPS {
         if (!this->isInitialized) {
             this->colNum = otherTable.colNum;
             this->rowNum = otherTable.rowNum;
-            this->synonymColRef = std::move(otherTable.synonymColRef);
-            this->table = std::move(otherTable.table);
+            this->synonymColRef = otherTable.synonymColRef;
+            this->table = otherTable.table;
             this->isInitialized = otherTable.isInitialized;
         }
         std::vector<int> otherUniqueCols, thisUniqueCols, otherCommonCols, thisCommonCols;
         std::vector<std::string> commonSynonyms, otherUniqueSynonyms;
         this->compareTableSynonyms(otherTable, commonSynonyms, otherUniqueCols, otherCommonCols, thisCommonCols, otherUniqueSynonyms);
         //No common synonyms
-        if (commonSynonyms.size() == 0) {
+        if (commonSynonyms.empty()) {
             mergeWithoutSameSynonym(otherTable, otherUniqueCols);
             updateSynonymColRef(otherUniqueSynonyms);
             return;
@@ -124,12 +124,11 @@ namespace QPS {
         this->commonSynonymValueSet(thisCommonCols, resultSet);
         mergeWithSameSynonyms(resultSet, otherTable, otherUniqueCols, otherCommonCols);
         updateSynonymColRef(otherUniqueSynonyms);
-        return;
     }
 
     void ResultTable::commonSynonymValueSet(const std::vector<int> &commonSynonymCols,
                                             std::unordered_map<std::vector<std::string>, std::vector<int>, StringVectorHash> &resultSet) {
-        int rowNum = 0;
+        int currRowNum = 0;
         for (auto &row: this->table) {
             std::vector<std::string> newValue;
             for (auto &col: commonSynonymCols) {
@@ -139,10 +138,9 @@ namespace QPS {
                 std::vector<int> v;
                 resultSet[newValue] = v;
             }
-            resultSet[newValue].push_back(rowNum);
-            rowNum++;
+            resultSet[newValue].push_back(currRowNum);
+            currRowNum++;
         }
-        return;
     }
 
     void ResultTable::updateSynonymColRef(const std::vector<std::string> &otherUniqueSynonyms) {
@@ -150,7 +148,6 @@ namespace QPS {
             synonymColRef[synonym] = colNum;
             colNum++;
         }
-        return;
     }
 
     void ResultTable::mergeWithSameSynonyms(
@@ -173,9 +170,8 @@ namespace QPS {
                 }
             }
         }
-        table = std::move(newTable);
         rowNum = newTable.size();
-        return;
+        table = std::move(newTable);
     }
 
     void ResultTable::mergeWithoutSameSynonym(const QPS::ResultTable &otherTable, const std::vector<int>& otherUniqueCols) {
@@ -190,9 +186,8 @@ namespace QPS {
                 newTable.push_back(newRow);
             }
         }
-        table = std::move(newTable);
         rowNum = newTable.size();
-        return;
+        table = std::move(newTable);
     }
 
     void ResultTable::compareTableSynonyms(const QPS::ResultTable &otherTable, std::vector<std::string> &commonSynonyms,
@@ -213,22 +208,21 @@ namespace QPS {
                 otherUniqueSynonyms.push_back(synonym.first);
             }
         }
-        return;
     }
 
     void ResultTable::deleteDuplicateRows(const std::vector<std::string> &sNames) {
         std::unordered_set<std::string> presentRows;
         std::vector<int> sPos;
         bool sNamesSelected = false;
-        if (sNames.size() != 0) {
-            for (auto sName: sNames) {
+        if (!sNames.empty()) {
+            for (const auto& sName: sNames) {
                 sPos.push_back(synonymColRef.find(sName)->second);
             }
             sNamesSelected = true;
         }
         int rows = table.size();
         for (int row = rows - 1; row >= 0; row--) {
-            std::string s = "";
+            std::string s;
             if (sNamesSelected) {
                 for (auto col: sPos) {
                     s += table[row][col] + "|";
@@ -252,12 +246,12 @@ namespace QPS {
         std::string header = "| ";
         std::string content;
         struct {
-            bool operator()(std::pair<std::string, int> a, std::pair<std::string, int> b) const { return a.second < b.second; }
+            bool operator()(std::pair<std::string, int> a, const std::pair<std::string, int>& b) const { return a.second < b.second; }
         } customLess;
         std::vector<std::pair<std::string, int>> sorted(synonymColRef.begin(), synonymColRef.end());
         std::sort(sorted.begin(), sorted.end(), customLess);
         for (auto& sName: sorted) {
-            if (sName.first != "") {
+            if (!sName.first.empty()) {
                 header += sName.first + " | ";
             }
         }
@@ -274,7 +268,7 @@ namespace QPS {
         }
     }
 
-    void ResultTable::printStringVector(std::vector<std::string> v) {
+    void ResultTable::printStringVector(const std::vector<std::string>& v) {
         std::cout << "Printing vector ... \n";
         std::string s = "| ";
         for (auto& str: v) {
@@ -283,7 +277,7 @@ namespace QPS {
         std::cout << s + "\n";
     }
 
-    void ResultTable::printIntVector(std::vector<int> v) {
+    void ResultTable::printIntVector(const std::vector<int>& v) {
         std::cout << "Printing vector ... \n";
         std::string s = "| ";
         for (auto& str: v) {
@@ -292,58 +286,57 @@ namespace QPS {
         std::cout << s + "\n";
     }
 
-    void ResultTable::addColumnAndMerge(std::string nameOfSynonym, std::vector<std::string> entities) {
+    void ResultTable::addColumnAndMerge(const std::string& nameOfSynonym, const std::vector<std::string>& entities) {
         this->rowNum = this->rowNum * entities.size();
         this->synonymColRef.insert(std::make_pair(nameOfSynonym, colNum));
         this->colNum++;
         std::vector<std::vector<std::string>> newTable;
-        for (auto iter1 = this->table.begin(); iter1 != this->table.end(); iter1++) { // iter1: row of original table
-            for (auto iter2 = entities.begin(); iter2 != entities.end(); iter2++) { // iter2: row of new column
-                std::vector<std::string> newRow = *iter1;
-                newRow.emplace_back(*iter2);
+        for (auto newRow : this->table) { // iter1: row of original table
+            for (auto & entity : entities) { // iter2: row of new column
+                newRow.emplace_back(entity);
                 newTable.emplace_back(newRow);
             }
         }
         this->table = newTable;
     }
 
-    void ResultTable::filterRowsBySuchThatList(QPS::SUCH_THAT_LIST suchThatList) {
+    void ResultTable::filterRowsBySuchThatList(const QPS::SUCH_THAT_LIST& suchThatList) {
         std::vector<std::vector<std::string>> newTable;
-        for (auto relation: suchThatList) {
+        for (const auto& relation: suchThatList) {
             bool relationshipSynonymsPresent =
                     (!QPS::isArgumentTypeSynonym(relation.arg1.typeOfArgument) || isSynonymPresent(relation.arg1.nameOfArgument))
                     && (!QPS::isArgumentTypeSynonym(relation.arg2.typeOfArgument) || isSynonymPresent(relation.arg2.nameOfArgument));
             if (!relationshipSynonymsPresent) {
                 continue;
             }
-            for (auto row_iter = this->table.begin(); row_iter != this->table.end(); row_iter++) {
-                if (followsRelation(*row_iter, relation)) {
-                    newTable.emplace_back(*row_iter);
+            for (auto & row_iter : this->table) {
+                if (followsRelation(row_iter, relation)) {
+                    newTable.emplace_back(row_iter);
                 }
             }
             this->table = newTable;
         }
     }
 
-    void ResultTable::filterRowsByPatternList(QPS::PATTERN_LIST patternList) {
+    void ResultTable::filterRowsByPatternList(const QPS::PATTERN_LIST& patternList) {
         std::vector<std::vector<std::string>> newTable;
-        for (auto pattern : patternList) {
+        for (const auto& pattern : patternList) {
             bool patternSynonymsPresent = isSynonymPresent(pattern.assign_syn)
                     && (!QPS::isArgumentTypeSynonym(pattern.arg1.typeOfArgument) || isSynonymPresent(pattern.arg1.nameOfArgument))
                     && (!QPS::isArgumentTypeSynonym(pattern.arg2.typeOfArgument) || isSynonymPresent(pattern.arg2.nameOfArgument));
             if (!patternSynonymsPresent) {
                 continue;
             }
-            for (auto row_iter = this->table.begin(); row_iter != this->table.end(); row_iter++) {
-                if (followsPattern(*row_iter, pattern)) {
-                    newTable.emplace_back(*row_iter);
+            for (auto & row_iter : this->table) {
+                if (followsPattern(row_iter, pattern)) {
+                    newTable.emplace_back(row_iter);
                 }
             }
             this->table = newTable;
         }
     }
 
-    bool ResultTable::followsRelation(std::vector<std::string> &row, QPS::RelationStruct relation) {
+    bool ResultTable::followsRelation(std::vector<std::string> &row, const QPS::RelationStruct& relation) {
         RelationStruct realRelation; // replace the synonyms in relationStruct by their actual name in result table.
         realRelation.typeOfRelation = relation.typeOfRelation;
         if (QPS::isArgumentTypeSynonym(relation.arg1.typeOfArgument)) {
@@ -438,10 +431,10 @@ namespace QPS {
         }
         //Check type of pattern be constant matching or variable matching.
         shared_ptr<TNode> node = nullptr;
-        for (int i = 0; i < pattern.arg2.nameOfArgument.length(); i++) {
-            if (pattern.arg2.nameOfArgument[i] == wildcard) {
+        for (char i : pattern.arg2.nameOfArgument) {
+            if (i == wildcard) {
                 continue;
-            } else if (isdigit(pattern.arg2.nameOfArgument[i])){
+            } else if (isdigit(i)){
                 node = TNode::createConstantValue(0, trimmedString);
                 break;
             } else {

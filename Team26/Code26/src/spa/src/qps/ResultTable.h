@@ -103,7 +103,7 @@ namespace QPS {
          * @param nameOfSynonym Name of the new synonym.
          * @param entities All the entities of this new synonym.
          */
-        void addColumnAndMerge(std::string nameOfSynonym, std::vector<std::string> entities);
+        void addColumnAndMerge(const std::string& nameOfSynonym, const std::vector<std::string>& entities);
 
         /**
          * Each row in result table is a set of possible bindings of synonyms to entities.
@@ -112,7 +112,7 @@ namespace QPS {
          *
          * @param suchThatList List of given relation.
          */
-        void filterRowsBySuchThatList(SUCH_THAT_LIST suchThatList);
+        void filterRowsBySuchThatList(const SUCH_THAT_LIST& suchThatList);
 
         /**
          * Checks whether each row in result table follows to the given patterns.
@@ -120,7 +120,7 @@ namespace QPS {
          *
          * @param patternList List of given patterns.
          */
-        void filterRowsByPatternList(PATTERN_LIST patternList);
+        void filterRowsByPatternList(const PATTERN_LIST& patternList);
 
         /**
          * Checks whether the given row follows the given relation.
@@ -129,7 +129,7 @@ namespace QPS {
          * @param relation The given relation.
          * @return bool
          */
-        bool followsRelation(std::vector<std::string>& row, QPS::RelationStruct relation);
+        bool followsRelation(std::vector<std::string>& row, const QPS::RelationStruct& relation);
 
         /**
          * Checks whether the given row follows the given pattern.
@@ -139,14 +139,14 @@ namespace QPS {
          * @return bool
          */
         bool followsPattern(std::vector<std::string> &row, QPS::PatternStruct pattern);
-        bool isPatternMatched(QPS::PatternStruct pattern);
+        static bool isPatternMatched(QPS::PatternStruct pattern);
 
         //for debug purpose
         void printTable();
         std::vector<std::vector<std::string>> getTable();
         std::unordered_map<std::string, int> getSynonymColRef();
-        void printStringVector(std::vector<std::string> v);
-        void printIntVector(std::vector<int> v);
+        static void printStringVector(const std::vector<std::string>& v);
+        void printIntVector(const std::vector<int>& v);
     };
 
     void suspendExecution(const std::string& errorMsg);

@@ -118,7 +118,7 @@ assign a;
 Select a pattern a (_, "  z")
 6
 5000
-24 - select pattern of subexpression 
+24 - select pattern of subexpression
 assign a;
 Select a pattern a("a", _"1"_)
 2, 5, 9, 10

@@ -19,9 +19,9 @@ class PKBInterface {
 public:
     static PKB* pkb;
 
-    void addProcedure(string name, int startingStmtNo, int endingStmtNo);
-    void addVariable(string name);
-    void addConst(int value);
+    static void addProcedure(string name, int startingStmtNo, int endingStmtNo);
+    static void addVariable(string name);
+    static void addConst(int value);
 
     virtual void addReadStatement(int statementNumber, int statementListNumber);
     virtual void addAssignStatement(int statementNumber, int statementListNumber, shared_ptr<TNode> rootNode);
@@ -38,7 +38,7 @@ public:
     virtual void addFollows(int frontStatementNumber, int backStatementNumber);
     virtual void addFollowsStar(int frontStatementNumber, int backStatementNumber);
 
-    vector<string> getAllEntity(EntityType type);
-    bool existRelation(RelationStruct relation);
-    shared_ptr<AssignNode> getAssignTNode(string assignRef);
+    static vector<string> getAllEntity(EntityType type);
+    static bool existRelation(const RelationStruct& relation);
+    static shared_ptr<AssignNode> getAssignTNode(const string& assignRef);
 };
