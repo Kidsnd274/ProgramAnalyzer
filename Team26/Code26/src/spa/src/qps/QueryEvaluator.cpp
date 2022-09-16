@@ -26,6 +26,6 @@ namespace QPS {
             query.resultTable.filterRowsByPatternList(query.getPatternList());
             query.queryStatus = QPS::EVALUATION_COMPLETED;
         }
-        query.resultTable.printTable();
+//        query.resultTable.printTable();
     }
 }
