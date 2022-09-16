@@ -26,8 +26,8 @@ namespace QPS {
 //            query.resultTable.deleteDuplicateRows({}); //duplicate if values are the same for all synonyms
             query.resultTable.filterRowsBySuchThatList(query.getSuchThatList());
             query.resultTable.filterRowsByPatternList(query.getPatternList());
-            std::cout << query.resultTable.getTable().size() << std::endl;
+//            std::cout << query.resultTable.getTable().size() << std::endl;
         }
-        query.resultTable.printTable();
+//        query.resultTable.printTable();
     }
 }
