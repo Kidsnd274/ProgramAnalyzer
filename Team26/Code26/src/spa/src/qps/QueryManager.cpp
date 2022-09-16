@@ -50,6 +50,9 @@ namespace QPS {
             std::cout << patternStruct.arg1.nameOfArgument + " - " + QPS::ARGToString(patternStruct.arg1.typeOfArgument) << std::endl;
             std::cout << patternStruct.arg2.nameOfArgument + " - " + QPS::ARGToString(patternStruct.arg2.typeOfArgument) << std::endl;
         }
+
+        std::cout << "————————Result Table————————" << std::endl;
+        container.getQueryStruct().resultTable.printTable();
         //////////////// for test only /////////////////
 
         QPS::QueryStruct query = container.getQueryStruct(); // Get the result of parsing.

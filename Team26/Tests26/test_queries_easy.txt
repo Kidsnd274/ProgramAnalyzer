@@ -1,5 +1,5 @@
 1 - Simple test with constants
 constant c; variable v; assign a; print p;
-Select a such that Modifies(_, v)
+Select a such that Modifies("x", _)
 9
 50000

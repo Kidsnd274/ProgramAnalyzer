@@ -62,13 +62,39 @@ namespace QPS {
 
     void QueryStruct::addSuchThatClause(RelationStruct relationToAdd) {
         this->suchThatList.emplace_back(relationToAdd);
+        if (QPS::isArgumentTypeSynonym(relationToAdd.arg1.typeOfArgument)) {
+            this->addUsedSynonym(relationToAdd.arg1.nameOfArgument);
+        }
+        if (QPS::isArgumentTypeSynonym(relationToAdd.arg2.typeOfArgument)) {
+            this->addUsedSynonym(relationToAdd.arg2.nameOfArgument);
+        }
     }
 
     void QueryStruct::addPatternClause(PatternStruct patternToAdd) {
         this->patternList.emplace_back(patternToAdd);
+        this->addUsedSynonym(patternToAdd.assign_syn);
+        if (QPS::isArgumentTypeSynonym(patternToAdd.arg1.typeOfArgument)) {
+            this->addUsedSynonym(patternToAdd.arg1.nameOfArgument);
+        }
+        if (QPS::isArgumentTypeSynonym(patternToAdd.arg2.typeOfArgument)) {
+            this->addUsedSynonym(patternToAdd.arg2.nameOfArgument);
+        }
     }
 
     void QueryStruct::addCandidate(CandidateStruct candidateToAdd) {
         this->candidateList.emplace_back(candidateToAdd);
+        this->addUsedSynonym(candidateToAdd.entityOfCandidate.nameOfEntity);
+    }
+
+    void QueryStruct::addUsedSynonym(std::string nameOfSynonym) {
+        this->usedSynonymList.insert(nameOfSynonym);
+    }
+
+    bool QueryStruct::isSynonymUsed(std::string nameOfSynonym) {
+        if (this->usedSynonymList.find(nameOfSynonym) != this->usedSynonymList.end()) {
+            return true;
+        } else {
+            return false;
+        }
     }
 }
