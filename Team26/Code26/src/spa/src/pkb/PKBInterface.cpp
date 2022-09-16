@@ -13,6 +13,7 @@
 #include "ConstantTable.h"
 #include "ProcedureTable.h"
 #include "StatementTable.h"
+#include "NodeTable.h"
 #include "PKBInterface.h"
 
 using namespace std;
@@ -66,12 +67,21 @@ void PKBInterface::addIfStatement(int statementNumber) {
     pkb->statementTable->insertStmt(stmt);
 }
 
+void PKBInterface::addNode(shared_ptr<AssignNode> n) {
+    pkb->nodeTable->insertNode(n);
+}
+
+vector<shared_ptr<AssignNode>> PKBInterface::getAllNodes() {
+    return pkb->nodeTable->getAllNodes();
+}
+
 void PKBInterface::addPrintStatement(int statementNumber) {
     Statement stmt;
     stmt.type = StatementType::PRINT;
     stmt.lineNumber = statementNumber;
     pkb->statementTable->insertStmt(stmt);
 }
+
 
 vector<string> PKBInterface::getAllEntity(EntityType type) {
     vector<string> result;

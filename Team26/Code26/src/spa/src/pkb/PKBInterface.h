@@ -6,6 +6,7 @@
 #include <vector>
 
 #include "qps/QueryProcessorTypes.h"
+#include "util/ast/AssignNode.h"
 #include "PKB.h"
 
 using namespace std;
@@ -25,5 +26,6 @@ public:
     void addIfStatement(int statementNumber);
     void addPrintStatement(int statementNumber);
     vector<string> getAllEntity(EntityType type);
-
+    void addNode(shared_ptr<AssignNode> n);
+    vector<shared_ptr<AssignNode>> getAllNodes();
 };

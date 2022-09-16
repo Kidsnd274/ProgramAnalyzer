@@ -37,6 +37,14 @@ namespace QPS {
          * @return A pointer of AST TNode.
          */
         static std::shared_ptr<AssignNode> getAssignTNode(std::string assignRef) {
+            std::vector<std::shared_ptr<AssignNode>> n = QueryManager::pkb->getAllNodes();
+            for (auto node: n) {
+                if (std::to_string(node->getStatementNumber()) == assignRef) {
+                    return node;
+                }
+            }
+            return nullptr;
+
 //            return QueryManager::pkb->getAssignTNode(assignRef);
         }
 

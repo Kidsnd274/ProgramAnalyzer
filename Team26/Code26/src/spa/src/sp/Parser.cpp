@@ -178,8 +178,10 @@ std::shared_ptr<AssignNode> Parser::parseAssign() {
     std::shared_ptr<TNode> expr = std::move(parseExpression());
     parseSemiColon();
     pkbInterface->addAssignStatement(currStatement);
+    std::shared_ptr<AssignNode> n = AssignNode::createAssignNode(currStatement, varAssigned, expr);
+    pkbInterface->addNode(n);
 
-    return AssignNode::createAssignNode(currStatement, varAssigned, expr);
+    return n;
 }
 
 std::shared_ptr<IfNode> Parser::parseIf() {

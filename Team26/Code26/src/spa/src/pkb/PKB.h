@@ -14,6 +14,7 @@ class VarTable;  // no need to #include "VarTable.h" as all I need is pointer
 class ConstantTable;
 class ProcedureTable;
 class StatementTable;
+class NodeTable;
 
 class PKB {
 public:
@@ -23,5 +24,6 @@ public:
     static StatementTable* statementTable;
 	static int setProcToAST(PROC p, TNode* r);
 	static TNode* getRootAST (PROC p);
+    static NodeTable* nodeTable;
 
 };

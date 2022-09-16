@@ -9,6 +9,7 @@
 #include "ConstantTable.h"
 #include "ProcedureTable.h"
 #include "StatementTable.h"
+#include "NodeTable.h"
 
 using namespace std;
 //using namespace StatementType;
@@ -17,6 +18,7 @@ ProcedureTable* PKB::procedureTable = new ProcedureTable();
 VarTable* PKB::varTable = new VarTable();
 ConstantTable* PKB::constantTable = new ConstantTable();
 StatementTable* PKB::statementTable = new StatementTable();
+NodeTable* PKB::nodeTable = new NodeTable();
 
 int PKB::setProcToAST(PROC p, TNode* r) {
 	return 0;
