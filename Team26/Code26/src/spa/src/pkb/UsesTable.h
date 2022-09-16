@@ -14,7 +14,7 @@ using namespace std;
 
 class UsesTable {
 private:
-    unordered_map<int, string> usesList;
+    unordered_map<int, vector<string>> usesList;
 public:
     void insertUses(int stmtLineNumber, string varName);
     bool existUses(int stmtLineNumber, string varName);

@@ -154,6 +154,8 @@ bool PKBInterface::existRelation(RelationStruct relation) {
     RelationType typeOfRelation = relation.typeOfRelation;
     ArgumentStruct arg1 = relation.arg1;
     ArgumentStruct arg2 = relation.arg2;
+    bool isArg1Wildcard = arg1.typeOfArgument == QPS::WILDCARD;
+    bool isArg2Wildcard = arg2.typeOfArgument == QPS::WILDCARD;
     bool result;
     switch (typeOfRelation) {
         case QPS::FOLLOWS:
@@ -179,12 +181,36 @@ bool PKBInterface::existRelation(RelationStruct relation) {
         case QPS::MODIFIES_S:
 //            assert(arg1.typeOfArgument == QPS::STMT_SYNONYM);
 //            assert(arg2.typeOfArgument == QPS::VAR_SYNONYM);
-            result = pkb->modifiesTable->existModifies(stoi(arg1.nameOfArgument), arg2.nameOfArgument);
+            if (isArg1Wildcard) {
+                if (isArg2Wildcard) {
+                    result = pkb->modifiesTable->existModifies(0, std::string());
+                } else {
+                    result = pkb->modifiesTable->existModifies(0, arg2.nameOfArgument);
+                }
+            } else {
+                if (isArg2Wildcard) {
+                    result = pkb->modifiesTable->existModifies(stoi(arg1.nameOfArgument), 0);
+                } else {
+                    result = pkb->modifiesTable->existModifies(stoi(arg1.nameOfArgument), arg2.nameOfArgument);
+                }
+            }
             break;
         case QPS::USES_S:
 //            assert(arg1.typeOfArgument == QPS::STMT_SYNONYM);
 //            assert(arg2.typeOfArgument == QPS::VAR_SYNONYM);
-            result = pkb->usesTable->existUses(stoi(arg1.nameOfArgument), arg2.nameOfArgument);
+            if (isArg1Wildcard) {
+                if (isArg2Wildcard) {
+                    result = pkb->usesTable->existUses(0, std::string());
+                } else {
+                    result = pkb->usesTable->existUses(0, arg2.nameOfArgument);
+                }
+            } else {
+                if (isArg2Wildcard) {
+                    result = pkb->usesTable->existUses(stoi(arg1.nameOfArgument), 0);
+                } else {
+                    result = pkb->usesTable->existUses(stoi(arg1.nameOfArgument), arg2.nameOfArgument);
+                }
+            }
             break;
         default:
             result = false;
