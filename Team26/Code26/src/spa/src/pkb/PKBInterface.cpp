@@ -161,11 +161,19 @@ bool PKBInterface::existRelation(RelationStruct relation) {
 //            assert(arg2.typeOfArgument == QPS::STMT_SYNONYM);
             result = pkb->followsTable->existFollows(stoi(arg1.nameOfArgument), stoi(arg2.nameOfArgument));
             break;
-        case QPS::FOLLOWS_T:
+        case QPS::FOLLOWS_T: {
 //            assert(arg1.typeOfArgument == QPS::STMT_SYNONYM);
 //            assert(arg2.typeOfArgument == QPS::STMT_SYNONYM);
-            result = pkb->followsStarTable->existFollowsStar(stoi(arg1.nameOfArgument), stoi(arg2.nameOfArgument));
+//            result = pkb->followsStarTable->existFollowsStar(stoi(arg1.nameOfArgument), stoi(arg2.nameOfArgument));
+            Statement stmt1 = pkb->statementTable->getStmtByLineNumber(stoi(arg1.nameOfArgument));
+            Statement stmt2 = pkb->statementTable->getStmtByLineNumber(stoi(arg2.nameOfArgument));
+            if (stmt1.statementListNumber == stmt2.statementListNumber && stmt1.lineNumber < stmt2.lineNumber) {
+                result = true;
+            } else {
+                result = false;
+            }
             break;
+        }
         case QPS::PARENT:
 //            assert(arg1.typeOfArgument == QPS::STMT_SYNONYM);
 //            assert(arg2.typeOfArgument == QPS::STMT_SYNONYM);
@@ -188,6 +196,12 @@ bool PKBInterface::existRelation(RelationStruct relation) {
             break;
         default:
             result = false;
+            break;
+        case USES_P:
+            break;
+        case MODIFIES_P:
+            break;
+        case INVALID_RELATION_TYPE:
             break;
     }
     return result;

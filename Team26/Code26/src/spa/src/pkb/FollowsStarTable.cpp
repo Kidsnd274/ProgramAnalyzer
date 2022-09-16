@@ -15,9 +15,10 @@ void FollowsStarTable::insertFollowsStar(int frontStmtLineNumber, int backStmtLi
 }
 
 bool FollowsStarTable::existFollowsStar(int frontStmtLineNumber, int backStmtLineNumber) {
-    unordered_map<int,int> list = this->followsStarList;
-    if (list.find(frontStmtLineNumber) != list.end() && list[frontStmtLineNumber] == backStmtLineNumber) {
-        return true;
-    }
-    return false;
+//    unordered_map<int,int> list = this->followsStarList;
+//    if (list.find(frontStmtLineNumber) != list.end() && list[frontStmtLineNumber] == backStmtLineNumber) {
+//        return true;
+//    }
+//    return false;
+
 }
