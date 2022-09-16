@@ -7,7 +7,7 @@
 namespace QPS {
     void BasicQueryEvaluator::evaluateQuery(QueryStruct& query) {
         query.generateUsedSynonymList();
-        if (query.queryStatus != QPS::EVALUATION_NOT_STARTED) {
+        if (query.queryStatus == QPS::SYNTAX_ERROR || query.queryStatus == QPS::SEMANTIC_ERROR) {
             return;
         }
         for (auto iter : query.getDeclaredSynonymMap()) {

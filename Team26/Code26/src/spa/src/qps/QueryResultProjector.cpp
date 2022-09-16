@@ -19,11 +19,11 @@ namespace QPS {
     std::string QueryResultProjector::getSelectTuples(QPS::QueryStruct query, std::list<std::string>& results) {
         if (query.queryStatus == QPS::SEMANTIC_ERROR) {
             results.push_back("semanticError");
-            return "semanticError";
+            return "SemanticError";
         }
         if (query.queryStatus == QPS::SYNTAX_ERROR) {
             results.push_back("syntaxError");
-            return "syntaxError";
+            return "SyntaxError";
         }
 
         std::string resultString;
