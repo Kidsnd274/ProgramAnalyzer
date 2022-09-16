@@ -8,21 +8,27 @@ namespace QPS {
             declaredSynonymMap(declaredSynonymMap),
             suchThatList(suchThatList),
             patternList(patternList),
-            candidateList(candidateList) {}
+            candidateList(candidateList) {
+        this->generateUsedSynonymList();
+    }
 
     QueryStruct::QueryStruct(DECLARED_SYNONYM_MAP &declaredSynonymMap,
                              SUCH_THAT_LIST &suchThatList,
                              CANDIDATE_LIST &candidateList) :
             declaredSynonymMap(declaredSynonymMap),
             suchThatList(suchThatList),
-            candidateList(candidateList) {}
+            candidateList(candidateList) {
+        this->generateUsedSynonymList();
+    }
 
     QueryStruct::QueryStruct(DECLARED_SYNONYM_MAP &declaredSynonymMap,
                              PATTERN_LIST &patternList,
                              CANDIDATE_LIST &candidateList) :
             declaredSynonymMap(declaredSynonymMap),
             patternList(patternList),
-            candidateList(candidateList) {}
+            candidateList(candidateList) {
+        this->generateUsedSynonymList();
+    }
 
     QueryStruct::QueryStruct() {
         this->declaredSynonymMap = DECLARED_SYNONYM_MAP();
@@ -88,6 +94,29 @@ namespace QPS {
 
     void QueryStruct::addUsedSynonym(std::string nameOfSynonym) {
         this->usedSynonymList.insert(nameOfSynonym);
+    }
+
+    void QueryStruct::generateUsedSynonymList() {
+        for (auto candidate : this->candidateList) {
+            this->addUsedSynonym(candidate.entityOfCandidate.nameOfEntity);
+        }
+        for (auto relation: this->suchThatList) {
+            if (QPS::isArgumentTypeSynonym(relation.arg1.typeOfArgument)) {
+                this->addUsedSynonym(relation.arg1.nameOfArgument);
+            }
+            if (QPS::isArgumentTypeSynonym(relation.arg2.typeOfArgument)) {
+                this->addUsedSynonym(relation.arg2.nameOfArgument);
+            }
+        }
+        for (auto pattern: this->patternList) {
+            this->addUsedSynonym(pattern.assign_syn);
+            if (QPS::isArgumentTypeSynonym(pattern.arg1.typeOfArgument)) {
+                this->addUsedSynonym(pattern.arg1.nameOfArgument);
+            }
+            if (QPS::isArgumentTypeSynonym(pattern.arg2.typeOfArgument)) {
+                this->addUsedSynonym(pattern.arg2.nameOfArgument);
+            }
+        }
     }
 
     bool QueryStruct::isSynonymUsed(std::string nameOfSynonym) {

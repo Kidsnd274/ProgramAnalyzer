@@ -2,6 +2,7 @@
 #include "QueryStruct.h"
 #include "QueryEvaluator.h"
 #include "QueryManager.h"
+#include <iostream>
 
 namespace QPS {
     void BasicQueryEvaluator::evaluateQuery(QueryStruct& query) {
@@ -10,6 +11,10 @@ namespace QPS {
             return;
         }
         for (auto iter : query.getDeclaredSynonymMap()) {
+            if (!query.isSynonymUsed(iter.first)) {
+                std::cout << "not used: " + iter.first << std::endl;
+                continue;
+            }
             QPS::EntityStruct entityStruct = {
                     iter.second,
                     iter.first

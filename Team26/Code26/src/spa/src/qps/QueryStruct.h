@@ -87,6 +87,7 @@ namespace QPS {
 
         void addUsedSynonym(std::string);
 
+        void generateUsedSynonymList();
         /**
          * Checks whether the given synonym is used in query
          * as candidate or argument.
