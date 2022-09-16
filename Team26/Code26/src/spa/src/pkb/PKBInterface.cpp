@@ -112,37 +112,37 @@ void PKBInterface::addFollowsStar(int frontStatementNumber, int backStatementNum
 vector<string> PKBInterface::getAllEntity(EntityType type) {
     vector<string> result;
     switch (type) {
-        case STATEMENT:
+        case QPS::STATEMENT:
             result = pkb->statementTable->getAllStmts();
             break;
-        case READ:
+        case QPS::READ:
             result = pkb->statementTable->getAllReads();
             break;
-        case PRINT:
+        case QPS::PRINT:
             result = pkb->statementTable->getAllPrints();
             break;
-        case CALL:
+        case QPS::CALL:
             result = pkb->statementTable->getAllCalls();
             break;
-        case WHILE:
+        case QPS::WHILE:
             result = pkb->statementTable->getAllWhiles();
             break;
-        case IF:
+        case QPS::IF:
             result = pkb->statementTable->getAllIfs();
             break;
-        case ASSIGN:
+        case QPS::ASSIGN:
             result = pkb->statementTable->getAllAssigns();
             break;
-        case VARIABLE:
+        case QPS::VARIABLE:
             result = pkb->varTable->getAllVariables();
             break;
-        case CONSTANT:
+        case QPS::CONSTANT:
             result = pkb->constantTable->getAllConstants();
             break;
-        case PROCEDURE:
+        case QPS::PROCEDURE:
             result = pkb->procedureTable->getAllProcedures();
             break;
-//        case INVALID_ENTITY_TYPE:
+//        case QPS::INVALID_ENTITY_TYPE:
 //            break;
         default:
             break;
@@ -202,4 +202,12 @@ shared_ptr<AssignNode> PKBInterface::getAssignTNode(string assignRef) {
     shared_ptr<TNode> tNode = assignStmt.rootNode;
 
     return AssignNode::createAssignNode(assignStmtNo, varName, tNode);
+}
+
+void PKBInterface::addModifies(std::string procedureName, std::string varName) {
+
+}
+
+void PKBInterface::addUses(std::string procedureName, std::string varName) {
+
 }

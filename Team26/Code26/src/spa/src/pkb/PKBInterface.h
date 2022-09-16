@@ -22,11 +22,12 @@ public:
     void addProcedure(string name, int startingStmtNo, int endingStmtNo);
     void addVariable(string name);
     void addConst(int value);
-    void addReadStatement(int statementNumber, int statementListNumber);
-    void addAssignStatement(int statementNumber, int statementListNumber, shared_ptr<TNode> rootNode);
-    void addWhileStatement(int statementNumber, int statementListNumber);
-    void addIfStatement(int statementNumber, int statementListNumber);
-    void addPrintStatement(int statementNumber, int statementListNumber);
+
+    virtual void addReadStatement(int statementNumber, int statementListNumber);
+    virtual void addAssignStatement(int statementNumber, int statementListNumber, shared_ptr<TNode> rootNode);
+    virtual void addWhileStatement(int statementNumber, int statementListNumber);
+    virtual void addIfStatement(int statementNumber, int statementListNumber);
+    virtual void addPrintStatement(int statementNumber, int statementListNumber);
 
     virtual void addModifies(int statementNumber, string varName);
     virtual void addModifies(std::string procedureName, std::string varName);
