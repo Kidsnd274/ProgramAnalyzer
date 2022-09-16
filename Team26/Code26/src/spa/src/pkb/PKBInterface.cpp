@@ -312,7 +312,7 @@ bool PKBInterface::existRelation(const RelationStruct& relation) {
 shared_ptr<AssignNode> PKBInterface::getAssignTNode(const string& assignRef) {
     int assignStmtNo = stoi(assignRef);
     assert(pkb->modifiesTable->existStatement(assignStmtNo) == true);
-    string varName = pkb->modifiesTable->getModifiesVar(assignStmtNo);
+    string varName = (pkb->modifiesTable->getModifiesVar(assignStmtNo)).at(0);
     Statement assignStmt = pkb->statementTable->getStmtByLineNumber(assignStmtNo);
     assert(assignStmt.type == StatementType::ASSIGN);
     shared_ptr<TNode> tNode = assignStmt.rootNode;
