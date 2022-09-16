@@ -184,10 +184,10 @@ bool PKBInterface::existRelation(const RelationStruct& relation) {
                 break;
             }
             if (arg2.typeOfArgument == WILDCARD) {
-                Statement stmt1 = pkb->statementTable->getStmtByLineNumber(stoi(arg2.nameOfArgument));
+                Statement stmt1 = pkb->statementTable->getStmtByLineNumber(stoi(arg1.nameOfArgument));
                 result = false;
                 for (Statement statement : pkb->statementTable->getStatementList()) {
-                    if (statement.statementListNumber == stmt1.statementListNumber && statement.lineNumber > stmt1.lineNumber) {
+                    if (statement.statementListNumber == stmt1.statementListNumber && stmt1.lineNumber < statement.lineNumber) {
                         result = true;
                         break;
                     }
