@@ -28,11 +28,11 @@ namespace QPS {
         SUCH_THAT_LIST suchThatList;
         PATTERN_LIST patternList;
         CANDIDATE_LIST candidateList;
-        unordered_set<std::string> usedSynonymList;
 
     public:
         QueryStatus queryStatus;
         ResultTable resultTable;
+        unordered_set<std::string> usedSynonymList;
 
     public:
         QueryStruct(DECLARED_SYNONYM_MAP &declaredSynonymMap,

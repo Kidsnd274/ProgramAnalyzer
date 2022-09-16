@@ -6,13 +6,13 @@
 
 namespace QPS {
     void BasicQueryEvaluator::evaluateQuery(QueryStruct& query) {
+        query.generateUsedSynonymList();
         if (query.queryStatus == QPS::EVALUATION_COMPLETED
             || query.queryStatus == QPS::EVALUATION_ERROR) {
             return;
         }
         for (auto iter : query.getDeclaredSynonymMap()) {
             if (!query.isSynonymUsed(iter.first)) {
-                std::cout << "not used: " + iter.first << std::endl;
                 continue;
             }
             QPS::EntityStruct entityStruct = {
