@@ -157,33 +157,33 @@ bool PKBInterface::existRelation(RelationStruct relation) {
     bool result;
     switch (typeOfRelation) {
         case QPS::FOLLOWS:
-            assert(arg1.typeOfArgument == QPS::STMT_SYNONYM);
-            assert(arg2.typeOfArgument == QPS::STMT_SYNONYM);
+//            assert(arg1.typeOfArgument == QPS::STMT_SYNONYM);
+//            assert(arg2.typeOfArgument == QPS::STMT_SYNONYM);
             result = pkb->followsTable->existFollows(stoi(arg1.nameOfArgument), stoi(arg2.nameOfArgument));
             break;
         case QPS::FOLLOWS_T:
-            assert(arg1.typeOfArgument == QPS::STMT_SYNONYM);
-            assert(arg2.typeOfArgument == QPS::STMT_SYNONYM);
+//            assert(arg1.typeOfArgument == QPS::STMT_SYNONYM);
+//            assert(arg2.typeOfArgument == QPS::STMT_SYNONYM);
             result = pkb->followsStarTable->existFollowsStar(stoi(arg1.nameOfArgument), stoi(arg2.nameOfArgument));
             break;
         case QPS::PARENT:
-            assert(arg1.typeOfArgument == QPS::STMT_SYNONYM);
-            assert(arg2.typeOfArgument == QPS::STMT_SYNONYM);
+//            assert(arg1.typeOfArgument == QPS::STMT_SYNONYM);
+//            assert(arg2.typeOfArgument == QPS::STMT_SYNONYM);
             result = pkb->parentTable->existParent(stoi(arg1.nameOfArgument), stoi(arg2.nameOfArgument));
             break;
         case QPS::PARENT_T:
-            assert(arg1.typeOfArgument == QPS::STMT_SYNONYM);
-            assert(arg2.typeOfArgument == QPS::STMT_SYNONYM);
+//            assert(arg1.typeOfArgument == QPS::STMT_SYNONYM);
+//            assert(arg2.typeOfArgument == QPS::STMT_SYNONYM);
             result = pkb->parentStarTable->existParentStar(stoi(arg1.nameOfArgument), stoi(arg2.nameOfArgument));
             break;
         case QPS::MODIFIES_S:
-            assert(arg1.typeOfArgument == QPS::STMT_SYNONYM);
-            assert(arg2.typeOfArgument == QPS::VAR_SYNONYM);
+//            assert(arg1.typeOfArgument == QPS::STMT_SYNONYM);
+//            assert(arg2.typeOfArgument == QPS::VAR_SYNONYM);
             result = pkb->modifiesTable->existModifies(stoi(arg1.nameOfArgument), arg2.nameOfArgument);
             break;
         case QPS::USES_S:
-            assert(arg1.typeOfArgument == QPS::STMT_SYNONYM);
-            assert(arg2.typeOfArgument == QPS::VAR_SYNONYM);
+//            assert(arg1.typeOfArgument == QPS::STMT_SYNONYM);
+//            assert(arg2.typeOfArgument == QPS::VAR_SYNONYM);
             result = pkb->usesTable->existUses(stoi(arg1.nameOfArgument), arg2.nameOfArgument);
             break;
         default:

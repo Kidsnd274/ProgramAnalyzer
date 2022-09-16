@@ -364,16 +364,16 @@ namespace QPS {
         }
 //        std::cout << realRelation.arg2.typeOfArgument << std::endl; // for test only
 //        std::cout << realRelation.arg2.nameOfArgument << std::endl;
-//        if (QueryManager::isRelationExist(realRelation)) {
-//            return true;
-//        } else {
-//            return false;
-//        }
-        if (QPSTests::PKBStub::existRelation(realRelation)) { // for test only.
+        if (QueryManager::isRelationExist(realRelation)) {
             return true;
         } else {
             return false;
         }
+//        if (QPSTests::PKBStub::existRelation(realRelation)) { // for test only.
+//            return true;
+//        } else {
+//            return false;
+//        }
     }
 
     bool ResultTable::followsPattern(std::vector<std::string> &row, QPS::PatternStruct pattern) {

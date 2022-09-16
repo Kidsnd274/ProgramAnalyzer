@@ -37,7 +37,7 @@ namespace QPS {
          * @return A pointer of AST TNode.
          */
         static std::shared_ptr<AssignNode> getAssignTNode(std::string assignRef) {
-//            return QueryManager::pkb->getAssignTNode(assignRef);
+            return QueryManager::pkb->getAssignTNode(assignRef);
         }
 
         /**
@@ -47,7 +47,7 @@ namespace QPS {
          * @return bool.
          */
         static bool isRelationExist(RelationStruct relationStruct) {
-//            return QueryManager::pkb->isRelationExist(relationStruct);
+            return QueryManager::pkb->existRelation(relationStruct);
         }
     };
 
