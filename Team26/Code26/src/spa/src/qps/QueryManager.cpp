@@ -51,7 +51,7 @@ namespace QPS {
                 break;
             }
             case VALID: {
-                queryStatus = VALID_QUERY
+                queryStatus = VALID_QUERY;
             }
         }
 
