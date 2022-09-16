@@ -6,7 +6,7 @@
 std::string validSimple = "procedure test {\n  read x;\n  x = var1231a + 1;\n}";
 std::string invalidSimple = "procedure test {\n  if(x < = y) then {\n read x;\n} else {\n read y;\n }\n   x = x + 1;\n}";
 std::string testsprint1 = "procedure sprint1 {\n read x;\n print y;\n x = x + 1;\n if(x < y) then {\n x = z + y * 3;\n y = x + 1;\n z = x + 5;\n } else {\n print p;\n x = 3 + 4;\n z = x + 3;\n }\n z = x + y;\n}";
-std::string variableNamesAsKeywords = "procedure procedure {\n print = read + 1;\n read print;\n print read;\n if (if > 1) then {\n else = else + 1;\n } else {\n if = if + 1;\n }\n while (while > 1) {\n while = while + 1;\n }\n }";
+std::string variableNamesAsKeywords = "procedure procedure {\n print = read + 1;\n read print;\n print read;\n if (if > 1) then {\n else = else + 1;\n } else {\n if = if + 1;\n }\n while ((while > 1)&&(x>1)) {\n while = while + 1;\n }\n }";
 
 TEST_CASE("Basic Lexer test on valid SIMPLE") {
     Lexer lexer(validSimple);
@@ -107,9 +107,17 @@ TEST_CASE("Lexer test with variable names as keywords") {
                                      TokenTypeExtractor::createTerminal("}"),
                                      TokenTypeExtractor::createNonTerminal("while"),
                                      TokenTypeExtractor::createTerminal("("),
+                                     TokenTypeExtractor::createTerminal("("),
                                      TokenTypeExtractor::createNonTerminal("while"),
                                      TokenTypeExtractor::createTerminal(">"),
                                      TokenTypeExtractor::createConst("1"),
+                                     TokenTypeExtractor::createTerminal(")"),
+                                     TokenTypeExtractor::createTerminal("&&"),
+                                     TokenTypeExtractor::createTerminal("("),
+                                     TokenTypeExtractor::createNonTerminal("x"),
+                                     TokenTypeExtractor::createTerminal(">"),
+                                     TokenTypeExtractor::createConst("1"),
+                                     TokenTypeExtractor::createTerminal(")"),
                                      TokenTypeExtractor::createTerminal(")"),
                                      TokenTypeExtractor::createTerminal("{"),
                                      TokenTypeExtractor::createNonTerminal("while"),

@@ -427,7 +427,25 @@ TEST_CASE("Parse Cond") {
     SECTION("Simple Condition") {
         std::vector<SPToken> v = {SPToken("x", SPTokenType::NameToken),
                                 SPToken("<=", SPTokenType::RelationToken),
-                                SPToken("y", SPTokenType::NameToken)};
+                                SPToken("y", SPTokenType::NameToken),
+                                SPToken(")", SPTokenType::RParenToken)};
+        Parser pr(v, &pkbInterface);
+        REQUIRE_NOTHROW(pr.parseCond());
+    }
+
+    SECTION("Harder Condition") {
+        std::vector<SPToken> v = {SPToken("x", SPTokenType::NameToken),
+                                  SPToken("+", SPTokenType::OpToken),
+                                  SPToken("y", SPTokenType::NameToken),
+                                  SPToken("*", SPTokenType::FactorToken),
+                                  SPToken("3", SPTokenType::ConstToken),
+                                  SPToken("<=", SPTokenType::RelationToken),
+                                  SPToken("y", SPTokenType::NameToken),
+                                  SPToken("-", SPTokenType::OpToken),
+                                  SPToken("z", SPTokenType::NameToken),
+                                  SPToken("/", SPTokenType::FactorToken),
+                                  SPToken("test1", SPTokenType::NameToken),
+                                  SPToken(")", SPTokenType::RParenToken)};
         Parser pr(v, &pkbInterface);
         REQUIRE_NOTHROW(pr.parseCond());
     }

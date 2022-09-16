@@ -232,10 +232,10 @@ std::shared_ptr<TNode> Parser::parseCond() {
 }
 
 std::shared_ptr<TNode> Parser::parseRel() {
-    std::shared_ptr<TNode> relFactor = std::move(parseRelFactor());
+    std::shared_ptr<TNode> relFactor = std::move(parseExpression());
     string relToken = tokenStack->peekNext().getTokenString();
     parseRelationToken();
-    std::shared_ptr<TNode> relFactor2 = std::move(parseRelFactor());
+    std::shared_ptr<TNode> relFactor2 = std::move(parseExpression());
 
     return TNode::createRelationalExpression(statementCount, relToken, relFactor, relFactor2);
 }
