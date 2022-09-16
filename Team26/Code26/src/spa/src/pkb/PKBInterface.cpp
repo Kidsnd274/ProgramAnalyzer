@@ -206,11 +206,36 @@ bool PKBInterface::existRelation(const RelationStruct& relation) {
         case QPS::PARENT:
 //            assert(arg1.typeOfArgument == QPS::STMT_SYNONYM);
 //            assert(arg2.typeOfArgument == QPS::STMT_SYNONYM);
+            if (isArg1Wildcard && isArg2Wildcard) {
+                result = pkb->parentTable->existParent(0, 0);
+                break;
+            }
+            if (isArg1Wildcard) {
+                result = pkb->parentTable->existParent(0, stoi(arg2.nameOfArgument));
+                break;
+            }
+            if (isArg2Wildcard) {
+                result = pkb->parentTable->existParent(stoi(arg1.nameOfArgument), 0);
+                break;
+            }
             result = pkb->parentTable->existParent(stoi(arg1.nameOfArgument), stoi(arg2.nameOfArgument));
             break;
         case QPS::PARENT_T:
 //            assert(arg1.typeOfArgument == QPS::STMT_SYNONYM);
 //            assert(arg2.typeOfArgument == QPS::STMT_SYNONYM);
+//            result = pkb->parentStarTable->existParentStar(stoi(arg1.nameOfArgument), stoi(arg2.nameOfArgument));
+            if (isArg1Wildcard && isArg2Wildcard) {
+                result = pkb->parentStarTable->existParentStar(0, 0);
+                break;
+            }
+            if (isArg1Wildcard) {
+                result = pkb->parentStarTable->existParentStar(0, stoi(arg2.nameOfArgument));
+                break;
+            }
+            if (isArg2Wildcard) {
+                result = pkb->parentStarTable->existParentStar(stoi(arg1.nameOfArgument), 0);
+                break;
+            }
             result = pkb->parentStarTable->existParentStar(stoi(arg1.nameOfArgument), stoi(arg2.nameOfArgument));
             break;
         case QPS::MODIFIES_S:
