@@ -16,6 +16,10 @@ namespace QPS {
         FINISH_PARSE_SELECT,
         START_PARSE_SUCH,
         FINISH_PARSE_SUCH,
+        START_PARSE_SUCH_CLAUSE,
+        FINISH_PARSE_SUCH_CLAUSE,
+        START_PARSE_PATTERN_CLAUSE,
+        FINISH_PARSE_PATTERN_CLAUSE
     };
 
     class Container {

@@ -14,7 +14,7 @@ using namespace std;
 
 class ParentTable {
 private:
-    unordered_map<int, int> parentList;
+    unordered_map<int, vector<int>> parentList;
 public:
     void insertParent(int parentStmtLineNumber, int childStmtListNumber);
     bool existParent(int parentStmtLineNumber, int childStmtListNumber);
