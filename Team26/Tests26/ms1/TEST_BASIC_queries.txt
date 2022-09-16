@@ -115,7 +115,7 @@ Select s such that Modifies(s, _)
 5000
 23 - select pattern of exact match
 assign a;
-Select a pattern a (_, "  z")
+Select a pattern a (_, _"z"_)
 6
 5000
 24 - select pattern of subexpression
