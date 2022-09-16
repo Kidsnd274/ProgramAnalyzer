@@ -5,7 +5,7 @@
 using namespace std;
 
 void ParentTable::insertParent(int parentStmtLineNumber, int childStmtLineNumber) {
-    std::pair<int,vector<int>> parent (parentStmtLineNumber, childStmtLineNumber);
+    std::pair<int,vector<int>> parent (parentStmtLineNumber, {childStmtLineNumber});
     if (this->parentList.find(parentStmtLineNumber) != parentList.end()) {
         this->parentList[parentStmtLineNumber].push_back(childStmtLineNumber);
     } else {
