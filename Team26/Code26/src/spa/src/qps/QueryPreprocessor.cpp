@@ -556,7 +556,7 @@ namespace QPS {
             ARG1 = convertStringToStmtRef(tokens[pos], container);
 //            std::cout << "parse first arg" << std::endl;
             pos++;
-        } else if (pos < tokens.size() && tokens[pos].tokenType == WILDCARD_TOKEN) {
+        } else if (pos < tokens.size() && tokens[pos].tokenType == UNDERSCORE) {
             ARG1 = {{WILDCARD, "_"}, VALID};
             pos++;
         } else if (pos < tokens.size() && tokens[pos].tokenType == DOUBLE_QUOTE && tokens[pos+2].tokenType == DOUBLE_QUOTE

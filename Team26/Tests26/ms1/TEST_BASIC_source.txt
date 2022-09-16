@@ -1,6 +1,6 @@
 procedure foo {
 	print x;
-	call bar;
+	x = 1;
 }
 
 procedure bar {
@@ -10,9 +10,9 @@ procedure bar {
 	} else {
 		y = z + m;
 	}
-      while (1+1==2) {
-          while (1+2 == 3) {
-              a = 1 + 1;
-          }
-      }
+	x = 0;
+    while (x< 3) {
+        a = 1 + 1;
+        x = x + 1;
+    }
 }

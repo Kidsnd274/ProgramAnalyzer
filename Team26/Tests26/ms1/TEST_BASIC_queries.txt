@@ -8,15 +8,10 @@ print pt;
 Select pt
 1
 5000
-3 - select call without clause
-call cl;
-Select cl
-2
-5000
 4 - select while without clause
 while w;
 Select w
-7, 8
+8
 5000
 5 - select if without clause
 if ifs;
@@ -26,7 +21,7 @@ Select ifs
 6 - select assign without clause
 assign a;
 Select a
-5, 6, 9
+9 10 7 6 5 2
 5000
 7 - select follows synonyms
 print pt; stmt s;
@@ -175,6 +170,6 @@ Select s1T2U3y4 pattern a(v, _"1"_) such that Follows*(s1T2U3y4, w)
 5000
 35 - (invalid such that) mix case 5
 stmt s1T2U3y4; variable v; assign a; while w; if ifs;
-Select s1T2U3y4 pattern a(v, _"1"_) suhc that Follows*(s1T2U3y4, w)
+Select s1T2U3y4 pattern a(v, _"1"_) such that Follows*(s1T2U3y4, w)
 none
 5000
