@@ -157,13 +157,12 @@ namespace QPS {
                         break;
                     }
                     case INVALID_ENTITY_TYPE: {
-                        std::cout << "invalid entity" << std::endl;
                         return INVALID_ENTITY;
                     }
                 }
             } else if (relationMappingResult.second) {
                 // Valid relation
-                if (container.getStatus() != FINISH_PARSE_SUCH) {
+                if (container.getStatus() != START_PARSE_SUCH_CLAUSE) {
                     // Invalid query that doesn't have such that
                 } else {
                     switch (relationMappingResult.first) {
@@ -265,7 +264,6 @@ namespace QPS {
                         }
                         case INVALID_RELATION_TYPE:
                         {
-                            std::cout << "invalid relation" << std::endl;
                             return INVALID_RELATION;
                         }
                     }
@@ -280,23 +278,24 @@ namespace QPS {
                     return result.second;
                 }
                 container.setStatus(FINISH_PARSE_SELECT);
-            }  else if (curr.tokenType == QPS::NAME && curr.nameValue == "such") {
+            }  else if (curr.tokenType == QPS::NAME && curr.nameValue == "such" && (container.getStatus() == FINISH_PARSE_PATTERN_CLAUSE || container.getStatus() == FINISH_PARSE_SELECT)) {
                 container.setStatus(START_PARSE_SUCH);
             }  else if (curr.tokenType == QPS::NAME && curr.nameValue == "that" && container.getStatus() == START_PARSE_SUCH) {
                 container.setStatus(FINISH_PARSE_SUCH);
+                container.setStatus(START_PARSE_SUCH_CLAUSE);
             } else if (container.getStatus() == START_PARSE_SUCH && (curr.tokenType != QPS::NAME || curr.nameValue != "that")) {
                 return INVALID_SUCH_THAT;
-            } else if (curr.tokenType == QPS::NAME && curr.nameValue == "pattern") {
+            } else if (curr.tokenType == QPS::NAME && curr.nameValue == "pattern" && (container.getStatus() == FINISH_PARSE_SUCH_CLAUSE || container.getStatus() == FINISH_PARSE_SELECT)) {
                 tokenPos++;
                 std::pair<int, Exception> result = parsePattern(tokens, tokenPos, container);
                 if (result.second != VALID) {
                     return result.second;
                 } else {
+                    container.setStatus(FINISH_PARSE_PATTERN_CLAUSE);
                     tokenPos = result.first - 1;
                 }
             } else {
                return UNMATCHED_QUERY_TYPE;
-
             }
             tokenPos++;
         }
@@ -397,13 +396,10 @@ namespace QPS {
                                           EntityType entityType,
                                           Container &container) {
         std::vector<std::string> entityNames;
-//        std::cout << "parse declaration: " << tokens[pos].nameValue << std::endl;
         while (pos < tokens.size() && tokens[pos].tokenType != QPS::SEMICOLON) {
             QPS::Token curr = tokens[pos];
             if (curr.tokenType == QPS::COMMA) {
-//                std::cout << "comma" <<std::endl;
             } else if (curr.tokenType == QPS::NAME) {
-//                std::cout << "parse declaration: name" << std::endl;
                 container.addDeclaration(entityType, curr.nameValue);
             } else {
                 return {pos, INVALID_DECLARATION};
@@ -414,7 +410,6 @@ namespace QPS {
         if (pos >= tokens.size()) {
             return {-1, INVALID_DECLARATION};
         } else {
-//            std::cout << "Finish parsing declaration" << std::endl;
             return {pos, VALID};
         }
 
@@ -513,6 +508,7 @@ namespace QPS {
         }
         if (ARG1.second == VALID && ARG2.second == VALID) {
             container.addSuchThatClause(relationType, ARG1.first, ARG2.first);
+            container.setStatus(FINISH_PARSE_SUCH_CLAUSE);
             return {pos, VALID};
         } else {
             if (ARG1.second != VALID) {
@@ -580,6 +576,7 @@ namespace QPS {
             return {pos, INVALID_RELATION_SYNTAX};
         }
         if (ARG1.second == VALID && ARG2.second == VALID) {
+            container.setStatus(FINISH_PARSE_SUCH_CLAUSE);
             container.addSuchThatClause(relationType, ARG1.first, ARG2.first);
             return {pos, VALID};
         } else {
