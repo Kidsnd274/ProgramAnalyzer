@@ -405,11 +405,12 @@ namespace QPS {
         }
     }
 
+    //Issues: when match non-existent symbol: VALID
     bool ResultTable::isPatternMatched(QPS::PatternStruct pattern) {
         shared_ptr<AssignNode> assignNode = QueryManager::getAssignTNode(pattern.assign_syn);
         // check variable names
         std::string varName = assignNode->getVariableName();
-        if (varName != pattern.arg1.nameOfArgument) {
+        if (pattern.arg1.typeOfArgument != WILDCARD && varName != pattern.arg1.nameOfArgument) {
             return false;
         }
         //Check position of wildcard and get a trimmed string.
