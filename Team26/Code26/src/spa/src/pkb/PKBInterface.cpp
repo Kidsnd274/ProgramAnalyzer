@@ -162,6 +162,32 @@ bool PKBInterface::existRelation(const RelationStruct& relation) {
         case QPS::FOLLOWS:
 //            assert(arg1.typeOfArgument == QPS::STMT_SYNONYM);
 //            assert(arg2.typeOfArgument == QPS::STMT_SYNONYM);
+            if (arg1.typeOfArgument == WILDCARD && arg2.typeOfArgument == WILDCARD) {
+                result = true;
+                break;
+            }
+            if (arg1.typeOfArgument == WILDCARD) {
+                Statement stmt2 = pkb->statementTable->getStmtByLineNumber(stoi(arg2.nameOfArgument));
+                result = false;
+                for (Statement statement : pkb->statementTable->getStatementList()) {
+                    if (statement.statementListNumber == stmt2.statementListNumber && statement.lineNumber + 1 == stmt2.lineNumber) {
+                        result = true;
+                        break;
+                    }
+                }
+                break;
+            }
+            if (arg2.typeOfArgument == WILDCARD) {
+                Statement stmt1 = pkb->statementTable->getStmtByLineNumber(stoi(arg1.nameOfArgument));
+                result = false;
+                for (Statement statement : pkb->statementTable->getStatementList()) {
+                    if (statement.statementListNumber == stmt1.statementListNumber && stmt1.lineNumber + 1 == statement.lineNumber) {
+                        result = true;
+                        break;
+                    }
+                }
+                break;
+            }
             result = pkb->followsTable->existFollows(stoi(arg1.nameOfArgument), stoi(arg2.nameOfArgument));
             break;
         case QPS::FOLLOWS_T: {
