@@ -17,6 +17,9 @@ namespace QPS {
     Exception parseToken(std::vector<QPS::Token> &tokens, Container& container) {
         int tokenPos = 0;
         container.setStatus(START_PARSE_DECLARATION);
+        if (tokens[tokens.size() - 1].tokenType == SEMICOLON) {
+            return INVALID_SELECT;
+        }
         while (tokenPos < tokens.size()) {
             QPS::Token curr = tokens[tokenPos];
 //            std::cout << curr.nameValue << std::endl;
@@ -319,14 +322,16 @@ namespace QPS {
         if (pos < tokens.size() && tokens[pos].tokenType == NAME) {
             DECLARED_SYNONYM_MAP declarationMap = container.getDeclarationMap();
             auto iterator = declarationMap.find( tokens[pos].nameValue);
-            if (iterator == declarationMap.end() || iterator->second != ASSIGN) {
+            if (iterator == declarationMap.end()) {
                 return {pos, UNDECLARED_ENTITY_PATTERN};
+            } else if (iterator->second != ASSIGN) {
+                return {pos, INVALID_PATTERN_CONTENT};
             } else {
                 assign_syn = iterator->first;
                 pos++;
             }
         } else {
-            return {pos, INVALID_PATTERN_NAME};
+            return {pos, INVALID_PATTERN_CONTENT};
         }
         if (pos < tokens.size() && tokens[pos].tokenType == LPAREN) {
             pos++;
@@ -334,7 +339,7 @@ namespace QPS {
             return {pos, INVALID_PATTERN_SYNTAX};
         }
 
-        std::pair<ArgumentStruct,bool> ARG1;
+        std::pair<ArgumentStruct,bool> ARG1, ARG2;
         if (pos < tokens.size() && (tokens[pos].tokenType == NAME)) {
             ARG1 = convertStringToARG(tokens[pos], container);
             pos++;
@@ -358,6 +363,17 @@ namespace QPS {
             pos++;
         } else {
             return {pos, INVALID_PATTERN_SYNTAX};
+        }
+
+        if (tokens[pos].tokenType == NAME) {
+            ARG2 = convertStringToARG(tokens[pos], container);
+            if (ARG2.second && (ARG2.first.typeOfArgument == VAR_SYNONYM || ARG2.first.typeOfArgument == CONST_SYNONYM
+            || ARG2.first.typeOfArgument == PROCEDURE_SYNONYM || ARG2.first.typeOfArgument == WHILE_SYNONYM
+            || ARG2.first.typeOfArgument == IF_SYNONYM || ARG2.first.typeOfArgument == ASSIGN_SYNONYM
+            || ARG2.first.typeOfArgument == STMT_SYNONYM || ARG2.first.typeOfArgument == PRINT_SYNONYM
+            || ARG2.first.typeOfArgument == CALL_SYNONYM || ARG2.first.typeOfArgument == READ_SYNONYM)) {
+                return {pos, INVALID_PATTERN_CONTENT};
+            }
         }
 
         if (tokens[pos].tokenType == UNDERSCORE) {
@@ -473,15 +489,13 @@ namespace QPS {
 
         if (pos < tokens.size() && (tokens[pos].tokenType == NAME || tokens[pos].tokenType == INTEGER)) {
             ARG1 = convertStringToStmtRef(tokens[pos], container);
+            if (ARG1.second != VALID || ARG1.first.typeOfArgument == PROCEDURE_SYNONYM) {
+                return {pos, INVALID_RELATION_CONTENT};
+            }
             pos++;
         } else if (pos < tokens.size() && tokens[pos].tokenType == UNDERSCORE) {
             ARG1 = {{WILDCARD, "_"}, VALID};
             pos++;
-        } else if (pos < tokens.size() && tokens[pos].tokenType == DOUBLE_QUOTE && tokens[pos+2].tokenType == DOUBLE_QUOTE
-                   && tokens[pos + 1].tokenType == NAME) {
-            std::string actual_name = tokens[pos + 1].nameValue;
-            ARG1 = {{ACTUAL_NAME, actual_name}, VALID};
-            pos += 3;
         } else {
             return {pos, INVALID_RELATION_CONTENT};
         }
@@ -492,13 +506,11 @@ namespace QPS {
             return {pos, INVALID_RELATION_SYNTAX};
         }
 
-        if (pos < tokens.size() && tokens[pos].tokenType == DOUBLE_QUOTE && tokens[pos+2].tokenType == DOUBLE_QUOTE
-            && tokens[pos + 1].tokenType == NAME) {
-            std::string actual_name = tokens[pos + 1].nameValue;
-            ARG2 = {{ACTUAL_NAME, actual_name}, VALID};
-            pos += 3;
-        } else if (pos < tokens.size() && (tokens[pos].tokenType == NAME || tokens[pos].tokenType == INTEGER)) {
+       if (pos < tokens.size() && (tokens[pos].tokenType == NAME || tokens[pos].tokenType == INTEGER)) {
             ARG2 = convertStringToStmtRef(tokens[pos], container);
+           if (ARG2.second != VALID || ARG2.first.typeOfArgument == PROCEDURE_SYNONYM) {
+               return {pos, INVALID_RELATION_CONTENT};
+           }
             pos++;
         } else if (pos < tokens.size() && tokens[pos].tokenType == UNDERSCORE) {
             ARG2 = {{WILDCARD, "_"}, VALID};
@@ -545,7 +557,7 @@ namespace QPS {
             pos++;
         } else if (pos < tokens.size() && tokens[pos].tokenType == UNDERSCORE) {
             ARG1 = {{WILDCARD, "_"}, VALID};
-            pos++;
+            return {pos, INVALID_RELATION_CONTENT}
         } else if (pos < tokens.size() && tokens[pos].tokenType == DOUBLE_QUOTE && tokens[pos+2].tokenType == DOUBLE_QUOTE
                    && tokens[pos + 1].tokenType == NAME) {
             std::string actual_name = tokens[pos + 1].nameValue;
@@ -607,15 +619,13 @@ namespace QPS {
             } else {
                 EntityType entityType = iterator->second;
                 switch (entityType) {
-                    case PROCEDURE: {
-                        return {{PROCEDURE_SYNONYM, token.nameValue}, VALID};
-                    }
                     case VARIABLE: {
                         return {{VAR_SYNONYM, token.nameValue}, VALID};
                     }
                     case CONSTANT:{
                         return {{CONST_SYNONYM, token.nameValue}, VALID};
                     }
+                    case PROCEDURE:
                     case STATEMENT:
                     case READ:
                     case PRINT:
@@ -662,10 +672,12 @@ namespace QPS {
                     case IF:{
                         return {{IF_SYNONYM, token.nameValue}, VALID};
                     }
+                    case PROCEDURE: {
+                        return {{PROCEDURE_SYNONYM, token.nameValue}, VALID};
+                    }
                     case ASSIGN:{
                         return {{ASSIGN_SYNONYM, token.nameValue}, VALID};
                     }
-                    case PROCEDURE:
                     case VARIABLE:
                     case CONSTANT:
                     case INVALID_ENTITY_TYPE:{
