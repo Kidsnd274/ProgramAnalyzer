@@ -488,6 +488,11 @@ namespace QPS {
         } else if (pos < tokens.size() && tokens[pos].tokenType == UNDERSCORE) {
             ARG1 = {{WILDCARD, "_"}, VALID};
             pos++;
+        } else if (pos < tokens.size() && tokens[pos].tokenType == DOUBLE_QUOTE && tokens[pos+2].tokenType == DOUBLE_QUOTE
+                   && tokens[pos + 1].tokenType == NAME) {
+            std::string actual_name = tokens[pos + 1].nameValue;
+            ARG1 = {{ACTUAL_NAME, actual_name}, VALID};
+            pos += 3;
         } else {
             return {pos, INVALID_RELATION_CONTENT};
         }
@@ -509,6 +514,7 @@ namespace QPS {
 //            std::cout << "parse second arg" << std::endl;
             pos++;
         } else if (pos < tokens.size() && tokens[pos].tokenType == UNDERSCORE) {
+//            std::cout << "second underscore" << std::endl;
             ARG2 = {{WILDCARD, "_"}, VALID};
             pos++;
         } else {
@@ -586,6 +592,9 @@ namespace QPS {
         } else if (pos < tokens.size() && (tokens[pos].tokenType == NAME || tokens[pos].tokenType == INTEGER)) {
             ARG2 = convertStringToEntRef(tokens[pos], container);
 //            std::cout << "parse second arg" << std::endl;
+            pos++;
+        } else if (pos < tokens.size() && tokens[pos].tokenType == UNDERSCORE) {
+            ARG2 = {{WILDCARD, "_"}, VALID};
             pos++;
         } else {
             return {pos, INVALID_RELATION_CONTENT};
