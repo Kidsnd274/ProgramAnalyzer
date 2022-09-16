@@ -5,6 +5,12 @@
 #include <string>
 #include <utility>
 
+enum class WildcardPosition {
+    LEFT,
+    RIGHT,
+    BOTH,
+    NONE
+};
 enum class NodeType {
     Expression,
     ConditionalExpression,
@@ -40,6 +46,13 @@ public:
     std::string getValue();
 
     static bool isSameTree(const std::shared_ptr<TNode> &t1, const std::shared_ptr<TNode> &t2);
+
+    /**
+     * Return true if t2 is a subtree of t1.
+     *
+     * @return bool
+     */
+    static bool matchSubTree(const std::shared_ptr<TNode> &t1, const std::shared_ptr<TNode> &t2, const WildcardPosition pos);
 
     // Static Constructors
     static std::shared_ptr<TNode> createConstantValue(int statementNumber, std::string value);

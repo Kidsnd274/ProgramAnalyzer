@@ -49,6 +49,8 @@ namespace QPS {
         PARENT_T,   // Parent*(stmtRef, stmtRef)
         USES_S,
         MODIFIES_S,
+        USES_P,
+        MODIFIES_P,
         INVALID_RELATION_TYPE
     };
 
@@ -83,18 +85,50 @@ namespace QPS {
         SYNTACTICALLY_INVALID_QUERY // Return empty result.
     };
 
+    enum Exception {
+        INVALID_ENTITY,
+        INVALID_RELATION_SYNTAX,
+        INVALID_SELECT,
+        INVALID_SUCH_THAT,
+        INVALID_PATTERN_NAME,
+        INVALID_PATTERN_SYNTAX,
+        UNDECLARED_ENTITY_PATTERN,
+        UNDECLARED_ENTITY_SUCH_THAT,
+        UNMATCHED_QUERY_TYPE,
+        INVALID_RELATION,
+        INVALID_RELATION_CONTENT,
+        INVALID_PATTERN_CONTENT,
+        INVALID_DECLARATION,
+        VALID
+    };
+
+
     /*
      * Enum of Argument Types in Relation or Pattern.
      */
     enum ArgumentType {
+        IF_SYNONYM,
+        WHILE_SYNONYM,
+        READ_SYNONYM,
+        PRINT_SYNONYM,
+        CALL_SYNONYM,
+        ASSIGN_SYNONYM,
         STMT_SYNONYM,
         VAR_SYNONYM,
         PROCEDURE_SYNONYM,
         CONST_SYNONYM,
-        NAME_OF_ENTITY,
+        ACTUAL_NAME,
         NUMBER,
         WILDCARD,
+        EXPRESSION,
         INVALID_ARGUMENT_TYPE
+    };
+
+
+    enum ExpressionMatchingType {
+        EXACT_MATCHING,
+        PARTIAL_MATCHING,
+        WILDCARD_MATCHING
     };
 
     /*
@@ -124,6 +158,7 @@ namespace QPS {
      */
     struct PatternStruct {
         PatternType typeOfPattern;
+        std::string assign_syn;
         ArgumentStruct arg1;
         ArgumentStruct arg2;
     };
@@ -142,9 +177,12 @@ namespace QPS {
     typedef std::vector<CandidateStruct> CANDIDATE_LIST;
 
     CandidateType mapEntityToCandidate(EntityType entityType);
+    bool isArgumentTypeSynonym(QPS::ArgumentType argumentType);
     std::string entityToString(EntityType entityType);
     std::string candidateToString(CandidateType candidateType);
-
+    std::string relationToString (RelationType relationType);
+    std::string ARGToString (ArgumentType argumentType);
+    std::string exceptionToStringQPS(Exception e);
 
 }
 #endif // QUERYPROCESSORTYPES_H

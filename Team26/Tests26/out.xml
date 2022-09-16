@@ -1,57 +1,22 @@
 <?xml-stylesheet type="text/xsl" href="analysis.xsl"?>
 <test_results>
 <info>
-<name>autotester</name><parsing_time_taken>0.307000</parsing_time_taken>
+<name>autotester</name><parsing_time_taken>0.320000</parsing_time_taken>
 </info>
 <queries>
 <query>
-<id ReturnTuple="1" CondNum="1" RelNum="0" comment="Simple test with constants">1</id><querystr><![CDATA[constant c; Select c;]]></querystr>
-<stuans>3,1</stuans>
-<correct>1,3</correct>
-<time_taken>4.338000</time_taken>
-<passed/>
-</query>
-<query>
-<id ReturnTuple="1" CondNum="1" RelNum="0" comment="Simple test with variables">2</id><querystr><![CDATA[variable v; Select v;]]></querystr>
-<stuans>p,z,y,x</stuans>
-<correct>p,x,y,z</correct>
-<time_taken>4.019000</time_taken>
-<passed/>
-</query>
-<query>
-<id ReturnTuple="1" CondNum="1" RelNum="0" comment="Simple test with if">3</id><querystr><![CDATA[if i; Select i;]]></querystr>
-<stuans>4</stuans>
-<correct>4</correct>
-<time_taken>3.603000</time_taken>
-<passed/>
-</query>
-<query>
-<id ReturnTuple="1" CondNum="1" RelNum="0" comment="Simple test with print">4</id><querystr><![CDATA[print p; Select p;]]></querystr>
-<stuans>6,2</stuans>
-<correct>2,6</correct>
-<time_taken>3.509000</time_taken>
-<passed/>
-</query>
-<query>
-<id ReturnTuple="1" CondNum="1" RelNum="0" comment="Simple test with read">5</id><querystr><![CDATA[read r; Select r;]]></querystr>
-<stuans>1</stuans>
-<correct>1</correct>
-<time_taken>3.456000</time_taken>
-<passed/>
-</query>
-<query>
-<id ReturnTuple="1" CondNum="1" RelNum="0" comment="Simple constant and variable">6</id><querystr><![CDATA[read r; variable v; Select v, r;]]></querystr>
-<stuans>p1,z1,y1,x1</stuans>
-<correct>p 1,x 1,y 1,z 1</correct>
-<time_taken>8.933000</time_taken>
+<id ReturnTuple="1" Follows="1" UnnamedVar="2" Pattern="1" SuchThat="1" CondNum="6" RelNum="1" comment="Simple test with constants">1</id><querystr><![CDATA[constant c; variable v; assign a; print p; Select a such that Follows(p, 1) pattern a (_, _"x"_)]]></querystr>
+<stuans></stuans>
+<correct>9</correct>
+<time_taken>58.125000</time_taken>
 <failed>
-<missing>p 1,x 1,y 1,z 1</missing>
-<additional>p1,x1,y1,z1</additional>
+<missing>9</missing>
+<additional></additional>
 <summary>
-<expected>4</expected>
+<expected>1</expected>
 <matched>0</matched>
-<missing>4</missing>
-<additional>4</additional>
+<missing>1</missing>
+<additional>0</additional>
 </summary>
 </failed>
 </query>
