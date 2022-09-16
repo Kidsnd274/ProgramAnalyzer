@@ -167,6 +167,32 @@ bool PKBInterface::existRelation(RelationStruct relation) {
 //            assert(arg1.typeOfArgument == QPS::STMT_SYNONYM);
 //            assert(arg2.typeOfArgument == QPS::STMT_SYNONYM);
 //            result = pkb->followsStarTable->existFollowsStar(stoi(arg1.nameOfArgument), stoi(arg2.nameOfArgument));
+            if (arg1.typeOfArgument == WILDCARD && arg2.typeOfArgument == WILDCARD) {
+                result = true;
+                break;
+            }
+            if (arg1.typeOfArgument == WILDCARD) {
+                Statement stmt2 = pkb->statementTable->getStmtByLineNumber(stoi(arg2.nameOfArgument));
+                result = false;
+                for (Statement statement : pkb->statementTable->getStatementList()) {
+                    if (statement.statementListNumber == stmt2.statementListNumber && statement.lineNumber < stmt2.lineNumber) {
+                        result = true;
+                        break;
+                    }
+                }
+                break;
+            }
+            if (arg2.typeOfArgument == WILDCARD) {
+                Statement stmt1 = pkb->statementTable->getStmtByLineNumber(stoi(arg2.nameOfArgument));
+                result = false;
+                for (Statement statement : pkb->statementTable->getStatementList()) {
+                    if (statement.statementListNumber == stmt1.statementListNumber && statement.lineNumber > stmt1.lineNumber) {
+                        result = true;
+                        break;
+                    }
+                }
+                break;
+            }
             Statement stmt1 = pkb->statementTable->getStmtByLineNumber(stoi(arg1.nameOfArgument));
             Statement stmt2 = pkb->statementTable->getStmtByLineNumber(stoi(arg2.nameOfArgument));
             if (stmt1.statementListNumber == stmt2.statementListNumber && stmt1.lineNumber < stmt2.lineNumber) {
