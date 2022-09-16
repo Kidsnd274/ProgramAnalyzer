@@ -312,7 +312,6 @@ namespace QPS {
                                        Container &container) {
         std::string assign_syn;
         std::string expression;
-//        std::cout << "parse pattern" << std::endl;
         if (pos < tokens.size() && tokens[pos].tokenType == NAME) {
             DECLARED_SYNONYM_MAP declarationMap = container.getDeclarationMap();
             auto iterator = declarationMap.find( tokens[pos].nameValue);
@@ -327,7 +326,6 @@ namespace QPS {
         }
         if (pos < tokens.size() && tokens[pos].tokenType == LPAREN) {
             pos++;
-//            std::cout << "parse (" << std::endl;
         } else {
             return {pos, INVALID_PATTERN_SYNTAX};
         }
@@ -335,7 +333,6 @@ namespace QPS {
         std::pair<ArgumentStruct,bool> ARG1;
         if (pos < tokens.size() && (tokens[pos].tokenType == NAME)) {
             ARG1 = convertStringToARG(tokens[pos], container);
-//            std::cout << "parse first arg" << std::endl;
             pos++;
         } else if (pos < tokens.size() && tokens[pos].tokenType == UNDERSCORE) {
             ARG1 = {{WILDCARD, "_"}, VALID};
@@ -355,13 +352,10 @@ namespace QPS {
 
         if (pos < tokens.size() && tokens[pos].tokenType == COMMA) {
             pos++;
-//            std::cout << "parse comma" << std::endl;
         } else {
             return {pos, INVALID_PATTERN_SYNTAX};
         }
 
-        //parse expression specific
-//        std::cout << "parse expression specific" << std::endl;
         if (tokens[pos].tokenType == UNDERSCORE) {
             expression += "_";
             pos++;
@@ -390,7 +384,6 @@ namespace QPS {
 
         if (pos < tokens.size() && tokens[pos].tokenType == RPAREN) {
             pos++;
-//            std::cout << "parse )" << std::endl;
         } else {
             return {pos, INVALID_PATTERN_SYNTAX};
         }
@@ -436,7 +429,6 @@ namespace QPS {
             if (curr.tokenType == QPS::NAME && curr.nameValue == "Select") {
                 pos++;
             } else if (curr.tokenType == QPS::NAME && curr.nameValue != "such" && curr.nameValue != "pattern") {
-//                std::cout << "select: " << curr.nameValue << std::endl;
                 EntityType entityType = container.getQueryStruct().getDeclaration(curr.nameValue);
                 if (entityType != INVALID_ENTITY_TYPE) {
                     container.addCandidateList(entityType, curr.nameValue);
@@ -471,19 +463,16 @@ namespace QPS {
     std::pair<int, Exception> parseRelationStmtStmt(std::vector<QPS::Token> &tokens,
                                                     int pos, RelationType relationType,
                                                     Container &container) {
-//        std::cout << "parse stmt" << std::endl;
         std::pair<ArgumentStruct, Exception> ARG1, ARG2;
 
         if (pos < tokens.size() && tokens[pos].tokenType == LPAREN) {
             pos++;
-//            std::cout << "parse (" << std::endl;
         } else {
             return {pos, INVALID_RELATION_SYNTAX};
         }
 
         if (pos < tokens.size() && (tokens[pos].tokenType == NAME || tokens[pos].tokenType == INTEGER)) {
             ARG1 = convertStringToStmtRef(tokens[pos], container);
-//            std::cout << "parse first arg" << std::endl;
             pos++;
         } else if (pos < tokens.size() && tokens[pos].tokenType == UNDERSCORE) {
             ARG1 = {{WILDCARD, "_"}, VALID};
@@ -499,7 +488,6 @@ namespace QPS {
 
         if (pos < tokens.size() && tokens[pos].tokenType == COMMA) {
             pos++;
-//            std::cout << "parse comma" << std::endl;
         } else {
             return {pos, INVALID_RELATION_SYNTAX};
         }
@@ -511,10 +499,8 @@ namespace QPS {
             pos += 3;
         } else if (pos < tokens.size() && (tokens[pos].tokenType == NAME || tokens[pos].tokenType == INTEGER)) {
             ARG2 = convertStringToStmtRef(tokens[pos], container);
-//            std::cout << "parse second arg" << std::endl;
             pos++;
         } else if (pos < tokens.size() && tokens[pos].tokenType == UNDERSCORE) {
-//            std::cout << "second underscore" << std::endl;
             ARG2 = {{WILDCARD, "_"}, VALID};
             pos++;
         } else {
@@ -523,22 +509,16 @@ namespace QPS {
 
         if (pos < tokens.size() && tokens[pos].tokenType == RPAREN) {
             pos++;
-//            std::cout << "parse )" << std::endl;
         } else {
             return {pos, INVALID_RELATION_SYNTAX};
         }
         if (ARG1.second == VALID && ARG2.second == VALID) {
             container.addSuchThatClause(relationType, ARG1.first, ARG2.first);
-//            std::cout << "parse stmt finish" << std::endl;
-
             return {pos, VALID};
         } else {
             if (ARG1.second != VALID) {
-//                std::cout << "arg1 invalid" << std::endl;
                 return {pos, ARG1.second};
             } else {
-//                std::cout << "arg2 invalid" << std::endl;
-
                 return {pos, ARG2.second};
             }
 
@@ -551,19 +531,16 @@ namespace QPS {
     std::pair<int, Exception> parseRelationStmtEnt(std::vector<QPS::Token> &tokens,
                                                int pos, RelationType relationType,
                                                Container &container) {
-//        std::cout << "parse stmt" << std::endl;
         std::pair<ArgumentStruct, Exception> ARG1, ARG2;
 
         if (pos < tokens.size() && tokens[pos].tokenType == LPAREN) {
             pos++;
-//            std::cout << "parse (" << std::endl;
         } else {
             return {pos, INVALID_RELATION_SYNTAX};
         }
 
         if (pos < tokens.size() && (tokens[pos].tokenType == NAME || tokens[pos].tokenType == INTEGER)) {
             ARG1 = convertStringToStmtRef(tokens[pos], container);
-//            std::cout << "parse first arg" << std::endl;
             pos++;
         } else if (pos < tokens.size() && tokens[pos].tokenType == UNDERSCORE) {
             ARG1 = {{WILDCARD, "_"}, VALID};
@@ -571,7 +548,7 @@ namespace QPS {
         } else if (pos < tokens.size() && tokens[pos].tokenType == DOUBLE_QUOTE && tokens[pos+2].tokenType == DOUBLE_QUOTE
                    && tokens[pos + 1].tokenType == NAME) {
             std::string actual_name = tokens[pos + 1].nameValue;
-            ARG1 = {{ACTUAL_NAME, actual_name}, VALID};
+            ARG1 = {{PROCEDURE_SYNONYM, actual_name}, VALID};
             pos += 3;
         } else {
             return {pos, INVALID_RELATION_CONTENT};
@@ -579,7 +556,6 @@ namespace QPS {
 
         if (pos < tokens.size() && tokens[pos].tokenType == COMMA) {
             pos++;
-//            std::cout << "parse comma" << std::endl;
         } else {
             return {pos, INVALID_RELATION_SYNTAX};
         }
@@ -591,7 +567,6 @@ namespace QPS {
             pos += 3;
         } else if (pos < tokens.size() && (tokens[pos].tokenType == NAME || tokens[pos].tokenType == INTEGER)) {
             ARG2 = convertStringToEntRef(tokens[pos], container);
-//            std::cout << "parse second arg" << std::endl;
             pos++;
         } else if (pos < tokens.size() && tokens[pos].tokenType == UNDERSCORE) {
             ARG2 = {{WILDCARD, "_"}, VALID};
@@ -602,22 +577,16 @@ namespace QPS {
 
         if (pos < tokens.size() && tokens[pos].tokenType == RPAREN) {
             pos++;
-//            std::cout << "parse )" << std::endl;
         } else {
             return {pos, INVALID_RELATION_SYNTAX};
         }
         if (ARG1.second == VALID && ARG2.second == VALID) {
             container.addSuchThatClause(relationType, ARG1.first, ARG2.first);
-//            std::cout << "parse stmt finish" << std::endl;
-
             return {pos, VALID};
         } else {
             if (ARG1.second != VALID) {
-//                std::cout << "arg1 invalid" << std::endl;
                 return {pos, ARG1.second};
             } else {
-//                std::cout << "arg2 invalid" << std::endl;
-
                 return {pos, ARG2.second};
             }
 
