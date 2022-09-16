@@ -170,7 +170,8 @@ bool PKBInterface::existRelation(const RelationStruct& relation) {
                 Statement stmt2 = pkb->statementTable->getStmtByLineNumber(stoi(arg2.nameOfArgument));
                 result = false;
                 for (Statement statement : pkb->statementTable->getStatementList()) {
-                    if (statement.statementListNumber == stmt2.statementListNumber && statement.lineNumber + 1 == stmt2.lineNumber) {
+                    if (statement.statementListNumber == stmt2.statementListNumber &&
+                    pkb->followsTable->existFollows(statement.lineNumber, stmt2.lineNumber)) {
                         result = true;
                         break;
                     }
@@ -181,7 +182,8 @@ bool PKBInterface::existRelation(const RelationStruct& relation) {
                 Statement stmt1 = pkb->statementTable->getStmtByLineNumber(stoi(arg1.nameOfArgument));
                 result = false;
                 for (Statement statement : pkb->statementTable->getStatementList()) {
-                    if (statement.statementListNumber == stmt1.statementListNumber && stmt1.lineNumber + 1 == statement.lineNumber) {
+                    if (statement.statementListNumber == stmt1.statementListNumber &&
+                    pkb->followsTable->existFollows(stmt1.lineNumber, statement.lineNumber)) {
                         result = true;
                         break;
                     }
