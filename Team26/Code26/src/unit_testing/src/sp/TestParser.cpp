@@ -150,7 +150,7 @@ std::vector<SPToken> testVariableNamesAreKeywords = {
         SPToken("if", SPTokenType::IfToken),
         SPToken("(", SPTokenType::LParenToken),
         SPToken("if", SPTokenType::IfToken),
-        SPToken(">", SPTokenType::CondToken),
+        SPToken(">", SPTokenType::RelationToken),
         SPToken("1", SPTokenType::ConstToken),
         SPToken(")", SPTokenType::RParenToken),
         SPToken("then", SPTokenType::ThenToken),
@@ -174,7 +174,7 @@ std::vector<SPToken> testVariableNamesAreKeywords = {
         SPToken("while", SPTokenType::WhileToken),
         SPToken("(", SPTokenType::LParenToken),
         SPToken("while", SPTokenType::WhileToken),
-        SPToken(">", SPTokenType::CondToken),
+        SPToken(">", SPTokenType::RelationToken),
         SPToken("1", SPTokenType::ConstToken),
         SPToken(")", SPTokenType::RParenToken),
         SPToken("{", SPTokenType::LCurlyToken),
@@ -188,10 +188,10 @@ std::vector<SPToken> testVariableNamesAreKeywords = {
         SPToken("}", SPTokenType::RCurlyToken)
 };
 
-//TEST_CASE("Basic Parser Test with valid program with keywords as variable names") {
-//    Parser p(testVariableNamesAreKeywords, &pkbInterface);
-//    REQUIRE_NOTHROW(p.parseSimple());
-//}
+TEST_CASE("Basic Parser Test with valid program with keywords as variable names") {
+    Parser p(testVariableNamesAreKeywords, &pkbInterface);
+    REQUIRE_NOTHROW(p.parseSimple());
+}
 
 TEST_CASE("Basic Parser Test with valid program") {
     Parser p(validSimpleTokens, &pkbInterface);
