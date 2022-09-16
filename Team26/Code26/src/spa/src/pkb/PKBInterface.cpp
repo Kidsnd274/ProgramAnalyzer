@@ -249,7 +249,7 @@ bool PKBInterface::existRelation(const RelationStruct& relation) {
                 }
             } else {
                 if (isArg2Wildcard) {
-                    result = pkb->modifiesTable->existModifies(stoi(arg1.nameOfArgument), 0);
+                    result = pkb->modifiesTable->existModifies(stoi(arg1.nameOfArgument), std::string());
                 } else {
                     result = pkb->modifiesTable->existModifies(stoi(arg1.nameOfArgument), arg2.nameOfArgument);
                 }
