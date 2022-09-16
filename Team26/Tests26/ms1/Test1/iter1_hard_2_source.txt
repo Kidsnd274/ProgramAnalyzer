@@ -1,0 +1,34 @@
+procedure hard2 {
+    while ((x>1)&&(y>2)) {
+        if (x > 1) then {
+            z = x * 3 - 2;
+            if (y < 10) then {
+                z = x + y + 1 * 2;
+            } else {
+                read z;
+                print z;
+            }
+            read x;
+            while (x * 1 - 4 < 11) {
+                a  = b + 1;
+                if (x > 10 - y) then {
+                    b = a + 2;
+                } else {
+                    x = a + b;
+                }
+                print a;
+                print b;
+            }
+            read y;
+        } else {
+            read x;
+            print y;
+        }
+    }
+
+    x = y + a + b;
+    print x;
+    print y;
+    print a;
+
+}

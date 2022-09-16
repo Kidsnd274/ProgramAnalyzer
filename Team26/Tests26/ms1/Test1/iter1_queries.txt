@@ -1,0 +1,30 @@
+1 - Get all variables
+variable v;
+Select v
+y, x, z, i, monke
+1000
+2 - Get all assign
+assign a;
+Select a
+1, 2, 3, 6, 8, 9, 10, 11
+1000
+3 - Get all read
+read r;
+Select r
+4
+1000
+4 - Get all print
+print p;
+Select p
+12
+1000
+5 - Get all while
+while w;
+Select w
+5
+1000
+6 - Get all if
+if f;
+Select f
+7
+1000

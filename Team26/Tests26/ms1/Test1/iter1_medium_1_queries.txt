@@ -1,0 +1,630 @@
+1 - select all statement
+stmt s;
+Select s
+1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11
+5000
+2 - select all read
+read r;
+Select r
+3, 8
+5000
+3 - select all print
+print pn;
+Select pn
+2, 6, 9
+5000
+4 - select all while
+while w;
+Select w
+1
+5000
+5 - select all if
+if ifs;
+Select ifs
+7
+5000
+6 - select all assign
+assign a;
+Select a
+4, 5, 10, 11
+5000
+7 - select all variable
+variable v;
+Select v
+nouse1, x, x2, x3, y, z
+5000
+8 - select all constant
+constant c;
+Select c
+10, 5
+5000
+9 - select all procedure
+procedure p;
+Select p
+main
+5000
+10 - select statement with Follows where Follows has 2 statement numbers
+stmt s;
+Select s such that Follows(1,2)
+none
+5000
+11 - select statement with Follows, where synonym is follower and lineNo is followed
+stmt s;
+Select s such that Follows(s,3)
+2
+5000
+12 - select statement with Follows, where synonym is wildcard and synonym is followed
+stmt s;
+Select s such that Follows(_, 3)
+1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11
+5000
+13 - select statement with Follows, where synonym is lineNo and synonym is followed
+stmt s;
+Select s such that Follows(3, s)
+4
+5000
+14 - select statement with Follows, where follower and followed is synonym (same synonyms)
+stmt s;
+Select s such that Follows(s, s)
+none
+5000
+15 - select statement with Follows, where follower and followed is synonym
+stmt s, s1;
+Select s such that Follows(s, s1)
+1, 2, 3, 4, 6, 8, 9
+5000
+16 - select statement with Follows where wildcard is follower and synonym is followed
+stmt s;
+Select s such that Follows(_, s)
+3, 4, 5, 6, 7, 9, 10
+5000
+17 - select statement with Follows where follower is lineNo and followed is wildcard
+stmt s;
+Select s such that Follows(1, _)
+1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11
+5000
+18 - select statement with Follows where follower is synonym and followed is wildcard
+stmt s;
+Select s such that Follows(s, _)
+1, 2, 3, 4, 6, 8, 9
+5000
+19 - select statement with Follows where follower is wildcard and followed is wildcard
+stmt s;
+Select s such that Follows(_, _)
+1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11
+5000
+20 - select assign with Follows where follower is assign synonym and followed is wildcard
+assign a;
+Select a such that Follows(a, _)
+4
+5000
+21 - select read with Follows where follower is read synonym and followed is wildcard
+read r;
+Select r such that Follows(r, _)
+3, 8
+5000
+22 - select print with Follows where follower is wildcard and followed is is print synonym
+print pn;
+Select pn such that Follows(_, pn)
+6, 9
+5000
+23 - select while with Follows where follower is while synonym and followed is wildcard
+while w;
+Select w such that Follows(w, _)
+1
+5000
+24 - select  if with Follows where follower is if synonym and followed is wildcard
+if ifs;
+Select ifs such that Follows(ifs, _)
+none
+5000
+25 - select statement with Follows* where Follows has 2 statement numbers
+stmt s;
+Select s such that Follows*(1,3)
+none
+5000
+26 - select statement with Follows*, where synonym is follower and lineNo is transitiveFollowed
+stmt s;
+Select s such that Follows*(s,3)
+2
+5000
+27 - select statement with Follows*, where synonym is wildcard and synonym is transitiveFollowed
+stmt s;
+Select s such that Follows*(_, 3)
+1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11
+5000
+28 - select statement with Follows*, where synonym is lineNo and synonym is transitiveFollowed
+stmt s;
+Select s such that Follows*(3, s)
+4, 5
+5000
+29 - select statement with Follows*, where follower and transitiveFollowed is synonym (same synonyms)
+stmt s;
+Select s such that Follows*(s, s)
+none
+5000
+30 - select statement with Follows*, where follower and transitiveFollowed is synonym
+stmt s, s1;
+Select s such that Follows*(s, s1)
+1, 2, 3, 4, 6, 8, 9
+5000
+31 - select statement with Follows* where wildcard is follower and synonym is transitiveFollowed
+stmt s;
+Select s such that Follows*(_, s)
+10, 3, 4, 5, 6, 7, 9
+5000
+32 - select statement with Follows* where follower is lineNo and wildcard is transitiveFollowed
+stmt s;
+Select s such that Follows*(1, _)
+1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11
+5000
+33 - select statement with Follows* where follower is synonym and transitiveFollowed is wildcard
+stmt s;
+Select s such that Follows*(s, _)
+1, 2, 3, 4, 6, 8, 9
+5000
+34 - select statement with Follows* where follower is wildcard and transitiveFollowed is wildcard
+stmt s;
+Select s such that Follows*(_, _)
+1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11
+5000
+35 - select assign with Follows* where follower is assign synonym and transitiveFollowed is wildcard
+assign a;
+Select a such that Follows*(a, _)
+4
+5000
+36 - select read with Follows* where follower is read synonym and transitiveFollowed is wildcard
+read r;
+Select r such that Follows*(r, _)
+3, 8
+5000
+37 - select print with Follows* where follower is print synonym and transitiveFollowed is wildcard
+print pn;
+Select pn such that Follows*(pn, _)
+2, 6, 9
+5000
+38 - select  while with Follows* where follower is while synonym and transitiveFollowed is wildcard
+while w;
+Select w such that Follows*(w, _)
+1
+5000
+39 - select  if with Follows* where follower is if synonym and transitiveFollowed is wildcard
+if ifs;
+Select ifs such that Follows*(ifs, _)
+none
+5000
+40 - select statement with Parent where Parent has 2 statement numbers
+stmt s;
+Select s such that Parent(1,3)
+1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11
+5000
+41 - select statement with Parent, where synonym is parent and lineNo is child
+stmt s;
+Select s such that Parent(s,3)
+1
+5000
+42 - select statement with Parent, where synonym is wildcard and synonym is child
+stmt s;
+Select s such that Parent(_, 3)
+1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11
+5000
+43 - select statement with Parent, where synonym is lineNo and synonym is child
+stmt s;
+Select s such that Parent(3, s)
+none
+5000
+44 - select statement with Parent, where parent and child is synonym (same synonyms)
+stmt s;
+Select s such that Parent(s, s)
+none
+5000
+45 - select statement with Parent, where parent and child is synonym
+stmt s, s1;
+Select s such that Parent(s, s1)
+1, 7
+5000
+46 - select statement with Parent where wildcard is parent and synonym is child
+stmt s;
+Select s such that Parent(_, s)
+2, 3, 4, 5, 8, 9, 10, 11
+5000
+47 - select statement with Parent where parent is lineNo and child is wildcard
+stmt s;
+Select s such that Parent(1, _)
+1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11
+5000
+48 - select statement with Parent where parent is synonym and child is wildcard
+stmt s;
+Select s such that Parent(s, _)
+1, 7
+5000
+49 - select statement with Parent where parent is wildcard and child is wildcard
+stmt s;
+Select s such that Parent(_, _)
+1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11
+5000
+50 - select assign with Parent where parent is assign synonym and child is wildcard
+assign a;
+Select a such that Parent(a, _)
+none
+5000
+51 - select read with Parent* where parent is read synonym and child is wildcard
+read r;
+Select r such that Parent(r, _)
+none
+5000
+52 - select print with Parent* where parent is print synonym and child is wildcard
+print pn;
+Select pn such that Parent(pn, _)
+none
+5000
+53 - select while with Parent* where parent is while synonym and child is wildcard
+while w;
+Select w such that Parent(w, _)
+1
+5000
+54 - select  if with Parent* where parent is if synonym and child is wildcard
+if ifs;
+Select ifs such that Parent(ifs, _)
+7
+5000
+55 - select statement with Parent* where Parent has 2 statement numbers
+stmt s;
+Select s such that Parent*(1,3)
+1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11
+5000
+56 - select statement with Parent*, where synonym is parent and lineNo is transitiveChild
+stmt s;
+Select s such that Parent*(s,3)
+1
+5000
+57 - select statement with Parent*, where synonym is wildcard and synonym is transitiveChild
+stmt s;
+Select s such that Parent*(_, 3)
+1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11
+5000
+58 - select statement with Parent*, where synonym is lineNo and synonym is transitiveChild
+stmt s;
+Select s such that Parent*(3, s)
+none
+5000
+59 - select statement with Parent*, where parent and transitiveChild is synonym (same synonyms)
+stmt s;
+Select s such that Parent*(s, s)
+none
+5000
+60 - select statement with Parent*, where parent and transitiveChild is synonym
+stmt s, s1;
+Select s such that Parent*(s, s1)
+1, 7
+5000
+61 - select statement with Parent* where wildcard is parent and synonym is transitiveChild
+stmt s;
+Select s such that Parent*(_, s)
+2, 3, 4, 5, 8, 9, 10, 11
+5000
+62 - select statement with Parent* where parent is lineNo and wildcard is transitiveChild
+stmt s;
+Select s such that Parent*(1, _)
+1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11
+5000
+63 - select statement with Parent* where parent is synonym and transitiveChild is wildcard
+stmt s;
+Select s such that Parent*(s, _)
+1, 7
+5000
+64 - select statement with Parent* where parent is wildcard and transitiveChild is wildcard
+stmt s;
+Select s such that Parent*(_, _)
+1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11
+5000
+65 - select assign with Parent* where parent is assign synonym and transitiveChild is wildcard
+assign a;
+Select a such that Parent(a, _)
+none
+5000
+66 - select read with Parent* where parent is read synonym and transitiveChild  is wildcard
+read r;
+Select r such that Parent*(r, _)
+none
+5000
+67 - select print with Parent* where parent is print synonym and transitiveChild  is wildcard
+print pn;
+Select pn such that Parent*(pn, _)
+none
+5000
+68 - select while with Parent* where parent is while synonym and transitiveChild  is wildcard
+while w;
+Select w such that Parent*(w, _)
+1
+5000
+69 - select if with Parent* where parent is if synonym and transitiveChild  is wildcard
+if ifs;
+Select ifs such that Parent*(ifs, _)
+7
+5000
+70 - select statement with Uses where user is line# and used is variable
+stmt s;
+Select s such that Uses(4, "y")
+1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11
+5000
+71 - select statement with Uses where user is stmt synonym and used is variable
+stmt s;
+Select s such that Uses(s, "x")
+1, 2, 4, 5, 7, 11
+5000
+72 - select assignment with Uses where user is assign synonym and used is variable
+assign a;
+Select a such that Uses(a, "x")
+4, 5, 11
+5000
+73 - select print with Uses where user is print synonym and used is variable
+print pn;
+Select pn such that Uses(pn, "y")
+none
+5000
+74 - select variable synonym with Uses where user is line# and used is variable synonym
+variable v;
+Select v such that Uses(4, v)
+x, y, z
+5000
+75 - select variable synonym with Uses where user is statement synonym and used is variable synonym
+stmt s; variable v;
+Select v such that Uses(s, v)
+x, x2, x3, y, z
+5000
+76 - select variable with Uses where user is assign synonym and used is variable synonym
+assign a; variable v;
+Select v such that Uses(a, v)
+x, x2, x3, y, z
+5000
+77 - select print with Uses where user is print synonym and used is variable synonym
+print pn; variable v;
+Select pn such that Uses(pn, v)
+2, 6, 9
+5000
+78 - select statement with Uses where user is line# and used is wildcard
+stmt s;
+Select s such that Uses(1, _)
+1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11
+5000
+79 - select statement with Uses where user is stmt synonym and used is wildcard
+stmt s;
+Select s such that Uses(s, _)
+1, 2, 4, 5, 6, 7, 9, 10, 11
+5000
+80 - select statement with Uses where user is assign synonym and used is wildcard
+stmt s; assign a;
+Select s such that Uses(a, _)
+1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11
+5000
+81 - select statement with Uses where user is print synonym and used is wildcard
+stmt s; print pn;
+Select s such that Uses(pn, _)
+1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11
+5000
+82 - select assign with Uses where user is assign synonym and used is wildcard
+assign a;
+Select a such that Uses(a, _)
+4, 5, 10, 11
+5000
+83 - select assign with Uses where user is assign synonym and used is wildcard
+assign a;
+Select a such that Uses(a, _)
+4, 5, 10, 11
+5000
+84 - select print with Uses where user is print synonym and used is wildcard
+print pn;
+Select pn such that Uses(pn, _)
+2, 6, 9
+5000
+85 - select statement with Modifies where modifier is line# and modified is variable
+stmt s;
+Select s such that Modifies(1, "x")
+1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11
+5000
+86 - select statement with Modifies where modifier is stmt synonym and modified is variable
+stmt s;
+Select s such that Modifies(s, "x")
+1, 4
+5000
+87 - select assign with Modifies where modifier is assign synonym and modified is variable
+assign a;
+Select a such that Modifies(a, "x")
+4
+5000
+88 - select read with Modifies where modifier is read synonym and modified is variable
+read re;
+Select re such that Modifies(re, "x")
+none
+5000
+89 - select variable synonym with Modifies where modifier is line# and modified is variable synonym
+variable v;
+Select v such that Modifies(1, v)
+nouse1, x, z
+5000
+90 - select variable synonym with Modifies where modifier is statement synonym and modified is variable synonym
+stmt s; variable v;
+Select s such that Modifies(s, v)
+1, 3, 4, 5, 7, 8, 10, 11
+5000
+91 - select statement with Modifies where modifier is assign synonym and modified is variable synonym
+stmt s; assign a; variable v;
+Select s such that Modifies(a, v)
+1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11
+5000
+92 - select statement with Modifies where modifier is read synonym and modified is variable synonym
+stmt s; read re; variable v;
+Select s such that Modifies(re, v)
+1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11
+5000
+93 - select statement with Modifies where modifier is line# and modified is wildcard
+stmt s;
+Select s such that Modifies(1, _)
+1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11
+5000
+94 - select statement with Modifies where modifier is stmt synonym and modified is wildcard
+stmt s;
+Select s such that Modifies(s, _)
+1, 3, 4, 5, 7, 8, 10, 11
+5000
+95 - select statement with Modifies where modifier is assign synonym and modified is wildcard
+stmt s; assign a;
+Select s such that Modifies(a, _)
+1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11
+5000
+96 - select read with Modifies where modifier is read synonym and modified is wildcard
+stmt s; read re;
+Select s such that Modifies(re, _)
+1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11
+5000
+97 - select assign with Modifies where modifier is assign synonym and modified is wildcard
+assign a;
+Select a such that Modifies(a, _)
+4, 5, 10, 11
+5000
+98 - select read with Modifies where modifier is read synonym and modified is wildcard
+read r;
+Select r such that Modifies(r, _)
+3, 8
+5000
+99 - Select statement with pattern with LHS being variable name and RHS being a wildcard
+assign a; stmt s;
+Select s pattern a ("x", _)
+1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11
+5000
+100 - Select variable with pattern with LHS being synonym and RHS being a wildcard
+assign a; variable v;
+Select v pattern a (v, _)
+nouse1, x, x2
+5000
+101 - Select statement with pattern with LHS being wildcard and RHS being a wildcard
+assign a; stmt s;
+Select s pattern a (_, _)
+1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11
+5000
+102 - Select assign with pattern with LHS being variable name and RHS being a string wrapped with wildcard
+assign a; stmt s;
+Select a pattern a ("x", _"x"_)
+4
+5000
+103 - Select statement with pattern with LHS being synonym and RHS being a string wrapped with wildcard
+assign a; variable v;
+Select v pattern a (v, _"3"_)
+none
+5000
+104 - Select statement with pattern with LHS being wildcard and RHS being a string wrapped with wildcard
+assign a; stmt s;
+Select s pattern a (_, _"x"_)
+1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11
+5000
+105 - Select statement with Follows and Pattern (No shared synonyms)
+assign a; stmt s;
+Select s such that Follows(s, 3) pattern a ("x", _)
+2
+5000
+106 - Select statement with Follows* and Pattern (No shared synonyms)
+assign a; stmt s;
+Select s such that Follows*(s, 3) pattern a ("x", _)
+2
+5000
+107 - Select statement with Parent and Pattern (No shared synonyms)
+assign a; stmt s;
+Select s such that Parent(s, 10) pattern a ("x", _)
+7
+5000
+108 - Select statement with Parent* and Pattern (No shared synonyms)
+assign a; stmt s;
+Select s such that Parent*(s, 10) pattern a ("x", _)
+7
+5000
+109 - Select statement with Modifies and Pattern (No shared synonyms)
+assign a; stmt s; variable v;
+Select s such that Modifies(s,v) pattern a ("x", _)
+1, 3, 4, 5, 7, 8, 10, 11
+5000
+110 - Select statement with Uses and Pattern (No shared synonyms)
+assign a; stmt s; variable v;
+Select s such that Uses(s,v) pattern a ("x", _)
+1, 2, 4, 5, 6, 7, 9, 10, 11
+5000
+111 - Select statement with Follows and Pattern with synonym appearing across relationship and pattern
+assign a; stmt s; variable v;
+Select s such that Follows(s, a) pattern a (v, _)
+3, 4, 9
+5000
+112 - Select statement with Follows* and Pattern with synonym appearing across relationship and pattern
+assign a; stmt s;
+Select s such that Follows*(s, a) pattern a ("x", _)
+2, 3
+5000
+113 - Select statement with Parent and Pattern with synonym appearing across relationship and pattern
+assign a; stmt s;
+Select s such that Parent(s, a) pattern a ("x", _)
+1
+5000
+114 - Select statement with Parent* and Pattern with synonym appearing across relationship and pattern
+assign a; stmt s;
+Select s such that Parent*(s, a) pattern a ("x", _)
+1
+5000
+115 - Select statement with Modifies and Pattern with synonym appearing across relationship and pattern
+assign a; stmt s; variable v;
+Select s such that Modifies(s,v) pattern a (v, _)
+1, 4, 5, 7, 10, 11
+5000
+116 - Select statement with Uses and Pattern with synonym appearing across relationship and pattern
+assign a; stmt s; variable v;
+Select s such that Uses(s,v) pattern a (v, _)
+1, 2, 4, 5, 6, 7, 11
+5000
+117 - Invalid syntax query - ; at end of query
+stmt s;
+Select s;
+SyntaxError
+5000
+118 - Invalid semantic query - No such declaration
+stmt s;
+Select v
+SemanticError
+5000
+119 - Invalid syntax query - No such relationship
+stmt s;
+Select s such that Hello(s, 1)
+SyntaxError
+5000
+120 - Invalid semantic query - No such assignment declaration for Pattern
+stmt s;
+Select s pattern a("x", "x")
+SemanticError
+5000
+121 - Invalid syntax query - No such design entity
+hello s;
+Select s;
+SyntaxError
+5000
+122 - Invalid semantic query - Follows/Parent cannot take in variable
+stmt s; variable v, v1;
+Select s such that Parent(v, v1)
+SemanticError
+5000
+123 - Invalid semantic query - Uses/Modifies first argument cannot be wildcard
+stmt s; variable v;
+Select s such that Modifies(_, v)
+SemanticError
+5000
+124 - Invalid semantic query - Uses/Modifies second argument if synonym has to be variable
+stmt s;
+Select s such that Modifies(_, s)
+SemanticError
+5000
+125 - Invalid semantic query - Pattern LHS if synonym has to be variable
+stmt s; assign a;
+Select s pattern a(s, "x")
+SemanticError
+5000
+126 - Invalid semantic query - Pattern expression has invalid grammar
+stmt s; assign a;
+Select s pattern a(s, _"+test"_)
+SemanticError
+5000

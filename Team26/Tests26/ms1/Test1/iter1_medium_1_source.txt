@@ -1,0 +1,13 @@
+procedure main {
+    while((x > 10) && (y < z)) {
+        print x;
+        read z; x = y * z % x - 5;
+        nouse1 = x + x + x + z + y;
+    }
+    print x2;
+    if (x2 > x) then { read x3;
+        print x3;
+        x2 = x3;
+    } else {
+        nouse1 = x2 * (x3 % x) + z - y; }
+}

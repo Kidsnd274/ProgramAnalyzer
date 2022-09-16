@@ -1,0 +1,31 @@
+procedure Test1{
+  procedure = 5;
+  Test1 = 5*8 + x*y-z      + t;
+  if ((v3z==var4)||(while!=var6)) then{
+    if ((v3z<=var4)||(var5!=(xx+yy*zz+tt*dd))) then{
+      var4 = v3z;
+      var5 = t +      	342708  + 961245 *z + ((x*y) *k);} else{
+      procedure = 10;}
+    Test1 = t*m+n;} else{
+    while(x!=while) {
+      print 	x;
+      print y;}
+    z = x               * y + procedure * Test1 / v3z * var4 + var5;}
+  read procedure;
+  read Test1;
+	while (Test1!=procedure){
+		read t;
+		read d;
+	}
+  if ((then==65378) &&(else>29673)) then{
+		print if;
+		read y;
+		while (procedure!=Test1){
+			Test1 = procedure;}
+    x = y;} else{
+    while(y!=x){
+			y = x;
+			if (y!=x) then{
+				read else; } else{
+				print var9;}}
+		x = y;}}
