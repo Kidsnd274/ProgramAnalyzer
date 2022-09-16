@@ -10,16 +10,14 @@
 #include <vector>
 #include <unordered_map>
 
-using namespace std;
-
 class ModifiesTable {
 private:
-    unordered_map<int, string> modifiesList;
+    std::unordered_map<int, std::vector<std::string>> modifiesList;
 public:
-    void insertModifies(int stmtLineNumber, string varName);
-    bool existModifies(int stmtLineNumber, string varName);
+    void insertModifies(int stmtLineNumber, std::string varName);
+    bool existModifies(int stmtLineNumber, std::string varName);
     bool existStatement(int stmtLineNumber);
-    string getModifiesVar(int stmtLineNumber);
+    std::vector<std::string> getModifiesVar(int stmtLineNumber);
 };
 
 #endif //SPA_MODIFIESTABLE_H
