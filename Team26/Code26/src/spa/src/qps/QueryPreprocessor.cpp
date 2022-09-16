@@ -429,6 +429,8 @@ namespace QPS {
     }
 
     std::pair<int, Exception> parseSelect(std::vector<QPS::Token> &tokens, int pos, Container &container) {
+        bool is_multiple_select = false;
+        bool is_closed = false;
         while (pos < tokens.size() && !QPS::isSuchThat(tokens[pos])) {
             QPS::Token curr = tokens[pos];
             if (curr.tokenType == QPS::NAME && curr.nameValue == "Select") {
@@ -447,12 +449,18 @@ namespace QPS {
                 pos++;
             } else if (curr.tokenType == QPS::NAME && (curr.nameValue == "such" || curr.nameValue == "pattern")){
                 return {pos, VALID};
+            } else if (curr.tokenType == GT) {
+                pos++;
+                is_multiple_select = true;
+            } else if (curr.tokenType == LT) {
+                pos++;
+                is_closed = true;
             } else {
                 return {pos, INVALID_SELECT};
             }
 
         }
-        if (pos <= tokens.size()) {
+        if (pos <= tokens.size() && ((is_multiple_select && is_closed) || !is_multiple_select) ) {
             return {pos, VALID};
         } else {
             return {pos, INVALID_SELECT};
