@@ -1,19 +1,64 @@
 1 - comment
-while w;
-Select w such that Parent(w, 7)
-none
+assign w; variable v;
+Select w such that Modifies(_, v)
+24, 23, 20, 18, 19, 11, 21, 2, 9, 8, 1, 5, 7, 17, 15, 3
 5000
 2 - comment
-if ifs;
-Select ifs such that Follows(5, ifs)
-6
+assign w; variable v;
+Select v such that Modifies(3, v)
+i
 5000
 3 - comment
-assign a;
-Select a such that Parent*(4, a)
-5, 7, 8, 9, 11
+assign w; variable v;
+Select <w, v> such that Modifies(w, v)
+24 x, 18 x, 5 x, 20 z, 23 z, 19 z, 17 i, 7 z, 1 x, 9 z, 15 x, 3 i, 2 z, 21 z, 11 i, 8 y
+5000
+3.1 - comment
+assign w; variable v;
+Select w such that Modifies(_, "x")
+24, 23, 20, 18, 19, 11, 21, 2, 9, 8, 1, 5, 7, 17, 15, 3
+5000
+3.2 - comment
+assign w; variable v;
+Select v such that Modifies(3, "i")
+i, z, x, y
+5000
+3.3 - comment
+assign w; variable v;
+Select <w, v> such that Modifies(4, "i")
+none
 5000
 4 - comment
+assign w; variable v;
+Select w such that Uses(_, v)
+24, 23, 20, 18, 19, 11, 21, 2, 9, 8, 1, 5, 7, 17, 15, 3
+5000
+5 - comment
+assign w; variable v;
+Select v such that Uses(3, v)
+
+5000
+6 - comment
+assign w; variable v;
+Select <w, v> such that Uses(w, v)
+24 x, 23 x, 19 x, 21 x, 18 x, 7 x, 5 x, 24 z, 9 z, 15 z, 8 z, 21 i, 15 y, 17 i, 19 z, 9 i, 21 z, 9 x, 8 x, 11 i
+5000
+7 - comment
+assign w; variable v;
+Select w such that Uses(_, "v")
+none
+5000
+8 - comment
+assign w; variable v;
+Select v such that Uses(5, "x")
+x, y, z, i
+5000
+9 - comment
+assign w; variable v;
+Select w such that Uses(w, "i")
+21, 17, 11, 9
+5000
+10 - comment
 call c;
 Select c such that Follows*(1, c)
 12

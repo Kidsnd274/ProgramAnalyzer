@@ -15,8 +15,15 @@ void ModifiesTable::insertModifies(int stmtLineNumber, string varName) {
 }
 
 bool ModifiesTable::existModifies(int stmtLineNumber, string varName) {
+    if (stmtLineNumber == 0) {
+        for (auto & stmt: this->modifiesList) {
+            if (varName == std::string() || stmt.second == varName) {
+                return true;
+            }
+        }
+    }
     unordered_map<int,string> list = this->modifiesList;
-    if (list.find(stmtLineNumber) != list.end() && list[stmtLineNumber] == varName) {
+    if (list.find(stmtLineNumber) != list.end() && (list[stmtLineNumber] == varName || varName == std::string())) {
         return true;
     }
     return false;
