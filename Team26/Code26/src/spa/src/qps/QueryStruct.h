@@ -8,6 +8,7 @@
 #include <vector>
 #include <map>
 #include <iostream>
+#include <set>
 
 
 /*
@@ -27,6 +28,7 @@ namespace QPS {
         SUCH_THAT_LIST suchThatList;
         PATTERN_LIST patternList;
         CANDIDATE_LIST candidateList;
+        unordered_set<std::string> usedSynonymList;
 
     public:
         QueryStatus queryStatus;
@@ -82,6 +84,17 @@ namespace QPS {
         void addPatternClause(PatternStruct patternToAdd);
 
         void addCandidate(CandidateStruct);
+
+        void addUsedSynonym(std::string);
+
+        /**
+         * Checks whether the given synonym is used in query
+         * as candidate or argument.
+         *
+         * @param nameOfSynonym A string, the name of synonym.
+         * @return bool.
+         */
+        bool isSynonymUsed(std::string nameOfSynonym);
     };
 }
 #endif // QUERYSTRUCT_H
