@@ -46,7 +46,7 @@ one
 10 - Invalid: Invalid Query Test
 assign a;
 Select x
-
+none
 5000
 11 - Valid: Confusing synonym names
 stmt Select;
