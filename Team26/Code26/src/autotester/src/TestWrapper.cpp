@@ -20,23 +20,28 @@ TestWrapper::TestWrapper() {
 
 // method for parsing the SIMPLE source
 void TestWrapper::parse(std::string filename) {
-    // Read the file first
-    ifstream sourceFile;
-    sourceFile.open(filename);
-    if (!sourceFile) {
-        std::cout << "No such file!" << endl;
+    try {
+        // Read the file first
+        ifstream sourceFile;
+        sourceFile.open(filename);
+        if (!sourceFile) {
+            std::cout << "No such file!" << endl;
+            exit(1);
+        }
+        std::string sourceProgram;
+        while (!sourceFile.eof()) {
+            std::string newLine;
+            getline(sourceFile, newLine);
+            sourceProgram += newLine;
+        }
+
+        // Create SourceProcessor and parse to PKB
+        SourceProcessor sourceProcessor = SourceProcessor(this->pkbInterface);
+        sourceProcessor.processSIMPLE(sourceProgram);
+    } catch (SyntaxErrorException e) {
+        std::cout << e.what() << std::endl;
         exit(1);
     }
-    std::string sourceProgram;
-    while (!sourceFile.eof()) {
-        std::string newLine;
-        getline(sourceFile, newLine);
-        sourceProgram += newLine;
-    }
-
-    // Create SourceProcessor and parse to PKB
-    SourceProcessor sourceProcessor = SourceProcessor(this->pkbInterface);
-    sourceProcessor.processSIMPLE(sourceProgram);
 }
 
 // method to evaluating a query
