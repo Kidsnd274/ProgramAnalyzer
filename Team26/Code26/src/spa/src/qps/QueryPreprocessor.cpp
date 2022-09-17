@@ -560,13 +560,13 @@ namespace QPS {
         if (pos < tokens.size() && (tokens[pos].tokenType == NAME || tokens[pos].tokenType == INTEGER)) {
             ARG1 = convertStringToStmtRef(tokens[pos], container);
 
-            if (ARG1.second == INVALID_RELATION_CONTENT) {
+            // ms1 doesn't require supporting procedure
+            if (ARG1.second == INVALID_RELATION_CONTENT || ARG1.first.typeOfArgument == PROCEDURE_SYNONYM) {
                 return {pos, INVALID_RELATION_CONTENT};
             }
             pos++;
         } else if (pos < tokens.size() && tokens[pos].tokenType == UNDERSCORE) {
             ARG1 = {{WILDCARD, "_"}, VALID};
-            return {pos, INVALID_RELATION_CONTENT};
         } else if (pos < tokens.size() && tokens[pos].tokenType == DOUBLE_QUOTE && tokens[pos+2].tokenType == DOUBLE_QUOTE
                    && tokens[pos + 1].tokenType == NAME) {
             std::string actual_name = tokens[pos + 1].nameValue;

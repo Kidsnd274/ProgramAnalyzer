@@ -151,7 +151,7 @@ SyntaxError
 31 - Invalid Modifies () [ident is empty (rhs)]
 stmt s;
 Select s such that Modifies (_, "")
-SemanticError
+SyntaxError
 5000
 32 - Invalid Modifies () [rhs synonym declared as stmt is semantically invalid]
 stmt s1, s2;
