@@ -561,8 +561,6 @@ namespace QPS {
             ARG1 = convertStringToStmtRef(tokens[pos], container);
 
             if (ARG1.second == INVALID_RELATION_CONTENT) {
-                std::cout << "INVALID_RELATION_CONTENT" << std::endl;
-
                 return {pos, INVALID_RELATION_CONTENT};
             }
             pos++;
