@@ -86,6 +86,39 @@ std::shared_ptr<WhileNode> generateTwoNestedWhileLoop(int startingNo) {
     return WhileNode::createWhileNode(startingNo, condExpr, stmtList);
 }
 
+std::shared_ptr<IfNode> generateThreeNestedIfNode(int startingNo) {
+    std::shared_ptr<TNode> condExpr = std::move(generateSimpleCondStmt(startingNo));
+    std::shared_ptr<TNode> expr = std::move(generateTwoVariableTNode(startingNo + 1));
+    std::shared_ptr<AssignNode> ifStmt1 = std::move(AssignNode::createAssignNode(startingNo + 1, "x", expr));
+    std::shared_ptr<WhileNode> ifStmt2 = std::move(generateTwoNestedWhileLoop(startingNo + 2));
+
+    // Creating 2 nested while loops
+    std::shared_ptr<AssignNode> assignStmt = AssignNode::createAssignNode(startingNo + 12, "x",
+                                                                          generateSimpleTNode(startingNo + 12));
+    std::shared_ptr<WhileNode> innerWhileLoop = generateSimpleWhileNode(startingNo + 13);
+
+    std::vector<std::shared_ptr<StatementNode>> outerWhileLoopStmtList = {assignStmt, innerWhileLoop};
+
+    std::shared_ptr<WhileNode> elseStmt = std::move(
+            WhileNode::createWhileNode(startingNo + 11, generateSimpleCondStmt(startingNo + 11), outerWhileLoopStmtList));
+
+    std::vector<std::shared_ptr<StatementNode>> ifStmtList = {ifStmt1, ifStmt2};
+    std::vector<std::shared_ptr<StatementNode>> elseStmtList = {elseStmt};
+
+    return IfNode::createIfNode(startingNo, condExpr, ifStmtList, elseStmtList);
+}
+
+std::shared_ptr<WhileNode> generateThreeNestedWhileLoop(int startingNo) {
+    std::shared_ptr<TNode> condExpr = std::move(generateSimpleCondStmt(startingNo));
+
+    std::shared_ptr<TNode> expr = std::move(generateTwoVariableTNode(startingNo + 1));
+    std::shared_ptr<AssignNode> stmt1 = std::move(AssignNode::createAssignNode(startingNo + 1, "x", expr));
+    std::shared_ptr<IfNode> stmt2 = std::move(generateTwoNestedIfNode(startingNo + 2));
+    std::vector<std::shared_ptr<StatementNode>> stmtList = {stmt1, stmt2};
+
+    return WhileNode::createWhileNode(startingNo, condExpr, stmtList);
+}
+
 std::shared_ptr<ProcedureNode> generateMilestone1TestNestlevel1() {
     std::shared_ptr<TNode> expr = std::move(generateSimpleTNode(1));
     std::shared_ptr<AssignNode> statement1 = std::move(AssignNode::createAssignNode(1, "x", expr));
@@ -106,6 +139,12 @@ std::shared_ptr<ProcedureNode> generateMilestone1TestNestlevel2() {
     std::shared_ptr<WhileNode> statement5 = std::move(generateTwoNestedWhileLoop(13));
     std::vector<std::shared_ptr<StatementNode>> stmtList = {statement1, statement2, statement3, statement4, statement5};
     return ProcedureNode::createProcedureNode("milestone1NestLevel2", stmtList);
+}
+
+std::shared_ptr<ProcedureNode> generateMilestone1TestNestlevel3() {
+    std::shared_ptr<WhileNode> stmt1 = std::move(generateThreeNestedWhileLoop(1));
+    std::shared_ptr<IfNode> stmt2 = std::move(generateThreeNestedIfNode(12));
+    return ProcedureNode::createProcedureNode("milestone1NestLevel3", {stmt1, stmt2});
 }
 
 // Individual extractor tests
@@ -442,6 +481,157 @@ TEST_CASE("Main Extract Interface") {
     }
 
     SECTION("Nesting Level 3") {
-        REQUIRE(true);
+        auto *pkbInterface = new PKBInterfaceStubForDE();
+        DesignExtractor designExtractor = DesignExtractor(pkbInterface);
+        std::shared_ptr<ProcedureNode> mainNode = std::move(generateMilestone1TestNestlevel3());
+        designExtractor.extract(mainNode);
+
+        std::unordered_map<int, int> correctFollowsMap = {
+                {2, 3},
+                {4, 5},
+                {6, 7},
+                {7, 8},
+                {9, 10},
+                {10, 11},
+                {13, 14},
+                {15, 16},
+                {17, 18},
+                {18, 19},
+                {20, 21},
+                {21, 22},
+                {24, 25},
+                {26, 27},
+                {27, 28},
+                {1, 12}
+        };
+
+        REQUIRE(pkbInterface->followsMap == correctFollowsMap);
+
+        std::unordered_map<int, int> correctParentMap = {
+                {2,1},
+                {3,1},
+                {4,3}, // 2nd nested If Statement
+                {5,3},
+                {9,3},
+                {10,3},
+                {11,3},
+                {6,5},
+                {7,5},
+                {8,5},
+                {13,12},
+                {14,12},
+                {15,14}, // 2nd nested While Statement
+                {16,14},
+                {17,16},
+                {18,16},
+                {19,16},
+                {20,16},
+                {21,16},
+                {22,16},
+                {23,12},
+                {24,23},
+                {25,23},
+                {26,25},
+                {27,25},
+                {28,25}
+        };
+
+        std::unordered_multimap<int, int> correctParentStarMap = {
+                {1,2},
+                {1,3},
+                {3,4}, // 2nd nested If Statement
+                {1,4},
+                {3,5},
+                {1,5},
+                {3,9},
+                {1,9},
+                {3,10},
+                {1,10},
+                {3,11},
+                {1,11},
+                {5,6},
+                {3,6},
+                {1,6},
+                {5,7},
+                {3,7},
+                {1,7},
+                {5,8},
+                {3,8},
+                {1,8},
+                {12,13},
+                {12,14},
+                {14,15}, // 2nd nested While Statement
+                {12,15},
+                {14,16},
+                {12,16},
+                {16,17},
+                {14,17},
+                {12,17},
+                {16,18},
+                {14,18},
+                {12,18},
+                {16,19},
+                {14,19},
+                {12,19},
+                {16,20},
+                {14,20},
+                {12,20},
+                {16,21},
+                {14,21},
+                {12,21},
+                {16,22},
+                {14,22},
+                {12,22},
+                {12,23},
+                {23,24},
+                {12,24},
+                {23,25},
+                {12,25},
+                {25,26},
+                {23,26},
+                {12,26},
+                {25,27},
+                {23,27},
+                {12,27},
+                {25,28},
+                {23,28},
+                {12,28}
+        };
+
+        REQUIRE(pkbInterface->parentMapIntInt == correctParentMap);
+        REQUIRE(pkbInterface->parentStarMapIntInt == correctParentStarMap);
+
+        std::unordered_multimap<int, std::string> modifiesMapIntString = {
+                {1, "x"}, // Assign
+                {3, "y"},
+                {5, "x"},
+                {7, "x"},
+                {9, "y"},
+                {10, "x"},
+                {12, "y"},
+                {6, "x"},
+                {6, "y"},
+                {4, "x"},
+                {4, "x"},
+                {4, "y"},
+                {4, "x"},
+                {4, "y"},
+                {14, "x"},
+                {13, "x"},
+                {13, "x"},
+                {15, "x"},
+                {16, "x"},
+                {13, "y"},
+                {15, "y"},
+                {18, "y"},
+                {13, "x"},
+                {15, "x"},
+                {20, "x"},
+                {13, "y"},
+                {15, "y"},
+                {21, "y"}
+        };
+
+        REQUIRE(pkbInterface->modifiesMapIntString == modifiesMapIntString);
     }
 }
