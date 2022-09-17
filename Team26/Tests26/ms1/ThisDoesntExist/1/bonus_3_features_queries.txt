@@ -1,0 +1,100 @@
+1 - Valid ModifiesP
+stmt s; assign a; variable v; constant c; while w; if ifs; procedure p;
+Select v such that Modifies(p,v)
+exact, partial, exactLeft,exactLeft1,left,else,readread,f,g
+5000
+2 - Valid ModifiesP
+stmt s; assign a; variable v; constant c; while w; if ifs; procedure p;
+Select p such that Modifies(p,"exactLeft")
+bonus
+5000
+3 - Valid UsesP
+stmt s; assign a; variable v; constant c; while w; if ifs; procedure p;
+Select s such that Uses(p,"i")
+1,2,3,4,5,6,7,8,9,10,11,12,13
+5000
+4 - Valid UsesP
+stmt s; assign a; variable v; constant c; while w; if ifs; procedure p;
+Select v such that Uses(p,v)
+a,b,c,abc,d,e,f,g,h,i,true,exactRight,if,else,left,middle,right
+5000
+5 - Valid Follows and pattern clauses, swapped
+stmt s; assign a; variable v; constant c;
+Select s pattern a(v, _) such that Follows(s,a)
+1,8,12
+5000
+6 - Valid Follows and pattern clauses, swapped
+stmt s; assign a; variable v; constant c;
+Select a pattern a("exactLeft1", _"else"_) such that Follows(a,s)
+8
+5000
+7 - Invalid Follows and pattern clauses, swapped
+stmt s,s1; assign a; variable v; constant c; while w; if ifs;
+Select s pattern a(_, _) such that Follows(w,ifs)
+
+5000
+8 - Invalid Follows* and pattern clauses, swapped
+stmt s,s1; assign a; variable v; constant c; if ifs;
+Select ifs pattern a(v, _) such that Follows*(ifs,a)
+
+5000
+9 - Valid Follows* and pattern clauses, swapped
+stmt s,s1; assign a; variable v; constant c; while w;
+Select v pattern a(v, "else") such that Follows*(w,s)
+exactLeft1
+5000
+10 - Valid Follows* and pattern clauses, swapped
+stmt s,s1; assign a; variable v; constant c; while w; if ifs;
+Select a pattern a(v, _) such that Follows*(a, ifs)
+1,2,6
+5000
+11 - Valid Parent and pattern clauses, swapped
+stmt s,s1; assign a; variable v; constant c; while w; if ifs;
+Select a pattern a(v, "12") such that Parent(ifs, a)
+13
+5000
+12 - Valid Parent and pattern clauses, swapped
+stmt s,s1; assign a; variable v; constant c; while w; if ifs;
+Select a pattern a(v, _) such that Parent(w, a)
+6
+5000
+13 - Valid Parent* and pattern clauses, swapped
+stmt s; assign a; variable v; constant c; while w; if ifs;
+Select a pattern a(v, "else") such that Parent*(ifs, a)
+8
+5000
+14 - Valid Parent* and pattern clauses, swapped
+stmt s,s1; assign a; variable v; constant c; while w; if ifs;
+Select w pattern a(_, "else") such that Parent*(w, a)
+5
+5000
+15 - Invalid Parent and pattern clauses, swapped
+stmt s,s1; assign a,a1; variable v; constant c; while w; if ifs;
+Select a pattern a(v, _) such that Parent*(a, a1)
+
+5000
+16 - Invalid Parent* and pattern clauses, swapped
+stmt s,s1; assign a; variable v; constant c; while w; if ifs;
+Select a pattern a(v, _) such that Parent*(a, w)
+
+5000
+17 - Valid ModifiesP and pattern clauses, swapped
+stmt s,s1; assign a; variable v; constant c; while w; if ifs; procedure p;
+Select v pattern a(v, "0") such that Modifies(p, "readread")
+exact
+5000
+18 - Valid ModifiesP and pattern clauses, swapped
+stmt s,s1; assign a; variable v; constant c; while w; if ifs; procedure p;
+Select v pattern a(v, "12") such that Modifies(p, v)
+g
+5000
+19 - Valid UsesP and pattern clauses, swapped
+stmt s,s1; assign a; variable v; constant c; while w; if ifs; procedure p;
+Select a pattern a(_, "12") such that Uses(p, "abc")
+13
+5000
+20 - Valid UsesP and pattern clauses, swapped
+stmt s,s1; assign a; variable v; constant c; while w; if ifs; procedure p;
+Select v pattern a(v, "12") such that Uses(p, v)
+g
+5000

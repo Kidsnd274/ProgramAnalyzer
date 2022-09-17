@@ -1,0 +1,31 @@
+procedure Main {
+    read a;
+    b = 20;
+    print c;
+    d = 10;
+    read e;
+    if (f==1) then {
+        while(g!=f) {
+            a = b + c;
+            g = f + 2;
+        }
+    } else {
+        while((h != 0)&&(i!=0)) {
+            h = i / j;
+            while (h!=2) {
+                print j;
+                if (a==a) then {
+                    read b;
+                } else {
+                   h = h - g;
+                }
+                c = 3;
+           }
+        }
+        k = k + 10;
+        l = l / 4 + k * 2;
+    }
+    print a;
+    b = 2;
+    c = b + a;
+}

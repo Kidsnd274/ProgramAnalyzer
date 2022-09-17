@@ -1,0 +1,70 @@
+1 - Valid: Query return all stmts test
+stmt s;
+Select s
+1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21
+5000
+2 - Valid: Query return all read test
+read r;
+Select r
+1,2,11
+5000
+3 - Valid: Query return all print test
+print pn;
+Select pn
+3,4,14,20
+5000;
+4 - Valid: Query return all while test
+while w;
+Select w
+9,17
+5000
+5 - Valid: Query return all ifs test
+if ifs;
+Select ifs
+7,10,13
+5000
+6 - Valid: Query return all assign test
+assign a;
+Select a
+5,6,8,12,15,16,18,19,21
+5000
+7 - Valid: Query return all variable test
+variable v;
+Select v
+a,b,c,d,e,f,g,h,i,z,j
+5000
+8 - Valid: Query return all constant test
+constant c;
+Select c
+24,10,0,1,2
+5000
+9 - Valid: Query return all procedure test
+procedure p;
+Select p
+one
+5000
+10 - Invalid: Invalid Query Test
+assign a;
+Select x
+
+5000
+11 - Valid: Confusing synonym names
+stmt Select;
+Select Select
+1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21
+5000
+12 - Invalid: Invalid Query Test, declare multiple syn with same name
+assign a; while a; variable v;
+Select v
+
+5000
+13 - Invalid: Invalid Query Test, declare multiple syn with same name
+assign a; while a; variable v;
+Select a
+
+5000
+14 - Invalid: Invalid Query Test, extra semicolon at select-cl
+assign a; variable v
+Select a;
+
+5000

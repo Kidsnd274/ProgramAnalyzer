@@ -1,0 +1,325 @@
+1 - Invalid Query: Incorrect declaration
+
+Select a
+
+5000
+2 - Invalid Query: Incorrect declaration
+S;
+Select S
+
+5000
+3 - Invalid Query: Missing declaration
+assign;
+Select assign
+
+5000
+4 - Invalid Query: Incorrect declaration
+assigna;
+Select a
+
+5000
+5 - Invalid Query: Incorrect declaration
+assign a; a1;
+Select a
+
+5000
+6 - Invalid Query: Incorrect syn declaration
+assign a_1;
+Select a
+
+5000
+7 - Valid Query: Long declaration
+stmt QWERTYUIOPASDFGHJKLZXCVBNM12345678900987654321POOUIUYEWQTAFKLHSJBCNXZJ;
+Select QWERTYUIOPASDFGHJKLZXCVBNM12345678900987654321POOUIUYEWQTAFKLHSJBCNXZJ
+1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21
+5000
+8 - Invalid Query: Duplicate declaration of syn
+stmt s; assign s;
+Select s
+
+5000
+9 - Valid Query: Same syn name declared as the design entity
+stmt stmt;
+Select stmt
+1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21
+5000
+10 - Invalid Query: Invalid select clause
+stmt s;
+Select
+
+5000
+11 - Invalid Query: Invalid select clause
+stmt s;
+Select s;
+
+5000
+12 - Valid Query: Variation of spaces
+stmt s;
+Select                                s
+1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21
+5000
+13 - Invalid Query: Variation of spaces
+stmt s;
+Selec    t s
+
+5000
+14 - Invalid Query: incorrect stmtRef for Follows
+stmt s; assign a; variable v;
+Select s such that Follows(a, v)
+
+5000
+15 - Invalid Query: incorrect stmtRef for Follows
+stmt s; assign a; variable v; constant c;
+Select s such that Follows(a, c)
+
+5000
+16 - Invalid Query: incorrect stmtRef for Follows*
+stmt s; assign a; variable v;
+Select s such that Follows*(a, v)
+
+5000
+17 - Invalid Query: incorrect stmtRef for Follows*
+stmt s; assign a; variable v; constant c;
+Select s such that Follows*(a, c)
+
+5000
+18 - Invalid Query: incorrect stmtRef for Parent
+stmt s; assign a; variable v; constant c;
+Select s such that Parent(v, c)
+
+5000
+19 - Invalid Query: incorrect stmtRef for Parent
+stmt s; assign a; variable v; constant c;
+Select s such that Parent(a, c)
+
+5000
+20 - Invalid Query: incorrect stmtRef for Parent*
+stmt s; assign a; variable v;
+Select s such that Parent*(a, v)
+
+5000
+21 - Invalid Query: incorrect stmtRef for Parent*
+stmt s; assign a; variable v; constant c;
+Select s such that Parent*(c, a)
+
+5000
+22 - Invalid Query: incorrect stmtRef for Parent*
+stmt s; assign a; variable v; constant c;
+Select s such that Parent*(s, "j")
+
+5000
+23 - Invalid Query: incorrect stmtRef for Parent
+stmt s; assign a; variable v; constant c;
+Select s such that Parent(s, _"a-b"_)
+
+5000
+24 - Invalid Query: incorrect stmtRef for Parent
+stmt s,s1; assign a; variable v; constant c;
+Select s such that Parent(s, a, s1)
+
+5000
+25 - Invalid Query: incorrect stmtRef for Parent
+stmt s,s1; assign a; variable v; constant c;
+Select s such that Follows(s, a, s1)
+
+5000
+26 - Invalid Query: Ambiguous Uses
+read r;
+Select r such that Uses(r, _)
+
+5000
+27 - Invalid Query: Ambiguous Uses
+variable v;
+Select v such that Uses(v, _)
+
+5000
+28 - Invalid Query: Ambiguous Uses
+constant c;
+Select c such that Uses(c, _)
+
+5000
+29 - Invalid Query: Ambiguous Uses
+stmt s;
+Select s such that Uses(_, _)
+
+5000
+30 - Invalid Query: Ambiguous Uses
+stmt s;
+Select s such that Uses(_, s)
+
+5000
+31 - Invalid Query: Ambiguous Uses
+read r;
+Select r such that Uses(_, r)
+
+5000
+32 - Invalid Query: Ambiguous Uses
+print p;
+Select p such that Uses(_, p)
+
+5000
+33 - Invalid Query: Ambiguous Uses
+while w;
+Select w such that Uses(_, w)
+
+5000
+34 - Invalid Query: Ambiguous Uses
+if ifs;
+Select ifs such that Uses(_, ifs)
+
+5000
+35 - Invalid Query: Ambiguous Uses
+assign a;
+Select a such that Uses(_, a)
+
+5000
+36 - Invalid Query: Ambiguous Uses
+call c;
+Select c such that Uses(_, c)
+
+5000
+37 - Invalid Query: Ambiguous Uses
+procedure pr;
+Select pr such that Uses(_, pr)
+
+5000
+38 - Invalid Query: Weird spaces
+assign a; variable v;
+Select a such           that Uses(a, v)
+
+5000
+39 -  Invalid Query: Incorrect args used
+print p;
+Select p such that Modifies(p, _)
+
+5000
+40 - Invalid Query: Incorrect args used
+variable v;
+Select v such that Modifies(v, _)
+
+5000
+41 - Invalid Query: Incorrect args used
+constant c;
+Select c such that Modifies(c, _)
+
+5000
+42 - Invalid Query: Ambiguous Modifies
+stmt s;
+Select s such that Modifies(_, _)
+
+5000
+43 - Invalid Query: Ambiguous Modifies
+stmt s;
+Select s such that Modifies(_, s)
+
+5000
+44 - Invalid Query: Ambiguous Modifies
+read r;
+Select r such that Modifies(_, r)
+
+5000
+45 - Invalid Query: Ambiguous Modifies
+print p;
+Select p such that Modifies(_, p)
+
+5000
+46 - Invalid Query: Ambiguous Modifies
+while w;
+Select w such that Modifies(_, w)
+
+5000
+47 - Invalid Query: Ambiguous Modifies
+if ifs;
+Select ifs such that Modifies(_, ifs)
+
+5000
+48 - Invalid Query: Ambiguous Modifies
+assign a;
+Select a such that Modifies(_, a)
+
+5000
+49 - Invalid Query: Ambiguous Modifies
+call c;
+Select c such that Modifies(_, c)
+
+5000
+50 - Invalid Query: Ambiguous Modifies
+procedure pr;
+Select pr such that Modifies(_, pr)
+
+5000
+51 - Invalid Query: Incorrect args
+stmt s;
+Select s such that Modifies(2, 3, 4)
+
+5000
+52 - Invalid Query: Invalid pattern query
+stmt s; assign a;
+Select s such that pattern a(_,_)
+
+5000
+53 - Valid Query: Valid pattern query but weird spaces
+stmt s; assign a;
+Select s such       that Follows (_,_)
+
+5000
+54 - Valid Query: Valid pattern query but weird spaces
+stmt s; assign a;
+Select s pattern a            (_,_)
+1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21
+5000
+55 - Invalid Query: Invalid pattern query
+stmt s; assign a;
+Select s patter   n a(_,_)
+
+5000
+56 - Valid Query: Valid pattern query
+stmt s; assign a;
+Select s pattern                   a(_,_)
+1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21
+5000
+57 - Valid Query: Valid pattern query
+stmt s; assign a;
+Select s pattern a            (_,_)
+1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21
+5000
+58 - Invalid Query: Invalid pattern query
+stmt s; assign a;
+Select s pattern/a(_,_)
+
+5000
+59 - Invalid Query
+stmt s; assign a;
+Select s such that Follows** pattern a(_,_)
+
+5000
+60 - Invalid Query
+stmt s; assign a;
+Select s such that Parent(_,a)               pattern a(_,_)
+1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21
+5000
+61 - Invalid Query
+stmt s; assign a; variable v; procedure p;
+Select s such that Uses(s,v)sdsd pattern a(v, _)
+
+5000
+62 - Invalid Query
+stmt s; assign a; variable v; procedure p;
+Select s sdsd such that Follows(s,v) pattern a(v, _)
+
+5000
+63 - Invalid Query
+stmt s; assign a; variable v;
+Select s such that Modifies(s,v) pattern a(v, _)sdsd
+
+5000
+64 - Invalid Query
+stmt s; assign a; variable v;
+Select s such that Parent(s,a)) pattern a(v, _)
+
+5000
+65 - Invalid Query
+stmt s; assign a; variable v;
+Select s such that Parent*(s,a) patttern a(v, _)
+
+5000

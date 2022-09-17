@@ -1,0 +1,7 @@
+procedure InvalidSource {
+  if (a == b)  {
+    r = 1;
+  } else {
+  r = 1;
+  }
+}

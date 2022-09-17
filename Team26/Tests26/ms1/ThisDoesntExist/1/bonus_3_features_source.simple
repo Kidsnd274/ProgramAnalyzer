@@ -1,0 +1,21 @@
+procedure bonus {
+    exact = 0;
+    partial = 0 / (1 +a   )  * b +c; 
+    read readread;
+    if ((!(d==e   )) && ((f+g*2) != h)) then { 
+        while (i >= true) { 
+            exactLeft = exactRight; 
+
+            if (if==else) then {
+                exactLeft1 = else; 
+                left = left + middle - right; 
+            } else {
+                else = else + 10;
+            }
+        }
+        print abc;
+    } else {
+        f = e + 12; 
+        g = 12;
+    }
+}

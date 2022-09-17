@@ -1,0 +1,25 @@
+procedure one {
+    read a;
+    read b;
+    print a;
+    print b;
+    c = a + 24;
+    d = 10;
+    if  (a==c) then {
+        e = f * g- h + i;
+        while(f==z) {
+            if (f>=0) then {
+                read z;
+                a = z* j + i;}
+            else {
+                if (a==1) then {
+                    print a;}
+                else {
+                    a = a - b / c;}}}}
+    else {
+        j = j / 2;
+        while(j>=0){
+            d = d*c;
+            j = j / 2;}
+        print d;
+    d = 0;}}

@@ -1,0 +1,44 @@
+procedure Medium {
+    read while;
+    a = a+b-c * d +e/ f;
+    sum = sum * sum + x;
+    v1 = V2 - 1;
+    j = 0;
+    max = 100;
+    print if;
+    while((j <= (max*10)) || (j >= sum*2)) {
+        read v100;
+        if (v100 == sum) then {
+            x = i-j+k/30*25 + l;
+        } else {
+            if ((x!=a) && (j==a)) then {
+                read VaR2;
+                print VAR3;
+                count = count + 15;
+            } else {
+                while((!(i == 12)) && (j != 13)) {
+                    a = b%c;
+                    if = (while + (d + sum) / f) - 20;
+                }
+            }
+        }
+        j = j - 1;
+        j = k;
+    }
+    if ( (a%2) == 0) then {
+        print a;
+        if ( 1 == (b%(k/2))) then {
+            read a;
+        } else {
+            read b;
+        }
+    } else {
+        print b;
+    }
+    while (i!=0) {
+        read i;
+        while (j!=0) {
+            print j;
+        }
+    }
+}

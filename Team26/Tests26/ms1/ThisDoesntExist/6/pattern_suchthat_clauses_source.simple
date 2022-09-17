@@ -1,0 +1,32 @@
+procedure while {
+    select = select*while+if-assign / stmt % stmtList;
+    true = false;
+    if ( constant != 0 ) then {
+        read read;
+        if (if != Follows) then {
+            print print;
+            Pattern = (2*while) / (f / (a + b));
+        } else {
+            while((x!=0) && (y!=0)) {
+                i = i + 1;
+                x = 0;
+                y = 0;
+            }
+            exit = 1;
+        }
+        read n1;
+    } else {
+        else = then + 20;
+        while(boolean == true) {
+            while (false == while) {
+                while (if == procedure) {
+                    end = nested;
+                }
+            }
+            boolean = false;
+            while (i == 0) {
+                end = a*(b+c)*p*d;
+            }
+        }
+    }
+}

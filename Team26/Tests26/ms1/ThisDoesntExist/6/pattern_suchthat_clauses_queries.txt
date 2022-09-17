@@ -1,0 +1,2675 @@
+1 - Invalid Uses and Pattern clauses
+read r; print pn; while w; if ifs; assign a; variable v; procedure p; stmt s; constant c;
+Select pn such that Uses(pn,v) pattern a(v, _)
+
+5000
+2 - Valid Uses and Pattern clauses
+read r; print pn; while w; if ifs; assign a; variable v; procedure p; stmt s; constant c;
+Select v such that Uses(pn,v) pattern a(v, _)
+
+5000
+3 - Valid Uses and Pattern clauses
+read r; print pn; while w; if ifs; assign a; variable v; procedure p; stmt s; constant c;
+Select v such that Uses(pn,_) pattern a(v, _)
+select,true,Pattern,i,x,y,exit,else,end,boolean
+5000
+4 - Valid Uses and Pattern clauses
+read r; print pn; while w; if ifs; assign a; variable v; procedure p; stmt s; constant c;
+Select a such that Uses(a,v) pattern a(v, _)
+1,9
+5000
+5 - Valid Uses and Pattern clauses
+read r; print pn; while w; if ifs; assign a; variable v; procedure p; stmt s; constant c;
+Select v such that Uses(a,v) pattern a(v, _)
+select,i
+5000
+6 - Valid Uses and Pattern clauses
+read r; print pn; while w; if ifs; assign a; variable v; procedure p; stmt s; constant c;
+Select a such that Uses(a,_) pattern a(v, _)
+1,2,7,9,14,18,19,21
+5000
+7 - Valid Uses and Pattern clauses
+read r; print pn; while w; if ifs; assign a; variable v; procedure p; stmt s; constant c;
+Select ifs such that Uses(ifs,v) pattern a(v, _)
+3,5
+5000
+8 - Valid Uses and Pattern clauses
+read r; print pn; while w; if ifs; assign a; variable v; procedure p; stmt s; constant c;
+Select ifs such that Uses(ifs,_) pattern a(v, _)
+3,5
+5000
+9 - Valid Uses and Pattern clauses
+read r; print pn; while w; if ifs; assign a; variable v; procedure p; stmt s; constant c;
+Select v such that Uses(ifs,v) pattern a(v, _)
+i,x,y,boolean,true
+5000
+10 - Valid Uses and Pattern clauses
+read r; print pn; while w; if ifs; assign a; variable v; procedure p; stmt s; constant c;
+Select w such that Uses(w,v) pattern a(v, _)
+8,15,20
+5000
+11 - Valid Uses and Pattern clauses
+read r; print pn; while w; if ifs; assign a; variable v; procedure p; stmt s; constant c;
+Select w such that Uses(w,_) pattern a(v, _)
+8,15,16,17,20
+5000
+12 - Valid Uses and Pattern clauses
+read r; print pn; while w; if ifs; assign a; variable v; procedure p; stmt s; constant c;
+Select v such that Uses(w,v) pattern a(v, _)
+x,y,i,true,boolean
+5000
+13 - Invalid Uses and Pattern clauses
+read r,r1; print pn; while w; if ifs; assign a; variable v; procedure p; stmt s; constant c;
+Select r such that Uses(r,v) pattern a(v, _)
+
+5000
+14 - Invalid Uses and Pattern clauses
+read r,r1; print pn; while w; if ifs; assign a; variable v; procedure p; stmt s; constant c;
+Select r such that Uses(r,_) pattern a(v, _)
+
+5000
+15 - Valid Uses and Pattern clauses
+read r,r1; print pn; while w; if ifs; assign a; variable v; procedure p; stmt s; constant c;
+Select p such that Uses(p,v) pattern a(v, _)
+while
+5000
+16 - Valid Uses and Pattern clauses
+read r,r1; print pn; while w; if ifs; assign a; variable v; procedure p; stmt s; constant c;
+Select p such that Uses(p,_) pattern a(v, _)
+while
+5000
+17 - Valid Uses and Pattern clauses
+read r,r1; print pn; while w; if ifs; assign a; variable v; procedure p; stmt s; constant c;
+Select v such that Uses(p,v) pattern a(v, _)
+select,true,i,x,y,boolean
+5000
+18 - Valid Uses and Pattern clauses
+read r,r1; print pn; while w; if ifs; assign a; variable v; procedure p; stmt s; constant c;
+Select s such that Uses(s,v) pattern a(v, _)
+1,3,5,8,9,15,20
+5000
+19 - Valid Uses and Pattern clauses
+read r,r1; print pn; while w; if ifs; assign a; variable v; procedure p; stmt s; constant c;
+Select s such that Uses(s,_) pattern a(v, _)
+1,2,3,5,6,7,8,9,14,15,16,17,18,19,20,21
+5000
+20 - Valid Uses and Pattern clauses
+read r,r1; print pn; while w; if ifs; assign a; variable v; procedure p; stmt s; constant c;
+Select v such that Uses(s,v) pattern a(v, _)
+select,true,i,x,y,boolean
+5000
+21 - Invalid Uses and Pattern clauses
+read r,r1; print pn; while w; if ifs; assign a; variable v; procedure p; stmt s; constant c;
+Select a such that Uses(c,v) pattern a(v, _)
+
+5000
+22 - Invalid Uses and Pattern clauses
+read r,r1; print pn; while w; if ifs; assign a; variable v; procedure p; stmt s; constant c;
+Select a such that Uses(c,v) pattern a(v, _)
+
+5000
+23 - Invalid Uses and Pattern clauses
+read r,r1; print pn; while w; if ifs; assign a; variable v; procedure p; stmt s; constant c;
+Select a such that Uses(c,_) pattern a(v, _)
+
+5000
+24 - Invalid Uses and Pattern clauses
+read r; print pn; while w; if ifs; assign a; variable v,v1; procedure p; stmt s; constant c;
+Select a such that Uses(v,v1) pattern a(v, _)
+
+5000
+25 - Invalid Uses and Pattern clauses
+read r; print pn; while w; if ifs; assign a; variable v,v1; procedure p; stmt s; constant c;
+Select a such that Uses(v,_) pattern a(v, _)
+
+5000
+26 - Valid Uses and Pattern clauses
+read r; print pn; while w; if ifs; assign a; variable v,v1; procedure p; stmt s; constant c;
+Select v such that Uses(1,v) pattern a(v, _)
+select
+5000
+27 - Valid Uses and Pattern clauses
+read r; print pn; while w; if ifs; assign a; variable v,v1; procedure p; stmt s; constant c;
+Select v such that Uses(1,_) pattern a(v, _)
+select,true,Pattern,i,x,y,exit,else,end,boolean
+5000
+28 -Invalid Uses and Pattern clauses
+read r; print pn; while w; if ifs; assign a; variable v,v1; procedure p; stmt s; constant c;
+Select v such that Uses(13,_) pattern a(v, _)
+
+5000
+29 - Valid Uses and Pattern clauses
+read r; print pn; while w; if ifs; assign a; variable v,v1; procedure p; stmt s; constant c;
+Select v such that Uses("while",v) pattern a(v, _)
+select,true,i,x,y,boolean
+5000
+30 - Valid Uses and Pattern clauses
+read r; print pn; while w; if ifs; assign a; variable v,v1; procedure p; stmt s; constant c;
+Select v such that Uses("while",_) pattern a(v, _)
+select,true,Pattern,i,x,y,exit,else,end,boolean
+5000
+31 - Valid Uses and Pattern clauses
+variable v; assign a;
+Select v such that Uses("while",_) pattern a(v, _"false"_)
+boolean,true
+5000
+32 - Valid Uses and Pattern clauses
+variable v; assign a;
+Select v such that Uses("while",v) pattern a(v, _"false"_)
+boolean,true
+5000
+33 - Invalid Uses and Pattern clauses
+read r; print pn; while w; if ifs; assign a; variable v,v1; procedure p; stmt s; constant c;
+Select v such that Uses(15,v) pattern a(v, _"a"_)
+
+5000
+34 - Valid Uses and Pattern clauses
+read r; print pn; while w; if ifs; assign a; variable v,v1; procedure p; stmt s; constant c;
+Select v such that Uses(1,_) pattern a(v, _"false"_)
+boolean,true
+5000
+35 -Invalid Uses and Pattern clauses
+read r; print pn; while w; if ifs; assign a; variable v,v1; procedure p; stmt s; constant c;
+Select v such that Uses(10,_) pattern a(v, _"false"_)
+
+5000
+36 - Valid Uses and Pattern clauses
+read r; print pn; while w; if ifs; assign a; variable v; procedure p; stmt s; constant c;
+Select a such that Uses(pn,_) pattern a(v,_"while"_)
+1,7
+5000
+37 - Valid Uses and Pattern clauses
+read r; print pn; while w; if ifs; assign a; variable v; procedure p; stmt s; constant c;
+Select a such that Uses(s,v) pattern a(v, _"while"_)
+1
+5000
+38 - Valid Uses and Pattern clauses
+read r; print pn; while w; if ifs; assign a; variable v; procedure p; stmt s; constant c;
+Select a such that Uses(a,_) pattern a(v,_"assign"_)
+1
+5000
+39 - Invalid Uses and Pattern clauses
+read r; print pn; while w; if ifs; assign a; variable v; procedure p; stmt s; constant c;
+Select a such that Uses(r,_) pattern a(v,_"assign"_)
+
+5000
+40 - Valid Uses and Pattern clauses
+variable v; assign a;
+Select v such that Uses("while",_) pattern a(v, _"1"_)
+i,exit
+5000
+41 - Valid Uses and Pattern clauses
+variable v; assign a;
+Select v such that Uses("while",v) pattern a(v, _"1"_)
+i
+5000
+42 - Valid Uses and Pattern clauses
+variable v; assign a;
+Select v such that Uses(8,v) pattern a(v, _"1"_)
+i
+5000
+43 - Valid Uses and Pattern clauses
+assign a; variable v;
+Select v such that Uses(9,_) pattern a(v, _"1"_)
+i,exit
+5000
+44 -Invalid Uses and Pattern clauses
+assign a; variable v;
+Select v such that Uses(10,v) pattern a(v, _"1"_)
+
+5000
+45 - Valid Uses and Pattern clauses
+read r; print pn; while w; if ifs; assign a; variable v; procedure p; stmt s; constant c;
+Select a such that Uses(pn,_) pattern a(v,_"20"_)
+14
+5000
+46 - Valid Uses and Pattern clauses
+read r; print pn; while w; if ifs; assign a; variable v; procedure p; stmt s; constant c;
+Select a such that Uses(ifs,v) pattern a(v, _"0"_)
+10,11
+5000
+47 - Valid Uses and Pattern clauses
+read r; print pn; while w; if ifs; assign a; variable v; procedure p; stmt s; constant c;
+Select a such that Uses(a,v) pattern a(v,_"1"_)
+9
+5000
+48 - Invalid Uses and Pattern clauses
+read r; print pn; while w; if ifs; assign a; variable v; procedure p; stmt s; constant c;
+Select a such that Uses(r,_) pattern a(v,_"1"_)
+
+5000
+49 - Valid Uses and Pattern clauses
+stmt s; assign a;
+Select s such that Uses("while",_) pattern a(_, _"if"_)
+1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21
+5000
+50 - Invalid Uses and Pattern clauses
+variable v; variable v;
+Select a such that Uses("while",v) pattern a(_, _"nested"_)
+
+5000
+51 - Valid Uses and Pattern clauses
+variable v; assign a;
+Select v such that Uses(9,v) pattern a(_, _"false"_)
+i
+5000
+52 - Valid Uses and Pattern clauses
+assign a;
+Select a such that Uses(9,_) pattern a(_, _"nested"_)
+18
+5000
+53 -Invalid Uses and Pattern clauses
+assign a; variable v;
+Select v such that Uses(13,v) pattern a(_, _"nested"_)
+
+5000
+54 - Valid Uses and Pattern clauses
+read r; print pn; while w; if ifs; assign a; variable v; procedure p; stmt s; constant c;
+Select pn such that Uses(pn,_) pattern a(_,_"false"_)
+6
+5000
+55 - Valid Uses and Pattern clauses
+read r; print pn; while w; if ifs; assign a; variable v; procedure p; stmt s; constant c;
+Select a such that Uses(pn,v) pattern a(_, _"false"_)
+2,19
+5000
+56 - Valid Uses and Pattern clauses
+read r; print pn; while w; if ifs; assign a; variable v; procedure p; stmt s; constant c;
+Select a such that Uses(a,v) pattern a(_,_"while"_)
+1,7
+5000
+57 - Invalid Uses and Pattern clauses
+read r; print pn; while w; if ifs; assign a; variable v; procedure p; stmt s; constant c;
+Select a such that Uses(r,_) pattern a(_,_"while"_)
+
+5000
+58 - Valid Uses and Pattern clauses
+variable v;assign a;
+Select v such that Uses("while",_) pattern a(_, _"1"_)
+Pattern,else,exit,end,select,while,if,assign,stmt,stmtList,false,constant,Follows,print,f,a,b,x,y,i,then,boolean,true,procedure,nested,c,p,d,read,n1
+5000
+59 - Valid Uses and Pattern clauses
+variable v; assign a;
+Select v such that Uses("while",v) pattern a(_, _"1"_)
+select,while,if,assign,stmt,stmtList,false,constant,Follows,print,f,a,b,x,y,i,then,boolean,true,procedure,nested,c,p,d
+5000
+60 - Valid Uses and Pattern clauses
+variable v; assign a;
+Select v such that Uses(8,v) pattern a(_, _"0"_)
+x,y,i
+5000
+61 - Valid Uses and Pattern clauses
+assign a; variable v;
+Select a such that Uses(3,_) pattern a(_, _"2"_)
+7
+5000
+62 -Invalid Uses and Pattern clauses
+assign a; variable v;
+Select v such that Uses(8,v) pattern a(_, _"2"_)
+i,x,y
+5000
+63 - Valid Uses and Pattern clauses
+read r; print pn; while w; if ifs; assign a; variable v; procedure p; stmt s; constant c;
+Select pn such that Uses(pn,_) pattern a(_,_"0"_)
+6
+5000
+64 - Valid Uses and Pattern clauses
+read r; print pn; while w; if ifs; assign a; variable v; procedure p; stmt s; constant c;
+Select a such that Uses(pn,v) pattern a(_, _"0"_)
+10,11
+5000
+65 - Valid Uses and Pattern clauses
+read r; print pn; while w; if ifs; assign a; variable v; procedure p; stmt s; constant c;
+Select a such that Uses(a,v) pattern a(_,_"1"_)
+9
+5000
+66 - Invalid Uses and Pattern clauses
+read r; print pn; while w; if ifs; assign a; variable v; procedure p; stmt s; constant c;
+Select a such that Uses(r,_) pattern a(_,_)
+
+5000
+67 - Valid Uses and Pattern clauses
+variable v; assign a;
+Select a such that Uses("while",_) pattern a(_,_)
+1,2,7,9,10,11,12,14,18,19,21
+5000
+68 - Valid Uses and Pattern clauses
+variable v; assign a;
+Select a such that Uses("while",v) pattern a(_,_)
+1,2,7,9,10,11,12,14,18,19,21
+5000
+69 - Valid Uses and Pattern clauses
+variable v; assign a;
+Select v such that Uses(8,v) pattern a(_,_)
+x,y,i
+5000
+70 - Valid Uses and Pattern clauses
+assign a; variable v; stmt s;
+Select s such that Uses(8,_) pattern a(_, _)
+1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21
+5000
+71 -Invalid Uses and Pattern clauses
+assign a; variable v;
+Select v such that Uses(4,v) pattern a(_,_)
+
+5000
+72 - Valid Uses and Pattern clauses
+read r; print pn; while w; if ifs; assign a; variable v; procedure p; stmt s; constant c;
+Select pn such that Uses(pn,_) pattern a(_,_)
+6
+5000
+73 - Valid Uses and Pattern clauses
+read r; print pn; while w; if ifs; assign a; variable v; procedure p; stmt s; constant c;
+Select a such that Uses(pn,v) pattern a(_, _)
+1,2,7,9,10,11,12,14,18,19,21
+5000
+74 - Valid Uses and Pattern clauses
+read r; print pn; while w; if ifs; assign a; variable v; procedure p; stmt s; constant c;
+Select a such that Uses(a,v) pattern a(_,_)
+1,2,7,9,14,18,19,21
+5000
+75 - Invalid Uses and Pattern clauses
+read r; print pn; while w; if ifs; assign a; variable v; procedure p; stmt s; constant c;
+Select a such that Uses(r,_) pattern a(_,_)
+
+5000
+76 - Valid Uses and Pattern clauses
+variable v; assign a;
+Select a such that Uses("while",_) pattern a("true", _"false"_)
+2
+5000
+77 - Valid Uses and Pattern clauses
+variable v; assign a;
+Select a such that Uses("while",v) pattern a("true", _"false"_)
+2
+5000
+78 - Valid Uses and Pattern clauses
+variable v; assign a;
+Select a such that Uses(8,v) pattern a("boolean",_"false"_)
+19
+5000
+79 - Valid Uses and Pattern clauses
+variable v; assign a;
+Select v such that Uses(8,v) pattern a("boolean",_"false"_)
+x,y,i
+5000
+80 - Valid Uses and Pattern clauses
+assign a; variable v;
+Select a such that Uses(8,_) pattern a("end", _"b"_)
+21
+5000
+81 -Invalid Uses and Pattern clauses
+assign a; variable v;
+Select v such that Uses(4,v) pattern a("false",_"true"_)
+
+5000
+82 - Valid Uses and Pattern clauses
+read r; print pn; while w; if ifs; assign a; variable v; procedure p; stmt s; constant c;
+Select pn such that Uses(pn,_) pattern a("end", _"p"_)
+6
+5000
+83 - Valid Uses and Pattern clauses
+read r; print pn; while w; if ifs; assign a; variable v; procedure p; stmt s; constant c;
+Select a such that Uses(pn,v) pattern a("end", _"nested"_)
+18
+5000
+84 - Valid Uses and Pattern clauses
+read r; print pn; while w; if ifs; assign a; variable v; procedure p; stmt s; constant c;
+Select a such that Uses(a,v) pattern a("i", _"i"_)
+9
+5000
+85 - Invalid Uses and Pattern clauses
+read r; print pn; while w; if ifs; assign a; variable v; procedure p; stmt s; constant c;
+Select a such that Uses(r,_) pattern a("i", _"1"_)
+
+5000
+86 - Valid Uses and Pattern clauses
+variable v; assign a;
+Select a such that Uses("while",_) pattern a("exit", _"1"_)
+12
+5000
+87 - Valid Uses and Pattern clauses
+variable v; assign a;
+Select a such that Uses("while",v) pattern a("exit", _"1"_)
+12
+5000
+88 - Valid Uses and Pattern clauses
+variable v; assign a;
+Select v such that Uses(8,v) pattern a("x",_"0"_)
+x,y,i
+5000
+89 - Valid Uses and Pattern clauses
+assign a; variable v;
+Select a such that Uses(8,_) pattern a("exit", _"1"_)
+12
+5000
+90 -Invalid Uses and Pattern clauses
+assign a; variable v;
+Select v such that Uses(4,v) pattern a("i",_"1"_)
+
+5000
+91 -Invalid Uses and Pattern clauses
+assign a; variable v;
+Select a such that Uses(6,v) pattern a("i",_"0"_)
+
+5000
+92 - Valid Uses and Pattern clauses
+read r; print pn; while w; if ifs; assign a; variable v; procedure p; stmt s; constant c;
+Select pn such that Uses(pn,_) pattern a("else", _"20"_)
+6
+5000
+93 - Valid Uses and Pattern clauses
+read r; print pn; while w; if ifs; assign a; variable v; procedure p; stmt s; constant c;
+Select a such that Uses(pn,v) pattern a("else", _"20"_)
+14
+5000
+94 - Valid Uses and Pattern clauses
+read r; print pn; while w; if ifs; assign a; variable v; procedure p; stmt s; constant c;
+Select a such that Uses(a,v) pattern a("i", _"1"_)
+9
+5000
+95 - Invalid Uses and Pattern clauses
+read r; print pn; while w; if ifs; assign a; variable v; procedure p; stmt s; constant c;
+Select a such that Uses(r,_) pattern a("i", _"1"_)
+
+5000
+96 - Valid Uses and Pattern clauses
+variable v; assign a;
+Select a such that Uses("while",_) pattern a("end", _)
+18,21
+5000
+97 - Valid Uses and Pattern clauses
+variable v; assign a;
+Select a such that Uses("while",v) pattern a("exit", _)
+12
+5000
+98 - Valid Uses and Pattern clauses
+variable v; assign a;
+Select a such that Uses(8,v) pattern a("end",_)
+18,21
+5000
+99 - Valid Uses and Pattern clauses
+variable v; assign a;
+Select v such that Uses(15,v) pattern a("end",_)
+boolean,true,false,while,if,procedure,nested,a,b,c,p,d,i
+5000
+100 - Valid Uses and Pattern clauses
+assign a; variable v;
+Select a such that Uses(3,_) pattern a("true",_)
+2
+5000
+101 -Invalid Uses and Pattern clauses
+assign a; variable v;
+Select v such that Uses(13,v) pattern a("x",_)
+
+5000
+102 - Valid Uses and Pattern clauses
+read r; print pn; while w; if ifs; assign a; variable v; procedure p; stmt s; constant c;
+Select pn such that Uses(pn,_) pattern a("x", _)
+6
+5000
+103 - Valid Uses and Pattern clauses
+read r; print pn; while w; if ifs; assign a; variable v; procedure p; stmt s; constant c;
+Select a such that Uses(pn,v) pattern a("x", _)
+10
+5000
+104 - Valid Uses and Pattern clauses
+read r; print pn; while w; if ifs; assign a; variable v; procedure p; stmt s; constant c;
+Select a such that Uses(a,v) pattern a("Pattern", _)
+7
+5000
+105 - Invalid Uses and Pattern clauses
+read r; print pn; while w; if ifs; assign a; variable v; procedure p; stmt s; constant c;
+Select a such that Uses(r,_) pattern a("i", _)
+
+5000
+106 - Invalid Modifies and Pattern clauses
+read r; print pn; while w; if ifs; assign a; variable v; procedure p; stmt s; constant c;
+Select pn such that Modifies(pn,v) pattern a(v, _)
+
+5000
+107 - Invalid Modifies and Pattern clauses
+read r; print pn; while w; if ifs; assign a; variable v; procedure p; stmt s; constant c;
+Select v such that Modifies(pn,v) pattern a(v, _)
+
+5000
+108 - Invalid Modifies and Pattern clauses
+read r; print pn; while w; if ifs; assign a; variable v; procedure p; stmt s; constant c;
+Select v such that Modifies(pn,_) pattern a(v, _)
+
+5000
+109 - Valid Modifies and Pattern clauses
+read r; print pn; while w; if ifs; assign a; variable v; procedure p; stmt s; constant c;
+Select a such that Modifies(a,v) pattern a(v, _)
+1,2,7,9,10,11,12,14,18,19,21
+5000
+110 - Valid Modifies and Pattern clauses
+read r; print pn; while w; if ifs; assign a; variable v; procedure p; stmt s; constant c;
+Select v such that Modifies(a,v) pattern a(v, _)
+select,true,Pattern,i,x,y,exit,else,end,boolean
+5000
+111 - Valid Modifies and Pattern clauses
+read r; print pn; while w; if ifs; assign a; variable v; procedure p; stmt s; constant c;
+Select a such that Modifies(a,_) pattern a(v, _)
+1,2,7,9,10,11,12,14,18,19,21
+5000
+112 - Valid Modifies and Pattern clauses
+read r; print pn; while w; if ifs; assign a; variable v; procedure p; stmt s; constant c;
+Select a such that Modifies(a,_) pattern a(v, _)
+1,2,7,9,10,11,12,14,18,19,21
+5000
+113 - Valid Modifies and Pattern clauses
+read r; print pn; while w; if ifs; assign a; variable v; procedure p; stmt s; constant c;
+Select ifs such that Modifies(ifs,v) pattern a(v, _)
+3,5
+5000
+114 - Valid Modifies and Pattern clauses
+read r; print pn; while w; if ifs; assign a; variable v; procedure p; stmt s; constant c;
+Select ifs such that Modifies(ifs,_) pattern a(v, _)
+3,5
+5000
+115 - Valid Modifies and Pattern clauses
+read r; print pn; while w; if ifs; assign a; variable v; procedure p; stmt s; constant c;
+Select v such that Modifies(ifs,v) pattern a(v, _)
+i,x,y,Pattern,exit,else,end,boolean
+5000
+116 - Valid Modifies and Pattern clauses
+read r; print pn; while w; if ifs; assign a; variable v; procedure p; stmt s; constant c;
+Select w such that Modifies(w,v) pattern a(v, _)
+8,15,16,17,20
+5000
+117 - Valid Modifies and Pattern clauses
+read r; print pn; while w; if ifs; assign a; variable v; procedure p; stmt s; constant c;
+Select w such that Modifies(w,_) pattern a(v, _)
+8,15,16,17,20
+5000
+118 - Valid Modifies and Pattern clauses
+read r; print pn; while w; if ifs; assign a; variable v; procedure p; stmt s; constant c;
+Select v such that Modifies(w,v) pattern a(v, _)
+i,x,y,boolean,end
+5000
+119 - Invalid Modifies and Pattern clauses
+read r,r1; print pn; while w; if ifs; assign a; variable v; procedure p; stmt s; constant c;
+Select r such that Modifies(r,v) pattern a(v, _)
+
+5000
+120 - Valid Modifies and Pattern clauses
+read r,r1; print pn; while w; if ifs; assign a; variable v; procedure p; stmt s; constant c;
+Select r such that Modifies(r,_) pattern a(v, _)
+4,13
+5000
+121 - Valid Modifies and Pattern clauses
+read r,r1; print pn; while w; if ifs; assign a; variable v; procedure p; stmt s; constant c;
+Select p such that Modifies(p,v) pattern a(v, _)
+while
+5000
+122 - Valid Modifies and Pattern clauses
+read r,r1; print pn; while w; if ifs; assign a; variable v; procedure p; stmt s; constant c;
+Select p such that Modifies(p,_) pattern a(v, _)
+while
+5000
+123 - Valid Modifies and Pattern clauses
+read r,r1; print pn; while w; if ifs; assign a; variable v; procedure p; stmt s; constant c;
+Select v such that Modifies(p,v) pattern a(v, _)
+select,true,Pattern,i,x,y,exit,else,end,boolean
+5000
+124 - Valid Modifies and Pattern clauses
+read r,r1; print pn; while w; if ifs; assign a; variable v; procedure p; stmt s; constant c;
+Select s such that Modifies(s,v) pattern a(v, _)
+1,2,3,5,7,8,9,10,11,12,14,15,16,17,18,19,20,21
+5000
+125 - Valid Modifies and Pattern clauses
+read r,r1; print pn; while w; if ifs; assign a; variable v; procedure p; stmt s; constant c;
+Select s such that Modifies(s,_) pattern a(v, _)
+1,2,3,4,5,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21
+5000
+126 - Valid Modifies and Pattern clauses
+read r,r1; print pn; while w; if ifs; assign a; variable v; procedure p; stmt s; constant c;
+Select v such that Modifies(s,v) pattern a(v, _)
+select,true,i,x,y,boolean,Pattern,exit,end,else
+5000
+127 - Invalid Modifies and Pattern clauses
+read r,r1; print pn; while w; if ifs; assign a; variable v; procedure p; stmt s; constant c;
+Select a such that Modifies(c,v) pattern a(v, _)
+
+5000
+128 - Invalid Modifies and Pattern clauses
+read r,r1; print pn; while w; if ifs; assign a; variable v; procedure p; stmt s; constant c;
+Select a such that Modifies(c,v) pattern a(v, _)
+
+5000
+129 - Invalid Modifies and Pattern clauses
+read r,r1; print pn; while w; if ifs; assign a; variable v; procedure p; stmt s; constant c;
+Select a such that Modifies(c,_) pattern a(v, _)
+
+5000
+130 - Invalid Modifies and Pattern clauses
+read r; print pn; while w; if ifs; assign a; variable v,v1; procedure p; stmt s; constant c;
+Select a such that Modifies(v,v1) pattern a(v, _)
+
+5000
+131 - Invalid Modifies and Pattern clauses
+read r; print pn; while w; if ifs; assign a; variable v,v1; procedure p; stmt s; constant c;
+Select a such that Modifies(v,_) pattern a(v, _)
+
+5000
+132 - Valid Modifies and Pattern clauses
+read r; print pn; while w; if ifs; assign a; variable v,v1; procedure p; stmt s; constant c;
+Select v such that Modifies(1,v) pattern a(v, _)
+select
+5000
+133 - Valid Modifies and Pattern clauses
+read r; print pn; while w; if ifs; assign a; variable v,v1; procedure p; stmt s; constant c;
+Select v such that Modifies(1,_) pattern a(v, _)
+select,true,Pattern,i,x,y,exit,else,end,boolean
+5000
+134 -Invalid Modifies and Pattern clauses
+read r; print pn; while w; if ifs; assign a; variable v,v1; procedure p; stmt s; constant c;
+Select v such that Modifies(6,_) pattern a(v, _)
+
+5000
+135 - Valid Modifies and Pattern clauses
+read r; print pn; while w; if ifs; assign a; variable v,v1; procedure p; stmt s; constant c;
+Select v such that Modifies("while",v) pattern a(v, _)
+select,true,Pattern,i,x,y,exit,else,end,boolean
+5000
+136 - Valid Modifies and Pattern clauses
+read r; print pn; while w; if ifs; assign a; variable v,v1; procedure p; stmt s; constant c;
+Select v such that Modifies("while",_) pattern a(v, _)
+select,true,Pattern,i,x,y,exit,else,end,boolean
+5000
+137 - Valid Modifies and Pattern clauses
+variable v; assign a;
+Select v such that Modifies("while",_) pattern a(v, _"false"_)
+boolean,true
+5000
+138 - Valid Modifies and Pattern clauses
+variable v; assign a;
+Select v such that Modifies("while",v) pattern a(v, _"false"_)
+boolean, true
+5000
+139 - Valid Modifies and Pattern clauses
+read r; print pn; while w; if ifs; assign a; variable v,v1; procedure p; stmt s; constant c;
+Select v such that Modifies(19,v) pattern a(v, _"false"_)
+boolean
+5000
+140 - Valid Modifies and Pattern clauses
+read r; print pn; while w; if ifs; assign a; variable v,v1; procedure p; stmt s; constant c;
+Select v such that Modifies(1,_) pattern a(v, _"stmt"_)
+select
+5000
+141 -Invalid Modifies and Pattern clauses
+read r; print pn; while w; if ifs; assign a; variable v,v1; procedure p; stmt s; constant c;
+Select v such that Modifies(8,_) pattern a(v, _"false"_)
+boolean,true
+5000
+142 - Valid Modifies and Pattern clauses
+read r; print pn; while w; if ifs; assign a; variable v; procedure p; stmt s; constant c;
+Select r such that Modifies(r,_) pattern a(v,_"while"_)
+4,13
+5000
+143 - Valid Modifies and Pattern clauses
+read r; print pn; while w; if ifs; assign a; variable v; procedure p; stmt s; constant c;
+Select a such that Modifies(a,v) pattern a(v, _"while"_)
+1,7
+5000
+144 - Valid Modifies and Pattern clauses
+read r; print pn; while w; if ifs; assign a; variable v; procedure p; stmt s; constant c;
+Select a such that Modifies(a,_) pattern a(v,_"assign"_)
+1
+5000
+145 - Invalid Modifies and Pattern clauses
+read r; print pn; while w; if ifs; assign a; variable v; procedure p; stmt s; constant c;
+Select a such that Modifies(pn,_) pattern a(v,_"assign"_)
+
+5000
+146 - Valid Modifies and Pattern clauses
+variable v; assign a;
+Select v such that Modifies("while",_) pattern a(v, _"1"_)
+i,exit
+5000
+147 - Valid Modifies and Pattern clauses
+variable v; assign a;
+Select v such that Modifies("while",v) pattern a(v, _"20"_)
+else
+5000
+148 - Valid Modifies and Pattern clauses
+variable v; assign a;
+Select v such that Modifies(9,v) pattern a(v, _"1"_)
+i
+5000
+149 - Valid Modifies and Pattern clauses
+assign a; variable v;
+Select v such that Modifies(9,_) pattern a(v, _"1"_)
+i,exit
+5000
+150 -Invalid Modifies and Pattern clauses
+assign a; variable v;
+Select v such that Modifies(10,v) pattern a(v, _"1"_)
+
+5000
+151 - Valid Modifies and Pattern clauses
+read r; print pn; while w; if ifs; assign a; variable v; procedure p; stmt s; constant c;
+Select r such that Modifies(r,_) pattern a(v,_"0"_)
+4,13
+5000
+152 - Valid Modifies and Pattern clauses
+read r; print pn; while w; if ifs; assign a; variable v; procedure p; stmt s; constant c;
+Select ifs such that Modifies(ifs,v) pattern a(v, _"0"_)
+3,5
+5000
+153 - Valid Modifies and Pattern clauses
+read r; print pn; while w; if ifs; assign a; variable v; procedure p; stmt s; constant c;
+Select w such that Modifies(w,v) pattern a(v, _"0"_)
+8
+5000
+154 - Valid Modifies and Pattern clauses
+read r; print pn; while w; if ifs; assign a; variable v; procedure p; stmt s; constant c;
+Select a such that Modifies(a,v) pattern a(v,_"1"_)
+9,12
+5000
+155 - Invalid Modifies and Pattern clauses
+read r; print pn; while w; if ifs; assign a; variable v; procedure p; stmt s; constant c;
+Select pn such that Modifies(pn,_) pattern a(v,_"1"_)
+
+5000
+156 - Valid Modifies and Pattern clauses
+stmt s; assign a;
+Select s such that Modifies("while",_) pattern a(_, _"while"_)
+1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21
+5000
+157 - Valid Modifies and Pattern clauses
+variable v; assign a;
+Select v such that Modifies("while",v) pattern a(_, _"nested"_)
+select,true,read,Pattern,i,x,y,exit,n1,else,end,boolean
+5000
+158 - Valid Modifies and Pattern clauses
+variable v; assign a;
+Select v such that Modifies(3,v) pattern a(_, _"false"_)
+read,Pattern,i,x,y,exit,n1,else,end,boolean
+5000
+159 - Valid Modifies and Pattern clauses
+assign a;
+Select a such that Modifies(9,_) pattern a(_, _"nested"_)
+18
+5000
+160 -Invalid Modifies and Pattern clauses
+assign a; variable v;
+Select v such that Modifies(6,v) pattern a(_, _"nested"_)
+
+5000
+161 - Valid Modifies and Pattern clauses
+read r; print pn; while w; if ifs; assign a; variable v; procedure p; stmt s; constant c;
+Select r such that Modifies(r,_) pattern a(_,_"false"_)
+4,13
+5000
+162 - Valid Modifies and Pattern clauses
+read r; print pn; while w; if ifs; assign a; variable v; procedure p; stmt s; constant c;
+Select v such that Modifies(r,v) pattern a(_, _"false"_)
+n1,read
+5000
+163 - Valid Modifies and Pattern clauses
+read r; print pn; while w; if ifs; assign a; variable v; procedure p; stmt s; constant c;
+Select v such that Modifies(ifs,v) pattern a(_, _"false"_)
+read,Pattern,i,x,y,exit,n1,else,end,boolean
+5000
+164 - Valid Modifies and Pattern clauses
+read r; print pn; while w; if ifs; assign a; variable v; procedure p; stmt s; constant c;
+Select v such that Modifies(a,v) pattern a(_,_"while"_)
+select,Pattern
+5000
+165 - Invalid Modifies and Pattern clauses
+read r; print pn; while w; if ifs; assign a; variable v; procedure p; stmt s; constant c;
+Select pn such that Modifies(pn,_) pattern a(_,_"while"_)
+
+5000
+167 - Valid Modifies and Pattern clauses
+variable v;assign a;
+Select a such that Modifies("while",_) pattern a(_, _"1"_)
+12,9
+5000
+168 - Valid Modifies and Pattern clauses
+variable v; assign a;
+Select v such that Modifies("while",v) pattern a(_, _"1"_)
+i,x,y,else,boolean,end,select,true,read,Pattern,exit,n1
+5000
+169 - Valid Modifies and Pattern clauses
+variable v; assign a;
+Select v such that Modifies(3,v) pattern a(_, _"0"_)
+read, i, Pattern, x,y, exit,n1,else,end,boolean
+5000
+170 - Valid Modifies and Pattern clauses
+assign a; variable v;
+Select a such that Modifies(8,_) pattern a(_, _"20"_)
+14
+5000
+171 -Invalid Modifies and Pattern clauses
+assign a; variable v;
+Select v such that Modifies(8,v) pattern a(_, _"2"_)
+i,x,y
+5000
+172 - Valid Modifies and Pattern clauses
+read r; print pn; while w; if ifs; assign a; variable v; procedure p; stmt s; constant c;
+Select r such that Modifies(r,_) pattern a(_,_"0"_)
+4,13
+5000
+173 - Valid Modifies and Pattern clauses
+read r; print pn; while w; if ifs; assign a; variable v; procedure p; stmt s; constant c;
+Select s such that Modifies(r,v) pattern a(_, _"0"_)
+1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21
+5000
+174 - Valid Modifies and Pattern clauses
+read r; print pn; while w; if ifs; assign a; variable v; procedure p; stmt s; constant c;
+Select a such that Modifies(a,v) pattern a(_,_"1"_)
+9,12
+5000
+175 - Invalid Modifies and Pattern clauses
+read r; print pn; while w; if ifs; assign a; variable v; procedure p; stmt s; constant c;
+Select pn such that Modifies(pn,_) pattern a(_,"1")
+
+5000
+176 - Valid Uses and Pattern clauses
+variable v; assign a;
+Select a such that Uses("while",_) pattern a(_,_)
+1,2,7,9,10,11,12,14,18,19,21
+5000
+177 - Valid Uses and Pattern clauses
+variable v; assign a;
+Select a such that Uses("while",v) pattern a(_,_)
+1,2,7,9,10,11,12,14,18,19,21
+5000
+178 - Valid Modifies and Pattern clauses
+variable v; assign a;
+Select v such that Modifies(15,v) pattern a(_,_)
+end,boolean
+5000
+179 - Valid Modifies and Pattern clauses
+assign a; variable v; stmt s;
+Select s such that Modifies(8,_) pattern a(_, _)
+1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21
+5000
+180 -Valid Modifies and Pattern clauses
+assign a; variable v;
+Select v such that Modifies(4,v) pattern a(_,_)
+read
+5000
+181 -Invalid Modifies and Pattern clauses
+assign a; variable v;
+Select v such that Modifies(6,v) pattern a(_,_)
+
+5000
+182 - Valid Modifies and Pattern clauses
+read r; print pn; while w; if ifs; assign a; variable v; procedure p; stmt s; constant c;
+Select r such that Modifies(r,_) pattern a(_,_)
+4,13
+5000
+183 - Valid Modifies and Pattern clauses
+read r; print pn; while w; if ifs; assign a; variable v; procedure p; stmt s; constant c;
+Select a such that Modifies(r,v) pattern a(_,_)
+1,2,7,9,10,11,12,14,18,19,21
+5000
+184 - Valid Modifies and Pattern clauses
+read r; print pn; while w; if ifs; assign a; variable v; procedure p; stmt s; constant c;
+Select a such that Modifies(a,v) pattern a(_,_)
+1,2,7,9,10,11,12,14,18,19,21
+5000
+185 - Valid Modifies and Pattern clauses
+read r; print pn; while w; if ifs; assign a; variable v; procedure p; stmt s; constant c;
+Select w such that Modifies(w,v) pattern a(_,_)
+8,15,16,17,20
+5000
+186 - Invalid Modifies and Pattern clauses
+read r; print pn; while w; if ifs; assign a; variable v; procedure p; stmt s; constant c;
+Select a such that Modifies(pn,_) pattern a(_,_)
+
+5000
+187 - Valid Modifies and Pattern clauses
+variable v; assign a;
+Select a such that Modifies("while",_) pattern a("true", _"false"_)
+2
+5000
+188 - Valid Modifies and Pattern clauses
+variable v; assign a;
+Select a such that Modifies("while",v) pattern a("end", _"nested"_)
+18
+5000
+189 - Valid Uses and Pattern clauses
+variable v; assign a;
+Select a such that Modifies(8,v) pattern a("boolean",_"false"_)
+19
+5000
+190 - Valid Modifies and Pattern clauses
+variable v; assign a;
+Select v such that Modifies(20,v) pattern a("boolean",_"false"_)
+end
+5000
+191 - Valid Modifies and Pattern clauses
+assign a; variable v;
+Select a such that Modifies(8,_) pattern a("end", _"b"_)
+21
+5000
+192 -Invalid Modifies and Pattern clauses
+assign a; variable v;
+Select a such that Modifies(6,v) pattern a("false",_"true"_)
+
+5000
+193 - Valid Modifies and Pattern clauses
+read r; print pn; while w; if ifs; assign a; variable v; procedure p; stmt s; constant c;
+Select r such that Modifies(r,_) pattern a("end", _"p"_)
+4,13
+5000
+194 - Valid Uses and Pattern clauses
+read r; print pn; while w; if ifs; assign a; variable v; procedure p; stmt s; constant c;
+Select a such that Modifies(r,v) pattern a("end", _"nested"_)
+18
+5000
+195 - Valid Uses and Pattern clauses
+read r; print pn; while w; if ifs; assign a; variable v; procedure p; stmt s; constant c;
+Select a such that Modifies(a,v) pattern a("else", _"then"_)
+14
+5000
+196 - Invalid Modifies and Pattern clauses
+read r; print pn; while w; if ifs; assign a; variable v; procedure p; stmt s; constant c;
+Select a such that Modifies(pn,_) pattern a("i", _"1"_)
+
+5000
+197 - Valid Modifies and Pattern clauses
+variable v; assign a;
+Select a such that Modifies("while",_) pattern a("exit", _"1"_)
+12
+5000
+198 - Valid Modifies and Pattern clauses
+variable v; assign a;
+Select a such that Modifies("while",v) pattern a("exit", _"1"_)
+12
+5000
+199 - Valid Modifies and Pattern clauses
+variable v; assign a;
+Select v such that Modifies(8,v) pattern a("x",_"0"_)
+i,x,y
+5000
+200 - Valid Modifies and Pattern clauses
+assign a; variable v;
+Select a such that Modifies(8,_) pattern a("exit", _"1"_)
+12
+5000
+201 -Invalid Modifies and Pattern clauses
+assign a; variable v;
+Select v such that Modifies(6,v) pattern a("i",_"1"_)
+
+5000
+202 -Invalid Modifies and Pattern clauses
+assign a; variable v;
+Select a such that Modifies(6,v) pattern a("i",_"0"_)
+
+5000
+203 - Valid Modifies and Pattern clauses
+read r; print pn; while w; if ifs; assign a; variable v; procedure p; stmt s; constant c;
+Select r such that Modifies(r,_) pattern a("else", _"20"_)
+4,13
+5000
+204 - Valid Modifies and Pattern clauses
+read r; print pn; while w; if ifs; assign a; variable v; procedure p; stmt s; constant c;
+Select a such that Modifies(r,v) pattern a("else", _"20"_)
+14
+5000
+205 - Valid Modifies and Pattern clauses
+read r; print pn; while w; if ifs; assign a; variable v; procedure p; stmt s; constant c;
+Select a such that Modifies(a,v) pattern a("i", _"1"_)
+9
+5000
+206 - Invalid Modifies and Pattern clauses
+read r; print pn; while w; if ifs; assign a; variable v; procedure p; stmt s; constant c;
+Select a such that Modifies(pn,_) pattern a("i", "1")
+
+5000
+207 - Valid Modifies and Pattern clauses
+variable v;assign a;
+Select a such that Modifies("while",_) pattern a("exit", _)
+12
+5000
+208 - Valid Modifies and Pattern clauses
+variable v; assign a; stmt s;
+Select s such that Modifies("while",v) pattern a("exit", _)
+1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21
+5000
+209 - Valid Modifies and Pattern clauses
+variable v; assign a; constant c;
+Select c such that Modifies("while",v) pattern a("exit", _)
+0,1,2,20
+5000
+210 - Valid Modifies and Pattern clauses
+variable v; assign a;
+Select a such that Modifies(8,v) pattern a("end",_)
+18,21
+5000
+211 - Valid Modifies and Pattern clauses
+variable v; assign a;
+Select v such that Modifies(15,v) pattern a("end",_)
+end,boolean
+5000
+212 - Valid Modifies and Pattern clauses
+assign a; variable v;
+Select a such that Modifies(8,_) pattern a("true",_)
+2
+5000
+213 - Invalid Modifies and Pattern clauses
+assign a; variable v;
+Select v such that Modifies(4,v) pattern a("X1",_)
+
+5000
+214 - Valid Modifies and Pattern clauses
+read r; print pn; while w; if ifs; assign a; variable v; procedure p; stmt s; constant c;
+Select r such that Modifies(r,_) pattern a("x", _)
+4,13
+5000
+215 - Valid Modifies and Pattern clauses
+read r; print pn; while w; if ifs; assign a; variable v; procedure p; stmt s; constant c;
+Select a such that Modifies(r,v) pattern a("x", _)
+10
+5000
+216 - Valid Modifies and Pattern clauses
+read r; print pn; while w; if ifs; assign a; variable v; procedure p; stmt s; constant c;
+Select a such that Modifies(a,v) pattern a("end", _)
+18,21
+5000
+217 - Invalid Modifies and Pattern clauses
+read r; print pn; while w; if ifs; assign a; variable v; procedure p; stmt s; constant c;
+Select a such that Modifies(pn,_) pattern a("i", _)
+
+5000
+218 - Valid Follows and Pattern clauses
+assign a; print pn; variable v;
+Select a such that Follows(pn,a) pattern a(v, _)
+7
+5000
+219 - Valid Follows and Pattern clauses
+assign a; if ifs; variable v;
+Select a such that Follows(a,ifs) pattern a(v, _)
+2
+5000
+220 - Valid Follows and Pattern clauses
+read r; print pn; while w; if ifs; assign a; variable v; procedure p; stmt s; constant c;
+Select s such that Follows(ifs,s) pattern a(v, _)
+13
+5000
+221 - Valid Follows and Pattern clauses
+read r; print pn; while w; if ifs; assign a; variable v; procedure p; stmt s; constant c;
+Select v such that Follows(w,a) pattern a(v, _)
+exit,boolean
+5000
+222 - Valid Follows and Pattern clauses
+read r; print pn; while w; if ifs; assign a; variable v; procedure p; stmt s; constant c;
+Select c such that Follows(a,w) pattern a(v, _)
+0,2,1,20
+5000
+223 - Invalid Follows and Pattern clauses
+read r,r1; print pn; while w; if ifs; assign a; variable v; procedure p; stmt s; constant c;
+Select a such that Follows(r,r1) pattern a(v, _)
+
+5000
+224 - Valid Follows and Pattern clauses
+read r; print pn; while w; if ifs; assign a; variable v; procedure p; stmt s; constant c;
+Select a such that Follows(pn,a) pattern a(v, _"while"_)
+7
+5000
+225 - Valid Follows and Pattern clauses
+read r; print pn; while w; if ifs; assign a; variable v; procedure p; stmt s; constant c;
+Select a such that Follows(a,ifs) pattern a(v, _"false"_)
+2
+5000
+226 - Valid Follows and Pattern clauses
+read r; print pn; while w; if ifs; assign a; variable v; procedure p; stmt s; constant c;
+Select v such that Follows(w,a) pattern a(v, _"false"_)
+boolean
+5000
+227 - Valid Follows and Pattern clauses
+read r; print pn; while w; if ifs; assign a; variable v; procedure p; stmt s; constant c;
+Select c such that Follows(a,w) pattern a(v, _"then"_)
+0,2,1,20
+5000
+228 - Invalid Follows and Pattern clauses
+read r,r1; assign a; variable v;
+Select a such that Follows(r,r1) pattern a(v, _"false"_)
+
+5000
+229 - Valid Follows and Pattern clauses
+read r; print pn; while w; if ifs; assign a,a1; variable v; procedure p; stmt s; constant c;
+Select a such that Follows(a,a1) pattern a(v, _"1"_)
+9
+5000
+230 - Valid Follows and Pattern clauses
+assign a, a1; variable v;
+Select a1 such that Follows(a,a1) pattern a1(v, _"0"_)
+10,11
+5000
+231 - Valid Follows and Pattern clauses
+variable v; assign a, a1;
+Select v such that Follows(a,a1) pattern a1(v, _"0"_)
+x,y
+5000
+232 - Valid Follows and Pattern clauses
+if ifs; read r; assign a;
+Select ifs such that Follows(ifs,r) pattern a(_, _)
+5
+5000
+233 - Valid Follows and Pattern clauses
+variable v; assign a, a1;
+Select a such that Follows(a,a1) pattern a1(_, _"0"_)
+9,10
+5000
+234 - Invalid Follows and Pattern clauses
+variable v; assign a, a1; while w; if ifs;
+Select w such that Follows(ifs,w) pattern a(_, _"1"_)
+
+5000
+235 - Invalid Follows and Pattern clauses
+variable v; assign a, a1; while w; if ifs;
+Select w such that Follows(a,ifs) pattern a(_, _"nested"_)
+
+5000
+236 - Valid Follows and Pattern clauses
+variable v; assign a, a1; while w; if ifs;
+Select a such that Follows(w,a) pattern a("boolean", _"false"_)
+19
+5000
+237 - Valid Follows and Pattern clauses
+variable v; assign a, a1;
+Select a1 such that Follows(a,a1) pattern a("x", _"0"_)
+11
+5000
+238 - Valid Follows and Pattern clauses
+variable v; assign a, a1,a2;
+Select a such that Follows(a,a1) pattern a2("end", _)
+1,9,10
+5000
+239 - Valid Follows and Pattern clauses
+read r; print pn; while w; if ifs; assign a; variable v; procedure p; stmt s; constant c;
+Select a such that Follows(pn,_) pattern a(v, _)
+1,2,7,9,10,11,12,14,18,19,21
+5000
+240 - Valid Follows and Pattern clauses
+read r; print pn; while w; if ifs; assign a; variable v; procedure p; stmt s; constant c;
+Select v such that Follows(a,_) pattern a(v, _)
+select,true,i,x,else,boolean
+5000
+241 - Valid Follows and Pattern clauses
+read r; print pn; while w; if ifs; assign a; variable v; procedure p; stmt s; constant c;
+Select a such that Follows(pn,_) pattern a(v, _"while"_)
+1,7
+5000
+242 - Valid Follows and Pattern clauses
+read r; print pn; while w; if ifs; assign a; variable v; procedure p; stmt s; constant c;
+Select a such that Follows(a,_) pattern a(v, _"false"_)
+2,19
+5000
+243 - Valid Follows and Pattern clauses
+read r; print pn; while w; if ifs; assign a; variable v; procedure p; stmt s; constant c;
+Select v such that Follows(w,_) pattern a(v, _"false"_)
+boolean, true
+5000
+244 - Valid Follows and Pattern clauses
+read r; print pn; while w; if ifs; assign a; variable v; procedure p; stmt s; constant c;
+Select a such that Follows(a,_) pattern a(v, _"1"_)
+9
+5000
+245 - Valid Follows and Pattern clauses
+read r; print pn; while w; if ifs; assign a; variable v; procedure p; stmt s; constant c;
+Select a such that Follows(s,_) pattern a(v, _"0"_)
+10,11
+5000
+246 - Invalid Follows and Pattern clauses
+read r; print pn; while w; if ifs; assign a; variable v; procedure p; stmt s; constant c;
+Select c such that Follows(c,_) pattern a(v, _"20"_)
+
+5000
+247 - Invalid Follows and Pattern clauses
+variable v; assign a;
+Select v such that Follows(v,_) pattern a(_, _)
+
+5000
+248 - Valid Follows and Pattern clauses
+assign a;
+Select a such that Follows(a,_) pattern a(_, _"0"_)
+10
+5000
+249 - Valid Follows and Pattern clauses
+read r; print pn; while w; if ifs; assign a; variable v; procedure p; stmt s; constant c;
+Select w such that Follows(ifs,_) pattern a(_, _"1"_)
+8,15,16,17,20
+5000
+250 - Valid Follows and Pattern clauses
+read r; print pn; while w; if ifs; assign a; variable v; procedure p; stmt s; constant c;
+Select ifs such that Follows(a,_) pattern a(_, _"i"_)
+3,5
+5000
+251 - Valid Follows and Pattern clauses
+read r; print pn; while w; if ifs; assign a; variable v; procedure p; stmt s; constant c;
+Select a such that Follows(w,_) pattern a("boolean", _"false"_)
+19
+5000
+252 - Valid Follows and Pattern clauses
+variable v; assign a, a2;
+Select a such that Follows(a,_) pattern a2("end", _)
+1,2,9,10,14,19
+5000
+253 - Valid Follows and Pattern clauses
+read r; print pn; while w; if ifs; assign a; variable v; procedure p; stmt s; constant c;
+Select a such that Follows(pn,7) pattern a(v, _)
+1,2,7,9,10,11,12,14,18,19,21
+5000
+254 - Valid Follows and Pattern clauses
+read r; print pn; while w; if ifs; assign a; variable v; procedure p; stmt s; constant c;
+Select a such that Follows(pn,7) pattern a(v, _"while"_)
+1,7
+5000
+255 - Valid Follows and Pattern clauses
+assign a; variable v;
+Select a such that Follows(a,10) pattern a(v, _"1"_)
+9
+5000
+256 - Invalid Follows and Pattern clauses
+variable v; assign a;
+Select v such that Follows(v,2) pattern a(_, _)
+
+5000
+257 - Valid Follows and Pattern clauses
+assign a;
+Select a such that Follows(a,11) pattern a(_, _"0"_)
+10
+5000
+258 - Valid Follows and Pattern clauses
+read r; print pn; while w; if ifs; assign a; variable v; procedure p; stmt s; constant c;
+Select ifs such that Follows(a,10) pattern a(_, _"i"_)
+3,5
+5000
+259 - Valid Follows and Pattern clauses
+read r; print pn; while w; if ifs; assign a; variable v; procedure p; stmt s; constant c;
+Select a such that Follows(w,12) pattern a("boolean", _"false"_)
+19
+5000
+260 - Valid Follows and Pattern clauses
+read r; print pn; while w; if ifs; assign a; variable v; procedure p; stmt s; constant c;
+Select a such that Follows(w,19) pattern a("x", _"0"_)
+10
+5000
+261 - Valid Follows and Pattern clauses
+variable v; assign a,a2;
+Select a such that Follows(a,2) pattern a2("end", _)
+1
+5000
+262 - Valid Follows and Pattern clauses
+read r; print pn; while w; if ifs; assign a; variable v; procedure p; stmt s; constant c;
+Select a such that Follows(_,_) pattern a(v, _)
+1,2,7,9,10,11,12,14,18,19,21
+5000
+263 - Valid Follows and Pattern clauses
+read r; print pn; while w; if ifs; assign a; variable v; procedure p; stmt s; constant c;
+Select a such that Follows(_,_) pattern a(v, _"while"_)
+1,7
+5000
+264 - Valid Follows and Pattern clauses
+assign a; variable v;
+Select a such that Follows(_,_) pattern a(v, _"1"_)
+9,12
+5000
+265 - Valid Follows and Pattern clauses
+variable v; assign a;
+Select v such that Follows(_,_) pattern a(_, _)
+select, while, if, assign, stmt, stmtList, true,false,constant,read,Follows,print,Pattern,,f,a,b,x,y,i,exit,n1,else,then,boolean,procedure,nested,end,c,p,d
+5000
+266 - Valid Follows and Pattern clauses
+assign a;
+Select a such that Follows(_,_) pattern a(_, _"0"_)
+10,11
+5000
+267 - Valid Follows and Pattern clauses
+read r; print pn; while w; if ifs; assign a; variable v; procedure p; stmt s; constant c;
+Select ifs such that Follows(_,_) pattern a(_, _"p"_)
+3,5
+5000
+268 - Valid Follows and Pattern clauses
+assign a;
+Select a such that Follows(_,_) pattern a("end", _"c"_)
+21
+5000
+269 - Valid Follows and Pattern clauses
+assign a;
+Select a such that Follows(_,_) pattern a("x", _"0"_)
+10
+5000
+270 - Valid Follows and Pattern clauses
+assign a;
+Select a such that Follows(_,_) pattern a("end", _)
+18,21
+5000
+271 - Valid Follows and Pattern clauses
+read r; print pn; while w; if ifs; assign a; variable v; procedure p; stmt s; constant c;
+Select a such that Follows(_,a) pattern a(v, _)
+2,7,10,11,12,19
+5000
+272 - Invalid Follows and Pattern clauses
+read r; print pn; while w; if ifs; assign a; variable v; procedure p; stmt s; constant c;
+Select a such that Follows(_,v) pattern a(v, _"while"_)
+
+5000
+273 - Valid Follows and Pattern clauses
+read r; print pn; while w; if ifs; assign a; variable v; procedure p; stmt s; constant c;
+Select a such that Follows(_,w) pattern a(v, _"1"_)
+9,12
+5000
+274 - Valid Follows and Pattern clauses
+read r; print pn; while w; if ifs; assign a; variable v; procedure p; stmt s; constant c;
+Select v such that Follows(_,ifs) pattern a(_, _)
+select, while, if, assign, stmt, stmtList, true,false,constant,read,Follows,print,Pattern,,f,a,b,x,y,i,exit,n1,else,then,boolean,procedure,nested,end,c,p,d
+5000
+275 - Valid Follows and Pattern clauses
+read r; print pn; while w; if ifs; assign a; variable v; procedure p; stmt s; constant c;
+Select a such that Follows(_,a) pattern a(_, _"0"_)
+10,11
+5000
+276 - Valid Follows and Pattern clauses
+read r; print pn; while w; if ifs; assign a; variable v; procedure p; stmt s; constant c;
+Select ifs such that Follows(_,ifs) pattern a(_, _"p"_)
+3,5
+5000
+277 - Valid Follows and Pattern clauses
+read r; print pn; while w; if ifs; assign a; variable v; procedure p; stmt s; constant c;
+Select a such that Follows(_,a) pattern a("Pattern", _"f"_)
+7
+5000
+278 - Invalid Follows and Pattern clauses
+read r; print pn; while w; if ifs; assign a; variable v; procedure p; stmt s; constant c;
+Select c such that Follows(_,c) pattern a("x", _"0"_)
+
+5000
+279 - Valid Follows and Pattern clauses
+read r; print pn; while w; if ifs; assign a; variable v; procedure p; stmt s; constant c;
+Select a such that Follows(_,2) pattern a(v, _)
+1,2,7,9,10,11,12,14,18,19,21
+5000
+280 - Valid Follows and Pattern clauses
+read r; print pn; while w; if ifs; assign a; variable v; procedure p; stmt s; constant c;
+Select a such that Follows(_,3) pattern a(v, _"while"_)
+1,7
+5000
+281 - Valid Follows and Pattern clauses
+assign a; variable v;
+Select a such that Follows(_,5) pattern a(v, _"1"_)
+9,12
+5000
+282 - Valid Follows and Pattern clauses
+read r; print pn; while w; if ifs; assign a; variable v; procedure p; stmt s; constant c;
+Select v such that Follows(_,7) pattern a(_, _)
+select, while, if, assign, stmt, stmtList, true,false,constant,read,Follows,print,Pattern,,f,a,b,x,y,i,exit,n1,else,then,boolean,procedure,nested,end,c,p,d
+5000
+283 - Valid Follows and Pattern clauses
+read r; print pn; while w; if ifs; assign a; variable v; procedure p; stmt s; constant c;
+Select a such that Follows(_,10) pattern a(_, _"0"_)
+10,11
+5000
+284 - Valid Follows and Pattern clauses
+assign a;
+Select a such that Follows(_,19) pattern a(_, _"p"_)
+21
+5000
+285 - Valid Follows and Pattern clauses
+read r; print pn; while w; if ifs; assign a; variable v; procedure p; stmt s; constant c;
+Select a such that Follows(_,12) pattern a("Pattern", _"f"_)
+7
+5000
+286 - Valid Follows and Pattern clauses
+constant c; assign a;
+Select c such that Follows(_,13) pattern a("x", _"0"_)
+0,2,1,20
+5000
+287 - Valid Follows and Pattern clauses
+read r; print pn; while w; if ifs; assign a; variable v; procedure p; stmt s; constant c;
+Select a such that Follows(_,20) pattern a("end", _)
+18,21
+5000
+288 - Valid Follows and Pattern clauses
+read r; print pn; while w; if ifs; assign a; variable v; procedure p; stmt s; constant c;
+Select a such that Follows(1,2) pattern a(v, _)
+1,2,7,9,10,11,12,14,18,19,21
+5000
+289 - Valid Follows and Pattern clauses
+read r; print pn; while w; if ifs; assign a; variable v; procedure p; stmt s; constant c;
+Select a such that Follows(2,3) pattern a(v, _"while"_)
+1,7
+5000
+290 - Valid Follows and Pattern clauses
+read r; print pn; while w; if ifs; assign a; variable v; procedure p; stmt s; constant c;
+Select a such that Follows(4,5) pattern a(v, _"1"_)
+9,12
+5000
+291 - Valid Follows and Pattern clauses
+read r; print pn; while w; if ifs; assign a; variable v; procedure p; stmt s; constant c;
+Select v such that Follows(6,7) pattern a(_, _)
+select, while, if, assign, stmt, stmtList, true,false,constant,read,Follows,print,Pattern,,f,a,b,x,y,i,exit,n1,else,then,boolean,procedure,nested,end,c,p,d
+5000
+292 - Valid Follows and Pattern clauses
+assign a;
+Select a such that Follows(9,10) pattern a(_, _"0"_)
+10,11
+5000
+293 - Valid Follows and Pattern clauses
+assign a;
+Select a such that Follows(16,19) pattern a(_, _"p"_)
+21
+5000
+294 - Valid Follows and Pattern clauses
+assign a;
+Select a such that Follows(8,12) pattern a("Pattern", _"f"_)
+7
+5000
+295 - Valid Follows and Pattern clauses
+assign a; constant c;
+Select c such that Follows(5,13) pattern a("x", _"0"_)
+0,2,1,20
+5000
+296 - Invalid Follows and Pattern clauses
+assign a;
+Select a such that Follows(3,20) pattern a("end", _)
+
+5000
+297 - Valid Follows and Pattern clauses
+read r; print pn; while w; if ifs; assign a; variable v; procedure p; stmt s; constant c;
+Select v such that Follows(1,a) pattern a(v, _)
+true
+5000
+298 - Valid Follows and Pattern clauses
+read r; print pn; while w; if ifs; assign a; variable v; procedure p; stmt s; constant c;
+Select a such that Follows(2,ifs) pattern a(v, _"while"_)
+1,7
+5000
+299 - Valid Follows and Pattern clauses
+read r; print pn; while w; if ifs; assign a; variable v; procedure p; stmt s; constant c;
+Select a such that Follows(4,ifs) pattern a(v, _"1"_)
+9,12
+5000
+300 - Valid Follows and Pattern clauses
+variable v; assign a;
+Select v such that Follows(6,a) pattern a(_, _)
+select, while, if, assign, stmt, stmtList, true,false,constant,read,Follows,print,Pattern,,f,a,b,x,y,i,exit,n1,else,then,boolean,procedure,nested,end,c,p,d
+5000
+301 - Valid Follows and Pattern clauses
+assign a;
+Select a such that Follows(9,a) pattern a(_, _"0"_)
+10
+5000
+302 - Valid Follows and Pattern clauses
+read r; print pn; while w; if ifs; assign a; variable v; procedure p; stmt s; constant c;
+Select a such that Follows(16,a) pattern a(_, _"false"_)
+19
+5000
+303 - Valid Follows and Pattern clauses
+read r; print pn; while w; if ifs; assign a; variable v; procedure p; stmt s; constant c;
+Select a such that Follows(8,12) pattern a("Pattern", _"f"_)
+7
+5000
+304 - Valid Follows and Pattern clauses
+read r; print pn; while w; if ifs; assign a; variable v; procedure p; stmt s; constant c;
+Select c such that Follows(5,r) pattern a("x", _"0"_)
+0,2,1,20
+5000
+305 - Valid Follows and Pattern clauses
+read r; print pn; while w; if ifs; assign a; variable v; procedure p; stmt s; constant c;
+Select w such that Follows(14,w) pattern a("end", _)
+15
+5000
+306 - Valid Follows and Pattern clauses
+read r; print pn; while w; if ifs; assign a; variable v; procedure p; stmt s; constant c;
+Select a such that Follows(1,_) pattern a(v, _)
+1,2,7,9,10,11,12,14,18,19,21
+5000
+307 - Valid Follows and Pattern clauses
+read r; print pn; while w; if ifs; assign a; variable v; procedure p; stmt s; constant c;
+Select a such that Follows(2,_) pattern a(v, _"while"_)
+1,7
+5000
+308 - Valid Follows and Pattern clauses
+assign a; variable v;
+Select a such that Follows(4,_) pattern a(v, _"1"_)
+9,12
+5000
+309 - Valid Follows and Pattern clauses
+variable v; assign a;
+Select v such that Follows(6,_) pattern a(_, _)
+select, while, if, assign, stmt, stmtList, true,false,constant,read,Follows,print,Pattern,,f,a,b,x,y,i,exit,n1,else,then,boolean,procedure,nested,end,c,p,d
+5000
+310 - Valid Follows and Pattern clauses
+read r; print pn; while w; if ifs; assign a; variable v; procedure p; stmt s; constant c;
+Select a such that Follows(9,_) pattern a(_, _"0"_)
+10,11
+5000
+311 - Valid Follows and Pattern clauses
+read r; print pn; while w; if ifs; assign a; variable v; procedure p; stmt s; constant c;
+Select a such that Follows(16,_) pattern a(_, _"p"_)
+21
+5000
+312 - Valid Follows and Pattern clauses
+read r; print pn; while w; if ifs; assign a; variable v; procedure p; stmt s; constant c;
+Select a such that Follows(8,_) pattern a("Pattern", _"f"_)
+7
+5000
+313 - Valid Follows and Pattern clauses
+read r; print pn; while w; if ifs; assign a; variable v; procedure p; stmt s; constant c;
+Select c such that Follows(5,_) pattern a("x", _"0"_)
+0,2,1,20
+5000
+314 - Valid Follows and Pattern clauses
+assign a;
+Select a such that Follows(19,_) pattern a("end", _)
+18,21
+5000
+315 - Valid Follows and Pattern clauses
+stmt s, s1; assign a;
+Select s such that Follows(s,s1) pattern a(_, _)
+1,2,4,5,6,8,9,10,14,16,19
+5000
+316 - Valid Follows and Pattern clauses
+assign a; stmt s, s1;
+Select s1 such that Follows(s,s1) pattern a(_, _)
+2,3,5,7,10,11,12,13,15,19,20
+5000
+317 - Valid Follows and Pattern clauses
+read r; print pn; while w; if ifs; assign a; variable v; procedure p; stmt s; constant c;
+Select s such that Follows(s,r) pattern a(_, _)
+5
+5000
+318 - Valid Follows and Pattern clauses
+stmt s; read r; assign a;
+Select r such that Follows(r,s) pattern a(_, _)
+4
+5000
+319 - Invalid Follows and Pattern clauses, do not satisfy Follows and no matching result in pattern
+assign a;
+Select a such that Follows(_,a) pattern a("end", _)
+
+5000
+320 - Invalid Follows and Pattern clauses, no result
+assign a; if ifs; variable v;
+Select a such that Follows(ifs,a) pattern a(v, _)
+
+5000
+321 - Invalid Follows and Pattern clauses, Invalid args used in Follows
+assign a;
+Select a such that Follows(1,"false") pattern a("true", "false")
+
+5000
+322 - Invalid Follows and Pattern clauses, Invalid IDENT used in pattern
+assign a;
+Select a such that Follows(a,2) pattern a(_, _"select*while+if-assign / stmt % stmtList"_)
+
+5000
+323 - Invalid Follows and Pattern clauses, Invalid IDENT used in pattern
+assign a;
+Select a such that Follows(a,2) pattern a(_, "while")
+
+5000
+324 - Invalid Follows and Pattern clauses, no partial match found
+stmt s, s1; assign a;
+Select s such that Follows(s,s1) pattern a(_, _"plus"_)
+
+5000
+325 - Invalid Follows and Pattern clauses, no exact match found
+stmt s, s1; assign a;
+Select a such that Follows(s,s1) pattern a("z", _)
+
+5000
+326 - Invalid Follows and Pattern clauses, Invalid INDENT used in pattern
+stmt s, s1; assign a;
+Select s such that Follows(s,s1) pattern a(_"z"_, _)
+
+5000
+327 - Valid Follows* and Pattern clauses
+stmt s; assign a; variable v;
+Select s such that Follows*(s,a) pattern a(v, _)
+1,6,8,9,10,16
+5000
+328 - Valid Follows* and Pattern clauses
+read r; print pn; while w; if ifs; assign a; variable v; procedure p; stmt s; constant c;
+Select v such that Follows*(a,ifs) pattern a(v, _"assign"_)
+select
+5000
+329 - Valid Follows* and Pattern clauses
+read r, r1; assign a; variable v;
+Select r such that Follows*(r,r1) pattern a(v, _"1"_)
+4
+5000
+330 - Valid Follows* and Pattern clauses
+if ifs; read r; assign a; variable v;
+Select v such that Follows*(r,ifs) pattern a(_, _)
+select, while, if, assign, stmt, stmtList, true,false,constant,read,Follows,print,Pattern,,f,a,b,x,y,i,exit,n1,else,then,boolean,procedure,nested,end,c,p,d
+5000
+331 - Valid Follows* and Pattern clauses
+read r; assign a; if ifs;
+Select ifs such that Follows*(r,ifs) pattern a(_, _"0"_)
+5
+5000
+332 - Valid Follows* and Pattern clauses
+variable v; assign a; print pn;
+Select a such that Follows*(pn,a) pattern a(_, _"while"_)
+7
+5000
+333 - Valid Follows* and Pattern clauses
+stmt s; assign a;
+Select s such that Follows*(s,a) pattern a("Pattern", _"f"_)
+6
+5000
+334 - Valid Follows* and Pattern clauses
+assign a, a1; constant c;
+Select c such that Follows*(a,a1) pattern a("x", _"0"_)
+0,2,1,20
+5000
+335 - Valid Follows* and Pattern clauses
+assign a; while w;
+Select w such that Follows*(a,w) pattern a("else", _)
+15
+5000
+336 - Valid Follows* and Pattern clauses
+stmt s; assign a; variable v;
+Select s such that Follows*(s,_) pattern a(v, _)
+1,2,4,5,6,8,9,10,14,16,19
+5000
+337 - Valid Follows* and Pattern clauses
+variable v; assign a;
+Select v such that Follows*(a,_) pattern a(v, _"assign"_)
+select
+5000
+338 - Valid Follows* and Pattern clauses
+read r, r1; assign a; variable v;
+Select r such that Follows*(r,_) pattern a(v, _"1"_)
+4
+5000
+339 - Valid Follows* and Pattern clauses
+read r; assign a; variable v;
+Select v such that Follows*(r,_) pattern a(_, _)
+select, while, if, assign, stmt, stmtList, true,false,constant,read,Follows,print,Pattern,,f,a,b,x,y,i,exit,n1,else,then,boolean,procedure,nested,end,c,p,d
+5000
+340 - Valid Follows* and Pattern clauses
+if ifs; assign a; read r;
+Select ifs such that Follows*(r,_) pattern a(_, _"0"_)
+3,5
+5000
+341 - Valid Follows* and Pattern clauses
+assign a; print pn;
+Select a such that Follows*(pn,_) pattern a(_, _"while"_)
+1,7
+5000
+342 - Valid Follows* and Pattern clauses
+read r; print pn; while w; if ifs; assign a; variable v; procedure p; stmt s; constant c;
+Select p such that Follows*(s,_) pattern a("Pattern", _"f"_)
+while
+5000
+343 - Valid Follows* and Pattern clauses
+read r; print pn; while w; if ifs; assign a; variable v; procedure p; stmt s; constant c;
+Select c such that Follows*(a,_) pattern a("x", _"0"_)
+0,2,1,20
+5000
+344 - Valid Follows* and Pattern clauses
+read r; print pn; while w; if ifs; assign a; variable v; procedure p; stmt s; constant c;
+Select w such that Follows*(a,_) pattern a("else", _)
+8,15,16,17,20
+5000
+345 - Valid Follows* and Pattern clauses
+read r; print pn; while w; if ifs; assign a; variable v; procedure p; stmt s; constant c;
+Select s such that Follows*(s,20) pattern a(v, _)
+16,19
+5000
+346 - Valid Follows* and Pattern clauses
+read r; print pn; while w; if ifs; assign a; variable v; procedure p; stmt s; constant c;
+Select v such that Follows*(a,2) pattern a(v, _"assign"_)
+select
+5000
+347 - Valid Follows* and Pattern clauses
+read r; print pn; while w; if ifs; assign a; variable v; procedure p; stmt s; constant c;
+Select r such that Follows*(r,13) pattern a(v, _"1"_)
+4
+5000
+348 - Valid Follows* and Pattern clauses
+read r; print pn; while w; if ifs; assign a; variable v; procedure p; stmt s; constant c;
+Select v such that Follows(r,5) pattern a(_, _)
+select, while, if, assign, stmt, stmtList, true,false,constant,read,Follows,print,Pattern,,f,a,b,x,y,i,exit,n1,else,then,boolean,procedure,nested,end,c,p,d
+5000
+349 - Valid Follows* and Pattern clauses
+read r; print pn; while w; if ifs; assign a; variable v; procedure p; stmt s; constant c;
+Select ifs such that Follows*(r,ifs) pattern a(_, _"0"_)
+5
+5000
+350 - Valid Follows* and Pattern clauses
+read r; print pn; while w; if ifs; assign a; variable v; procedure p; stmt s; constant c;
+Select a such that Follows*(pn,7) pattern a(_, _"while"_)
+1,7
+5000
+351 - Valid Follows* and Pattern clauses
+read r; print pn; while w; if ifs; assign a; variable v; procedure p; stmt s; constant c;
+Select p such that Follows*(s,19) pattern a("Pattern", _"f"_)
+while
+5000
+352 - Valid Follows* and Pattern clauses
+read r; print pn; while w; if ifs; assign a; variable v; procedure p; stmt s; constant c;
+Select c such that Follows*(a,15) pattern a("x", _"0"_)
+
+5000
+353 - Valid Follows* and Pattern clauses
+read r; print pn; while w; if ifs; assign a; variable v; procedure p; stmt s; constant c;
+Select w such that Follows*(s,13) pattern a("else", _)
+8,15,16,17,20
+5000
+354 - Valid Follows* and Pattern clauses
+read r; print pn; while w; if ifs; assign a; variable v; procedure p; stmt s; constant c;
+Select s such that Follows*(_,_) pattern a(v, _)
+1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21
+5000
+355 - Valid Follows* and Pattern clauses
+variable v; assign a;
+Select v such that Follows*(_,_) pattern a(v, _"assign"_)
+select
+5000
+356 - Valid Follows* and Pattern clauses
+variable v; assign a;
+Select v such that Follows*(_,_) pattern a(v, _"1"_)
+exit, i
+5000
+357 - Valid Follows* and Pattern clauses
+variable v; assign a;
+Select v such that Follows*(_,_) pattern a(_, _)
+select, while, if, assign, stmt, stmtList, true,false,constant,read,Follows,print,Pattern,,f,a,b,x,y,i,exit,n1,else,then,boolean,procedure,nested,end,c,p,d
+5000
+358 - Valid Follows* and Pattern clauses
+assign a; if ifs;
+Select ifs such that Follows*(_,_) pattern a(_, _"0"_)
+3,5
+5000
+359 - Valid Follows* and Pattern clauses
+assign a;
+Select a such that Follows*(_,_) pattern a(_, _"while"_)
+1,7
+5000
+360 - Valid Follows* and Pattern clauses
+assign a; procedure p;
+Select p such that Follows*(_,_) pattern a("Pattern", _"f"_)
+while
+5000
+361 - Valid Follows* and Pattern clauses
+constant c; assign a;
+Select c such that Follows*(_,_) pattern a("x", _"0"_)
+0,2,1,20
+5000
+362 - Valid Follows* and Pattern clauses
+assign a; while w;
+Select w such that Follows*(_,_) pattern a("else", _)
+8,15,16,17,20
+5000
+363 - Valid Follows* and Pattern clauses
+stmt s; assign a; variable v;
+Select s such that Follows*(_,2) pattern a(v, _)
+1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21
+5000
+364 - Valid Follows* and Pattern clauses
+variable v; assign a;
+Select v such that Follows*(_,5) pattern a(v, _"assign"_)
+select
+5000
+365 - Valid Follows* and Pattern clauses
+variable v; assign a;
+Select v such that Follows*(_,15) pattern a(v, _"1"_)
+exit, i
+5000
+366 - Valid Follows* and Pattern clauses
+variable v; assign a;
+Select v such that Follows*(_,13) pattern a(_, _)
+select, while, if, assign, stmt, stmtList, true,false,constant,read,Follows,print,Pattern,,f,a,b,x,y,i,exit,n1,else,then,boolean,procedure,nested,end,c,p,d
+5000
+367 - Valid Follows* and Pattern clauses
+assign a; if ifs;
+Select ifs such that Follows*(_,15) pattern a(_, _"0"_)
+3,5
+5000
+368 - Valid Follows* and Pattern clauses
+assign a;
+Select a such that Follows*(_,19) pattern a(_, _"while"_)
+1,7
+5000
+369 - Valid Follows* and Pattern clauses
+assign a; procedure p;
+Select p such that Follows*(_,20) pattern a("Pattern", _"f"_)
+while
+5000
+370 - Valid Follows* and Pattern clauses
+constant c; assign a;
+Select c such that Follows*(_,3) pattern a("x", _"0"_)
+0,2,1,20
+5000
+371 - Valid Follows* and Pattern clauses
+assign a; while w;
+Select w such that Follows*(_,10) pattern a("else", _)
+8,15,16,17,20
+5000
+372 - Valid Follows* and Pattern clauses
+stmt s; assign a; variable v;
+Select s such that Follows*(_,a) pattern a(v, _)
+1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21
+5000
+373 - Invalid Follows* and Pattern clauses
+variable v; assign a;
+Select v such that Follows*(_,v) pattern a(v, _"false"_)
+
+5000
+374 - Valid Follows* and Pattern clauses
+variable v; assign a; read r;
+Select v such that Follows*(_,r) pattern a(v, _"1"_)
+exit, i
+5000
+375 - Valid Follows* and Pattern clauses
+variable v; assign a; while w;
+Select v such that Follows*(_,w) pattern a(_, _)
+select, while, if, assign, stmt, stmtList, true,false,constant,read,Follows,print,Pattern,,f,a,b,x,y,i,exit,n1,else,then,boolean,procedure,nested,end,c,p,d
+5000
+376 - Valid Follows* and Pattern clauses
+assign a; if ifs;
+Select ifs such that Follows*(_,ifs) pattern a(_, _"0"_)
+3,5
+5000
+377 - Valid Follows* and Pattern clauses
+assign a;
+Select a such that Follows*(_,a) pattern a(_, _"while"_)
+7
+5000
+378 - Valid Follows* and Pattern clauses
+assign a; procedure p;
+Select p such that Follows*(_,a) pattern a("Pattern", _"f"_)
+while
+5000
+379 - Valid Follows* and Pattern clauses
+constant c; assign a; if ifs;
+Select c such that Follows*(_,ifs) pattern a("x", _"0"_)
+0,2,1,20
+5000
+380 - Valid Follows* and Pattern clauses
+assign a; while w;
+Select w such that Follows*(_,w) pattern a("else", _)
+15,20
+5000
+381 - Valid Follows* and Pattern clauses
+stmt s; assign a; variable v;
+Select s such that Follows*(_,2) pattern a(v, _)
+1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21
+5000
+382 - Valid Follows* and Pattern clauses
+variable v; assign a;
+Select v such that Follows*(_,3) pattern a(v, _"false"_)
+boolean, true
+5000
+383 - Valid Follows* and Pattern clauses
+variable v; assign a;
+Select v such that Follows*(_,5) pattern a(v, _"1"_)
+exit, i
+5000
+384 - Valid Follows* and Pattern clauses
+variable v; assign a;
+Select v such that Follows*(_,7) pattern a(_, _)
+select, while, if, assign, stmt, stmtList, true,false,constant,read,Follows,print,Pattern,,f,a,b,x,y,i,exit,n1,else,then,boolean,procedure,nested,end,c,p,d
+5000
+385 - Valid Follows* and Pattern clauses
+assign a; if ifs;
+Select ifs such that Follows*(_,10) pattern a(_, _"0"_)
+3,5
+5000
+386 - Valid Follows* and Pattern clauses
+assign a;
+Select a such that Follows*(_,11) pattern a(_, _"while"_)
+1,7
+5000
+387 - Valid Follows* and Pattern clauses
+assign a; procedure p;
+Select p such that Follows*(_,12) pattern a("Pattern", _"f"_)
+while
+5000
+388 - Valid Follows* and Pattern clauses
+constant c; assign a;
+Select c such that Follows*(_,15) pattern a("x", _"0"_)
+0,2,1,20
+5000
+389 - Valid Follows* and Pattern clauses
+assign a; while w;
+Select a such that Follows*(_,20) pattern a("else", _)
+14
+5000
+390 - Valid Follows* and Pattern clauses
+stmt s; assign a; variable v;
+Select s such that Follows*(1,2) pattern a(v, _)
+1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21
+5000
+391 - Valid Follows* and Pattern clauses
+variable v; assign a;
+Select v such that Follows*(1,3) pattern a(v, _"false"_)
+boolean, true
+5000
+392 - Valid Follows* and Pattern clauses
+variable v; assign a;
+Select v such that Follows*(4,5) pattern a(v, _"1"_)
+exit, i
+5000
+393 - Valid Follows* and Pattern clauses
+variable v; assign a;
+Select v such that Follows*(6,7) pattern a(_, _)
+select, while, if, assign, stmt, stmtList, true,false,constant,read,Follows,print,Pattern,,f,a,b,x,y,i,exit,n1,else,then,boolean,procedure,nested,end,c,p,d
+5000
+394 - Valid Follows* and Pattern clauses
+assign a; if ifs;
+Select ifs such that Follows*(9,10) pattern a(_, _"0"_)
+3,5
+5000
+395 - Valid Follows* and Pattern clauses
+assign a;
+Select a such that Follows*(9,11) pattern a(_, _"while"_)
+1,7
+5000
+396 - Valid Follows* and Pattern clauses
+assign a; procedure p;
+Select p such that Follows*(8,12) pattern a("Pattern", _"f"_)
+while
+5000
+397 - Valid Follows* and Pattern clauses
+constant c; assign a;
+Select c such that Follows*(4,13) pattern a("x", _"0"_)
+0,2,1,20
+5000
+398 - Valid Follows* and Pattern clauses
+assign a; while w;
+Select w such that Follows*(16,20)
+15,20,8,16,17
+5000
+399 - Valid Follows* and Pattern clauses
+assign a; variable v; while w;
+Select w such that Follows*(16,w) pattern a(v, _)
+20
+5000
+400 - Valid Follows* and Pattern clauses
+variable v; assign a;
+Select v such that Follows*(1,a) pattern a(v, _"false"_)
+true
+5000
+401 - Valid Follows* and Pattern clauses
+variable v; assign a; read r;
+Select v such that Follows*(4,r) pattern a(v, _"1"_)
+exit, i
+5000
+402 - Valid Follows* and Pattern clauses
+variable v; assign a;
+Select v such that Follows*(6,a) pattern a(_, _)
+select, while, if, assign, stmt, stmtList, true,false,constant,read,Follows,print,Pattern,,f,a,b,x,y,i,exit,n1,else,then,boolean,procedure,nested,end,c,p,d
+5000
+403 - Valid Follows* and Pattern clauses
+assign a;
+Select a such that Follows*(9,a) pattern a(_, _"0"_)
+10,11
+5000
+404 - Valid Follows* and Pattern clauses
+assign a; constant c;
+Select c such that Follows*(9,11) pattern a(_, _"while"_)
+0, 1, 2, 20
+5000
+405 - Valid Follows* and Pattern clauses
+assign a,a1; procedure p;
+Select a such that Follows*(8,a) pattern a1("Pattern", _"f"_)
+12
+5000
+406 - Valid Follows* and Pattern clauses
+constant c; assign a; read r;
+Select c such that Follows*(4,r) pattern a("x", _"0"_)
+0,2,1,20
+5000
+407 - Valid Follows* and Pattern clauses
+assign a; stmt s;
+Select s such that Follows*(1,s) pattern a("else", _)
+2,3
+5000
+408 - Valid Follows* and Pattern clauses
+assign a; variable v;
+Select v such that Follows*(1,_) pattern a(v, _)
+select,true,Pattern,i,x,y,exit,else,end,boolean
+5000
+409 - Valid Follows* and Pattern clauses
+variable v; assign a;
+Select v such that Follows*(1,_) pattern a(v, _"false"_)
+true,boolean
+5000
+410 - Valid Follows* and Pattern clauses
+variable v; assign a;
+Select v such that Follows*(4,_) pattern a(v, _"1"_)
+exit, i
+5000
+411 - Valid Follows* and Pattern clauses
+variable v; assign a;
+Select v such that Follows*(6,_) pattern a(_, _)
+select, while, if, assign, stmt, stmtList, true,false,constant,read,Follows,print,Pattern,,f,a,b,x,y,i,exit,n1,else,then,boolean,procedure,nested,end,c,p,d
+5000
+412 - Valid Follows* and Pattern clauses
+assign a;
+Select a such that Follows*(9,_) pattern a(_, _"0"_)
+10,11
+5000
+413 - Valid Follows* and Pattern clauses
+assign a; constant c;
+Select c such that Follows*(9,_) pattern a(_, _"while"_)
+0,1,2,20
+5000
+414 - Valid Follows* and Pattern clauses
+assign a1; procedure p;
+Select a1 such that Follows*(8,_) pattern a1("Pattern", _"f"_)
+7
+5000
+415 - Valid Follows* and Pattern clauses
+constant c; assign a;
+Select c such that Follows*(4,_) pattern a("x", _"0"_)
+0,2,1,20
+5000
+416 - Valid Follows* and Pattern clauses
+assign a;
+Select a such that Follows*(1,_) pattern a("else", _)
+14
+5000
+417 - Invalid Follows* and Pattern clauses, do not satisfy Follows* and no matching result in pattern
+assign a;
+Select a such that Follows*(_,a) pattern a("end", _)
+
+5000
+418 - Invalid Follows* and Pattern clauses, Invalid pattern syntax
+while w; assign a; variable v;
+Select a such that Follows*(a,w) pattern (v, _)
+
+5000
+419 - Invalid Follows* and Pattern clauses, do not satisfy Follows*
+assign a;
+Select a such that Follows*(1,"read") pattern a("true", _"false"_)
+
+5000
+420 - Invalid Follows* and Pattern clauses, Invalid IDENT used in pattern
+assign a;
+Select a such that Follows*(a,2) pattern a(_, _"then+20"_)
+
+5000
+421 - Invalid Follows* and Pattern clauses, do not satisfy Follows*
+assign a;
+Select a such that Follows*(5,8) pattern a(_, _)
+
+5000
+422 - Invalid Follows* and Pattern clauses, do not satisfy Follows*
+stmt s; assign a;
+Select s such that Follows*(s,1) pattern a(_, _)
+
+5000
+423 - Invalid Follows* and Pattern clauses, do not satisfy Follows*
+assign a; if ifs, ifs1;
+Select a such that Follows*(ifs,ifs1) pattern a("z", _)
+
+5000
+424 - Invalid Follows* and Pattern clauses, Invalid INDENT used in pattern
+stmt s, s1; assign a;
+Select s such that Follows*(s,s1) pattern a(_"z"_, _)
+
+5000
+425 - Invalid Follows* and Pattern clauses, out of range statement number in args
+stmt s; assign a;
+Select a such that Follows*(a,22) pattern a(_, _)
+
+5000
+426 - Valid Follows* and Pattern clauses
+while w,w1; assign a; stmt s;
+Select w such that Follows*(w,w1) pattern a(_, _)
+16
+5000
+427 - Invalid Follows* and Pattern clauses, Missing syn declaration
+while w; assign a; stmt s;
+Select s such that Follows*(w,aa) pattern aa(_, _)
+
+5000
+428 - Valid Follows* and Pattern clauses
+while w; assign aa; stmt s;
+Select aa pattern aa(_, _) such that Follows*(w,aa)
+12,19
+5000
+429 - Invalid Follows* and Pattern clauses, Invalid select-cl
+while w; assign aa; stmt s;
+Select s such that Follows*(w,aa) and pattern aa(_, _)
+
+5000
+430 - Valid Parent and Pattern clauses
+variable v; assign a; if ifs;
+Select v such that Parent(ifs, a) pattern a(v, _)
+else,Pattern,exit
+5000
+431 - Valid Parent and Pattern clauses
+variable v; assign a; if ifs;
+Select a such that Parent(ifs,a) pattern a(v, _"20"_)
+14
+5000
+432 - Valid Parent and Pattern clauses
+assign a; while w;
+Select a such that Parent(w,a) pattern a(_, _)
+9,10,11,18,19,21
+5000
+433 - Valid Parent and Pattern clauses
+assign a; while w;
+Select w such that Parent(w,a) pattern a(_, _)
+8,15,17,20
+5000
+434 - Valid Parent and Pattern clauses
+assign a; stmt s;
+Select s such that Parent(s,a) pattern a(_, _)
+3,5,8,15,17,20
+5000
+435 - Valid Parent and Pattern clauses
+assign a; procedure p; stmt s;
+Select p such that Parent(s,a) pattern a("end", _)
+while
+5000
+436 - Valid Parent and Pattern clauses
+assign a; stmt s;
+Select a such that Parent(s,a) pattern a(_, _"nested"_)
+18
+5000
+437 - Valid Parent and Pattern clauses
+assign a; stmt s;
+Select s such that Parent(s,a) pattern a(_, _"1"_)
+5,8
+5000
+438 - Valid Parent and Pattern clauses
+variable v; assign a; if ifs;
+Select v such that Parent(ifs, _) pattern a(v, _)
+select, true, Pattern,i,x,y,exit,else,end,boolean
+5000
+439 - Valid Parent and Pattern clauses
+variable v; assign a; if ifs;
+Select a such that Parent(ifs,_) pattern a(v, _"20"_)
+14
+5000
+440 - Valid Parent and Pattern clauses
+assign a; while w;
+Select a such that Parent(w,_) pattern a(_, _)
+1,2,7,9,10,11,12,14,18,19,21
+5000
+441 - Valid Parent and Pattern clauses
+assign a; stmt s;
+Select a such that Parent(s,_) pattern a("end", _)
+18,21
+5000
+442 - Valid Parent and Pattern clauses
+assign a; stmt s;
+Select a such that Parent(s,_) pattern a(_, _"nested"_)
+18
+5000
+443 - Valid Parent and Pattern clauses
+assign a; stmt s;
+Select s such that Parent(s,_) pattern a(_, _"1"_)
+3,5,15,16,17,20,8
+5000
+444 - Valid Parent and Pattern clauses
+variable v; assign a; if ifs;
+Select v such that Parent(ifs, 15) pattern a(v, _)
+select, true, Pattern,i,x,y,exit,else,end,boolean
+5000
+445 - Valid Parent and Pattern clauses
+variable v; assign a; if ifs;
+Select a such that Parent(ifs,5) pattern a(v, _"20"_)
+14
+5000
+446 - Valid Parent and Pattern clauses
+assign a; while w;
+Select a such that Parent(w,16) pattern a(_, _)
+1,2,7,9,10,11,12,14,18,19,21
+5000
+447 - Valid Parent and Pattern clauses
+assign a; stmt s;
+Select a such that Parent(s,18) pattern a("end", _)
+18,21
+5000
+448 - Valid Parent and Pattern clauses
+assign a; stmt s;
+Select a such that Parent(s,17) pattern a(_, _"nested"_)
+18
+5000
+449 - Valid Parent and Pattern clauses
+assign a; stmt s;
+Select s such that Parent(s,21) pattern a(_, _"1"_)
+20
+5000
+450 - Valid Parent and Pattern clauses
+assign a;
+Select a such that Parent(_,_) pattern a(_, _"1"_)
+9,12
+5000
+451 - Valid Parent and Pattern clauses
+assign a; read r;
+Select r such that Parent(_,18) pattern a(_, _"nested"_)
+4,13
+5000
+452 - Valid Parent and Pattern clauses
+assign a;
+Select a such that Parent(_,a) pattern a(_, _"a"_)
+7,21
+5000
+453 - Valid Parent and Pattern clauses
+assign a;
+Select a such that Parent(3,4) pattern a(_, _"2"_)
+7
+5000
+454 - Invalid Parent and Pattern clauses
+assign a; constant c;
+Select a such that Parent(3,5) pattern a(_, c)
+
+5000
+455 - Invalid Parent and Pattern clauses
+assign a; variable v; constant c;
+Select a such that Parent(3,13) pattern a(v, c)
+
+5000
+456 - Valid Parent and Pattern clauses
+assign a; variable v;
+Select a such that Parent(5,6) pattern a(v, _)
+1,2,7,9,10,11,12,14,18,19,21
+5000
+457 - Invalid Parent and Pattern clauses
+assign a; variable v;
+Select a such that Parent(5,8) pattern a(_, a)
+
+5000
+458 - Invalid Parent and Pattern clauses
+assign a; variable v, v1;
+Select a such that Parent(5,12)pattern a(v, v1)
+
+5000
+459 - Valid Parent and Pattern clauses
+assign a; variable v;
+Select v such that Parent(15,a)pattern a(v, _)
+boolean
+5000
+460 - Invalid Parent and Pattern clauses
+assign a; variable v;
+Select v such that Parent(5,a)pattern a(_, v)
+
+5000
+461 - Valid Parent and Pattern clauses
+assign a; constant constant;
+Select constant such that Parent(5,a) pattern a(_,_)
+0,1,2,20
+5000
+462 - Invalid Parent and Pattern clauses
+assign a; variable v;
+Select v such that Parent(5,_) pattern a(_, v)
+
+5000
+463 - Invalid Parent and Pattern clauses, Invalid syn p in pattern LHS
+assign a; if ifs; procedure p;
+Select a such that Parent(ifs,a) pattern a(p, _)
+
+5000
+464 - Invalid Parent and Pattern clauses, do not satisfy Parent
+assign a; print pn; stmt s; while w;
+Select s such that Parent(w,pn) pattern a(_, _)
+
+5000
+465 - Invalid Parent and Pattern clauses, Invalid select-cl
+assign a; print pn; stmt s; while w;
+Select s such that Parent(w,s) and pattern a(_, _)
+
+5000
+466 - Invalid Parent and Pattern clauses, Invalid select-cl
+assign a; stmt s;
+Select s such that pattern a(_, _) Parent(5,6)
+
+5000
+467 - Invalid Parent and Pattern clauses, Invalid pattern-cl
+assign a; stmt s; variable v;
+Select s such that Parent(5,a) pattern (v, _)
+
+5000
+468 - Invalid Parent and Pattern clauses, Invalid INDENT in pattern RHS
+assign a; stmt s; constant c; variable v;
+Select s such that Parent(s,c) pattern a(v, _"i+1"_)
+
+5000
+469 - Invalid Parent and Pattern clauses, do not satisfy Parent and pattern clauses
+assign a; stmt s; constant c; read r; variable v;
+Select s such that Parent(r,a) pattern a(v,_)
+
+5000
+470 - Invalid Parent and Pattern clauses, do not satisfy Parent and pattern clauses
+assign a; stmt s; constant c; read r; variable v;
+Select s such that Parent(a,a) pattern a(v,_)
+
+5000
+471 - Invalid Parent and Pattern clauses, do not satisfy Parent and pattern clauses
+assign a,a1; stmt s; variable v;
+Select s such that Parent(a,a1) pattern a1(v,_)
+
+5000
+472 - Invalid Parent and Pattern clauses, Invalid declaration, missing semicolon
+assign a; stmt s; variable v
+Select s such that Parent(s,a) pattern a(v,_)
+
+5000
+473 - Valid Parent* and Pattern clauses
+variable v; assign a; if ifs;
+Select a such that Parent*(ifs, a) pattern a(v, _"0"_)
+10,11
+5000
+474 - Valid Parent* and Pattern clauses
+variable v; assign a; if ifs;
+Select a such that Parent*(ifs, a) pattern a(v, _)
+7,9,10,11,12,14,18,19,21
+5000
+475 - Valid Parent* and Pattern clauses
+assign a; while w;
+Select a such that Parent*(w,a) pattern a(_, _)
+9,10,11,18,19,21
+5000
+476 - Valid Parent* and Pattern clauses
+assign a; while w;
+Select w such that Parent*(w,a) pattern a(_, _)
+8,15,16,17,20
+5000
+477 - Valid Parent* and Pattern clauses
+assign a; stmt s;
+Select s such that Parent*(s,a) pattern a(_, _"nested"_)
+3,15,16,17
+5000
+478 - Valid Parent* and Pattern clauses
+assign a; stmt s;
+Select s such that Parent*(s,a) pattern a(_, _"1"_)
+3,5,8
+5000
+479 - Valid Parent* and Pattern clauses
+assign a; stmt s;
+Select a such that Parent*(s,a) pattern a(_, _"1"_)
+9,12
+5000
+480 - Valid Parent* and Pattern clauses
+assign a; stmt s; if ifs;
+Select a such that Parent*(ifs,a) pattern a(_, _"1"_)
+9,12
+5000
+481 - Valid Parent* and Pattern clauses
+assign a; while w;
+Select a such that Parent*(w,a) pattern a(_, _"1"_)
+9
+5000
+482 - Valid Parent* and Pattern clauses
+assign a; while w;
+Select w such that Parent*(w,a) pattern a("end", _)
+15,16,17,20
+5000
+483 - Valid Parent* and Pattern clauses
+assign a;
+Select a such that Parent*(15,a) pattern a("end", _)
+18,21
+5000
+484 - Valid Parent* and Pattern clauses
+assign a;
+Select a such that Parent*(_,a) pattern a("end", _)
+18,21
+5000
+485 - Valid Parent* and Pattern clauses
+assign a;
+Select a such that Parent*(17,a) pattern a("end", _)
+18
+5000
+486 - Valid Parent* and Pattern clauses
+assign a;
+Select a such that Parent*(3,a) pattern a("Pattern", _"2"_)
+7
+5000
+487 - Valid Parent* and Pattern clauses
+assign a;
+Select a such that Parent*(3,a) pattern a("boolean", _"false"_)
+19
+5000
+488 - Invalid Parent* and Pattern clauses, Invalid syn c in pattern LHS
+assign a; if ifs; constant c;
+Select a such that Parent*(ifs,a) pattern a(c, _)
+
+5000
+489 - Invalid Parent* and Pattern clauses, do not satisfy Parent* and pattern clauses
+assign a; stmt s; while w;
+Select s such that Parent*(w,a) pattern a("0", _)
+
+5000
+490 - Invalid Parent* and Pattern clauses
+assign a; stmt s;
+Select s such that pattern a(_, _) Parent*(3,6)
+
+5000
+491 - Invalid Parent* and Pattern clauses, Invalid pattern-cl
+assign a; stmt s; variable v;
+Select s such that Parent*(3,a) pattern (v, _)
+
+5000
+492 - Invalid Parent* and Pattern clauses, Invalid select-cl
+assign a; stmt s; variable v;
+Select s such that Parent*(s,a) and pattern a(v,_)
+
+5000
+493 - Valid Follows and Pattern clauses
+assign a; stmt s; variable v;
+Select a pattern a(v,"1") such that Follows(s,a)
+12
+5000
+494 - Valid Follows and Pattern clauses
+assign a; stmt s; variable v;
+Select a pattern a(v,"false") such that Follows(s,a)
+2,19
+5000
+495 - Valid Parent and Pattern clauses
+assign a; stmt s; variable v;
+Select a pattern a(v,"nested") such that Parent(s,a)
+18
+5000
+496 - Valid Parent and Pattern clauses
+assign a; stmt s; variable v; while w;
+Select v pattern a(v,"nested") such that Parent(w,a)
+end
+5000
+497 - Valid Uses and Pattern clauses
+assign a; stmt s; variable v; while w;
+Select w pattern a(v,"false") such that Uses(w,v)
+15
+5000
+498 - Valid Uses and Pattern clauses
+assign a; stmt s; variable v; while w;
+Select s pattern a(v,"false") such that Uses(s,v)
+3,15
+5000
+499 - Valid Modifies and Pattern clauses
+assign a; stmt s; variable v; while w; read r;
+Select v pattern a(v,_"while"_) such that Modifies(s,v)
+select, Pattern
+5000
+500 - Valid Uses and Pattern clauses
+assign a; stmt s; variable v; while w; read r;
+Select v pattern a(v,_) such that Uses(s,v)
+select, i, x,y, boolean, true
+5000
+501 - Valid Uses and Pattern clauses
+assign a; stmt s; variable v; while w; read r; procedure p;
+Select v pattern a(v,_) such that Uses(p,v)
+select,i,boolean,x,y,true
+5000
+502 - Valid Uses and Pattern clauses
+assign a; stmt s; variable v; while w; read r; procedure p;
+Select a pattern a(v,_) such that Uses(p,v)
+1,2,10,11,19,9
+5000
+503 - Valid Modifies and Pattern clauses
+assign a; stmt s; variable v; while w; read r; procedure p;
+Select a pattern a(v,_"then"_) such that Modifies(p,v)
+14
+5000
+504 - Valid Modifies and Pattern clauses
+assign a; stmt s; variable v; while w; read r;
+Select s pattern a(v,_"20"_) such that Modifies(s,v)
+3,14
+5000
+505 - Valid Modifies and Pattern clauses
+assign a; stmt s; variable v; while w; read r;
+Select a pattern a(v,"1") such that Modifies(s,v)
+12
+5000
+506 - Valid Follows* and Pattern clauses
+assign a; stmt s; variable v; while w; read r;
+Select s pattern a(v,"1") such that Follows*(s,a)
+8
+5000
+507 - Valid Parent* and Pattern clauses
+assign a; stmt s; variable v; while w; read r;
+Select s pattern a(v,"0") such that Parent*(s,a)
+8,5,3
+5000
+508 - Invalid Follows and Pattern clauses
+assign a; stmt s; variable v; while w; read r;
+Select s pattern a(v,_"select"_) such that Follows(s,v)
+
+5000
+509 - Invalid Follows* and Pattern clauses
+assign a; stmt s; variable v; while w; read r;
+Select s pattern a(v,_"p"_) such that Follows*(s,v)
+
+5000
+510 - Invalid Follows* and Pattern clauses
+assign a; stmt s; variable v; while w; read r;
+Select s pattern a(v,"false") such that Follows*(a,v)
+
+5000
+511 - Invalid Follows* and Pattern clauses
+assign a; stmt s; variable v; while w; read r; if ifs;
+Select s pattern a(v,"false") such that Follows*(ifs,v)
+
+5000
+512 - Invalid Follows* and Pattern clauses
+assign a,a1; stmt s; variable v; while w; read r; if ifs;
+Select a1 pattern a(v,"false") such that Follows*(a1,a)
+1
+5000
+513 - Invalid Parent and Pattern clauses
+assign a,a1; stmt s; variable v; while w; read r; if ifs;
+Select a1 pattern a1(v,"0") such that Parent(a,a1)
+
+5000
+514 - Invalid Parent and Pattern clauses
+assign a; stmt s; variable v; while w; read r; if ifs;
+Select a pattern a(v,"nested") such that Parent(ifs,a)
+
+5000
+515 - Invalid Parent and Pattern clauses
+assign a; stmt s; variable v; while w; read r; if ifs;
+Select a pattern a(v,_"while"_) such that Parent(w,a)
+
+5000
+516 - Invalid Parent and Pattern clauses
+assign a; stmt s; variable v; while w; read r; if ifs;
+Select a pattern a("select",_"assign"_) such that Parent(s,a)
+
+5000
+517 - Invalid Parent* and Pattern clauses
+assign a; stmt s; variable v; while w; read r; if ifs;
+Select a pattern a(_,_"assign"_) such that Parent*(s,a)
+
+5000
+518 - Invalid Modifies and Pattern clauses
+assign a; stmt s; variable v; while w; read r; if ifs;
+Select a pattern a(v,_"none"_) such that Modifies(s,v)
+
+5000
+519 - Invalid Uses and Pattern clauses
+assign a; stmt s; variable v; while w; read r; if ifs;
+Select a pattern a("select1",v) such that Uses(s,v)
+
+5000
+520 - Valid Uses and Pattern clauses
+assign a; stmt s; variable v; while w; read r; if ifs;
+Select a pattern a(v,_"1"_) such that Uses(w,v)
+9
+5000
+521 - Invalid Uses and Pattern clauses
+assign a; stmt s; variable v; while w; read r; if ifs;
+Select a pattern a("else",v) such that Uses(w,v)
+
+5000
+522 - Valid Uses and Pattern clauses
+stmt s; assign a; variable v;
+Select a such that Uses(a,v) pattern a(v, _"assign"_)
+1
+5000
+523 - Valid Uses and Pattern clauses
+stmt s; assign a,a1; variable v; while w;
+Select w such that Uses(w,v) pattern a(v, _"false"_)
+15
+5000
+524 - Valid Uses and Pattern clauses
+stmt s; assign a; variable v; if ifs;
+Select v such that Uses(ifs,v) pattern a(v, _"false"_)
+boolean, true
+5000
+525 - Valid Uses and Pattern clauses
+stmt s; assign a; variable v; procedure p;
+Select a such that Uses(p,v) pattern a(v, _"a"_)
+
+5000
+526 - Valid Uses and Pattern clauses
+stmt s; assign a; variable v; procedure p;
+Select s such that Uses(s,v) pattern a(v, _"false"_)
+3,15
+5000
+527 - Invalid Uses and Pattern clauses
+stmt s; assign a; variable v; print pr;
+Select v such that Uses(pr,v) pattern a(v, _)
+
+5000
+528 - Invalid Parent* and Pattern clauses
+stmt s; assign a; variable v; print pr; if ifs;
+Select ifs such that Parent*(3,a) pattern a(_, _"if"_)
+
+5000
+529 - Invalid Parent* and Pattern clauses
+stmt s; assign a; variable v; print pr; if ifs;
+Select ifs such that Parent*(5,a) pattern a(_, _"assign"_)
+
+5000
+530 - Invalid Parent* and Pattern clauses
+stmt s; assign a; variable v; print pr; while w;
+Select w such that Parent*(15,a) pattern a(_, _"2"_)
+
+5000
+531 - Invalid Parent* and Pattern clauses
+stmt s; assign a; variable v; print pr; if ifs;
+Select ifs such that Parent*(ifs,a) pattern a(_, _"if"_)
+
+5000
+532 - Invalid Parent* and Pattern clauses
+stmt s; assign a; variable v; print pr; if ifs;
+Select ifs such that Parent*(ifs,a) pattern a(_, _"assign"_)
+
+5000
+533 - Invalid Parent* and Pattern clauses
+stmt s; assign a; variable v; print pr; while w;
+Select w such that Parent*(w,a) pattern a(_, _"2"_)
+
+5000
+534 - Invalid Parent* and Pattern clauses
+stmt s; assign a; variable v; print pr; while w;
+Select w such that Parent*(a,3) pattern a(_, _"2"_)
+
+5000
+535 - Invalid Parent* and Pattern clauses
+stmt s; assign a; variable v; print pr; while w; read r;
+Select w such that Parent*(r,5) pattern a(_, _"2"_)
+
+5000
+534 - Invalid Parent* and Pattern clauses
+stmt s; assign a; variable v; print pr; while w;
+Select w such that Parent*(a,15) pattern a(_, _"2"_)
+
+5000

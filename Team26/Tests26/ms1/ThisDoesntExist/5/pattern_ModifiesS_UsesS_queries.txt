@@ -1,0 +1,785 @@
+1 - Valid Pattern Assign: Select syn a, wildcard on LHS, Partial Pattern Match on RHS
+assign a;
+Select a pattern a(_, _"1"_)
+4,19
+5000
+2 - Valid Pattern Assign: Select syn a, wildcard on LHS, Partial Pattern Match on RHS
+assign a;
+Select a pattern a(_, _"0"_)
+5
+5000
+3 - Valid Pattern Assign: Select syn s, wildcard on LHS, Partial Pattern Match on RHS
+assign a; stmt s;
+Select s pattern a(_, _"0"_)
+1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27,28,29,30
+5000
+4 - Invalid Pattern Assign: Select syn a, wildcard on LHS, No Partial Pattern Matching result
+assign a;
+Select a pattern a(_, _"10000"_)
+
+5000
+5 - Valid Pattern Assign: Select syn a, wildcard on LHS, Partial Pattern Match on RHS
+assign a;
+Select a pattern a(_, _"b"_)
+2,17
+5000
+6 - Valid Pattern Assign: Select syn a, wildcard on LHS, Partial Pattern Match on RHS
+assign a;
+Select a pattern a(_, _"while"_)
+18
+5000
+7 - Valid Pattern Assign: Select syn v, wildcard on LHS, Partial Pattern Match on RHS
+assign a; variable v;
+Select v pattern a(_, _"count"_)
+while,a,b,c,d,e,f,sum,x,v1,V2,j,max,if,v100,i,k,l,VaR2,VAR3,count
+5000
+8 - Invalid Pattern Assign: Select syn a, wildcard on LHS, No Partial Pattern Match result
+assign a;
+Select a pattern a (_, _"w"_)
+
+5000
+9 - Invalid Pattern Assign: Select syn a, Invalid syntax due to missing quotation in args
+assign a;
+Select a pattern a (_, f)
+
+5000
+10 - Invalid Pattern Assign: Invalid syntax due to missing wildcard
+assign a;
+Select a pattern a(_,"count"_)
+
+5000
+11 - Valid Pattern Assign: Select syn a, wildcard on both args
+assign a;
+Select a pattern a(_,_)
+2,3,4,5,6,11,15,17,18,19,20
+5000
+12 - Valid Pattern Assign: Select syn r, wildcard on both args
+assign a; read r;
+Select r pattern a(_,_)
+1,9,13,24,25,28
+5000
+13 - Invalid Pattern Assign, Select syn a, Invalid syntax due to extra wildcard
+assign a;
+Select a pattern a(__,_)
+
+5000
+14 - Valid Pattern Assign: Select syn a,  DENT on LHS, Partial Pattern Match on RHS
+assign a;
+Select a pattern a("a",_"c"_)
+2,17
+5000
+15 - Valid Pattern Assign: Select syn a, IDENT on LHS, Partial Pattern Match on RHS
+assign a;
+Select a pattern a("if",_"sum"_)
+18
+5000
+16 - Valid Pattern Assign: IDENT on LHS, Partial Pattern Matching on RHS
+assign a;
+Select a pattern a("x",_"25"_)
+11
+5000
+17 - Valid Pattern Assign: Select syn v, syn v on LHS, Partial Pattern Match on RHS
+assign a; variable v;
+Select v pattern a(v,_"sum"_)
+sum, if
+5000
+18 - Valid Pattern Assign: Select syn v, syn v on LHS, Partial Pattern Match on RHS
+assign a; variable v;
+Select v pattern a(v,_"count"_)
+count
+5000
+19 - Valid Pattern Assign: Select syn a, syn v on LHS, Partial Pattern Match on RHS
+assign a; variable v;
+Select a pattern a(v,_"c"_)
+2, 17
+5000
+20 - Valid Pattern Assign: Select syn a, syn v on LHS, Partial Pattern Match on RHS
+assign a; variable v;
+Select a pattern a(v,_"15"_)
+15
+5000
+21 - Valid Pattern Assign: Select syn a, syn v on LHS, Partial Pattern Match on RHS
+assign a; variable v;
+Select a pattern a(v,_"1"_)
+4,19
+5000
+22 - Valid Pattern Assign: Select syn v, syn v on LHS, Partial Pattern Match on RHS
+assign a; variable v;
+Select v pattern a(v,_"1"_)
+v1,j
+5000
+23 - Invalid Pattern Assign: Invalid syntax due to extra comma
+assign a; variable v;
+Select v pattern a(v,,_"1"_)
+
+5000
+24 - Valid Pattern Assign: Select syn a, syn v on LHS, Wildcard on RHS
+assign a; variable v;
+Select a pattern a(v,_)
+2,3,4,5,6,11,15,17,18,19,20
+5000
+25 - Valid Pattern Assign: Select syn v, syn v on LHS, Wildcard on RHS
+assign a; variable v;
+Select v pattern a(v,_)
+a,sum,v1,j,max,x,count,if
+5000
+26 - Valid Pattern Assign: Select syn a, IDENT on LHS, Wildcard on RHS
+assign a;
+Select a pattern a("max",_)
+6
+5000
+27 - Valid Pattern Assign: Select syn a, syn v on LHS, partial Pattern Matching on RHS
+assign a; variable v;
+Select a pattern a(v, _"100"_)
+6
+5000
+28 - Valid Pattern Assign: Select syn a, syn v on LHS, Exact Pattern Matching on RHS
+assign a; variable v;
+Select a pattern a(v, "100")
+6
+5000
+29 - Invalid Pattern Assign: Select syn a, No Exact Pattern Matching on RHS
+assign a; variable v;
+Select a pattern a(v, "1")
+
+5000
+30 - Valid Pattern Assign: Select syn a, syn v on LHS, partial Pattern Matching on RHS
+assign a; variable v;
+Select a pattern a(v, _"k"_)
+20,11
+5000
+31 - Invalid Pattern Assign: Select syn a, No Exact Pattern Matching on RHS
+assign a; variable v;
+Select a pattern a(v, "k")
+20
+5000
+32 - Invalid Pattern Assign: Invalid syntax due to syn pn in args
+print pn; assign a;
+Select a pattern a(pn, _)
+
+5000
+33 - Invalid Pattern Assign: Invalid syntax due to syn p in args
+read r; print pn; while w; if ifs; assign a; variable v; procedure p; stmt s;
+Select a pattern a(w, _"V2"_)
+
+5000
+34 - Valid Pattern Assign: Select syn a, wildcard on LHS, Partial Pattern Matching on RHS
+assign a; variable v;
+Select a pattern a(_, _"0"_)
+5
+5000
+35 - Valid Pattern Assign: Select syn a, Exact Pattern Matching on RHS
+assign a; variable v;
+Select a pattern a(_, "0")
+5
+5000
+36 - Valid Pattern Assign: Select syn ifs, wildcard on LHS, Partial Pattern Matching on RHS
+read r; print pn; while w; if ifs; assign a; variable v; procedure p; stmt s;
+Select ifs pattern a(_, _"k"_)
+10,12,21,23
+5000
+37 - Valid Pattern Assign: Select syn ifs, No Exact Pattern Matching on RHS
+read r; print pn; while w; if ifs; assign a; variable v; procedure p; stmt s;
+Select ifs pattern a(_, "k")
+10,12,21,23
+5000
+38 - Valid Pattern Assign: Select syn c, wildcard on LHS, Partial Pattern Matching on RHS
+read r; print pn; while w; if ifs; assign a; variable v; procedure p; stmt s; constant c;
+Select c pattern a(_, _"100"_)
+1,0,100,10,2,30,25,15,12,13,20
+5000
+39 - Valid Pattern Assign: Select syn c, Exact Pattern Matching on RHS
+read r; print pn; while w; if ifs; assign a; variable v; procedure p; stmt s; constant c;
+Select c pattern a(_, "100")
+1,0,100,10,2,30,25,15,12,13,20
+5000
+40 - Valid Pattern Assign: Select syn a, Exact Pattern Matching on LHS, Partial Pattern Matching on RHS
+assign a;
+Select a pattern a("max", _"100"_)
+6
+5000
+41 - Valid Pattern Assign: Exact Pattern Matching on RHS
+assign a;
+Select a pattern a("j", "0")
+5
+5000
+42 - Valid Pattern Assign: Select syn p, Exact Pattern Match on LHS, Partial Pattern Matching on RHS
+assign a; procedure p;
+Select p pattern a("j", _"k"_)
+Medium
+5000
+43 - Valid Pattern Assign: Select syn p, No Exact Pattern Matching on RHS
+assign a; procedure p;
+Select p pattern a("j", "k")
+Medium
+5000
+44 - Invalid Pattern Assign: Select syn a, Exact Pattern Matching on LHS, Partial Pattern Matching on RHS, no result found
+assign a;
+Select a pattern a("sum", _"Sum"_)
+
+5000
+45 - Invalid Pattern Assign: Select syn p, No Exact Pattern Matching on RHS
+assign a;
+Select a pattern a("sum", "sum")
+
+5000
+46 - Invalid Pattern Assign: Invalid syntax due to syn s in args
+assign a; stmt s;
+Select a pattern a(s, _"0"_)
+
+5000
+47 - Valid Modifies: Select a, syn on both args
+assign a; variable v;
+Select a such that Modifies(a,v)
+2,3,4,5,6,11,15,17,18,19,20
+5000
+48 - Valid Modifies: Select v, syn on both args
+assign a; variable v;
+Select v such that Modifies(a,v)
+a,sum,v1,j,max,x,count,if
+5000
+49 - Valid Modifies: Select s, syn on both args
+variable v; stmt s;
+Select s such that Modifies(s,v)
+1,2,3,4,5,6,8,9,10,11,12,13,15,16,17,18,19,20,21,23,24,25,27,28
+5000
+50 - Valid Modifies: Select s, syn r and v on both args
+variable v; read r;
+Select r such that Modifies(r,v)
+1,9,13,24,25,28
+5000
+51 - Valid Modifies: Select s, syn p and v on both args
+variable v; procedure p;
+Select p such that Modifies(p,v)
+Medium
+5000
+52 - Valid Modifies: Select s, syn ifs and v on both args
+variable v; if ifs;
+Select ifs such that Modifies(ifs,v)
+10,12,21,23
+5000
+53 - Valid Modifies: Select s, syn while and v on both args
+variable v; while while;
+Select while such that Modifies(while,v)
+8,16,27
+5000
+54 - Invalid Modifies: Select s, syn s and s on both args, do not satisfy Modifies
+stmt s;
+Select s such that Modifies(s,s)
+
+5000
+55 - Invalid Modifies: Select c, syn c and v on both args, do not satisfy Modifies
+variable v; constant c;
+Select c such that Modifies(c,v)
+
+5000
+56 - Invalid Modifies: Select c, syn s and c on both args, do not satisfy Modifies
+variable v; constant c; stmt s;
+Select c such that Modifies(s,c)
+
+5000
+57 - Invalid Modifies: Invalid query due to missing declaration of assign a
+variable v;
+Select a such that Modifies(a,v)
+
+5000
+58 - Invalid Modifies: Invalid query due to missing declaration of variable v
+assign a;
+Select a such that Modifies(a,v)
+
+5000
+59 - Invalid Modifies: syn pr on LHS args, do not satisfy Modifies
+print pr;
+Select pr such that Modifies(pr,v)
+
+5000
+60 - Invalid Modifies: Select s, syn s and s1 on both args, do not satisfy Modifies
+stmt s, s1;
+Select s such that Modifies(s,s1)
+
+5000
+61 - Invalid Modifies: Select s, syn s and c on both args, do not satisfy Modifies
+stmt s; procedure p;
+Select p such that Modifies(s,p)
+
+5000
+62 - Invalid Modifies: Select s, syn w and s on both args, do not satisfy Modifies
+stmt s; while w;
+Select s such that Modifies(w,s)
+
+5000
+63 - Valid Modifies: Select s, syn s on LHS and wildcard on RHS
+read r; print pn; while w; if ifs; assign a; variable v; procedure p; stmt s;
+Select s such that Modifies(s, _)
+1,2,3,4,5,6,8,9,10,11,12,13,15,16,17,18,19,20,21,23,24,25,27,28
+5000
+64 - Valid Modifies: Select a, syn a on LHS and wildcard on RHS
+read r; print pn; while w; if ifs; assign a; variable v; procedure p; stmt s;
+Select a such that Modifies(a, _)
+2,3,4,5,6,11,15,17,18,19,20
+5000
+65 - Valid Modifies: Select r, syn r on LHS and wildcard on RHS
+read r; print pn; while w; if ifs; assign a; variable v; procedure p; stmt s;
+Select r such that Modifies(r, _)
+1,9,13,24,25,28
+5000
+66 - Valid Modifies: Select c, syn p on LHS and wildcard on RHS
+read r; print pn; while w; if ifs; assign a; variable v; procedure p; stmt s; constant c;
+Select c such that Modifies(p, _)
+1,0,100,10,2,30,25,15,12,13,20
+5000
+67 - Invalid Modifies: Select s, syn c on LHS and wildcard on RHS, do not satisfy Modifies
+read r; print pn; while w; if ifs; assign a; variable v; procedure p; stmt s; constant c;
+Select c such that Modifies(c, _)
+
+5000
+68 - Valid Modifies: Select ifs, syn ifs on LHS and INDENT on RHS
+read r; print pn; while w; if ifs; assign a; variable v; procedure p; stmt s;
+Select ifs such that Modifies(ifs, "a")
+10,12,21,23
+5000
+69 - Valid Modifies: Select ifs, syn w on LHS and INDENT on RHS
+read r; print pn; while w; if ifs; assign a; variable v; procedure p; stmt s;
+Select w such that Modifies(w, "if")
+8,16
+5000
+70 - Valid Modifies: Select v, syn w on LHS and INDENT on RHS
+read r; print pn; while w; if ifs; assign a; variable v; procedure p; stmt s;
+Select a such that Modifies(a, "j")
+5,19,20
+5000
+71 - Valid Modifies: Select r, syn r on LHS and INDENT on RHS
+read r; print pn; while w; if ifs; assign a; variable v; procedure p; stmt s;
+Select r such that Modifies(r, "VaR2")
+13
+5000
+72 - Invalid Modifies: Select pn, syn pn on LHS and INDENT on RHS, do not satisfy Modifies
+read r; print pn; while w; if ifs; assign a; variable v; procedure p; stmt s;
+Select pn such that Modifies(pn, "VAR3")
+
+5000
+73 - Invalid Modifies: Ambiguous Modifies due to wildcard on LHS
+read r; print pn; while w; if ifs; assign a; variable v; procedure p; stmt s;
+Select s such that Modifies(_, "sum")
+
+5000
+74 - Invalid Modifies: Semantically Incorrect due to ambiguous Modifies
+read r; print pn; while w; if ifs; assign a; variable v; procedure p; stmt s;
+Select s such that Modifies(_, v)
+
+5000
+75 - Invalid Modifies: Invalid INDENT syntax on RHS
+read r; print pn; while w; if ifs; assign a; variable v; procedure p; stmt s;
+Select s such that Modifies(s, "1")
+
+5000
+76 - Invalid Modifies: Invalid entRef on RHS
+read r; print pn; while w; if ifs; assign a; variable v; procedure p; stmt s;
+Select s such that Modifies(s, _"d"_)
+
+5000
+77 - Invalid Modifies: Semantically Incorrect due to ambiguous Modifies
+read r; print pn; while w; if ifs; assign a; variable v; procedure p; stmt s;
+Select pn such that Modifies(_, _)
+
+5000
+78 - Valid Modifies: Select syn v, Concrete stmt number on LHS and syn v on RHS
+read r; print pn; while w; if ifs; assign a; variable v; procedure p; stmt s;
+Select v such that Modifies(1, v)
+while
+5000
+79 - Invalid Modifies: Invalid entRef on RHS
+read r; print pn; while w; if ifs; assign a; variable v; procedure p; stmt s;
+Select s such that Modifies(8, s)
+
+5000
+80 - Valid Modifies: Select syn v, Concrete stmt number on LHS and syn v on RHS
+read r; print pn; while w; if ifs; assign a; variable v; procedure p; stmt s;
+Select v such that Modifies(21, v)
+a,b
+5000
+81 - Valid Modifies: Select syn v, Concrete stmt number on LHS and syn v on RHS
+read r; print pn; while w; if ifs; assign a; variable v; procedure p; stmt s;
+Select v such that Modifies(12, v)
+VaR2,count,a,if
+5000
+82 - Valid Modifies: Select syn pn, Concrete stmt number on LHS and syn v on RHS
+read r; print pn; while w; if ifs; assign a; variable v; procedure p; stmt s;
+Select pn such that Modifies(2, v)
+7,14,22,26,30
+5000
+83 - Invalid Modifies: Select syn s, Concrete stmt number on LHS and syn s on RHS, do not satisfy Modifies
+read r; print pn; while w; if ifs; assign a; variable v; procedure p; stmt s;
+Select s such that Modifies(29, s)
+
+5000
+84 - Invalid Modifies: Select syn s, Concrete stmt number on LHS and syn s on RHS, do not satisfy Modifies
+read r; print pn; while w; if ifs; assign a; variable v; procedure p; stmt s; constant c;
+Select c such that Modifies(5, c)
+
+5000
+85 - Invalid Modifies: Select syn s, Concrete stmt number on LHS and wildcard on RHS, do not satisfy Modifies
+read r; print pn; while w; if ifs; assign a; variable v; procedure p; stmt s; constant c;
+Select c such that Modifies(5, c)
+
+5000
+86 - Invalid Modifies: Semantically incorrect due to ambiguous Modifies
+read r; print pn; while w; if ifs; assign a; variable v; procedure p; stmt s;
+Select v such that Modifies(_, v)
+
+5000
+87 - Invalid Modifies: Semantically incorrect due to ambiguous Modifies
+read r; print pn; while w; if ifs; assign a; variable v; procedure p; stmt s;
+Select v such that Modifies(_, v)
+
+5000
+88 - Valid Modifies: Select syn c, Concrete stmt number on LHS and wildcard on RHS
+read r; print pn; while w; if ifs; assign a; variable v; procedure p; stmt s; constant c;
+Select c such that Modifies(18, _)
+0,1,10,2,30,25,15,12,13,20,100
+5000
+89 - Valid Modifies: Select syn r, Concrete stmt number on LHS and INDENT on RHS
+read r; print pn; while w; if ifs; assign a; variable v; procedure p; stmt s;
+Select r such that Modifies(9, "v100")
+1,9,13,24,25,28
+5000
+90 - Valid Modifies: Select syn a, Concrete stmt number on LHS and INDENT on RHS
+read r; print pn; while w; if ifs; assign a; variable v; procedure p; stmt s;
+Select a such that Modifies(a, "sum")
+3
+5000
+91 - Invalid Modifies: Select syn ifs, Concrete stmt number on LHS and INDENT on RHS, cannot find
+read r; print pn; while w; if ifs; assign a; variable v; procedure p; stmt s;
+Select ifs such that Modifies(17, "b")
+
+5000
+92 - Invalid Modifies: Select v, syn on both args, do not satisfy Modifies
+variable v, v1;
+Select v such that Modifies(v, v1)
+
+5000
+93 - Valid Uses: Select a, syn on both args
+read r; print pn; while w; if ifs; assign a; variable v; procedure p; stmt s;
+Select a such that Uses(a,v)
+2,3,4,11,15,17,18,19,20
+5000
+94 - Valid Uses: Select v, syn on both args
+read r; print pn; while w; if ifs; assign a; variable v; procedure p; stmt s;
+Select v such that Uses(a,v)
+a,b,c,d,e,f,sum,x,V2,i,j,k,l,count,while
+5000
+95 - Invalid Uses: Select r, syn on both args, do not satisfy Uses
+read r; print pn; while w; if ifs; assign a; variable v; procedure p; stmt s;
+Select r such that Uses(r,v)
+
+5000
+96 - Valid Uses: Select r, syn on both args
+read r; print pn; while w; if ifs; assign a; variable v; procedure p; stmt s;
+Select pn such that Uses(pn,v)
+7,14,22,26,30
+5000
+97 - Invalid Uses: Select c, syn on both args, does not satisfy Uses
+read r; print pn; while w; if ifs; assign a; variable v; procedure p; stmt s; constant c;
+Select c such that Uses(a,c)
+
+5000
+98 - Valid Uses: Select c, syn on both args
+read r; print pn; while w; if ifs; assign a; variable v; procedure p; stmt s;  constant c;
+Select c such that Uses(a,v)
+1,0,100,30,25,15,20,12,13,2,10
+5000
+99 - Valid Uses: Select ifs, syn on both args
+read r; print pn; while w; if ifs; assign a; variable v; procedure p; stmt s;
+Select ifs such that Uses(ifs,v)
+10,12,21,23
+5000
+100 - Valid Uses: Select v, syn on both args
+read r; print pn; while w; if ifs; assign a; variable v; procedure p; stmt s;
+Select v such that Uses(w,v)
+a,max,sum,v100,k,i,l,x,j,VAR3,count,b,c,while,d,f
+5000
+101 - Valid Uses: Select while, syn on both args
+read r; print pn; while w; if ifs; assign a; variable v; procedure p; stmt s;
+Select w such that Uses(w,v)
+8,16,27,29
+5000
+102 - Valid Uses: Select s, syn on both args
+read r; print pn; while w; if ifs; assign a; variable v; procedure p; stmt s;
+Select v such that Uses(s,v)
+a,b,c,d,e,f,sum,x,V2,if,j,max,v100,i,k,l,VAR3,count,while
+5000
+103 - Valid Uses: Select pn, syn on both args
+read r; print pn; while w; if ifs; assign a; variable v; procedure p; stmt s;
+Select pn such that Uses(pn,v)
+7,14,22,26,30
+5000
+104 - Valid Uses: Select p, syn on both args, do not satisfy print grammar rule
+read r; print pn; while w; if ifs; assign a; variable v; procedure p; stmt s;
+Select p such that Uses(p,v)
+Medium
+5000
+105 - Invalid Uses: Select pn, syn on both args, do not satisfy print grammar rule
+read r; print pn; while w; if ifs; assign a; variable v; procedure p; stmt s;
+Select pn such that Uses(pn,c)
+
+5000
+106 - Invalid Uses: Select p, syn on both args, invalid syntax
+read r; print pn; while w; if ifs; assign a; variable v; procedure p; stmt s;
+Select p such that Uses(p,s)
+
+5000
+107 - Invalid Uses: Select r, syn on both args, do not satisfy Uses
+read r; print pn; while w; if ifs; assign a; variable v; procedure p; stmt s;
+Select r such that Uses(r,v)
+
+5000
+108 - Invalid Uses: Select p, syn on both args, invalid syntax
+variable v1, v2;
+Select v1 such that Uses(v1, v2)
+
+5000
+109 - Invalid Uses: Select p, syn on both args, invalid syntax
+variable v1, constant c;
+Select c such that Uses(c, v2)
+
+5000
+110 - Invalid Uses: Select p, syn on both args, invalid syntax
+stmt s, procedure p;
+Select s such that Uses(s, p)
+
+5000
+110 - Invalid Uses: Select p, syn on both args, invalid syntax
+stmt s, s1;
+Select s such that Uses(s, s1)
+
+5000
+111 - Invalid Uses: Select p, syn on both args, invalid syntax
+stmt s, while w;
+Select w such that Uses(w, s)
+
+5000
+112 - Invalid Uses: Select p, syn on both args, invalid syntax
+stmt s, if ifs;
+Select s such that Uses(s, ifs)
+
+5000
+113 - Valid Uses: Select s, syn on LHS, wildcard on RHS
+read r; print pn; while w; if ifs; assign a; variable v; procedure p; stmt s;
+Select s such that Uses(s,_)
+2,3,4,7,8,10,11,12,14,15,16,17,18,19,20,21,22,23,26,27,29,30
+5000
+114 - Valid Uses: Select pn, syn on LHS, wildcard on RHS
+read r; print pn; while w; if ifs; assign a; variable v; procedure p; stmt s;
+Select pn such that Uses(pn,_)
+7,14,22,26,30
+5000
+115 - Valid Uses: Select p, syn on LHS, wildcard on RHS
+read r; print pn; while w; if ifs; assign a; variable v; procedure p; stmt s;
+Select p such that Uses(p,_)
+Medium
+5000
+116 - Valid Uses: Select p, syn on LHS, wildcard on RHS
+read r; print pn; while w; if ifs; assign a; variable v; procedure p; stmt s;
+Select a such that Uses(a,_)
+2,3,4,11,15,17,18,19,20
+5000
+117 - Valid Uses: Select p, syn on LHS, wildcard on RHS
+read r; print pn; while w; if ifs; assign a1; variable v; procedure p; stmt s;
+Select a1 such that Uses(a1,_)
+2,3,4,11,15,17,18,19,20
+5000
+118 - Invalid Uses: Invalid synonym IDENT
+read r; print pn; while w; if ifs; assign 1a; variable v; procedure p; stmt s;
+Select a1 such that Uses(1a,_)
+
+5000
+119 - Invalid Uses: Select s, syn r on LHS, wildcard on RHS, do not satisfy Uses
+read r; print pn; while w; if ifs; assign a; variable v; procedure p; stmt s;
+Select s such that Uses(r,_)
+
+5000
+120 - Invalid Uses: Invalid synonym declaration
+read r; print pn; while w; if ifs; assign a; variable v; procedure p; stmt s;
+Select s such that Uses(a1,_)
+
+5000
+121 - Valid Uses: Select s, syn on LHS and IDENT on RHS
+read r; print pn; while w; if ifs; assign a; variable v; procedure p; stmt s;
+Select a such that Uses(a, "c")
+2,17
+5000
+122 - Valid Uses: Select s, syn on LHS and IDENT on RHS
+read r; print pn; while w; if ifs; assign a; variable v; procedure p; stmt s;
+Select s such that Uses(s, "j")
+8,10,11,12,16,19,27,29,30
+5000
+123 - Valid Uses: Select pn, syn on LHS and IDENT on RHS
+read r; print pn; while w; if ifs; assign a; variable v; procedure p; stmt s;
+Select pn such that Uses(pn, "if")
+7
+5000
+124 - Valid Uses: Select pn, syn on LHS and IDENT on RHS
+read r; print pn; while w; if ifs; assign a; variable v; procedure p; stmt s;
+Select p such that Uses(p, "a")
+Medium
+5000
+125 - Invalid Uses: Select s, syn on LHS and IDENT on RHS, IDENT do not exist
+read r; print pn; while w; if ifs; assign a; variable v; procedure p; stmt s;
+Select s such that Uses(a, "abc")
+
+5000
+126 - Invalid Uses: Select while, syn on LHS and IDENT on RHS, do not satisfy INDENT rule
+read r; print pn; while w; if ifs; assign a; variable v; procedure p; stmt s;
+Select while such that Uses(while, "10")
+
+5000
+127 - Valid Uses: Select ifs, syn on LHS and IDENT on RHS
+read r; print pn; while w; if ifs; assign a; variable v; procedure p; stmt s;
+Select ifs such that Uses(ifs, "i")
+10,12
+5000
+128 - Valid Uses: Select ifs, syn on LHS and IDENT on RHS
+read r; print pn; while w; if ifs; assign a; variable v; procedure p; stmt s;
+Select ifs such that Uses(ifs, "v100")
+10
+5000
+129 - Valid Uses: Select ifs, syn on LHS and IDENT on RHS
+read r; print pn; while w; if ifs; assign a; variable v; procedure p; stmt s;
+Select w such that Uses(w, "i")
+8,16,27
+5000
+130 - Invalid Uses: Invalid syntax
+read r; print pn; while w; if ifs; assign a; variable v; procedure p; stmt s;
+Select ifs such that Uses(ifs, "==")
+
+5000
+131 - Invalid Uses: Semantically incorrect due to ambiguous Uses
+read r; print pn; while w; if ifs; assign a; variable v; procedure p; stmt s;
+Select s such that Uses(_, v)
+
+5000
+132 - Invalid Uses: Semantically incorrect due to ambguous Uses
+read r; print pn; while w; if ifs; assign a; variable v; procedure p; stmt s;
+Select v such that Uses(_, _)
+
+5000
+133 - Invalid Uses: Semantically incorrect due to ambguous Uses
+read r; print pn; while w; if ifs; assign a; variable v; procedure p; stmt s; constant c;
+Select c such that Uses(_, "sum")
+
+5000
+134 - Valid Uses: Select v, concrete stmt number on LHS and syn on RHS
+read r; print pn; while w; if ifs; assign a; variable v; procedure p; stmt s;
+Select v such that Uses(2, v)
+a,b,c,d,e,f
+5000
+135 - Valid Uses: Select v, concrete stmt number on LHS and syn on RHS
+read r; print pn; while w; if ifs; assign a; variable v; procedure p; stmt s;
+Select v such that Uses(30, v)
+j
+5000
+136 - Valid Uses: Select w, concrete stmt number on LHS and syn on RHS
+read r; print pn; while w; if ifs; assign a; variable v; procedure p; stmt s;
+Select v such that Uses(8, v)
+j,max,sum,v100,i,k,l,a,VAR3,count,while,d,f,b,c,x
+5000
+137 - Invalid Uses: Select v, Out of range concrete stmt number on LHS and syn on RHS
+read r; print pn; while w; if ifs; assign a; variable v; procedure p; stmt s;
+Select s such that Uses(31, v)
+
+5000
+138 - Invalid Uses: Select s, concrete stmt number on LHS, syn v on RHS, do not satisfy Uses
+read r; print pn; while w; if ifs; assign a; variable v; procedure p; stmt s;
+Select s such that Uses(1, v)
+
+5000
+139 - Valid Uses: Select s, concrete stmt number on LHS and syn on RHS
+read r; print pn; while w; if ifs; assign a; variable v; procedure p; stmt s; constant c;
+Select c such that Uses(21, _)
+1,0,100,10,2,30,25,15,12,13,20
+5000
+140 - Invalid Uses: Select s, concrete stmt number on LHS and wildcard on RHS, do not satisfy Uses
+read r; print pn; while w; if ifs; assign a; variable v; procedure p; stmt s;
+Select s such that Uses(6, _)
+
+5000
+141 - Invalid Uses: Select s, concrete stmt number on LHS and wildcard on RHS, do not satisfy Uses
+read r; print pn; while w; if ifs; assign a; variable v; procedure p; stmt s;
+Select s such that Uses(5, _)
+
+5000
+142 - Valid Uses: Select s, concrete stmt number on LHS and INDENT on RHS
+read r; print pn; while w; if ifs; assign a; variable v; procedure p; stmt s;
+Select r such that Uses(18, "d")
+1,9,13,24,25,28
+5000
+143 - Valid Uses: Select s, concrete stmt number on LHS and INDENT on RHS
+read r; print pn; while w; if ifs; assign a; variable v; procedure p; stmt s;
+Select s such that Uses(30, "j")
+1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27,28,29,30
+5000
+144 - Invalid Uses: Select s, concrete stmt number on LHS and INDENT on RHS, do not satisfy Uses
+read r; print pn; while w; if ifs; assign a; variable v; procedure p; stmt s;
+Select s such that Uses(13, "VaR2")
+
+5000
+145 - Invalid Uses: Select s, Invalid INDENT on RHS
+read r; print pn; while w; if ifs; assign a; variable v; procedure p; stmt s;
+Select s such that Uses(18, _"d+sum"_)
+
+5000
+146 - Invalid Uses: Select s, Invalid INDENT on RHS
+read r; print pn; while w; if ifs; assign a; variable v; procedure p; stmt s;
+Select s such that Uses(19, _"j"_)
+
+5000
+147 - Invalid Uses: Select s, Out of range concrete stmt number on LHS
+read r; print pn; while w; if ifs; assign a; variable v; procedure p; stmt s;
+Select s such that Uses(0, "Medium")
+
+5000
+148 - Invalid Uses: Select s, INDENT do not exists in stmt 15
+read r; print pn; while w; if ifs; assign a; variable v; procedure p; stmt s;
+Select s such that Uses(15, "Count")
+
+5000
+149 - Valid Uses: Select s, concrete stmt number on LHS and INDENT on RHS
+read r; print pn; while w; if ifs; assign a; variable v; procedure p; stmt s;
+Select s such that Uses(18, "while")
+1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27,28,29,30
+5000
+150 - Valid Pattern Assign: Select syn a, wildcard on both args
+assign a, a1;
+Select a pattern a1(_,_)
+2,3,4,5,6,11,15,17,18,19,20
+5000
+151 - Valid Pattern Assign: Select syn a, syn on LHS and wildcard on RHS
+assign a, a1; variable v;
+Select a pattern a1(v,_)
+2,3,4,5,6,11,15,17,18,19,20
+5000
+152 - Invalid Pattern Assign: Select syn a
+assign a, a1;
+Select a pattern a1(18,_)
+
+5000
+153 - Valid Pattern Assign: Select syn a, syn on LHS and partial pattern match
+assign a, a2;
+Select a pattern a2("max",_"100"_)
+2,3,4,5,6,11,15,17,18,19,20
+5000
+154 - Valid Pattern Assign: Select syn a, syn on LHS and partial pattern match
+assign a, a2;
+Select a pattern a2("v1",_"V2"_)
+2,3,4,5,6,11,15,17,18,19,20
+5000
+155 - Valid Pattern Assign: Select syn a, syn on LHS and wildcard on RHS
+assign a, a2;
+Select a pattern a2("count",_)
+2,3,4,5,6,11,15,17,18,19,20
+5000
+156 - Invalid Pattern Assign: Select a, exact matching on RHS
+assign a;
+Select a pattern a(20, "k")
+
+5000
