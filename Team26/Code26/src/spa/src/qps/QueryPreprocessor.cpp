@@ -560,7 +560,8 @@ namespace QPS {
         if (pos < tokens.size() && (tokens[pos].tokenType == NAME || tokens[pos].tokenType == INTEGER)) {
             ARG1 = convertStringToStmtRef(tokens[pos], container);
 
-            if (ARG1.second == INVALID_RELATION_CONTENT) {
+            // ms1 doesn't require supporting procedure
+            if (ARG1.second == INVALID_RELATION_CONTENT || ARG1.first.typeOfArgument == PROCEDURE_SYNONYM) {
                 return {pos, INVALID_RELATION_CONTENT};
             }
             pos++;
