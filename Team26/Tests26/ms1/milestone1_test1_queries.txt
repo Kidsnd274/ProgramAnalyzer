@@ -38,3 +38,83 @@ assign a;
 Select a
 2,3,6,7,10,12,15,17,18,20
 5000
+9 - check if statement is parent of statement
+stmt s;
+Select s such that Parent(8, 9)
+1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21
+5000
+10 - check if statement is parent of statement that does not exist
+stmt s;
+Select s such that Parent(8, 10)
+none
+5000
+11 - select parent of 1 statement
+stmt s;
+Select s such that Parent(s, 8)
+5
+5000
+12 - select direct children of 1 statement
+stmt s;
+Select s such that Parent(5, s)
+6,7,8
+5000
+13 - select parents of 1 statement
+stmt s;
+Select s such that Parent*(s, 15)
+5,8,9,11,14
+5000
+14 - select all children of 1 statement
+stmt s;
+Select s such that Parent*(5, s)
+6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21
+5000
+15 - select all children of another statement
+stmt s;
+Select s such that Parent*(9, s)
+10,11,12,13,14,15,16,17,18,
+5000
+16 - select statements which are parent* of itself
+stmt s;
+Select s such that Parent*(s, s)
+none
+5000
+17 - select statement that a statement follows
+stmt s;
+Select s such that Follows(s, 3)
+2
+5000
+18 - select statement that a statement follows but does not exist
+stmt s;
+Select s such that Follows(s, 1)
+none
+5000
+19 - select another statement that a statement follows but does not exist
+stmt s;
+Select s such that Follows(s, 9)
+none
+5000
+20 - select statement follows a statement
+stmt s;
+Select s such that Follows(9, s)
+19
+5000
+21 - select statement follows a statement that does not exist
+stmt s;
+Select s such that Follows(14, s)
+none
+5000
+22 - select assign that follows a statement
+stmt s; assign a;
+Select a such that Follows(s, a)
+3,17
+5000
+23 - select all statements follows a statement
+stmt s;
+Select s such that Follows*(10, s)
+11
+5000
+24 - select statements that a statement follows*
+stmt s;
+Select s such that Follows*(s, 17)
+15,16
+5000
