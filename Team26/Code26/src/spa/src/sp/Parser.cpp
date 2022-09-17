@@ -216,7 +216,7 @@ std::shared_ptr<TNode> Parser::parseCond() {
         std::shared_ptr<TNode> cond = std::move(parseCond());
         parseRParen();
         return TNode::createNOTConditionalExpression(statementCount, "!", cond);
-    } else if (tokenStack->peekNext().getTokenType() == SPTokenType::LParenToken) {
+    } else if (tokenStack->peekNext().getTokenType() == SPTokenType::LParenToken && tokenStack->isCondTokenAfterRparen()) {
         parseLParen();
         std::shared_ptr<TNode> cond = std::move(parseCond());
         parseRParen();
