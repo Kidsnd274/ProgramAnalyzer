@@ -347,7 +347,7 @@ namespace QPS {
             }
             pos++;
         } else if (pos < tokens.size() && tokens[pos].tokenType == UNDERSCORE) {
-            ARG1 = {{WILDCARD, "_"}, false};
+            ARG1 = {{WILDCARD, "_"}, true};
             pos++;
         } else if (pos < tokens.size() && tokens[pos].tokenType == DOUBLE_QUOTE) {
             pos++;
@@ -356,7 +356,7 @@ namespace QPS {
                 actualName += tokens[pos].nameValue;
                 pos++;
             }
-            ARG1 = {{ACTUAL_NAME, actualName}, false};
+            ARG1 = {{ACTUAL_NAME, actualName}, true};
             pos++;
         } else if (pos < tokens.size() && tokens[pos].tokenType == DOUBLE_QUOTE && tokens[pos+1].tokenType == DOUBLE_QUOTE) {
             return {pos, INVALID_PATTERN_CONTENT};
