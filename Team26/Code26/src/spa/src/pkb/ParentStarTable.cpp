@@ -47,4 +47,5 @@ bool ParentStarTable::existParentStar(int frontStmtLineNumber, int backStmtLineN
             return false;
         }
     }
+    return false;
 }

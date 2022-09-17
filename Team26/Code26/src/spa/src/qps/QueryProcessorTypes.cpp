@@ -144,7 +144,11 @@ namespace QPS {
             case ASSIGN_SYNONYM:{
                 return "ASSIGN_SYNONYM";
             }
+            case PROCEDURE_ACTUAL_NAME: {
+                return "PROCEDURE_ACTUAL_NAME";
+            }
         }
+        return "";
     }
 
     std::string exceptionToStringQPS(Exception e) {

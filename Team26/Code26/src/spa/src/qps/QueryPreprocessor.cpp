@@ -358,6 +358,8 @@ namespace QPS {
             }
             ARG1 = {{ACTUAL_NAME, actualName}, VALID};
             pos++;
+        } else if (pos < tokens.size() && tokens[pos].tokenType == DOUBLE_QUOTE && tokens[pos+1].tokenType == DOUBLE_QUOTE) {
+            return {pos, INVALID_PATTERN_CONTENT};
         } else {
             return {pos, INVALID_PATTERN_CONTENT};
         }
@@ -403,6 +405,8 @@ namespace QPS {
                 expression += "_";
                 pos++;
             }
+        } else if (pos < tokens.size() && tokens[pos].tokenType == DOUBLE_QUOTE && tokens[pos+1].tokenType == DOUBLE_QUOTE) {
+            return {pos, INVALID_PATTERN_CONTENT};
         }
 
         if (pos < tokens.size() && tokens[pos].tokenType == RPAREN) {
@@ -425,6 +429,9 @@ namespace QPS {
             QPS::Token curr = tokens[pos];
             if (curr.tokenType == QPS::COMMA) {
             } else if (curr.tokenType == QPS::NAME && !mapEntity(curr).second && curr.nameValue != "Select") {
+//                if (container.getDeclarationMap().find(tokens) != this->declaredSynonymMap.end()) {
+//                    this->queryStatus = EVALUATION_ERROR;
+//                }
                 container.addDeclaration(entityType, curr.nameValue);
             } else {
                 return {pos, INVALID_DECLARATION};
@@ -509,14 +516,14 @@ namespace QPS {
             return {pos, INVALID_RELATION_SYNTAX};
         }
 
-       if (pos < tokens.size() && (tokens[pos].tokenType == NAME || tokens[pos].tokenType == INTEGER  && tokens[pos].nameValue != "0")) {
+       if (pos < tokens.size() && (tokens[pos].tokenType == NAME || (tokens[pos].tokenType == INTEGER && tokens[pos].nameValue != "0"))) {
             ARG2 = convertStringToStmtRef(tokens[pos], container);
            if (ARG2.second != VALID || ARG2.first.typeOfArgument == PROCEDURE_SYNONYM) {
                return {pos, INVALID_RELATION_CONTENT};
            }
             pos++;
         } else if (pos < tokens.size() && tokens[pos].tokenType == DOUBLE_QUOTE && tokens[pos+1].tokenType == DOUBLE_QUOTE) {
-           return {pos, INVALID_RELATION_SYNTAX};
+           return {pos, INVALID_RELATION_CONTENT};
        }  else if (pos < tokens.size() && tokens[pos].tokenType == UNDERSCORE) {
             ARG2 = {{WILDCARD, "_"}, VALID};
             pos++;
@@ -550,30 +557,30 @@ namespace QPS {
                                                int pos, RelationType relationType,
                                                Container &container) {
         std::pair<ArgumentStruct, Exception> ARG1, ARG2;
-        std::cout << "stmt ent" << std::endl;
         if (pos < tokens.size() && tokens[pos].tokenType == LPAREN) {
             pos++;
         } else {
             return {pos, INVALID_RELATION_SYNTAX};
         }
 
-        if (pos < tokens.size() && (tokens[pos].tokenType == NAME || tokens[pos].tokenType == INTEGER  && tokens[pos].nameValue != "0")) {
+        if (pos < tokens.size() && (tokens[pos].tokenType == NAME || (tokens[pos].tokenType == INTEGER && tokens[pos].nameValue != "0"))) {
             ARG1 = convertStringToStmtRef(tokens[pos], container);
 
             // ms1 doesn't require supporting procedure
             if (ARG1.second == INVALID_RELATION_CONTENT || ARG1.first.typeOfArgument == PROCEDURE_SYNONYM) {
-                return {pos, INVALID_RELATION_CONTENT};
+                return {pos, INVALID_RELATION_SYNTAX};
             }
             pos++;
         } else if (pos < tokens.size() && tokens[pos].tokenType == UNDERSCORE) {
             ARG1 = {{WILDCARD, "_"}, VALID};
+            pos++;
         } else if (pos < tokens.size() && tokens[pos].tokenType == DOUBLE_QUOTE && tokens[pos+2].tokenType == DOUBLE_QUOTE
                    && tokens[pos + 1].tokenType == NAME) {
             std::string actual_name = tokens[pos + 1].nameValue;
             ARG1 = {{PROCEDURE_ACTUAL_NAME, actual_name}, VALID};
             pos += 3;
         } else if (pos < tokens.size() && tokens[pos].tokenType == DOUBLE_QUOTE && tokens[pos+1].tokenType == DOUBLE_QUOTE) {
-            return {pos, INVALID_RELATION_SYNTAX};
+            return {pos, INVALID_RELATION_CONTENT};
         } else {
             return {pos, INVALID_RELATION_CONTENT};
         }
@@ -590,7 +597,7 @@ namespace QPS {
             ARG2 = {{ACTUAL_NAME, actual_name}, VALID};
             pos += 3;
         } else if (pos < tokens.size() && tokens[pos].tokenType == DOUBLE_QUOTE && tokens[pos+1].tokenType == DOUBLE_QUOTE) {
-            return {pos, INVALID_RELATION_SYNTAX};
+            return {pos, INVALID_RELATION_CONTENT};
         } else if (pos < tokens.size() && (tokens[pos].tokenType == NAME)) {
             ARG2 = convertStringToEntRef(tokens[pos], container);
             if (ARG2.first.typeOfArgument == CONST_SYNONYM) {

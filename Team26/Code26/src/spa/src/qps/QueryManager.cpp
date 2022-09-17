@@ -85,7 +85,9 @@ namespace QPS {
         //////////////// for test only /////////////////
 
         QPS::QueryStruct query = container.getQueryStruct(); // Get the result of parsing.
-        query.queryStatus = queryStatus;
+        if (query.queryStatus == VALID_QUERY || queryStatus != VALID_QUERY) {
+            query.queryStatus = queryStatus;
+        }
         QPS::BasicQueryEvaluator basicQueryEvaluator = QPS::BasicQueryEvaluator();
         basicQueryEvaluator.evaluateQuery(query); // Call basicQueryEvaluator to evaluate the query. Store the result in query.resultTable.
 
