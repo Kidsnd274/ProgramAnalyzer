@@ -316,6 +316,7 @@ namespace QPS {
                 }
             }
             this->table = newTable;
+            this->rowNum = newTable.size();
         }
     }
 
@@ -334,6 +335,7 @@ namespace QPS {
                 }
             }
             this->table = newTable;
+            this->rowNum = newTable.size();
         }
     }
 

@@ -421,10 +421,10 @@ namespace QPS {
                                           EntityType entityType,
                                           Container &container) {
         std::vector<std::string> entityNames;
-        while (pos < tokens.size() && tokens[pos].tokenType != QPS::SEMICOLON) {
+        while (pos < tokens.size() && tokens[pos].tokenType != QPS::SEMICOLON ) {
             QPS::Token curr = tokens[pos];
             if (curr.tokenType == QPS::COMMA) {
-            } else if (curr.tokenType == QPS::NAME) {
+            } else if (curr.tokenType == QPS::NAME && !mapEntity(curr).second && curr.nameValue != "Select") {
                 container.addDeclaration(entityType, curr.nameValue);
             } else {
                 return {pos, INVALID_DECLARATION};
@@ -490,7 +490,7 @@ namespace QPS {
             return {pos, INVALID_RELATION_SYNTAX};
         }
 
-        if (pos < tokens.size() && (tokens[pos].tokenType == NAME || tokens[pos].tokenType == INTEGER)) {
+        if (pos < tokens.size() && (tokens[pos].tokenType == NAME || (tokens[pos].tokenType == INTEGER && tokens[pos].nameValue != "0"))) {
             ARG1 = convertStringToStmtRef(tokens[pos], container);
             if (ARG1.second != VALID || ARG1.first.typeOfArgument == PROCEDURE_SYNONYM) {
                 return {pos, INVALID_RELATION_CONTENT};
@@ -509,7 +509,7 @@ namespace QPS {
             return {pos, INVALID_RELATION_SYNTAX};
         }
 
-       if (pos < tokens.size() && (tokens[pos].tokenType == NAME || tokens[pos].tokenType == INTEGER)) {
+       if (pos < tokens.size() && (tokens[pos].tokenType == NAME || tokens[pos].tokenType == INTEGER  && tokens[pos].nameValue != "0")) {
             ARG2 = convertStringToStmtRef(tokens[pos], container);
            if (ARG2.second != VALID || ARG2.first.typeOfArgument == PROCEDURE_SYNONYM) {
                return {pos, INVALID_RELATION_CONTENT};
@@ -557,16 +557,16 @@ namespace QPS {
             return {pos, INVALID_RELATION_SYNTAX};
         }
 
-        if (pos < tokens.size() && (tokens[pos].tokenType == NAME || tokens[pos].tokenType == INTEGER)) {
+        if (pos < tokens.size() && (tokens[pos].tokenType == NAME || tokens[pos].tokenType == INTEGER  && tokens[pos].nameValue != "0")) {
             ARG1 = convertStringToStmtRef(tokens[pos], container);
 
-            if (ARG1.second == INVALID_RELATION_CONTENT) {
+            // ms1 doesn't require supporting procedure
+            if (ARG1.second == INVALID_RELATION_CONTENT || ARG1.first.typeOfArgument == PROCEDURE_SYNONYM) {
                 return {pos, INVALID_RELATION_CONTENT};
             }
             pos++;
         } else if (pos < tokens.size() && tokens[pos].tokenType == UNDERSCORE) {
             ARG1 = {{WILDCARD, "_"}, VALID};
-            return {pos, INVALID_RELATION_CONTENT};
         } else if (pos < tokens.size() && tokens[pos].tokenType == DOUBLE_QUOTE && tokens[pos+2].tokenType == DOUBLE_QUOTE
                    && tokens[pos + 1].tokenType == NAME) {
             std::string actual_name = tokens[pos + 1].nameValue;
