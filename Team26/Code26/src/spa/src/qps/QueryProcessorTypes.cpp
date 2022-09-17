@@ -192,6 +192,9 @@ namespace QPS {
             case VALID:{
                 return "VALID";
             }
+            case UNDECLARED_SELECT_ENTITY:{
+                return "UNDECLARED_SELECT_ENTITY";
+            }
         }
     }
     std::string relationToString (RelationType relationType) {
