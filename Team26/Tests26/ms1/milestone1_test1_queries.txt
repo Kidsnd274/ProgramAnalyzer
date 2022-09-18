@@ -153,4 +153,14 @@ variable v;
 Select v such that Modifies (11, v)
 while, zy, d
 5000
+32 - select statements with pattern
+assign a;
+Select a pattern a(_,_"else"_)
+10
+5000
+33 - select statements with pattern that does not exist
+assign a;
+Select a pattern a(_,_"else")
+none
+5000
 
