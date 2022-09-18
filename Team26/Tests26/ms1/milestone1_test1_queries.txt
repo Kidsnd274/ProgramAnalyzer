@@ -173,4 +173,14 @@ stmt s; assign a1; variable v;
 Select s such that Modifies (s, v) pattern a1(v,_"call"_)
 4,5,6,7,8,9,18
 5000
+36 - select assignment statements that uses itself and "zy"
+assign a; variable v;
+Select a such that Uses (a, v) pattern a(v,_"zy"_)
+2, 3, 17
+5000
+37 - select assignment statements that uses itself
+assign a; variable v;
+Select a such that Uses (a, v) pattern a(v,_)
+2, 3, 10, 12, 17, 20
+5000
 
