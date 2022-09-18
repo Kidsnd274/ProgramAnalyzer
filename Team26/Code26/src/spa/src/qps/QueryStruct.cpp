@@ -55,12 +55,7 @@ namespace QPS {
 
     void QueryStruct::addSynonym(EntityType entityType, std::string nameOfEntity) {
         if (this->declaredSynonymMap.find(nameOfEntity) != this->declaredSynonymMap.end()) {
-            if (this->declaredSynonymMap.find(nameOfEntity)->second != entityType) {
-                this->queryStatus = EVALUATION_ERROR;
-                throw std::invalid_argument("QueryStruct::addSynonym: Synonym "
-                                            + nameOfEntity
-                                            + "already exists and the type is different.");
-            }
+            this->queryStatus = SEMANTIC_ERROR;
         } else {
             this->declaredSynonymMap.insert(std::make_pair(nameOfEntity, entityType));
         }

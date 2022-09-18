@@ -1,0 +1,3 @@
+procedure mile {
+    a=0001;
+}

@@ -42,4 +42,5 @@ bool ParentTable::existParent(int parentStmtLineNumber, int childStmtLineNumber)
             return false;
         }
     }
+    return false;
 }

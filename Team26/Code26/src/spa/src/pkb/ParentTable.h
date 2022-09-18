@@ -3,7 +3,6 @@
 //
 
 #ifndef SPA_PARENTTABLE_H
-#define SPA_PARENTSTABLE_H
 
 #include <stdio.h>
 #include <string>
