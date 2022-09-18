@@ -1,4 +1,0 @@
-procedure foo {
-	print x;
-	x = 1;
-}

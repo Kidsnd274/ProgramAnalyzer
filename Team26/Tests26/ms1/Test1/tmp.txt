@@ -1,5 +1,0 @@
-115 - Select statement with Modifies and Pattern with synonym appearing across relationship and pattern
-assign a; stmt s; variable v;
-Select s such that Modifies(s,v) pattern a (v, _)
-1,2,3,4,5,6,7,9,10,11,13,17,18,19,20,21,22,23,24
-5000
