@@ -71,12 +71,12 @@ Select a, v such that Modifies(a, v) pattern a("x", _"3"_)
 15 - Simple test with undeclared pattern variable
 constant c; variable v; assign a;
 Select a, v such that Modifies(a, v) pattern a1(v, _"3"_)
-
+SemanticError
 5000
 16 - Simple test with invalid pattern variable
 constant c; variable v; assign a;
 Select a, v such that Modifies(a, v) pattern c(v, _"3"_)
-
+SemanticError
 5000
 
 
