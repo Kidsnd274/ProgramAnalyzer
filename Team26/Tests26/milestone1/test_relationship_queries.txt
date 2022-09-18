@@ -1,0 +1,40 @@
+1 - Simple test with Modifies
+constant c; variable v; assign a;
+Select a, v such that Modifies(a, "x")
+5 z, 9 x, 5 p, 5 x, 3 x, 9 z, 3 y, 9 p, 5 y, 3 z, 9 y, 3 p
+5000
+2 - Simple test with Modifies
+constant c; variable v; assign a;
+Select a, v such that Modifies(a, v)
+9 x, 5 x, 3 x, 11 z, 10 z, 6 y, 7 z
+5000
+3 - Simple test with Modifies
+constant c; variable v; assign a;
+Select a, v such that Modifies(a, "k")
+none
+5000
+4 - Simple test with Modifies
+constant c; variable v; assign a;
+Select a, v such that Modifies(a, k)
+SemanticError
+5000
+5 - Simple test with Uses
+constant c; variable v; assign a;
+Select a, v such that Uses(a, "x")
+10 y,11 y,7 y,6 y,3 y,11 x,10 x,7 x,6 x,3 x,7 p,3 z,11 z,10 z,7 z,6 z,6 p,10 p,3 p,11 p
+5000
+6 - Simple test with Uses
+constant c; variable v; assign a;
+Select a, v such that Uses(a, v)
+11 x,5 z,10 x,7 x,3 x,11 y,5 y,6 x
+5000
+7 - Simple test with Uses
+constant c; variable v; assign a;
+Select a, v such that Uses(a, "k")
+none
+5000
+8 - Simple test with Uses
+constant c; variable v; assign a;
+Select a, v such that Uses(a, k)
+SemanticError
+5000

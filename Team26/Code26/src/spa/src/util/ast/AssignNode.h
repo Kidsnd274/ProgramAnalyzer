@@ -1,3 +1,6 @@
+#ifndef SPA_UTIL_AST_ASSIGNNODE_H
+#define SPA_UTIL_AST_ASSIGNNODE_H
+
 #include <memory>
 #include <string>
 #include "StatementNode.h"
@@ -9,7 +12,7 @@ private:
     std::shared_ptr<TNode> expression;
 
 public:
-    AssignNode(int statementNumber, std::string variableName, std::shared_ptr<TNode> expression) : StatementNode(statementNumber) {
+    AssignNode(int statementNumber, std::string variableName, std::shared_ptr<TNode> expression) : StatementNode(statementNumber, statementType::ASSIGN) {
         this->variableName = std::move(variableName);
         this->expression = std::move(expression);
     }
@@ -20,3 +23,4 @@ public:
     static std::shared_ptr<AssignNode> createAssignNode(int statementNumber, std::string variableName,
                                                         std::shared_ptr<TNode> expression);
 };
+#endif

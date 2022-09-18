@@ -8,6 +8,7 @@
 #include <vector>
 #include <map>
 #include <iostream>
+#include <set>
 
 
 /*
@@ -18,7 +19,10 @@ namespace QPS {
     enum QueryStatus {
         EVALUATION_NOT_STARTED,
         EVALUATION_COMPLETED,
-        EVALUATION_ERROR
+        EVALUATION_ERROR,
+        VALID_QUERY,
+        SYNTAX_ERROR,
+        SEMANTIC_ERROR
     };
 
     class QueryStruct {
@@ -31,6 +35,7 @@ namespace QPS {
     public:
         QueryStatus queryStatus;
         ResultTable resultTable;
+        unordered_set<std::string> usedSynonymList;
 
     public:
         QueryStruct(DECLARED_SYNONYM_MAP &declaredSynonymMap,
@@ -82,6 +87,18 @@ namespace QPS {
         void addPatternClause(PatternStruct patternToAdd);
 
         void addCandidate(CandidateStruct);
+
+        void addUsedSynonym(std::string);
+
+        void generateUsedSynonymList();
+        /**
+         * Checks whether the given synonym is used in query
+         * as candidate or argument.
+         *
+         * @param nameOfSynonym A string, the name of synonym.
+         * @return bool.
+         */
+        bool isSynonymUsed(std::string nameOfSynonym);
     };
 }
 #endif // QUERYSTRUCT_H

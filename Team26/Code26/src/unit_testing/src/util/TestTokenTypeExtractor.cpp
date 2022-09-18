@@ -215,7 +215,12 @@ TEST_CASE("Test_createNonTerminal_positive") {
         std::string tokenString = "SomethingElse";
         SPToken createdToken = TokenTypeExtractor::createNonTerminal(tokenString);
         SPToken expectedToken = SPToken(tokenString, SPTokenType::NameToken);
+
+        std::string tokenString2 = "var1231A";
+        SPToken createdToken2 = TokenTypeExtractor::createNonTerminal(tokenString2);
+        SPToken expectedToken2 = SPToken(tokenString2, SPTokenType::NameToken);
         REQUIRE(createdToken == expectedToken);
+        REQUIRE(createdToken2 == expectedToken2);
     }
 
     SECTION("Call SPToken") {

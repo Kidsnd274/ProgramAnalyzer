@@ -18,3 +18,25 @@ SPToken TokenStack::peekNext() {
 
     return tokenStack[tokenPointer];
 }
+
+bool TokenStack::isNextTokenAssign() {
+    return (tokenPointer + 1) < tokenStack.size() && tokenStack[tokenPointer + 1].getTokenType() == SPTokenType::AssignToken;
+}
+
+bool TokenStack::isCondTokenAfterRparen() {
+    int j = tokenPointer + 1;
+    std::stack<char> parenStack;
+    parenStack.push('l');
+    while(j < tokenStack.size() && !parenStack.empty()) {
+        if(tokenStack[j].getTokenType() == SPTokenType::RParenToken && parenStack.top() == 'l')
+            parenStack.pop();
+        else if(tokenStack[j].getTokenType() == SPTokenType::RParenToken)
+            parenStack.push('r');
+        else if( tokenStack[j].getTokenType() == SPTokenType::LParenToken)
+            parenStack.push('l');
+        j++;
+    }
+
+    return (tokenStack[j].getTokenType() == SPTokenType::CondToken) &&
+    (tokenStack[j].getTokenString() == "&&" || tokenStack[j].getTokenString() == "||");
+}

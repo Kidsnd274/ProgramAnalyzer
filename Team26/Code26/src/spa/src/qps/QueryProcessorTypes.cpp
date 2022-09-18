@@ -17,6 +17,25 @@ namespace QPS {
         }
     }
 
+
+    bool isArgumentTypeSynonym(QPS::ArgumentType argumentType) {
+        switch (argumentType) {
+            case IF_SYNONYM:
+            case WHILE_SYNONYM:
+            case READ_SYNONYM:
+            case PRINT_SYNONYM:
+            case CALL_SYNONYM:
+            case ASSIGN_SYNONYM:
+            case STMT_SYNONYM:
+            case VAR_SYNONYM:
+            case PROCEDURE_SYNONYM:
+            case CONST_SYNONYM:
+                return true;
+            default:
+                return false;
+        }
+    }
+
     CandidateType mapEntityToCandidate(EntityType entityType) {
         switch (entityType) {
             case VARIABLE:
@@ -92,8 +111,8 @@ namespace QPS {
             case CONST_SYNONYM:{
                 return "CONST_SYNONYM";
             }
-            case NAME_OF_ENTITY:{
-                return "NAME_OF_ENTITY";
+            case ACTUAL_NAME:{
+                return "ACTUAL_NAME";
             }
             case NUMBER:{
                 return "NUMBER";
@@ -107,8 +126,29 @@ namespace QPS {
             case EXPRESSION:{
                 return "EXPRESSION";
             }
-
+            case IF_SYNONYM:{
+                return "IF_SYNONYM";
+            }
+            case WHILE_SYNONYM:{
+                return "WHILE_SYNONYM";
+            }
+            case READ_SYNONYM:{
+                return "READ_SYNONYM";
+            }
+            case PRINT_SYNONYM:{
+                return "PRINT_SYNONYM";
+            }
+            case CALL_SYNONYM:{
+                return "CALL_SYNONYM";
+            }
+            case ASSIGN_SYNONYM:{
+                return "ASSIGN_SYNONYM";
+            }
+            case PROCEDURE_ACTUAL_NAME: {
+                return "PROCEDURE_ACTUAL_NAME";
+            }
         }
+        return "";
     }
 
     std::string exceptionToStringQPS(Exception e) {
@@ -155,6 +195,9 @@ namespace QPS {
             }
             case VALID:{
                 return "VALID";
+            }
+            case UNDECLARED_SELECT_ENTITY:{
+                return "UNDECLARED_SELECT_ENTITY";
             }
         }
     }

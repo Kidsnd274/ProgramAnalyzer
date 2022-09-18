@@ -10,7 +10,7 @@ private:
 
 public:
     WhileNode(int statementNumber, std::shared_ptr<TNode> conditionalExpression,
-            std::vector<std::shared_ptr<StatementNode>> statementList) : StatementNode(statementNumber) {
+            std::vector<std::shared_ptr<StatementNode>> statementList) : StatementNode(statementNumber, statementType::WHILE) {
         this->conditionalExpression = std::move(conditionalExpression);
         this->statementList = std::move(statementList);
     };

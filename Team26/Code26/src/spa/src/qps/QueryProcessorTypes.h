@@ -94,6 +94,7 @@ namespace QPS {
         INVALID_PATTERN_SYNTAX,
         UNDECLARED_ENTITY_PATTERN,
         UNDECLARED_ENTITY_SUCH_THAT,
+        UNDECLARED_SELECT_ENTITY,
         UNMATCHED_QUERY_TYPE,
         INVALID_RELATION,
         INVALID_RELATION_CONTENT,
@@ -117,11 +118,19 @@ namespace QPS {
         VAR_SYNONYM,
         PROCEDURE_SYNONYM,
         CONST_SYNONYM,
-        NAME_OF_ENTITY,
+        ACTUAL_NAME,
         NUMBER,
         WILDCARD,
         EXPRESSION,
-        INVALID_ARGUMENT_TYPE
+        INVALID_ARGUMENT_TYPE,
+        PROCEDURE_ACTUAL_NAME
+    };
+
+
+    enum ExpressionMatchingType {
+        EXACT_MATCHING,
+        PARTIAL_MATCHING,
+        WILDCARD_MATCHING
     };
 
     /*
@@ -170,12 +179,12 @@ namespace QPS {
     typedef std::vector<CandidateStruct> CANDIDATE_LIST;
 
     CandidateType mapEntityToCandidate(EntityType entityType);
+    bool isArgumentTypeSynonym(QPS::ArgumentType argumentType);
     std::string entityToString(EntityType entityType);
     std::string candidateToString(CandidateType candidateType);
     std::string relationToString (RelationType relationType);
     std::string ARGToString (ArgumentType argumentType);
     std::string exceptionToStringQPS(Exception e);
-
 
 }
 #endif // QUERYPROCESSORTYPES_H

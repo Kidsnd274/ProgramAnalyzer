@@ -1,5 +1,6 @@
 #pragma  once
 #include <vector>
+#include <stack>
 #include "SPToken.h"
 #include "EndOfFileException.h"
 
@@ -16,4 +17,6 @@ public:
     SPToken getNext();
     bool hasNextToken();
     SPToken peekNext();
+    bool isNextTokenAssign();
+    bool isCondTokenAfterRparen();
 };

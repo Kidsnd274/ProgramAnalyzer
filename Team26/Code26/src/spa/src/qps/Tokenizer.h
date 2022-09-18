@@ -7,8 +7,7 @@
 #include <map>
 #include <regex>
 #include <utility>
-#include "qps/QueryStruct.h"
-#include "qps/QueryProcessorTypes.h"
+#include "QueryProcessorTypes.h"
 
 namespace QPS {
     enum TokenType {
@@ -40,7 +39,8 @@ namespace QPS {
         NAME,
         INTEGER,
         WHITESPACE,
-        STAR
+        STAR,
+        WILDCARD_TOKEN
     };
 
     const std::map<TokenType, std::string> tokenMap = {
@@ -71,6 +71,7 @@ namespace QPS {
             { NAME, "NAME" },
             { INTEGER, "INTEGER" },
             { WHITESPACE, "WHITESPACE" },
+            { WILDCARD_TOKEN, "WILDCARD"}
     };
 
     struct Token {
