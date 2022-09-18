@@ -141,7 +141,6 @@ std::shared_ptr<StatementNode> Parser::parseStatement(int stmtListNum) {
     }
 
     SPTokenType t = tokenStack->peekNext().getTokenType();
-    //TODO check if the next variable is assign before parsing as the test cases might include variables that have keywords as the names
     std::shared_ptr<StatementNode> stmt(nullptr);
 
     if(tokenStack->isNextTokenAssign() && tokenStack->peekNext().isNonTerminal()) {
@@ -241,7 +240,6 @@ std::shared_ptr<TNode> Parser::parseRel() {
 }
 
 std::shared_ptr<TNode> Parser::parseRelFactor() {
-    //TODO check if the variable is a non-terminal as the test case may include keyword as variable names
     if(tokenStack->peekNext().isNonTerminal()) {
         std::string name = parseName();
         pkbInterface->addVariable(name);
@@ -328,7 +326,6 @@ std::shared_ptr<TNode> Parser::parseTerm() {
 }
 
 std::shared_ptr<TNode> Parser::parseFactor() {
-    //TODO check if the variable is a non-terminal as the test case may include keyword as variable names
     if(tokenStack->peekNext().isNonTerminal()) {
         std::string name = parseName();
         pkbInterface->addVariable(name);
