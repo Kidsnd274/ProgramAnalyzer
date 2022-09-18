@@ -123,8 +123,34 @@ stmt s;
 Select s such that Uses (s, "var1234")
 1,3,5,8
 5000
-26 - select statements that modify a certain variable
+26 - select variables that a certain statement uses
+variable v;
+Select v such that Uses (5, v)
+if, z, procedure, var1234, xy, p, k, kkk, true, zy, q, w, e, else, while, y, x, d, call
+5000
+27 - select variables that another statement uses
+variable v;
+Select v such that Uses (9, v)
+if, else, while, kkk, y, x, zy, xy, d, k, call
+5000
+28 - select variables that another statement uses
+variable v;
+Select v such that Uses (14, v)
+y, x, d, xy, zy, kkk, k
+5000
+29 - select statements that modify a certain variable
 stmt s;
 Select s such that Modifies (s, "zy")
 1, 2, 15, 14, 11, 9, 8, 5, 16
 5000
+30 - select variables that a statement modifies
+variable v;
+Select v such that Modifies (5, v)
+if, else, while, zy, d
+5000
+31 - select variables that another statement modifies
+variable v;
+Select v such that Modifies (11, v)
+while, zy, d
+5000
+
