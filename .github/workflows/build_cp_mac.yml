@@ -44,7 +44,13 @@ jobs:
         shell: bash
         working-directory: ${{runner.workspace}}/build
         run: |
-          cd src/unit_testing/Release
+          ls
+          cd src
+          ls
+          cd unit_testing
+          ls
+          cd Release
+          ls
           ./unit_testing.exe -d yes -o output.txt
           echo UNIT TESTING
           cat output.txt
