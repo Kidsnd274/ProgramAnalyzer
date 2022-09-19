@@ -43,7 +43,9 @@ jobs:
       - name: Run tests
         env:
             CTEST_OUTPUT_ON_FAILURE: 1
-        working-directory: ${{runner.workspace}}/22s1-cp-spa-team-26/Team26/Code26/build/src/unit_testing/Release
         # Hardcode 2 cores we know are there
         shell: bash
-        run: unit_testing.exe -r xml -d yes -order lex
+        run: |
+          cd Team26/Code26/build/src/unit_testing/Release
+          ./unit_testing.exe -r xml -d yes -order lex
+          cd ../../../../../..
