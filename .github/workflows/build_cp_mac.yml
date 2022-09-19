@@ -44,12 +44,11 @@ jobs:
         shell: bash
         working-directory: ${{runner.workspace}}/build
         run: |
-          ls
-          cd src
+          cd src/unit_testing
+          echo Folder
           ls
           cd unit_testing
-          ls
-          cd Release
+          echo unit_testing folder
           ls
           ./unit_testing.exe -d yes -o output.txt
           echo UNIT TESTING
