@@ -41,11 +41,8 @@ jobs:
           cd ../..
 
       - name: Run tests
-        env:
-            CTEST_OUTPUT_ON_FAILURE: 1
-        # Hardcode 2 cores we know are there
         shell: bash
         run: |
           cd Team26/Code26/build/src/unit_testing/Release
-          ./unit_testing.exe -r xml -d yes -order lex
+          ./unit_testing.exe -d yes -order lex
           cd ../../../../../..
