@@ -42,4 +42,13 @@ jobs:
 
       - name: Run tests
         shell: cmd
-        run: ${{runner.workspace}}/22s1-cp-spa-team-26/Team26/Code26/build/src/unit_testing/Release/unit_testing.exe -d yes -order lex
+        run: |
+          cd ${{runner.workspace}}
+          cd 22s1-cp-spa-team-26
+          cd Team26
+          cd Code26
+          cd build
+          cd src
+          cd unit_testing
+          cd Release
+          unit_testing.exe -d yes -order lex
