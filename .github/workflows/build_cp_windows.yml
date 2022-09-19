@@ -41,7 +41,7 @@ jobs:
           cd ../..
 
       - name: Run tests
-        shell: cmd
+        shell: bash
         run: |
           cd ${{runner.workspace}}
           cd 22s1-cp-spa-team-26
@@ -51,4 +51,4 @@ jobs:
           cd src
           cd unit_testing
           cd Release
-          unit_testing.exe -d yes -order lex
+          ./unit_testing.exe -d yes -order lex
