@@ -43,6 +43,7 @@ jobs:
       - name: Run tests
         env:
             CTEST_OUTPUT_ON_FAILURE: 1
-        working-directory: ${{runner.workspace}}/build
+        working-directory: ${{runner.workspace}}/Team26/Code26/build
         # Hardcode 2 cores we know are there
+        shell: bash
         run: ctest -C ${{matrix.build_type}} -j 2
