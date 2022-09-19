@@ -45,12 +45,7 @@ jobs:
         working-directory: ${{runner.workspace}}/build
         run: |
           cd src/unit_testing
-          echo Folder
-          ls
-          cd unit_testing
-          echo unit_testing folder
-          ls
-          ./unit_testing.exe -d yes -o output.txt
+          ./unit_testing -d yes -o output.txt
           echo UNIT TESTING
           cat output.txt
 
@@ -58,7 +53,7 @@ jobs:
         shell: bash
         working-directory: ${{runner.workspace}}/build
         run: |
-          cd src/integration_testing/Release
-          ./integration_testing.exe -d yes -o output.txt
+          cd src/integration_testing
+          ./integration_testing -d yes -o output.txt
           echo INTEGRATION TESTING
           cat output.txt
