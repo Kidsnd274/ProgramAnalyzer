@@ -43,8 +43,6 @@ jobs:
       - name: Run tests
         shell: bash
         run: |
-          cd ${{runner.workspace}}
-          cd 22s1-cp-spa-team-26
           cd Team26
           cd Code26
           cd build
