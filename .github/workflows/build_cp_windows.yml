@@ -40,7 +40,7 @@ jobs:
           cmake --build . --target autotester --config Release
           cd ../..
 
-      - name: Run tests
+      - name: Run Unit Tests
         shell: bash
         run: |
           cd Team26
@@ -50,4 +50,18 @@ jobs:
           cd unit_testing
           cd Release
           ./unit_testing.exe -d yes -o output.txt
+          echo UNIT TESTING
+          cat output.txt
+
+      - name: Run Integration Tests
+        shell: bash
+        run: |
+          cd Team26
+          cd Code26
+          cd build
+          cd src
+          cd integration_testing
+          cd Release
+          echo INTEGRATION TESTING
+          ./integration_testing.exe -d yes -o output.txt
           cat output.txt

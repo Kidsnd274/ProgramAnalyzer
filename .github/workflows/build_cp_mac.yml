@@ -39,3 +39,21 @@ jobs:
         working-directory: ${{runner.workspace}}/build
         shell: bash
         run: cmake --build . --config $BUILD_TYPE
+
+      - name: Run Unit Tests
+        shell: bash
+        working-directory: ${{runner.workspace}}/build
+        run: |
+          cd src/unit_testing/Release
+          ./unit_testing.exe -d yes -o output.txt
+          echo UNIT TESTING
+          cat output.txt
+
+      - name: Run Integration Tests
+        shell: bash
+        working-directory: ${{runner.workspace}}/build
+        run: |
+          cd src/integration_testing/Release
+          ./integration_testing.exe -d yes -o output.txt
+          echo INTEGRATION TESTING
+          cat output.txt
