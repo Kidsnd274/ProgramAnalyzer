@@ -35,9 +35,7 @@ jobs:
           mkdir build
           cd build
           cmake ..
-          cmake --build . --target unit_testing --config Release
-          cmake --build . --target integration_testing --config Release
-          cmake --build . --target autotester --config Release
+          cmake --build . --target ALL_BUILD --config Debug
           cd ../..
 
       - name: Run tests
