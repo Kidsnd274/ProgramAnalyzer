@@ -40,10 +40,6 @@ jobs:
           cmake --build . --target autotester --config Release
           cd ../..
 
-      - name: Display the path
-        shell: cmd
-        run: echo %PATH%
-
       - name: Run tests
         shell: cmd
-        run: ./Team26/Code26/build/src/unit_testing/Release/unit_testing.exe -d yes -order lex
+        run: ${{runner.workspace}}/22s1-cp-spa-team-26/Team26/Code26/build/src/unit_testing/Release/unit_testing.exe -d yes -order lex
