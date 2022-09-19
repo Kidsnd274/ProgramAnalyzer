@@ -46,4 +46,4 @@ jobs:
 
       - name: Run tests
         shell: cmd
-        run: ".\Team26\Code26\build\src\unit_testing\Release\unit_testing.exe" -d yes -order lex
+        run: ./Team26/Code26/build/src/unit_testing/Release/unit_testing.exe -d yes -order lex
