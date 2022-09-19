@@ -35,7 +35,9 @@ jobs:
           mkdir build
           cd build
           cmake ..
-          cmake --build . --target ALL_BUILD --config Debug
+          cmake --build . --target unit_testing --config Release
+          cmake --build . --target integration_testing --config Release
+          cmake --build . --target autotester --config Release
           cd ../..
 
       - name: Run tests
@@ -47,4 +49,5 @@ jobs:
           cd src
           cd unit_testing
           cd Release
-          ./unit_testing.exe -d yes -order lex
+          ./unit_testing.exe -d yes -o output.txt
+          cat output.txt
