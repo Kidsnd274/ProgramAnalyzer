@@ -1,6 +1,9 @@
 #include "Parser.h"
 #include "pkb/PKB.h"
 
+
+// B3 (Major): God class - class might potentially come close to or be a god class. I suggest splitting up the methods into individual parsers called by this main Parse class
+
 void Parser::parseSimple() {
     int numOfProcedures = 0;
     while(tokenStack->hasNextToken()) {

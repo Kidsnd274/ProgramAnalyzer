@@ -18,7 +18,7 @@ void ModifiesTable::insertModifies(int stmtLineNumber, string varName) {
     }
 }
 
-bool ModifiesTable::existModifies(int stmtLineNumber, string varName) {
+bool ModifiesTable::existModifies(int stmtLineNumber, string varName) {     // S8 (Major): POLA Violation - I believe that PKB should not even do any forms of relation checking. I suggest shifting this entire operation to QPS component
     if (stmtLineNumber == 0) {
         for (auto & stmt: this->modifiesList) {
             if (varName == std::string() || (std::find(stmt.second.begin(), stmt.second.end(), varName) != stmt.second.end())) {
@@ -35,7 +35,7 @@ bool ModifiesTable::existModifies(int stmtLineNumber, string varName) {
     return false;
 }
 
-bool ModifiesTable::existStatement(int stmtLineNumber) {
+bool ModifiesTable::existStatement(int stmtLineNumber) {        // S8 (Major): POLA Violation - I believe that PKB should not even do any forms of relation checking. I suggest shifting this entire operation to QPS component
     unordered_map<int,std::vector<std::string>> list = this->modifiesList;
     if (list.find(stmtLineNumber) != list.end()) {
         return true;

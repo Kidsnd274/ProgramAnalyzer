@@ -37,6 +37,9 @@ namespace QPS {
         query.resultTable.getSynonymsValues(sNames, tupleValues);
         for (auto row : tupleValues) {
             std::string rowString; // = "("
+
+            // C5 (Minor): Commented-out code - Delete if not needed
+
 //            for (auto candidate : query.getCandidateList()) {
 //                int colNumber = query.resultTable.getSynonymColRef().find(
 //                        candidate.entityOfCandidate.nameOfEntity)->second;

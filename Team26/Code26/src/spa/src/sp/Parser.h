@@ -35,6 +35,7 @@ public:
 
     //Methods that return shared_ptr to StatementNode
     std::vector<std::shared_ptr<StatementNode>> parseStatementList();
+
     std::shared_ptr<StatementNode> parseStatement(int stmtListNum);
     std::shared_ptr<IfNode> parseIf(int stmtListNum);
     std::shared_ptr<WhileNode> parseWhile(int stmtListNum);

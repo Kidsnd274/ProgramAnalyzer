@@ -268,7 +268,7 @@ namespace QPS {
         }
     }
 
-    void ResultTable::printStringVector(const std::vector<std::string>& v) {
+    void ResultTable::printStringVector(const std::vector<std::string>& v) {    // S1 (Major): DRY - Code structure similar to printIntVector, if possible try to combine methods into one, else never mind
         std::cout << "Printing vector ... \n";
         std::string s = "| ";
         for (auto& str: v) {
@@ -277,7 +277,7 @@ namespace QPS {
         std::cout << s + "\n";
     }
 
-    void ResultTable::printIntVector(const std::vector<int>& v) {
+    void ResultTable::printIntVector(const std::vector<int>& v) {   // S1 (Major): DRY - Code structure similar to printStringVector, if possible try to combine methods into one, else never mind
         std::cout << "Printing vector ... \n";
         std::string s = "| ";
         for (auto& str: v) {
@@ -458,6 +458,9 @@ namespace QPS {
         return this->synonymColRef;
     }
 }
+
+// C5 (Minor): Commented-out code - Delete them if not needed
+
 //
 //int main() {
 //    //get table

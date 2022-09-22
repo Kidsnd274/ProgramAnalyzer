@@ -16,7 +16,7 @@ vector<Statement> StatementTable::getStatementList() {
     return this->statementList;
 }
 
-vector<string> StatementTable::getAllStmts() {
+vector<string> StatementTable::getAllStmts() {      // S1 (Major): DRY - Code structure is similar to other getAll methodse e.g. getAllReads
     vector<string> result;
     for (Statement stmt: this->statementList) {
         result.push_back(std::to_string(stmt.lineNumber));
@@ -24,7 +24,7 @@ vector<string> StatementTable::getAllStmts() {
     return result;
 }
 
-vector<string> StatementTable::getAllReads() {
+vector<string> StatementTable::getAllReads() {      // S1 (Major): DRY - Code structure is similar to other getAll methodse e.g. getAllAssigns
     vector<string> result;
     for (Statement stmt: this->statementList) {
         if (stmt.type == StatementType::READ) {
@@ -34,7 +34,7 @@ vector<string> StatementTable::getAllReads() {
     return result;
 }
 
-vector<string> StatementTable::getAllAssigns() {
+vector<string> StatementTable::getAllAssigns() {    // S1 (Major): DRY - Code structure is similar to other getAll methodse e.g. getAllReads
     vector<string> result;
     for (Statement stmt: this->statementList) {
         if (stmt.type == StatementType::ASSIGN) {
@@ -44,7 +44,7 @@ vector<string> StatementTable::getAllAssigns() {
     return result;
 }
 
-vector<string> StatementTable::getAllWhiles() {
+vector<string> StatementTable::getAllWhiles() {     // S1 (Major): DRY - Code structure is similar to other getAll methodse e.g. getAllReads
     vector<string> result;
     for (Statement stmt: this->statementList) {
         if (stmt.type == StatementType::WHILE) {
@@ -54,7 +54,7 @@ vector<string> StatementTable::getAllWhiles() {
     return result;
 }
 
-vector<string> StatementTable::getAllIfs() {
+vector<string> StatementTable::getAllIfs() {        // S1 (Major): DRY - Code structure is similar to other getAll methodse e.g. getAllReads
     vector<string> result;
     for (Statement stmt: this->statementList) {
         if (stmt.type == StatementType::IF) {
@@ -64,7 +64,7 @@ vector<string> StatementTable::getAllIfs() {
     return result;
 }
 
-vector<string> StatementTable::getAllPrints() {
+vector<string> StatementTable::getAllPrints() {     // S1 (Major): DRY - Code structure is similar to other getAll methodse e.g. getAllReads
     vector<string> result;
     for (Statement stmt: this->statementList) {
         if (stmt.type == StatementType::PRINT) {
@@ -74,7 +74,7 @@ vector<string> StatementTable::getAllPrints() {
     return result;
 }
 
-vector<string> StatementTable::getAllCalls() {
+vector<string> StatementTable::getAllCalls() {      // S1 (Major): DRY - Code structure is similar to other getAll methodse e.g. getAllReads
     vector<string> result;
     for (Statement stmt: this->statementList) {
         if (stmt.type == StatementType::CALL) {

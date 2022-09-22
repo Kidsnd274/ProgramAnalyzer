@@ -18,7 +18,7 @@ void UsesTable::insertUses(int stmtLineNumber, string varName) {
     }
 }
 
-bool UsesTable::existUses(int stmtLineNumber, string varName) {
+bool UsesTable::existUses(int stmtLineNumber, string varName) {     // S8 (Major): POLA Violation - I believe that PKB should not even do any forms of relation checking. I suggest shifting this entire operation to QPS component
     if (stmtLineNumber == 0) {
         for (auto & stmt: this->usesList) {
             if (varName == std::string() || std::find(stmt.second.begin(), stmt.second.end(), varName) != stmt.second.end()) {

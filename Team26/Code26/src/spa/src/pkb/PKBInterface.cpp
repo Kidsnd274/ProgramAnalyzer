@@ -37,15 +37,15 @@ void PKBInterface::addProcedure(std::string name, int startingStmtNo, int ending
     pkb->procedureTable->insertProc(proc);
 }
 
-void PKBInterface::addVariable(string name) {
+void PKBInterface::addVariable(string name) {   // S1 (Major): DRY - function has similar structure to addConst
     pkb->varTable->insertVar(name);
 }
 
-void PKBInterface::addConst(int value) {
+void PKBInterface::addConst(int value) {        // S1 (Major): DRY - function has similar structure to addVariable
     pkb->constantTable->insertConst(value);
 }
 
-void PKBInterface::addReadStatement(int statementNumber, int statementListNumber) {
+void PKBInterface::addReadStatement(int statementNumber, int statementListNumber) {     // S1 (Major): DRY - function has similar structure to addWhileStatement, etc.
     Statement stmt;
     stmt.type = StatementType::READ;
     stmt.lineNumber = statementNumber;
@@ -62,7 +62,7 @@ void PKBInterface::addAssignStatement(int statementNumber, int statementListNumb
     pkb->statementTable->insertStmt(stmt);
 }
 
-void PKBInterface::addWhileStatement(int statementNumber, int statementListNumber) {
+void PKBInterface::addWhileStatement(int statementNumber, int statementListNumber) {    // S1 (Major): DRY - function has similar structure to addReadStatement, etc.
     Statement stmt;
     stmt.type = StatementType::WHILE;
     stmt.lineNumber = statementNumber;
@@ -70,7 +70,7 @@ void PKBInterface::addWhileStatement(int statementNumber, int statementListNumbe
     pkb->statementTable->insertStmt(stmt);
 }
 
-void PKBInterface::addIfStatement(int statementNumber, int statementListNumber) {
+void PKBInterface::addIfStatement(int statementNumber, int statementListNumber) {       // S1 (Major): DRY - function has similar structure to addWhileStatement, etc.
     Statement stmt;
     stmt.type = StatementType::IF;
     stmt.lineNumber = statementNumber;
@@ -78,7 +78,7 @@ void PKBInterface::addIfStatement(int statementNumber, int statementListNumber) 
     pkb->statementTable->insertStmt(stmt);
 }
 
-void PKBInterface::addPrintStatement(int statementNumber, int statementListNumber) {
+void PKBInterface::addPrintStatement(int statementNumber, int statementListNumber) {    // S1 (Major): DRY - function has similar structure to addWhileStatement, etc.
     Statement stmt;
     stmt.type = StatementType::PRINT;
     stmt.lineNumber = statementNumber;
@@ -86,27 +86,27 @@ void PKBInterface::addPrintStatement(int statementNumber, int statementListNumbe
     pkb->statementTable->insertStmt(stmt);
 }
 
-void PKBInterface::addModifies(int statementNumber, string varName) {
+void PKBInterface::addModifies(int statementNumber, string varName) {           // S1 (Major): DRY - function has similar structure to addUses
     pkb->modifiesTable->insertModifies(statementNumber, std::move(varName));
 }
 
-void PKBInterface::addUses(int statementNumber, string varName) {
+void PKBInterface::addUses(int statementNumber, string varName) {               // S1 (Major): DRY - function has similar structure to addModifies
     pkb->usesTable->insertUses(statementNumber, std::move(varName));
 }
 
-void PKBInterface::addParent(int parentStatementNumber, int childStatementNumber) {
+void PKBInterface::addParent(int parentStatementNumber, int childStatementNumber) {     // S1 (Major): DRY - function has similar structure to other addRelationship functions
     pkb->parentTable->insertParent(parentStatementNumber, childStatementNumber);
 }
 
-void PKBInterface::addParentStar(int parentStatementNumber, int childStatementNumber) {
+void PKBInterface::addParentStar(int parentStatementNumber, int childStatementNumber) {     // S1 (Major): DRY - function has similar structure to addRelationship functions
     pkb->parentStarTable->insertParentStar(parentStatementNumber, childStatementNumber);
 }
 
-void PKBInterface::addFollows(int frontStatementNumber, int backStatementNumber) {
+void PKBInterface::addFollows(int frontStatementNumber, int backStatementNumber) {      // S1 (Major): DRY - function has similar structure to addRelationship functions
     pkb->followsTable->insertFollows(frontStatementNumber, backStatementNumber);
 }
 
-void PKBInterface::addFollowsStar(int frontStatementNumber, int backStatementNumber) {
+void PKBInterface::addFollowsStar(int frontStatementNumber, int backStatementNumber) {  // S1 (Major): DRY - function has similar structure to addRelationship functions
     pkb->followsStarTable->insertFollowsStar(frontStatementNumber, backStatementNumber);
 }
 
@@ -151,7 +151,7 @@ vector<string> PKBInterface::getAllEntity(EntityType type) {
     return result;
 }
 
-bool PKBInterface::existRelation(const RelationStruct& relation) {
+bool PKBInterface::existRelation(const RelationStruct& relation) {      // S8 (Major): POLA Violation - I believe that PKB should not even do any forms of relation checking. I suggest shifting this entire operation to QPS component
     RelationType typeOfRelation = relation.typeOfRelation;
     ArgumentStruct arg1 = relation.arg1;
     ArgumentStruct arg2 = relation.arg2;

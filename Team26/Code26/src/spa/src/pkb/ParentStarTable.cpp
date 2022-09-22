@@ -18,7 +18,7 @@ void ParentStarTable::insertParentStar(int frontStmtLineNumber, int backStmtLine
     }
 }
 
-bool ParentStarTable::existParentStar(int frontStmtLineNumber, int backStmtLineNumber) {
+bool ParentStarTable::existParentStar(int frontStmtLineNumber, int backStmtLineNumber) {        // S8 (Major): POLA Violation - I believe that PKB should not even do any forms of relation checking. I suggest shifting this entire operation to QPS component
     unordered_map<int,vector<int>> list = this->parentStarList;
     bool isParentWildcard = frontStmtLineNumber == 0;
     bool isChildWildcard = backStmtLineNumber == 0;

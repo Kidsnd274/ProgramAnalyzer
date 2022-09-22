@@ -30,8 +30,8 @@ namespace QPS {
                 if (container.getStatus() != START_PARSE_DECLARATION) {
                     // Invalid status for parsing declaration
                     return INVALID_DECLARATION;
-                } else {
-                    switch (entityMappingResult.first) {
+                } else {    
+                    switch (entityMappingResult.first) {    // B1 (Minor) Pyramid of Doom:  More than 3 levels of nesting, I suggest doing the switch-case outside of else
                         case STATEMENT: {
                             tokenPos++;
                             std::pair<int, Exception> result = parseDeclaration(tokens, tokenPos, STATEMENT,
@@ -173,8 +173,8 @@ namespace QPS {
                 if (container.getStatus() != START_PARSE_SUCH_CLAUSE) {
                     // Invalid query that doesn't have such that
                     return INVALID_RELATION_SYNTAX;
-                } else {
-                    switch (relationMappingResult.first) {
+                } else {    
+                    switch (relationMappingResult.first) {  // B1 (Minor) Pyramid of Doom:  More than 3 levels of nesting, I suggest doing the switch-case outside of else
                         case FOLLOWS: {
                             tokenPos++;
                             std::pair<int, Exception> result = parseRelationStmtStmt(tokens, tokenPos,
@@ -676,7 +676,7 @@ namespace QPS {
                 return {{}, UNDECLARED_ENTITY_SUCH_THAT};
             } else {
                 EntityType entityType = iterator->second;
-                switch (entityType) {
+                switch (entityType) {       // B1 (Minor) Pyramid of Doom:  More than 3 levels of nesting, I suggest doing the switch-case outside of else
                     case STATEMENT: {
                         return {{STMT_SYNONYM, token.nameValue}, VALID};
                     }
@@ -723,7 +723,7 @@ namespace QPS {
                 return {{}, false};
             } else {
                 EntityType entityType = iterator->second;
-                switch (entityType) {
+                switch (entityType) {       // B1 (Minor) Pyramid of Doom:  More than 3 levels of nesting, I suggest doing the switch-case outside of else
                     case STATEMENT:
                     case READ:
                     case PRINT:

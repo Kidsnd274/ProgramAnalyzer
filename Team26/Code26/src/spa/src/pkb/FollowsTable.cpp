@@ -14,7 +14,7 @@ void FollowsTable::insertFollows(int frontStmtLineNumber, int backStmtLineNumber
     this->followsList.insert(follows);
 }
 
-bool FollowsTable::existFollows(int frontStmtLineNumber, int backStmtLineNumber) {
+bool FollowsTable::existFollows(int frontStmtLineNumber, int backStmtLineNumber) {      // S8 (Major): POLA Violation - I believe that PKB should not even do any forms of relation checking. I suggest shifting this entire operation to QPS component
     unordered_map<int, int> list = this->followsList;
     if (list.find(frontStmtLineNumber) != list.end() && list[frontStmtLineNumber] == backStmtLineNumber) {
         return true;
