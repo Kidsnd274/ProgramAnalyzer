@@ -520,4 +520,16 @@ TEST_CASE("Test Parsing Expression and retrieving TNode using static method") {
 
         REQUIRE(TNode::isSameTree(correctTNode, generatedTNode));
     }
+
+    SECTION("Slightly more advanced test") {
+        std::string exprString = "1 + x * 4 * 8 + 12;";
+
+        std::shared_ptr<TNode> node1 = TNode::createTerm(1, "*", TNode::createVariableName(1, "x"), TNode::createConstantValue(1, "4"));
+        std::shared_ptr<TNode> node2 = TNode::createTerm(1, "*", node1, TNode::createConstantValue(1, "8"));
+        std::shared_ptr<TNode> node3 = TNode::createTerm(1, "+", TNode::createConstantValue(1, "1"), node2);
+        std::shared_ptr<TNode> correctTNode = TNode::createTerm(1, "+", node3, TNode::createConstantValue(1, "12"));
+        std::shared_ptr<TNode> generatedTNode = Parser::parseExpressionFromString(exprString);
+
+        REQUIRE(TNode::isSameTree(correctTNode, generatedTNode));
+    }
 }
