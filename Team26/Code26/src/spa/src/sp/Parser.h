@@ -1,9 +1,11 @@
 #pragma once
 
 #include <memory>
+#include <utility>
 #include <vector>
-#include "util/TokenStack.h"
 #include "SyntaxErrorException.h"
+#include "util/Lexer.h"
+#include "util/TokenStack.h"
 #include "util/ast/TNode.h"
 #include "de/DesignExtractor.h"
 
@@ -13,8 +15,15 @@ private:
     int statementCount;
     int statementListNumber;
     PKBInterface* pkbInterface;
-    //TODO sam help me check if there is a need to destroy this pointer
     DesignExtractorInterface* de;
+
+    Parser(std::vector<SPToken> ts) {
+        tokenStack = new TokenStack(std::move(ts));
+        this->statementCount = 1;
+        this->statementListNumber = 1;
+        pkbInterface = nullptr;
+        de = nullptr;
+    }
 
 public:
     Parser(std::vector<SPToken> ts, PKBInterface* pkbParserInterface) {
@@ -68,4 +77,7 @@ public:
     void parseRelationToken();
     void parseOp();
     void parseFactorToken();
+
+    // Methods for QPS
+    static std::shared_ptr<TNode> parseExpressionFromString(std::string exprString);
 };

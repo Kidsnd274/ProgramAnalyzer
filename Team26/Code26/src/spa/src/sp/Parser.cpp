@@ -1,4 +1,6 @@
 #include "Parser.h"
+
+#include <utility>
 #include "pkb/PKB.h"
 
 void Parser::parseSimple() {
@@ -328,11 +330,15 @@ std::shared_ptr<TNode> Parser::parseTerm() {
 std::shared_ptr<TNode> Parser::parseFactor() {
     if(tokenStack->peekNext().isNonTerminal()) {
         std::string name = parseName();
-        pkbInterface->addVariable(name);
+        if (pkbInterface) { // TODO: Write Integration tests for Parser and PKB, unsure if this works
+            pkbInterface->addVariable(name);
+        }
         return TNode::createVariableName(statementCount, name);
     } else if (tokenStack->peekNext().getTokenType() == SPTokenType::ConstToken) {
         std::string constant = parseConst();
-        pkbInterface->addConst(std::stoi(constant));
+        if (pkbInterface) {
+            pkbInterface->addConst(std::stoi(constant));
+        }
         return TNode::createConstantValue(statementCount, constant);
     } else {
         parseLParen();
@@ -340,4 +346,11 @@ std::shared_ptr<TNode> Parser::parseFactor() {
         parseRParen();
         return expr;
     }
+}
+
+std::shared_ptr<TNode> Parser::parseExpressionFromString(std::string exprString) {
+    Lexer lexer(std::move(exprString));
+    std::vector<SPToken> tokenStack = lexer.tokenize();
+    Parser customParser = Parser(std::move(tokenStack));
+    return customParser.parseExpression();
 }

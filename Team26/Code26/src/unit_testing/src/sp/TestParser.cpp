@@ -510,3 +510,14 @@ TEST_CASE("Parse Cond") {
         REQUIRE_NOTHROW(pr.parseCond());
     }
 }
+
+TEST_CASE("Test Parsing Expression and retrieving TNode using static method") {
+    SECTION("Simple Test") {
+        std::string exprString = "x + 1;";
+
+        std::shared_ptr<TNode> correctTNode = TNode::createTerm(1, "+", TNode::createVariableName(1, "x"), TNode::createConstantValue(1, "1"));
+        std::shared_ptr<TNode> generatedTNode = Parser::parseExpressionFromString(exprString);
+
+        REQUIRE(TNode::isSameTree(correctTNode, generatedTNode));
+    }
+}
