@@ -688,3 +688,4 @@ FodyWeavers.xsd
 # End of https://www.toptal.com/developers/gitignore/api/qt,qtcreator,linux,windows,macos,visualstudio,visualstudiocode,clion,c++
 
 */out.xml
+Team26/Tests26/out.xml
