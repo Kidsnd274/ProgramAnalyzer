@@ -198,7 +198,8 @@ TEST_CASE("Main Extract Interface") {
         auto *pkbInterface = new PKBInterfaceStubForDE();
         DesignExtractor designExtractor = DesignExtractor(pkbInterface);
         std::shared_ptr<ProcedureNode> mainNode = std::move(generateMilestone1TestNestlevel1());
-        designExtractor.extract(mainNode);
+        std::vector<shared_ptr<ProcedureNode>> procedures = {mainNode};
+        designExtractor.extract(procedures);
 
         auto correctFollowsMap = std::unordered_map<int, int>();
         correctFollowsMap[1] = 2;
@@ -297,7 +298,8 @@ TEST_CASE("Main Extract Interface") {
         auto *pkbInterface = new PKBInterfaceStubForDE();
         DesignExtractor designExtractor = DesignExtractor(pkbInterface);
         std::shared_ptr<ProcedureNode> mainNode = std::move(generateMilestone1TestNestlevel2());
-        designExtractor.extract(mainNode);
+        std::vector<shared_ptr<ProcedureNode>> procedures = {mainNode};
+        designExtractor.extract(procedures);
 
         std::unordered_map<int, int> correctFollowsMap = {
                 {1, 2},
@@ -484,7 +486,8 @@ TEST_CASE("Main Extract Interface") {
         auto *pkbInterface = new PKBInterfaceStubForDE();
         DesignExtractor designExtractor = DesignExtractor(pkbInterface);
         std::shared_ptr<ProcedureNode> mainNode = std::move(generateMilestone1TestNestlevel3());
-        designExtractor.extract(mainNode);
+        std::vector<shared_ptr<ProcedureNode>> procedures = {mainNode};
+        designExtractor.extract(procedures);
 
         std::unordered_map<int, int> correctFollowsMap = {
                 {2, 3},
