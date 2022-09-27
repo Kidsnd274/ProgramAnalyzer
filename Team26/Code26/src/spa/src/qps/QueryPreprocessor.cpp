@@ -22,6 +22,7 @@ namespace QPS {
         }
         while (tokenPos < tokens.size()) {
             QPS::Token curr = tokens[tokenPos];
+//            std::cout << curr.nameValue << std::endl;
             std::pair<EntityType, bool> entityMappingResult = mapEntity(curr);
             std::pair<RelationType, bool> relationMappingResult = mapRelation(tokens, tokenPos);
             if (entityMappingResult.second) {
@@ -453,7 +454,7 @@ namespace QPS {
             QPS::Token curr = tokens[pos];
             if (curr.tokenType == QPS::NAME && curr.nameValue == "Select") {
                 pos++;
-            } else if (curr.tokenType == QPS::NAME && curr.nameValue != "such" && curr.nameValue != "pattern") {
+            } else if (curr.tokenType == QPS::NAME && curr.nameValue != "such" && curr.nameValue != "pattern" && curr.nameValue != "BOOLEAN") {
                 EntityType entityType = container.getQueryStruct().getDeclaration(curr.nameValue);
                 if (entityType != INVALID_ENTITY_TYPE) {
                     container.addCandidateList(entityType, curr.nameValue);
@@ -462,6 +463,9 @@ namespace QPS {
                     return {pos, UNDECLARED_ENTITY_SUCH_THAT};
                 }
 
+            } else if (curr.tokenType == QPS::NAME && curr.nameValue == "BOOLEAN"){
+                container.addCandidateListBoolean();
+                pos++;
             } else if (curr.tokenType == QPS::COMMA){
                 pos++;
             } else if (curr.tokenType == QPS::NAME && (curr.nameValue == "such" || curr.nameValue == "pattern")){

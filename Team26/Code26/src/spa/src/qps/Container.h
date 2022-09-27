@@ -58,6 +58,10 @@ namespace QPS {
             this->queryStruct.addCandidateList(candidateType, std::move(s), entityType);
         }
 
+        void addCandidateListBoolean() {
+            this->queryStruct.addCandidateListBoolean();
+        }
+
         void addSuchThatClause(RelationType relationType, ArgumentStruct ARG1, ArgumentStruct ARG2) {
             RelationStruct relationStruct = {relationType, std::move(ARG1), std::move(ARG2)};
             this->queryStruct.addSuchThatClause(relationStruct);
