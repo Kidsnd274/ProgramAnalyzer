@@ -1,8 +1,10 @@
 #include "DesignExtractor.h"
 
-void DesignExtractor::extract(std::shared_ptr<ProcedureNode> p) {
-    for(auto &e : extractorList) {
-        traverse(p, e);
+void DesignExtractor::extract(std::vector<std::shared_ptr<ProcedureNode>> procedures) {
+    for(auto p : procedures) {
+        for (auto &e: extractorList) {
+            traverse(p, e);
+        }
     }
 }
 
