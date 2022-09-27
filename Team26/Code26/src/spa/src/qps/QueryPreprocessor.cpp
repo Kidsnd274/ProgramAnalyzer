@@ -450,11 +450,14 @@ namespace QPS {
     std::pair<int, Exception> parseSelect(std::vector<QPS::Token> &tokens, int pos, Container &container) {
         bool is_multiple_select = false;
         bool is_closed = false;
+        bool is_boolean_select = false;
+        bool is_entity_select = false;
         while (pos < tokens.size() && !QPS::isSuchThat(tokens[pos])) {
             QPS::Token curr = tokens[pos];
             if (curr.tokenType == QPS::NAME && curr.nameValue == "Select") {
                 pos++;
-            } else if (curr.tokenType == QPS::NAME && curr.nameValue != "such" && curr.nameValue != "pattern" && curr.nameValue != "BOOLEAN") {
+            } else if (curr.tokenType == QPS::NAME && curr.nameValue != "such" && curr.nameValue != "pattern" && curr.nameValue != "BOOLEAN" && !is_boolean_select) {
+                is_entity_select = true;
                 EntityType entityType = container.getQueryStruct().getDeclaration(curr.nameValue);
                 if (entityType != INVALID_ENTITY_TYPE) {
                     container.addCandidateList(entityType, curr.nameValue);
@@ -463,17 +466,18 @@ namespace QPS {
                     return {pos, UNDECLARED_ENTITY_SUCH_THAT};
                 }
 
-            } else if (curr.tokenType == QPS::NAME && curr.nameValue == "BOOLEAN"){
+            } else if (curr.tokenType == QPS::NAME && curr.nameValue == "BOOLEAN" && !is_entity_select && !is_boolean_select){
                 container.addCandidateListBoolean();
+                is_boolean_select = true;
                 pos++;
-            } else if (curr.tokenType == QPS::COMMA){
+            } else if (curr.tokenType == QPS::COMMA && !is_boolean_select){
                 pos++;
             } else if (curr.tokenType == QPS::NAME && (curr.nameValue == "such" || curr.nameValue == "pattern")){
                 return {pos, VALID};
-            } else if (curr.tokenType == GT) {
+            } else if (curr.tokenType == GT && !is_boolean_select) {
                 pos++;
                 is_multiple_select = true;
-            } else if (curr.tokenType == LT) {
+            } else if (curr.tokenType == LT && !is_boolean_select) {
                 pos++;
                 is_closed = true;
             } else {
