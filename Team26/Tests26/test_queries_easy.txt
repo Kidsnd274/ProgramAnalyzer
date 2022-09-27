@@ -1,5 +1,5 @@
 1 - Simple test with constants
 constant c; variable v; assign a; print p;
-Select BOOLEAN such that Follows (2, 9)
-9
+Select BOOLEAN pattern a(_, "x") such that Follows (2, 9) such that Follows(4,5)
+SyntaxError
 50000

@@ -39,6 +39,7 @@ namespace QPS {
             case INVALID_PATTERN_SYNTAX:
             case INVALID_DECLARATION:
             case UNMATCHED_QUERY_TYPE:
+            case INVALID_MULTIPLE_CLAUSE:
             case INVALID_RELATION: {
                 queryStatus = SYNTAX_ERROR;
                 break;

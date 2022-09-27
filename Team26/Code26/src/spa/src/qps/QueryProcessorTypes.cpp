@@ -158,7 +158,7 @@ namespace QPS {
                 return "INVALID_ENTITY";
             }
             case INVALID_RELATION_SYNTAX:{
-                return "}";
+                return "INVALID_RELATION_SYNTAX";
             }
             case INVALID_SELECT:{
                 return "INVALID_SELECT";
@@ -198,6 +198,9 @@ namespace QPS {
             }
             case UNDECLARED_SELECT_ENTITY:{
                 return "UNDECLARED_SELECT_ENTITY";
+            }
+            case INVALID_MULTIPLE_CLAUSE:{
+                return "INVALID_MULTIPLE_CLAUSE";
             }
         }
     }

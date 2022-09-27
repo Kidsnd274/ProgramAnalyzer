@@ -358,14 +358,16 @@ namespace QPS {
                     return result.second;
                 }
                 container.setStatus(FINISH_PARSE_SELECT);
-            }  else if (curr.tokenType == QPS::NAME && curr.nameValue == "such" && (container.getStatus() == FINISH_PARSE_PATTERN_CLAUSE || container.getStatus() == FINISH_PARSE_SELECT)) {
+            }  else if (curr.tokenType == QPS::NAME && curr.nameValue == "such" &&
+                    (container.getStatus() == FINISH_PARSE_PATTERN_CLAUSE || container.getStatus() == FINISH_PARSE_SELECT || container.getStatus() == FINISH_PARSE_SUCH_CLAUSE )) {
                 container.setStatus(START_PARSE_SUCH);
             }  else if (curr.tokenType == QPS::NAME && curr.nameValue == "that" && container.getStatus() == START_PARSE_SUCH) {
                 container.setStatus(FINISH_PARSE_SUCH);
                 container.setStatus(START_PARSE_SUCH_CLAUSE);
             } else if (container.getStatus() == START_PARSE_SUCH && (curr.tokenType != QPS::NAME || curr.nameValue != "that")) {
                 return INVALID_SUCH_THAT;
-            } else if (curr.tokenType == QPS::NAME && curr.nameValue == "pattern" && (container.getStatus() == FINISH_PARSE_SUCH_CLAUSE || container.getStatus() == FINISH_PARSE_SELECT)) {
+            } else if (curr.tokenType == QPS::NAME && curr.nameValue == "pattern" &&
+                    (container.getStatus() == FINISH_PARSE_SUCH_CLAUSE || container.getStatus() == FINISH_PARSE_SELECT || container.getStatus() == START_PARSE_PATTERN_CLAUSE )) {
                 tokenPos++;
                 std::pair<int, Exception> result = parsePattern(tokens, tokenPos, container);
                 if (result.second != VALID) {
@@ -373,6 +375,20 @@ namespace QPS {
                 } else {
                     container.setStatus(FINISH_PARSE_PATTERN_CLAUSE);
                     tokenPos = result.first - 1;
+                }
+            } else if (curr.tokenType == QPS::NAME && curr.nameValue == "and" && container.getStatus() == FINISH_PARSE_SUCH_CLAUSE ) {
+                Token next = tokens[tokenPos + 1];
+                if (next.tokenType == NAME && next.nameValue != "pattern" && next.nameValue != "such") {
+                    container.setStatus(START_PARSE_SUCH_CLAUSE);
+                } else {
+                    return INVALID_MULTIPLE_CLAUSE;
+                }
+            } else if (curr.tokenType == QPS::NAME && curr.nameValue == "and" && container.getStatus() == FINISH_PARSE_PATTERN_CLAUSE ) {
+                Token next = tokens[tokenPos + 1];
+                if (next.tokenType == NAME && next.nameValue == "pattern") {
+                    container.setStatus(START_PARSE_PATTERN_CLAUSE);
+                } else {
+                    return INVALID_MULTIPLE_CLAUSE;
                 }
             } else {
                return UNMATCHED_QUERY_TYPE;

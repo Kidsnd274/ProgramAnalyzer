@@ -20,6 +20,7 @@ namespace QPS {
         FINISH_PARSE_SUCH_CLAUSE,
         START_PARSE_PATTERN_CLAUSE,
         FINISH_PARSE_PATTERN_CLAUSE
+
     };
 
     class Container {
