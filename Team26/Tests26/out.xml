@@ -1,266 +1,266 @@
 <?xml-stylesheet type="text/xsl" href="analysis.xsl"?>
 <test_results>
 <info>
-<name>autotester</name><parsing_time_taken>1.005000</parsing_time_taken>
+<name>autotester</name><parsing_time_taken>1.006000</parsing_time_taken>
 </info>
 <queries>
 <query>
 <id ReturnTuple="1" CondNum="1" RelNum="0" comment="select all statement">1</id><querystr><![CDATA[stmt s; Select s]]></querystr>
 <stuans>8,20,18,19,11,17,7,16,6,21,9,14,2,5,1,12,13,10,4,15,3</stuans>
 <correct>1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21</correct>
-<time_taken>2.171000</time_taken>
+<time_taken>1.870000</time_taken>
 <passed/>
 </query>
 <query>
 <id ReturnTuple="1" CondNum="1" RelNum="0" comment="select all read">2</id><querystr><![CDATA[read r; Select r]]></querystr>
 <stuans>16,4</stuans>
 <correct>4,16</correct>
-<time_taken>1.727000</time_taken>
+<time_taken>1.550000</time_taken>
 <passed/>
 </query>
 <query>
 <id ReturnTuple="1" CondNum="1" RelNum="0" comment="select all variable">3</id><querystr><![CDATA[variable v; Select v]]></querystr>
 <stuans>call,y,k,xy,else,d,e,if,w,q,kkk,x,while,var1234,true,procedure,p,zy,z</stuans>
 <correct>var1234,y,zy,x,z,k,if,procedure,p,xy,kkk,true,q,w,e,else,while,d,call</correct>
-<time_taken>2.086000</time_taken>
+<time_taken>1.795000</time_taken>
 <passed/>
 </query>
 <query>
 <id ReturnTuple="1" CondNum="1" RelNum="0" comment="select all constant">4</id><querystr><![CDATA[constant c; Select c]]></querystr>
 <stuans>3,0,6,66,555,12,11,2,780,17,90,7,1,5,10,4</stuans>
 <correct>2,4,5,780,11,7,12,90,10,555,66,6,0,1,3,17</correct>
-<time_taken>1.943000</time_taken>
+<time_taken>1.626000</time_taken>
 <passed/>
 </query>
 <query>
 <id ReturnTuple="1" CondNum="1" RelNum="0" comment="select all print">5</id><querystr><![CDATA[print pn; Select pn]]></querystr>
 <stuans>21,13</stuans>
 <correct>13,21</correct>
-<time_taken>1.993000</time_taken>
+<time_taken>1.613000</time_taken>
 <passed/>
 </query>
 <query>
 <id ReturnTuple="1" CondNum="1" RelNum="0" comment="select all while">6</id><querystr><![CDATA[while w; Select w]]></querystr>
 <stuans>8,19,11,14,1</stuans>
 <correct>1,8,11,14,19</correct>
-<time_taken>1.632000</time_taken>
+<time_taken>1.450000</time_taken>
 <passed/>
 </query>
 <query>
 <id ReturnTuple="1" CondNum="1" RelNum="0" comment="select all if">7</id><querystr><![CDATA[if ifs; Select ifs]]></querystr>
 <stuans>5,9</stuans>
 <correct>5,9</correct>
-<time_taken>1.830000</time_taken>
+<time_taken>1.662000</time_taken>
 <passed/>
 </query>
 <query>
 <id ReturnTuple="1" CondNum="1" RelNum="0" comment="select all assign">8</id><querystr><![CDATA[assign a; Select a]]></querystr>
 <stuans>20,18,6,10,7,17,15,12,3,2</stuans>
 <correct>2,3,6,7,10,12,15,17,18,20</correct>
-<time_taken>1.666000</time_taken>
+<time_taken>1.500000</time_taken>
 <passed/>
 </query>
 <query>
 <id ReturnTuple="1" Parent="1" SuchThat="1" CondNum="3" RelNum="1" comment="check if statement is parent of statement">9</id><querystr><![CDATA[stmt s; Select s such that Parent(8, 9)]]></querystr>
 <stuans>8,20,18,19,11,17,7,16,6,21,9,14,2,5,1,12,13,10,4,15,3</stuans>
 <correct>1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21</correct>
-<time_taken>5.926000</time_taken>
+<time_taken>5.834000</time_taken>
 <passed/>
 </query>
 <query>
 <id ReturnTuple="1" Parent="1" SuchThat="1" CondNum="3" RelNum="1" comment="check if statement is parent of statement that does not exist">10</id><querystr><![CDATA[stmt s; Select s such that Parent(8, 10)]]></querystr>
 <stuans></stuans>
 <correct></correct>
-<time_taken>5.965000</time_taken>
+<time_taken>5.862000</time_taken>
 <passed/>
 </query>
 <query>
 <id ReturnTuple="1" Parent="1" SuchThat="1" CondNum="3" RelNum="1" comment="select parent of 1 statement">11</id><querystr><![CDATA[stmt s; Select s such that Parent(s, 8)]]></querystr>
 <stuans>5</stuans>
 <correct>5</correct>
-<time_taken>5.589000</time_taken>
+<time_taken>5.676000</time_taken>
 <passed/>
 </query>
 <query>
 <id ReturnTuple="1" Parent="1" SuchThat="1" CondNum="3" RelNum="1" comment="select direct children of 1 statement">12</id><querystr><![CDATA[stmt s; Select s such that Parent(5, s)]]></querystr>
 <stuans>8,7,6</stuans>
 <correct>6,7,8</correct>
-<time_taken>5.531000</time_taken>
+<time_taken>5.622000</time_taken>
 <passed/>
 </query>
 <query>
 <id ReturnTuple="1" Parentstar="1" SuchThat="1" CondNum="3" RelNum="1" comment="select parents of 1 statement">13</id><querystr><![CDATA[stmt s; Select s such that Parent*(s, 15)]]></querystr>
 <stuans>5,8,9,11,14</stuans>
 <correct>5,8,9,11,14</correct>
-<time_taken>5.863000</time_taken>
+<time_taken>5.965000</time_taken>
 <passed/>
 </query>
 <query>
 <id ReturnTuple="1" Parentstar="1" SuchThat="1" CondNum="3" RelNum="1" comment="select all children of 1 statement">14</id><querystr><![CDATA[stmt s; Select s such that Parent*(5, s)]]></querystr>
 <stuans>8,20,18,21,9,14,17,15,12,13,10,7,19,11,16,6</stuans>
 <correct>6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21</correct>
-<time_taken>5.810000</time_taken>
+<time_taken>5.999000</time_taken>
 <passed/>
 </query>
 <query>
 <id ReturnTuple="1" Parentstar="1" SuchThat="1" CondNum="3" RelNum="1" comment="select all children of another statement">15</id><querystr><![CDATA[stmt s; Select s such that Parent*(9, s)]]></querystr>
 <stuans>18,14,17,12,15,11,16,13,10</stuans>
 <correct>10,11,12,13,14,15,16,17,18</correct>
-<time_taken>5.946000</time_taken>
+<time_taken>5.933000</time_taken>
 <passed/>
 </query>
 <query>
 <id ReturnTuple="1" Parentstar="1" SuchThat="1" CondNum="3" RelNum="1" comment="select statements which are parent* of itself">16</id><querystr><![CDATA[stmt s; Select s such that Parent*(s, s)]]></querystr>
 <stuans></stuans>
 <correct></correct>
-<time_taken>5.836000</time_taken>
+<time_taken>6.009000</time_taken>
 <passed/>
 </query>
 <query>
 <id ReturnTuple="1" Follows="1" SuchThat="1" CondNum="3" RelNum="1" comment="select statement that a statement follows">17</id><querystr><![CDATA[stmt s; Select s such that Follows(s, 3)]]></querystr>
 <stuans>2</stuans>
 <correct>2</correct>
-<time_taken>5.892000</time_taken>
+<time_taken>5.948000</time_taken>
 <passed/>
 </query>
 <query>
 <id ReturnTuple="1" Follows="1" SuchThat="1" CondNum="3" RelNum="1" comment="select statement that a statement follows but does not exist">18</id><querystr><![CDATA[stmt s; Select s such that Follows(s, 1)]]></querystr>
 <stuans></stuans>
 <correct></correct>
-<time_taken>5.869000</time_taken>
+<time_taken>5.863000</time_taken>
 <passed/>
 </query>
 <query>
 <id ReturnTuple="1" Follows="1" SuchThat="1" CondNum="3" RelNum="1" comment="select another statement that a statement follows but does not exist">19</id><querystr><![CDATA[stmt s; Select s such that Follows(s, 9)]]></querystr>
 <stuans></stuans>
 <correct></correct>
-<time_taken>5.645000</time_taken>
+<time_taken>7.013000</time_taken>
 <passed/>
 </query>
 <query>
 <id ReturnTuple="1" Follows="1" SuchThat="1" CondNum="3" RelNum="1" comment="select statement follows a statement">20</id><querystr><![CDATA[stmt s; Select s such that Follows(9, s)]]></querystr>
 <stuans>19</stuans>
 <correct>19</correct>
-<time_taken>5.820000</time_taken>
+<time_taken>6.840000</time_taken>
 <passed/>
 </query>
 <query>
 <id ReturnTuple="1" Follows="1" SuchThat="1" CondNum="3" RelNum="1" comment="select statement follows a statement that does not exist">21</id><querystr><![CDATA[stmt s; Select s such that Follows(14, s)]]></querystr>
 <stuans></stuans>
 <correct></correct>
-<time_taken>6.013000</time_taken>
+<time_taken>7.013000</time_taken>
 <passed/>
 </query>
 <query>
 <id ReturnTuple="1" Follows="1" SuchThat="1" CondNum="3" RelNum="1" comment="select assign that follows a statement">22</id><querystr><![CDATA[stmt s; assign a; Select a such that Follows(s, a)]]></querystr>
 <stuans>17,3</stuans>
 <correct>3,17</correct>
-<time_taken>9.865000</time_taken>
+<time_taken>10.000000</time_taken>
 <passed/>
 </query>
 <query>
 <id ReturnTuple="1" Followsstar="1" SuchThat="1" CondNum="3" RelNum="1" comment="select all statements follows a statement">23</id><querystr><![CDATA[stmt s; Select s such that Follows*(10, s)]]></querystr>
 <stuans>11</stuans>
 <correct>11</correct>
-<time_taken>6.071000</time_taken>
+<time_taken>6.200000</time_taken>
 <passed/>
 </query>
 <query>
 <id ReturnTuple="1" Followsstar="1" SuchThat="1" CondNum="3" RelNum="1" comment="select statements that a statement follows*">24</id><querystr><![CDATA[stmt s; Select s such that Follows*(s, 17)]]></querystr>
 <stuans>16,15</stuans>
 <correct>15,16</correct>
-<time_taken>6.156000</time_taken>
+<time_taken>6.247000</time_taken>
 <passed/>
 </query>
 <query>
 <id ReturnTuple="1" Uses="1" SuchThat="1" CondNum="3" RelNum="1" comment="select statements that use a certain variable">25</id><querystr><![CDATA[stmt s; Select s such that Uses (s, "var1234")]]></querystr>
 <stuans>5,1,8,3</stuans>
 <correct>1,3,5,8</correct>
-<time_taken>7.547000</time_taken>
+<time_taken>7.474000</time_taken>
 <passed/>
 </query>
 <query>
 <id ReturnTuple="1" Uses="1" SuchThat="1" CondNum="3" RelNum="1" comment="select variables that a certain statement uses">26</id><querystr><![CDATA[variable v; Select v such that Uses (5, v)]]></querystr>
 <stuans>call,y,k,xy,else,d,e,if,w,q,kkk,x,while,var1234,true,procedure,p,zy,z</stuans>
 <correct>if,z,procedure,var1234,xy,p,k,kkk,true,zy,q,w,e,else,while,y,x,d,call</correct>
-<time_taken>5.877000</time_taken>
+<time_taken>5.932000</time_taken>
 <passed/>
 </query>
 <query>
 <id ReturnTuple="1" Uses="1" SuchThat="1" CondNum="3" RelNum="1" comment="select variables that another statement uses">27</id><querystr><![CDATA[variable v; Select v such that Uses (9, v)]]></querystr>
 <stuans>call,if,d,k,x,zy,y,xy,kkk,while,else</stuans>
 <correct>if,else,while,kkk,y,x,zy,xy,d,k,call</correct>
-<time_taken>5.681000</time_taken>
+<time_taken>5.760000</time_taken>
 <passed/>
 </query>
 <query>
 <id ReturnTuple="1" Uses="1" SuchThat="1" CondNum="3" RelNum="1" comment="select variables that another statement uses">28</id><querystr><![CDATA[variable v; Select v such that Uses (14, v)]]></querystr>
 <stuans>kkk,d,k,x,zy,y,xy</stuans>
 <correct>y,x,d,xy,zy,kkk,k</correct>
-<time_taken>5.878000</time_taken>
+<time_taken>6.056000</time_taken>
 <passed/>
 </query>
 <query>
 <id ReturnTuple="1" Modifies="1" SuchThat="1" CondNum="3" RelNum="1" comment="select statements that modify a certain variable">29</id><querystr><![CDATA[stmt s; Select s such that Modifies (s, "zy")]]></querystr>
 <stuans>5,8,14,9,11,16,15,1,2</stuans>
 <correct>1,2,15,14,11,9,8,5,16</correct>
-<time_taken>6.917000</time_taken>
+<time_taken>7.296000</time_taken>
 <passed/>
 </query>
 <query>
 <id ReturnTuple="1" Modifies="1" SuchThat="1" CondNum="3" RelNum="1" comment="select variables that a statement modifies">30</id><querystr><![CDATA[variable v; Select v such that Modifies (5, v)]]></querystr>
 <stuans>if,while,zy,d,else</stuans>
 <correct>if,else,while,zy,d</correct>
-<time_taken>6.559000</time_taken>
+<time_taken>6.806000</time_taken>
 <passed/>
 </query>
 <query>
 <id ReturnTuple="1" Modifies="1" SuchThat="1" CondNum="3" RelNum="1" comment="select variables that another statement modifies">31</id><querystr><![CDATA[variable v; Select v such that Modifies (11, v)]]></querystr>
 <stuans>d,while,zy</stuans>
 <correct>while,zy,d</correct>
-<time_taken>6.719000</time_taken>
+<time_taken>6.864000</time_taken>
 <passed/>
 </query>
 <query>
 <id ReturnTuple="1" UnnamedVar="1" Pattern="1" CondNum="3" RelNum="0" comment="select statements with pattern">32</id><querystr><![CDATA[assign a; Select a pattern a(_,_"else"_)]]></querystr>
 <stuans>10</stuans>
 <correct>10</correct>
-<time_taken>5.492000</time_taken>
+<time_taken>5.749000</time_taken>
 <passed/>
 </query>
 <query>
 <id ReturnTuple="1" UnnamedVar="1" Pattern="1" CondNum="3" RelNum="0" comment="select statements with pattern that does not exist">33</id><querystr><![CDATA[assign a; Select a pattern a(_,_"else")]]></querystr>
 <stuans></stuans>
 <correct></correct>
-<time_taken>5.227000</time_taken>
+<time_taken>5.472000</time_taken>
 <passed/>
 </query>
 <query>
 <id ReturnTuple="1" UnnamedVar="1" Uses="1" Pattern="1" SuchThat="1" CondNum="5" RelNum="1" comment="select uses and pattern">34</id><querystr><![CDATA[assign a, a1; variable v; Select a such that Uses (a, v) pattern a1(v,_"x"_)]]></querystr>
 <stuans>17,3,2</stuans>
 <correct>2,3,17</correct>
-<time_taken>21.989000</time_taken>
+<time_taken>22.728000</time_taken>
 <passed/>
 </query>
 <query>
 <id ReturnTuple="1" Modifies="1" UnnamedVar="1" Pattern="1" SuchThat="1" CondNum="5" RelNum="1" comment="select modifies and pattern">35</id><querystr><![CDATA[stmt s; assign a1; variable v; Select s such that Modifies (s, v) pattern a1(v,_"call"_)]]></querystr>
 <stuans>6,9,18,5,7,8,4</stuans>
 <correct>4,5,6,7,8,9,18</correct>
-<time_taken>26.509000</time_taken>
+<time_taken>26.502000</time_taken>
 <passed/>
 </query>
 <query>
 <id ReturnTuple="1" UnnamedVar="1" Uses="1" Pattern="1" SuchThat="1" CondNum="5" RelNum="1" comment="select assignment statements that uses itself and "zy"">36</id><querystr><![CDATA[assign a; variable v; Select a such that Uses (a, v) pattern a(v,_"zy"_)]]></querystr>
 <stuans>17,2,3</stuans>
 <correct>2,3,17</correct>
-<time_taken>18.551000</time_taken>
+<time_taken>18.962000</time_taken>
 <passed/>
 </query>
 <query>
 <id ReturnTuple="1" UnnamedVar="1" Uses="1" Pattern="1" SuchThat="1" CondNum="5" RelNum="1" comment="select assignment statements that uses itself">37</id><querystr><![CDATA[assign a; variable v; Select a such that Uses (a, v) pattern a(v,_)]]></querystr>
 <stuans>20,3,12,17,2,10</stuans>
 <correct>2,3,10,12,17,20</correct>
-<time_taken>16.821000</time_taken>
+<time_taken>17.149000</time_taken>
 <passed/>
 </query>
 </queries>
