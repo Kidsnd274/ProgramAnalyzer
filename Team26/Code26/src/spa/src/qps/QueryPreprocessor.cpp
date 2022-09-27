@@ -22,7 +22,6 @@ namespace QPS {
         }
         while (tokenPos < tokens.size()) {
             QPS::Token curr = tokens[tokenPos];
-//            std::cout << curr.nameValue << std::endl;
             std::pair<EntityType, bool> entityMappingResult = mapEntity(curr);
             std::pair<RelationType, bool> relationMappingResult = mapRelation(tokens, tokenPos);
             if (entityMappingResult.second) {
