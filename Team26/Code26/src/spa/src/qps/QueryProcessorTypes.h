@@ -51,6 +51,12 @@ namespace QPS {
         MODIFIES_S,
         USES_P,
         MODIFIES_P,
+        CALLS,
+        CALLS_P,
+        NEXT,
+        NEXT_P,
+        AFFECTS,
+        AFFECTS_P,
         INVALID_RELATION_TYPE
     };
 
@@ -60,6 +66,12 @@ namespace QPS {
                                                        {"Parent*",  PARENT_T},
                                                        {"Uses",     USES_S},
                                                        {"Modifies", MODIFIES_S},
+                                                       {"Calls", CALLS},
+                                                       {"Calls*", CALLS_P},
+                                                       {"Next", NEXT},
+                                                       {"Next*", NEXT_P},
+                                                       {"Affects", AFFECTS},
+                                                       {"Affects*", AFFECTS_P},
                                                        {"",         INVALID_RELATION_TYPE}};
 
     bool isRelation(std::string);

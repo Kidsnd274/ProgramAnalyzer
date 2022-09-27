@@ -10,9 +10,8 @@ namespace QPS {
     std::pair<int, Exception> parseSelect(std::vector<QPS::Token> &tokens, int pos, Container &container);
     std::pair<int, Exception> parsePattern(std::vector<QPS::Token> &tokens, int pos, Container &container);
     std::pair<int, Exception> parseRelationStmtStmt(std::vector<QPS::Token> &tokens, int pos, RelationType relationType, Container &container);
-    std::pair<int, Exception> parseRelationStmtEnt(std::vector<QPS::Token> &tokens,
-                                                   int pos, RelationType relationType,
-                                                   Container &container);
+    std::pair<int, Exception> parseRelationStmtEnt(std::vector<QPS::Token> &tokens, int pos, RelationType relationType, Container &container);
+    std::pair<int, Exception> parseRelationCalls(std::vector<QPS::Token> &tokens, int pos, RelationType relationType, Container &container);
 
     Exception parseToken(std::vector<QPS::Token> &tokens, Container& container) {
         int tokenPos = 0;
@@ -275,6 +274,78 @@ namespace QPS {
                         {
                             return INVALID_RELATION;
                         }
+                        case CALLS:{
+                            tokenPos++;
+                            std::pair<int, Exception> result = parseRelationCalls(tokens, tokenPos,
+                                                                                    CALLS, container);
+                            if (result.second == VALID) {
+                                tokenPos = result.first - 1;
+                            } else {
+                                // Invalid query
+                                return result.second;
+                            }
+                            break;
+                        }
+                        case CALLS_P:{
+                            tokenPos++;
+                            std::pair<int, Exception> result = parseRelationCalls(tokens, tokenPos,
+                                                                                  CALLS_P, container);
+                            if (result.second == VALID) {
+                                tokenPos = result.first - 1;
+                            } else {
+                                // Invalid query
+                                return result.second;
+                            }
+                            break;
+                        }
+                        case NEXT:{
+                            tokenPos++;
+                            std::pair<int, Exception> result = parseRelationStmtStmt(tokens, tokenPos,
+                                                                                     NEXT, container);
+                            if (result.second == VALID) {
+                                tokenPos = result.first - 1;
+                            } else {
+                                // Invalid query
+                                return result.second;
+                            }
+                            break;
+                        }
+                        case NEXT_P:{
+                            tokenPos++;
+                            std::pair<int, Exception> result = parseRelationStmtStmt(tokens, tokenPos,
+                                                                                     NEXT_P, container);
+                            if (result.second == VALID) {
+                                tokenPos = result.first - 1;
+                            } else {
+                                // Invalid query
+                                return result.second;
+                            }
+                            break;
+                        }
+                        case AFFECTS:{
+                            tokenPos++;
+                            std::pair<int, Exception> result = parseRelationStmtStmt(tokens, tokenPos,
+                                                                                     AFFECTS, container);
+                            if (result.second == VALID) {
+                                tokenPos = result.first - 1;
+                            } else {
+                                // Invalid query
+                                return result.second;
+                            }
+                            break;
+                        }
+                        case AFFECTS_P:{
+                            tokenPos++;
+                            std::pair<int, Exception> result = parseRelationStmtStmt(tokens, tokenPos,
+                                                                                     AFFECTS_P, container);
+                            if (result.second == VALID) {
+                                tokenPos = result.first - 1;
+                            } else {
+                                // Invalid query
+                                return result.second;
+                            }
+                            break;
+                        }
                     }
                 }
 
@@ -513,6 +584,8 @@ namespace QPS {
         } else if (pos < tokens.size() && tokens[pos].tokenType == UNDERSCORE) {
             ARG1 = {{WILDCARD, "_"}, VALID};
             pos++;
+        } else if (pos < tokens.size() && tokens[pos].tokenType == DOUBLE_QUOTE && tokens[pos+1].tokenType == DOUBLE_QUOTE) {
+            return {pos, INVALID_RELATION_CONTENT};
         } else {
             return {pos, INVALID_RELATION_CONTENT};
         }
@@ -558,7 +631,81 @@ namespace QPS {
     }
 
 
+    std::pair<int, Exception> parseRelationCalls(std::vector<QPS::Token> &tokens,
+                                                   int pos, RelationType relationType,
+                                                   Container &container) {
+        std::pair<ArgumentStruct, Exception> ARG1, ARG2;
 
+        if (pos < tokens.size() && tokens[pos].tokenType == LPAREN) {
+            pos++;
+        } else {
+            return {pos, INVALID_RELATION_SYNTAX};
+        }
+
+        if (pos < tokens.size() && tokens[pos].tokenType == NAME) {
+            ARG1 = convertStringToStmtRefCalls(tokens[pos], container);
+            if (ARG1.second != VALID) {
+                return {pos, INVALID_RELATION_CONTENT};
+            }
+            pos++;
+        } else if (pos < tokens.size() && tokens[pos].tokenType == UNDERSCORE) {
+            ARG1 = {{WILDCARD, "_"}, VALID};
+            pos++;
+        } else if (pos < tokens.size() && tokens[pos].tokenType == DOUBLE_QUOTE && tokens[pos+2].tokenType == DOUBLE_QUOTE
+                   && tokens[pos + 1].tokenType == NAME) {
+            std::string actual_name = tokens[pos + 1].nameValue;
+            ARG1 = {{PROCEDURE_ACTUAL_NAME, actual_name}, VALID};
+            pos += 3;
+        } else if (pos < tokens.size() && tokens[pos].tokenType == DOUBLE_QUOTE && tokens[pos+1].tokenType == DOUBLE_QUOTE) {
+            return {pos, INVALID_RELATION_CONTENT};
+        } else {
+            return {pos, INVALID_RELATION_CONTENT};
+        }
+
+        if (pos < tokens.size() && tokens[pos].tokenType == COMMA) {
+            pos++;
+        } else {
+            return {pos, INVALID_RELATION_SYNTAX};
+        }
+
+        if (pos < tokens.size() && tokens[pos].tokenType == NAME) {
+            ARG2 = convertStringToStmtRefCalls(tokens[pos], container);
+            if (ARG2.second != VALID) {
+                return {pos, INVALID_RELATION_CONTENT};
+            }
+            pos++;
+        } else if (pos < tokens.size() && tokens[pos].tokenType == DOUBLE_QUOTE && tokens[pos+2].tokenType == DOUBLE_QUOTE
+                   && tokens[pos + 1].tokenType == NAME) {
+            std::string actual_name = tokens[pos + 1].nameValue;
+            ARG1 = {{PROCEDURE_ACTUAL_NAME, actual_name}, VALID};
+            pos += 3;
+        } else if (pos < tokens.size() && tokens[pos].tokenType == DOUBLE_QUOTE && tokens[pos+1].tokenType == DOUBLE_QUOTE) {
+            return {pos, INVALID_RELATION_CONTENT};
+        }  else if (pos < tokens.size() && tokens[pos].tokenType == UNDERSCORE) {
+            ARG2 = {{WILDCARD, "_"}, VALID};
+            pos++;
+        } else {
+            return {pos, INVALID_RELATION_CONTENT};
+        }
+
+        if (pos < tokens.size() && tokens[pos].tokenType == RPAREN) {
+            pos++;
+        } else {
+            return {pos, INVALID_RELATION_SYNTAX};
+        }
+        if (ARG1.second == VALID && ARG2.second == VALID) {
+            container.addSuchThatClause(relationType, ARG1.first, ARG2.first);
+            container.setStatus(FINISH_PARSE_SUCH_CLAUSE);
+            return {pos, VALID};
+        } else {
+            if (ARG1.second != VALID) {
+                return {pos, ARG1.second};
+            } else {
+                return {pos, ARG2.second};
+            }
+
+        }
+    }
 
     std::pair<int, Exception> parseRelationStmtEnt(std::vector<QPS::Token> &tokens,
                                                int pos, RelationType relationType,
@@ -571,10 +718,10 @@ namespace QPS {
         }
 
         if (pos < tokens.size() && (tokens[pos].tokenType == NAME || (tokens[pos].tokenType == INTEGER && tokens[pos].nameValue != "0"))) {
-            ARG1 = convertStringToStmtRef(tokens[pos], container);
+            ARG1 = convertStringToStmtRefUM(tokens[pos], container);
 
             // ms1 doesn't require supporting procedure
-            if (ARG1.second == INVALID_RELATION_CONTENT || ARG1.first.typeOfArgument == PROCEDURE_SYNONYM) {
+            if (ARG1.second == INVALID_RELATION_CONTENT) {
                 return {pos, INVALID_RELATION_SYNTAX};
             }
             pos++;
@@ -663,6 +810,70 @@ namespace QPS {
                     case WHILE:
                     case IF:
                     case ASSIGN:
+                    case INVALID_ENTITY_TYPE:{
+                        return {{INVALID_ARGUMENT_TYPE, token.nameValue}, INVALID_RELATION_CONTENT};
+                    }
+                }
+            }
+        } else {
+            return {{}, INVALID_RELATION_SYNTAX};
+        }
+    }
+
+    std::pair<ArgumentStruct, Exception> convertStringToStmtRefCalls (Token &token, Container &container) {
+        if (token.tokenType == NAME) {
+            DECLARED_SYNONYM_MAP declarationMap = container.getDeclarationMap();
+            auto iterator = declarationMap.find(token.nameValue);
+            if (iterator == declarationMap.end()) {
+                return {{}, UNDECLARED_ENTITY_SUCH_THAT};
+            } else {
+                EntityType entityType = iterator->second;
+                if (entityType == PROCEDURE) {
+                    return {{PROCEDURE_SYNONYM, token.nameValue}, VALID};
+                } else {
+                    return {{INVALID_ARGUMENT_TYPE, token.nameValue}, INVALID_RELATION_CONTENT};
+                }
+            }
+        } else {
+            return {{}, INVALID_RELATION_SYNTAX};
+        }
+    }
+
+    std::pair<ArgumentStruct, Exception> convertStringToStmtRefUM (Token &token, Container &container) {
+        if (token.tokenType == INTEGER) {
+            return {{ACTUAL_NAME, token.nameValue}, VALID};
+        } else if (token.tokenType == NAME) {
+            DECLARED_SYNONYM_MAP declarationMap = container.getDeclarationMap();
+            auto iterator = declarationMap.find(token.nameValue);
+            if (iterator == declarationMap.end()) {
+                return {{}, UNDECLARED_ENTITY_SUCH_THAT};
+            } else {
+                EntityType entityType = iterator->second;
+                switch (entityType) {
+                    case STATEMENT: {
+                        return {{STMT_SYNONYM, token.nameValue}, VALID};
+                    }
+                    case PRINT: {
+                        return {{PRINT_SYNONYM, token.nameValue}, VALID};
+                    }
+                    case CALL: {
+                        return {{CALL_SYNONYM, token.nameValue}, VALID};
+                    }
+                    case WHILE:{
+                        return {{WHILE_SYNONYM, token.nameValue}, VALID};
+                    }
+                    case IF:{
+                        return {{IF_SYNONYM, token.nameValue}, VALID};
+                    }
+                    case PROCEDURE: {
+                        return {{PROCEDURE_SYNONYM, token.nameValue}, VALID};
+                    }
+                    case ASSIGN:{
+                        return {{ASSIGN_SYNONYM, token.nameValue}, VALID};
+                    }
+                    case READ:
+                    case VARIABLE:
+                    case CONSTANT:
                     case INVALID_ENTITY_TYPE:{
                         return {{INVALID_ARGUMENT_TYPE, token.nameValue}, INVALID_RELATION_CONTENT};
                     }
@@ -791,6 +1002,16 @@ namespace QPS {
             if (tokens[pos].nameValue == "Parent" && tokens[pos+1].tokenType == STAR) {
                 return {PARENT_T, true};
             }
+            if (tokens[pos].nameValue == "Calls" && tokens[pos+1].tokenType == STAR) {
+                return {CALLS_P, true};
+            }
+            if (tokens[pos].nameValue == "Next" && tokens[pos+1].tokenType == STAR) {
+                return {NEXT_P, true};
+            }
+            if (tokens[pos].nameValue == "Affects" && tokens[pos+1].tokenType == STAR) {
+                return {AFFECTS_P, true};
+            }
+
             return {relationMap.at(tokens[pos].nameValue), true};
         }
     }

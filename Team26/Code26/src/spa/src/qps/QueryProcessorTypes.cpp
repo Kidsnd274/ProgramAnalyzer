@@ -231,6 +231,24 @@ namespace QPS {
             case INVALID_RELATION_TYPE:{
                 return "Invalid";
             }
+            case CALLS:{
+                return "calls";
+            }
+            case CALLS_P:{
+                return "calls_p";
+            }
+            case NEXT:{
+                return "next";
+            }
+            case NEXT_P:{
+                return "next_p";
+            }
+            case AFFECTS:{
+                return "affects";
+            }
+            case AFFECTS_P:{
+                return "affects_p";
+            }
         }
     }
     std::string candidateToString(CandidateType candidateType) {
