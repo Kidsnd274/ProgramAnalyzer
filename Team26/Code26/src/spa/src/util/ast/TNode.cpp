@@ -35,13 +35,12 @@ bool TNode::isSameTree(const std::shared_ptr<TNode> &t1, const std::shared_ptr<T
 
     if(t2 == nullptr) return false;
 
-    bool sameStatementNumber = t1->getStatementNumber() == t2->getStatementNumber();
     bool sameNodeType = t1->getNodeType() == t2->getNodeType();
     bool sameValue = t1->getValue() == t2->getValue();
     bool sameLeftNode = TNode::isSameTree(t1->getLeftNode(), t2->getLeftNode());
     bool sameRightNode = TNode::isSameTree(t1->getRightNode(), t2->getRightNode());
 
-    return sameStatementNumber && sameNodeType && sameValue && sameLeftNode && sameRightNode;
+    return sameNodeType && sameValue && sameLeftNode && sameRightNode;
 }
 
 bool TNode::matchSubTree(const std::shared_ptr<TNode> &t1, const std::shared_ptr<TNode> &t2, const WildcardPosition pos) {
