@@ -15,5 +15,5 @@ public:
     }
     void traverse(std::shared_ptr<ProcedureNode> ptr, std::shared_ptr<Extractor> e);
     void traverse(std::shared_ptr<StatementNode> ptr, std::shared_ptr<Extractor> e);
-    void extract(std::shared_ptr<ProcedureNode> p) override;
+    void extract(std::vector<std::shared_ptr<ProcedureNode>> procedures) override;
 };

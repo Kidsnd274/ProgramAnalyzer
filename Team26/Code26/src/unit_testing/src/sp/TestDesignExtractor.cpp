@@ -18,13 +18,13 @@ std::shared_ptr<TNode> generateSimpleCondStmt(int statementNo) {
                              std::move(TNode::createConstantValue(statementNo, "1")));
 }
 
-std::shared_ptr<ProcedureNode> generateSimpleProcedureNode() {
+std::shared_ptr<ProcedureNode> generateSimpleProcedureNode(std::string procedureName) {
     std::shared_ptr<TNode> expr = std::move(generateSimpleTNode(1));
     std::shared_ptr<AssignNode> statement1 = std::move(AssignNode::createAssignNode(1, "x", expr));
     std::shared_ptr<PrintNode> statement2 = std::move(PrintNode::createPrintNode(2, "y"));
-    std::shared_ptr<ReadNode> statement3 = std::move(ReadNode::createReadNode(3, "y"));
+    std::shared_ptr<ReadNode> statement3 = std::move(ReadNode::createReadNode(3, "z"));
     std::vector<std::shared_ptr<StatementNode>> stmtList = {statement1, statement2, statement3};
-    return ProcedureNode::createProcedureNode("simpleTest", stmtList);
+    return ProcedureNode::createProcedureNode(procedureName, stmtList);
 }
 
 std::shared_ptr<IfNode> generateSimpleIfNode(int startingNo) {
@@ -152,7 +152,7 @@ TEST_CASE("FollowsExtractor Tests") {
     SECTION("Extract from Procedure Test") {
         auto *pkbInterface = new PKBInterfaceStubForDE();
         FollowsExtractor followsExtractor = FollowsExtractor(pkbInterface);
-        followsExtractor.extractFromProcedure(generateSimpleProcedureNode());
+        followsExtractor.extractFromProcedure(generateSimpleProcedureNode("simpleTest"));
 
         auto correctUnorderedMap = std::unordered_map<int, int>();
         correctUnorderedMap[1] = 2;
@@ -198,7 +198,8 @@ TEST_CASE("Main Extract Interface") {
         auto *pkbInterface = new PKBInterfaceStubForDE();
         DesignExtractor designExtractor = DesignExtractor(pkbInterface);
         std::shared_ptr<ProcedureNode> mainNode = std::move(generateMilestone1TestNestlevel1());
-        designExtractor.extract(mainNode);
+        std::vector<shared_ptr<ProcedureNode>> procedures = {mainNode};
+        designExtractor.extract(procedures);
 
         auto correctFollowsMap = std::unordered_map<int, int>();
         correctFollowsMap[1] = 2;
@@ -297,7 +298,8 @@ TEST_CASE("Main Extract Interface") {
         auto *pkbInterface = new PKBInterfaceStubForDE();
         DesignExtractor designExtractor = DesignExtractor(pkbInterface);
         std::shared_ptr<ProcedureNode> mainNode = std::move(generateMilestone1TestNestlevel2());
-        designExtractor.extract(mainNode);
+        std::vector<shared_ptr<ProcedureNode>> procedures = {mainNode};
+        designExtractor.extract(procedures);
 
         std::unordered_map<int, int> correctFollowsMap = {
                 {1, 2},
@@ -484,7 +486,8 @@ TEST_CASE("Main Extract Interface") {
         auto *pkbInterface = new PKBInterfaceStubForDE();
         DesignExtractor designExtractor = DesignExtractor(pkbInterface);
         std::shared_ptr<ProcedureNode> mainNode = std::move(generateMilestone1TestNestlevel3());
-        designExtractor.extract(mainNode);
+        std::vector<shared_ptr<ProcedureNode>> procedures = {mainNode};
+        designExtractor.extract(procedures);
 
         std::unordered_map<int, int> correctFollowsMap = {
                 {2, 3},
@@ -785,5 +788,34 @@ TEST_CASE("Main Extract Interface") {
                 {"milestone1NestLevel3", "z"}
         };
         REQUIRE(pkbInterface->usesMapStringString == usesMapStringString);
+    }
+}
+
+TEST_CASE("Test multiple procedures") {
+    SECTION("2 basic procedures") {
+        auto *pkbInterface = new PKBInterfaceStubForDE();
+        DesignExtractor designExtractor = DesignExtractor(pkbInterface);
+        std::shared_ptr<ProcedureNode> proc1 = std::move(generateSimpleProcedureNode("main1"));
+        std::shared_ptr<ProcedureNode> proc2 = std::move(generateSimpleProcedureNode("second2131"));
+        std::vector<shared_ptr<ProcedureNode>> procedures = {proc1, proc2};
+        designExtractor.extract(procedures);
+
+        std::unordered_multimap<std::string, std::string> usesMapStringString = {
+                {"main1", "y"},
+                {"second2131", "y"},
+                {"main1", "x"},
+                {"second2131", "x"},
+        };
+
+        REQUIRE(pkbInterface->usesMapStringString == usesMapStringString);
+
+        std::unordered_multimap<std::string, std::string> modifiesMapStringString = {
+                {"main1", "x"},
+                {"second2131", "x"},
+                {"main1", "z"},
+                {"second2131", "z"},
+        };
+
+        REQUIRE(pkbInterface->modifiesMapStringString == modifiesMapStringString);
     }
 }
