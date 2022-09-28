@@ -40,15 +40,15 @@ namespace QPS {
             case INVALID_DECLARATION:
             case UNMATCHED_QUERY_TYPE:
             case INVALID_MULTIPLE_CLAUSE:
+            case INVALID_RELATION_CONTENT:
+            case UNDECLARED_SELECT_ENTITY:
+            case INVALID_PATTERN_CONTENT:
             case INVALID_RELATION: {
                 queryStatus = SYNTAX_ERROR;
                 break;
             }
             case UNDECLARED_ENTITY_PATTERN:
-            case UNDECLARED_ENTITY_SUCH_THAT:
-            case INVALID_RELATION_CONTENT:
-            case UNDECLARED_SELECT_ENTITY:
-            case INVALID_PATTERN_CONTENT:{
+            case UNDECLARED_ENTITY_SUCH_THAT:{
                 queryStatus = SEMANTIC_ERROR;
                 break;
             }

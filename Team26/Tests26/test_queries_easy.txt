@@ -1,5 +1,5 @@
 1 - Simple test with constants
-constant c; variable v; assign a; print p;
-Select BOOLEAN pattern a(_, "x") such that Follows (2, 9) such that Follows(4,5)
+constant c; assign a; variable v; stmt s;
+Select c such that Modifies(_, s)
 SyntaxError
 50000
