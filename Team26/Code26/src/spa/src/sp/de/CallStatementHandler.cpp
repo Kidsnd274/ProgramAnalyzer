@@ -19,9 +19,16 @@ void CallStatementHandler::dfs(int i, PKBInterface *pkb) {
     nameToIndex[indexToName[i]].second = 1;
 
     for(int j = 0; j < callList[i].size(); ++j) {
-        if(nameToIndex[callList[i][j].getProcedureCalled()].second == 0) {
-            dfs(nameToIndex[callList[i][j].getProcedureCalled()].first, pkb);
-        } else if (nameToIndex[callList[i][j].getProcedureCalled()].second == 1) {
+        string procedureCalled = callList[i][j].getProcedureCalled();
+
+        if(nameToIndex.find(procedureCalled) == nameToIndex.end()) {
+            //throw exception
+            return;
+        }
+
+        if(nameToIndex[procedureCalled].second == 0) {
+            dfs(nameToIndex[procedureCalled].first, pkb);
+        } else if (nameToIndex[procedureCalled].second == 1) {
             //throw recursive call error
         }
 

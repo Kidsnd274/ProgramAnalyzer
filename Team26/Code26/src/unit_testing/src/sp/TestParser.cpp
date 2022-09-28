@@ -416,11 +416,15 @@ TEST_CASE("Parse While") {
 }
 
 TEST_CASE("Parse Call") {
-    std::vector<SPToken> v = {SPToken("call", SPTokenType::CallToken),
-                            SPToken("DummyProcedure", SPTokenType::NameToken),
-                            SPToken(";", SPTokenType::SemiColonToken),};
+    std::vector<SPToken> v = {SPToken("procedure", SPTokenType::ProcedureToken),
+                              SPToken("testCall", SPTokenType::NameToken),
+                              SPToken("{", SPTokenType::LCurlyToken),
+                              SPToken("call", SPTokenType::CallToken),
+                              SPToken("DummyProcedure", SPTokenType::NameToken),
+                              SPToken(";", SPTokenType::SemiColonToken),
+                              SPToken("}", SPTokenType::RCurlyToken)};
     Parser pr(v, &pkbInterface);
-    REQUIRE_NOTHROW(pr.parseCall(1));
+    REQUIRE_NOTHROW(pr.parseSimple());
 }
 
 TEST_CASE("Parse Cond") {
