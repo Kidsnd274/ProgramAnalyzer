@@ -1,0 +1,48 @@
+#include "CallStatementHandler.h"
+
+void CallStatementHandler::handleCalls(PKBInterface *pkb) {
+    for(int i = 0; i < callList.size(); ++i) {
+        dfs(i, pkb);
+    }
+}
+
+void CallStatementHandler::dfs(int i, PKBInterface *pkb) {
+    //if procedure has been processed can return
+    if(nameToIndex[indexToName[i]].second == 2) return;
+
+    //if there are no call statements then can return
+    if(callList[i].size() == 0) {
+        nameToIndex[indexToName[i]].second = 2;
+        return;
+    }
+
+    nameToIndex[indexToName[i]].second = 1;
+
+    for(int j = 0; j < callList[i].size(); ++j) {
+        if(nameToIndex[callList[i][j].getProcedureCalled()].second == 0) {
+            dfs(nameToIndex[callList[i][j].getProcedureCalled()].first, pkb);
+        } else if (nameToIndex[callList[i][j].getProcedureCalled()].second == 1) {
+            //throw recursive call error
+        }
+
+        //now add all modified and used variable to procedure and parent*
+        //std::unordered_set<std::string> modified = pkb->getAllVariablesModified(callList[i][j].getProcedureCalled());
+        //std::unordered_set<std::string> used = pkb->getAllVariablesUsed(callList[i][j].getProcedureCalled());
+        //std::unordered_set<int> parentStar = pkb->getParentStar(callList[i][j].getStatementNumber);
+
+        //for(auto &var : modified) {
+            //pkb->addModifies(indexToName[i], var);
+            //for(auto p : parentStar) {
+                //pkb->addModifies(p, var);
+            //}
+        //}
+        //for(auto &var : used) {
+            //pkb->addUses(indexToName[i], var);
+            //for(auto p : parentStar) {
+                //pkb->addUses(p, var);
+            //}
+        //}
+    }
+    nameToIndex[indexToName[i]].second = 2;
+    return;
+}
