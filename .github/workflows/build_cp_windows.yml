@@ -31,6 +31,10 @@ jobs:
 
     steps:
       - uses: actions/checkout@v2
+      - uses: actions/setup-python@v4
+        with:
+          python-version: '3.9'
+
       - name: Build Project
         shell: bash
         run: |
@@ -71,3 +75,8 @@ jobs:
 
       - name: Run autotester test cases
         shell: bash
+        run: |
+          cd Team26
+          cd Tests26
+          python run_tests.py
+          cat run_tests.log
