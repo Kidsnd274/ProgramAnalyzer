@@ -5,10 +5,11 @@ on:
     branches:
       - master
       - source-processor-branch
-  pull_request:
-    branches:
-      - master
-      - source-processor-branch
+      - automated-testing-branch
+#  pull_request:
+#    branches:
+#      - master
+#      - source-processor-branch
 
 #on:
 #  schedule:
