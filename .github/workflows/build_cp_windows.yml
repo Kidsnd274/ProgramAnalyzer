@@ -79,4 +79,3 @@ jobs:
           cd Team26
           cd Tests26
           python run_tests.py
-          cat run_tests.log
