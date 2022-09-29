@@ -18,8 +18,6 @@ logfile = testdir / "run_tests.log"
 
 print(testdir)
 
-# subprocess.Popen("dir", cwd=testdir, shell=True)
-
 # Find autotester executable
 locations = [codedir / "cmake-build-debug" / "src" / "autotester" / "Debug" / "autotester.exe",
              codedir / "build" / "src" / "autotester" / "Release" / "autotester.exe",
