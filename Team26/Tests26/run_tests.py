@@ -1,6 +1,8 @@
 import pathlib
 import subprocess
 import hashlib
+import sys
+import os
 
 
 class TestCase:
@@ -19,18 +21,28 @@ logfile = testdir / "run_tests.log"
 print(testdir)
 
 # Find autotester executable
-locations = [codedir / "cmake-build-debug" / "src" / "autotester" / "Debug" / "autotester.exe",
-             codedir / "build" / "src" / "autotester" / "Release" / "autotester.exe",
-             codedir / "build" / "src" / "autotester" / "autotester"]
+locations_windows = [codedir / "cmake-build-debug" / "src" / "autotester" / "Debug" / "autotester.exe",
+             codedir / "build" / "src" / "autotester" / "Release" / "autotester.exe"]
+
+locations_mac = [codedir / "cmake-build-debug" / "src" / "autotester" / "autotester",
+                codedir / "build" / "src" / "autotester" / "autotester"]
 
 autotester = pathlib.Path()
 
 found = False
-for location in locations:
-    if location.exists():
-        autotester = location
-        found = True
-        break
+
+if sys.platform == 'win32':
+    for location in locations_windows:
+        if location.exists():
+            autotester = location
+            found = True
+            break
+elif sys.platform == 'darwin':
+    for location in locations_mac:
+        if os.path.isfile(location) and os.access(location, os.X_OK):
+            autotester = location
+            found = True
+            break
 
 if not found:
     print("ERROR: Could not find autotester executable!")
