@@ -20,6 +20,7 @@ namespace QPS {
         FINISH_PARSE_SUCH_CLAUSE,
         START_PARSE_PATTERN_CLAUSE,
         FINISH_PARSE_PATTERN_CLAUSE
+
     };
 
     class Container {
@@ -56,6 +57,10 @@ namespace QPS {
         void addCandidateList(EntityType entityType, std::string s) {
             CandidateType candidateType = mapEntityToCandidate(entityType);
             this->queryStruct.addCandidateList(candidateType, std::move(s), entityType);
+        }
+
+        void addCandidateListBoolean() {
+            this->queryStruct.addCandidateListBoolean();
         }
 
         void addSuchThatClause(RelationType relationType, ArgumentStruct ARG1, ArgumentStruct ARG2) {

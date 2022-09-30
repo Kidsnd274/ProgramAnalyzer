@@ -69,6 +69,11 @@ namespace QPS {
             this->candidateList.push_back(candidateStruct);
         }
 
+        void addCandidateListBoolean() {
+            CandidateStruct candidateStruct = {BOOLEAN, {}};
+            this->candidateList.push_back(candidateStruct);
+        }
+
         EntityType getDeclaration(std::string s) {
             if (this->declaredSynonymMap.find(s) == this->declaredSynonymMap.end()) {
                 // not found

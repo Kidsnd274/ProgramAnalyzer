@@ -158,7 +158,7 @@ namespace QPS {
                 return "INVALID_ENTITY";
             }
             case INVALID_RELATION_SYNTAX:{
-                return "}";
+                return "INVALID_RELATION_SYNTAX";
             }
             case INVALID_SELECT:{
                 return "INVALID_SELECT";
@@ -199,6 +199,9 @@ namespace QPS {
             case UNDECLARED_SELECT_ENTITY:{
                 return "UNDECLARED_SELECT_ENTITY";
             }
+            case INVALID_MULTIPLE_CLAUSE:{
+                return "INVALID_MULTIPLE_CLAUSE";
+            }
         }
     }
     std::string relationToString (RelationType relationType) {
@@ -230,6 +233,24 @@ namespace QPS {
             }
             case INVALID_RELATION_TYPE:{
                 return "Invalid";
+            }
+            case CALLS:{
+                return "calls";
+            }
+            case CALLS_P:{
+                return "calls_p";
+            }
+            case NEXT:{
+                return "next";
+            }
+            case NEXT_P:{
+                return "next_p";
+            }
+            case AFFECTS:{
+                return "affects";
+            }
+            case AFFECTS_P:{
+                return "affects_p";
             }
         }
     }
