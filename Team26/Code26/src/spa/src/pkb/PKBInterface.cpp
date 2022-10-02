@@ -329,3 +329,15 @@ void PKBInterface::addModifies(std::string procedureName, std::string varName) {
 void PKBInterface::addUses(std::string procedureName, std::string varName) {
 
 }
+
+std::unordered_set<std::string> PKBInterface::getAllVariablesModified(std::string procedureName) {
+    return std::unordered_set<std::string>();
+}
+
+std::unordered_set<std::string> PKBInterface::getAllVariablesUsed(std::string procedureName) {
+    return std::unordered_set<std::string>();
+}
+
+std::unordered_set<int> PKBInterface::getParentStar(int statementNumber) {
+    return std::unordered_set<int>();
+}
