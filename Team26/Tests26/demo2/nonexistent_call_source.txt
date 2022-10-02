@@ -1,0 +1,8 @@
+procedure testCalls {
+    read x;
+    call DummyProcedure;
+}
+
+procedure next {
+    print x;
+}
