@@ -35,22 +35,22 @@ void CallStatementHandler::dfs(int i, PKBInterface *pkb) {
         }
 
         //now add all modified and used variable to procedure and parent*
-        //std::unordered_set<std::string> modified = pkb->getAllVariablesModified(callList[i][j].getProcedureCalled());
-        //std::unordered_set<std::string> used = pkb->getAllVariablesUsed(callList[i][j].getProcedureCalled());
-        //std::unordered_set<int> parentStar = pkb->getParentStar(callList[i][j].getStatementNumber);
+        std::unordered_set<std::string> modified = pkb->getAllVariablesModified(callList[i][j].getProcedureCalled());
+        std::unordered_set<std::string> used = pkb->getAllVariablesUsed(callList[i][j].getProcedureCalled());
+        std::unordered_set<int> parentStar = pkb->getParentStar(callList[i][j].getStatementNumber());
 
-        //for(auto &var : modified) {
-            //pkb->addModifies(indexToName[i], var);
-            //for(auto p : parentStar) {
-                //pkb->addModifies(p, var);
-            //}
-        //}
-        //for(auto &var : used) {
-            //pkb->addUses(indexToName[i], var);
-            //for(auto p : parentStar) {
-                //pkb->addUses(p, var);
-            //}
-        //}
+        for(auto &var : modified) {
+            pkb->addModifies(indexToName[i], var);
+            for(auto p : parentStar) {
+                pkb->addModifies(p, var);
+            }
+        }
+        for(auto &var : used) {
+            pkb->addUses(indexToName[i], var);
+            for(auto p : parentStar) {
+                pkb->addUses(p, var);
+            }
+        }
     }
     nameToIndex[indexToName[i]].second = 2;
     return;
