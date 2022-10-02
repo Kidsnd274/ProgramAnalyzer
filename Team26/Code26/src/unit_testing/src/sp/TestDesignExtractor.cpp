@@ -4,7 +4,7 @@
 #include "catch.hpp"
 #include <unordered_set>
 
-std::string testcalls = "procedure testCalls {read x;call next;} procedure next {print x; z = y * 3;call last;}procedure last {y = var123;}";
+std::string testcalls = "procedure testCalls {read x; call next; call next2;} procedure next {print x; z = y * 3;call last;}procedure last {y = var123;} procedure next2{read x;}";
 
 std::shared_ptr<TNode> generateSimpleTNode(int statementNo) {
     return TNode::createTerm(statementNo, "+", std::move(TNode::createVariableName(statementNo, "x")),
@@ -866,10 +866,10 @@ TEST_CASE("Test call procedures with call statements") {
         std::unordered_set<std::string> proc3Modified = {"y"};
         std::unordered_set<std::string> proc3Used = {"var123"};
 
-        std::unordered_set<std::string> proc1Called = { "next" };
+        std::unordered_set<std::string> proc1Called = { "next", "next2" };
         std::unordered_set<std::string> proc2Called = { "last" };
         std::unordered_set<std::string> proc3Called = { };
-        std::unordered_set<std::string> proc1CalledStar = { "next", "last" };
+        std::unordered_set<std::string> proc1CalledStar = { "next", "last", "next2" };
         std::unordered_set<std::string> proc2CalledStar = { "last" };
         std::unordered_set<std::string> proc3CalledStar = { };
 
