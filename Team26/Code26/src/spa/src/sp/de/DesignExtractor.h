@@ -2,6 +2,7 @@
 #include "pkb/PKBInterface.h"
 #include <unordered_map>
 #include "CallStatementHandler.h"
+#include "sp/SemanticErrorException.h"
 class DesignExtractor : public DesignExtractorInterface {
 private:
     PKBInterface* pkbInterface;
