@@ -26,10 +26,12 @@ void CallStatementHandler::dfs(int i, PKBInterface *pkb) {
             throw new SemanticErrorException("Call to non-existent procedure " + procedureCalled);
         }
 
+        if (nameToIndex[procedureCalled].second == 1) {
+            throw new SemanticErrorException("Cyclic procedure calls in " + procedureCalled);
+        }
+
         if(nameToIndex[procedureCalled].second == 0) {
             dfs(nameToIndex[procedureCalled].first, pkb);
-        } else if (nameToIndex[procedureCalled].second == 1) {
-            throw new SemanticErrorException("Cyclic procedure calls in " + procedureCalled);
         }
 
         //now add all modified and used variable to procedure and parent*
