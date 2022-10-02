@@ -21,6 +21,10 @@ void DesignExtractor::addProcedure(std::string name) {
 }
 
 void DesignExtractor::addCallStatement(CallStruct &c) {
+    if(callList.size() > 0 && indexToName[callList.size()-1] == c.getProcedureCalled()) {
+        //throw recursive calls error
+    }
+
     this->callList.back().push_back(c);
 }
 
