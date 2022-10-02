@@ -480,6 +480,8 @@ TEST_CASE("Main Extract Interface") {
                 {"milestone1NestLevel2", "z"}
         };
         REQUIRE(pkbInterface->usesMapStringString == usesMapStringString);
+
+        delete pkbInterface;
     }
 
     SECTION("Nesting Level 3") {
@@ -788,6 +790,8 @@ TEST_CASE("Main Extract Interface") {
                 {"milestone1NestLevel3", "z"}
         };
         REQUIRE(pkbInterface->usesMapStringString == usesMapStringString);
+
+        delete pkbInterface;
     }
 }
 
@@ -817,5 +821,7 @@ TEST_CASE("Test multiple procedures") {
         };
 
         REQUIRE(pkbInterface->modifiesMapStringString == modifiesMapStringString);
+
+        delete pkbInterface;
     }
 }

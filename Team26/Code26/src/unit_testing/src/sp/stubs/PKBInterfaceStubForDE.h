@@ -24,4 +24,7 @@ public:
     void addWhileStatement(int statementNumber, int stmtListNum) override;
     void addIfStatement(int statementNumber, int stmtListNum) override;
     void addPrintStatement(int statementNumber, int stmtListNum) override;
+    std::unordered_set<std::string> getAllVariablesModified(std::string procedureName) override;
+    std::unordered_set<std::string> getAllVariablesUsed(std::string procedureName) override;
+    std::unordered_set<int> getParentStar(int statementNumber) override;
 };
