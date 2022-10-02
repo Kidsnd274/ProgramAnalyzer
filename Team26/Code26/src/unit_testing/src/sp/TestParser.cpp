@@ -453,6 +453,51 @@ TEST_CASE("Parse Call") {
         Parser pr(v, &pkbInterface);
         REQUIRE_THROWS_AS(pr.parseSimple(), SemanticErrorException);
     }
+
+    SECTION("SEMANTIC ERROR: recursive call") {
+        std::vector<SPToken> v = {SPToken("procedure", SPTokenType::ProcedureToken),
+                                  SPToken("testCall", SPTokenType::NameToken),
+                                  SPToken("{", SPTokenType::LCurlyToken),
+                                  SPToken("call", SPTokenType::CallToken),
+                                  SPToken("DummyProcedure", SPTokenType::NameToken),
+                                  SPToken(";", SPTokenType::SemiColonToken),
+                                  SPToken("}", SPTokenType::RCurlyToken),
+                                  SPToken("procedure", SPTokenType::ProcedureToken),
+                                  SPToken("DummyProcedure", SPTokenType::NameToken),
+                                  SPToken("{", SPTokenType::LCurlyToken),
+                                  SPToken("call", SPTokenType::CallToken),
+                                  SPToken("DummyProcedure", SPTokenType::NameToken),
+                                  SPToken(";", SPTokenType::SemiColonToken),
+                                  SPToken("}", SPTokenType::RCurlyToken)};
+        Parser pr(v, &pkbInterface);
+        REQUIRE_THROWS_AS(pr.parseSimple(), SemanticErrorException);
+    }
+
+    SECTION("SEMANTIC ERROR: cyclic call") {
+        std::vector<SPToken> v = {SPToken("procedure", SPTokenType::ProcedureToken),
+                                  SPToken("testCall", SPTokenType::NameToken),
+                                  SPToken("{", SPTokenType::LCurlyToken),
+                                  SPToken("call", SPTokenType::CallToken),
+                                  SPToken("DummyProcedure", SPTokenType::NameToken),
+                                  SPToken(";", SPTokenType::SemiColonToken),
+                                  SPToken("}", SPTokenType::RCurlyToken),
+                                  SPToken("procedure", SPTokenType::ProcedureToken),
+                                  SPToken("DummyProcedure", SPTokenType::NameToken),
+                                  SPToken("{", SPTokenType::LCurlyToken),
+                                  SPToken("call", SPTokenType::CallToken),
+                                  SPToken("cyclicTest", SPTokenType::NameToken),
+                                  SPToken(";", SPTokenType::SemiColonToken),
+                                  SPToken("}", SPTokenType::RCurlyToken),
+                                  SPToken("procedure", SPTokenType::ProcedureToken),
+                                  SPToken("cyclicTest", SPTokenType::NameToken),
+                                  SPToken("{", SPTokenType::LCurlyToken),
+                                  SPToken("call", SPTokenType::CallToken),
+                                  SPToken("testCall", SPTokenType::NameToken),
+                                  SPToken(";", SPTokenType::SemiColonToken),
+                                  SPToken("}", SPTokenType::RCurlyToken)};
+        Parser pr(v, &pkbInterface);
+        REQUIRE_THROWS_AS(pr.parseSimple(), SemanticErrorException);
+    }
 }
 
 TEST_CASE("Parse Cond") {
