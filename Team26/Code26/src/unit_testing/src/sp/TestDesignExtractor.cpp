@@ -494,6 +494,22 @@ TEST_CASE("Main Extract Interface") {
                 {"milestone1NestLevel2", "z"}
         };
         REQUIRE(pkbInterface->usesMapStringString == usesMapStringString);
+
+        auto result1 = pkbInterface->getAllVariablesModified("milestone1NestLevel2");
+        std::cout << "variables modified" << endl;
+        for (auto item:result1) {
+            std::cout << item << endl;
+        }
+
+        auto result2 = pkbInterface->getAllVariablesUsed("milestone1NestLevel2");
+        std::cout << "variables used" << endl;
+        for (auto item:result2) {
+            std::cout << item << endl;
+        }
+
+        REQUIRE(false); // TODO: Force fail
+
+        delete pkbInterface;
     }
 
     SECTION("Nesting Level 3") {
@@ -802,6 +818,22 @@ TEST_CASE("Main Extract Interface") {
                 {"milestone1NestLevel3", "z"}
         };
         REQUIRE(pkbInterface->usesMapStringString == usesMapStringString);
+
+        auto result1 = pkbInterface->getAllVariablesModified("milestone1NestLevel3");
+        std::cout << "variables modified" << endl;
+        for (auto item:result1) {
+            std::cout << item << endl;
+        }
+
+        auto result2 = pkbInterface->getAllVariablesUsed("milestone1NestLevel3");
+        std::cout << "variables used" << endl;
+        for (auto item:result2) {
+            std::cout << item << endl;
+        }
+
+        REQUIRE(false); // TODO: Force fail
+
+        delete pkbInterface;
     }
 }
 
@@ -831,6 +863,8 @@ TEST_CASE("Test multiple procedures") {
         };
 
         REQUIRE(pkbInterface->modifiesMapStringString == modifiesMapStringString);
+
+        delete pkbInterface;
     }
 }
 
@@ -851,4 +885,6 @@ TEST_CASE("TEST PKB STUB LOL") {
     for (auto item: result) {
         std::cout << item << endl;
     }
+
+    delete pkbInterface;
 }
