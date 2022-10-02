@@ -291,6 +291,20 @@ TEST_CASE("Main Extract Interface") {
         };
         REQUIRE(pkbInterface->usesMapStringString == usesMapStringString);
 
+        auto result1 = pkbInterface->getAllVariablesModified("milestone1NestLevel1");
+        std::cout << "variables modified" << endl;
+        for (auto item:result1) {
+            std::cout << item << endl;
+        }
+
+        auto result2 = pkbInterface->getAllVariablesUsed("milestone1NestLevel1");
+        std::cout << "variables used" << endl;
+        for (auto item:result2) {
+            std::cout << item << endl;
+        }
+
+        REQUIRE(false); // TODO: Force fail
+
         delete pkbInterface;
     }
 
@@ -817,5 +831,24 @@ TEST_CASE("Test multiple procedures") {
         };
 
         REQUIRE(pkbInterface->modifiesMapStringString == modifiesMapStringString);
+    }
+}
+
+TEST_CASE("TEST PKB STUB LOL") {
+    auto *pkbInterface = new PKBInterfaceStubForDE();
+
+    std::unordered_multimap<int, int> correctParentStarMap = {
+            {4,5},
+            {4,6},
+            {5, 5},
+            {6, 5},
+    };
+
+    pkbInterface->addParentStar(4, 5);
+    pkbInterface->addParentStar(5,5);
+    pkbInterface->addParentStar(6,5);
+    auto result = pkbInterface->getParentStar(5);
+    for (auto item: result) {
+        std::cout << item << endl;
     }
 }
