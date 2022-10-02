@@ -54,6 +54,7 @@ void CallStatementHandler::dfs(int i, PKBInterface *pkb) {
             }
         }
 
+        //handle calls and callstar
         for(auto &proc : callStar) {
             pkb->addCallStar(indexToName[i], proc);
         }
