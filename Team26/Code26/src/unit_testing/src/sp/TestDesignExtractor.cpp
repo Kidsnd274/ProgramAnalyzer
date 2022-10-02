@@ -866,6 +866,13 @@ TEST_CASE("Test call procedures with call statements") {
         std::unordered_set<std::string> proc3Modified = {"y"};
         std::unordered_set<std::string> proc3Used = {"var123"};
 
+        std::unordered_set<std::string> proc1Called = { "next" };
+        std::unordered_set<std::string> proc2Called = { "last" };
+        std::unordered_set<std::string> proc3Called = { };
+        std::unordered_set<std::string> proc1CalledStar = { "next", "last" };
+        std::unordered_set<std::string> proc2CalledStar = { "last" };
+        std::unordered_set<std::string> proc3CalledStar = { };
+
         REQUIRE(proc1Modified == pkbInterface->getAllVariablesModified("testCalls"));
         REQUIRE(proc2Modified == pkbInterface->getAllVariablesModified("next"));
         REQUIRE(proc3Modified == pkbInterface->getAllVariablesModified("last"));
@@ -874,5 +881,12 @@ TEST_CASE("Test call procedures with call statements") {
         REQUIRE(proc2Used == pkbInterface->getAllVariablesUsed("next"));
         REQUIRE(proc3Used == pkbInterface->getAllVariablesUsed("last"));
 
+        REQUIRE(proc1Called == pkbInterface->getCall("testCalls"));
+        REQUIRE(proc2Called == pkbInterface->getCall("next"));
+        REQUIRE(proc3Called == pkbInterface->getCall("last"));
+
+        REQUIRE(proc1CalledStar == pkbInterface->getCallStar("testCalls"));
+        REQUIRE(proc2CalledStar == pkbInterface->getCallStar("next"));
+        REQUIRE(proc3CalledStar == pkbInterface->getCallStar("last"));
     }
 }

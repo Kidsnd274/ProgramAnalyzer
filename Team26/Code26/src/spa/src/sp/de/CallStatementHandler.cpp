@@ -38,7 +38,7 @@ void CallStatementHandler::dfs(int i, PKBInterface *pkb) {
         std::unordered_set<std::string> modified = pkb->getAllVariablesModified(callList[i][j].getProcedureCalled());
         std::unordered_set<std::string> used = pkb->getAllVariablesUsed(callList[i][j].getProcedureCalled());
         std::unordered_set<int> parentStar = pkb->getParentStar(callList[i][j].getStatementNumber());
-        //std::unordered_set<int> callStar = pkb->getCallStar(callList[i][j].getProcedureCalled());
+        std::unordered_set<std::string> callStar = pkb->getCallStar(callList[i][j].getProcedureCalled());
 
         for(auto &var : modified) {
             pkb->addModifies(indexToName[i], var);
@@ -54,11 +54,11 @@ void CallStatementHandler::dfs(int i, PKBInterface *pkb) {
             }
         }
 
-//        for(auto &proc : callStar) {
-//            pkb->addCallStar(indexToName[i], proc);
-//        }
-        //pkb->addCallStar(indexToName[i], procedureCalled);
-        //pkb->addCalls(indexToName[i], procedureCalled);
+        for(auto &proc : callStar) {
+            pkb->addCallStar(indexToName[i], proc);
+        }
+        pkb->addCallStar(indexToName[i], procedureCalled);
+        pkb->addCall(indexToName[i], procedureCalled);
     }
     nameToIndex[indexToName[i]].second = 2;
     return;
