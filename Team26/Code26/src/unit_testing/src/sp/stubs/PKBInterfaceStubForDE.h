@@ -9,6 +9,8 @@ public:
     std::unordered_multimap<std::string, std::string> modifiesMapStringString;
     std::unordered_multimap<int, std::string> usesMapIntString;
     std::unordered_multimap<std::string, std::string> usesMapStringString;
+    std::unordered_multimap<std::string, std::string> callMapStringString;
+    std::unordered_multimap<std::string, std::string> callStarMapStringString;
     std::unordered_map<int, int> statements;
 
     void addFollows(int stmt1Number, int stmt2Number) override;
@@ -24,4 +26,11 @@ public:
     void addWhileStatement(int statementNumber, int stmtListNum) override;
     void addIfStatement(int statementNumber, int stmtListNum) override;
     void addPrintStatement(int statementNumber, int stmtListNum) override;
+    void addCall(std::string procedureName, std::string procedureCalled) override;
+    void addCallStar(std::string procedureName, std::string procedureCalled) override;
+    std::unordered_set<std::string> getAllVariablesModified(std::string procedureName) override;
+    std::unordered_set<std::string> getAllVariablesUsed(std::string procedureName) override;
+    std::unordered_set<int> getParentStar(int statementNumber) override;
+    std::unordered_set<string> getCall(std::string procedure) override;
+    std::unordered_set<string> getCallStar(std::string procedure) override;
 };

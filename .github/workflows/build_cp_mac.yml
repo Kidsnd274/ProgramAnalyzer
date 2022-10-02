@@ -5,6 +5,7 @@ on:
     branches:
       - master
       - source-processor-branch
+      - automated-testing-branch
 #  pull_request:
 #    branches:
 #      - master
@@ -26,6 +27,9 @@ jobs:
 
     steps:
       - uses: actions/checkout@v2
+      - uses: actions/setup-python@v4
+        with:
+          python-version: '3.9'
 
       - name: Create Build Environment
         run: cmake -E make_directory ${{runner.workspace}}/build
@@ -57,3 +61,9 @@ jobs:
           ./integration_testing -d yes -o output.txt
           echo INTEGRATION TESTING
           cat output.txt
+
+#      - name: Run autotester test cases
+#        shell: bash
+#        run: |
+#          cd Team26/Tests26
+#          python ./run_tests.py

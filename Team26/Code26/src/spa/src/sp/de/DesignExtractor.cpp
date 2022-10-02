@@ -1,11 +1,41 @@
 #include "DesignExtractor.h"
 
+bool DesignExtractor::doesProcedureAlreadyExist(std::string name) {
+    if(nameToIndex.find(name) != nameToIndex.end()) {
+        return true;
+    } else {
+        return false;
+    }
+}
+
+void DesignExtractor::addProcedure(std::string name) {
+    if(doesProcedureAlreadyExist(name)) {
+        throw SemanticErrorException("Duplicate procedure name: " + name);
+    }
+
+    nameToIndex[name] = {callList.size(), 0};
+    indexToName[callList.size()] = name;
+
+    std::vector<CallStruct> v;
+    this->callList.push_back(v);
+}
+
+void DesignExtractor::addCallStatement(CallStruct &c) {
+    if(callList.size() > 0 && indexToName[callList.size()-1] == c.getProcedureCalled()) {
+        throw SemanticErrorException("Recursive call to procedure " + c.getProcedureCalled());
+    }
+
+    this->callList.back().push_back(c);
+}
+
 void DesignExtractor::extract(std::vector<std::shared_ptr<ProcedureNode>> procedures) {
     for(auto p : procedures) {
         for (auto &e: extractorList) {
             traverse(p, e);
         }
     }
+    CallStatementHandler callStatementHandler(callList, nameToIndex, indexToName);
+    callStatementHandler.handleCalls(pkbInterface);
 }
 
 void DesignExtractor::traverse(std::shared_ptr<ProcedureNode> ptr, std::shared_ptr<Extractor> e) {

@@ -1,0 +1,14 @@
+procedure testCalls {
+    read x;
+    call next;
+}
+
+procedure next {
+    print x;
+    z = y * 3;
+    call last;
+}
+
+procedure last {
+    y = var123;
+}

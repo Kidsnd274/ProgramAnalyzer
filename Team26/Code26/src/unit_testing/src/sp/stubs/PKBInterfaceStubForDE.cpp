@@ -51,3 +51,67 @@ void PKBInterfaceStubForDE::addIfStatement(int statementNumber, int stmtListNum)
 void PKBInterfaceStubForDE::addPrintStatement(int statementNumber, int stmtListNum) {
     this->statements.insert({statementNumber, stmtListNum});
 }
+
+void PKBInterfaceStubForDE::addCall(std::string procedureName, std::string procedureCalled) {
+    this->callMapStringString.insert({ procedureName, procedureCalled });
+}
+
+void PKBInterfaceStubForDE::addCallStar(std::string procedureName, std::string procedureCalled) {
+    this->callStarMapStringString.insert({ procedureName, procedureCalled });
+}
+
+std::unordered_set<std::string> PKBInterfaceStubForDE::getAllVariablesModified(std::string procedureName) {
+    std::unordered_set<std::string> result;
+    auto variables = this->modifiesMapStringString.equal_range(procedureName);
+
+    for (auto it = variables.first; it != variables.second; ++it) {
+        result.insert(it->second);
+    }
+    return result;
+}
+
+std::unordered_set<std::string> PKBInterfaceStubForDE::getAllVariablesUsed(std::string procedureName) {
+    std::unordered_set<std::string> result;
+    auto variables = this->usesMapStringString.equal_range(procedureName);
+
+    for (auto it = variables.first; it != variables.second; ++it) {
+        result.insert(it->second);
+    }
+    return result;
+}
+
+std::unordered_set<int> PKBInterfaceStubForDE::getParentStar(int statementNumber) {
+    std::unordered_set<int> result;
+    for (auto it = this->parentStarMapIntInt.begin(); it != this->parentStarMapIntInt.end();) {
+        auto const& key = it->first;
+        auto variablesForKey = this->parentStarMapIntInt.equal_range(key);
+        for (auto it2 = variablesForKey.first; it2 != variablesForKey.second; ++it) {
+            if (statementNumber == it->second) {
+                result.insert(key);
+                break;
+            }
+        }
+        while (++it != this->parentStarMapIntInt.end() && it->first == key);
+    }
+    return result;
+}
+
+std::unordered_set<string> PKBInterfaceStubForDE::getCall(std::string procedure) {
+    std::unordered_set<std::string> result;
+    auto variables = this->callMapStringString.equal_range(procedure);
+
+    for (auto it = variables.first; it != variables.second; ++it) {
+        result.insert(it->second);
+    }
+    return result;
+}
+
+std::unordered_set<string> PKBInterfaceStubForDE::getCallStar(std::string procedure) {
+    std::unordered_set<std::string> result;
+    auto variables = this->callStarMapStringString.equal_range(procedure);
+
+    for (auto it = variables.first; it != variables.second; ++it) {
+        result.insert(it->second);
+    }
+    return result;
+}
