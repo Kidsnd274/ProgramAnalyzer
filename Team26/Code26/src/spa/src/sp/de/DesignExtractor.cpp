@@ -10,7 +10,7 @@ bool DesignExtractor::doesProcedureAlreadyExist(std::string name) {
 
 void DesignExtractor::addProcedure(std::string name) {
     if(doesProcedureAlreadyExist(name)) {
-        throw new SemanticErrorException("Duplicate procedure name: " + name);
+        throw SemanticErrorException("Duplicate procedure name: " + name);
     }
 
     nameToIndex[name] = {callList.size(), 0};
@@ -22,7 +22,7 @@ void DesignExtractor::addProcedure(std::string name) {
 
 void DesignExtractor::addCallStatement(CallStruct &c) {
     if(callList.size() > 0 && indexToName[callList.size()-1] == c.getProcedureCalled()) {
-        throw new SemanticErrorException("Recursive call to procedure " + c.getProcedureCalled());
+        throw SemanticErrorException("Recursive call to procedure " + c.getProcedureCalled());
     }
 
     this->callList.back().push_back(c);

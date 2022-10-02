@@ -23,11 +23,11 @@ void CallStatementHandler::dfs(int i, PKBInterface *pkb) {
         string procedureCalled = callList[i][j].getProcedureCalled();
 
         if(nameToIndex.find(procedureCalled) == nameToIndex.end()) {
-            throw new SemanticErrorException("Call to non-existent procedure " + procedureCalled);
+            throw SemanticErrorException("Call to non-existent procedure " + procedureCalled);
         }
 
         if (nameToIndex[procedureCalled].second == 1) {
-            throw new SemanticErrorException("Cyclic procedure calls in " + procedureCalled);
+            throw SemanticErrorException("Cyclic procedure calls in " + procedureCalled);
         }
 
         if(nameToIndex[procedureCalled].second == 0) {
