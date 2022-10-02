@@ -12,6 +12,7 @@ void CallStatementHandler::dfs(int i, PKBInterface *pkb) {
 
     //if there are no call statements then can return
     if(callList[i].size() == 0) {
+        //mark procedure as done
         nameToIndex[indexToName[i]].second = 2;
         return;
     }
@@ -22,14 +23,13 @@ void CallStatementHandler::dfs(int i, PKBInterface *pkb) {
         string procedureCalled = callList[i][j].getProcedureCalled();
 
         if(nameToIndex.find(procedureCalled) == nameToIndex.end()) {
-            //throw exception
-            return;
+            throw new SemanticErrorException("Call to non-existent procedure " + procedureCalled);
         }
 
         if(nameToIndex[procedureCalled].second == 0) {
             dfs(nameToIndex[procedureCalled].first, pkb);
         } else if (nameToIndex[procedureCalled].second == 1) {
-            //throw recursive call error
+            throw new SemanticErrorException("Cyclic procedure calls in " + procedureCalled);
         }
 
         //now add all modified and used variable to procedure and parent*

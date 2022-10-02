@@ -2,6 +2,7 @@
 #include "CallStruct.h"
 #include <unordered_map>
 #include "pkb/PKBInterface.h"
+#include "sp/SemanticErrorException.h"
 
 #ifndef SPA_CALLSTATEMENTHANDLER_H
 #define SPA_CALLSTATEMENTHANDLER_H
