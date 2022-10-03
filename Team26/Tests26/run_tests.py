@@ -92,13 +92,13 @@ def run_multiple_tests(selected_tests, milestone_name):
         if completed_process != 0:
             failed_tests.append(testcase)
             move_failed_files(testcase, False)
-            print(" \U0000274C Failed to run")
+            print(" X Failed to run")
         elif not if_passed(outxml):
             failed_tests.append(testcase)
             move_failed_files(testcase, True)
-            print(" \U0000274C Failed testcase.")
+            print(" X Failed testcase.")
         else:
-            print(" \U00002714")
+            print(" PASSED")
 
 
 # Edit test cases here
@@ -124,7 +124,7 @@ if failed_tests:
         for cases in failed_tests:
             f.write(cases.name)
             f.write("\n")
-    print("Test cases failed \U0000274C Check failed_tests.txt for the list and failed_tests folder for log and out.xml")
+    print("Test cases failed X Check failed_tests.txt for the list and failed_tests folder for log and out.xml")
     exit(1)
 else:
-    print("JOB'S DONE \U00002705")
+    print("JOB'S DONE!")
