@@ -16,6 +16,7 @@ private:
 public:
     void insertCallStar(std::string procedureName, std::string procedureCalled);
     bool existCallStar(std::string procedureName, std::string procedureCalled);
+    std::vector<std::string> getProcsStarCalled(std::string procedureName);
 };
 
 #endif //SPA_CALLSTARTABLE_H
