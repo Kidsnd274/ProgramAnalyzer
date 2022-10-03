@@ -1,5 +1,0 @@
-1 - Simple test with constants
-constant c; assign a; variable v; stmt s;
-Select c such that Modifies(_, s)
-SyntaxError
-50000

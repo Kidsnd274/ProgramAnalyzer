@@ -1,10 +1,11 @@
 #pragma once
 
-#include<stdio.h>
+#include <stdio.h>
 #include <iostream>
 #include <string>
 #include <vector>
 #include <memory>
+#include <unordered_set>
 
 #include "qps/QueryProcessorTypes.h"
 #include "PKB.h"
@@ -37,6 +38,16 @@ public:
     virtual void addParentStar(int parentStatementNumber, int childStatementNumber);
     virtual void addFollows(int frontStatementNumber, int backStatementNumber);
     virtual void addFollowsStar(int frontStatementNumber, int backStatementNumber);
+    virtual void addCall(std::string procedureName, std::string procedureCalled);
+    virtual void addCallStar(std::string procedureName, std::string procedureCalled);
+
+
+    virtual std::unordered_set<std::string> getAllVariablesModified(std::string procedureName);
+    virtual std::unordered_set<std::string> getAllVariablesUsed(std::string procedureName);
+    virtual std::unordered_set<int> getParentStar(int statementNumber);
+    virtual std::unordered_set<string> getCall(std::string procedure);
+    virtual std::unordered_set<string> getCallStar(std::string procedure);
+
 
     static vector<string> getAllEntity(EntityType type);
     static bool existRelation(const RelationStruct& relation);

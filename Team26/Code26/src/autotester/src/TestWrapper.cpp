@@ -41,6 +41,9 @@ void TestWrapper::parse(std::string filename) {
     } catch (SyntaxErrorException e) {
         std::cout << e.what() << std::endl;
         exit(1);
+    } catch (SemanticErrorException e) {
+        std::cout << e.what() << std::endl;
+        exit(1);
     }
 }
 

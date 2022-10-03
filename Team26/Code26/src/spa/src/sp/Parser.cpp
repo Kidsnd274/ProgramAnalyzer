@@ -5,10 +5,11 @@
 
 void Parser::parseSimple() {
     int numOfProcedures = 0;
+    std::vector<std::shared_ptr<ProcedureNode>> procedures;
     while(tokenStack->hasNextToken()) {
         if (tokenStack->getNext().getTokenType() == SPTokenType::ProcedureToken) {
             std::shared_ptr<ProcedureNode> pn = parseProcedure();
-            de->extract(pn);
+            procedures.push_back(pn);
             numOfProcedures++;
         } else {
             throw SyntaxErrorException();
@@ -18,12 +19,14 @@ void Parser::parseSimple() {
     if(!numOfProcedures){
         throw SyntaxErrorException();
     }
+    de->extract(procedures);
 }
 
 std::shared_ptr<ProcedureNode> Parser::parseProcedure() {
     int currStatement = statementCount;
     std::string name = parseName();
     parseLCurly();
+    de->addProcedure(name);
     std::vector<std::shared_ptr<StatementNode>> stmtList = parseStatementList();
     parseRCurly();
     pkbInterface->addProcedure(name, currStatement, statementCount);
@@ -294,13 +297,17 @@ std::shared_ptr<PrintNode> Parser::parsePrint(int stmtListNum) {
     return PrintNode::createPrintNode(currStatement, varName);
 }
 
-//TODO not for milestone 1
+
 std::shared_ptr<CallNode> Parser::parseCall(int stmtListNum) {
     tokenStack->getNext(); //consume Call SPToken
     int currStatement = statementCount++;
     string varName = parseName();
     parseSemiColon();
 
+    CallStruct cs(currStatement, varName);
+    de->addCallStatement(cs);
+
+    //pkbInterface->addCallStatement(currStatement, stmtListNum);
     return CallNode::createCallNode(currStatement, varName);
 }
 
