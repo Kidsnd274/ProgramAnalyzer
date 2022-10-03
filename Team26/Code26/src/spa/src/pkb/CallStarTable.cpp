@@ -27,3 +27,7 @@ bool CallStarTable::existCallStar(std::string procedureName, std::string procedu
     }
     return false;
 }
+
+std::vector<std::string> CallStarTable::getProcsStarCalled(std::string procedureName) {
+    return this->callStarList[procedureName];
+}

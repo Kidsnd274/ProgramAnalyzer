@@ -27,3 +27,7 @@ bool CallTable::existCall(std::string procedureName, std::string procedureCalled
     }
     return false;
 }
+
+std::vector<std::string> CallTable::getProcsCalled(std::string procedureName) {
+    return this->callList[procedureName];
+}

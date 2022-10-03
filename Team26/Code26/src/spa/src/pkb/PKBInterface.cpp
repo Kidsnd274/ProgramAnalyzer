@@ -361,9 +361,19 @@ std::unordered_set<int> PKBInterface::getParentStar(int statementNumber) {
 }
 
 std::unordered_set<string> PKBInterface::getCall(std::string procedure) {
-    return std::unordered_set<string>();
+    std::vector<std::string> procsCalled = pkb->callTable->getProcsCalled(procedure);
+    std::unordered_set<string> result;
+    for (std::string proc: procsCalled) {
+        result.insert(proc);
+    }
+    return result;
 }
 
 std::unordered_set<string> PKBInterface::getCallStar(std::string procedure) {
-    return std::unordered_set<string>();
+    std::vector<std::string> procsStarCalled = pkb->callStarTable->getProcsStarCalled(procedure);
+    std::unordered_set<string> result;
+    for (std::string proc: procsStarCalled) {
+        result.insert(proc);
+    }
+    return result;
 }

@@ -16,6 +16,7 @@ private:
 public:
     void insertCall(std::string procedureName, std::string procedureCalled);
     bool existCall(std::string procedureName, std::string procedureCalled);
+    std::vector<std::string> getProcsCalled(std::string procedureName);
 };
 
 #endif //SPA_CALLTABLE_H
