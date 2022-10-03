@@ -18,6 +18,15 @@ void ModifiesTable::insertModifies(int stmtLineNumber, string varName) {
     }
 }
 
+void ModifiesTable::insertProcModifies(std::string procedureName, std::string varName) {
+    if (this->modifiesProcList.find(procedureName) != this->modifiesProcList.end()) {
+        this->modifiesProcList.find(procedureName)->second.push_back(varName);
+    } else {
+        std::pair<std::string,std::vector<std::string>> modifies (procedureName, {varName});
+        this->modifiesProcList.insert(modifies);
+    }
+}
+
 bool ModifiesTable::existModifies(int stmtLineNumber, string varName) {
     if (stmtLineNumber == 0) {
         for (auto & stmt: this->modifiesList) {
@@ -45,4 +54,8 @@ bool ModifiesTable::existStatement(int stmtLineNumber) {
 
 std::vector<std::string> ModifiesTable::getModifiesVar(int stmtLineNumber) {
     return this->modifiesList[stmtLineNumber];
+}
+
+std::vector<std::string> ModifiesTable::getAllModifiedVarByProc(std::string procedureName) {
+    return this->modifiesProcList[procedureName];
 }

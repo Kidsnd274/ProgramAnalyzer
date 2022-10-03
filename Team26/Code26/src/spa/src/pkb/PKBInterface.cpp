@@ -100,8 +100,16 @@ void PKBInterface::addModifies(int statementNumber, string varName) {
     pkb->modifiesTable->insertModifies(statementNumber, std::move(varName));
 }
 
+void PKBInterface::addModifies(std::string procedureName, std::string varName) {
+    pkb->modifiesTable->insertProcModifies(procedureName, varName);
+}
+
 void PKBInterface::addUses(int statementNumber, string varName) {
     pkb->usesTable->insertUses(statementNumber, std::move(varName));
+}
+
+void PKBInterface::addUses(std::string procedureName, std::string varName) {
+    pkb->usesTable->insertProcUses(procedureName, varName);
 }
 
 void PKBInterface::addParent(int parentStatementNumber, int childStatementNumber) {
@@ -340,24 +348,31 @@ shared_ptr<AssignNode> PKBInterface::getAssignTNode(const string& assignRef) {
     return AssignNode::createAssignNode(assignStmtNo, varName, tNode);
 }
 
-void PKBInterface::addModifies(std::string procedureName, std::string varName) {
-
-}
-
-void PKBInterface::addUses(std::string procedureName, std::string varName) {
-
-}
-
 std::unordered_set<std::string> PKBInterface::getAllVariablesModified(std::string procedureName) {
-    return std::unordered_set<std::string>();
+    std::vector<std::string> varsModified = pkb->modifiesTable->getAllModifiedVarByProc(procedureName);
+    std::unordered_set<string> result;
+    for (std::string var: varsModified) {
+        result.insert(var);
+    }
+    return result;
 }
 
 std::unordered_set<std::string> PKBInterface::getAllVariablesUsed(std::string procedureName) {
-    return std::unordered_set<std::string>();
+    std::vector<std::string> varsUsed = pkb->usesTable->getAllVarUsedByProc(procedureName);
+    std::unordered_set<string> result;
+    for (std::string var: varsUsed) {
+        result.insert(var);
+    }
+    return result;
 }
 
 std::unordered_set<int> PKBInterface::getParentStar(int statementNumber) {
-    return std::unordered_set<int>();
+    std::vector<int> childStmts = pkb->parentStarTable->getAllParentStar(statementNumber);
+    std::unordered_set<int> result;
+    for (int stmt: childStmts) {
+        result.insert(stmt);
+    }
+    return result;
 }
 
 std::unordered_set<string> PKBInterface::getCall(std::string procedure) {
