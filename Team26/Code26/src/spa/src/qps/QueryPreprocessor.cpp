@@ -530,7 +530,7 @@ namespace QPS {
         } else {
             return {pos, INVALID_WITH_SYNTAX};
         }
-        std::cout << pos << std::endl;
+        container.addWithClause(withStruct);
         return {pos,VALID};
 
     }
