@@ -24,328 +24,318 @@ namespace QPS {
 //            std::cout << curr.nameValue << std::endl;
             std::pair<EntityType, bool> entityMappingResult = mapEntity(curr);
             std::pair<RelationType, bool> relationMappingResult = mapRelation(tokens, tokenPos);
-            if (entityMappingResult.second) {
+            if (entityMappingResult.second && container.getStatus() == START_PARSE_DECLARATION) {
                 // Valid entity
-                if (container.getStatus() != START_PARSE_DECLARATION) {
-                    // Invalid status for parsing declaration
-                    return INVALID_DECLARATION;
-                } else {
-                    switch (entityMappingResult.first) {
-                        case STATEMENT: {
-                            tokenPos++;
-                            std::pair<int, Exception> result = parseDeclaration(tokens, tokenPos, STATEMENT,
-                                                                                container);
+                switch (entityMappingResult.first) {
+                    case STATEMENT: {
+                        tokenPos++;
+                        std::pair<int, Exception> result = parseDeclaration(tokens, tokenPos, STATEMENT,
+                                                                            container);
 
-                            if (result.second == VALID) {
-                                tokenPos = result.first;
-                            } else {
-                                // Invalid query
-                                return result.second;
-                            }
-                            break;
+                        if (result.second == VALID) {
+                            tokenPos = result.first;
+                        } else {
+                            // Invalid query
+                            return result.second;
                         }
-                        case READ: {
-                            tokenPos++;
-                            std::pair<int, Exception> result = parseDeclaration(tokens, tokenPos, READ,
-                                                                                container);
+                        break;
+                    }
+                    case READ: {
+                        tokenPos++;
+                        std::pair<int, Exception> result = parseDeclaration(tokens, tokenPos, READ,
+                                                                            container);
 
-                            if (result.second == VALID) {
-                                tokenPos = result.first;
-                            } else {
-                                // Invalid query
-                                return result.second;
-                            }
-                            break;
+                        if (result.second == VALID) {
+                            tokenPos = result.first;
+                        } else {
+                            // Invalid query
+                            return result.second;
                         }
-                        case PRINT: {
-                            tokenPos++;
-                            std::pair<int, Exception> result = parseDeclaration(tokens, tokenPos, PRINT,
-                                                                                container);
+                        break;
+                    }
+                    case PRINT: {
+                        tokenPos++;
+                        std::pair<int, Exception> result = parseDeclaration(tokens, tokenPos, PRINT,
+                                                                            container);
 
-                            if (result.second == VALID) {
-                                tokenPos = result.first;
-                            } else {
-                                // Invalid query
-                                return result.second;
-                            }
-                            break;
+                        if (result.second == VALID) {
+                            tokenPos = result.first;
+                        } else {
+                            // Invalid query
+                            return result.second;
                         }
-                        case CALL: {
-                            tokenPos++;
-                            std::pair<int, Exception> result = parseDeclaration(tokens, tokenPos, CALL,
-                                                                                container);
+                        break;
+                    }
+                    case CALL: {
+                        tokenPos++;
+                        std::pair<int, Exception> result = parseDeclaration(tokens, tokenPos, CALL,
+                                                                            container);
 
-                            if (result.second == VALID) {
-                                tokenPos = result.first;
-                            } else {
-                                // Invalid query
-                                return result.second;
-                            }
-                            break;
+                        if (result.second == VALID) {
+                            tokenPos = result.first;
+                        } else {
+                            // Invalid query
+                            return result.second;
                         }
-                        case WHILE: {
-                            tokenPos++;
-                            std::pair<int, Exception> result = parseDeclaration(tokens, tokenPos, WHILE,
-                                                                                container);
+                        break;
+                    }
+                    case WHILE: {
+                        tokenPos++;
+                        std::pair<int, Exception> result = parseDeclaration(tokens, tokenPos, WHILE,
+                                                                            container);
 
-                            if (result.second == VALID) {
-                                tokenPos = result.first;
-                            } else {
-                                // Invalid query
-                                return result.second;
-                            }
-                            break;
+                        if (result.second == VALID) {
+                            tokenPos = result.first;
+                        } else {
+                            // Invalid query
+                            return result.second;
                         }
-                        case IF: {
-                            tokenPos++;
-                            std::pair<int, Exception> result = parseDeclaration(tokens, tokenPos, IF,
-                                                                                container);
+                        break;
+                    }
+                    case IF: {
+                        tokenPos++;
+                        std::pair<int, Exception> result = parseDeclaration(tokens, tokenPos, IF,
+                                                                            container);
 
-                            if (result.second == VALID) {
-                                tokenPos = result.first;
-                            } else {
-                                // Invalid query
-                                return result.second;
-                            }
-                            break;
+                        if (result.second == VALID) {
+                            tokenPos = result.first;
+                        } else {
+                            // Invalid query
+                            return result.second;
                         }
-                        case ASSIGN: {
-                            tokenPos++;
-                            std::pair<int, Exception> result = parseDeclaration(tokens, tokenPos, ASSIGN,
-                                                                                container);
+                        break;
+                    }
+                    case ASSIGN: {
+                        tokenPos++;
+                        std::pair<int, Exception> result = parseDeclaration(tokens, tokenPos, ASSIGN,
+                                                                            container);
 
-                            if (result.second == VALID) {
-                                tokenPos = result.first;
-                            } else {
-                                // Invalid query
-                                return result.second;
-                            }
-                            break;
+                        if (result.second == VALID) {
+                            tokenPos = result.first;
+                        } else {
+                            // Invalid query
+                            return result.second;
                         }
-                        case VARIABLE: {
-                            tokenPos++;
-                            std::pair<int, Exception> result = parseDeclaration(tokens, tokenPos, VARIABLE,
-                                                                                container);
+                        break;
+                    }
+                    case VARIABLE: {
+                        tokenPos++;
+                        std::pair<int, Exception> result = parseDeclaration(tokens, tokenPos, VARIABLE,
+                                                                            container);
 
-                            if (result.second == VALID) {
-                                tokenPos = result.first;
-                            } else {
-                                // Invalid query
-                                return result.second;
-                            }
-                            break;
+                        if (result.second == VALID) {
+                            tokenPos = result.first;
+                        } else {
+                            // Invalid query
+                            return result.second;
                         }
-                        case CONSTANT:{
-                            tokenPos++;
-                            std::pair<int, Exception> result = parseDeclaration(tokens, tokenPos, CONSTANT,
-                                                                                container);
+                        break;
+                    }
+                    case CONSTANT:{
+                        tokenPos++;
+                        std::pair<int, Exception> result = parseDeclaration(tokens, tokenPos, CONSTANT,
+                                                                            container);
 
-                            if (result.second == VALID) {
-                                tokenPos = result.first;
-                            } else {
-                                // Invalid query
-                                return result.second;
-                            }
-                            break;
+                        if (result.second == VALID) {
+                            tokenPos = result.first;
+                        } else {
+                            // Invalid query
+                            return result.second;
                         }
+                        break;
+                    }
 
-                        case PROCEDURE: {
-                            tokenPos++;
-                            std::pair<int, Exception> result = parseDeclaration(tokens, tokenPos, PROCEDURE,
-                                                                                container);
+                    case PROCEDURE: {
+                        tokenPos++;
+                        std::pair<int, Exception> result = parseDeclaration(tokens, tokenPos, PROCEDURE,
+                                                                            container);
 
-                            if (result.second == VALID) {
-                                tokenPos = result.first;
-                            } else {
-                                // Invalid query
-                                return result.second;
-                            }
-                            break;
+                        if (result.second == VALID) {
+                            tokenPos = result.first;
+                        } else {
+                            // Invalid query
+                            return result.second;
                         }
-                        case INVALID_ENTITY_TYPE: {
-                            return INVALID_ENTITY;
-                        }
+                        break;
+                    }
+                    case INVALID_ENTITY_TYPE: {
+                        return INVALID_ENTITY;
                     }
                 }
-            } else if (relationMappingResult.second) {
+            } else if (relationMappingResult.second && container.getStatus() == START_PARSE_SUCH_CLAUSE) {
                 // Valid relation
-                if (container.getStatus() != START_PARSE_SUCH_CLAUSE) {
-                    // Invalid query that doesn't have such that
-                    return INVALID_RELATION_SYNTAX;
-                } else {
-                    switch (relationMappingResult.first) {
-                        case FOLLOWS: {
-                            tokenPos++;
-                            std::pair<int, Exception> result = parseRelationStmtStmt(tokens, tokenPos,
-                                                                                FOLLOWS, container);
-                            if (result.second == VALID) {
-                                tokenPos = result.first - 1;
-                            } else {
-                                // Invalid query
-                                return result.second;
-                            }
-                            break;
+                switch (relationMappingResult.first) {
+                    case FOLLOWS: {
+                        tokenPos++;
+                        std::pair<int, Exception> result = parseRelationStmtStmt(tokens, tokenPos,
+                                                                                 FOLLOWS, container);
+                        if (result.second == VALID) {
+                            tokenPos = result.first - 1;
+                        } else {
+                            // Invalid query
+                            return result.second;
                         }
-                        case FOLLOWS_T: {
-                            tokenPos += 2;
-                            std::pair<int, Exception> result = parseRelationStmtStmt(tokens, tokenPos,
-                                                                                FOLLOWS_T, container);
-                            if (result.second == VALID) {
-                                tokenPos = result.first - 1;
-                            } else {
-                                // Invalid query
-                                return result.second;
-                            }
-                            break;
+                        break;
+                    }
+                    case FOLLOWS_T: {
+                        tokenPos += 2;
+                        std::pair<int, Exception> result = parseRelationStmtStmt(tokens, tokenPos,
+                                                                                 FOLLOWS_T, container);
+                        if (result.second == VALID) {
+                            tokenPos = result.first - 1;
+                        } else {
+                            // Invalid query
+                            return result.second;
                         }
-                        case PARENT: {
-                            tokenPos++;
-                            std::pair<int, Exception> result = parseRelationStmtStmt(tokens, tokenPos,
-                                                                                PARENT, container);
-                            if (result.second == VALID) {
-                                tokenPos = result.first - 1;
-                            } else {
-                                // Invalid query
-                                return result.second;
-                            }
-                            break;
+                        break;
+                    }
+                    case PARENT: {
+                        tokenPos++;
+                        std::pair<int, Exception> result = parseRelationStmtStmt(tokens, tokenPos,
+                                                                                 PARENT, container);
+                        if (result.second == VALID) {
+                            tokenPos = result.first - 1;
+                        } else {
+                            // Invalid query
+                            return result.second;
                         }
-                        case PARENT_T: {
-                            tokenPos += 2;
-                            std::pair<int, Exception> result = parseRelationStmtStmt(tokens, tokenPos,
-                                                                                PARENT_T, container);
-                            if (result.second == VALID) {
-                                tokenPos = result.first - 1;
-                            } else {
-                                // Invalid query
-                                return result.second;
-                            }
-                            break;
+                        break;
+                    }
+                    case PARENT_T: {
+                        tokenPos += 2;
+                        std::pair<int, Exception> result = parseRelationStmtStmt(tokens, tokenPos,
+                                                                                 PARENT_T, container);
+                        if (result.second == VALID) {
+                            tokenPos = result.first - 1;
+                        } else {
+                            // Invalid query
+                            return result.second;
                         }
-                        case USES_S: {
-                            tokenPos++;
-                            std::pair<int, Exception> result = parseRelationStmtEnt(tokens, tokenPos,
+                        break;
+                    }
+                    case USES_S: {
+                        tokenPos++;
+                        std::pair<int, Exception> result = parseRelationStmtEnt(tokens, tokenPos,
                                                                                 USES_S, container);
-                            if (result.second == VALID) {
-                                tokenPos = result.first - 1;
-                            } else {
-                                // Invalid query
-                                return result.second;
-                            }
-                            break;
+                        if (result.second == VALID) {
+                            tokenPos = result.first - 1;
+                        } else {
+                            // Invalid query
+                            return result.second;
                         }
-                        case MODIFIES_S:{
-                            tokenPos++;
-                            std::pair<int, Exception> result = parseRelationStmtEnt(tokens, tokenPos,
-                                                                               MODIFIES_S, container);
-                            if (result.second == VALID) {
-                                tokenPos = result.first - 1;
-                            } else {
-                                // Invalid query
-                                return result.second;
-                            }
-                            break;
+                        break;
+                    }
+                    case MODIFIES_S:{
+                        tokenPos++;
+                        std::pair<int, Exception> result = parseRelationStmtEnt(tokens, tokenPos,
+                                                                                MODIFIES_S, container);
+                        if (result.second == VALID) {
+                            tokenPos = result.first - 1;
+                        } else {
+                            // Invalid query
+                            return result.second;
                         }
-                        case USES_P: {
-                            tokenPos++;
-                            std::pair<int, Exception> result = parseRelationStmtEnt(tokens, tokenPos,
-                                                                               USES_P, container);
-                            if (result.second == VALID) {
-                                tokenPos = result.first - 1;
-                            } else {
-                                // Invalid query
-                                return result.second;
-                            }
-                            break;
+                        break;
+                    }
+                    case USES_P: {
+                        tokenPos++;
+                        std::pair<int, Exception> result = parseRelationStmtEnt(tokens, tokenPos,
+                                                                                USES_P, container);
+                        if (result.second == VALID) {
+                            tokenPos = result.first - 1;
+                        } else {
+                            // Invalid query
+                            return result.second;
                         }
-                        case MODIFIES_P:{
-                            tokenPos++;
-                            std::pair<int, Exception> result = parseRelationStmtEnt(tokens, tokenPos,
-                                                                              MODIFIES_P, container);
-                            if (result.second == VALID) {
-                                tokenPos = result.first - 1;
-                            } else {
-                                // Invalid query
-                                return result.second;
-                            }
-                            break;
+                        break;
+                    }
+                    case MODIFIES_P:{
+                        tokenPos++;
+                        std::pair<int, Exception> result = parseRelationStmtEnt(tokens, tokenPos,
+                                                                                MODIFIES_P, container);
+                        if (result.second == VALID) {
+                            tokenPos = result.first - 1;
+                        } else {
+                            // Invalid query
+                            return result.second;
                         }
-                        case INVALID_RELATION_TYPE:
-                        {
-                            return INVALID_RELATION;
+                        break;
+                    }
+                    case INVALID_RELATION_TYPE:
+                    {
+                        return INVALID_RELATION;
+                    }
+                    case CALLS:{
+                        tokenPos++;
+                        std::pair<int, Exception> result = parseRelationCalls(tokens, tokenPos,
+                                                                              CALLS, container);
+                        if (result.second == VALID) {
+                            tokenPos = result.first - 1;
+                        } else {
+                            // Invalid query
+                            return result.second;
                         }
-                        case CALLS:{
-                            tokenPos++;
-                            std::pair<int, Exception> result = parseRelationCalls(tokens, tokenPos,
-                                                                                    CALLS, container);
-                            if (result.second == VALID) {
-                                tokenPos = result.first - 1;
-                            } else {
-                                // Invalid query
-                                return result.second;
-                            }
-                            break;
+                        break;
+                    }
+                    case CALLS_P:{
+                        tokenPos++;
+                        std::pair<int, Exception> result = parseRelationCalls(tokens, tokenPos,
+                                                                              CALLS_P, container);
+                        if (result.second == VALID) {
+                            tokenPos = result.first - 1;
+                        } else {
+                            // Invalid query
+                            return result.second;
                         }
-                        case CALLS_P:{
-                            tokenPos++;
-                            std::pair<int, Exception> result = parseRelationCalls(tokens, tokenPos,
-                                                                                  CALLS_P, container);
-                            if (result.second == VALID) {
-                                tokenPos = result.first - 1;
-                            } else {
-                                // Invalid query
-                                return result.second;
-                            }
-                            break;
+                        break;
+                    }
+                    case NEXT:{
+                        tokenPos++;
+                        std::pair<int, Exception> result = parseRelationStmtStmt(tokens, tokenPos,
+                                                                                 NEXT, container);
+                        if (result.second == VALID) {
+                            tokenPos = result.first - 1;
+                        } else {
+                            // Invalid query
+                            return result.second;
                         }
-                        case NEXT:{
-                            tokenPos++;
-                            std::pair<int, Exception> result = parseRelationStmtStmt(tokens, tokenPos,
-                                                                                     NEXT, container);
-                            if (result.second == VALID) {
-                                tokenPos = result.first - 1;
-                            } else {
-                                // Invalid query
-                                return result.second;
-                            }
-                            break;
+                        break;
+                    }
+                    case NEXT_P:{
+                        tokenPos++;
+                        std::pair<int, Exception> result = parseRelationStmtStmt(tokens, tokenPos,
+                                                                                 NEXT_P, container);
+                        if (result.second == VALID) {
+                            tokenPos = result.first - 1;
+                        } else {
+                            // Invalid query
+                            return result.second;
                         }
-                        case NEXT_P:{
-                            tokenPos++;
-                            std::pair<int, Exception> result = parseRelationStmtStmt(tokens, tokenPos,
-                                                                                     NEXT_P, container);
-                            if (result.second == VALID) {
-                                tokenPos = result.first - 1;
-                            } else {
-                                // Invalid query
-                                return result.second;
-                            }
-                            break;
+                        break;
+                    }
+                    case AFFECTS:{
+                        tokenPos++;
+                        std::pair<int, Exception> result = parseRelationStmtStmt(tokens, tokenPos,
+                                                                                 AFFECTS, container);
+                        if (result.second == VALID) {
+                            tokenPos = result.first - 1;
+                        } else {
+                            // Invalid query
+                            return result.second;
                         }
-                        case AFFECTS:{
-                            tokenPos++;
-                            std::pair<int, Exception> result = parseRelationStmtStmt(tokens, tokenPos,
-                                                                                     AFFECTS, container);
-                            if (result.second == VALID) {
-                                tokenPos = result.first - 1;
-                            } else {
-                                // Invalid query
-                                return result.second;
-                            }
-                            break;
+                        break;
+                    }
+                    case AFFECTS_P:{
+                        tokenPos++;
+                        std::pair<int, Exception> result = parseRelationStmtStmt(tokens, tokenPos,
+                                                                                 AFFECTS_P, container);
+                        if (result.second == VALID) {
+                            tokenPos = result.first - 1;
+                        } else {
+                            // Invalid query
+                            return result.second;
                         }
-                        case AFFECTS_P:{
-                            tokenPos++;
-                            std::pair<int, Exception> result = parseRelationStmtStmt(tokens, tokenPos,
-                                                                                     AFFECTS_P, container);
-                            if (result.second == VALID) {
-                                tokenPos = result.first - 1;
-                            } else {
-                                // Invalid query
-                                return result.second;
-                            }
-                            break;
-                        }
+                        break;
                     }
                 }
 
@@ -906,38 +896,37 @@ namespace QPS {
             auto iterator = declarationMap.find(token.nameValue);
             if (iterator == declarationMap.end()) {
                 return {{}, UNDECLARED_ENTITY_SUCH_THAT};
-            } else {
-                EntityType entityType = iterator->second;
-                switch (entityType) {
-                    case STATEMENT: {
-                        return {{STMT_SYNONYM, token.nameValue}, VALID};
-                    }
-                    case READ: {
-                        return {{READ_SYNONYM, token.nameValue}, VALID};
-                    }
-                    case PRINT: {
-                        return {{PRINT_SYNONYM, token.nameValue}, VALID};
-                    }
-                    case CALL: {
-                        return {{CALL_SYNONYM, token.nameValue}, VALID};
-                    }
-                    case WHILE:{
-                        return {{WHILE_SYNONYM, token.nameValue}, VALID};
-                    }
-                    case IF:{
-                        return {{IF_SYNONYM, token.nameValue}, VALID};
-                    }
-                    case PROCEDURE: {
-                        return {{PROCEDURE_SYNONYM, token.nameValue}, VALID};
-                    }
-                    case ASSIGN:{
-                        return {{ASSIGN_SYNONYM, token.nameValue}, VALID};
-                    }
-                    case VARIABLE:
-                    case CONSTANT:
-                    case INVALID_ENTITY_TYPE:{
-                        return {{INVALID_ARGUMENT_TYPE, token.nameValue}, INVALID_RELATION_CONTENT};
-                    }
+            }
+            EntityType entityType = iterator->second;
+            switch (entityType) {
+                case STATEMENT: {
+                    return {{STMT_SYNONYM, token.nameValue}, VALID};
+                }
+                case READ: {
+                    return {{READ_SYNONYM, token.nameValue}, VALID};
+                }
+                case PRINT: {
+                    return {{PRINT_SYNONYM, token.nameValue}, VALID};
+                }
+                case CALL: {
+                    return {{CALL_SYNONYM, token.nameValue}, VALID};
+                }
+                case WHILE:{
+                    return {{WHILE_SYNONYM, token.nameValue}, VALID};
+                }
+                case IF:{
+                    return {{IF_SYNONYM, token.nameValue}, VALID};
+                }
+                case PROCEDURE: {
+                    return {{PROCEDURE_SYNONYM, token.nameValue}, VALID};
+                }
+                case ASSIGN:{
+                    return {{ASSIGN_SYNONYM, token.nameValue}, VALID};
+                }
+                case VARIABLE:
+                case CONSTANT:
+                case INVALID_ENTITY_TYPE:{
+                    return {{INVALID_ARGUMENT_TYPE, token.nameValue}, INVALID_RELATION_CONTENT};
                 }
             }
         } else {
@@ -953,30 +942,29 @@ namespace QPS {
             auto iterator = declarationMap.find(token.nameValue);
             if (iterator == declarationMap.end()) {
                 return {{}, false};
-            } else {
-                EntityType entityType = iterator->second;
-                switch (entityType) {
-                    case STATEMENT:
-                    case READ:
-                    case PRINT:
-                    case CALL:
-                    case WHILE:
-                    case IF:
-                    case ASSIGN:{
-                        return {{STMT_SYNONYM, token.nameValue}, true};
-                    }
-                    case PROCEDURE: {
-                        return {{PROCEDURE_SYNONYM, token.nameValue}, true};
-                    }
-                    case VARIABLE:{
-                        return {{VAR_SYNONYM, token.nameValue}, true};
-                    }
-                    case CONSTANT:{
-                        return {{CONST_SYNONYM, token.nameValue}, true};
-                    }
-                    case INVALID_ENTITY_TYPE:{
-                        return {{INVALID_ARGUMENT_TYPE, token.nameValue}, true};
-                    }
+            }
+            EntityType entityType = iterator->second;
+            switch (entityType) {
+                case STATEMENT:
+                case READ:
+                case PRINT:
+                case CALL:
+                case WHILE:
+                case IF:
+                case ASSIGN:{
+                    return {{STMT_SYNONYM, token.nameValue}, true};
+                }
+                case PROCEDURE: {
+                    return {{PROCEDURE_SYNONYM, token.nameValue}, true};
+                }
+                case VARIABLE:{
+                    return {{VAR_SYNONYM, token.nameValue}, true};
+                }
+                case CONSTANT:{
+                    return {{CONST_SYNONYM, token.nameValue}, true};
+                }
+                case INVALID_ENTITY_TYPE:{
+                    return {{INVALID_ARGUMENT_TYPE, token.nameValue}, true};
                 }
             }
         } else if (token.tokenType == UNDERSCORE) {
