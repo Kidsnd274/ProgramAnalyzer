@@ -107,10 +107,10 @@ namespace QPS {
 
         /**
          * Each row in result table is a set of possible bindings of synonyms to entities.
-         * This method checks whether each row in result table follows to the given relation.
-         * If a row does not follow the list of relation, delete that row.
+         * This method checks whether each row in result table follows to the given type.
+         * If a row does not follow the list of type, delete that row.
          *
-         * @param suchThatList List of given relation.
+         * @param suchThatList List of given type.
          */
         void filterRowsBySuchThatList(const SUCH_THAT_LIST& suchThatList);
 
@@ -123,10 +123,10 @@ namespace QPS {
         void filterRowsByPatternList(const PATTERN_LIST& patternList);
 
         /**
-         * Checks whether the given row follows the given relation.
+         * Checks whether the given row follows the given type.
          *
          * @param row The given row.
-         * @param relation The given relation.
+         * @param relation The given type.
          * @return bool
          */
         bool followsRelation(std::vector<std::string>& row, const QPS::RelationStruct& relation);

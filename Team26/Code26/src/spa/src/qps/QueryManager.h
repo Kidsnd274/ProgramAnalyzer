@@ -41,9 +41,9 @@ namespace QPS {
         }
 
         /**
-         * Call PKB interface to check whether a certain relation is present in the SIMPLE source code.
+         * Call PKB interface to check whether a certain type is present in the SIMPLE source code.
          *
-         * @param relationStruct The given relation to check.
+         * @param relationStruct The given type to check.
          * @return bool.
          */
         static bool isRelationExist(const RelationStruct& relationStruct) {

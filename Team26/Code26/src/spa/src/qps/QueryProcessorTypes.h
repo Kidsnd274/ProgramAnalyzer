@@ -159,7 +159,7 @@ namespace QPS {
         std::string nameOfArgument;
     };
     /*
-     * The structure to represent a certain relation.
+     * The structure to represent a certain type.
      */
     struct RelationStruct {
         RelationType typeOfRelation;

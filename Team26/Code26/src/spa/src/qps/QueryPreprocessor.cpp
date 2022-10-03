@@ -168,7 +168,7 @@ namespace QPS {
                     }
                 }
             } else if (relationMappingResult.second) {
-                // Valid relation
+                // Valid type
                 if (container.getStatus() != START_PARSE_SUCH_CLAUSE) {
                     // Invalid query that doesn't have such that
                     return INVALID_RELATION_SYNTAX;
