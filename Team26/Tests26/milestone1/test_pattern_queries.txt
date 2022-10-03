@@ -76,7 +76,7 @@ SemanticError
 16 - Simple test with invalid pattern variable
 constant c; variable v; assign a;
 Select a, v such that Modifies(a, v) pattern c(v, _"3"_)
-SemanticError
+SyntaxError
 5000
 
 
