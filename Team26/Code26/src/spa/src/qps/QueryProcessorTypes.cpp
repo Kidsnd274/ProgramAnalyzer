@@ -204,6 +204,7 @@ namespace QPS {
             }
         }
     }
+
     std::string relationToString (RelationType relationType) {
         switch (relationType) {
 

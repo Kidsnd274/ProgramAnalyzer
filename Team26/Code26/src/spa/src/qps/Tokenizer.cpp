@@ -28,7 +28,9 @@ namespace QPS {
                                                                     { NAME, "^([a-zA-Z]\\w*)\\b" },
                                                                     { INTEGER, "^(\\d+)" },
                                                                     {STAR, "^(\\*)"},
-                                                                    { WHITESPACE, "^(\\s+)" } };
+                                                                    { WHITESPACE, "^(\\s+)" },
+                                                                    {DOT, "^(\\.)"},
+                                                                    {HASHTAG, "^(\\#)"}};
     std::vector<std::string> splitToLines(std::istream& stream) {
         std::string line;
         std::vector<std::string> splitResult;

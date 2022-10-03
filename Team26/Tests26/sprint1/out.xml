@@ -1,0 +1,15 @@
+<?xml-stylesheet type="text/xsl" href="analysis.xsl"?>
+<test_results>
+<info>
+<name>autotester</name><parsing_time_taken>0.706000</parsing_time_taken>
+</info>
+<queries>
+<query>
+<id ReturnTuple="1" Follows="3" UnnamedVar="1" Pattern="1" SuchThat="2" With="2" CondNum="10" RelNum="3" comment="comment">1</id><querystr><![CDATA[while w; assign a; Select w with w.stmt# = 2 such that Follows(1, 2) pattern a(_, "x") such that Follows(2, 3) and Follows(9,10) with a.stmt# = 4]]></querystr>
+<stuans></stuans>
+<correct></correct>
+<time_taken>139.584000</time_taken>
+<passed/>
+</query>
+</queries>
+</test_results>
