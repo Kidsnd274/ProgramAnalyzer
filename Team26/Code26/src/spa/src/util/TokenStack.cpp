@@ -1,5 +1,14 @@
 #include "TokenStack.h"
 
+std::string TokenStack::checkAndReturnNextToken(SPTokenType tokenType) {
+    if(tokenType == SPTokenType::NameToken) {
+        if(!peekNext().isNonTerminal()) {
+            throw SyntaxErrorException();
+        }
+    }
+    std::string val = getNext().getTokenString();
+    return val;
+}
 
 SPTokenType TokenStack::peekNextTokenType() {
     return peekNext().getTokenType();
