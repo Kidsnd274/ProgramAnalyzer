@@ -148,7 +148,7 @@ std::shared_ptr<StatementNode> Parser::parseStatement(int stmtListNum) {
     SPTokenType t = tokenStack->peekNext().getTokenType();
     std::shared_ptr<StatementNode> stmt(nullptr);
 
-    if(tokenStack->isNextTokenAssign() && tokenStack->peekNext().isNonTerminal()) {
+    if(tokenStack->isNextTokenAssign() && tokenStack->isNextTokenNonTerminal()) {
         stmt = std::move(parseAssign(stmtListNum));
         return stmt;
     }
