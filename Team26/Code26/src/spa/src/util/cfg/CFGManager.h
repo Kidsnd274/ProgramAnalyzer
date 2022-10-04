@@ -1,14 +1,23 @@
 #ifndef SPA_CFGMANAGER_H
 #define SPA_CFGMANAGER_H
 
-#include "CFGNodeHead.h"
+#include "CFGHead.h"
+#include "CFGStandardNodeGenerator.h"
+#include "CFGIfNodeGenerator.h"
+#include "CFGWhileNodeGenerator.h"
 
 class CFGManager {
 private:
-    CFGNodeHead currentCFG;
-    CFGNode currentNode;
+    CFGHeadPtr currentCFG;
+    CFGNodeGeneratorPtr currentGenerator;
 public:
-//    void createNewCFG();
+    void createNewCFG();
+    CFGHeadPtr getCFG();
+    void addNode(int statementNumber);
+    // If generator functions
+    void addIfNode();
+    void finalizeIfPortion();
+
 };
 
 #endif //SPA_CFGMANAGER_H

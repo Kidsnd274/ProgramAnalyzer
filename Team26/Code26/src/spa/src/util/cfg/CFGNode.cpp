@@ -33,3 +33,7 @@ void CFGNode::setLeftNode(CFGNodePtr newLeftNode) {
 void CFGNode::setRightNode(CFGNodePtr newRightNode) {
     this->rightNode = std::move(newRightNode);
 }
+
+CFGNodePtr CFGNode::createNode(int statementNumber) {
+    return std::make_shared<CFGNode>(statementNumber);
+}

@@ -40,6 +40,8 @@ public:
     CFGNodePtr getRightNode();
     void setLeftNode(CFGNodePtr leftNode);
     void setRightNode(CFGNodePtr rightNode);
+
+    static CFGNodePtr createNode(int statementNumber);
 };
 
 #endif //SPA_CFGNODE_H
