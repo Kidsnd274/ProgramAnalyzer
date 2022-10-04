@@ -1,11 +1,11 @@
 #ifndef SPA_CFGMANAGER_H
 #define SPA_CFGMANAGER_H
 
-#include "CFGNodeHead.h"
+#include "CFGHead.h"
 
 class CFGManager {
 private:
-    CFGNodeHead currentCFG;
+    CFGHead currentCFG;
     CFGNode currentNode;
 public:
 //    void createNewCFG();

@@ -1,0 +1,10 @@
+#ifndef SPA_CFGNODEGENERATOR_H
+#define SPA_CFGNODEGENERATOR_H
+
+
+class CFGNodeGenerator {
+
+};
+
+
+#endif //SPA_CFGNODEGENERATOR_H

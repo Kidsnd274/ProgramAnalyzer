@@ -1,16 +1,20 @@
-#ifndef SPA_CFGNODEHEAD_H
-#define SPA_CFGNODEHEAD_H
+#ifndef SPA_CFGHEAD_H
+#define SPA_CFGHEAD_H
 
 #include "CFGNode.h"
 #include <vector>
 
-class CFGNodeHead {
+class CFGHead;
+
+typedef std::shared_ptr<CFGHead> CFGHeadPtr;
+
+class CFGHead {
 private:
     CFGNodePtr headNode;
     std::vector<CFGNodePtr> nodeArray;
     int currentStatementNumber = 1;
 public:
-    CFGNodeHead(CFGNodePtr headNode) {
+    CFGHead(CFGNodePtr headNode) {
         this->headNode = headNode;
         nodeArray[0] = headNode;
     }
@@ -20,4 +24,4 @@ public:
     CFGNodePtr getHead();
 };
 
-#endif //SPA_CFGNODEHEAD_H
+#endif //SPA_CFGHEAD_H
