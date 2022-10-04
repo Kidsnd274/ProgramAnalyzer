@@ -1,5 +1,20 @@
 #include "TokenStack.h"
 
+
+bool TokenStack::isNextTokenNonTerminal() {
+    return peekNext().isNonTerminal();
+}
+
+bool TokenStack::isNextTokenOfType(SPTokenType tokenType) {
+    return peekNext().getTokenType() == tokenType;
+}
+
+void TokenStack::checkAndUseNextToken(SPTokenType tokenType) {
+    if(getNext().getTokenType() != tokenType) {
+        throw SyntaxErrorException();
+    }
+}
+
 SPToken TokenStack::getNext() {
     if(!hasNextToken()) {
         throw EndOfFileException();

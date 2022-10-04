@@ -3,6 +3,7 @@
 #include <stack>
 #include "SPToken.h"
 #include "EndOfFileException.h"
+#include "sp/SyntaxErrorException.h"
 
 class TokenStack {
 private:
@@ -19,4 +20,7 @@ public:
     SPToken peekNext();
     bool isNextTokenAssign();
     bool isCondTokenAfterRparen();
+    void checkAndUseNextToken(SPTokenType tokenType);
+    bool isNextTokenOfType(SPTokenType tokenType);
+    bool isNextTokenNonTerminal();
 };
