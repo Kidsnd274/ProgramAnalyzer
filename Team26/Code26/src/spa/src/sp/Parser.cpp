@@ -145,7 +145,7 @@ std::shared_ptr<StatementNode> Parser::parseStatement(int stmtListNum) {
         throw SyntaxErrorException();
     }
 
-    SPTokenType t = tokenStack->peekNext().getTokenType();
+    SPTokenType t = tokenStack->peekNextTokenType();
     std::shared_ptr<StatementNode> stmt(nullptr);
 
     if(tokenStack->isNextTokenAssign() && tokenStack->isNextTokenNonTerminal()) {

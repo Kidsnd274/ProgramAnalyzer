@@ -23,4 +23,5 @@ public:
     void checkAndUseNextToken(SPTokenType tokenType);
     bool isNextTokenOfType(SPTokenType tokenType);
     bool isNextTokenNonTerminal();
+    SPTokenType peekNextTokenType();
 };

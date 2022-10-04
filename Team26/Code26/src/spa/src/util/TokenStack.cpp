@@ -1,6 +1,10 @@
 #include "TokenStack.h"
 
 
+SPTokenType TokenStack::peekNextTokenType() {
+    return peekNext().getTokenType();
+}
+
 bool TokenStack::isNextTokenNonTerminal() {
     return peekNext().isNonTerminal();
 }
