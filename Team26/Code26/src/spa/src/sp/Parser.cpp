@@ -28,7 +28,7 @@ std::shared_ptr<ProcedureNode> Parser::parseProcedure() {
     tokenStack->checkAndUseNextToken(SPTokenType::LCurlyToken);
     de->addProcedure(name);
     std::vector<std::shared_ptr<StatementNode>> stmtList = parseStatementList();
-    parseRCurly();
+    tokenStack->checkAndUseNextToken(SPTokenType::RCurlyToken);
     pkbInterface->addProcedure(name, currStatement, statementCount);
     return make_shared<ProcedureNode>(name, stmtList);
 }
@@ -184,7 +184,7 @@ std::shared_ptr<AssignNode> Parser::parseAssign(int stmtListNum) {
     int currStatement = statementCount++;
     string varAssigned = tokenStack->getNext().getTokenString();
     pkbInterface->addVariable(varAssigned);
-    parseAssignToken();
+    tokenStack->checkAndUseNextToken(SPTokenType::AssignToken);
     std::shared_ptr<TNode> expr = std::move(parseExpression());
     tokenStack->checkAndUseNextToken(SPTokenType::SemiColonToken);
     pkbInterface->addAssignStatement(currStatement, stmtListNum, expr);
@@ -198,15 +198,15 @@ std::shared_ptr<IfNode> Parser::parseIf(int stmtListNum) {
 
     tokenStack->checkAndUseNextToken(SPTokenType::LParenToken);
     std::shared_ptr<TNode> cond = std::move(parseCond());
-    parseRParen();
-    parseThen();
+    tokenStack->checkAndUseNextToken(SPTokenType::RParenToken);
+    tokenStack->checkAndUseNextToken(SPTokenType::ThenToken);
     tokenStack->checkAndUseNextToken(SPTokenType::LCurlyToken);
     std::vector<std::shared_ptr<StatementNode>> ifStatementList = parseStatementList();
-    parseRCurly();
-    parseElse();
+    tokenStack->checkAndUseNextToken(SPTokenType::RCurlyToken);
+    tokenStack->checkAndUseNextToken(SPTokenType::ElseToken);
     tokenStack->checkAndUseNextToken(SPTokenType::LCurlyToken);
     std::vector<std::shared_ptr<StatementNode>> elseStatementList = parseStatementList();
-    parseRCurly();
+    tokenStack->checkAndUseNextToken(SPTokenType::RCurlyToken);
     pkbInterface->addIfStatement(currStatement, stmtListNum);
 
     return IfNode::createIfNode(currStatement, cond, ifStatementList, elseStatementList);
@@ -215,20 +215,20 @@ std::shared_ptr<IfNode> Parser::parseIf(int stmtListNum) {
 std::shared_ptr<TNode> Parser::parseCond() {
     if(tokenStack->peekNext().getTokenType() == SPTokenType::CondToken
     && tokenStack->peekNext().getTokenString() == "!") {
-        parseCondToken();
+        tokenStack->checkAndUseNextToken(SPTokenType::CondToken);
         tokenStack->checkAndUseNextToken(SPTokenType::LParenToken);
         std::shared_ptr<TNode> cond = std::move(parseCond());
-        parseRParen();
+        tokenStack->checkAndUseNextToken(SPTokenType::RParenToken);
         return TNode::createNOTConditionalExpression(statementCount, "!", cond);
     } else if (tokenStack->peekNext().getTokenType() == SPTokenType::LParenToken && tokenStack->isCondTokenAfterRparen()) {
         tokenStack->checkAndUseNextToken(SPTokenType::LParenToken);
         std::shared_ptr<TNode> cond = std::move(parseCond());
-        parseRParen();
+        tokenStack->checkAndUseNextToken(SPTokenType::RParenToken);
         string condToken = tokenStack->peekNext().getTokenString();
-        parseCondToken();
+        tokenStack->checkAndUseNextToken(SPTokenType::CondToken);
         tokenStack->checkAndUseNextToken(SPTokenType::LParenToken);
         std::shared_ptr<TNode> cond2 = std::move(parseCond());
-        parseRParen();
+        tokenStack->checkAndUseNextToken(SPTokenType::RParenToken);
         return TNode::createConditionalExpression(statementCount, condToken, cond, cond2);
     } else {
         return parseRel();
@@ -238,7 +238,7 @@ std::shared_ptr<TNode> Parser::parseCond() {
 std::shared_ptr<TNode> Parser::parseRel() {
     std::shared_ptr<TNode> relFactor = std::move(parseExpression());
     string relToken = tokenStack->peekNext().getTokenString();
-    parseRelationToken();
+    tokenStack->checkAndUseNextToken(SPTokenType::RelationToken);
     std::shared_ptr<TNode> relFactor2 = std::move(parseExpression());
 
     return TNode::createRelationalExpression(statementCount, relToken, relFactor, relFactor2);
@@ -263,10 +263,10 @@ std::shared_ptr<WhileNode> Parser::parseWhile(int stmtListNum) {
     int currStatement = statementCount++;
     tokenStack->checkAndUseNextToken(SPTokenType::LParenToken);
     std::shared_ptr<TNode> cond = std::move(parseCond());
-    parseRParen();
+    tokenStack->checkAndUseNextToken(SPTokenType::RParenToken);
     tokenStack->checkAndUseNextToken(SPTokenType::LCurlyToken);
     std::vector<std::shared_ptr<StatementNode>> statementList = parseStatementList();
-    parseRCurly();
+    tokenStack->checkAndUseNextToken(SPTokenType::RCurlyToken);
 
     pkbInterface->addWhileStatement(currStatement, stmtListNum);
 
@@ -350,7 +350,7 @@ std::shared_ptr<TNode> Parser::parseFactor() {
     } else {
         tokenStack->checkAndUseNextToken(SPTokenType::LParenToken);
         std::shared_ptr<TNode> expr = std::move(parseExpression());
-        parseRParen();
+        tokenStack->checkAndUseNextToken(SPTokenType::RParenToken);
         return expr;
     }
 }
