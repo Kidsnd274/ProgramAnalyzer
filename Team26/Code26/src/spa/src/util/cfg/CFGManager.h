@@ -5,10 +5,9 @@
 
 class CFGManager {
 private:
-    CFGHead currentCFG;
-    CFGNode currentNode;
+    CFGHeadPtr currentCFG;
 public:
-//    void createNewCFG();
+    
 };
 
 #endif //SPA_CFGMANAGER_H

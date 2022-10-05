@@ -1,13 +1,17 @@
 #include "CFGHead.h"
 
-void CFGHead::addCFGNode(CFGNodePtr newNode) {
-    nodeArray[currentStatementNumber - 1] = newNode;
+void CFGHead::connectNode(CFGNode node1, CFGNode node2)  {
+    if (node1.isDummyNode()) {
+        dummyAdjList[node1.getStmtNumber()].push_back(node2);
+    } else {
+        adjList[node1.getStmtNumber()].push_back(node2);
+    }
 }
 
-CFGNodePtr CFGHead::getCFGNode(int statementNumber) {
-    return nodeArray[statementNumber - 1];
+EDGES CFGHead::getEdges(STMT_NUM stmtNumber) {
+    return adjList[stmtNumber];
 }
 
-CFGNodePtr CFGHead::getHead() {
-    return headNode;
+EDGES CFGHead::getDummyNodeEdges(STMT_NUM stmtNumber) {
+    return dummyAdjList[stmtNumber];
 }

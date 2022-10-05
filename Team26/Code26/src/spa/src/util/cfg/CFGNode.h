@@ -9,37 +9,22 @@ enum class CFGNodeType {
     DummyNode
 };
 
-class CFGNode; // Forward declaration
-
-typedef std::shared_ptr<CFGNode> CFGNodePtr;
-
 class CFGNode {
 private:
     int statementNumber;
-    CFGNodePtr leftNode;
-    CFGNodePtr rightNode;
+    CFGNodeType nodeType;
 
 public:
-    CFGNode(int statementNumber) {
+    CFGNode(int statementNumber, CFGNodeType nodeType) {
         this->statementNumber = statementNumber;
-        this->leftNode = nullptr;
-        this->rightNode = nullptr;
+        this->nodeType = nodeType;
     }
 
-    CFGNode(int statementNumber, CFGNodePtr leftNode, CFGNodePtr rightNode) {
-        this->statementNumber = statementNumber;
-        this->leftNode = std::move(leftNode);
-        this->rightNode = std::move(rightNode);
-    }
-
-    int getStatementNumber() const;
-    bool isThereLeftNode();
-    bool isThereRightNode();
-    bool areThereEdges(); // If Node is not connected to any other edges
-    CFGNodePtr getLeftNode();
-    CFGNodePtr getRightNode();
-    void setLeftNode(CFGNodePtr leftNode);
-    void setRightNode(CFGNodePtr rightNode);
+    int getStmtNumber() const;
+    CFGNodeType getNodeType();
+    bool isDummyNode();
+    static CFGNode newNode(int statementNumber);
+    static CFGNode newDummyNode(int statementNumber);
 };
 
 #endif //SPA_CFGNODE_H

@@ -2,34 +2,22 @@
 
 #include <utility>
 
-int CFGNode::getStatementNumber() const {
+int CFGNode::getStmtNumber() const {
     return statementNumber;
 }
 
-bool CFGNode::isThereLeftNode() {
-    return (leftNode != nullptr);
+CFGNodeType CFGNode::getNodeType() {
+    return nodeType;
 }
 
-bool CFGNode::isThereRightNode() {
-    return (rightNode != nullptr);
+bool CFGNode::isDummyNode() {
+    return nodeType == CFGNodeType::DummyNode;
 }
 
-bool CFGNode::areThereEdges() {
-    return !(leftNode == nullptr && rightNode == nullptr);
+CFGNode CFGNode::newNode(int statementNumber) {
+    return {statementNumber, CFGNodeType::NormalNode};
 }
 
-CFGNodePtr CFGNode::getLeftNode() {
-    return leftNode;
-}
-
-CFGNodePtr CFGNode::getRightNode() {
-    return rightNode;
-}
-
-void CFGNode::setLeftNode(CFGNodePtr newLeftNode) {
-    this->leftNode = std::move(newLeftNode);
-}
-
-void CFGNode::setRightNode(CFGNodePtr newRightNode) {
-    this->rightNode = std::move(newRightNode);
+CFGNode CFGNode::newDummyNode(int statementNumber) {
+    return {statementNumber, CFGNodeType::DummyNode};
 }

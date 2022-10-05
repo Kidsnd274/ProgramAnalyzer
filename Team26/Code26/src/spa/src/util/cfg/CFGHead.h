@@ -2,26 +2,24 @@
 #define SPA_CFGHEAD_H
 
 #include "CFGNode.h"
+#include <unordered_map>
 #include <vector>
 
 class CFGHead;
 
 typedef std::shared_ptr<CFGHead> CFGHeadPtr;
+typedef int STMT_NUM;
+typedef std::vector<CFGNode> EDGES;
+typedef std::unordered_map<STMT_NUM , EDGES> CFGMap;
 
 class CFGHead {
 private:
-    CFGNodePtr headNode;
-    std::vector<CFGNodePtr> nodeArray;
-    int currentStatementNumber = 1;
+     CFGMap adjList;
+     CFGMap dummyAdjList;
 public:
-    CFGHead(CFGNodePtr headNode) {
-        this->headNode = headNode;
-        nodeArray[0] = headNode;
-    }
-
-    void addCFGNode(CFGNodePtr newNode);
-    CFGNodePtr getCFGNode(int statementNumber);
-    CFGNodePtr getHead();
+    void connectNode(CFGNode node1, CFGNode node2);
+    EDGES getEdges(STMT_NUM stmtNumber);
+    EDGES getDummyNodeEdges(STMT_NUM stmtNumber);
 };
 
 #endif //SPA_CFGHEAD_H
