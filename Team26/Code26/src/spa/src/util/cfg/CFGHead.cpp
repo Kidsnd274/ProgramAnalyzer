@@ -15,3 +15,7 @@ EDGES CFGHead::getEdges(STMT_NUM stmtNumber) {
 EDGES CFGHead::getDummyNodeEdges(STMT_NUM stmtNumber) {
     return dummyAdjList[stmtNumber];
 }
+
+CFGHeadPtr CFGHead::createNewCFG() {
+    return std::make_shared<CFGHead>();
+}

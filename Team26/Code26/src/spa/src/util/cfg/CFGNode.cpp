@@ -6,7 +6,7 @@ int CFGNode::getStmtNumber() const {
     return statementNumber;
 }
 
-CFGNodeType CFGNode::getNodeType() {
+CFGNodeType CFGNode::getNodeType() const {
     return nodeType;
 }
 
@@ -20,4 +20,14 @@ CFGNode CFGNode::newNode(int statementNumber) {
 
 CFGNode CFGNode::newDummyNode(int statementNumber) {
     return {statementNumber, CFGNodeType::DummyNode};
+}
+
+bool operator== (CFGNode leftNode, CFGNode rightNode) {
+    bool cond1 = leftNode.getStmtNumber() == rightNode.getStmtNumber();
+    bool cond2 = leftNode.getNodeType() == rightNode.getNodeType();
+    return (cond1 && cond2);
+}
+
+bool operator!= (CFGNode leftNode, CFGNode rightNode) {
+    return !(leftNode == rightNode);
 }

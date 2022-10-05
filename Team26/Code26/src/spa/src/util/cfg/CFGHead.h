@@ -20,6 +20,7 @@ public:
     void connectNode(CFGNode node1, CFGNode node2);
     EDGES getEdges(STMT_NUM stmtNumber);
     EDGES getDummyNodeEdges(STMT_NUM stmtNumber);
+    static CFGHeadPtr createNewCFG();
 };
 
 #endif //SPA_CFGHEAD_H

@@ -20,8 +20,9 @@ bool SPToken::isNonTerminal() {
 bool operator== (const SPToken &leftToken, const SPToken &rightToken) {
     bool cond1 = leftToken.getTokenType() == rightToken.getTokenType();
     bool cond2 = leftToken.getTokenString() == rightToken.getTokenString();
-    if (cond1 && cond2) {
-        return true;
-    }
-    return false;
+    return (cond1 && cond2);
+}
+
+bool operator!= (const SPToken &leftToken, const SPToken &rightToken) {
+    return !(leftToken == rightToken);
 }

@@ -21,10 +21,12 @@ public:
     }
 
     int getStmtNumber() const;
-    CFGNodeType getNodeType();
+    CFGNodeType getNodeType() const;
     bool isDummyNode();
     static CFGNode newNode(int statementNumber);
     static CFGNode newDummyNode(int statementNumber);
 };
 
+bool operator== (CFGNode leftNode, CFGNode rightNode);
+bool operator!= (CFGNode leftNode, CFGNode rightNode);
 #endif //SPA_CFGNODE_H
