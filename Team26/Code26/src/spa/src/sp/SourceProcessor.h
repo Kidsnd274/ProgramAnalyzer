@@ -15,4 +15,8 @@ public:
     }
 
     void processSIMPLE(std::string sourceFile);
+
+    // Methods for QPS
+    static bool checkExpressionString(std::string exprString);
+    static std::shared_ptr<TNode> parseExpressionFromString(std::string exprString);
 };

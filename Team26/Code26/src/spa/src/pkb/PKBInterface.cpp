@@ -23,6 +23,8 @@
 #include "ParentStarTable.h"
 #include "FollowsTable.h"
 #include "FollowsStarTable.h"
+#include "CallTable.h"
+#include "CallStarTable.h"
 
 using namespace std;
 //using namespace StatementType;
@@ -86,6 +88,14 @@ void PKBInterface::addPrintStatement(int statementNumber, int statementListNumbe
     pkb->statementTable->insertStmt(stmt);
 }
 
+void PKBInterface::addCallStatement(int statementNumber, int statementListNumber) {
+    Statement stmt;
+    stmt.type = StatementType::CALL;
+    stmt.lineNumber = statementNumber;
+    stmt.statementListNumber = statementListNumber;
+    pkb->statementTable->insertStmt(stmt);
+}
+
 void PKBInterface::addModifies(int statementNumber, string varName) {
     pkb->modifiesTable->insertModifies(statementNumber, std::move(varName));
 }
@@ -108,6 +118,14 @@ void PKBInterface::addFollows(int frontStatementNumber, int backStatementNumber)
 
 void PKBInterface::addFollowsStar(int frontStatementNumber, int backStatementNumber) {
     pkb->followsStarTable->insertFollowsStar(frontStatementNumber, backStatementNumber);
+}
+
+void PKBInterface::addCall(std::string procedureName, std::string procedureCalled) {
+    pkb->callTable->insertCall(procedureName, procedureCalled);
+}
+
+void PKBInterface::addCallStar(std::string procedureName, std::string procedureCalled) {
+    pkb->callStarTable->insertCallStar(procedureName, procedureCalled);
 }
 
 vector<string> PKBInterface::getAllEntity(EntityType type) {
@@ -300,6 +318,12 @@ bool PKBInterface::existRelation(const RelationStruct& relation) {
                 }
             }
             break;
+        case QPS::CALLS:
+            result = pkb->callTable->existCall(arg1.nameOfArgument, arg2.nameOfArgument);
+            break;
+        case QPS::CALLS_P:
+            result = pkb->callStarTable->existCallStar(arg1.nameOfArgument, arg2.nameOfArgument);
+            break;
         default:
             result = false;
             break;
@@ -342,18 +366,20 @@ std::unordered_set<int> PKBInterface::getParentStar(int statementNumber) {
     return std::unordered_set<int>();
 }
 
-void PKBInterface::addCall(std::string procedureName, std::string procedureCalled) {
-
-}
-
-void PKBInterface::addCallStar(std::string procedureName, std::string procedureCalled) {
-
-}
-
 std::unordered_set<string> PKBInterface::getCall(std::string procedure) {
-    return std::unordered_set<string>();
+    std::vector<std::string> procsCalled = pkb->callTable->getProcsCalled(procedure);
+    std::unordered_set<string> result;
+    for (std::string proc: procsCalled) {
+        result.insert(proc);
+    }
+    return result;
 }
 
 std::unordered_set<string> PKBInterface::getCallStar(std::string procedure) {
-    return std::unordered_set<string>();
+    std::vector<std::string> procsStarCalled = pkb->callStarTable->getProcsStarCalled(procedure);
+    std::unordered_set<string> result;
+    for (std::string proc: procsStarCalled) {
+        result.insert(proc);
+    }
+    return result;
 }
