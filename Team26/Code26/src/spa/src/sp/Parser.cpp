@@ -218,7 +218,7 @@ std::shared_ptr<CallNode> Parser::parseCall(int stmtListNum) {
     CallStruct cs(currStatement, varName);
     de->addCallStatement(cs);
 
-    //pkbInterface->addCallStatement(currStatement, stmtListNum);
+    pkbInterface->addCallStatement(currStatement, stmtListNum);
     return CallNode::createCallNode(currStatement, varName);
 }
 
