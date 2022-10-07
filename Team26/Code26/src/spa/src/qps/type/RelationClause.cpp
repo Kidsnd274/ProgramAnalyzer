@@ -8,14 +8,20 @@ Argument RelationClause::getSecondArgument() {
     return this->argument2;
 };
 
-void RelationClause::setFirstArgument(Argument argument) {
+void RelationClause::setFirstArgument(const Argument& argument) {
     this->argument1 = argument;
 }
 
-void RelationClause::setSecondArgument(Argument argument) {
+void RelationClause::setSecondArgument(const Argument& argument) {
     this->argument2 = argument;
 }
 
 bool RelationClause::isValid() {
+    auto iter = this->validationTable.find(this->argument1.argumentType);
+    if (iter != this->validationTable.end()) {
+        if (iter->second.find(this->argument2.argumentType) != iter->second.end()) {
+            return true;
+        }
+    }
     return false;
 }
