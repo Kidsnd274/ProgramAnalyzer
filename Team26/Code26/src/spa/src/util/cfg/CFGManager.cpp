@@ -2,6 +2,7 @@
 
 void CFGManager::createNewCFG() {
     currentCFG = CFGHead::createNewCFG();
+    parentNode = {-1, CFGNodeType::NullNode};
 }
 
 CFGHeadPtr CFGManager::getCurrentCFG() {
