@@ -7,6 +7,7 @@ class Follows : RelationClause {
 protected:
     const static std::unordered_map<ArgumentType, std::unordered_set<ArgumentType>> validationTable;
 
+public:
     Follows(Argument arg1, Argument arg2) : RelationClause(arg1, arg2) {
     }
 };
