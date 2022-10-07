@@ -9,10 +9,16 @@ void CFGHead::connectNode(CFGNode node1, CFGNode node2)  {
 }
 
 EDGES CFGHead::getEdges(STMT_NUM stmtNumber) {
+    if (adjList.find(stmtNumber) == adjList.end()) {
+        return {};
+    }
     return adjList[stmtNumber];
 }
 
 EDGES CFGHead::getDummyNodeEdges(STMT_NUM stmtNumber) {
+    if (dummyAdjList.find(stmtNumber) == dummyAdjList.end()) {
+        return {};
+    }
     return dummyAdjList[stmtNumber];
 }
 
