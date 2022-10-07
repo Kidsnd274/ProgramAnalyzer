@@ -1,4 +1,5 @@
 #include "CFGManager.h"
+#include <iostream>
 
 void CFGManager::createNewCFG() {
     currentCFG = CFGHead::createNewCFG();
@@ -10,7 +11,8 @@ CFGHeadPtr CFGManager::getCurrentCFG() {
 }
 
 void CFGManager::addStandardNode(STMT_NUM stmtNum) {
-    CFGNode newNode = CFGNode::newNode(stmtNum);
+    CFGNode newNode = CFGNode::node(stmtNum);
+    std::cout << "connecting " << parentNode.getStmtNumber() << ", " << newNode.getStmtNumber() << std::endl;
     if (!parentNode.isNullNode()) {
         currentCFG->connectNode(parentNode, newNode);
     }
@@ -18,7 +20,7 @@ void CFGManager::addStandardNode(STMT_NUM stmtNum) {
 }
 
 void CFGManager::addDummyNode(STMT_NUM stmtNum) {
-    CFGNode newNode = CFGNode::newDummyNode(stmtNum);
+    CFGNode newNode = CFGNode::dummyNode(stmtNum);
     if (!parentNode.isNullNode()) { // DummyNode stmt number should refer to the if stmt number
         currentCFG->connectNode(parentNode, newNode);
     }
@@ -29,15 +31,19 @@ void CFGManager::setParentNode(CFGNode newParentNode) {
     this->parentNode = newParentNode;
 }
 
-void CFGManager::finalizeIfPortionOfStatement(STMT_NUM ifNode) {
+void CFGManager::finalizeIfPortionOfIfStatement(STMT_NUM ifNode) {
     addDummyNode(ifNode);
-    setParentNode(CFGNode::newNode(ifNode));
+    setParentNode(CFGNode::node(ifNode));
 }
 
 
 
 void CFGManager::finalizeWhileStatement(STMT_NUM whileNode) {
-    currentCFG->connectNode(parentNode, CFGNode::newNode(whileNode));
+    currentCFG->connectNode(parentNode, CFGNode::node(whileNode));
     setParentNode(parentNode);
     addDummyNode(whileNode);
+}
+
+void CFGManager::finalizeElsePortionOfIfStatement(STMT_NUM ifNode) {
+    addDummyNode(ifNode);
 }

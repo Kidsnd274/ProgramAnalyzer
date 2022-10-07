@@ -25,8 +25,8 @@ public:
     CFGNodeType getNodeType() const;
     bool isDummyNode();
     bool isNullNode();
-    static CFGNode newNode(int statementNumber);
-    static CFGNode newDummyNode(int statementNumber);
+    static CFGNode node(int statementNumber);
+    static CFGNode dummyNode(int statementNumber);
 };
 
 bool operator== (CFGNode leftNode, CFGNode rightNode);

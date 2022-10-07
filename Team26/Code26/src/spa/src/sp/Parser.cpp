@@ -206,14 +206,13 @@ std::shared_ptr<IfNode> Parser::parseIf(int stmtListNum) {
     parseLCurly();
     std::vector<std::shared_ptr<StatementNode>> ifStatementList = parseStatementList();
     parseRCurly();
-    cfgManager->finalizeIfPortionOfStatement(currStatement);
+    cfgManager->finalizeIfPortionOfIfStatement(currStatement);
     parseElse();
     parseLCurly();
     std::vector<std::shared_ptr<StatementNode>> elseStatementList = parseStatementList();
     parseRCurly();
-    cfgManager->addDummyNode(currStatement); // Connects last else stmt to DummyNode
+    cfgManager->finalizeElsePortionOfIfStatement(currStatement); // Connects last else stmt to DummyNode
     pkbInterface->addIfStatement(currStatement, stmtListNum);
-
     return IfNode::createIfNode(currStatement, cond, ifStatementList, elseStatementList);
 }
 

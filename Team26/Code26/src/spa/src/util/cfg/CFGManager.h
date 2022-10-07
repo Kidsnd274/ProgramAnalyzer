@@ -5,7 +5,7 @@
 
 class CFGManager {
 private:
-    CFGHeadPtr currentCFG = nullptr;
+    CFGHeadPtr currentCFG = CFGHead::createNewCFG();
     CFGNode parentNode = {-1, CFGNodeType::NullNode};
 public:
     void createNewCFG(); // Also resets CFG
@@ -13,7 +13,8 @@ public:
     void addStandardNode(STMT_NUM stmtNum);
     void addDummyNode(STMT_NUM stmtNum);
     void setParentNode(CFGNode parentNode);
-    void finalizeIfPortionOfStatement(STMT_NUM ifNode);
+    void finalizeIfPortionOfIfStatement(STMT_NUM ifNode);
+    void finalizeElsePortionOfIfStatement(STMT_NUM ifNode);
     void finalizeWhileStatement(STMT_NUM whileNode);
 };
 
