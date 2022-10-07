@@ -29,7 +29,8 @@ class RelationClause {
 private:
     Argument argument1;
     Argument argument2;
-    std::unordered_map<ArgumentType, std::unordered_set<ArgumentType>> validationTable;
+protected:
+    const static std::unordered_map<ArgumentType, std::unordered_set<ArgumentType>> validationTable;
 
 public:
     RelationClause(Argument& arg1, Argument& arg2) :
@@ -56,6 +57,5 @@ public:
 
     virtual bool isValid();
 };
-
 
 #endif //SPA_RELATIONCLAUSE_H

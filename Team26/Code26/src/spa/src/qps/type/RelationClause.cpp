@@ -1,7 +1,7 @@
 #include "RelationClause.h"
 
 Argument RelationClause::getFirstArgument() {
-    return this.argument1;
+    return this->argument1;
 }
 
 Argument RelationClause::getSecondArgument() {
@@ -17,8 +17,8 @@ void RelationClause::setSecondArgument(const Argument& argument) {
 }
 
 bool RelationClause::isValid() {
-    auto iter = this->validationTable.find(this->argument1.argumentType);
-    if (iter != this->validationTable.end()) {
+    auto iter = RelationClause::validationTable.find(this->argument1.argumentType);
+    if (iter != RelationClause::validationTable.end()) {
         if (iter->second.find(this->argument2.argumentType) != iter->second.end()) {
             return true;
         }
