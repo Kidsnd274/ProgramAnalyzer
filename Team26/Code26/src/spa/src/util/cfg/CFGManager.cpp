@@ -40,7 +40,7 @@ void CFGManager::finalizeIfPortionOfIfStatement(STMT_NUM ifNode) {
 
 void CFGManager::finalizeWhileStatement(STMT_NUM whileNode) {
     currentCFG->connectNode(parentNode, CFGNode::node(whileNode));
-    setParentNode(parentNode);
+    setParentNode(CFGNode::node(whileNode));
     addDummyNode(whileNode);
 }
 
