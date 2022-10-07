@@ -1,5 +1,4 @@
 #include "CFGManager.h"
-#include <iostream>
 
 void CFGManager::createNewCFG() {
     currentCFG = CFGHead::createNewCFG();
@@ -12,7 +11,6 @@ CFGHeadPtr CFGManager::getCurrentCFG() {
 
 void CFGManager::addStandardNode(STMT_NUM stmtNum) {
     CFGNode newNode = CFGNode::node(stmtNum);
-    std::cout << "connecting " << parentNode.getStmtNumber() << ", " << newNode.getStmtNumber() << std::endl;
     if (!parentNode.isNullNode()) {
         currentCFG->connectNode(parentNode, newNode);
     }
