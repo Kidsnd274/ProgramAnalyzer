@@ -6,7 +6,8 @@
 
 enum class CFGNodeType {
     NormalNode,
-    DummyNode
+    DummyNode,
+    NullNode,
 };
 
 class CFGNode {
@@ -23,6 +24,7 @@ public:
     int getStmtNumber() const;
     CFGNodeType getNodeType() const;
     bool isDummyNode();
+    bool isNullNode();
     static CFGNode newNode(int statementNumber);
     static CFGNode newDummyNode(int statementNumber);
 };

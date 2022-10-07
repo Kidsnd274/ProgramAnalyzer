@@ -22,6 +22,10 @@ CFGNode CFGNode::newDummyNode(int statementNumber) {
     return {statementNumber, CFGNodeType::DummyNode};
 }
 
+bool CFGNode::isNullNode() {
+    return nodeType == CFGNodeType::NullNode;
+}
+
 bool operator== (CFGNode leftNode, CFGNode rightNode) {
     bool cond1 = leftNode.getStmtNumber() == rightNode.getStmtNumber();
     bool cond2 = leftNode.getNodeType() == rightNode.getNodeType();

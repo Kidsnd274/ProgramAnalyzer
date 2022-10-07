@@ -7,6 +7,7 @@
 #include "util/Lexer.h"
 #include "util/TokenStack.h"
 #include "util/ast/TNode.h"
+#include "util/cfg/CFGManager.h"
 #include "de/DesignExtractor.h"
 
 class Parser {
@@ -16,6 +17,7 @@ private:
     int statementListNumber;
     PKBInterface* pkbInterface;
     DesignExtractorInterface* de;
+    std::shared_ptr<CFGManager> cfgManager;
 
     Parser(std::vector<SPToken> ts) {
         tokenStack = new TokenStack(std::move(ts));
@@ -23,6 +25,7 @@ private:
         this->statementListNumber = 1;
         pkbInterface = nullptr;
         de = nullptr;
+        cfgManager = std::make_shared<CFGManager>();
     }
 
 public:
@@ -32,11 +35,26 @@ public:
         statementListNumber = 1;
         pkbInterface = pkbParserInterface;
         de = new DesignExtractor(pkbInterface);
+        cfgManager = std::make_shared<CFGManager>();
+    }
+
+    // For testing CFG Generation
+    Parser(std::vector<SPToken> ts, PKBInterface* pkbParserInterface, std::shared_ptr<CFGManager> cfgManager) {
+        tokenStack = new TokenStack(ts);
+        statementCount = 1;
+        statementListNumber = 1;
+        pkbInterface = pkbParserInterface;
+        de = new DesignExtractor(pkbInterface);
+        this->cfgManager = std::move(cfgManager);
+
     }
 
     ~Parser() {
         delete tokenStack;
+        tokenStack = nullptr;
         delete de;
+        de = nullptr;
+        cfgManager = nullptr;
     }
 
     void parseSimple();

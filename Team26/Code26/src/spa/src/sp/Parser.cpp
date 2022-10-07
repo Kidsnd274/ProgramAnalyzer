@@ -27,6 +27,7 @@ std::shared_ptr<ProcedureNode> Parser::parseProcedure() {
     std::string name = parseName();
     parseLCurly();
     de->addProcedure(name);
+    cfgManager->createNewCFG();
     std::vector<std::shared_ptr<StatementNode>> stmtList = parseStatementList();
     parseRCurly();
     pkbInterface->addProcedure(name, currStatement, statementCount);
@@ -188,6 +189,7 @@ std::shared_ptr<AssignNode> Parser::parseAssign(int stmtListNum) {
     std::shared_ptr<TNode> expr = std::move(parseExpression());
     parseSemiColon();
     pkbInterface->addAssignStatement(currStatement, stmtListNum, expr);
+    cfgManager->addStandardNode(currStatement);
 
     return AssignNode::createAssignNode(currStatement, varAssigned, expr);
 }
@@ -195,6 +197,7 @@ std::shared_ptr<AssignNode> Parser::parseAssign(int stmtListNum) {
 std::shared_ptr<IfNode> Parser::parseIf(int stmtListNum) {
     tokenStack->getNext(); //consume If SPToken.
     int currStatement = statementCount++;
+    cfgManager->addStandardNode(currStatement);
 
     parseLParen();
     std::shared_ptr<TNode> cond = std::move(parseCond());
@@ -203,10 +206,12 @@ std::shared_ptr<IfNode> Parser::parseIf(int stmtListNum) {
     parseLCurly();
     std::vector<std::shared_ptr<StatementNode>> ifStatementList = parseStatementList();
     parseRCurly();
+    cfgManager->finalizeIfPortionOfStatement(currStatement);
     parseElse();
     parseLCurly();
     std::vector<std::shared_ptr<StatementNode>> elseStatementList = parseStatementList();
     parseRCurly();
+    cfgManager->addDummyNode(currStatement); // Connects last else stmt to DummyNode
     pkbInterface->addIfStatement(currStatement, stmtListNum);
 
     return IfNode::createIfNode(currStatement, cond, ifStatementList, elseStatementList);
@@ -261,6 +266,7 @@ std::shared_ptr<TNode> Parser::parseRelFactor() {
 std::shared_ptr<WhileNode> Parser::parseWhile(int stmtListNum) {
     tokenStack->getNext(); //consume While SPToken
     int currStatement = statementCount++;
+    cfgManager->addStandardNode(currStatement);
     parseLParen();
     std::shared_ptr<TNode> cond = std::move(parseCond());
     parseRParen();
@@ -268,6 +274,7 @@ std::shared_ptr<WhileNode> Parser::parseWhile(int stmtListNum) {
     std::vector<std::shared_ptr<StatementNode>> statementList = parseStatementList();
     parseRCurly();
 
+    cfgManager->finalizeWhileStatement(currStatement);
     pkbInterface->addWhileStatement(currStatement, stmtListNum);
 
     return WhileNode::createWhileNode(currStatement, cond, statementList);
@@ -280,6 +287,7 @@ std::shared_ptr<ReadNode> Parser::parseRead(int stmtListNum) {
     pkbInterface->addVariable(varName);
     parseSemiColon();
 
+    cfgManager->addStandardNode(currStatement);
     pkbInterface->addReadStatement(currStatement, stmtListNum);
 
     return ReadNode::createReadNode(currStatement, varName);
@@ -292,6 +300,7 @@ std::shared_ptr<PrintNode> Parser::parsePrint(int stmtListNum) {
     pkbInterface->addVariable(varName);
     parseSemiColon();
 
+    cfgManager->addStandardNode(currStatement);
     pkbInterface->addPrintStatement(currStatement, stmtListNum);
 
     return PrintNode::createPrintNode(currStatement, varName);
@@ -307,6 +316,7 @@ std::shared_ptr<CallNode> Parser::parseCall(int stmtListNum) {
     CallStruct cs(currStatement, varName);
     de->addCallStatement(cs);
 
+    cfgManager->addStandardNode(currStatement);
     pkbInterface->addCallStatement(currStatement, stmtListNum);
     return CallNode::createCallNode(currStatement, varName);
 }

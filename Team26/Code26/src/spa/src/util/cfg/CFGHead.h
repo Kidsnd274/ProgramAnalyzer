@@ -10,7 +10,7 @@ class CFGHead;
 typedef std::shared_ptr<CFGHead> CFGHeadPtr;
 typedef int STMT_NUM;
 typedef std::vector<CFGNode> EDGES;
-typedef std::unordered_map<STMT_NUM , EDGES> CFGMap;
+typedef std::unordered_map<STMT_NUM, EDGES> CFGMap;
 
 class CFGHead {
 private:
