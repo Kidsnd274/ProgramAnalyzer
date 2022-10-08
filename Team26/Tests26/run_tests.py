@@ -26,7 +26,7 @@ locations_windows = [codedir / "cmake-build-debug" / "src" / "autotester" / "Deb
                      codedir / "build" / "src" / "autotester" / "Release" / "autotester.exe"]
 
 locations_mac = [codedir / "cmake-build-debug" / "src" / "autotester" / "autotester",
-                 testdir.parent.parent / "build" / "src" / "autotester" / "autotester"]
+                 testdir.parent.parent.parent / "build" / "src" / "autotester" / "autotester"]
 
 autotester = pathlib.Path()
 
