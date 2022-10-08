@@ -23,10 +23,10 @@ print(testdir)
 
 # Find autotester executable
 locations_windows = [codedir / "cmake-build-debug" / "src" / "autotester" / "Debug" / "autotester.exe",
-             codedir / "build" / "src" / "autotester" / "Release" / "autotester.exe"]
+                     codedir / "build" / "src" / "autotester" / "Release" / "autotester.exe"]
 
 locations_mac = [codedir / "cmake-build-debug" / "src" / "autotester" / "autotester",
-                codedir / "build" / "src" / "autotester" / "autotester"]
+                 testdir.parent.parent.parent / "build" / "src" / "autotester" / "autotester"]
 
 autotester = pathlib.Path()
 
@@ -116,7 +116,6 @@ tests = [TestCase("milestone1_test1", milestone1),
          TestCase("test_relationship", milestone1)]
 
 run_multiple_tests(tests, "Milestone 1")
-
 
 print("")
 if failed_tests:
