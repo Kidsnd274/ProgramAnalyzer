@@ -10,12 +10,13 @@ class CFGHead;
 typedef std::shared_ptr<CFGHead> CFGHeadPtr;
 typedef int STMT_NUM;
 typedef std::vector<CFGNode> EDGES;
-typedef std::unordered_multimap<STMT_NUM, CFGNode> CFGMap;
+typedef std::vector<std::vector<EDGES>> CFGMap;
+typedef std::unordered_map<STMT_NUM, CFGNode> CFGAdjMap;
 
 class CFGHead {
 private:
      CFGMap adjList;
-     CFGMap dummyAdjList;
+     CFGAdjMap dummyAdjList;
 public:
     void connectNode(CFGNode node1, CFGNode node2);
     EDGES getEdges(STMT_NUM stmtNumber);
