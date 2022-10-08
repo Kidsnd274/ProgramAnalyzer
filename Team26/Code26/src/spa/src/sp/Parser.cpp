@@ -255,22 +255,27 @@ std::shared_ptr<TNode> Parser::parseTerm() {
 }
 
 std::shared_ptr<TNode> Parser::parseFactor() {
-    if(tokenStack->peekNext().isNonTerminal()) {
+    if(tokenStack->isNextTokenNonTerminal()) {
         std::string name = tokenStack->checkAndReturnNextToken(SPTokenType::NameToken);
+
         if (pkbInterface) { // TODO: Write Integration tests for Parser and PKB, unsure if this works
             pkbInterface->addVariable(name);
         }
+
         return TNode::createVariableName(statementCount, name);
-    } else if (tokenStack->peekNext().getTokenType() == SPTokenType::ConstToken) {
+    } else if (tokenStack->isNextTokenOfType(SPTokenType::ConstToken)) {
         std::string constant = tokenStack->checkAndReturnNextToken(SPTokenType::ConstToken);
+
         if (pkbInterface) {
             pkbInterface->addConst(std::stoi(constant));
         }
+
         return TNode::createConstantValue(statementCount, constant);
     } else {
         tokenStack->checkAndUseNextToken(SPTokenType::LParenToken);
         std::shared_ptr<TNode> expr = std::move(parseExpression());
         tokenStack->checkAndUseNextToken(SPTokenType::RParenToken);
+
         return expr;
     }
 }
@@ -279,5 +284,6 @@ std::shared_ptr<TNode> Parser::parseExpressionFromString(std::string exprString)
     Lexer lexer(std::move(exprString));
     std::vector<SPToken> tokenStack = lexer.tokenize();
     Parser customParser = Parser(std::move(tokenStack));
+
     return customParser.parseExpression();
 }
