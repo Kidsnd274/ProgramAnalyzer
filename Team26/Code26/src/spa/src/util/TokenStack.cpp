@@ -22,10 +22,12 @@ bool TokenStack::isNextTokenOfType(SPTokenType tokenType) {
     return peekNext().getTokenType() == tokenType;
 }
 
-void TokenStack::checkAndUseNextToken(SPTokenType tokenType) {
+bool TokenStack::checkAndUseNextToken(SPTokenType tokenType) {
     if(getNext().getTokenType() != tokenType) {
         throw SyntaxErrorException();
     }
+
+    return true;
 }
 
 SPToken TokenStack::getNext() {

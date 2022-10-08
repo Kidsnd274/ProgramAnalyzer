@@ -20,7 +20,7 @@ public:
     SPToken peekNext();
     bool isNextTokenAssign();
     bool isCondTokenAfterRparen();
-    void checkAndUseNextToken(SPTokenType tokenType);
+    bool checkAndUseNextToken(SPTokenType tokenType);
     bool isNextTokenOfType(SPTokenType tokenType);
     bool isNextTokenNonTerminal();
     SPTokenType peekNextTokenType();
