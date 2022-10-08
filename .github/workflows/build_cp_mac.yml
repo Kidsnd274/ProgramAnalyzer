@@ -68,4 +68,3 @@ jobs:
         run: |
           cd Team26/Tests26
           python ./run_tests.py
-          python ./run_tests.py
