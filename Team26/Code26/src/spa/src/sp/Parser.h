@@ -42,6 +42,10 @@ public:
     void parseSimple();
     std::shared_ptr<ProcedureNode> parseProcedure();
 
+    //Methods related to pkb
+    void addVariableToPkbIfExist(std::string var);
+    void addConstToPkbIfExist(std::string cons);
+
     //Methods that return shared_ptr to StatementNode
     std::vector<std::shared_ptr<StatementNode>> parseStatementList();
     std::shared_ptr<StatementNode> parseStatement(int stmtListNum);

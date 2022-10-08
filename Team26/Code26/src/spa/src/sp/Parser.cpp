@@ -257,18 +257,12 @@ std::shared_ptr<TNode> Parser::parseTerm() {
 std::shared_ptr<TNode> Parser::parseFactor() {
     if(tokenStack->isNextTokenNonTerminal()) {
         std::string name = tokenStack->checkAndReturnNextToken(SPTokenType::NameToken);
-
-        if (pkbInterface) { // TODO: Write Integration tests for Parser and PKB, unsure if this works
-            pkbInterface->addVariable(name);
-        }
+        addVariableToPkbIfExist(name);
 
         return TNode::createVariableName(statementCount, name);
     } else if (tokenStack->isNextTokenOfType(SPTokenType::ConstToken)) {
         std::string constant = tokenStack->checkAndReturnNextToken(SPTokenType::ConstToken);
-
-        if (pkbInterface) {
-            pkbInterface->addConst(std::stoi(constant));
-        }
+        addConstToPkbIfExist(constant);
 
         return TNode::createConstantValue(statementCount, constant);
     } else {
@@ -286,4 +280,16 @@ std::shared_ptr<TNode> Parser::parseExpressionFromString(std::string exprString)
     Parser customParser = Parser(std::move(tokenStack));
 
     return customParser.parseExpression();
+}
+
+void Parser::addVariableToPkbIfExist(std::string var) {
+    if (pkbInterface) { // TODO: Write Integration tests for Parser and PKB, unsure if this works
+        pkbInterface->addVariable(var);
+    }
+}
+
+void Parser::addConstToPkbIfExist(std::string cons) {
+    if (pkbInterface) { // TODO: Write Integration tests for Parser and PKB, unsure if this works
+        pkbInterface->addConst(std::stoi(cons));
+    }
 }
