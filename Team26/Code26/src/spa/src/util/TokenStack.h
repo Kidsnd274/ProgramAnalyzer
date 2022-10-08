@@ -23,6 +23,7 @@ public:
     bool checkAndUseNextToken(SPTokenType tokenType);
     bool isNextTokenOfType(SPTokenType tokenType);
     bool isNextTokenNonTerminal();
+    bool isNextTokenNotOfType(SPTokenType tokenType);
     SPTokenType peekNextTokenType();
     std::string checkAndReturnNextToken(SPTokenType tokenType);
 };

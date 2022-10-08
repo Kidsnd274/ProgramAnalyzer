@@ -17,6 +17,10 @@ SPTokenType TokenStack::peekNextTokenType() {
 bool TokenStack::isNextTokenNonTerminal() {
     return peekNext().isNonTerminal();
 }
+// Similar to function below, but added in for expressivity of function name
+bool TokenStack::isNextTokenNotOfType(SPTokenType tokenType) {
+    return peekNext().getTokenType() != tokenType;
+}
 
 bool TokenStack::isNextTokenOfType(SPTokenType tokenType) {
     return peekNext().getTokenType() == tokenType;

@@ -39,7 +39,7 @@ std::vector<std::shared_ptr<StatementNode>> Parser::parseStatementList() {
     int currStatementListNumber = statementListNumber++;
     std::vector<std::shared_ptr<StatementNode>> stmtList;
 
-    while(tokenStack->hasNextToken() && tokenStack->peekNext().getTokenType() != SPTokenType::RCurlyToken) {
+    while(tokenStack->hasNextToken() && tokenStack->isNextTokenNotOfType(SPTokenType::RCurlyToken)) {
         std::shared_ptr<StatementNode> stmt = parseStatement(currStatementListNumber);
         stmtList.push_back(stmt);
     }
