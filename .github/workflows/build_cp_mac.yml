@@ -39,25 +39,6 @@ jobs:
         working-directory: ${{runner.workspace}}/build
         run: cmake $GITHUB_WORKSPACE/Team26/Code26/ -DCMAKE_BUILD_TYPE=$BUILD_TYPE
 
-#      - name: Test cd
-#        shell: bash
-#        working-directory: ${{runner.workspace}}
-#        run: |
-#          pwd
-#          ls
-#          cd Code26
-#          pwd
-#          ls
-#          cd build
-#          pwd
-#          ls
-#          cd src
-#          pwd
-#          ls
-#          cd autotester
-#          pwd
-#          ls
-
       - name: Build Project
         working-directory: ${{runner.workspace}}/build
         shell: bash
