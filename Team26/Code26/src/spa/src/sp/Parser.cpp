@@ -151,7 +151,7 @@ std::shared_ptr<TNode> Parser::parseCond() {
 
 std::shared_ptr<TNode> Parser::parseRel() {
     std::shared_ptr<TNode> relFactor = std::move(parseExpression());
-    string relToken = tokenStack->peekNext().getTokenString();
+    string relToken = tokenStack->peekNextTokenString();
     tokenStack->checkAndUseNextToken(SPTokenType::RelationToken);
     std::shared_ptr<TNode> relFactor2 = std::move(parseExpression());
 
@@ -159,13 +159,15 @@ std::shared_ptr<TNode> Parser::parseRel() {
 }
 
 std::shared_ptr<TNode> Parser::parseRelFactor() {
-    if(tokenStack->peekNext().isNonTerminal()) {
+    if(tokenStack->isNextTokenNonTerminal()) {
         std::string name = tokenStack->checkAndReturnNextToken(SPTokenType::NameToken);
         pkbInterface->addVariable(name);
+
         return TNode::createVariableName(statementCount, name);
-    } else if (tokenStack->peekNext().getTokenType() == SPTokenType::ConstToken) {
+    } else if (tokenStack->isNextTokenOfType(SPTokenType::ConstToken)) {
         std::string constant = tokenStack->checkAndReturnNextToken(SPTokenType::ConstToken);
         pkbInterface->addConst(std::stoi(constant));
+
         return TNode::createConstantValue(statementCount, constant);
     } else {
         return parseExpression();
