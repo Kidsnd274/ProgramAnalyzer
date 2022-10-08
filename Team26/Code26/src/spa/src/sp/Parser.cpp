@@ -229,24 +229,28 @@ std::shared_ptr<CallNode> Parser::parseCall(int stmtListNum) {
 
 std::shared_ptr<TNode> Parser::parseExpression() {
     std::shared_ptr<TNode> base = std::move(parseTerm());
-    while(tokenStack->peekNext().getTokenType() == SPTokenType::OpToken) {
-        std::string operand = tokenStack->peekNext().getTokenString();
+
+    while(tokenStack->isNextTokenOfType(SPTokenType::OpToken)) {
+        std::string operand = tokenStack->peekNextTokenString();
         tokenStack->checkAndUseNextToken(SPTokenType::OpToken);
         std::shared_ptr<TNode> term2 = std::move(parseTerm());
         base = TNode::createTerm(statementCount, operand, base, term2);
     }
+
     return base;
 }
 
 std::shared_ptr<TNode> Parser::parseTerm() {
     std::shared_ptr<TNode> base = std::move(parseFactor());
-    while(tokenStack->peekNext().getTokenType() == SPTokenType::FactorToken) {
-        std::string operand = tokenStack->peekNext().getTokenString();
+
+    while(tokenStack->isNextTokenOfType(SPTokenType::FactorToken)) {
+        std::string operand = tokenStack->peekNextTokenString();
         tokenStack->checkAndUseNextToken(SPTokenType::FactorToken);
         std::shared_ptr<TNode> factor2 = std::move(parseFactor());
 
         base = TNode::createTerm(statementCount, operand, base, factor2);
     }
+
     return base;
 }
 
