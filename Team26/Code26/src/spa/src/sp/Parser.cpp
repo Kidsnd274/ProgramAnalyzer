@@ -106,7 +106,7 @@ std::shared_ptr<AssignNode> Parser::parseAssign(int stmtListNum) {
 }
 
 std::shared_ptr<IfNode> Parser::parseIf(int stmtListNum) {
-    tokenStack->getNext(); //consume If SPToken.
+    tokenStack->checkAndUseNextToken(SPTokenType::IfToken); //consume If SPToken.
     int currStatement = statementCount++;
 
     tokenStack->checkAndUseNextToken(SPTokenType::LParenToken);
@@ -175,7 +175,7 @@ std::shared_ptr<TNode> Parser::parseRelFactor() {
 }
 
 std::shared_ptr<WhileNode> Parser::parseWhile(int stmtListNum) {
-    tokenStack->getNext(); //consume While SPToken
+    tokenStack->checkAndUseNextToken(SPTokenType::WhileToken); //consume While SPToken.
     int currStatement = statementCount++;
     tokenStack->checkAndUseNextToken(SPTokenType::LParenToken);
     std::shared_ptr<TNode> cond = std::move(parseCond());
@@ -190,7 +190,7 @@ std::shared_ptr<WhileNode> Parser::parseWhile(int stmtListNum) {
 }
 
 std::shared_ptr<ReadNode> Parser::parseRead(int stmtListNum) {
-    tokenStack->getNext(); //consume Read SPToken
+    tokenStack->checkAndUseNextToken(SPTokenType::ReadToken); //consume Read SPToken.
     int currStatement = statementCount++;
     string varName = tokenStack->checkAndReturnNextToken(SPTokenType::NameToken);
     pkbInterface->addVariable(varName);
@@ -202,7 +202,7 @@ std::shared_ptr<ReadNode> Parser::parseRead(int stmtListNum) {
 }
 
 std::shared_ptr<PrintNode> Parser::parsePrint(int stmtListNum) {
-    tokenStack->getNext(); //consume Print SPToken
+    tokenStack->checkAndUseNextToken(SPTokenType::PrintToken); //consume Print SPToken.
     int currStatement = statementCount++;
     string varName = tokenStack->checkAndReturnNextToken(SPTokenType::NameToken);
     pkbInterface->addVariable(varName);
@@ -215,7 +215,7 @@ std::shared_ptr<PrintNode> Parser::parsePrint(int stmtListNum) {
 
 
 std::shared_ptr<CallNode> Parser::parseCall(int stmtListNum) {
-    tokenStack->getNext(); //consume Call SPToken
+    tokenStack->checkAndUseNextToken(SPTokenType::CallToken); //consume Call SPToken.
     int currStatement = statementCount++;
     string varName = tokenStack->checkAndReturnNextToken(SPTokenType::NameToken);
     tokenStack->checkAndUseNextToken(SPTokenType::SemiColonToken);
