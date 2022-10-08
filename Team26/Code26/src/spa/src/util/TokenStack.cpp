@@ -19,7 +19,7 @@ SPTokenType TokenStack::peekNextTokenType() {
 }
 
 bool TokenStack::isNextTokenStringEquals(std::string s) {
-    return peekNext().getTokenString() == s;
+    return peekNextTokenString() == s;
 }
 
 bool TokenStack::isNextTokenNonTerminal() {
@@ -27,11 +27,11 @@ bool TokenStack::isNextTokenNonTerminal() {
 }
 // Similar to function below, but added in for expressivity of function name
 bool TokenStack::isNextTokenNotOfType(SPTokenType tokenType) {
-    return peekNext().getTokenType() != tokenType;
+    return peekNextTokenType() != tokenType;
 }
 
 bool TokenStack::isNextTokenOfType(SPTokenType tokenType) {
-    return peekNext().getTokenType() == tokenType;
+    return peekNextTokenType() == tokenType;
 }
 
 bool TokenStack::checkAndUseNextToken(SPTokenType tokenType) {
