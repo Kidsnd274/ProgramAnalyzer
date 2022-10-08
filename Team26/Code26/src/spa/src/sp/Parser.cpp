@@ -52,7 +52,7 @@ std::vector<std::shared_ptr<StatementNode>> Parser::parseStatementList() {
 }
 
 std::shared_ptr<StatementNode> Parser::parseStatement(int stmtListNum) {
-    if(!tokenStack->peekNext().isNonTerminal()) {
+    if(!tokenStack->isNextTokenNonTerminal()) {
         throw SyntaxErrorException();
     }
 
