@@ -39,6 +39,25 @@ jobs:
         working-directory: ${{runner.workspace}}/build
         run: cmake $GITHUB_WORKSPACE/Team26/Code26/ -DCMAKE_BUILD_TYPE=$BUILD_TYPE
 
+      - name: Test cd
+        shell: bash
+        working-directory: ${{runner.workspace}}/build
+        run: |
+          pwd
+          ls
+          cd Code26
+          pwd
+          ls
+          cd build
+          pwd
+          ls
+          cd src
+          pwd
+          ls
+          cd autotester
+          pwd
+          ls
+
       - name: Build Project
         working-directory: ${{runner.workspace}}/build
         shell: bash
@@ -61,26 +80,6 @@ jobs:
           ./integration_testing -d yes -o output.txt
           echo INTEGRATION TESTING
           cat output.txt
-
-      - name: Test cd
-        shell: bash
-        run: |
-          cd Team26/Tests26
-          cd ..
-          cd
-          ls
-          cd Code26
-          cd
-          ls
-          cd build
-          cd
-          ls
-          cd src
-          cd
-          ls
-          cd autotester
-          cd
-          ls
 
       - name: Run autotester test cases
         shell: bash
