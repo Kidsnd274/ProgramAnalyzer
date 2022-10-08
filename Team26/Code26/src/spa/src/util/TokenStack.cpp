@@ -70,12 +70,13 @@ bool TokenStack::isCondTokenAfterRparen() {
     std::stack<char> parenStack;
     parenStack.push('l');
     while(j < tokenStack.size() && !parenStack.empty()) {
-        if(tokenStack[j].getTokenType() == SPTokenType::RParenToken && parenStack.top() == 'l')
+        if(tokenStack[j].getTokenType() == SPTokenType::RParenToken && parenStack.top() == 'l') {
             parenStack.pop();
-        else if(tokenStack[j].getTokenType() == SPTokenType::RParenToken)
+        } else if(tokenStack[j].getTokenType() == SPTokenType::RParenToken) {
             parenStack.push('r');
-        else if( tokenStack[j].getTokenType() == SPTokenType::LParenToken)
+        } else if( tokenStack[j].getTokenType() == SPTokenType::LParenToken) {
             parenStack.push('l');
+        }
         j++;
     }
 
