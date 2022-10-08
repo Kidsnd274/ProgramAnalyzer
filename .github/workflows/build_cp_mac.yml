@@ -62,8 +62,28 @@ jobs:
           echo INTEGRATION TESTING
           cat output.txt
 
-#      - name: Run autotester test cases
-#        shell: bash
-#        run: |
-#          cd Team26/Tests26
-#          python ./run_tests.py
+      - name: Test cd
+        shell: bash
+        run: |
+          cd Team26/Tests26
+          cd ..
+          cd
+          ls
+          cd Code26
+          cd
+          ls
+          cd build
+          cd
+          ls
+          cd src
+          cd
+          ls
+          cd autotester
+          cd
+          ls
+
+      - name: Run autotester test cases
+        shell: bash
+        run: |
+          cd Team26/Tests26
+          python ./run_tests.py
