@@ -44,6 +44,11 @@ jobs:
         shell: bash
         run: cmake --build . --config $BUILD_TYPE
 
+      - name: Build Autotester
+          working-directory: ${{runner.workspace}}/build
+          shell: bash
+          run: cmake --build . --target autotester --config $BUILD_TYPE
+
       - name: Run Unit Tests
         shell: bash
         working-directory: ${{runner.workspace}}/build
