@@ -46,7 +46,6 @@ public:
         pkbInterface = pkbParserInterface;
         de = new DesignExtractor(pkbInterface);
         this->cfgManager = std::move(cfgManager);
-
     }
 
     ~Parser() {
