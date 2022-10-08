@@ -23,26 +23,23 @@ enum RelationType {
     INVALID_RELATION_TYPE
 };
 
-int intArray[30];
-
 class RelationClause {
-private:
+protected:
     Argument argument1;
     Argument argument2;
-protected:
-    const static std::unordered_map<ArgumentType, std::unordered_set<ArgumentType>> validationTable;
+//    const static std::unordered_map<ArgumentType, std::unordered_set<ArgumentType>> validationTable;
 
 public:
     RelationClause(Argument& arg1, Argument& arg2) :
-            argument1(Argument("", INVALID_ARGUMENT_TYPE)),
-            argument2(Argument("", INVALID_ARGUMENT_TYPE)) {
+            argument1(Argument("", Argument::INVALID_ARGUMENT_TYPE)),
+            argument2(Argument("", Argument::INVALID_ARGUMENT_TYPE)) {
         this->argument1 = arg1;
         this->argument2 = arg2;
     }
 
     RelationClause(RelationClause& relationClause) :
-            argument1(Argument("", INVALID_ARGUMENT_TYPE)),
-            argument2(Argument("", INVALID_ARGUMENT_TYPE)) {
+            argument1(Argument("", Argument::INVALID_ARGUMENT_TYPE)),
+            argument2(Argument("", Argument::INVALID_ARGUMENT_TYPE)) {
         this->argument1 = relationClause.argument1;
         this->argument2 = relationClause.argument2;
     }

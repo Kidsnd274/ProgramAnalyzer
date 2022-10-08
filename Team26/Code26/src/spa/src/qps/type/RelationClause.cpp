@@ -1,5 +1,8 @@
 #include "RelationClause.h"
 
+//const std::unordered_map<ArgumentType, std::unordered_set<ArgumentType>> RelationClause::validationTable {
+//};
+//
 Argument RelationClause::getFirstArgument() {
     return this->argument1;
 }
@@ -17,11 +20,11 @@ void RelationClause::setSecondArgument(const Argument& argument) {
 }
 
 bool RelationClause::isValid() {
-    auto iter = RelationClause::validationTable.find(this->argument1.argumentType);
-    if (iter != RelationClause::validationTable.end()) {
-        if (iter->second.find(this->argument2.argumentType) != iter->second.end()) {
-            return true;
-        }
-    }
+//    auto iter = RelationClause::validationTable.find(this->argument1.argumentType);
+//    if (iter != RelationClause::validationTable.end()) {
+//        if (iter->second.find(this->argument2.argumentType) != iter->second.end()) {
+//            return true;
+//        }
+//    }
     return false;
 }
