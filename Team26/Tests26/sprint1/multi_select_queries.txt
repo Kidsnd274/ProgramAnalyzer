@@ -1,0 +1,15 @@
+1 - (Valid Query)
+if ifs; while w; read rd; print pt;
+Select <ifs, w, rd, pt> such that Follows(rd, pt)
+10 8 3 4, 13 8 3 4
+5000
+2 - (Valid Query)
+variable v; constant c; while w;
+Select <v, c, w>
+a 1 8, b 1 8
+5000
+1 - (Valid Query) Both return values in same clause
+assign a;
+Select <a, v, pt> such that Uses(a, v)
+7 a, 7 b, 14 b
+5000

@@ -1,5 +1,5 @@
-1 - comment
-while w; assign a;
-Select w with w.stmt# = 2 such that Follows(1, 2) pattern a(_, "x") such that Follows(2, 3) and Follows(9,10) with a.stmt# = 4
-none
+6 - (Valid Query)
+variable v; constant c; while w;
+Select <v, c, w>
+a 1 8, b 1 8
 5000

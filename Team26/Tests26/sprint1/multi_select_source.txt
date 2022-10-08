@@ -16,7 +16,7 @@ procedure proc1 {
 	}
 
 	if (a < b) then {
-		b = b + 1;
+		b = b + bryan + 1;
 	} else {
 		call proc2;
 	}
