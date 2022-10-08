@@ -1,6 +1,6 @@
 #include "Parent.h"
 
-const std::unordered_set<ArgumentType> StmtSet {
+const std::unordered_set<ArgumentType> stmtSet {
         STMT_SYNONYM,
         IF_SYNONYM,
         WHILE_SYNONYM,
@@ -12,12 +12,12 @@ const std::unordered_set<ArgumentType> StmtSet {
 };
 
 const std::unordered_map<ArgumentType, std::unordered_set<ArgumentType>> Parent::validationTable {
-        {STMT_SYNONYM, StmtSet},
-        {IF_SYNONYM, StmtSet},
-        {WHILE_SYNONYM, StmtSet},
-        {READ_SYNONYM, StmtSet},
-        {PRINT_SYNONYM, StmtSet},
-        {CALL_SYNONYM, StmtSet},
-        {ASSIGN_SYNONYM, StmtSet},
-        {NUMBER, StmtSet}
+        {STMT_SYNONYM, stmtSet},
+        {IF_SYNONYM, stmtSet},
+        {WHILE_SYNONYM, stmtSet},
+        {READ_SYNONYM, stmtSet},
+        {PRINT_SYNONYM, stmtSet},
+        {CALL_SYNONYM, stmtSet},
+        {ASSIGN_SYNONYM, stmtSet},
+        {NUMBER, stmtSet}
 };
