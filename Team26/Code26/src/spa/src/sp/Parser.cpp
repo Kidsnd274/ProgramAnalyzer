@@ -7,13 +7,10 @@ void Parser::parseSimple() {
     int numOfProcedures = 0;
     std::vector<std::shared_ptr<ProcedureNode>> procedures;
     while(tokenStack->hasNextToken()) {
-        if (tokenStack->checkAndUseNextToken(SPTokenType::ProcedureToken)) {
-            std::shared_ptr<ProcedureNode> pn = parseProcedure();
-            procedures.push_back(pn);
-            numOfProcedures++;
-        } else {
-            throw SyntaxErrorException();
-        }
+        tokenStack->checkAndUseNextToken(SPTokenType::ProcedureToken);
+        std::shared_ptr<ProcedureNode> pn = parseProcedure();
+        procedures.push_back(pn);
+        numOfProcedures++;
     }
 
     if(!numOfProcedures){
