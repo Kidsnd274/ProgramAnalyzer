@@ -41,7 +41,7 @@ jobs:
 
       - name: Test cd
         shell: bash
-        working-directory: ${{runner.workspace}}/build
+        working-directory: ${{runner.workspace}}
         run: |
           pwd
           ls
