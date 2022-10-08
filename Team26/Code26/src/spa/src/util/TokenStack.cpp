@@ -10,8 +10,16 @@ std::string TokenStack::checkAndReturnNextToken(SPTokenType tokenType) {
     return val;
 }
 
+std::string TokenStack::peekNextTokenString() {
+    return peekNext().getTokenString();
+}
+
 SPTokenType TokenStack::peekNextTokenType() {
     return peekNext().getTokenType();
+}
+
+bool TokenStack::isNextTokenStringEquals(std::string s) {
+    return peekNext().getTokenString() == s;
 }
 
 bool TokenStack::isNextTokenNonTerminal() {

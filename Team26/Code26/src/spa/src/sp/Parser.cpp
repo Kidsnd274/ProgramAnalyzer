@@ -93,7 +93,9 @@ std::shared_ptr<StatementNode> Parser::parseStatement(int stmtListNum) {
 
 std::shared_ptr<AssignNode> Parser::parseAssign(int stmtListNum) {
     int currStatement = statementCount++;
-    string varAssigned = tokenStack->getNext().getTokenString();
+
+    // consume non-terminal token
+    string varAssigned = tokenStack->checkAndReturnNextToken(SPTokenType::NameToken);
     pkbInterface->addVariable(varAssigned);
     tokenStack->checkAndUseNextToken(SPTokenType::AssignToken);
     std::shared_ptr<TNode> expr = std::move(parseExpression());
@@ -124,22 +126,23 @@ std::shared_ptr<IfNode> Parser::parseIf(int stmtListNum) {
 }
 
 std::shared_ptr<TNode> Parser::parseCond() {
-    if(tokenStack->peekNext().getTokenType() == SPTokenType::CondToken
-    && tokenStack->peekNext().getTokenString() == "!") {
+    if(tokenStack->isNextTokenOfType(SPTokenType::CondToken) && tokenStack->isNextTokenStringEquals("!")) {
         tokenStack->checkAndUseNextToken(SPTokenType::CondToken);
         tokenStack->checkAndUseNextToken(SPTokenType::LParenToken);
         std::shared_ptr<TNode> cond = std::move(parseCond());
         tokenStack->checkAndUseNextToken(SPTokenType::RParenToken);
+
         return TNode::createNOTConditionalExpression(statementCount, "!", cond);
-    } else if (tokenStack->peekNext().getTokenType() == SPTokenType::LParenToken && tokenStack->isCondTokenAfterRparen()) {
+    } else if (tokenStack->isNextTokenOfType(SPTokenType::LParenToken) && tokenStack->isCondTokenAfterRparen()) {
         tokenStack->checkAndUseNextToken(SPTokenType::LParenToken);
         std::shared_ptr<TNode> cond = std::move(parseCond());
         tokenStack->checkAndUseNextToken(SPTokenType::RParenToken);
-        string condToken = tokenStack->peekNext().getTokenString();
+        string condToken = tokenStack->peekNextTokenString();
         tokenStack->checkAndUseNextToken(SPTokenType::CondToken);
         tokenStack->checkAndUseNextToken(SPTokenType::LParenToken);
         std::shared_ptr<TNode> cond2 = std::move(parseCond());
         tokenStack->checkAndUseNextToken(SPTokenType::RParenToken);
+
         return TNode::createConditionalExpression(statementCount, condToken, cond, cond2);
     } else {
         return parseRel();

@@ -24,6 +24,8 @@ public:
     bool isNextTokenOfType(SPTokenType tokenType);
     bool isNextTokenNonTerminal();
     bool isNextTokenNotOfType(SPTokenType tokenType);
+    bool isNextTokenStringEquals(std::string s);
     SPTokenType peekNextTokenType();
+    std::string peekNextTokenString();
     std::string checkAndReturnNextToken(SPTokenType tokenType);
 };
