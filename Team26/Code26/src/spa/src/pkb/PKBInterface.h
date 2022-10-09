@@ -18,7 +18,7 @@ typedef short PROC;
 
 class PKBInterface {
 public:
-    PKB* pkb;
+    PKB* pkb = new PKB();
 
     void addProcedure(string name, int startingStmtNo, int endingStmtNo);
     void addVariable(string name);
