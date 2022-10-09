@@ -5,7 +5,7 @@
 #include <unordered_set>
 #include "Argument.h"
 
-enum RelationType {
+const enum RelationType {
     FOLLOWS,    // Follows(stmtRef, stmtRef)
     FOLLOWS_T,  // Follows*(stmtRef, stmtRef)
     PARENT, // Parent(stmtRef, stmtRef)

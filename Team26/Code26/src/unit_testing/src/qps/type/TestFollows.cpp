@@ -1,4 +1,3 @@
-#include <iostream>
 #include "qps/type/Follows.h"
 #include "catch.hpp"
 
@@ -46,6 +45,7 @@ TEST_CASE("Basic Follows Test - set second argument") {
     REQUIRE(isSameArg(follows1.getSecondArgument(), arg3) == true);
 }
 
+// follows(stmt, _)
 TEST_CASE("Follows Validation Test - follows(stmt, stmt) - valid") {
     Argument arg1 = Argument("s1", Argument::STMT_SYNONYM);
     Argument arg2 = Argument("s2", Argument::STMT_SYNONYM);

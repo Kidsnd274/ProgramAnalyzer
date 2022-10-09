@@ -1,8 +1,5 @@
 #include "RelationClause.h"
 
-//const std::unordered_map<ArgumentType, std::unordered_set<ArgumentType>> RelationClause::validationTable {
-//};
-//
 Argument RelationClause::getFirstArgument() {
     return this->argument1;
 }
