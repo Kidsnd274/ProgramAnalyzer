@@ -40,7 +40,9 @@ namespace QPS {
         INTEGER,
         WHITESPACE,
         STAR,
-        WILDCARD_TOKEN
+        WILDCARD_TOKEN,
+        DOT,
+        HASHTAG
     };
 
     const std::map<TokenType, std::string> tokenMap = {
@@ -71,7 +73,9 @@ namespace QPS {
             { NAME, "NAME" },
             { INTEGER, "INTEGER" },
             { WHITESPACE, "WHITESPACE" },
-            { WILDCARD_TOKEN, "WILDCARD"}
+            { WILDCARD_TOKEN, "WILDCARD"},
+            {DOT, "DOT"},
+            {HASHTAG, "HASHTAG"}
     };
 
     struct Token {
