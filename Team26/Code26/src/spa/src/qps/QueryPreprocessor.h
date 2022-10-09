@@ -19,6 +19,7 @@ namespace QPS {
     std::pair<ArgumentStruct, Exception> convertStringToEntRef (Token &token, Container &container);
     std::pair<ArgumentStruct, Exception> convertStringToStmtRefUM (Token &token, Container &container);
     std::pair<ArgumentStruct, Exception> convertStringToStmtRefCalls (Token &token, Container &container);
+    std::pair<WithFieldType, Exception> convertStringToWithType (Token &token);
 }
 
 

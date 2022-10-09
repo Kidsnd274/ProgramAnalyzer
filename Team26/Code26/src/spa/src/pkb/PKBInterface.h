@@ -29,6 +29,7 @@ public:
     virtual void addWhileStatement(int statementNumber, int statementListNumber);
     virtual void addIfStatement(int statementNumber, int statementListNumber);
     virtual void addPrintStatement(int statementNumber, int statementListNumber);
+    virtual void addCallStatement(int statementNumber, int statementListNumber);
 
     virtual void addModifies(int statementNumber, string varName);
     virtual void addModifies(std::string procedureName, std::string varName);

@@ -20,6 +20,8 @@ class ParentTable;
 class ParentStarTable;
 class FollowsTable;
 class FollowsStarTable;
+class CallTable;
+class CallStarTable;
 
 class PKB {
 public:
@@ -33,6 +35,8 @@ public:
     static ParentStarTable* parentStarTable;
     static FollowsTable* followsTable;
     static FollowsStarTable* followsStarTable;
+    static CallTable* callTable;
+    static CallStarTable* callStarTable;
 	static int setProcToAST(PROC p, TNode* r);
 	static TNode* getRootAST (PROC p);
 
