@@ -43,4 +43,5 @@ public:
 };
 
 bool operator== (const SPToken &leftToken, const SPToken &rightToken);
+bool operator!= (const SPToken &leftToken, const SPToken &rightToken);
 #endif

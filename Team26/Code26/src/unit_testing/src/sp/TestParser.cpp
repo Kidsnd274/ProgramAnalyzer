@@ -391,7 +391,7 @@ TEST_CASE("Parse If") {
                             SPToken("}", SPTokenType::RCurlyToken),
                             SPToken("else", SPTokenType::ElseToken),
                             SPToken("{", SPTokenType::LCurlyToken),
-                            SPToken("print", SPTokenType::ReadToken),
+                            SPToken("print", SPTokenType::PrintToken),
                             SPToken("y", SPTokenType::NameToken),
                             SPToken(";", SPTokenType::SemiColonToken),
                             SPToken("}", SPTokenType::RCurlyToken)};

@@ -24,6 +24,7 @@ std::shared_ptr<ProcedureNode> Parser::parseProcedure() {
     std::string name = tokenStack->checkAndReturnNextToken(SPTokenType::NameToken);
     tokenStack->checkAndUseNextToken(SPTokenType::LCurlyToken);
     de->addProcedure(name);
+    cfgManager->createNewCFG();
     std::vector<std::shared_ptr<StatementNode>> stmtList = parseStatementList();
     tokenStack->checkAndUseNextToken(SPTokenType::RCurlyToken);
     pkbInterface->addProcedure(name, currStatement, statementCount);
@@ -98,6 +99,7 @@ std::shared_ptr<AssignNode> Parser::parseAssign(int stmtListNum) {
     std::shared_ptr<TNode> expr = std::move(parseExpression());
     tokenStack->checkAndUseNextToken(SPTokenType::SemiColonToken);
     pkbInterface->addAssignStatement(currStatement, stmtListNum, expr);
+    cfgManager->addStandardNode(currStatement);
 
     return AssignNode::createAssignNode(currStatement, varAssigned, expr);
 }
@@ -105,20 +107,25 @@ std::shared_ptr<AssignNode> Parser::parseAssign(int stmtListNum) {
 std::shared_ptr<IfNode> Parser::parseIf(int stmtListNum) {
     tokenStack->checkAndUseNextToken(SPTokenType::IfToken); //consume If SPToken.
     int currStatement = statementCount++;
+    cfgManager->addStandardNode(currStatement);
 
     tokenStack->checkAndUseNextToken(SPTokenType::LParenToken);
     std::shared_ptr<TNode> cond = std::move(parseCond());
     tokenStack->checkAndUseNextToken(SPTokenType::RParenToken);
+
     tokenStack->checkAndUseNextToken(SPTokenType::ThenToken);
     tokenStack->checkAndUseNextToken(SPTokenType::LCurlyToken);
     std::vector<std::shared_ptr<StatementNode>> ifStatementList = parseStatementList();
     tokenStack->checkAndUseNextToken(SPTokenType::RCurlyToken);
+    cfgManager->finalizeIfPortionOfIfStatement(currStatement);
+
     tokenStack->checkAndUseNextToken(SPTokenType::ElseToken);
     tokenStack->checkAndUseNextToken(SPTokenType::LCurlyToken);
     std::vector<std::shared_ptr<StatementNode>> elseStatementList = parseStatementList();
     tokenStack->checkAndUseNextToken(SPTokenType::RCurlyToken);
-    pkbInterface->addIfStatement(currStatement, stmtListNum);
+    cfgManager->finalizeElsePortionOfIfStatement(currStatement); // Connects last else stmt to DummyNode
 
+    pkbInterface->addIfStatement(currStatement, stmtListNum);
     return IfNode::createIfNode(currStatement, cond, ifStatementList, elseStatementList);
 }
 
@@ -174,6 +181,8 @@ std::shared_ptr<TNode> Parser::parseRelFactor() {
 std::shared_ptr<WhileNode> Parser::parseWhile(int stmtListNum) {
     tokenStack->checkAndUseNextToken(SPTokenType::WhileToken); //consume While SPToken.
     int currStatement = statementCount++;
+    cfgManager->addStandardNode(currStatement);
+
     tokenStack->checkAndUseNextToken(SPTokenType::LParenToken);
     std::shared_ptr<TNode> cond = std::move(parseCond());
     tokenStack->checkAndUseNextToken(SPTokenType::RParenToken);
@@ -181,6 +190,7 @@ std::shared_ptr<WhileNode> Parser::parseWhile(int stmtListNum) {
     std::vector<std::shared_ptr<StatementNode>> statementList = parseStatementList();
     tokenStack->checkAndUseNextToken(SPTokenType::RCurlyToken);
 
+    cfgManager->finalizeWhileStatement(currStatement);
     pkbInterface->addWhileStatement(currStatement, stmtListNum);
 
     return WhileNode::createWhileNode(currStatement, cond, statementList);
@@ -193,6 +203,7 @@ std::shared_ptr<ReadNode> Parser::parseRead(int stmtListNum) {
     pkbInterface->addVariable(varName);
     tokenStack->checkAndUseNextToken(SPTokenType::SemiColonToken);
 
+    cfgManager->addStandardNode(currStatement);
     pkbInterface->addReadStatement(currStatement, stmtListNum);
 
     return ReadNode::createReadNode(currStatement, varName);
@@ -205,6 +216,7 @@ std::shared_ptr<PrintNode> Parser::parsePrint(int stmtListNum) {
     pkbInterface->addVariable(varName);
     tokenStack->checkAndUseNextToken(SPTokenType::SemiColonToken);
 
+    cfgManager->addStandardNode(currStatement);
     pkbInterface->addPrintStatement(currStatement, stmtListNum);
 
     return PrintNode::createPrintNode(currStatement, varName);
@@ -220,6 +232,7 @@ std::shared_ptr<CallNode> Parser::parseCall(int stmtListNum) {
     CallStruct cs(currStatement, varName);
     de->addCallStatement(cs);
 
+    cfgManager->addStandardNode(currStatement);
     pkbInterface->addCallStatement(currStatement, stmtListNum);
     return CallNode::createCallNode(currStatement, varName);
 }
