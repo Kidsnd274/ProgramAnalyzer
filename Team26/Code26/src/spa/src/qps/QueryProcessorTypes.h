@@ -200,4 +200,4 @@ namespace QPS {
     std::string exceptionToStringQPS(Exception e);
 
 }
-#endif // QUERYPROCESSORTYPES_H
+#endif // QUERYPROCESSOPES_H

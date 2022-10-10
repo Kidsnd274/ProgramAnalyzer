@@ -16,12 +16,12 @@ void RelationClause::setSecondArgument(const Argument& argument) {
     this->argument2 = argument;
 }
 
-bool RelationClause::isValid() {
+//bool RelationClause::isValid() {
 //    auto iter = RelationClause::validationTable.find(this->argument1.argumentType);
 //    if (iter != RelationClause::validationTable.end()) {
 //        if (iter->second.find(this->argument2.argumentType) != iter->second.end()) {
 //            return true;
 //        }
 //    }
-    return false;
-}
+//    return false;
+//}

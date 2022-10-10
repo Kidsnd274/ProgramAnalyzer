@@ -35,5 +35,4 @@ public:
     static FollowsStarTable* followsStarTable;
 	static int setProcToAST(PROC p, TNode* r);
 	static TNode* getRootAST (PROC p);
-
 };

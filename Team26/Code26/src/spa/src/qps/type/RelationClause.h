@@ -4,8 +4,9 @@
 #include <unordered_map>
 #include <unordered_set>
 #include "Argument.h"
+#include "Clause.h"
 
-const enum RelationType {
+enum RelationType {
     FOLLOWS,    // Follows(stmtRef, stmtRef)
     FOLLOWS_T,  // Follows*(stmtRef, stmtRef)
     PARENT, // Parent(stmtRef, stmtRef)
@@ -23,7 +24,7 @@ const enum RelationType {
     INVALID_RELATION_TYPE
 };
 
-class RelationClause {
+class RelationClause : public Clause{
 protected:
     Argument argument1;
     Argument argument2;
@@ -52,7 +53,7 @@ public:
 
     void setSecondArgument(const Argument& argument);
 
-    virtual bool isValid();
+    virtual bool isValid() = 0;
 };
 
 #endif //SPA_RELATIONCLAUSE_H
