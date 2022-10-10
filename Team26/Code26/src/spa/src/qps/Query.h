@@ -17,11 +17,11 @@ class Query {
 private:
     unordered_map<std::string, Argument>* synonymMap;
     unordered_map<std::string, Argument>* candidateMap;
-    std::vector<Clause>* clauseList;
     QueryStatus status;
 
 public:
     ResultTable* resultTable;
+    std::vector<Clause>* clauseList;
 
 public:
     Query() {

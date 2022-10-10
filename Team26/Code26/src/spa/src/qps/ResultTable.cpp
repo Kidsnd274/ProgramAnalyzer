@@ -98,7 +98,7 @@ namespace QPS {
         throw errorMsg;
     }
 
-    void ResultTable::mergeTable(const QPS::ResultTable &otherTable) {
+    void ResultTable::mergeTable(const QPS::ResultTable& otherTable) {
         if (!otherTable.isInitialized) {
             return;
         }
