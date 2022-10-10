@@ -3,6 +3,7 @@
 #include <stack>
 #include "SPToken.h"
 #include "EndOfFileException.h"
+#include "sp/SyntaxErrorException.h"
 
 class TokenStack {
 private:
@@ -19,4 +20,12 @@ public:
     SPToken peekNext();
     bool isNextTokenAssign();
     bool isCondTokenAfterRparen();
+    bool checkAndUseNextToken(SPTokenType tokenType);
+    bool isNextTokenOfType(SPTokenType tokenType);
+    bool isNextTokenNonTerminal();
+    bool isNextTokenNotOfType(SPTokenType tokenType);
+    bool isNextTokenStringEquals(std::string s);
+    SPTokenType peekNextTokenType();
+    std::string peekNextTokenString();
+    std::string checkAndReturnNextToken(SPTokenType tokenType);
 };
