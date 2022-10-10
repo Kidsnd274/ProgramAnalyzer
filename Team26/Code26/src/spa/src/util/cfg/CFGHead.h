@@ -6,6 +6,7 @@
 #include <unordered_map>
 #include <unordered_set>
 #include <vector>
+#include <queue>
 
 class CFGHead;
 
@@ -33,6 +34,9 @@ public:
     bool isNext(STMT_NUM stmt1, STMT_NUM stmt2);
     bool isStatementInCFG(STMT_NUM stmt1);
     STMT_NUM findDummyNodeNext(CFGNode& dummy);
+
+    // graph traversal
+    std::unordered_set<STMT_NUM> getReachableNodes(STMT_NUM stmt);
 };
 
 bool operator== (CFGHead leftCFG, CFGHead rightCFG);

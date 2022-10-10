@@ -132,3 +132,31 @@ TEST_CASE("Test Next") {
     REQUIRE_FALSE(cfgTest->isNext(3,4));
     REQUIRE_FALSE(cfgTest->isNext(6,7));
 }
+
+TEST_CASE("Test Reachable") {
+    CFGHeadPtr cfgTest = CFGHead::createNewCFG();
+    cfgTest->connectNode(CFGNode::node(1), CFGNode::node(2));
+    cfgTest->connectNode(CFGNode::node(2), CFGNode::node(3));
+    cfgTest->connectNode(CFGNode::node(3), CFGNode::node(1));
+    cfgTest->connectNode(CFGNode::node(1), CFGNode::dummyNode(1));
+    cfgTest->connectNode(CFGNode::dummyNode(1), CFGNode::node(4));
+    cfgTest->connectNode(CFGNode::node(4), CFGNode::node(5));
+    cfgTest->connectNode(CFGNode::node(4), CFGNode::node(6));
+    cfgTest->connectNode(CFGNode::node(5), CFGNode::dummyNode(4));
+    cfgTest->connectNode(CFGNode::node(6), CFGNode::dummyNode(4));
+    cfgTest->initializeFinalNode(CFGNode::dummyNode(4));
+
+    std::unordered_set<int> set1 = {1,2,3,4,5,6};
+    std::unordered_set<int> set2 = {1,2,3,4,5,6};
+    std::unordered_set<int> set3 = {1,2,3,4,5,6};
+    std::unordered_set<int> set4 = {4,5,6};
+    std::unordered_set<int> set5 = {5};
+    std::unordered_set<int> set6 = {6};
+
+    REQUIRE(cfgTest->getReachableNodes(1) == set1);
+    REQUIRE(cfgTest->getReachableNodes(2) == set2);
+    REQUIRE(cfgTest->getReachableNodes(3) == set3);
+    REQUIRE(cfgTest->getReachableNodes(4) == set4);
+    REQUIRE(cfgTest->getReachableNodes(5) == set5);
+    REQUIRE(cfgTest->getReachableNodes(6) == set6);
+}
