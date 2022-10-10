@@ -1,5 +1,5 @@
 #include "CFGHead.h"
-
+#include "StatementNumberNotFoundException.h"
 #include <utility>
 
 void CFGHead::connectNode(CFGNode node1, CFGNode node2)  {
@@ -16,14 +16,14 @@ void CFGHead::connectNode(CFGNode node1, CFGNode node2)  {
 
 EDGES CFGHead::getEdges(STMT_NUM stmtNumber) {
     if (adjList.find(stmtNumber) == adjList.end()) {
-        return {};
+        throw StatementNumberNotFoundException();
     }
     return adjList.at(stmtNumber);
 }
 
 CFGNode CFGHead::getDummyNodeEdge(STMT_NUM stmtNumber) {
     if (dummyAdjList.find(stmtNumber) == dummyAdjList.end()) {
-        return {-1, CFGNodeType::NullNode};
+        throw StatementNumberNotFoundException();
     }
     return dummyAdjList.at(stmtNumber);
 }
@@ -40,59 +40,60 @@ CFGDummyMap CFGHead::getDummyNodeMap() {
     return this->dummyAdjList;
 }
 
-bool CFGHead::compareEdgesEquality(EDGES &v1, EDGES &v2) {
+bool CFGHead::compareEdgesEquality(EDGES v1, EDGES v2) {
     if (v1.size() != v2.size()) {
         return false;
     }
-//    std::sort(v1.begin(), v1.end());
-//    std::sort(v2.begin(), v2.end());
+    std::sort(v1.begin(), v1.end());
+    std::sort(v2.begin(), v2.end());
     return v1 == v2;
 }
 
 bool operator== (CFGHead leftCFG, CFGHead rightCFG) {
-    std::unordered_set<STMT_NUM> verifiedNodes;
-
     auto leftNodeMap = leftCFG.getNormalNodeMap();
     auto rightNodeMap = rightCFG.getNormalNodeMap();
 
-    // Check that items in left CFG is equal right CFG
-    for (auto it = leftNodeMap.begin(); it != leftNodeMap.end();) {
-        auto const& key = it->first;
-        if (rightNodeMap.find(key) == rightNodeMap.end()) { // Key not found in right node
-            return false;
-        }
-        EDGES leftEdges = leftNodeMap.at(key);
-        EDGES rightEdges = rightNodeMap.at(key);
-//        bool compareEdges = CFGHead::compareEdgesEquality(leftEdges, rightEdges);
-//        if (!compareEdges) {
-//            return false;
-//        }
-        verifiedNodes.insert(key);
-        while (++it != leftNodeMap.end() && it->first == key);
-    }
-
-    // Check that items in the right CFG is equal left CFG (in case right has more)
-    for (auto it = rightNodeMap.begin(); it != rightNodeMap.end();) {
-        auto const& key = it->first;
-        if (verifiedNodes.find(key) != verifiedNodes.end()) { // Verified stmt number already
-            while (++it != leftNodeMap.end() && it->first == key);
+    std::unordered_set<STMT_NUM> verifiedNodes;
+    // Check that keys in the left CFG is equal to the right CFG
+    for (auto iter = leftNodeMap.begin(); iter != leftNodeMap.end(); ++iter) {
+        STMT_NUM key = iter->first;
+        if (verifiedNodes.find(key) != verifiedNodes.end()) {
             continue;
         }
-        if (leftNodeMap.find(key) == leftNodeMap.end()) { // Key not found in right node
+        if (rightNodeMap.find(key) == rightNodeMap.end()) { // If key not found in right map
             return false;
         }
+        // Key found, comparing edges
         EDGES leftEdges = leftNodeMap.at(key);
         EDGES rightEdges = rightNodeMap.at(key);
-//        bool compareEdges = CFGHead::compareEdgesEquality(leftEdges, rightEdges);
-//        if (!compareEdges) {
-//            return false;
-//        }
-        while (++it != leftNodeMap.end() && it->first == key);
+        bool compareEdges = CFGHead::compareEdgesEquality(leftEdges, rightEdges);
+        if (!compareEdges) {
+            return false;
+        }
+        verifiedNodes.insert(key);
     }
 
-    // Compare DummyNodes
-//    bool cond2 = leftCFG.getDummyNodeMap() == rightCFG.getDummyNodeMap();
-    return true;
+    // Check that keys in the right CFG is equal to the left CFG (in case right CFG has keys that left doesn't)
+    for (auto iter = rightNodeMap.begin(); iter != rightNodeMap.end(); ++iter) {
+        STMT_NUM key = iter->first;
+        if (verifiedNodes.find(key) != verifiedNodes.end()) {
+            continue;
+        }
+        if (leftNodeMap.find(key) == leftNodeMap.end()) { // If key not found in left map
+            return false;
+        }
+        // Key found comparing edges
+        EDGES leftEdges = leftNodeMap.at(key);
+        EDGES rightEdges = rightNodeMap.at(key);
+        bool compareEdges = CFGHead::compareEdgesEquality(leftEdges, rightEdges);
+        if (!compareEdges) {
+            return false;
+        }
+        verifiedNodes.insert(key);
+    }
+
+    // Compare Dummy Nodes
+    return leftCFG.getDummyNodeMap() == rightCFG.getDummyNodeMap();
 }
 
 bool operator!= (CFGHead leftCFG, CFGHead rightCFG) {

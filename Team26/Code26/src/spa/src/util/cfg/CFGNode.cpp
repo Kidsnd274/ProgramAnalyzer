@@ -35,3 +35,14 @@ bool operator== (CFGNode leftNode, CFGNode rightNode) {
 bool operator!= (CFGNode leftNode, CFGNode rightNode) {
     return !(leftNode == rightNode);
 }
+
+bool operator< (CFGNode leftNode, CFGNode rightNode) {
+    if (leftNode.getStmtNumber() == rightNode.getStmtNumber()) {
+        if (leftNode.getNodeType() == rightNode.getNodeType()) {
+            return true;
+        }
+        return leftNode.getNodeType() < rightNode.getNodeType();
+    }
+
+    return leftNode.getStmtNumber() < rightNode.getStmtNumber();
+}

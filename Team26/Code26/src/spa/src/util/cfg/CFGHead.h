@@ -26,7 +26,7 @@ public:
     CFGMap getNormalNodeMap();
     CFGDummyMap getDummyNodeMap();
     static CFGHeadPtr createNewCFG();
-    static bool compareEdgesEquality(EDGES& v1, EDGES& v2);
+    static bool compareEdgesEquality(EDGES v1, EDGES v2);
 };
 
 bool operator== (CFGHead leftCFG, CFGHead rightCFG);
