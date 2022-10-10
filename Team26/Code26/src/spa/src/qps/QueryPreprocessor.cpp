@@ -546,14 +546,14 @@ namespace QPS {
 
         std::pair<ArgumentStruct, bool> ARG1, ARG2;
         if (pos < tokens.size() && (tokens[pos].tokenType == NAME)) {
-            ARG1 = convertStringToARG(tokens[pos], container);
-            if (!ARG1.second || ARG1.first.typeOfArgument != VAR_SYNONYM) {
-                return {pos, INVALID_PATTERN_CONTENT};
-            }
+            ARG1 = convertStringToRef(tokens[pos], container);
             pos++;
         } else if (pos < tokens.size() && tokens[pos].tokenType == UNDERSCORE) {
             ARG1 = {{WILDCARD, "_"}, true};
             pos++;
+        } else if (pos + 1 < tokens.size() && tokens[pos].tokenType == DOUBLE_QUOTE
+                   && tokens[pos+1].tokenType == DOUBLE_QUOTE) {
+            return {pos, INVALID_PATTERN_CONTENT};
         } else if (pos < tokens.size() && tokens[pos].tokenType == DOUBLE_QUOTE) {
             pos++;
             std::string actualName;
@@ -563,9 +563,6 @@ namespace QPS {
             }
             ARG1 = {{ACTUAL_NAME, actualName}, true};
             pos++;
-        } else if (pos + 1 < tokens.size() && tokens[pos].tokenType == DOUBLE_QUOTE
-                    && tokens[pos+1].tokenType == DOUBLE_QUOTE) {
-            return {pos, INVALID_PATTERN_CONTENT};
         } else {
             return {pos, INVALID_PATTERN_CONTENT};
         }
@@ -702,10 +699,7 @@ namespace QPS {
         }
 
         if (pos < tokens.size() && (tokens[pos].tokenType == NAME || (tokens[pos].tokenType == INTEGER && tokens[pos].nameValue != "0"))) {
-            ARG1 = convertStringToStmtRef(tokens[pos], container);
-            if (ARG1.second != VALID || ARG1.first.typeOfArgument == PROCEDURE_SYNONYM) {
-                return {pos, INVALID_RELATION_CONTENT};
-            }
+            ARG1 = convertStringToRef(tokens[pos], container);
             pos++;
         } else if (pos < tokens.size() && tokens[pos].tokenType == UNDERSCORE) {
             ARG1 = {{WILDCARD, "_"}, VALID};
@@ -723,10 +717,7 @@ namespace QPS {
         }
 
        if (pos < tokens.size() && (tokens[pos].tokenType == NAME || (tokens[pos].tokenType == INTEGER && tokens[pos].nameValue != "0"))) {
-            ARG2 = convertStringToStmtRef(tokens[pos], container);
-           if (ARG2.second != VALID || ARG2.first.typeOfArgument == PROCEDURE_SYNONYM) {
-               return {pos, INVALID_RELATION_CONTENT};
-           }
+            ARG2 = convertStringToRef(tokens[pos], container);
             pos++;
         } else if (pos < tokens.size() && tokens[pos].tokenType == DOUBLE_QUOTE && tokens[pos+1].tokenType == DOUBLE_QUOTE) {
            return {pos, INVALID_RELATION_CONTENT};
@@ -742,18 +733,9 @@ namespace QPS {
         } else {
             return {pos, INVALID_RELATION_SYNTAX};
         }
-        if (ARG1.second == VALID && ARG2.second == VALID) {
-            container.addSuchThatClause(relationType, ARG1.first, ARG2.first);
-            container.setStatus(FINISH_PARSE_SUCH_CLAUSE);
-            return {pos, VALID};
-        } else {
-            if (ARG1.second != VALID) {
-                return {pos, ARG1.second};
-            } else {
-                return {pos, ARG2.second};
-            }
-
-        }
+        container.addSuchThatClause(relationType, ARG1.first, ARG2.first);
+        container.setStatus(FINISH_PARSE_SUCH_CLAUSE);
+        return {pos, VALID};
     }
 
 
@@ -844,13 +826,8 @@ namespace QPS {
         }
 
         if (pos < tokens.size() && (tokens[pos].tokenType == NAME || (tokens[pos].tokenType == INTEGER && tokens[pos].nameValue != "0"))) {
-            ARG1 = convertStringToStmtRefUM(tokens[pos], container);
+            ARG1 = convertStringToRef(tokens[pos], container);
 
-            if (ARG1.second == INVALID_RELATION_CONTENT
-            || (ARG1.first.typeOfArgument == CALL_SYNONYM && (relationType == USES_S || relationType == USES_P))
-            || (ARG1.first.typeOfArgument == PRINT_SYNONYM && (relationType == MODIFIES_S || relationType == MODIFIES_P))) {
-                return {pos, INVALID_RELATION_SYNTAX};
-            }
             pos++;
         } else if (pos < tokens.size() && tokens[pos].tokenType == UNDERSCORE) {
             ARG1 = {{WILDCARD, "_"}, VALID};
@@ -880,10 +857,7 @@ namespace QPS {
         } else if (pos + 1 < tokens.size() && tokens[pos].tokenType == DOUBLE_QUOTE && tokens[pos+1].tokenType == DOUBLE_QUOTE) {
             return {pos, INVALID_RELATION_CONTENT};
         } else if (pos < tokens.size() && (tokens[pos].tokenType == NAME)) {
-            ARG2 = convertStringToEntRef(tokens[pos], container);
-            if (ARG2.first.typeOfArgument == CONST_SYNONYM) {
-                return {pos, INVALID_RELATION_CONTENT};
-            }
+            ARG2 = convertStringToRef(tokens[pos], container);
             pos++;
         } else if (pos < tokens.size() && tokens[pos].tokenType == UNDERSCORE) {
             ARG2 = {{WILDCARD, "_"}, VALID};
@@ -897,54 +871,9 @@ namespace QPS {
         } else {
             return {pos, INVALID_RELATION_SYNTAX};
         }
-        if (ARG1.second == VALID && ARG2.second == VALID) {
-            container.setStatus(FINISH_PARSE_SUCH_CLAUSE);
-            container.addSuchThatClause(relationType, ARG1.first, ARG2.first);
-            return {pos, VALID};
-        } else {
-            if (ARG1.second != VALID) {
-                return {pos, ARG1.second};
-            } else {
-                return {pos, ARG2.second};
-            }
-
-        }
-    }
-
-
-    std::pair<ArgumentStruct, Exception> convertStringToEntRef (Token &token, Container &container) {
-        if (token.tokenType == INTEGER) {
-            return {{ACTUAL_NAME, token.nameValue}, VALID};
-        } else if (token.tokenType == NAME) {
-            DECLARED_SYNONYM_MAP declarationMap = container.getDeclarationMap();
-            auto iterator = declarationMap.find(token.nameValue);
-            if (iterator == declarationMap.end()) {
-                return {{}, UNDECLARED_ENTITY_SUCH_THAT};
-            } else {
-                EntityType entityType = iterator->second;
-                switch (entityType) {
-                    case VARIABLE: {
-                        return {{VAR_SYNONYM, token.nameValue}, VALID};
-                    }
-                    case CONSTANT:{
-                        return {{CONST_SYNONYM, token.nameValue}, VALID};
-                    }
-                    case PROCEDURE:
-                    case STATEMENT:
-                    case READ:
-                    case PRINT:
-                    case CALL:
-                    case WHILE:
-                    case IF:
-                    case ASSIGN:
-                    case INVALID_ENTITY_TYPE:{
-                        return {{INVALID_ARGUMENT_TYPE, token.nameValue}, INVALID_RELATION_CONTENT};
-                    }
-                }
-            }
-        } else {
-            return {{}, INVALID_RELATION_SYNTAX};
-        }
+        container.setStatus(FINISH_PARSE_SUCH_CLAUSE);
+        container.addSuchThatClause(relationType, ARG1.first, ARG2.first);
+        return {pos, VALID};
     }
 
     std::pair<ArgumentStruct, Exception> convertStringToStmtRefCalls (Token &token, Container &container) {
@@ -965,56 +894,11 @@ namespace QPS {
         }
     }
 
-    std::pair<ArgumentStruct, Exception> convertStringToStmtRefUM (Token &token, Container &container) {
-        if (token.tokenType == INTEGER) {
-            return {{ACTUAL_NAME, token.nameValue}, VALID};
-        } else if (token.tokenType == NAME) {
-            DECLARED_SYNONYM_MAP declarationMap = container.getDeclarationMap();
-            auto iterator = declarationMap.find(token.nameValue);
-            if (iterator == declarationMap.end()) {
-                return {{}, UNDECLARED_ENTITY_SUCH_THAT};
-            } else {
-                EntityType entityType = iterator->second;
-                switch (entityType) {
-                    case STATEMENT: {
-                        return {{STMT_SYNONYM, token.nameValue}, VALID};
-                    }
-                    case PRINT: {
-                        return {{PRINT_SYNONYM, token.nameValue}, VALID};
-                    }
-                    case CALL: {
-                        return {{CALL_SYNONYM, token.nameValue}, VALID};
-                    }
-                    case WHILE:{
-                        return {{WHILE_SYNONYM, token.nameValue}, VALID};
-                    }
-                    case IF:{
-                        return {{IF_SYNONYM, token.nameValue}, VALID};
-                    }
-                    case PROCEDURE: {
-                        return {{PROCEDURE_SYNONYM, token.nameValue}, VALID};
-                    }
-                    case ASSIGN:{
-                        return {{ASSIGN_SYNONYM, token.nameValue}, VALID};
-                    }
-                    case READ:{
-                        return {{CALL_SYNONYM, token.nameValue}, VALID};
-                    }
-                    case VARIABLE:
-                    case CONSTANT:
-                    case INVALID_ENTITY_TYPE:{
-                        return {{INVALID_ARGUMENT_TYPE, token.nameValue}, INVALID_RELATION_CONTENT};
-                    }
-                }
-            }
-        } else {
-            return {{}, INVALID_RELATION_SYNTAX};
-        }
-    }
 
-    std::pair<ArgumentStruct, Exception> convertStringToStmtRef (Token &token, Container &container) {
+
+    std::pair<ArgumentStruct, Exception> convertStringToRef (Token &token, Container &container) {
         if (token.tokenType == INTEGER) {
-            return {{ACTUAL_NAME, token.nameValue}, VALID};
+            return {{NUMBER, token.nameValue}, VALID};
         } else if (token.tokenType == NAME) {
             DECLARED_SYNONYM_MAP declarationMap = container.getDeclarationMap();
             auto iterator = declarationMap.find(token.nameValue);
@@ -1047,8 +931,12 @@ namespace QPS {
                 case ASSIGN:{
                     return {{ASSIGN_SYNONYM, token.nameValue}, VALID};
                 }
-                case VARIABLE:
-                case CONSTANT:
+                case VARIABLE:{
+                    return {{VAR_SYNONYM, token.nameValue}, VALID};
+                }
+                case CONSTANT:{
+                    return {{CONST_SYNONYM, token.nameValue}, VALID};
+                }
                 case INVALID_ENTITY_TYPE:{
                     return {{INVALID_ARGUMENT_TYPE, token.nameValue}, INVALID_RELATION_CONTENT};
                 }
@@ -1058,45 +946,7 @@ namespace QPS {
         }
     }
 
-    std::pair<ArgumentStruct, bool> convertStringToARG (Token &token, Container &container) {
-        if (token.tokenType == INTEGER) {
-            return {{NUMBER, token.nameValue}, true};
-        } else if (token.tokenType == NAME) {
-            DECLARED_SYNONYM_MAP declarationMap = container.getDeclarationMap();
-            auto iterator = declarationMap.find(token.nameValue);
-            if (iterator == declarationMap.end()) {
-                return {{}, false};
-            }
-            EntityType entityType = iterator->second;
-            switch (entityType) {
-                case STATEMENT:
-                case READ:
-                case PRINT:
-                case CALL:
-                case WHILE:
-                case IF:
-                case ASSIGN:{
-                    return {{STMT_SYNONYM, token.nameValue}, true};
-                }
-                case PROCEDURE: {
-                    return {{PROCEDURE_SYNONYM, token.nameValue}, true};
-                }
-                case VARIABLE:{
-                    return {{VAR_SYNONYM, token.nameValue}, true};
-                }
-                case CONSTANT:{
-                    return {{CONST_SYNONYM, token.nameValue}, true};
-                }
-                case INVALID_ENTITY_TYPE:{
-                    return {{INVALID_ARGUMENT_TYPE, token.nameValue}, true};
-                }
-            }
-        } else if (token.tokenType == UNDERSCORE) {
-            return {{WILDCARD, "_"}, true};
-        } else {
-            return {{}, false};
-        }
-    }
+
 
     std::pair<WithFieldType, Exception> convertStringToWithType (Token &token) {
         if (token.tokenType != NAME) {
