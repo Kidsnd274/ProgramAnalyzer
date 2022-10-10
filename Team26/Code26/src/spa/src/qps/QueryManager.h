@@ -42,7 +42,6 @@ namespace QPS {
 
         /**
          * Call PKB interface to check whether a certain type is present in the SIMPLE source code.
-         *
          * @param relationStruct The given type to check.
          * @return bool.
          */

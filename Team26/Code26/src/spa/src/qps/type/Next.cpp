@@ -23,6 +23,7 @@ const std::unordered_map<
                 secondARGs
         },
 };
+
 bool Next::isValid() {
     auto iter = Next::nextValidationTable.find(this->argument1.argumentType);
     if (iter != Next::nextValidationTable.end()) {

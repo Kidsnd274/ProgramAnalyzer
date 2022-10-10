@@ -1,6 +1,6 @@
 #include "ClauseAssigner.h"
 
-void ClauseAssigner::assignClause(QPS::ResultTable &resultTable, Clause &clause) {
+void ClauseAssigner::assignClause(QPS::ResultTable* resultTable, Clause* clause) {
     ClauseEvaluator evaluator = ClauseEvaluator(clause);
     switch (clauseMap.find(typeid(clause).name())->second) {
         case (Pattern): {

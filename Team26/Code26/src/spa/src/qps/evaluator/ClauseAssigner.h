@@ -16,7 +16,7 @@ const std::map<std::string, ClauseType> clauseMap = {
 };
 class ClauseAssigner {
 public:
-    void assignClause(ResultTable& resultTable, Clause& clause);
+    void assignClause(ResultTable* resultTable, Clause* clause);
 };
 
 
