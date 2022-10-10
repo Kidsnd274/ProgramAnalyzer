@@ -49,6 +49,8 @@ public:
     void setStatus(QueryStatus);
 
     QueryStatus getStatus();
+
+    Argument::ArgumentType getSynonymType(std::string);
 };
 
 
