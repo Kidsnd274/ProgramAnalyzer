@@ -9,7 +9,7 @@ void QueryEvaluator::evaluate(Query query) {
     ClauseAssigner* clauseAssigner = new ClauseAssigner();
     for (auto iter = query.clauseList->begin(); iter != query.clauseList->end(); iter++) {
         ResultTable* resultTable = new ResultTable();
-        clauseAssigner->assignClause(resultTable, &*iter);
+        clauseAssigner->assignClause(*resultTable, *iter);
         resultOfEvaluation->mergeTable(*resultTable);
     }
 }
