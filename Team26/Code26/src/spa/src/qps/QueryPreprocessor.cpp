@@ -674,7 +674,7 @@ namespace QPS {
         bool is_closed = false;
         bool is_boolean_select = false;
         bool is_entity_select = false;
-        while (pos < tokens.size() && !QPS::isSuchThat(tokens[pos])) {
+        while (pos < tokens.size()) {
             QPS::Token curr = tokens[pos];
             if (curr.tokenType == QPS::NAME && curr.nameValue == "Select") {
                 pos++;
