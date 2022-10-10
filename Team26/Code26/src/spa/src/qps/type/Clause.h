@@ -5,7 +5,7 @@
 
 class Clause {
 public:
-    virtual bool isValid() = 0;
+    virtual bool isValid();
 };
 
 
