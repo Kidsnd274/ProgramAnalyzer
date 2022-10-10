@@ -31,6 +31,7 @@ namespace QPS {
         SUCH_THAT_LIST suchThatList;
         PATTERN_LIST patternList;
         CANDIDATE_LIST candidateList;
+        WITH_LIST   withList;
 
     public:
         QueryStatus queryStatus;
@@ -38,18 +39,9 @@ namespace QPS {
         unordered_set<std::string> usedSynonymList;
 
     public:
-        QueryStruct(DECLARED_SYNONYM_MAP &declaredSynonymMap,
-                    SUCH_THAT_LIST &suchThatList,
-                    PATTERN_LIST &patternList,
-                    CANDIDATE_LIST &candidateList);
+        QueryStruct(DECLARED_SYNONYM_MAP &declaredSynonymMap, SUCH_THAT_LIST &suchThatList, PATTERN_LIST &patternList, CANDIDATE_LIST &candidateList,
+                    WITH_LIST &withList);
 
-        QueryStruct(DECLARED_SYNONYM_MAP &declaredSynonymMap,
-                    SUCH_THAT_LIST &suchThatList,
-                    CANDIDATE_LIST &candidateList);
-
-        QueryStruct(DECLARED_SYNONYM_MAP &declaredSynonymMap,
-                    PATTERN_LIST &patternList,
-                    CANDIDATE_LIST &candidateList);
 
         QueryStruct();
 
@@ -60,6 +52,8 @@ namespace QPS {
         PATTERN_LIST getPatternList();
 
         CANDIDATE_LIST getCandidateList();
+
+        WITH_LIST getWithList();
 
 
         void addCandidateList(CandidateType typeOfCandidate, std::string s,
@@ -85,15 +79,17 @@ namespace QPS {
             }
         }
 
-        void addSynonym(EntityType, std::string nameOfEntity);
+        void addSynonym(EntityType, const std::string& nameOfEntity);
 
-        void addSuchThatClause(RelationStruct relationToAdd);
+        void addSuchThatClause(const RelationStruct& relationToAdd);
 
-        void addPatternClause(PatternStruct patternToAdd);
+        void addPatternClause(const PatternStruct& patternToAdd);
 
-        void addCandidate(CandidateStruct);
+        void addCandidate(const CandidateStruct&);
 
-        void addUsedSynonym(std::string);
+        void addWithClause(const WithStruct& withStruct);
+
+        void addUsedSynonym(const std::string&);
 
         void generateUsedSynonymList();
         /**
@@ -103,7 +99,7 @@ namespace QPS {
          * @param nameOfSynonym A string, the name of synonym.
          * @return bool.
          */
-        bool isSynonymUsed(std::string nameOfSynonym);
+        bool isSynonymUsed(const std::string& nameOfSynonym);
     };
 }
 #endif // QUERYSTRUCT_H

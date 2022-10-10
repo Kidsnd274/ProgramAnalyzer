@@ -16,6 +16,7 @@ public:
     void finalizeIfPortionOfIfStatement(STMT_NUM ifNode);
     void finalizeElsePortionOfIfStatement(STMT_NUM ifNode);
     void finalizeWhileStatement(STMT_NUM whileNode);
+    void finalizeFinalNode();
 };
 
 #endif //SPA_CFGMANAGER_H

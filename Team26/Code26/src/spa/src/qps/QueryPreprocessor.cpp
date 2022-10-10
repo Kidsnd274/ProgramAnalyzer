@@ -12,6 +12,7 @@ namespace QPS {
     std::pair<int, Exception> parseRelationStmtStmt(std::vector<QPS::Token> &tokens, int pos, RelationType relationType, Container &container);
     std::pair<int, Exception> parseRelationStmtEnt(std::vector<QPS::Token> &tokens, int pos, RelationType relationType, Container &container);
     std::pair<int, Exception> parseRelationCalls(std::vector<QPS::Token> &tokens, int pos, RelationType relationType, Container &container);
+    std::pair<int, Exception> parseWithClause(std::vector<QPS::Token> &tokens, int pos, Container &container);
 
     Exception parseToken(std::vector<QPS::Token> &tokens, Container& container) {
         int tokenPos = 0;
@@ -349,7 +350,8 @@ namespace QPS {
                 }
                 container.setStatus(FINISH_PARSE_SELECT);
             }  else if (curr.tokenType == QPS::NAME && curr.nameValue == "such" &&
-                    (container.getStatus() == FINISH_PARSE_PATTERN_CLAUSE || container.getStatus() == FINISH_PARSE_SELECT || container.getStatus() == FINISH_PARSE_SUCH_CLAUSE )) {
+                    (container.getStatus() == FINISH_PARSE_PATTERN_CLAUSE || container.getStatus() == FINISH_PARSE_SELECT
+                    || container.getStatus() == FINISH_PARSE_SUCH_CLAUSE || container.getStatus() == FINISH_PARSE_WITH_CLAUSE)) {
                 container.setStatus(START_PARSE_SUCH);
             }  else if (curr.tokenType == QPS::NAME && curr.nameValue == "that" && container.getStatus() == START_PARSE_SUCH) {
                 container.setStatus(FINISH_PARSE_SUCH);
@@ -357,7 +359,8 @@ namespace QPS {
             } else if (container.getStatus() == START_PARSE_SUCH && (curr.tokenType != QPS::NAME || curr.nameValue != "that")) {
                 return INVALID_SUCH_THAT;
             } else if (curr.tokenType == QPS::NAME && curr.nameValue == "pattern" &&
-                    (container.getStatus() == FINISH_PARSE_SUCH_CLAUSE || container.getStatus() == FINISH_PARSE_SELECT || container.getStatus() == START_PARSE_PATTERN_CLAUSE )) {
+                    (container.getStatus() == FINISH_PARSE_SUCH_CLAUSE || container.getStatus() == FINISH_PARSE_SELECT
+                    || container.getStatus() == START_PARSE_PATTERN_CLAUSE || container.getStatus() == FINISH_PARSE_WITH_CLAUSE)) {
                 tokenPos++;
                 std::pair<int, Exception> result = parsePattern(tokens, tokenPos, container);
                 if (result.second != VALID) {
@@ -380,6 +383,19 @@ namespace QPS {
                 } else {
                     return INVALID_MULTIPLE_CLAUSE;
                 }
+            } else if (curr.tokenType == QPS::NAME && curr.nameValue == "with"
+                            && (container.getStatus() == FINISH_PARSE_SELECT
+                                || container.getStatus() == FINISH_PARSE_PATTERN_CLAUSE
+                                || container.getStatus() == FINISH_PARSE_SUCH_CLAUSE) ) {
+                container.setStatus(START_PARSE_WITH_CLAUSE);
+                tokenPos++;
+                std::pair<int, Exception> result = parseWithClause(tokens, tokenPos, container);
+                if (result.second != VALID) {
+                    return result.second;
+                } else {
+                    container.setStatus(FINISH_PARSE_WITH_CLAUSE);
+                    tokenPos = result.first - 1;
+                }
             } else {
                return UNMATCHED_QUERY_TYPE;
             }
@@ -388,6 +404,137 @@ namespace QPS {
 
         return VALID;
     }
+
+    std::pair<int, Exception> parseWithClause(std::vector<QPS::Token> &tokens, int pos, Container &container) {
+        WithStruct withStruct;
+        if (pos < tokens.size() && tokens[pos].tokenType == NAME) {
+            DECLARED_SYNONYM_MAP declarationMap = container.getDeclarationMap();
+            auto iterator = declarationMap.find( tokens[pos].nameValue);
+            if (iterator == declarationMap.end()) {
+                return {pos, UNDECLARED_ENTITY_WITH};
+            } else {
+                withStruct.first_entity = iterator -> second;
+                withStruct.first_name = iterator->first;
+                pos++;
+            }
+        } else {
+            return {pos, INVALID_WITH_SYNTAX};
+        }
+
+        if (pos < tokens.size() && tokens[pos].tokenType != DOT) {
+            return {pos, INVALID_WITH_MISSING_DOT};
+        }
+
+        pos++;
+
+        if (pos < tokens.size() && tokens[pos].tokenType == NAME) {
+            std::pair<WithFieldType, Exception> fields = convertStringToWithType(tokens[pos]);
+            if (fields.second != VALID) {
+                return {pos, INVALID_WITH_FIELD};
+            } else {
+                withStruct.first_field_type = fields.first;
+                // handle stmt#
+                if (withStruct.first_field_type == STMT_INTEGER && tokens[pos + 1].tokenType == HASHTAG) {
+                    pos++;
+                } else if (withStruct.first_field_type == STMT_INTEGER) {
+                    return {pos, INVALID_WITH_SYNTAX};
+                }
+                pos++;
+            }
+        }
+
+        if (pos < tokens.size() && tokens[pos].tokenType != SINGLE_EQ) {
+            return {pos, INVALID_WITH_SYNTAX};
+        }
+
+        pos++;
+
+        //p.procName = "xxx"
+        if (pos + 2 < tokens.size() && tokens[pos].tokenType == DOUBLE_QUOTE && tokens[pos+2].tokenType == DOUBLE_QUOTE
+            && (tokens[pos + 1].tokenType == NAME)) {
+            switch (withStruct.first_entity) {
+                case READ:
+                case PRINT:
+                case VARIABLE:
+                case CALL:
+                case PROCEDURE:{
+                    withStruct.second_field_type = ACTUAL_WITH_NAME;
+                    withStruct.second_name = tokens[pos + 1].nameValue;
+                    break;
+                }
+                case WHILE:
+                case IF:
+                case STATEMENT:
+                case ASSIGN:
+                case CONSTANT:
+                case INVALID_ENTITY_TYPE: {
+                    return {pos, INVALID_WITH_SYNTAX};
+                }
+            }
+            pos += 3;
+        } else if (pos < tokens.size() && tokens[pos].tokenType == INTEGER) {
+            switch (withStruct.first_entity) {
+                case READ:
+                case PRINT:
+                case CALL:
+                case WHILE:
+                case IF:
+                case STATEMENT:
+                case ASSIGN:
+                case CONSTANT:{
+                    withStruct.second_field_type = ACTUAL_WITH_INTEGER;
+                    withStruct.second_name = tokens[pos].nameValue;
+                    break;
+                }
+                case VARIABLE:
+                case PROCEDURE:
+                case INVALID_ENTITY_TYPE: {
+                    return {pos, INVALID_WITH_SYNTAX};
+                }
+            }
+            pos++;
+        } else if (pos < tokens.size() && tokens[pos].tokenType == NAME) {
+            DECLARED_SYNONYM_MAP declarationMap = container.getDeclarationMap();
+            auto iterator = declarationMap.find( tokens[pos].nameValue);
+            if (iterator == declarationMap.end()) {
+                return {pos, UNDECLARED_ENTITY_WITH};
+            } else {
+                withStruct.second_entity = iterator -> second;
+                withStruct.second_name = iterator->first;
+                pos++;
+            }
+
+            if (pos < tokens.size() && tokens[pos].tokenType != DOT) {
+                return {pos, INVALID_WITH_MISSING_DOT};
+            }
+
+            pos++;
+
+            if (pos < tokens.size() && tokens[pos].tokenType != NAME) {
+                return {pos, INVALID_WITH_SYNTAX};
+            }
+            std::pair<WithFieldType, Exception> fields = convertStringToWithType(tokens[pos]);
+            if (fields.second != VALID) {
+                return {pos, INVALID_WITH_FIELD};
+            } else {
+                withStruct.second_field_type = fields.first;
+                // handle stmt#
+                if (withStruct.second_field_type == STMT_INTEGER && tokens[pos + 1].tokenType == HASHTAG) {
+                    pos++;
+                } else {
+                    return {pos, INVALID_WITH_SYNTAX};
+                }
+                pos++;
+            }
+
+        } else {
+            return {pos, INVALID_WITH_SYNTAX};
+        }
+        container.addWithClause(withStruct);
+        return {pos,VALID};
+
+    }
+
 
     std::pair<int, Exception> parsePattern (std::vector<QPS::Token> &tokens,
                                        int pos,
@@ -433,7 +580,7 @@ namespace QPS {
             }
             ARG1 = {{ACTUAL_NAME, actualName}, true};
             pos++;
-        } else if (pos < tokens.size() && tokens[pos].tokenType == DOUBLE_QUOTE && tokens[pos+1].tokenType == DOUBLE_QUOTE) {
+        } else if (pos + 1 < tokens.size() && tokens[pos].tokenType == DOUBLE_QUOTE && tokens[pos+1].tokenType == DOUBLE_QUOTE) {
             return {pos, INVALID_PATTERN_CONTENT};
         } else {
             return {pos, INVALID_PATTERN_CONTENT};
@@ -480,7 +627,7 @@ namespace QPS {
                 expression += "_";
                 pos++;
             }
-        } else if (pos < tokens.size() && tokens[pos].tokenType == DOUBLE_QUOTE && tokens[pos+1].tokenType == DOUBLE_QUOTE) {
+        } else if (pos + 1 < tokens.size() && tokens[pos].tokenType == DOUBLE_QUOTE && tokens[pos+1].tokenType == DOUBLE_QUOTE) {
             return {pos, INVALID_PATTERN_CONTENT};
         }
 
@@ -531,7 +678,8 @@ namespace QPS {
             QPS::Token curr = tokens[pos];
             if (curr.tokenType == QPS::NAME && curr.nameValue == "Select") {
                 pos++;
-            } else if (curr.tokenType == QPS::NAME && curr.nameValue != "such" && curr.nameValue != "pattern" && curr.nameValue != "BOOLEAN" && !is_boolean_select) {
+            } else if (curr.tokenType == QPS::NAME && curr.nameValue != "such" && curr.nameValue != "pattern"
+                            && curr.nameValue != "BOOLEAN" && !is_boolean_select && curr.nameValue != "with") {
                 is_entity_select = true;
                 EntityType entityType = container.getQueryStruct().getDeclaration(curr.nameValue);
                 if (entityType != INVALID_ENTITY_TYPE) {
@@ -547,7 +695,7 @@ namespace QPS {
                 pos++;
             } else if (curr.tokenType == QPS::COMMA && !is_boolean_select){
                 pos++;
-            } else if (curr.tokenType == QPS::NAME && (curr.nameValue == "such" || curr.nameValue == "pattern")){
+            } else if (curr.tokenType == QPS::NAME && (curr.nameValue == "such" || curr.nameValue == "pattern" || curr.nameValue == "with")){
                 return {pos, VALID};
             } else if (curr.tokenType == GT && !is_boolean_select) {
                 pos++;
@@ -588,7 +736,7 @@ namespace QPS {
         } else if (pos < tokens.size() && tokens[pos].tokenType == UNDERSCORE) {
             ARG1 = {{WILDCARD, "_"}, VALID};
             pos++;
-        } else if (pos < tokens.size() && tokens[pos].tokenType == DOUBLE_QUOTE && tokens[pos+1].tokenType == DOUBLE_QUOTE) {
+        } else if (pos + 1 < tokens.size() && tokens[pos].tokenType == DOUBLE_QUOTE && tokens[pos+1].tokenType == DOUBLE_QUOTE) {
             return {pos, INVALID_RELATION_CONTENT};
         } else {
             return {pos, INVALID_RELATION_CONTENT};
@@ -655,12 +803,12 @@ namespace QPS {
         } else if (pos < tokens.size() && tokens[pos].tokenType == UNDERSCORE) {
             ARG1 = {{WILDCARD, "_"}, VALID};
             pos++;
-        } else if (pos < tokens.size() && tokens[pos].tokenType == DOUBLE_QUOTE && tokens[pos+2].tokenType == DOUBLE_QUOTE
+        } else if (pos + 2 < tokens.size() && tokens[pos].tokenType == DOUBLE_QUOTE && tokens[pos+2].tokenType == DOUBLE_QUOTE
                    && tokens[pos + 1].tokenType == NAME) {
             std::string actual_name = tokens[pos + 1].nameValue;
             ARG1 = {{PROCEDURE_ACTUAL_NAME, actual_name}, VALID};
             pos += 3;
-        } else if (pos < tokens.size() && tokens[pos].tokenType == DOUBLE_QUOTE && tokens[pos+1].tokenType == DOUBLE_QUOTE) {
+        } else if (pos + 1 < tokens.size() && tokens[pos].tokenType == DOUBLE_QUOTE && tokens[pos+1].tokenType == DOUBLE_QUOTE) {
             return {pos, INVALID_RELATION_CONTENT};
         } else {
             return {pos, INVALID_RELATION_CONTENT};
@@ -678,12 +826,12 @@ namespace QPS {
                 return {pos, INVALID_RELATION_CONTENT};
             }
             pos++;
-        } else if (pos < tokens.size() && tokens[pos].tokenType == DOUBLE_QUOTE && tokens[pos+2].tokenType == DOUBLE_QUOTE
+        } else if (pos + 2 < tokens.size() && tokens[pos].tokenType == DOUBLE_QUOTE && tokens[pos+2].tokenType == DOUBLE_QUOTE
                    && tokens[pos + 1].tokenType == NAME) {
             std::string actual_name = tokens[pos + 1].nameValue;
             ARG1 = {{PROCEDURE_ACTUAL_NAME, actual_name}, VALID};
             pos += 3;
-        } else if (pos < tokens.size() && tokens[pos].tokenType == DOUBLE_QUOTE && tokens[pos+1].tokenType == DOUBLE_QUOTE) {
+        } else if (pos + 1 < tokens.size() && tokens[pos].tokenType == DOUBLE_QUOTE && tokens[pos+1].tokenType == DOUBLE_QUOTE) {
             return {pos, INVALID_RELATION_CONTENT};
         }  else if (pos < tokens.size() && tokens[pos].tokenType == UNDERSCORE) {
             ARG2 = {{WILDCARD, "_"}, VALID};
@@ -732,12 +880,12 @@ namespace QPS {
         } else if (pos < tokens.size() && tokens[pos].tokenType == UNDERSCORE) {
             ARG1 = {{WILDCARD, "_"}, VALID};
             pos++;
-        } else if (pos < tokens.size() && tokens[pos].tokenType == DOUBLE_QUOTE && tokens[pos+2].tokenType == DOUBLE_QUOTE
+        } else if (pos + 2 < tokens.size() && tokens[pos].tokenType == DOUBLE_QUOTE && tokens[pos+2].tokenType == DOUBLE_QUOTE
                    && tokens[pos + 1].tokenType == NAME) {
             std::string actual_name = tokens[pos + 1].nameValue;
             ARG1 = {{PROCEDURE_ACTUAL_NAME, actual_name}, VALID};
             pos += 3;
-        } else if (pos < tokens.size() && tokens[pos].tokenType == DOUBLE_QUOTE && tokens[pos+1].tokenType == DOUBLE_QUOTE) {
+        } else if (pos + 1 < tokens.size() && tokens[pos].tokenType == DOUBLE_QUOTE && tokens[pos+1].tokenType == DOUBLE_QUOTE) {
             return {pos, INVALID_RELATION_CONTENT};
         } else {
             return {pos, INVALID_RELATION_CONTENT};
@@ -749,12 +897,12 @@ namespace QPS {
             return {pos, INVALID_RELATION_SYNTAX};
         }
 
-        if (pos < tokens.size() && tokens[pos].tokenType == DOUBLE_QUOTE && tokens[pos+2].tokenType == DOUBLE_QUOTE
+        if (pos + 2 < tokens.size() && tokens[pos].tokenType == DOUBLE_QUOTE && tokens[pos+2].tokenType == DOUBLE_QUOTE
             && tokens[pos + 1].tokenType == NAME) {
             std::string actual_name = tokens[pos + 1].nameValue;
             ARG2 = {{ACTUAL_NAME, actual_name}, VALID};
             pos += 3;
-        } else if (pos < tokens.size() && tokens[pos].tokenType == DOUBLE_QUOTE && tokens[pos+1].tokenType == DOUBLE_QUOTE) {
+        } else if (pos + 1 < tokens.size() && tokens[pos].tokenType == DOUBLE_QUOTE && tokens[pos+1].tokenType == DOUBLE_QUOTE) {
             return {pos, INVALID_RELATION_CONTENT};
         } else if (pos < tokens.size() && (tokens[pos].tokenType == NAME)) {
             ARG2 = convertStringToEntRef(tokens[pos], container);
@@ -830,13 +978,12 @@ namespace QPS {
             auto iterator = declarationMap.find(token.nameValue);
             if (iterator == declarationMap.end()) {
                 return {{}, UNDECLARED_ENTITY_SUCH_THAT};
+            }
+            EntityType entityType = iterator->second;
+            if (entityType == PROCEDURE) {
+                return {{PROCEDURE_SYNONYM, token.nameValue}, VALID};
             } else {
-                EntityType entityType = iterator->second;
-                if (entityType == PROCEDURE) {
-                    return {{PROCEDURE_SYNONYM, token.nameValue}, VALID};
-                } else {
-                    return {{INVALID_ARGUMENT_TYPE, token.nameValue}, INVALID_RELATION_CONTENT};
-                }
+                return {{INVALID_ARGUMENT_TYPE, token.nameValue}, INVALID_RELATION_CONTENT};
             }
         } else {
             return {{}, INVALID_RELATION_SYNTAX};
@@ -974,7 +1121,23 @@ namespace QPS {
         }
     }
 
-
+    std::pair<WithFieldType, Exception> convertStringToWithType (Token &token) {
+        if (token.tokenType != NAME) {
+            return {INVALID_WITH_TYPE, INVALID_WITH_TYPE_EXCEPTION};
+        }
+        std::string field = token.nameValue;
+        if (field == "varName") {
+            return {VARNAME, VALID};
+        } else if (field == "procName") {
+            return {PROCNAME, VALID};
+        } else if (field == "value") {
+            return {CONSTANT_INTEGER, VALID};
+        } else if (field == "stmt") {
+            return {STMT_INTEGER, VALID};
+        } else {
+            return {INVALID_WITH_TYPE, INVALID_WITH_TYPE_EXCEPTION};
+        }
+    }
 
     std::pair<EntityType, bool> mapEntity(const QPS::Token& token) {
         if (token.tokenType != QPS::NAME) {
@@ -1017,6 +1180,7 @@ namespace QPS {
             return {relationMap.at(tokens[pos].nameValue), true};
         }
     }
+
 
 
 }
