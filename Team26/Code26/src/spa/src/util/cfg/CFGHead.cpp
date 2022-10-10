@@ -83,17 +83,18 @@ std::unordered_set<STMT_NUM> CFGHead::getReachableNodes(STMT_NUM stmt) {
     while(!q.empty()) {
         STMT_NUM sm = q.front();
         q.pop();
-        if(ans.find(sm) == ans.end()) {
-            ans.insert(sm);
-            for(auto &node : adjList[sm]) {
-                if(node.isDummyNode()) {
-                    int dn = findDummyNodeNext(node);
-                    if(dn != -1 && ans.find(dn) == ans.end()) {
-                        q.push(dn);
-                    }
-                } else if(ans.find(node.getStmtNumber()) == ans.end()) {
-                    q.push(node.getStmtNumber());
+        if(ans.find(sm) != ans.end()) {
+            continue;
+        }
+        ans.insert(sm);
+        for(auto &node : adjList[sm]) {
+            if (node.isDummyNode()) {
+                int dn = findDummyNodeNext(node);
+                if (dn != -1 && ans.find(dn) == ans.end()) {
+                    q.push(dn);
                 }
+            } else if (ans.find(node.getStmtNumber()) == ans.end()) {
+                q.push(node.getStmtNumber());
             }
         }
     }
