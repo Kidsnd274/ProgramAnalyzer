@@ -27,6 +27,15 @@ public:
     Query() {
         this->synonymMap = new unordered_map<std::string, Argument>();
         this->candidateMap = new unordered_map<std::string, Argument>();
+        this->clauseList = new vector<Clause>();
+        this->resultTable = new ResultTable();
+    }
+
+    ~Query() {
+        delete this->synonymMap;
+        delete this->candidateMap;
+        delete this->clauseList;
+        delete this->resultTable;
     }
 
     void addSynonym(Argument synonym);
