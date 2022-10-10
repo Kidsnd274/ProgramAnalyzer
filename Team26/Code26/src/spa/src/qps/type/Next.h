@@ -1,7 +1,6 @@
 #ifndef SPA_NEXT_H
 #define SPA_NEXT_H
 
-
 #include "RelationClause.h"
 
 class Next : public RelationClause {
