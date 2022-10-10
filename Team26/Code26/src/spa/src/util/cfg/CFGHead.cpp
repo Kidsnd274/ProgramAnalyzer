@@ -1,6 +1,6 @@
 #include "CFGHead.h"
 #include "StatementNumberNotFoundException.h"
-#include <assert.h>
+#include <cassert>
 #include <utility>
 
 void CFGHead::connectNode(CFGNode node1, CFGNode node2)  {
