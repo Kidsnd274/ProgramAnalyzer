@@ -8,6 +8,7 @@
 #include <sstream>
 #include <iostream>
 #include <algorithm>
+#include "sp/SourceProcessor.h"
 
 
 namespace QPS {
@@ -437,11 +438,11 @@ namespace QPS {
         for (char i : pattern.arg2.nameOfArgument) {
             if (i == wildcard) {
                 continue;
-            } else if (isdigit(i)){
-                node = TNode::createConstantValue(0, trimmedString);
-                break;
             } else {
-                node = TNode::createVariableName(0, trimmedString);
+                if (!SourceProcessor::checkExpressionString(trimmedString)) {
+                    return false;
+                }
+                node = SourceProcessor::parseExpressionFromString(trimmedString);
                 break;
             }
         }
