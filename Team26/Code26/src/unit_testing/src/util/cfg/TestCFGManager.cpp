@@ -122,10 +122,9 @@ TEST_CASE("Test Next in CFGManager") {
     testManager.addStandardNode(6);
     testManager.finalizeWhileStatement(5);
     testManager.addStandardNode(7);
+    testManager.finalizeFinalNode();
     CFGHeadPtr createdCFG = testManager.getCurrentCFG();
-//    for(auto v : createdCFG->getEdges(5)) {
-//        std::cout << v.getStmtNumber() << std::endl;
-//    }
+
     REQUIRE(createdCFG->isNext(1,2));
     REQUIRE(createdCFG->isNext(2,3));
     REQUIRE_FALSE(createdCFG->isNext(2,1));
@@ -135,5 +134,5 @@ TEST_CASE("Test Next in CFGManager") {
     REQUIRE_FALSE(createdCFG->isNext(1,4));
     REQUIRE(createdCFG->isNext(5,6));
     REQUIRE(createdCFG->isNext(6,5));
-    //EQUIRE(createdCFG->isNext(5,7));
+    REQUIRE(createdCFG->isNext(5,7));
 }
