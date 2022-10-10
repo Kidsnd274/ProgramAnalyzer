@@ -1,6 +1,6 @@
 #include "ClauseAssigner.h"
 
-ResultTable *ClauseAssigner::assignClause(QPS::ResultTable *resultTable, Clause *clause) {
+void ClauseAssigner::assignClause(QPS::ResultTable *resultTable, Clause *clause) {
     ClauseEvaluator evaluator = ClauseEvaluator(clause);
     switch (clauseMap.find(typeid(clause).name())->second) {
         case (Pattern): {
@@ -20,5 +20,4 @@ ResultTable *ClauseAssigner::assignClause(QPS::ResultTable *resultTable, Clause 
         }
     }
     evaluator.evaluate(resultTable);
-    return resultTable;
 }
