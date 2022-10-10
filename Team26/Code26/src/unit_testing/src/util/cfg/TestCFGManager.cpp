@@ -59,7 +59,6 @@ TEST_CASE("Mixed test case") {
     testManager.addStandardNode(6);
     testManager.finalizeWhileStatement(5);
     testManager.addStandardNode(7);
-
     CFGHeadPtr createdCFG = testManager.getCurrentCFG();
 
     CFGHeadPtr correctCFG = CFGHead::createNewCFG();
@@ -75,4 +74,36 @@ TEST_CASE("Mixed test case") {
     correctCFG->connectNode(CFGNode::dummyNode(5), CFGNode::node(7));
 
     REQUIRE(*createdCFG == *correctCFG);
+}
+
+TEST_CASE("Test finalize node") {
+    SECTION("Normal node last") {
+        CFGManager testManager;
+        testManager.createNewCFG();
+        testManager.addStandardNode(1);
+        testManager.addStandardNode(2);
+        testManager.finalizeFinalNode();
+        CFGHeadPtr createdCFG = testManager.getCurrentCFG();
+
+        CFGHeadPtr correctCFG = CFGHead::createNewCFG();
+        correctCFG->connectNode(CFGNode::node(1), CFGNode::node(2));
+        correctCFG->initializeFinalNode(CFGNode::node(2));
+
+        REQUIRE(*createdCFG == *correctCFG);
+    }
+
+    SECTION("Dummy node last") {
+        CFGManager testManager;
+        testManager.createNewCFG();
+        testManager.addStandardNode(1);
+        testManager.addDummyNode(1);
+        testManager.finalizeFinalNode();
+        CFGHeadPtr createdCFG = testManager.getCurrentCFG();
+
+        CFGHeadPtr correctCFG = CFGHead::createNewCFG();
+        correctCFG->connectNode(CFGNode::node(1), CFGNode::dummyNode(1));
+        correctCFG->initializeFinalNode(CFGNode::dummyNode(1));
+
+        REQUIRE(*createdCFG == *correctCFG);
+    }
 }

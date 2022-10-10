@@ -1,5 +1,6 @@
 #include "CFGHead.h"
 #include "StatementNumberNotFoundException.h"
+#include <assert.h>
 #include <utility>
 
 void CFGHead::connectNode(CFGNode node1, CFGNode node2)  {
@@ -72,6 +73,20 @@ bool CFGHead::compareEdgesEquality(EDGES v1, EDGES v2) {
     std::sort(v1.begin(), v1.end());
     std::sort(v2.begin(), v2.end());
     return v1 == v2;
+}
+
+void CFGHead::initializeFinalNode(CFGNode finalNode) {
+    switch (finalNode.getNodeType()) {
+        case CFGNodeType::DummyNode:
+            dummyAdjList.insert({finalNode.getStmtNumber(), {-1, CFGNodeType::NullNode}});
+            break;
+        case CFGNodeType::NormalNode:
+            adjList[finalNode.getStmtNumber()] = EDGES();
+            break;
+        case CFGNodeType::NullNode:
+        default:
+            assert(false);
+    }
 }
 
 bool operator== (CFGHead leftCFG, CFGHead rightCFG) {

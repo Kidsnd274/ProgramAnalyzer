@@ -45,3 +45,7 @@ void CFGManager::finalizeWhileStatement(STMT_NUM whileNode) {
 void CFGManager::finalizeElsePortionOfIfStatement(STMT_NUM ifNode) {
     addDummyNode(ifNode);
 }
+
+void CFGManager::finalizeFinalNode() {
+    currentCFG->initializeFinalNode(parentNode);
+}

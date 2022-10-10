@@ -89,3 +89,21 @@ TEST_CASE("Test == operator") {
         REQUIRE(*cfgTest == *cfgTest2);
     }
 }
+
+TEST_CASE("Test final node") {
+    SECTION("Normal node last") {
+        CFGHeadPtr cfgTest = CFGHead::createNewCFG();
+        cfgTest->connectNode(CFGNode::node(1), CFGNode::node(2));
+        cfgTest->initializeFinalNode(CFGNode::node(2));
+
+        REQUIRE(cfgTest->getEdges(2).empty());
+    }
+
+    SECTION("Dummy node last") {
+        CFGHeadPtr cfgTest = CFGHead::createNewCFG();
+        cfgTest->connectNode(CFGNode::node(1), CFGNode::dummyNode(1));
+        cfgTest->initializeFinalNode(CFGNode::dummyNode(1));
+
+        REQUIRE(cfgTest->getDummyNodeEdge(1).isNullNode());
+    }
+}

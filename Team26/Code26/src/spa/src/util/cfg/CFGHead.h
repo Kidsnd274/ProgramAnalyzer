@@ -25,6 +25,7 @@ public:
     CFGNode getDummyNodeEdge(STMT_NUM stmtNumber);
     CFGMap getNormalNodeMap();
     CFGDummyMap getDummyNodeMap();
+    void initializeFinalNode(CFGNode finalNode);
     static CFGHeadPtr createNewCFG();
     static bool compareEdgesEquality(EDGES v1, EDGES v2);
 

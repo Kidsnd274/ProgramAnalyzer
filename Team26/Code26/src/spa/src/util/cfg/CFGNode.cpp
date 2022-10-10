@@ -26,6 +26,10 @@ bool CFGNode::isNullNode() {
     return nodeType == CFGNodeType::NullNode;
 }
 
+bool CFGNode::isNormalNode() {
+    return nodeType == CFGNodeType::NormalNode;
+}
+
 bool operator== (CFGNode leftNode, CFGNode rightNode) {
     bool cond1 = leftNode.getStmtNumber() == rightNode.getStmtNumber();
     bool cond2 = leftNode.getNodeType() == rightNode.getNodeType();

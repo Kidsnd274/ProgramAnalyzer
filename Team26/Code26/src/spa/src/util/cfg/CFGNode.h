@@ -24,6 +24,7 @@ public:
     int getStmtNumber() const;
     CFGNodeType getNodeType() const;
     bool isDummyNode();
+    bool isNormalNode();
     bool isNullNode();
     static CFGNode node(int statementNumber);
     static CFGNode dummyNode(int statementNumber);
