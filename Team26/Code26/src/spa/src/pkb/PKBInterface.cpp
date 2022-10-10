@@ -29,8 +29,6 @@
 using namespace std;
 //using namespace StatementType;
 
-PKB* PKBInterface::pkb = new PKB();
-
 void PKBInterface::addProcedure(std::string name, int startingStmtNo, int endingStmtNo) {
     Procedure proc;
     proc.name = std::move(name);

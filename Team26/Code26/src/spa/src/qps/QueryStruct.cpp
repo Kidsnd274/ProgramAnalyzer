@@ -4,37 +4,21 @@ namespace QPS {
     QueryStruct::QueryStruct(DECLARED_SYNONYM_MAP &declaredSynonymMap,
                              SUCH_THAT_LIST &suchThatList,
                              PATTERN_LIST &patternList,
-                             CANDIDATE_LIST &candidateList) :
-            declaredSynonymMap(declaredSynonymMap),
-            suchThatList(suchThatList),
-            patternList(patternList),
-            candidateList(candidateList) {
-        this->generateUsedSynonymList();
-    }
-
-    QueryStruct::QueryStruct(DECLARED_SYNONYM_MAP &declaredSynonymMap,
-                             SUCH_THAT_LIST &suchThatList,
-                             CANDIDATE_LIST &candidateList) :
-            declaredSynonymMap(declaredSynonymMap),
-            suchThatList(suchThatList),
-            candidateList(candidateList) {
-        this->generateUsedSynonymList();
-    }
-
-    QueryStruct::QueryStruct(DECLARED_SYNONYM_MAP &declaredSynonymMap,
-                             PATTERN_LIST &patternList,
-                             CANDIDATE_LIST &candidateList) :
+                             CANDIDATE_LIST &candidateList,
+                             WITH_LIST & withList) :
             declaredSynonymMap(declaredSynonymMap),
             patternList(patternList),
             candidateList(candidateList) {
-        this->generateUsedSynonymList();
-    }
+                this->generateUsedSynonymList();
+            }
+
 
     QueryStruct::QueryStruct() {
         this->declaredSynonymMap = DECLARED_SYNONYM_MAP();
         this->suchThatList = SUCH_THAT_LIST();
         this->patternList = PATTERN_LIST();
         this->candidateList = CANDIDATE_LIST();
+        this->withList = WITH_LIST();
     }
 
     DECLARED_SYNONYM_MAP QueryStruct::getDeclaredSynonymMap() {
@@ -53,7 +37,11 @@ namespace QPS {
         return this->candidateList;
     }
 
-    void QueryStruct::addSynonym(EntityType entityType, std::string nameOfEntity) {
+    WITH_LIST QueryStruct::getWithList() {
+        return this->withList;
+    }
+
+    void QueryStruct::addSynonym(EntityType entityType, const std::string& nameOfEntity) {
         if (this->declaredSynonymMap.find(nameOfEntity) != this->declaredSynonymMap.end()) {
             this->queryStatus = SEMANTIC_ERROR;
         } else {
@@ -61,7 +49,13 @@ namespace QPS {
         }
     }
 
-    void QueryStruct::addSuchThatClause(RelationStruct relationToAdd) {
+    void QueryStruct::addWithClause(const WithStruct& withStruct) {
+        this->withList.emplace_back(withStruct);
+        this->addUsedSynonym(withStruct.first_name);
+        this->addUsedSynonym(withStruct.second_name);
+    }
+
+    void QueryStruct::addSuchThatClause(const RelationStruct& relationToAdd) {
         this->suchThatList.emplace_back(relationToAdd);
         if (QPS::isArgumentTypeSynonym(relationToAdd.arg1.typeOfArgument)) {
             this->addUsedSynonym(relationToAdd.arg1.nameOfArgument);
@@ -71,7 +65,7 @@ namespace QPS {
         }
     }
 
-    void QueryStruct::addPatternClause(PatternStruct patternToAdd) {
+    void QueryStruct::addPatternClause(const PatternStruct& patternToAdd) {
         this->patternList.emplace_back(patternToAdd);
         this->addUsedSynonym(patternToAdd.assign_syn);
         if (QPS::isArgumentTypeSynonym(patternToAdd.arg1.typeOfArgument)) {
@@ -82,20 +76,20 @@ namespace QPS {
         }
     }
 
-    void QueryStruct::addCandidate(CandidateStruct candidateToAdd) {
+    void QueryStruct::addCandidate(const CandidateStruct& candidateToAdd) {
         this->candidateList.emplace_back(candidateToAdd);
         this->addUsedSynonym(candidateToAdd.entityOfCandidate.nameOfEntity);
     }
 
-    void QueryStruct::addUsedSynonym(std::string nameOfSynonym) {
+    void QueryStruct::addUsedSynonym(const std::string& nameOfSynonym) {
         this->usedSynonymList.insert(nameOfSynonym);
     }
 
     void QueryStruct::generateUsedSynonymList() {
-        for (auto candidate : this->candidateList) {
+        for (const auto& candidate : this->candidateList) {
             this->addUsedSynonym(candidate.entityOfCandidate.nameOfEntity);
         }
-        for (auto relation: this->suchThatList) {
+        for (const auto& relation: this->suchThatList) {
             if (QPS::isArgumentTypeSynonym(relation.arg1.typeOfArgument)) {
                 this->addUsedSynonym(relation.arg1.nameOfArgument);
             }
@@ -103,7 +97,7 @@ namespace QPS {
                 this->addUsedSynonym(relation.arg2.nameOfArgument);
             }
         }
-        for (auto pattern: this->patternList) {
+        for (const auto& pattern: this->patternList) {
             this->addUsedSynonym(pattern.assign_syn);
             if (QPS::isArgumentTypeSynonym(pattern.arg1.typeOfArgument)) {
                 this->addUsedSynonym(pattern.arg1.nameOfArgument);
@@ -114,11 +108,12 @@ namespace QPS {
         }
     }
 
-    bool QueryStruct::isSynonymUsed(std::string nameOfSynonym) {
+    bool QueryStruct::isSynonymUsed(const std::string& nameOfSynonym) {
         if (this->usedSynonymList.find(nameOfSynonym) != this->usedSynonymList.end()) {
             return true;
         } else {
             return false;
         }
     }
+
 }
