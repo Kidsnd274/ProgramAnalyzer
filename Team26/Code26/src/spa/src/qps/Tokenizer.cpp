@@ -50,6 +50,11 @@ namespace QPS {
                     continue;
                 }
 
+                if (pair.first == WHITESPACE) {
+                    queryString = queryString.substr(match.str().size());
+                    continue;
+                }
+
                 Token t;
                 if (pair.first == NAME) {
                     t = createToken(NAME, match.str());

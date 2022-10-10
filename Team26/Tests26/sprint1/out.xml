@@ -1,28 +1,28 @@
 <?xml-stylesheet type="text/xsl" href="analysis.xsl"?>
 <test_results>
 <info>
-<name>autotester</name><parsing_time_taken>0.861000</parsing_time_taken>
+<name>autotester</name><parsing_time_taken>1.056000</parsing_time_taken>
 </info>
 <queries>
 <query>
 <id ReturnTuple="1" Follows="1" SuchThat="1" CondNum="3" RelNum="1" comment="(Valid Query)">1</id><querystr><![CDATA[if ifs; while w; read rd; print pt; Select <ifs, w, rd, pt> such that Follows(rd, pt)]]></querystr>
 <stuans>13 8 3 4,10 8 3 4</stuans>
 <correct>10 8 3 4,13 8 3 4</correct>
-<time_taken>63.884000</time_taken>
+<time_taken>58.132000</time_taken>
 <passed/>
 </query>
 <query>
 <id ReturnTuple="1" CondNum="1" RelNum="0" comment="(Valid Query)">2</id><querystr><![CDATA[variable v; constant c; while w; Select <v, c, w>]]></querystr>
 <stuans>a 1 8,b 1 8</stuans>
 <correct>a 1 8,b 1 8</correct>
-<time_taken>17.469000</time_taken>
+<time_taken>15.682000</time_taken>
 <passed/>
 </query>
 <query>
 <id ReturnTuple="1" Uses="1" SuchThat="1" CondNum="3" RelNum="1" comment="(Valid Query) Both return values in same clause">1</id><querystr><![CDATA[assign a; variable v; print pt; Select <a, v, pt> such that Uses(a, v)]]></querystr>
 <stuans>14 b 11,7 a 11,7 b 11,14 b 5,7 a 4,7 b 5,7 a 5,14 b 4,7 b 4</stuans>
 <correct>7 a,7 b,14 b</correct>
-<time_taken>37.605000</time_taken>
+<time_taken>36.335000</time_taken>
 <failed>
 <missing>14 b,7 a,7 b</missing>
 <additional>14 b 11,14 b 4,14 b 5,7 a 11,7 a 4,7 a 5,7 b 11,7 b 4,7 b 5</additional>
