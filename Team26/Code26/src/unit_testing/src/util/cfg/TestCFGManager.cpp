@@ -136,3 +136,36 @@ TEST_CASE("Test Next in CFGManager") {
     REQUIRE(createdCFG->isNext(6,5));
     REQUIRE(createdCFG->isNext(5,7));
 }
+
+TEST_CASE("Test Reachable in CFGManager") {
+    CFGManager testManager;
+    testManager.createNewCFG();
+    testManager.addStandardNode(1);
+    testManager.addStandardNode(2);
+    testManager.addStandardNode(3);
+    testManager.finalizeIfPortionOfIfStatement(2);
+    testManager.addStandardNode(4);
+    testManager.finalizeElsePortionOfIfStatement(2);
+    testManager.addStandardNode(5);
+    testManager.addStandardNode(6);
+    testManager.finalizeWhileStatement(5);
+    testManager.addStandardNode(7);
+    testManager.finalizeFinalNode();
+    CFGHeadPtr createdCFG = testManager.getCurrentCFG();
+
+    std::unordered_set<int> set1 = {1,2,3,4,5,6,7};
+    std::unordered_set<int> set2 = {2,3,4,5,6,7};
+    std::unordered_set<int> set3 = {3,5,6,7};
+    std::unordered_set<int> set4 = {4,5,6,7};
+    std::unordered_set<int> set5 = {5,6,7};
+    std::unordered_set<int> set6 = {5,6,7};
+    std::unordered_set<int> set7 = {7};
+
+    REQUIRE(createdCFG->getReachableNodes(1) == set1);
+    REQUIRE(createdCFG->getReachableNodes(2) == set2);
+    REQUIRE(createdCFG->getReachableNodes(3) == set3);
+    REQUIRE(createdCFG->getReachableNodes(4) == set4);
+    REQUIRE(createdCFG->getReachableNodes(5) == set5);
+    REQUIRE(createdCFG->getReachableNodes(6) == set6);
+    REQUIRE(createdCFG->getReachableNodes(7) == set7);
+}
