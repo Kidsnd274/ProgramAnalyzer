@@ -1,7 +1,7 @@
 #include "QueryPreprocessor.h"
 #include "QueryManager.h"
 #include "Container.h"
-#include "QueryEvaluator.h"
+#include "qps/oldComponents/QueryEvaluator.h"
 #include "QueryResultProjector.h"
 #include <utility>
 #include <vector>

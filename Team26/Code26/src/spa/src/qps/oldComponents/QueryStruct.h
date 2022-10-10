@@ -1,8 +1,8 @@
 #ifndef QUERYSTRUCT_H
 #define QUERYSTRUCT_H
 
-#include "QueryProcessorTypes.h"
-#include "ResultTable.h"
+#include "qps/QueryProcessorTypes.h"
+#include "qps/ResultTable.h"
 #include <string>
 #include <utility>
 #include <vector>

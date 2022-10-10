@@ -1,7 +1,7 @@
 #ifndef INC_22S1_CP_SPA_TEAM_26_QUERYRESULTPROJECTOR_H
 #define INC_22S1_CP_SPA_TEAM_26_QUERYRESULTPROJECTOR_H
 
-#include "QueryStruct.h"
+#include "qps/oldComponents/QueryStruct.h"
 #include "ResultTable.h"
 #include <list>
 

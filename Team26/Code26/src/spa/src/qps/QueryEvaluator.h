@@ -1,13 +1,11 @@
-#ifndef QUERYEVALUATOR_H
-#define QUERYEVALUATOR_H
+#ifndef SPA_QUERYEVALUATOR_H
+#define SPA_QUERYEVALUATOR_H
 
-#include "QueryStruct.h"
+#include "Query.h"
 
-namespace QPS {
-    class BasicQueryEvaluator {
-    public:
-        static void evaluateQuery(QueryStruct& query);
-    };
-}
+class QueryEvaluator {
 
-#endif // QUERYEVALUATOR_H
+};
+
+
+#endif //SPA_QUERYEVALUATOR_H

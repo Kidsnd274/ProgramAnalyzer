@@ -2,7 +2,7 @@
 #define SPA_CONTAINER_H
 
 #include "Tokenizer.h"
-#include "QueryStruct.h"
+#include "qps/oldComponents/QueryStruct.h"
 #include <list>
 #include <vector>
 #include <string>
