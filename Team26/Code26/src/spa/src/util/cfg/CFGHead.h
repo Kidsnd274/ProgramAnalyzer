@@ -27,6 +27,11 @@ public:
     CFGDummyMap getDummyNodeMap();
     static CFGHeadPtr createNewCFG();
     static bool compareEdgesEquality(EDGES& v1, EDGES& v2);
+
+    // relationships
+    bool isNext(STMT_NUM stmt1, STMT_NUM stmt2);
+    bool isStatementInCFG(STMT_NUM stmt1);
+    STMT_NUM findDummyNodeNext(CFGNode& dummy);
 };
 
 bool operator== (CFGHead leftCFG, CFGHead rightCFG);
