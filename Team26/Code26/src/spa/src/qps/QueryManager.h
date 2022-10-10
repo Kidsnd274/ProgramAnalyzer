@@ -49,6 +49,11 @@ namespace QPS {
         static bool isRelationExist(const RelationStruct& relationStruct) {
             return QueryManager::pkb->existRelation(relationStruct);
         }
+
+        static vector<string> getAllAssigns() {
+            return {};
+        }
+
     };
 
 }

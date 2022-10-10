@@ -5,6 +5,7 @@
 #include "WithClauseEvaluator.h"
 #include "../ResultTable.h"
 #include "../type/Clause.h"
+#include "../QueryManager.h"
 
 enum ClauseType {
     Pattern,

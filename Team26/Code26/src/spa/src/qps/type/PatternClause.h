@@ -5,7 +5,7 @@
 #include "Clause.h"
 
 class PatternClause : public Clause {
-protected:
+public:
     Argument argument1;
     Argument argument2;
     Argument argument3;
