@@ -104,7 +104,12 @@ namespace QPS {
         INVALID_SUCH_THAT,
         INVALID_PATTERN_NAME,
         INVALID_PATTERN_SYNTAX,
+        INVALID_WITH_MISSING_DOT,
+        INVALID_WITH_SYNTAX,
+        INVALID_WITH_FIELD,
+        INVALID_WITH_TYPE_EXCEPTION,
         UNDECLARED_ENTITY_PATTERN,
+        UNDECLARED_ENTITY_WITH,
         UNDECLARED_ENTITY_SUCH_THAT,
         UNDECLARED_SELECT_ENTITY,
         UNMATCHED_QUERY_TYPE,
@@ -114,6 +119,16 @@ namespace QPS {
         INVALID_DECLARATION,
         INVALID_MULTIPLE_CLAUSE,
         VALID
+    };
+
+    enum WithFieldType {
+        VARNAME,
+        PROCNAME,
+        CONSTANT_INTEGER,
+        STMT_INTEGER,
+        ACTUAL_WITH_NAME,
+        ACTUAL_WITH_INTEGER,
+        INVALID_WITH_TYPE
     };
 
 
@@ -186,10 +201,20 @@ namespace QPS {
         EntityStruct entityOfCandidate;
     };
 
+    struct WithStruct {
+        EntityType first_entity;
+        WithFieldType first_field_type;
+        std::string first_name;
+        EntityType second_entity;
+        WithFieldType second_field_type;
+        std::string second_name;
+    };
+
     typedef std::unordered_map<std::string, EntityType> DECLARED_SYNONYM_MAP;
     typedef std::vector<RelationStruct> SUCH_THAT_LIST;
     typedef std::vector<PatternStruct> PATTERN_LIST;
     typedef std::vector<CandidateStruct> CANDIDATE_LIST;
+    typedef std::vector<WithStruct> WITH_LIST;
 
     CandidateType mapEntityToCandidate(EntityType entityType);
     bool isArgumentTypeSynonym(QPS::ArgumentType argumentType);

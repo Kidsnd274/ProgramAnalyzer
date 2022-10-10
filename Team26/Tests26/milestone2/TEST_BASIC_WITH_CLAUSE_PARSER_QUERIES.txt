@@ -1,0 +1,65 @@
+1 - comment
+while w;
+Select w with w.stmt# = 2
+none
+5000
+1 - comment
+if ifs;
+Select ifs with ifs.stmt# = 2
+none
+5000
+1 - comment
+print p;
+Select p with p.stmt# = 2
+none
+5000
+1 - comment
+call c;
+Select c with c.stmt# = 2
+none
+5000
+1 - comment
+stmt c;
+Select c with c.stmt# = 2
+none
+5000
+1 - comment
+assign c;
+Select c with c.stmt# = 2
+none
+5000
+1 - comment
+constant c;
+Select c with c.value = 2
+none
+5000
+1 - comment
+procedure p;
+Select p with p.procName = "lol"
+none
+5000
+1 - comment
+call p;
+Select p with p.procName = "lol"
+none
+5000
+1 - comment
+variable v;
+Select v with v.varName = "lol"
+none
+5000
+1 - comment
+read v;
+Select v with v.varName = "lol"
+none
+5000
+1 - comment
+print v;
+Select v with v.varName = "lol"
+none
+5000
+1 - comment
+while w; assign a;
+Select w with w.stmt# = 2 such that Follows(1, 2) pattern a(_, "x") such that Follows(2, 3) and Follows(9,10) with a.stmt# = 4
+none
+5000

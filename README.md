@@ -1,4 +1,6 @@
 # Team 26
+[![CI for Cmake Project - MacOS](https://github.com/nus-cs3203/22s1-cp-spa-team-26/actions/workflows/build_cp_mac.yml/badge.svg)](https://github.com/nus-cs3203/22s1-cp-spa-team-26/actions/workflows/build_cp_mac.yml)
+[![CI for Cmake Project - Windows](https://github.com/nus-cs3203/22s1-cp-spa-team-26/actions/workflows/build_cp_windows.yml/badge.svg)](https://github.com/nus-cs3203/22s1-cp-spa-team-26/actions/workflows/build_cp_windows.yml)
 
 ## Target Environment
 

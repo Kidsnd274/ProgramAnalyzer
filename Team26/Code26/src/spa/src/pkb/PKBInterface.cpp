@@ -29,8 +29,6 @@
 using namespace std;
 //using namespace StatementType;
 
-PKB* PKBInterface::pkb = new PKB();
-
 void PKBInterface::addProcedure(std::string name, int startingStmtNo, int endingStmtNo) {
     Procedure proc;
     proc.name = std::move(name);
@@ -325,6 +323,12 @@ bool PKBInterface::existRelation(const RelationStruct& relation) {
                     result = pkb->usesTable->existUses(stoi(arg1.nameOfArgument), arg2.nameOfArgument);
                 }
             }
+            break;
+        case QPS::CALLS:
+            result = pkb->callTable->existCall(arg1.nameOfArgument, arg2.nameOfArgument);
+            break;
+        case QPS::CALLS_P:
+            result = pkb->callStarTable->existCallStar(arg1.nameOfArgument, arg2.nameOfArgument);
             break;
         default:
             result = false;

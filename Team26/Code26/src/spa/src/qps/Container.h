@@ -19,8 +19,9 @@ namespace QPS {
         START_PARSE_SUCH_CLAUSE,
         FINISH_PARSE_SUCH_CLAUSE,
         START_PARSE_PATTERN_CLAUSE,
-        FINISH_PARSE_PATTERN_CLAUSE
-
+        FINISH_PARSE_PATTERN_CLAUSE,
+        START_PARSE_WITH_CLAUSE,
+        FINISH_PARSE_WITH_CLAUSE
     };
 
     class Container {
@@ -37,8 +38,9 @@ namespace QPS {
             SUCH_THAT_LIST suchThatList;
             CANDIDATE_LIST candidateList;
             PATTERN_LIST patternList;
+            WITH_LIST withList;
             this->tokens = tokens;
-            this->queryStruct = QueryStruct(declaredSynonymMap, suchThatList, patternList, candidateList);
+            this->queryStruct = QueryStruct(declaredSynonymMap, suchThatList, patternList, candidateList, withList);
             this->status = INITIALIZED;
         }
 
@@ -68,10 +70,13 @@ namespace QPS {
             this->queryStruct.addSuchThatClause(relationStruct);
         }
 
-        void
-        addPatternClause(PatternType typeOfPattern, std::string assign_syn, ArgumentStruct arg1, ArgumentStruct arg2) {
+        void addPatternClause(PatternType typeOfPattern, std::string assign_syn, ArgumentStruct arg1, ArgumentStruct arg2) {
             PatternStruct patternStruct = {typeOfPattern, std::move(assign_syn), std::move(arg1), std::move(arg2)};
             this->queryStruct.addPatternClause(patternStruct);
+        }
+
+        void addWithClause (const WithStruct& withStruct) {
+            this->queryStruct.addWithClause(withStruct);
         }
 
         DECLARED_SYNONYM_MAP getDeclarationMap() {

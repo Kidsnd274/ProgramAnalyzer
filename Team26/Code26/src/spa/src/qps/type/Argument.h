@@ -5,7 +5,7 @@
 
 class Argument {
 public:
-    const static enum ArgumentType {
+    enum ArgumentType {
         IF_SYNONYM,
         WHILE_SYNONYM,
         READ_SYNONYM,

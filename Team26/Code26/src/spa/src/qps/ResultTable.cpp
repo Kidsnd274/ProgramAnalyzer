@@ -458,35 +458,3 @@ namespace QPS {
         return this->synonymColRef;
     }
 }
-//
-//int main() {
-//    //get table
-//    std::vector<std::string> v = { "A0", "B0", "C0" };
-//    std::vector<std::string> vOther = { "A0", "E0", "C0", "F0"};
-//    std::vector<std::string> v1 = { "A2", "B1", "C1" };
-//    std::vector<std::string> v2 = { "A1", "B2", "C2" };
-//    std::vector<std::string> v3 = { "A1", "B3", "C3" };
-//    std::vector<std::string> v4 = { "A2", "E1", "C1", "F1" };
-//    std::vector<std::string> v5 = { "A2", "E2", "C1", "F2" };
-//    std::vector<std::string> v6 = { "A1", "E3", "C3", "F3" };
-//    std::unordered_set<std::vector<std::string>, QPS::StringVectorHash> entries;
-//    std::unordered_set<std::vector<std::string>, QPS::StringVectorHash> entries2;
-//    entries.insert(v1);
-//    entries.insert(v2);
-//    entries.insert(v3);
-//    entries2.insert(v4);
-//    entries2.insert(v5);
-//    entries2.insert(v6);
-//    QPS::ResultTable rt(v, entries);
-//    QPS::ResultTable rtOther(vOther, entries2);
-//    rt.mergeTable(rtOther);
-//    rt.printTable();
-//    rt.deleteColFromTable("F0");
-//    rt.deleteColFromTable("E0");
-//    rt.deleteDuplicateRows();
-//    rt.printTable();
-//    std::vector<std::string> values;
-//    rt.getSynonymValue("F0", values);
-//    rt.printStringVector(values);
-//
-//}

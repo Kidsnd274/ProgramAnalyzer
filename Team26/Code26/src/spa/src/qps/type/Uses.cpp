@@ -1,64 +1,50 @@
 #include "Uses.h"
 
+const std::unordered_set<Argument::ArgumentType> secondARGs = {
+        Argument::VAR_SYNONYM,
+        Argument::ACTUAL_NAME,
+        Argument::WILDCARD,
+};
+
 const std::unordered_map<
         Argument::ArgumentType,
         std::unordered_set<Argument::ArgumentType>
         > Uses::usesValidationTable {
         {
             Argument::ASSIGN_SYNONYM,
-            {
-                Argument::VAR_SYNONYM,
-                Argument::ACTUAL_NAME
-            }
+            secondARGs
         },
         {
             Argument::PRINT_SYNONYM,
-            {
-                Argument::VAR_SYNONYM,
-                Argument::ACTUAL_NAME
-            }
+            secondARGs
         },
         {
             Argument::IF_SYNONYM,
-            {
-                Argument::VAR_SYNONYM,
-                Argument::ACTUAL_NAME
-            }
+            secondARGs
         },
         {
             Argument::WHILE_SYNONYM,
-            {
-                Argument::VAR_SYNONYM,
-                Argument::ACTUAL_NAME
-            }
+            secondARGs
         },
         {
             Argument::CALL_SYNONYM,
-            {
-                Argument::VAR_SYNONYM,
-                Argument::ACTUAL_NAME
-            }
+            secondARGs
         },
         {
             Argument::PROCEDURE_SYNONYM,
-            {
-                Argument::VAR_SYNONYM,
-                Argument::ACTUAL_NAME
-            }
+            secondARGs
         },
         {
             Argument::NUMBER, // Line number of statement
-            {
-                Argument::VAR_SYNONYM,
-                Argument::ACTUAL_NAME
-            }
+            secondARGs
         },
         {
             Argument::ACTUAL_NAME,    // Actual name of procedure, i.e. "prod1"
-            {
-                Argument::VAR_SYNONYM,
-                Argument::ACTUAL_NAME
-            }
+            secondARGs
+        },
+        {
+            Argument::WILDCARD,
+            secondARGs
         }
 };
 
