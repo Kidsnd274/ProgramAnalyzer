@@ -1,5 +1,6 @@
 #include "catch.hpp"
 #include "util/cfg/CFGManager.h"
+#include <iostream>
 
 TEST_CASE("Simple Test Case") {
     CFGManager testManager;
@@ -106,4 +107,33 @@ TEST_CASE("Test finalize node") {
 
         REQUIRE(*createdCFG == *correctCFG);
     }
+}
+
+TEST_CASE("Test Next in CFGManager") {
+    CFGManager testManager;
+    testManager.createNewCFG();
+    testManager.addStandardNode(1);
+    testManager.addStandardNode(2);
+    testManager.addStandardNode(3);
+    testManager.finalizeIfPortionOfIfStatement(2);
+    testManager.addStandardNode(4);
+    testManager.finalizeElsePortionOfIfStatement(2);
+    testManager.addStandardNode(5);
+    testManager.addStandardNode(6);
+    testManager.finalizeWhileStatement(5);
+    testManager.addStandardNode(7);
+    CFGHeadPtr createdCFG = testManager.getCurrentCFG();
+//    for(auto v : createdCFG->getEdges(5)) {
+//        std::cout << v.getStmtNumber() << std::endl;
+//    }
+    REQUIRE(createdCFG->isNext(1,2));
+    REQUIRE(createdCFG->isNext(2,3));
+    REQUIRE_FALSE(createdCFG->isNext(2,1));
+    REQUIRE(createdCFG->isNext(2,4));
+    REQUIRE(createdCFG->isNext(3,5));
+    REQUIRE(createdCFG->isNext(4,5));
+    REQUIRE_FALSE(createdCFG->isNext(1,4));
+    REQUIRE(createdCFG->isNext(5,6));
+    REQUIRE(createdCFG->isNext(6,5));
+    //EQUIRE(createdCFG->isNext(5,7));
 }
