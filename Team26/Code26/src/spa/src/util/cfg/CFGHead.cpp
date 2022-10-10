@@ -40,6 +40,31 @@ CFGDummyMap CFGHead::getDummyNodeMap() {
     return this->dummyAdjList;
 }
 
+STMT_NUM CFGHead::findDummyNodeNext(CFGNode& dummy) {
+    return dummyAdjList[dummy.getStmtNumber()].getStmtNumber();
+}
+
+bool CFGHead::isStatementInCFG(STMT_NUM stmt1) {
+    return adjList.find(stmt1) != adjList.end();
+}
+
+bool CFGHead::isNext(STMT_NUM stmt1, STMT_NUM stmt2) {
+    if(!isStatementInCFG(stmt1) || !isStatementInCFG(stmt2)) {
+        return false;
+    }
+
+    bool ans = false;
+    for(auto &node : adjList[stmt1]) {
+        if(node.isDummyNode()) {
+            ans = ans || (findDummyNodeNext(node) == stmt2);
+        } else {
+            ans = ans || (node.getStmtNumber() == stmt2);
+        }
+    }
+
+    return ans;
+}
+
 bool CFGHead::compareEdgesEquality(EDGES v1, EDGES v2) {
     if (v1.size() != v2.size()) {
         return false;
