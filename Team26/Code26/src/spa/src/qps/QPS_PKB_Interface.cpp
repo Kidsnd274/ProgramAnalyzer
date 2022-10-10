@@ -1,5 +1,9 @@
 #include "QPS_PKB_Interface.h"
 
+void QPS_PKB_Interface::setPKBInterface(PKBInterface *pkbInterface) {
+    QPS_PKB_Interface::pkbInterface = pkbInterface;
+}
+
 std::shared_ptr<AssignNode> getAssignTNode(std::string assignRef) {
     return QPS_PKB_Interface::pkbInterface->getAssignTNode(assignRef);
 }
