@@ -18,11 +18,11 @@ typedef short PROC;
 
 class PKBInterface {
 public:
-    static PKB* pkb;
+    PKB* pkb = new PKB();
 
-    static void addProcedure(string name, int startingStmtNo, int endingStmtNo);
-    static void addVariable(string name);
-    static void addConst(int value);
+    void addProcedure(string name, int startingStmtNo, int endingStmtNo);
+    void addVariable(string name);
+    void addConst(int value);
 
     virtual void addReadStatement(int statementNumber, int statementListNumber);
     virtual void addAssignStatement(int statementNumber, int statementListNumber, shared_ptr<TNode> rootNode);
@@ -50,7 +50,7 @@ public:
     virtual std::unordered_set<string> getCallStar(std::string procedure);
 
 
-    static vector<string> getAllEntity(EntityType type);
-    static bool existRelation(const RelationStruct& relation);
-    static shared_ptr<AssignNode> getAssignTNode(const string& assignRef);
+    vector<string> getAllEntity(EntityType type);
+    bool existRelation(const RelationStruct& relation);
+    shared_ptr<AssignNode> getAssignTNode(const string& assignRef);
 };
