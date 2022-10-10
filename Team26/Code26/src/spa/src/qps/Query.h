@@ -21,6 +21,9 @@ private:
     QueryStatus status;
 
 public:
+    ResultTable* resultTable;
+
+public:
     Query() {
         this->synonymMap = new unordered_map<std::string, Argument>();
         this->candidateMap = new unordered_map<std::string, Argument>();
