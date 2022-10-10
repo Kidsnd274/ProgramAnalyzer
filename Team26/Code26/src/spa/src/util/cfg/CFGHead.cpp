@@ -41,7 +41,7 @@ CFGDummyMap CFGHead::getDummyNodeMap() {
 }
 
 STMT_NUM CFGHead::findDummyNodeNext(CFGNode& dummy) {
-    return dummyAdjList[dummy.getStmtNumber()].getStmtNumber();
+    return dummyAdjList.at(dummy.getStmtNumber()).getStmtNumber();
 }
 
 bool CFGHead::isStatementInCFG(STMT_NUM stmt1) {
