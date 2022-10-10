@@ -117,6 +117,16 @@ tests = [TestCase("milestone1_test1", milestone1),
 
 run_multiple_tests(tests, "Milestone 1")
 
+
+print("-----------------------SPRINT 3 / DEMO 2-----------------------")
+demo2 = testdir / "demo2"
+tests = [TestCase("test_calls", demo2)]
+
+run_multiple_tests(tests, "Demo 2")
+
+
+
+
 print("")
 if failed_tests:
     with open("failed_tests.txt", "w") as f:
