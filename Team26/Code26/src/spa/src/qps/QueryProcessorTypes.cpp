@@ -1,23 +1,6 @@
 #include "QueryProcessorTypes.h"
 
 namespace QPS {
-    bool isEntity(const std::string& value) {
-        if (QPS::entityMap.find(value) == QPS::entityMap.end()) {
-            return false;
-        } else {
-            return true;
-        }
-    }
-
-    bool isRelation(const std::string& value) {
-        if (QPS::relationMap.find(value) == QPS::relationMap.end()) {
-            return false;
-        } else {
-            return true;
-        }
-    }
-
-
     bool isArgumentTypeSynonym(QPS::ArgumentType argumentType) {
         switch (argumentType) {
             case IF_SYNONYM:

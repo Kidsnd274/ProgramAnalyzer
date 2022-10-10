@@ -46,10 +46,12 @@ namespace QPS {
         while (!queryString.empty()) {
             for (const std::pair<TokenType, std::string>& pair : matchingRules) {
                 bool regex_match = std::regex_search(queryString, match, std::regex(pair.second));
+                // not matched token
                 if (!regex_match) {
                     continue;
                 }
 
+                // ignore white space
                 if (pair.first == WHITESPACE) {
                     queryString = queryString.substr(match.str().size());
                     continue;

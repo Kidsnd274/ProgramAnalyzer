@@ -76,11 +76,6 @@ namespace QPS {
         }
     }
 
-    void QueryStruct::addCandidate(const CandidateStruct& candidateToAdd) {
-        this->candidateList.emplace_back(candidateToAdd);
-        this->addUsedSynonym(candidateToAdd.entityOfCandidate.nameOfEntity);
-    }
-
     void QueryStruct::addUsedSynonym(const std::string& nameOfSynonym) {
         this->usedSynonymList.insert(nameOfSynonym);
     }

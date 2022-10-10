@@ -85,8 +85,6 @@ namespace QPS {
 
         void addPatternClause(const PatternStruct& patternToAdd);
 
-        void addCandidate(const CandidateStruct&);
-
         void addWithClause(const WithStruct& withStruct);
 
         void addUsedSynonym(const std::string&);
