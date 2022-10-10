@@ -107,3 +107,28 @@ TEST_CASE("Test final node") {
         REQUIRE(cfgTest->getDummyNodeEdge(1).isNullNode());
     }
 }
+
+TEST_CASE("Test Next") {
+    CFGHeadPtr cfgTest = CFGHead::createNewCFG();
+    cfgTest->connectNode(CFGNode::node(1), CFGNode::node(2));
+    cfgTest->connectNode(CFGNode::node(2), CFGNode::node(3));
+    cfgTest->connectNode(CFGNode::node(3), CFGNode::node(1));
+    cfgTest->connectNode(CFGNode::node(1), CFGNode::dummyNode(1));
+    cfgTest->connectNode(CFGNode::dummyNode(1), CFGNode::node(4));
+    cfgTest->connectNode(CFGNode::node(4), CFGNode::node(5));
+    cfgTest->connectNode(CFGNode::node(4), CFGNode::node(6));
+    cfgTest->connectNode(CFGNode::node(5), CFGNode::dummyNode(4));
+    cfgTest->connectNode(CFGNode::node(6), CFGNode::dummyNode(4));
+    cfgTest->initializeFinalNode(CFGNode::dummyNode(4));
+
+    REQUIRE(cfgTest->isNext(1,2));
+    REQUIRE(cfgTest->isNext(2,3));
+    REQUIRE_FALSE(cfgTest->isNext(2,1));
+    REQUIRE(cfgTest->isNext(3,1));
+    REQUIRE(cfgTest->isNext(1,4));
+    REQUIRE(cfgTest->isNext(4,5));
+    REQUIRE(cfgTest->isNext(4,6));
+    REQUIRE_FALSE(cfgTest->isNext(5,6));
+    REQUIRE_FALSE(cfgTest->isNext(3,4));
+    REQUIRE_FALSE(cfgTest->isNext(6,7));
+}

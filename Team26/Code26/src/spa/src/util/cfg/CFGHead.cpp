@@ -42,7 +42,12 @@ CFGDummyMap CFGHead::getDummyNodeMap() {
 }
 
 STMT_NUM CFGHead::findDummyNodeNext(CFGNode& dummy) {
-    return dummyAdjList.at(dummy.getStmtNumber()).getStmtNumber();
+    CFGNode dummyPointsTo = dummyAdjList.at(dummy.getStmtNumber());
+    if(dummyPointsTo.isNullNode()) {
+        return -1;
+    } else {
+        return dummyPointsTo.getStmtNumber();
+    }
 }
 
 bool CFGHead::isStatementInCFG(STMT_NUM stmt1) {
