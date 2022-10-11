@@ -29,6 +29,11 @@ public:
     ArgumentType argumentType;
 
 public:
+    Argument() {
+        this->argumentName = "";
+        this->argumentType = INVALID_ARGUMENT_TYPE;
+    }
+
     Argument(std::string argumentName, ArgumentType argumentType) {
         this->argumentName = argumentName;
         this->argumentType = argumentType;

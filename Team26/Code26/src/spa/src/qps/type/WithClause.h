@@ -5,18 +5,18 @@
 #include "Clause.h"
 
 enum AttributeType {
-    procName,
-    varName,
-    constValue,
-    stmtLineNumber
+    PROC_NAME,
+    VAR_NAME,
+    CONST_VALUE,
+    STMT_LINE_NUMBER,
+    ATTR_VALUE
 };
 
 class WithClause : public Clause {
 protected:
     struct WithClauseArgument {
-        Argument::ArgumentType argumentType;
+        Argument argument;
         AttributeType attributeType;
-        std::string attributeValue;
     } arg1, arg2;
 
     WithClause(WithClauseArgument arg1, WithClauseArgument arg2) {
