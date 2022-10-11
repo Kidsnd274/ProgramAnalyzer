@@ -4,11 +4,14 @@
 #include "ClauseEvaluator.h"
 #include "../type/WithClause.h"
 class WithClauseEvaluator : public ClauseEvaluator{
+private:
+    WithClause* withClause;
 public:
-    void evaluate(ResultTable* resultTable) {
+    WithClauseEvaluator(Clause* clause): ClauseEvaluator(clause) {
+        this->withClause = (WithClause*)clause;
+    };
 
-    }
-    WithClauseEvaluator(Clause* clause): ClauseEvaluator(clause){};
+    void evaluate(ResultTable* resultTable);
 };
 
 

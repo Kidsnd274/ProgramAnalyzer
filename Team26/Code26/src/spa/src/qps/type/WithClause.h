@@ -13,7 +13,7 @@ enum AttributeType {
 };
 
 class WithClause : public Clause {
-protected:
+public:
     /**
      * e.g. a1.varName = "x"
      *  arg1:
