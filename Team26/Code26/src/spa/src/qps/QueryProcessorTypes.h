@@ -7,37 +7,6 @@
 #include<map>
 
 namespace QPS {
-    /*
-     * Enum of the Design Entities in Program Query Language.
-     */
-    enum EntityType {
-        STATEMENT,
-        READ,
-        PRINT,
-        CALL,
-        WHILE,
-        IF,
-        ASSIGN,
-        VARIABLE,
-        CONSTANT,
-        PROCEDURE,
-        INVALID_ENTITY_TYPE
-    };
-
-    const std::map<std::string, EntityType> entityMap = {{"stmt",      STATEMENT},
-                                                   {"read",      READ},
-                                                   {"print",     PRINT},
-                                                   {"call",      CALL},
-                                                   {"while",     WHILE},
-                                                   {"if",        IF},
-                                                   {"assign",    ASSIGN},
-                                                   {"variable",  VARIABLE},
-                                                   {"constant",  CONSTANT},
-                                                   {"procedure", PROCEDURE},
-                                                   {"",          INVALID_ENTITY_TYPE}};
-
-    bool isEntity(const std::string&);
-
 
 /*
  * Enum of the Relation Types in Program Query Language.
@@ -129,29 +98,6 @@ namespace QPS {
         ACTUAL_WITH_NAME,
         ACTUAL_WITH_INTEGER,
         INVALID_WITH_TYPE
-    };
-
-
-    /*
-     * Enum of Argument Types in Relation or Pattern.
-     */
-    enum ArgumentType {
-        IF_SYNONYM,
-        WHILE_SYNONYM,
-        READ_SYNONYM,
-        PRINT_SYNONYM,
-        CALL_SYNONYM,
-        ASSIGN_SYNONYM,
-        STMT_SYNONYM,
-        VAR_SYNONYM,
-        PROCEDURE_SYNONYM,
-        CONST_SYNONYM,
-        ACTUAL_NAME,
-        NUMBER,
-        WILDCARD,
-        EXPRESSION,
-        INVALID_ARGUMENT_TYPE,
-        PROCEDURE_ACTUAL_NAME
     };
 
 

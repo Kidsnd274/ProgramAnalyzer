@@ -2,6 +2,7 @@
 #define SPA_ARGUMENT_H
 
 #include <string>
+#include <map>
 
 class Argument {
 public:
@@ -21,8 +22,11 @@ public:
         WILDCARD,
         EXPRESSION,
         INVALID_ARGUMENT_TYPE,
-        PROCEDURE_ACTUAL_NAME
+        PROCEDURE_ACTUAL_NAME,
+        BOOLEAN
     };
+
+    const static std::map<std::string, ArgumentType> argumentMap;
 
 public:
     std::string argumentName;
@@ -33,6 +37,7 @@ public:
         this->argumentName = argumentName;
         this->argumentType = argumentType;
     }
+
 };
 
 

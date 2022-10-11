@@ -2,7 +2,8 @@
 #define SPA_CONTAINER_H
 
 #include "Tokenizer.h"
-#include "qps/oldComponents/QueryStruct.h"
+#include "qps/query.h"
+#include "qps/type/Entity.h"
 #include <list>
 #include <vector>
 #include <string>
@@ -27,7 +28,7 @@ namespace QPS {
     class Container {
     private:
         std::vector<QPS::Token> tokens;
-        QueryStruct queryStruct;
+        Query queryStruct;
         Status status;
 
     public:
@@ -40,7 +41,7 @@ namespace QPS {
             PATTERN_LIST patternList;
             WITH_LIST withList;
             this->tokens = tokens;
-            this->queryStruct = QueryStruct(declaredSynonymMap, suchThatList, patternList, candidateList, withList);
+            this->queryStruct = Query();
             this->status = INITIALIZED;
         }
 
@@ -52,25 +53,29 @@ namespace QPS {
             this->status = status1;
         }
 
-        void addDeclaration(EntityType entityType, std::string s) {
-            this->queryStruct.addSynonym(entityType, s);
+        void addDeclaration(Entity::EntityType entityType, std::string s) {
+            Argument::ArgumentType argumentType = Entity::mapToArgument(entityType);
+            Argument argument = Argument(s, argumentType);
+            this->queryStruct.addSynonym(argument);
         }
 
-        void addCandidateList(EntityType entityType, std::string s) {
-            CandidateType candidateType = mapEntityToCandidate(entityType);
-            this->queryStruct.addCandidateList(candidateType, std::move(s), entityType);
+        void addCandidateList(Argument::ArgumentType argumentType, std::string s) {
+            Argument argument = Argument(s, argumentType);
+            this->queryStruct.addCandidate(argument);
         }
 
         void addCandidateListBoolean() {
-            this->queryStruct.addCandidateListBoolean();
+            Argument argument = Argument("boolean", Argument::BOOLEAN);
+            this->queryStruct.addCandidate(argument);
         }
 
-        void addSuchThatClause(RelationType relationType, ArgumentStruct ARG1, ArgumentStruct ARG2) {
+        void addSuchThatClause(RelationType relationType, Argument ARG1, Argument ARG2) {
             RelationStruct relationStruct = {relationType, std::move(ARG1), std::move(ARG2)};
+
             this->queryStruct.addSuchThatClause(relationStruct);
         }
 
-        void addPatternClause(PatternType typeOfPattern, std::string assign_syn, ArgumentStruct arg1, ArgumentStruct arg2) {
+        void addPatternClause(PatternType typeOfPattern, std::string assign_syn, Argument arg1, Argument arg2) {
             PatternStruct patternStruct = {typeOfPattern, std::move(assign_syn), std::move(arg1), std::move(arg2)};
             this->queryStruct.addPatternClause(patternStruct);
         }
@@ -95,7 +100,7 @@ namespace QPS {
             return this->queryStruct.getPatternList();
         }
 
-        QueryStruct getQueryStruct() {
+        Query getQueryStruct() {
             return this->queryStruct;
         }
     };

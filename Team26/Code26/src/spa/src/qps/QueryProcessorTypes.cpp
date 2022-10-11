@@ -79,60 +79,6 @@ namespace QPS {
         }
     }
 
-    std::string ARGToString (ArgumentType argumentType) {
-        switch (argumentType) {
-
-            case STMT_SYNONYM:{
-                return "STMT_SYNONYM";
-            }
-            case VAR_SYNONYM:{
-                return "VAR_SYNONYM";
-            }
-            case PROCEDURE_SYNONYM:{
-                return "PROCEDURE_SYNONYM";
-            }
-            case CONST_SYNONYM:{
-                return "CONST_SYNONYM";
-            }
-            case ACTUAL_NAME:{
-                return "ACTUAL_NAME";
-            }
-            case NUMBER:{
-                return "NUMBER";
-            }
-            case WILDCARD:{
-                return "WILDCARD";
-            }
-            case INVALID_ARGUMENT_TYPE:{
-                return "INVALID_ARGUMENT_TYPE";
-            }
-            case EXPRESSION:{
-                return "EXPRESSION";
-            }
-            case IF_SYNONYM:{
-                return "IF_SYNONYM";
-            }
-            case WHILE_SYNONYM:{
-                return "WHILE_SYNONYM";
-            }
-            case READ_SYNONYM:{
-                return "READ_SYNONYM";
-            }
-            case PRINT_SYNONYM:{
-                return "PRINT_SYNONYM";
-            }
-            case CALL_SYNONYM:{
-                return "CALL_SYNONYM";
-            }
-            case ASSIGN_SYNONYM:{
-                return "ASSIGN_SYNONYM";
-            }
-            case PROCEDURE_ACTUAL_NAME: {
-                return "PROCEDURE_ACTUAL_NAME";
-            }
-        }
-        return "";
-    }
 
     std::string exceptionToStringQPS(Exception e) {
         switch (e) {
