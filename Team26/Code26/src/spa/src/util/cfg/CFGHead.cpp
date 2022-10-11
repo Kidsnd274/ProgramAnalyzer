@@ -71,6 +71,17 @@ bool CFGHead::isNext(STMT_NUM stmt1, STMT_NUM stmt2) {
     return ans;
 }
 
+void CFGHead::addToReachableQueue(CFGNode& node, std::queue<int>& q, std::unordered_set<int>& ans) {
+    if (node.isDummyNode()) {
+        int dn = findDummyNodeNext(node);
+        if (dn != -1 && ans.find(dn) == ans.end()) {
+            q.push(dn);
+        }
+    } else if (ans.find(node.getStmtNumber()) == ans.end()) {
+        q.push(node.getStmtNumber());
+    }
+}
+
 std::unordered_set<STMT_NUM> CFGHead::getReachableNodes(STMT_NUM stmt) {
     if(!isStatementInCFG(stmt)) {
         return {};
@@ -78,24 +89,23 @@ std::unordered_set<STMT_NUM> CFGHead::getReachableNodes(STMT_NUM stmt) {
 
     std::unordered_set<int> ans;
     std::queue<int> q;
-    q.push(stmt);
+
+    for(auto &node : adjList[stmt]) {
+        addToReachableQueue(node, q, ans);
+    }
 
     while(!q.empty()) {
         STMT_NUM sm = q.front();
         q.pop();
+
         if(ans.find(sm) != ans.end()) {
             continue;
         }
+
         ans.insert(sm);
+
         for(auto &node : adjList[sm]) {
-            if (node.isDummyNode()) {
-                int dn = findDummyNodeNext(node);
-                if (dn != -1 && ans.find(dn) == ans.end()) {
-                    q.push(dn);
-                }
-            } else if (ans.find(node.getStmtNumber()) == ans.end()) {
-                q.push(node.getStmtNumber());
-            }
+            addToReachableQueue(node, q, ans);
         }
     }
 
