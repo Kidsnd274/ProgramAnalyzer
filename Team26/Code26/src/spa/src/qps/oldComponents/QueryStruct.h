@@ -16,14 +16,14 @@
  * After parsing, all information about the query will be stored in this QueryStruct data structure.
  */
 namespace QPS {
-    enum QueryStatus {
-        EVALUATION_NOT_STARTED,
-        EVALUATION_COMPLETED,
-        EVALUATION_ERROR,
-        VALID_QUERY,
-        SYNTAX_ERROR,
-        SEMANTIC_ERROR
-    };
+//    enum QueryStatus {
+//        EVALUATION_NOT_STARTED,
+//        EVALUATION_COMPLETED,
+//        EVALUATION_ERROR,
+//        VALID_QUERY,
+//        SYNTAX_ERROR,
+//        SEMANTIC_ERROR
+//    };
 
     class QueryStruct {
     private:
