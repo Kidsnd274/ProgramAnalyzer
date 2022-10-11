@@ -8,8 +8,8 @@
 
 namespace QPS {
     /**
- * The hashing method of a pair of strings
- */
+     * The hashing method of a pair of strings
+     */
     struct StringVectorHash {
         size_t operator()(const std::vector<std::string>& s) const {
             std::hash<std::string> h;
@@ -20,6 +20,7 @@ namespace QPS {
             return seed;
         }
     };
+
     class ResultTable {
     private:
         bool isInitialized;
@@ -81,6 +82,8 @@ namespace QPS {
          * @param otherTable The other table this table is to be merged with.
          */
         void mergeTable(const ResultTable& otherTable);
+        static ResultTable* mergeTable(QPS::ResultTable* const t1, QPS::ResultTable* const t2);
+
         void compareTableSynonyms(const ResultTable& otherTable, std::vector<std::string>& commonSynonyms, std::vector<int>& otherUniqueCols, std::vector<int>& otherCommonCols, std::vector<int>& thisCommonCols, std::vector<std::string> &otherUniqueSynonyms);
         void mergeWithoutSameSynonym(const ResultTable &otherTable, const std::vector<int>& otherUniqueCols);
         void updateSynonymColRef(const std::vector<std::string> &otherUniqueSynonyms);
@@ -95,52 +98,6 @@ namespace QPS {
          */
         void deleteDuplicateRows(const std::vector<std::string>& sNames);
 
-        /**
-         * Add a new column to the result table. This new column is all the entities of a new synonym.
-         * This method will take the cartesian product of set A and B, where set A is the set of original rows and
-         * set B is the set of rows in the new column.
-         *
-         * @param nameOfSynonym Name of the new synonym.
-         * @param entities All the entities of this new synonym.
-         */
-        void addColumnAndMerge(std::string nameOfSynonym, std::vector<std::string> entities);
-
-        /**
-         * Each row in result table is a set of possible bindings of synonyms to entities.
-         * This method checks whether each row in result table follows to the given type.
-         * If a row does not follow the list of type, delete that row.
-         *
-         * @param suchThatList List of given type.
-         */
-        void filterRowsBySuchThatList(const SUCH_THAT_LIST& suchThatList);
-
-        /**
-         * Checks whether each row in result table follows to the given patterns.
-         * If a row does not follow the list of patterns, delete that row.
-         *
-         * @param patternList List of given patterns.
-         */
-        void filterRowsByPatternList(const PATTERN_LIST& patternList);
-
-        /**
-         * Checks whether the given row follows the given type.
-         *
-         * @param row The given row.
-         * @param relation The given type.
-         * @return bool
-         */
-        bool followsRelation(std::vector<std::string>& row, const QPS::RelationStruct& relation);
-
-        /**
-         * Checks whether the given row follows the given pattern.
-         *
-         * @param row The given row.
-         * @param pattern The given pattern.
-         * @return bool
-         */
-        bool followsPattern(std::vector<std::string> &row, QPS::PatternStruct pattern);
-        static bool isPatternMatched(QPS::PatternStruct pattern);
-
         //for debug purpose
         void printTable();
         std::vector<std::vector<std::string>> getTable();
@@ -150,4 +107,7 @@ namespace QPS {
     };
 
     void suspendExecution(const std::string& errorMsg);
+
+    ResultTable* const trueTable = new ResultTable();
+    ResultTable* const falseTable = new ResultTable();
 }

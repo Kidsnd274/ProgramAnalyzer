@@ -1,11 +1,19 @@
 #ifndef SPA_PATTERNCLAUSE_H
 #define SPA_PATTERNCLAUSE_H
 
+#include <unordered_set>
+#include <unordered_map>
 #include "Argument.h"
 #include "Clause.h"
 
 class PatternClause : public Clause {
 protected:
+    const static std::unordered_map<
+            Argument::ArgumentType,
+            std::unordered_set<Argument::ArgumentType>
+            > patternClauseValidationTable;
+
+public:
     Argument argument1;
     Argument argument2;
     Argument argument3;
@@ -20,7 +28,7 @@ public:
         this->argument3 = arg3;
     }
 
-    bool isValid();
+    bool isValid() override;
 };
 
 

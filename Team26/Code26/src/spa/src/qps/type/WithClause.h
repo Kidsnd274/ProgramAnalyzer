@@ -5,18 +5,30 @@
 #include "Clause.h"
 
 enum AttributeType {
-    procName,
-    varName,
-    constValue,
-    stmtLineNumber
+    PROC_NAME,
+    VAR_NAME,
+    CONST_VALUE,
+    STMT_LINE_NUMBER,
+    INAPPLICABLE
 };
 
 class WithClause : public Clause {
 protected:
+    /**
+     * e.g. a1.varName = "x"
+     *  arg1:
+     *      argument.argumentType = ASSIGN_SYNONYM,
+     *      argument.argumentName = "a1",
+     *      attributeType = VAR_NAME,
+     *  arg2:
+     *      argument.argumentType = ACTUAL_NAME,
+     *      argument.argumentName = "x",
+     *      attributeType = INAPPLICABLE,
+     *
+     */
     struct WithClauseArgument {
-        Argument::ArgumentType argumentType;
+        Argument argument;
         AttributeType attributeType;
-        std::string attributeValue;
     } arg1, arg2;
 
     WithClause(WithClauseArgument arg1, WithClauseArgument arg2) {
