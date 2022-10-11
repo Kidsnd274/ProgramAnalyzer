@@ -51,6 +51,10 @@ public:
     QueryStatus getStatus();
 
     Argument::ArgumentType getSynonymType(std::string);
+
+    unordered_map<std::string, Argument>& getSynonymMap();
+
+    unordered_map<std::string, Argument>& getCandidateMap();
 };
 
 

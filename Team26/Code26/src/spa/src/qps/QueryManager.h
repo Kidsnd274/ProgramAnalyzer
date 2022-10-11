@@ -2,9 +2,11 @@
 #define SPA_QUERYMANAGER_H
 
 #include "pkb/PKBInterface.h"
+#include "QPS_PKB_Interface.h"
 #include "Tokenizer.h"
 #include "QueryProcessorTypes.h"
 #include "QueryPreprocessor.h"
+#include "QueryEvaluator.h"
 #include "QueryResultProjector.h"
 #include <list>
 #include <vector>

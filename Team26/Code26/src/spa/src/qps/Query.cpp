@@ -50,3 +50,11 @@ Argument::ArgumentType Query::getSynonymType(std::string synonymName) {
         return Argument::INVALID_ARGUMENT_TYPE;
     }
 }
+
+unordered_map<std::string, Argument>& Query::getSynonymMap() {
+    return *this->synonymMap;
+}
+
+unordered_map<std::string, Argument>& Query::getCandidateMap() {
+    return *this->candidateMap;
+}
