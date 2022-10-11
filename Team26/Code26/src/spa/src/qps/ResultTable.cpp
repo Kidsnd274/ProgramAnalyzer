@@ -98,6 +98,26 @@ namespace QPS {
         throw errorMsg;
     }
 
+    ResultTable* ResultTable::mergeTable(QPS::ResultTable* const t1, QPS::ResultTable* const t2) {
+        if (t1 == falseTable || t2 == falseTable) {
+            return falseTable;
+        }
+        if (t1 == trueTable) {
+            return t2;
+        }
+        if (t2 == trueTable) {
+            return t1;
+        }
+        ResultTable* resultTable = new ResultTable();
+        resultTable->colNum = t1->colNum;
+        resultTable->rowNum = t1->rowNum;
+        resultTable->synonymColRef = t1->synonymColRef;
+        resultTable->table = t1->table;
+        resultTable->isInitialized = t1->isInitialized;
+        resultTable->mergeTable(*t2);
+        return resultTable;
+    }
+
     void ResultTable::mergeTable(const QPS::ResultTable& otherTable) {
         if (!otherTable.isInitialized) {
             return;
