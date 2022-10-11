@@ -9,11 +9,23 @@ enum AttributeType {
     VAR_NAME,
     CONST_VALUE,
     STMT_LINE_NUMBER,
-    ATTR_VALUE
+    INAPPLICABLE
 };
 
 class WithClause : public Clause {
 protected:
+    /**
+     * e.g. a1.varName = "x"
+     *  arg1:
+     *      argument.argumentType = ASSIGN_SYNONYM,
+     *      argument.argumentName = "a1",
+     *      attributeType = VAR_NAME,
+     *  arg2:
+     *      argument.argumentType = ACTUAL_NAME,
+     *      argument.argumentName = "x",
+     *      attributeType = INAPPLICABLE,
+     *
+     */
     struct WithClauseArgument {
         Argument argument;
         AttributeType attributeType;
