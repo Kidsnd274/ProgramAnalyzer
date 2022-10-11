@@ -135,9 +135,9 @@ void RelationClauseEvaluator::filterRelations(unordered_map<std::string, vector<
     }
     if (synonyms.size() == 0) {
         if (result.size() == 0) {
-            resultTable = ResultTable::falseTable;
+            resultTable = QPS::falseTable;
         } else {
-            resultTable = ResultTable::trueTable;
+            resultTable = QPS::trueTable;
         }
         return;
     }
@@ -176,9 +176,9 @@ void RelationClauseEvaluator::filterRelations(unordered_map<int, vector<int>> ma
     }
     if (synonyms.size() == 0) {
         if (result.size() == 0) {
-            resultTable = ResultTable::falseTable;
+            resultTable = QPS::falseTable;
         } else {
-            resultTable = ResultTable::trueTable;
+            resultTable = QPS::trueTable;
         }
         return;
     }
@@ -218,9 +218,9 @@ RelationClauseEvaluator::filterRelations(unordered_map<int, vector<std::string>>
     }
     if (synonyms.size() == 0) {
         if (result.size() == 0) {
-            resultTable = ResultTable::falseTable;
+            resultTable = QPS::falseTable;
         } else {
-            resultTable = ResultTable::trueTable;
+            resultTable = QPS::trueTable;
         }
         return;
     }

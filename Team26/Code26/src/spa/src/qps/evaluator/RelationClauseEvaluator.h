@@ -3,7 +3,8 @@
 
 #include "ClauseEvaluator.h"
 #include "../type/RelationClause.h"
-std::unordered_map<std::string, ::RelationType> evaluatorRelationMap;
+std::unordered_map<std::string, ::RelationType> evaluatorRelationMap = {
+};
 
 class RelationClauseEvaluator: public ClauseEvaluator{
 private:
