@@ -15,6 +15,9 @@ const std::unordered_map<
 };
 
 bool PatternClause::isValid() {
+    if (this->argument3.argumentType != Argument::EXPRESSION) {
+        return false;
+    }
     auto iter = PatternClause::patternClauseValidationTable.find(this->argument1.argumentType);
     if (iter != PatternClause::patternClauseValidationTable.end()) {
         if (iter->second.find(this->argument2.argumentType) != iter->second.end()) {
