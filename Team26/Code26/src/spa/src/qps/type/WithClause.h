@@ -1,22 +1,47 @@
 #ifndef SPA_WITHCLAUSE_H
 #define SPA_WITHCLAUSE_H
 
+#include <unordered_map>
+#include <unordered_set>
 #include "Argument.h"
 #include "Clause.h"
 
 enum AttributeType {
-    procName,
-    varName,
-    constValue,
-    stmtLineNumber
+    PROC_NAME,
+    VAR_NAME,
+    CONST_VALUE,
+    STMT_LINE_NUMBER,
+    INAPPLICABLE
 };
 
 class WithClause : public Clause {
 protected:
+    const static std::unordered_map<
+         Argument::ArgumentType,
+         AttributeType
+         > withClauseValidationTableArg1;
+
+    const static std::unordered_map<
+            Argument::ArgumentType,
+            AttributeType
+        > withClauseValidationTableArg2;
+
+public:
+    /**
+     * e.g. a1.varName = "x"
+     *  arg1:
+     *      argument.argumentType = ASSIGN_SYNONYM,
+     *      argument.argumentName = "a1",
+     *      attributeType = VAR_NAME,
+     *  arg2:
+     *      argument.argumentType = ACTUAL_NAME,
+     *      argument.argumentName = "x",
+     *      attributeType = INAPPLICABLE,
+     *
+     */
     struct WithClauseArgument {
-        Argument::ArgumentType argumentType;
+        Argument argument;
         AttributeType attributeType;
-        std::string attributeValue;
     } arg1, arg2;
 
     WithClause(WithClauseArgument arg1, WithClauseArgument arg2) {
