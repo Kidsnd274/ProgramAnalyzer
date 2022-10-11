@@ -7,12 +7,12 @@ void PatternClauseEvaluator::evaluate(ResultTable* resultTable) {
         synonyms.push_back(patternClause->argument2.argumentName);
     }
     //insert rows into table
-    vector<string> allAssigns = QueryManager::getAllAssigns();
+    vector<string> allAssigns = QPS_PKB_Interface::getAllAssigns();
     WildcardPosition pos = getWildcardPosition();
     std::shared_ptr<TNode> patternNode = getPatternNode(pos);
     bool useActualName = this->patternClause->argument2.argumentType == Argument::ACTUAL_NAME;
     for (auto assign: allAssigns) {
-        std::shared_ptr<AssignNode> assignNode = QueryManager::getAssignTNode(assign);
+        std::shared_ptr<AssignNode> assignNode = QPS_PKB_Interface::getAssignTNode(assign);
         if (useActualName && this->patternClause->argument2.argumentName != assignNode->getVariableName()) {
             continue;
         }

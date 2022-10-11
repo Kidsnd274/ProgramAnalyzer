@@ -16,11 +16,11 @@ enum RelationType {
     USES_P,
     MODIFIES_P,
     CALLS,
-    CALLS_P,
+    CALLS_T,
     NEXT,
-    NEXT_P,
+    NEXT_T,
     AFFECTS,
-    AFFECTS_P,
+    AFFECTS_T,
     INVALID_RELATION_TYPE
 };
 
