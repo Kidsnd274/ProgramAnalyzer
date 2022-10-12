@@ -5,7 +5,7 @@
 #include "WithClauseEvaluator.h"
 #include "../ResultTable.h"
 #include "../type/Clause.h"
-#include "../QueryManager.h"
+#include "../QPS_PKB_Interface.h"
 
 enum ClauseType {
     Pattern,
