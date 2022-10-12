@@ -31,3 +31,7 @@ bool CallStarTable::existCallStar(std::string procedureName, std::string procedu
 std::vector<std::string> CallStarTable::getProcsStarCalled(std::string procedureName) {
     return this->callStarList[procedureName];
 }
+
+std::unordered_map<std::string, std::vector<std::string>> CallStarTable::getAllCallStars() {
+    return this->callStarList;
+}

@@ -371,12 +371,7 @@ std::unordered_set<std::string> PKBInterface::getAllVariablesUsed(std::string pr
 }
 
 std::unordered_set<int> PKBInterface::getParentStar(int statementNumber) {
-    std::vector<int> childStmts = pkb->parentStarTable->getAllParentStar(statementNumber);
-    std::unordered_set<int> result;
-    for (int stmt: childStmts) {
-        result.insert(stmt);
-    }
-    return result;
+    return pkb->parentStarTable->getAllParentStar(statementNumber);
 }
 
 std::unordered_set<string> PKBInterface::getCall(std::string procedure) {
@@ -395,4 +390,44 @@ std::unordered_set<string> PKBInterface::getCallStar(std::string procedure) {
         result.insert(proc);
     }
     return result;
+}
+
+unordered_map<std::string, std::vector<std::string>> PKBInterface::getAllCall() {
+    return pkb->callTable->getAllCalls();
+}
+
+unordered_map<std::string, std::vector<std::string>> PKBInterface::getAllCallStar() {
+    return pkb->callTable->getAllCalls();
+}
+
+unordered_map<int,int> PKBInterface::getAllFollow() {
+    return pkb->followsTable->getAllFollows();
+}
+
+unordered_map<int,int> PKBInterface::getAllFollowStar() {
+    return pkb->followsStarTable->getAllFollowStars();
+}
+
+unordered_map<int, std::vector<std::string>> PKBInterface::getAllModifyByStmt() {
+    return pkb->modifiesTable->getAllModifiesByStmt();
+}
+
+unordered_map<std::string, std::vector<std::string>> PKBInterface::getAllModifyByProc() {
+    return pkb->modifiesTable->getAllModifiesByProc();
+}
+
+unordered_map<int, std::vector<int>> PKBInterface::getAllParent() {
+    return pkb->parentTable->getAllParents();
+}
+
+unordered_map<int, std::vector<int>> PKBInterface::getAllParentStar() {
+    return pkb->parentStarTable->getAllParentStars();
+}
+
+unordered_map<int, std::vector<std::string>> PKBInterface::getAllUseByStmt() {
+    return pkb->usesTable->getAllUsesByStmt();
+}
+
+unordered_map<std::string, std::vector<std::string>> PKBInterface::getAllUseByProc() {
+    return pkb->usesTable->getAllUsesByProc();
 }

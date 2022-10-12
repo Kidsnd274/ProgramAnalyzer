@@ -31,3 +31,7 @@ bool CallTable::existCall(std::string procedureName, std::string procedureCalled
 std::vector<std::string> CallTable::getProcsCalled(std::string procedureName) {
     return this->callList[procedureName];
 }
+
+std::unordered_map<std::string, std::vector<std::string>> CallTable::getAllCalls() {
+    return this->callList;
+}

@@ -18,6 +18,7 @@ private:
 public:
     void insertFollowsStar(int frontStmtLineNumber, int backStmtLineNumber);
     bool existFollowsStar(int frontStmtLineNumber, int backStmtLineNumber);
+    unordered_map<int, int> getAllFollowStars();
 };
 
 #endif //SPA_FOLLOWSSTARTABLE_H
