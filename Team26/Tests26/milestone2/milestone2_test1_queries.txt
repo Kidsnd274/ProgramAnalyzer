@@ -131,12 +131,12 @@ if, z, procedure, var1234, xy, p, k, kkk, true, zy, q, w, e, else, while, y, x, 
 27 - select variables that another statement uses
 variable v;
 Select v such that Uses (9, v)
-if, else, while, kkk, y, x, zy, xy, d, k, call
+if, else, while, kkk, y, x, zy, xy, d, k, call,cenX,cenY,count,normSq,pointx,pointy,print
 5000
 28 - select variables that another statement uses
 variable v;
 Select v such that Uses (14, v)
-y, x, d, xy, zy, kkk, k
+y, x, d, xy, zy, kkk, k,cenX,cenY,count,normSq,pointx,pointy,print
 5000
 29 - select statements that modify a certain variable
 stmt s;
@@ -146,12 +146,12 @@ Select s such that Modifies (s, "zy")
 30 - select variables that a statement modifies
 variable v;
 Select v such that Modifies (5, v)
-if, else, while, zy, d
+if, else, while, zy, d, cenX,cenY,count,normSq,pointx,pointy,print
 5000
 31 - select variables that another statement modifies
 variable v;
 Select v such that Modifies (11, v)
-while, zy, d
+while, zy, d, cenX,cenY,count,normSq,pointx,pointy,print
 5000
 32 - select statements with pattern
 assign a;
