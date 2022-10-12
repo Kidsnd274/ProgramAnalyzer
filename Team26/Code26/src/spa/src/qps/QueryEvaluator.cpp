@@ -15,7 +15,7 @@ void QueryEvaluator::evaluate(Query query) {
             continue;
         }
         ResultTable* resultTable = new ResultTable();
-        clauseAssigner->assignClause(resultTable, &*iter);
+        clauseAssigner->assignClause(resultTable, *iter);
         resultOfEvaluation->mergeTable(*resultTable);
     }
 
@@ -24,7 +24,7 @@ void QueryEvaluator::evaluate(Query query) {
         if (typeid(*iter) != typeid(WithClause)) {
             continue;
         }
-        clauseAssigner->assignClause(resultOfEvaluation, &*iter);
+        clauseAssigner->assignClause(resultOfEvaluation, *iter);
     }
     query.resultTable = resultOfEvaluation;
 }
