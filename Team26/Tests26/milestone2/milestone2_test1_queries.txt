@@ -6,7 +6,7 @@ Select s
 2 - select all read
 read r;
 Select r
-4, 16
+4, 16, 23, 24
 5000
 3 - select all variable
 variable v;
