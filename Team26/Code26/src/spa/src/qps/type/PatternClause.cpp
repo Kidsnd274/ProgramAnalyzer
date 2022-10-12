@@ -11,6 +11,22 @@ const std::unordered_map<
                 Argument::ACTUAL_NAME,
                 Argument::WILDCARD
             }
+        },
+        {
+                Argument::IF_SYNONYM,
+                {
+                        Argument::VAR_SYNONYM,
+                        Argument::ACTUAL_NAME,
+                        Argument::WILDCARD
+                }
+        },
+        {
+                Argument::WHILE_SYNONYM,
+                {
+                        Argument::VAR_SYNONYM,
+                        Argument::ACTUAL_NAME,
+                        Argument::WILDCARD
+                }
         }
 };
 

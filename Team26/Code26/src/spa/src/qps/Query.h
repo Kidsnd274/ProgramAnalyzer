@@ -50,7 +50,7 @@ public:
 
     QueryStatus getStatus();
 
-    Argument::ArgumentType getSynonymType(std::string);
+    Argument::ArgumentType getSynonymType(const std::string&);
 
     unordered_map<std::string, Argument>& getSynonymMap();
 

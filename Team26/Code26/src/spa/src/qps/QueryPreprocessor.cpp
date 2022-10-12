@@ -391,15 +391,13 @@ namespace QPS {
     std::pair<int, Exception> parseWithClause(std::vector<QPS::Token> &tokens, int pos, Container &container) {
         WithStruct withStruct;
         if (pos < tokens.size() && tokens[pos].tokenType == NAME) {
-            DECLARED_SYNONYM_MAP declarationMap = container.getDeclarationMap();
-            auto iterator = declarationMap.find( tokens[pos].nameValue);
-            if (iterator == declarationMap.end()) {
+            Argument::ArgumentType argumentType = container.getSynonymType(tokens[pos].nameValue);
+            if (argumentType == Argument::INVALID_ARGUMENT_TYPE) {
                 return {pos, UNDECLARED_ENTITY_WITH};
-            } else {
-                withStruct.first_entity = iterator -> second;
-                withStruct.first_name = iterator->first;
-                pos++;
             }
+            withStruct.first_entity = argumentType;
+            withStruct.first_name = tokens[pos].nameValue;
+            pos++;
         } else {
             return {pos, INVALID_WITH_SYNTAX};
         }
@@ -477,15 +475,13 @@ namespace QPS {
             }
             pos++;
         } else if (pos < tokens.size() && tokens[pos].tokenType == NAME) {
-            DECLARED_SYNONYM_MAP declarationMap = container.getDeclarationMap();
-            auto iterator = declarationMap.find( tokens[pos].nameValue);
-            if (iterator == declarationMap.end()) {
+            Argument::ArgumentType argumentType = container.getSynonymType(tokens[pos].nameValue);
+            if (argumentType == Argument::INVALID_ARGUMENT_TYPE) {
                 return {pos, UNDECLARED_ENTITY_WITH};
-            } else {
-                withStruct.second_entity = iterator -> second;
-                withStruct.second_name = iterator->first;
-                pos++;
             }
+            withStruct.first_entity = argumentType;
+            withStruct.first_name = tokens[pos].nameValue;
+            pos++;
 
             if (pos < tokens.size() && tokens[pos].tokenType != DOT) {
                 return {pos, INVALID_WITH_MISSING_DOT};
@@ -522,19 +518,19 @@ namespace QPS {
     std::pair<int, Exception> parsePattern (std::vector<QPS::Token> &tokens,
                                        int pos,
                                        Container &container) {
-        std::string assign_syn;
+        std::string pattern_syn;
         std::string expression;
+        Argument::ArgumentType typeOfPattern;
         if (pos < tokens.size() && tokens[pos].tokenType == NAME) {
-            DECLARED_SYNONYM_MAP declarationMap = container.getDeclarationMap();
-            auto iterator = declarationMap.find( tokens[pos].nameValue);
-            if (iterator == declarationMap.end()) {
-                return {pos, UNDECLARED_ENTITY_PATTERN};
-            } else if (iterator->second != ASSIGN) {
-//               support while and if
-                return {pos, INVALID_PATTERN_CONTENT};
-            } else {
-                assign_syn = iterator->first;
+            Argument::ArgumentType argumentType = container.getSynonymType(tokens[pos].nameValue);
+            if (argumentType == Argument::INVALID_ARGUMENT_TYPE) {
+                return {pos, UNDECLARED_ENTITY_WITH};
+            } else if (argumentType == Argument::ASSIGN_SYNONYM || argumentType == Argument::IF_SYNONYM || argumentType == Argument::WHILE_SYNONYM) {
+                pattern_syn = tokens[pos].nameValue;
+                typeOfPattern = argumentType;
                 pos++;
+            } else {
+                return {pos, INVALID_PATTERN_CONTENT};
             }
         } else {
             return {pos, INVALID_PATTERN_CONTENT};
@@ -615,7 +611,7 @@ namespace QPS {
         }
 
         ArgumentStruct aStruct = {expression, Argument::EXPRESSION};
-        container.addPatternClause(ASSIGN_PATTERN, assign_syn, ARG1.first, aStruct);
+        container.addPatternClause(typeOfPattern, pattern_syn, ARG1.first, aStruct);
         return {pos, VALID};
     }
 
@@ -655,13 +651,12 @@ namespace QPS {
             } else if (curr.tokenType == QPS::NAME && curr.nameValue != "such" && curr.nameValue != "pattern"
                             && curr.nameValue != "BOOLEAN" && !is_boolean_select && curr.nameValue != "with") {
                 is_entity_select = true;
-                Entity::EntityType entityType = container.getQueryStruct().getDeclaration(curr.nameValue);
-                if (entityType != Entity::INVALID_ENTITY_TYPE) {
-                    container.addCandidateList(entityType, curr.nameValue);
-                    pos++;
-                } else {
-                    return {pos, UNDECLARED_ENTITY_SUCH_THAT};
+
+                Argument::ArgumentType argumentType = container.getSynonymType(curr.nameValue);
+                if (argumentType == Argument::INVALID_ARGUMENT_TYPE) {
+                    return {pos, UNDECLARED_ENTITY_WITH};
                 }
+                container.addCandidateList(argumentType, curr.nameValue);
 
             } else if (curr.tokenType == QPS::NAME && curr.nameValue == "BOOLEAN" && !is_entity_select && !is_boolean_select){
                 container.addCandidateListBoolean();
@@ -885,13 +880,13 @@ namespace QPS {
 
     std::pair<Argument, Exception> convertStringToStmtRefCalls (Token &token, Container &container) {
         if (token.tokenType == NAME) {
-            DECLARED_SYNONYM_MAP declarationMap = container.getDeclarationMap();
-            auto iterator = declarationMap.find(token.nameValue);
-            if (iterator == declarationMap.end()) {
+
+            Argument::ArgumentType argumentType = container.getSynonymType(token.nameValue);
+            if (argumentType == Argument::INVALID_ARGUMENT_TYPE) {
                 return {{"", Argument::INVALID_ARGUMENT_TYPE}, UNDECLARED_ENTITY_SUCH_THAT};
             }
-            Entity::EntityType entityType = iterator->second;
-            if (entityType == Entity::PROCEDURE) {
+
+            if (argumentType == Argument::PROCEDURE_SYNONYM) {
                 return {{token.nameValue, Argument::PROCEDURE_SYNONYM}, VALID};
             } else {
                 return {{token.nameValue, Argument::INVALID_ARGUMENT_TYPE}, INVALID_RELATION_CONTENT};
@@ -907,47 +902,11 @@ namespace QPS {
         if (token.tokenType == INTEGER) {
             return {{token.nameValue, Argument::NUMBER}, VALID};
         } else if (token.tokenType == NAME) {
-            DECLARED_SYNONYM_MAP declarationMap = container.getDeclarationMap();
-            auto iterator = declarationMap.find(token.nameValue);
-            if (iterator == declarationMap.end()) {
+            Argument::ArgumentType argumentType = container.getSynonymType(token.nameValue);
+            if (argumentType == Argument::INVALID_ARGUMENT_TYPE) {
                 return {{"", Argument::INVALID_ARGUMENT_TYPE}, UNDECLARED_ENTITY_SUCH_THAT};
             }
-            Entity::EntityType entityType = iterator->second;
-            switch (entityType) {
-                case Entity::STATEMENT: {
-                    return {{token.nameValue, Argument::STMT_SYNONYM}, VALID};
-                }
-                case Entity::READ: {
-                    return {{token.nameValue, Argument::READ_SYNONYM}, VALID};
-                }
-                case Entity::PRINT: {
-                    return {{token.nameValue, Argument::PRINT_SYNONYM}, VALID};
-                }
-                case Entity::CALL: {
-                    return {{token.nameValue, Argument::CALL_SYNONYM}, VALID};
-                }
-                case Entity::WHILE:{
-                    return {{token.nameValue, Argument::WHILE_SYNONYM}, VALID};
-                }
-                case Entity::IF:{
-                    return {{token.nameValue, Argument::IF_SYNONYM}, VALID};
-                }
-                case Entity::PROCEDURE: {
-                    return {{token.nameValue, Argument::PROCEDURE_SYNONYM}, VALID};
-                }
-                case Entity::ASSIGN:{
-                    return {{token.nameValue, Argument::ASSIGN_SYNONYM}, VALID};
-                }
-                case Entity::VARIABLE:{
-                    return {{token.nameValue, Argument::VAR_SYNONYM}, VALID};
-                }
-                case Entity::CONSTANT:{
-                    return {{token.nameValue, Argument::CONST_SYNONYM}, VALID};
-                }
-                case Entity::INVALID_ENTITY_TYPE:{
-                    return {{token.nameValue, Argument::INVALID_ARGUMENT_TYPE}, INVALID_RELATION_CONTENT};
-                }
-            }
+            return {{token.nameValue, argumentType}, VALID};
         } else {
             return {{"", Argument::INVALID_ARGUMENT_TYPE}, INVALID_RELATION_SYNTAX};
         }

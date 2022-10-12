@@ -4,6 +4,7 @@
 #include "Tokenizer.h"
 #include "qps/query.h"
 #include "qps/type/Entity.h"
+#include "qps/type/PatternClause.h"
 #include <list>
 #include <vector>
 #include <string>
@@ -75,17 +76,22 @@ namespace QPS {
             this->queryStruct.addSuchThatClause(relationStruct);
         }
 
-        void addPatternClause(PatternType typeOfPattern, std::string assign_syn, Argument arg1, Argument arg2) {
-            PatternStruct patternStruct = {typeOfPattern, std::move(assign_syn), std::move(arg1), std::move(arg2)};
-            this->queryStruct.addPatternClause(patternStruct);
+        void addPatternClause(Argument::ArgumentType typeOfPattern, std::string pattern_syn, Argument arg1, Argument arg2) {
+            Argument arg = Argument(pattern_syn, typeOfPattern);
+            PatternClause patternClause = PatternClause(arg, arg1, arg2);
+            this->queryStruct.addClause(patternClause);
         }
 
         void addWithClause (const WithStruct& withStruct) {
             this->queryStruct.addWithClause(withStruct);
         }
 
-        DECLARED_SYNONYM_MAP getDeclarationMap() {
-            return this->queryStruct.getDeclaredSynonymMap();
+        unordered_map<std::string, Argument> getDeclarationMap() {
+            return this->queryStruct.getSynonymMap();
+        }
+
+        Argument::ArgumentType getSynonymType(std::string synonym) {
+            return this->queryStruct.getSynonymType(synonym);
         }
 
         CANDIDATE_LIST getCandidateList() {

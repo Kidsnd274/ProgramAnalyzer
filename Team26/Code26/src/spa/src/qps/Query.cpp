@@ -42,7 +42,7 @@ QueryStatus Query::getStatus() {
     return this->status;
 }
 
-Argument::ArgumentType Query::getSynonymType(std::string synonymName) {
+Argument::ArgumentType Query::getSynonymType(const std::string& synonymName) {
     auto iter = this->synonymMap->find(synonymName);
     if (iter != this->synonymMap->end()) {
         return iter->second.argumentType;
