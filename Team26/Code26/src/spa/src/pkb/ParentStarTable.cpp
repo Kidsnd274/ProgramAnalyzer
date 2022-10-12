@@ -49,3 +49,7 @@ bool ParentStarTable::existParentStar(int frontStmtLineNumber, int backStmtLineN
     }
     return false;
 }
+
+vector<int> ParentStarTable::getAllParentStar(int stmtLineNumber) {
+    return this->parentStarList[stmtLineNumber];
+}

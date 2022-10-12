@@ -18,6 +18,7 @@ private:
 public:
     void insertParentStar(int parentStmtLineNumber, int childStmtLineNumber);
     bool existParentStar(int parentStmtLineNumber, int childStmtLineNumber);
+    vector<int> getAllParentStar(int stmtLineNumber);
 };
 
 #endif //SPA_PARENTSTARTABLE_H

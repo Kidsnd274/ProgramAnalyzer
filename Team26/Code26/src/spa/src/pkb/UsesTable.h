@@ -15,9 +15,12 @@ using namespace std;
 class UsesTable {
 private:
     unordered_map<int, std::vector<std::string>> usesList;
+    unordered_map<std::string, std::vector<std::string>> usesProcList;
 public:
     void insertUses(int stmtLineNumber, string varName);
+    void insertProcUses(string procedureName, string varName);
     bool existUses(int stmtLineNumber, string varName);
+    vector<string> getAllVarUsedByProc(string procedureName);
 };
 
 #endif //SPA_USESTABLE_H
