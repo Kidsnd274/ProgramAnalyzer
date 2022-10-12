@@ -53,8 +53,8 @@ procedure computeCentroid {
       call readPoint;
       while ((pointx != 0) && (pointy != 0)) {
           count = count + 1;
-          cenX = cenX + x;
-          cenY = cenY + y;
+          cenX = cenX + pointx;
+          cenY = cenY + pointy;
           call readPoint;
       }
       if (count == 0) then {
