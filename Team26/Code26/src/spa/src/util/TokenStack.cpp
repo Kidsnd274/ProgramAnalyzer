@@ -1,5 +1,47 @@
 #include "TokenStack.h"
 
+std::string TokenStack::checkAndReturnNextToken(SPTokenType tokenType) {
+    if(tokenType == SPTokenType::NameToken) {
+        if(!peekNext().isNonTerminal()) {
+            throw SyntaxErrorException();
+        }
+    }
+    std::string val = getNext().getTokenString();
+    return val;
+}
+
+std::string TokenStack::peekNextTokenString() {
+    return peekNext().getTokenString();
+}
+
+SPTokenType TokenStack::peekNextTokenType() {
+    return peekNext().getTokenType();
+}
+
+bool TokenStack::isNextTokenStringEquals(std::string s) {
+    return peekNextTokenString() == s;
+}
+
+bool TokenStack::isNextTokenNonTerminal() {
+    return peekNext().isNonTerminal();
+}
+// Similar to function below, but added in for expressivity of function name
+bool TokenStack::isNextTokenNotOfType(SPTokenType tokenType) {
+    return peekNextTokenType() != tokenType;
+}
+
+bool TokenStack::isNextTokenOfType(SPTokenType tokenType) {
+    return peekNextTokenType() == tokenType;
+}
+
+bool TokenStack::checkAndUseNextToken(SPTokenType tokenType) {
+    if(getNext().getTokenType() != tokenType) {
+        throw SyntaxErrorException();
+    }
+
+    return true;
+}
+
 SPToken TokenStack::getNext() {
     if(!hasNextToken()) {
         throw EndOfFileException();
@@ -28,12 +70,13 @@ bool TokenStack::isCondTokenAfterRparen() {
     std::stack<char> parenStack;
     parenStack.push('l');
     while(j < tokenStack.size() && !parenStack.empty()) {
-        if(tokenStack[j].getTokenType() == SPTokenType::RParenToken && parenStack.top() == 'l')
+        if(tokenStack[j].getTokenType() == SPTokenType::RParenToken && parenStack.top() == 'l') {
             parenStack.pop();
-        else if(tokenStack[j].getTokenType() == SPTokenType::RParenToken)
+        } else if(tokenStack[j].getTokenType() == SPTokenType::RParenToken) {
             parenStack.push('r');
-        else if( tokenStack[j].getTokenType() == SPTokenType::LParenToken)
+        } else if( tokenStack[j].getTokenType() == SPTokenType::LParenToken) {
             parenStack.push('l');
+        }
         j++;
     }
 
