@@ -1,6 +1,8 @@
 #ifndef SPA_WITHCLAUSE_H
 #define SPA_WITHCLAUSE_H
 
+#include <unordered_map>
+#include <unordered_set>
 #include "Argument.h"
 #include "Clause.h"
 
@@ -14,6 +16,17 @@ enum AttributeType {
 
 class WithClause : public Clause {
 protected:
+    const static std::unordered_map<
+         Argument::ArgumentType,
+         AttributeType
+         > withClauseValidationTableArg1;
+
+    const static std::unordered_map<
+            Argument::ArgumentType,
+            AttributeType
+        > withClauseValidationTableArg2;
+
+public:
     /**
      * e.g. a1.varName = "x"
      *  arg1:

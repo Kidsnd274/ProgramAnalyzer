@@ -19,7 +19,7 @@ public:
     Argument argument3;
 
 public:
-    PatternClause(Argument& arg1, Argument arg2, Argument arg3) :
+    PatternClause(Argument& arg1, Argument& arg2, Argument& arg3) :
             argument1(Argument("", Argument::INVALID_ARGUMENT_TYPE)),
             argument2(Argument("", Argument::INVALID_ARGUMENT_TYPE)),
             argument3(Argument("", Argument::INVALID_ARGUMENT_TYPE)) {
