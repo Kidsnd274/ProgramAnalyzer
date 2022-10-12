@@ -5,6 +5,21 @@
 #include "qps/query.h"
 #include "qps/type/Entity.h"
 #include "qps/type/PatternClause.h"
+#include "qps/type/RelationClause.h"
+#include "qps/type/WithClause.h"
+#include "qps/type/Follows.h"
+#include "qps/type/FollowStar.h"
+#include "qps/type/Parent.h"
+#include "qps/type/ParentStar.h"
+#include "qps/type/Uses.h"
+#include "qps/type/ParentStar.h"
+#include "qps/type/Modifies.h"
+#include "qps/type/Calls.h"
+#include "qps/type/CallsStar.h"
+#include "qps/type/Next.h"
+#include "qps/type/NextStar.h"
+#include "qps/type/Affects.h"
+#include "qps/type/AffectsStar.h"
 #include <list>
 #include <vector>
 #include <string>
@@ -70,19 +85,78 @@ namespace QPS {
             this->queryStruct.addCandidate(argument);
         }
 
-        void addSuchThatClause(RelationType relationType, Argument ARG1, Argument ARG2) {
-            RelationStruct relationStruct = {relationType, std::move(ARG1), std::move(ARG2)};
+        void addSuchThatClause(RelationType relationType, Argument arg1, Argument arg2) {
+            switch (relationType) {
+                case FOLLOWS: {
+                    Follows clause = Follows(arg1, arg2);
+                    this->queryStruct.addClause(&clause);
+                }
+                case FOLLOWS_T:{
+                    FollowStar clause = FollowStar(arg1, arg2);
+                    this->queryStruct.addClause(&clause);
+                }
+                case PARENT:{
+                    Parent clause = Parent(arg1, arg2);
+                    this->queryStruct.addClause(&clause);
+                }
+                case PARENT_T:{
+                    ParentStar clause = ParentStar(arg1, arg2);
+                    this->queryStruct.addClause(&clause);
+                }
+                case USES_S:{
+                    Uses clause = Uses(arg1, arg2);
+                    this->queryStruct.addClause(&clause);
+                }
+                case MODIFIES_S:{
+                    Modifies clause = Modifies(arg1, arg2);
+                    this->queryStruct.addClause(&clause);
+                }
+                case USES_P:{
+                    Uses clause = Uses(arg1, arg2);
+                    this->queryStruct.addClause(&clause);
+                }
+                case MODIFIES_P:{
+                    Modifies clause = Modifies(arg1, arg2);
+                    this->queryStruct.addClause(&clause);
+                }
+                case CALLS:{
+                    Calls clause = Calls(arg1, arg2);
+                    this->queryStruct.addClause(&clause);
+                }
+                case CALLS_P:{
+                    CallsStar clause = CallsStar(arg1, arg2);
+                    this->queryStruct.addClause(&clause);
+                }
+                case NEXT:{
+                    Next clause = Next(arg1, arg2);
+                    this->queryStruct.addClause(&clause);
+                }
+                case NEXT_P:{
+                    NextStar clause = NextStar(arg1, arg2);
+                    this->queryStruct.addClause(&clause);
+                }
+                case AFFECTS:{
+                    Affects clause = Affects(arg1, arg2);
+                    this->queryStruct.addClause(&clause);
+                }
+                case AFFECTS_P:{
+                    AffectsStar clause = AffectsStar(arg1, arg2);
+                    this->queryStruct.addClause(&clause);
+                }
+                case INVALID_RELATION_TYPE:
+                    break;
+            }
 
-            this->queryStruct.addSuchThatClause(relationStruct);
         }
 
         void addPatternClause(Argument::ArgumentType typeOfPattern, std::string pattern_syn, Argument arg1, Argument arg2) {
             Argument arg = Argument(pattern_syn, typeOfPattern);
             PatternClause patternClause = PatternClause(arg, arg1, arg2);
-            this->queryStruct.addClause(patternClause);
+            this->queryStruct.addClause(&patternClause);
         }
 
         void addWithClause (const WithStruct& withStruct) {
+
             this->queryStruct.addWithClause(withStruct);
         }
 
@@ -94,17 +168,10 @@ namespace QPS {
             return this->queryStruct.getSynonymType(synonym);
         }
 
-        CANDIDATE_LIST getCandidateList() {
-            return this->queryStruct.getCandidateList();
+        unordered_map<std::string, Argument> getCandidateList() {
+            return this->queryStruct.getCandidateMap();
         }
 
-        SUCH_THAT_LIST getSuchThatList() {
-            return this->queryStruct.getSuchThatList();
-        }
-
-        PATTERN_LIST getPatternList() {
-            return this->queryStruct.getPatternList();
-        }
 
         Query getQueryStruct() {
             return this->queryStruct;

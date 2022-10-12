@@ -30,7 +30,8 @@ const std::unordered_map<
         {Argument::VAR_SYNONYM, VAR_NAME},
         {Argument::PROCEDURE_SYNONYM, PROC_NAME},
         {Argument::CONST_SYNONYM, CONST_VALUE},
-        {Argument::ACTUAL_NAME, INAPPLICABLE}
+        {Argument::ACTUAL_NAME, INAPPLICABLE},
+        {Argument::NUMBER, INAPPLICABLE}
 };
 
 bool WithClause::isValid() {
