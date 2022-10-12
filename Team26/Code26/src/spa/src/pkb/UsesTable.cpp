@@ -47,3 +47,11 @@ bool UsesTable::existUses(int stmtLineNumber, string varName) {
 vector<string> UsesTable::getAllVarUsedByProc(string procedureName) {
     return this->usesProcList[procedureName];
 }
+
+std::unordered_map<int, std::vector<std::string>> UsesTable::getAllUsesByStmt() {
+    return this->usesList;
+}
+
+std::unordered_map<std::string, std::vector<std::string>> UsesTable::getAllUsesByProc() {
+    return this->usesProcList;
+}

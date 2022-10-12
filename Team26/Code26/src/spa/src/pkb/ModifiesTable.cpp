@@ -59,3 +59,11 @@ std::vector<std::string> ModifiesTable::getModifiesVar(int stmtLineNumber) {
 std::vector<std::string> ModifiesTable::getAllModifiedVarByProc(std::string procedureName) {
     return this->modifiesProcList[procedureName];
 }
+
+std::unordered_map<int, std::vector<std::string>> ModifiesTable::getAllModifiesByStmt() {
+    return this->modifiesList;
+}
+
+std::unordered_map<std::string, std::vector<std::string>> ModifiesTable::getAllModifiesByProc() {
+    return this->modifiesProcList;
+}

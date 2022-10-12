@@ -53,3 +53,7 @@ bool ParentStarTable::existParentStar(int frontStmtLineNumber, int backStmtLineN
 vector<int> ParentStarTable::getAllParentStar(int stmtLineNumber) {
     return this->parentStarList[stmtLineNumber];
 }
+
+unordered_map<int, vector<int>> ParentStarTable::getAllParentStars() {
+    return this->parentStarList;
+}

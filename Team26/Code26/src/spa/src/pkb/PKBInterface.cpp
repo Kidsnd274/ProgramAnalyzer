@@ -405,3 +405,34 @@ unordered_map<std::string, std::vector<std::string>> PKBInterface::getAllCallSta
     return pkb->callTable->getAllCalls();
 }
 
+unordered_map<int,int> PKBInterface::getAllFollow() {
+    return pkb->followsTable->getAllFollows();
+}
+
+unordered_map<int,int> PKBInterface::getAllFollowStar() {
+    return pkb->followsStarTable->getAllFollowStars();
+}
+
+unordered_map<int, std::vector<std::string>> PKBInterface::getAllModifyByStmt() {
+    return pkb->modifiesTable->getAllModifiesByStmt();
+}
+
+unordered_map<std::string, std::vector<std::string>> PKBInterface::getAllModifyByProc() {
+    return pkb->modifiesTable->getAllModifiesByProc();
+}
+
+unordered_map<int, std::vector<int>> PKBInterface::getAllParent() {
+    return pkb->parentTable->getAllParents();
+}
+
+unordered_map<int, std::vector<int>> PKBInterface::getAllParentStar() {
+    return pkb->parentStarTable->getAllParentStars();
+}
+
+unordered_map<int, std::vector<std::string>> PKBInterface::getAllUseByStmt() {
+    return pkb->usesTable->getAllUsesByStmt();
+}
+
+unordered_map<std::string, std::vector<std::string>> PKBInterface::getAllUseByProc() {
+    return pkb->usesTable->getAllUsesByProc();
+}
