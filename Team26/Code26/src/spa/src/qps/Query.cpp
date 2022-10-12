@@ -1,6 +1,6 @@
 #include "Query.h"
 
-void Query::addSynonym(Argument synonym) {
+void Query::addSynonym(Argument& synonym) {
     auto iter = this->synonymMap->find(synonym.argumentName);
     if (iter != this->synonymMap->end()) {
         setStatus(SYNTAX_ERROR);
@@ -9,7 +9,7 @@ void Query::addSynonym(Argument synonym) {
     }
 }
 
-void Query::addCandidate(Argument candidate) {
+void Query::addCandidate(Argument& candidate) {
     auto iter = this->candidateMap->find(candidate.argumentName);
     if (iter != this->candidateMap->end()) {
         setStatus(SYNTAX_ERROR);
@@ -18,7 +18,7 @@ void Query::addCandidate(Argument candidate) {
     }
 }
 
-void Query::addClause(Clause clause) {
+void Query::addClause(Clause* clause) {
     this->clauseList->push_back(clause);
 }
 

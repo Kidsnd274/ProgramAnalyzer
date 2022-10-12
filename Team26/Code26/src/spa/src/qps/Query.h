@@ -21,13 +21,13 @@ private:
 
 public:
     ResultTable* resultTable;
-    std::vector<Clause>* clauseList;
+    std::vector<Clause*>* clauseList;
 
 public:
     Query() {
         this->synonymMap = new unordered_map<std::string, Argument>();
         this->candidateMap = new unordered_map<std::string, Argument>();
-        this->clauseList = new vector<Clause>();
+        this->clauseList = new vector<Clause*>();
         this->resultTable = new ResultTable();
     }
 
@@ -38,11 +38,11 @@ public:
         delete this->resultTable;
     }
 
-    void addSynonym(Argument synonym);
+    void addSynonym(Argument& synonym);
 
-    void addCandidate(Argument synonym);
+    void addCandidate(Argument& synonym);
 
-    void addClause(Clause clause);
+    void addClause(Clause* clause);
 
     void validate();
 
