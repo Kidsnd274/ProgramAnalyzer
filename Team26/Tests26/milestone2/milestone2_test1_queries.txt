@@ -187,4 +187,8 @@ Select a such that Uses (a, v) pattern a(v,_)
 variable v;
 Select v such that Modifies("milestone2test1", v)
 var1234, zy if, else, while, d, pointx, pointy, print, cenX, cenY, normSq, count
+39 - select calls
+call c;
+Select c
+18,32,37,43
 
