@@ -187,8 +187,14 @@ Select a such that Uses (a, v) pattern a(v,_)
 variable v;
 Select v such that Modifies("milestone2test1", v)
 var1234, zy if, else, while, d, pointx, pointy, print, cenX, cenY, normSq, count
+5000
 39 - select calls
 call c;
 Select c
 18,32,37,43
-
+5000
+40 - select parents of call statement in milestone2test1
+stmt s;
+Select s such that Parent*(s, 18)
+5,8,9,11,14
+5000
