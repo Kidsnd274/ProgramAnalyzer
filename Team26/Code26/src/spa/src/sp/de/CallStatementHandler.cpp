@@ -58,9 +58,11 @@ void CallStatementHandler::dfs(int i, PKBInterface *pkb) {
         for(auto &proc : callStar) {
             pkb->addCallStar(indexToName[i], proc);
         }
+
         pkb->addCallStar(indexToName[i], procedureCalled);
         pkb->addCall(indexToName[i], procedureCalled);
     }
+
     nameToIndex[indexToName[i]].second = 2;
     return;
 }
