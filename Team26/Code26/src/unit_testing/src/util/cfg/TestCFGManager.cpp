@@ -153,13 +153,13 @@ TEST_CASE("Test Reachable in CFGManager") {
     testManager.finalizeFinalNode();
     CFGHeadPtr createdCFG = testManager.getCurrentCFG();
 
-    std::unordered_set<int> set1 = {1,2,3,4,5,6,7};
-    std::unordered_set<int> set2 = {2,3,4,5,6,7};
-    std::unordered_set<int> set3 = {3,5,6,7};
-    std::unordered_set<int> set4 = {4,5,6,7};
+    std::unordered_set<int> set1 = {2,3,4,5,6,7};
+    std::unordered_set<int> set2 = {3,4,5,6,7};
+    std::unordered_set<int> set3 = {5,6,7};
+    std::unordered_set<int> set4 = {5,6,7};
     std::unordered_set<int> set5 = {5,6,7};
     std::unordered_set<int> set6 = {5,6,7};
-    std::unordered_set<int> set7 = {7};
+    std::unordered_set<int> set7 = {};
 
     REQUIRE(createdCFG->getReachableNodes(1) == set1);
     REQUIRE(createdCFG->getReachableNodes(2) == set2);
