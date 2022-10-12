@@ -11,7 +11,7 @@ Select r
 3 - select all variable
 variable v;
 Select v
-var1234, y, zy, x, z, k, if, procedure, p, xy, kkk, true, q, w, e, else, while, d, call
+var1234, y, zy, x, z, k, if, procedure, p, xy, kkk, true, q, w, e, else, while, d, call, pointx, pointy, print, cenX, cenY, normSq, count
 5000
 4 - select all constant
 constant c;
@@ -21,22 +21,22 @@ Select c
 5 - select all print
 print pn;
 Select pn
-13, 21
+13, 22, 25, 26, 27, 28
 5000
 6 - select all while
 while w;
 Select w
-1,8,11,14,19
+1,8,11,14,20,33
 5000
 7 - select all if
 if ifs;
 Select ifs
-5,9
+5,9, 38
 5000
 8 - select all assign
 assign a;
 Select a
-2,3,6,7,10,12,15,17,18,20
+2,3,6,7,10,12,15,17,19,21,29,30,31,34,35,36,39,40,41,42
 5000
 9 - check if statement is parent of statement
 stmt s;
