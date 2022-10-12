@@ -53,4 +53,13 @@ public:
     vector<string> getAllEntity(EntityType type);
     bool existRelation(const RelationStruct& relation);
     shared_ptr<AssignNode> getAssignTNode(const string& assignRef);
+
+    virtual unordered_map<std::string, std::vector<std::string>> getAllCall();
+    virtual unordered_map<std::string, std::vector<std::string>> getAllCallStar();
+//    virtual unordered_map<std::string, std::vector<std::string>> getAllFollow();
+//    virtual unordered_map<std::string, std::vector<std::string>> getAllFollowStar();
+//    virtual unordered_map<std::string, std::vector<std::string>> getAllModify();
+//    virtual unordered_map<std::string, std::vector<std::string>> getAllParent();
+//    virtual unordered_map<std::string, std::vector<std::string>> getAllParentStar();
+//    virtual unordered_map<std::string, std::vector<std::string>> getAllUse();
 };

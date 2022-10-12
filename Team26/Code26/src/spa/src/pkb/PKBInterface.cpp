@@ -390,3 +390,12 @@ std::unordered_set<string> PKBInterface::getCallStar(std::string procedure) {
     }
     return result;
 }
+
+unordered_map<std::string, std::vector<std::string>> PKBInterface::getAllCall() {
+    return pkb->callTable->getAllCalls();
+}
+
+unordered_map<std::string, std::vector<std::string>> PKBInterface::getAllCallStar() {
+    return pkb->callTable->getAllCalls();
+}
+
