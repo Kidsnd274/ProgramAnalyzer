@@ -18,6 +18,15 @@ void UsesTable::insertUses(int stmtLineNumber, string varName) {
     }
 }
 
+void UsesTable::insertProcUses(std::string procedureName, std::string varName) {
+    std::pair<std::string,vector<string>> uses (procedureName, {varName});
+    if (this->usesProcList.find(procedureName) != this->usesProcList.end()) {
+        this->usesProcList.find(procedureName)->second.push_back(varName);
+    } else {
+        this->usesProcList.insert(uses);
+    }
+}
+
 bool UsesTable::existUses(int stmtLineNumber, string varName) {
     if (stmtLineNumber == 0) {
         for (auto & stmt: this->usesList) {
@@ -28,9 +37,13 @@ bool UsesTable::existUses(int stmtLineNumber, string varName) {
     }
     unordered_map<int,vector<string>> list = this->usesList;
     if (list.find(stmtLineNumber) != list.end() &&
-    (varName == std::string() ||
-    std::find(list[stmtLineNumber].begin(), list[stmtLineNumber].end(), varName) != list[stmtLineNumber].end())) {
+        (varName == std::string() ||
+         std::find(list[stmtLineNumber].begin(), list[stmtLineNumber].end(), varName) != list[stmtLineNumber].end())) {
         return true;
     }
     return false;
+}
+
+vector<string> UsesTable::getAllVarUsedByProc(string procedureName) {
+    return this->usesProcList[procedureName];
 }
