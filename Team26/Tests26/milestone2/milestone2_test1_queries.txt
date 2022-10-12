@@ -183,4 +183,8 @@ assign a; variable v;
 Select a such that Uses (a, v) pattern a(v,_)
 2, 3, 10, 12, 17, 20
 5000
+38 - check modifies for procedure
+variable v;
+Select v such that Modifies("milestone2test1", v)
+var1234, zy if, else, while, d, pointx, pointy, print, cenX, cenY, normSq, count
 
