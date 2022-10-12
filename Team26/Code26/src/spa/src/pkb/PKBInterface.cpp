@@ -371,12 +371,7 @@ std::unordered_set<std::string> PKBInterface::getAllVariablesUsed(std::string pr
 }
 
 std::unordered_set<int> PKBInterface::getParentStar(int statementNumber) {
-    std::vector<int> childStmts = pkb->parentStarTable->getAllParentStar(statementNumber);
-    std::unordered_set<int> result;
-    for (int stmt: childStmts) {
-        result.insert(stmt);
-    }
-    return result;
+    return pkb->parentStarTable->getAllParentStar(statementNumber);
 }
 
 std::unordered_set<string> PKBInterface::getCall(std::string procedure) {

@@ -50,8 +50,14 @@ bool ParentStarTable::existParentStar(int frontStmtLineNumber, int backStmtLineN
     return false;
 }
 
-vector<int> ParentStarTable::getAllParentStar(int stmtLineNumber) {
-    return this->parentStarList[stmtLineNumber];
+unordered_set<int> ParentStarTable::getAllParentStar(int childStmtLineNumber) {
+    unordered_set<int> result;
+    for (std::pair<int, std::vector<int>> pair: this->parentStarList) {
+        if (std::find(pair.second.begin(), pair.second.end(), childStmtLineNumber) != pair.second.end()) {
+            result.insert(pair.first);
+        }
+    }
+    return result;
 }
 
 unordered_map<int, vector<int>> ParentStarTable::getAllParentStars() {
