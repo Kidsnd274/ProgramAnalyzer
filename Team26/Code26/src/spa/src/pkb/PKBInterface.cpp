@@ -324,6 +324,12 @@ bool PKBInterface::existRelation(const RelationStruct& relation) {
                 }
             }
             break;
+        case QPS::CALLS:
+            result = pkb->callTable->existCall(arg1.nameOfArgument, arg2.nameOfArgument);
+            break;
+        case QPS::CALLS_P:
+            result = pkb->callStarTable->existCallStar(arg1.nameOfArgument, arg2.nameOfArgument);
+            break;
         default:
             result = false;
             break;
