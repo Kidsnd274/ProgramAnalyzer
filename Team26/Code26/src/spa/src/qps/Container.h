@@ -2,7 +2,7 @@
 #define SPA_CONTAINER_H
 
 #include "Tokenizer.h"
-#include "qps/query.h"
+#include "qps/Query.h"
 #include "qps/type/Entity.h"
 #include "qps/type/PatternClause.h"
 #include "qps/type/RelationClause.h"
@@ -51,11 +51,6 @@ namespace QPS {
         Container() = default;
 
         explicit Container(std::vector<QPS::Token> &tokens) {
-            DECLARED_SYNONYM_MAP declaredSynonymMap;
-            SUCH_THAT_LIST suchThatList;
-            CANDIDATE_LIST candidateList;
-            PATTERN_LIST patternList;
-            WITH_LIST withList;
             this->tokens = tokens;
             this->queryStruct = Query();
             this->status = INITIALIZED;
@@ -123,7 +118,7 @@ namespace QPS {
                     Calls clause = Calls(arg1, arg2);
                     this->queryStruct.addClause(&clause);
                 }
-                case CALLS_P:{
+                case CALLS_T:{
                     CallsStar clause = CallsStar(arg1, arg2);
                     this->queryStruct.addClause(&clause);
                 }
@@ -131,7 +126,7 @@ namespace QPS {
                     Next clause = Next(arg1, arg2);
                     this->queryStruct.addClause(&clause);
                 }
-                case NEXT_P:{
+                case NEXT_T:{
                     NextStar clause = NextStar(arg1, arg2);
                     this->queryStruct.addClause(&clause);
                 }
@@ -139,7 +134,7 @@ namespace QPS {
                     Affects clause = Affects(arg1, arg2);
                     this->queryStruct.addClause(&clause);
                 }
-                case AFFECTS_P:{
+                case AFFECTS_T:{
                     AffectsStar clause = AffectsStar(arg1, arg2);
                     this->queryStruct.addClause(&clause);
                 }

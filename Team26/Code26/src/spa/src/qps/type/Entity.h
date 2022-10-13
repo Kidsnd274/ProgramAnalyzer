@@ -24,6 +24,7 @@ public:
     const static std::map<std::string, EntityType> entityMap;
 
     static Argument::ArgumentType mapToArgument(EntityType entityType);
+    static std::string entityToString(Entity::EntityType entityType);
 };
 
 
