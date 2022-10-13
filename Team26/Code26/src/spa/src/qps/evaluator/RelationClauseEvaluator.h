@@ -27,8 +27,10 @@ private:
     void filterRelations(unordered_map<string, vector<string>> map, QPS::ResultTable *resultTable);
     void filterRelations(unordered_map<int, vector<int>> map, QPS::ResultTable *resultTable);
     void filterRelations(unordered_map<int, vector<string>> map, QPS::ResultTable *resultTable);
+    void filterRelations(unordered_map<int, int> map, QPS::ResultTable *resultTable);
     bool existInStringVector(string s, vector<string> v);
     bool existInIntVector(int s, vector<int> v);
+    ResultTable* filterTable(unordered_set<vector<string>, StringVectorHash> *result);
 public:
     void evaluate(ResultTable* resultTable);
     RelationClauseEvaluator(Clause* clause): ClauseEvaluator(clause){
