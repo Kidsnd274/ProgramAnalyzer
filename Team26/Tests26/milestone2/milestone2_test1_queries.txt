@@ -233,8 +233,163 @@ stmt s;
 Select s such that Parent*(s, 18)
 5,8,9,11,14
 5000
-47 - select Calls
+47 - select Calls milestone2test1 and computeCentroid
 read r;
 Select r such that Calls("milestone2test1", "computeCentroid")
 4, 16, 23, 24
+5000
+48 - select Calls milestone2test1 and readPoint
+read r;
+Select r such that Calls("milestone2test1", "readPoint")
+none
+5000
+49 - select Calls milestone2test1 and printResults
+read r;
+Select r such that Calls("milestone2test1", "printResults")
+none
+5000
+50 - select Calls milestone2test1 and milestone2test1
+read r;
+Select r such that Calls("milestone2test1", "milestone2test1")
+none
+5000
+51 - select Calls computeCentroid and computeCentroid
+read r;
+Select r such that Calls("computeCentroid", "computeCentroid")
+none
+5000
+52 - select Calls computeCentroid and readPoint
+read r;
+Select r such that Calls("computeCentroid", "readPoint")
+4, 16, 23, 24
+5000
+53 - select Calls computeCentroid and printResults
+read r;
+Select r such that Calls("computeCentroid", "printResults")
+4, 16, 23, 24
+5000
+54 - select Calls computeCentroid and milestone2test1
+read r;
+Select r such that Calls("computeCentroid", "milestone2test1")
+none
+5000
+55 - select Calls readPoint and computeCentroid
+read r;
+Select r such that Calls("readPoint", "computeCentroid")
+none
+5000
+56 - select Calls readPoint and readPoint
+read r;
+Select r such that Calls("readPoint", "readPoint")
+none
+5000
+57 - select Calls readPoint and printResults
+read r;
+Select r such that Calls("readPoint", "printResults")
+none
+5000
+58 - select Calls readPoint and milestone2test1
+read r;
+Select r such that Calls("readPoint", "milestone2test1")
+none
+5000
+59 - select Calls printResults and computeCentroid
+read r;
+Select r such that Calls("printResults", "computeCentroid")
+none
+5000
+60 - select Calls printResults and readPoint
+read r;
+Select r such that Calls("printResults", "readPoint")
+none
+5000
+61 - select Calls printResults and printResults
+read r;
+Select r such that Calls("printResults", "printResults")
+none
+5000
+62 - select Calls printResults and milestone2test1
+read r;
+Select r such that Calls("printResults", "milestone2test1")
+none
+5000
+63 - select Calls* milestone2test1 and computeCentroid
+read r;
+Select r such that Calls*("milestone2test1", "computeCentroid")
+4, 16, 23, 24
+5000
+64 - select Calls* milestone2test1 and readPoint
+read r;
+Select r such that Calls*("milestone2test1", "readPoint")
+4, 16, 23, 24
+5000
+65 - select Calls* milestone2test1 and printResults
+read r;
+Select r such that Calls*("milestone2test1", "printResults")
+4, 16, 23, 24
+5000
+66 - select Calls* milestone2test1 and milestone2test1
+read r;
+Select r such that Calls*("milestone2test1", "milestone2test1")
+none
+5000
+67 - select Calls* computeCentroid and computeCentroid
+read r;
+Select r such that Calls*("computeCentroid", "computeCentroid")
+none
+5000
+68 - select Calls* computeCentroid and readPoint
+read r;
+Select r such that Calls*("computeCentroid", "readPoint")
+4, 16, 23, 24
+5000
+69 - select Calls* computeCentroid and printResults
+read r;
+Select r such that Calls*("computeCentroid", "printResults")
+4, 16, 23, 24
+5000
+70 - select Calls* computeCentroid and milestone2test1
+read r;
+Select r such that Calls*("computeCentroid", "milestone2test1")
+none
+5000
+71 - select Calls* readPoint and computeCentroid
+read r;
+Select r such that Calls*("readPoint", "computeCentroid")
+none
+5000
+72 - select Calls* readPoint and readPoint
+read r;
+Select r such that Calls*("readPoint", "readPoint")
+none
+5000
+73 - select Calls* readPoint and printResults
+read r;
+Select r such that Calls*("readPoint", "printResults")
+none
+5000
+74 - select Calls* readPoint and milestone2test1
+read r;
+Select r such that Calls*("readPoint", "milestone2test1")
+none
+5000
+75 - select Calls* printResults and computeCentroid
+read r;
+Select r such that Calls*("printResults", "computeCentroid")
+none
+5000
+76 - select Calls* printResults and readPoint
+read r;
+Select r such that Calls*("printResults", "readPoint")
+none
+5000
+77 - select Calls* printResults and printResults
+read r;
+Select r such that Calls*("printResults", "printResults")
+none
+5000
+78 - select Calls* printResults and milestone2test1
+read r;
+Select r such that Calls*("printResults", "milestone2test1")
+none
 5000
