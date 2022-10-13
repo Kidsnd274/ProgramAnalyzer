@@ -28,6 +28,8 @@ public:
 
     const static std::map<std::string, ArgumentType> argumentMap;
 
+    static bool isSynonym(ArgumentType);
+
 public:
     std::string argumentName;
     ArgumentType argumentType;

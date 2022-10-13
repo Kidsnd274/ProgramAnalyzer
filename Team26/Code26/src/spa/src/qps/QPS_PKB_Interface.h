@@ -2,6 +2,7 @@
 #define SPA_QPS_PKB_INTERFACE_H
 
 #include "pkb/PKBInterface.h"
+#include "pkb/Statement.h"
 
 class QPS_PKB_Interface {
 public:
@@ -104,7 +105,11 @@ public:
     static std::vector<std::string> getAllAssigns();
 
 
-
+    /**
+     * Call PKB interface to get all statement lists.
+     * @return a vector of statement list.
+     */
+    static std::vector<vector<Statement>> getAllStmtLists();
 };
 
 
