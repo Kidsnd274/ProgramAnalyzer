@@ -13,7 +13,9 @@ enum ClauseType {
     Relation
 };
 const std::map<std::string, ClauseType> clauseMap = {
-
+        {"PatternClause", Pattern},
+        {"WithClause", With},
+        {"RelationClause", Relation},
 };
 class ClauseAssigner {
 public:
