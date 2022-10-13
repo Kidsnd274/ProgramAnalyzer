@@ -1,6 +1,9 @@
 #ifndef SPA_QUERYMANAGER_H
 #define SPA_QUERYMANAGER_H
 
+#include <list>
+#include <vector>
+#include <string>
 #include "pkb/PKBInterface.h"
 #include "QPS_PKB_Interface.h"
 #include "Tokenizer.h"
@@ -8,9 +11,6 @@
 #include "QueryPreprocessor.h"
 #include "QueryEvaluator.h"
 #include "QueryResultProjector.h"
-#include <list>
-#include <vector>
-#include <string>
 
 namespace QPS {
     class QueryManager {

@@ -62,7 +62,12 @@ void QueryManager::handleQuery(PKBInterface *pkb, std::string queryString, std::
     std::vector<QPS::Token> tokens; // Initialize a vector of SPToken to store the tokens.
     QPS::tokenize(std::move(queryString), tokens); // Call tokenizer to read in PQL and tokenize it into tokens.
 
-    QPS::Container container = QPS::Container(tokens); // Initialize a container to store the result of tokenization.
-    Exception parsingException = QPS::parseToken(tokens, container); // Call QPS parser to parse the tokens into Query Structure. Store the result in container.queryStruct.
+    QPS::Container* container = new QPS::Container(tokens); // Initialize a container to store the result of tokenization.
+    Exception parsingException = QPS::parseToken(tokens, *container); // Call QPS parser to parse the tokens into Query Structure. Store the result in container.queryStruct.
 
+    Query query = container->getQueryStruct();
+    QueryEvaluator::evaluate(query); // Call QueryEvaluator to evaluate the query. Store the result in query.resultTable.
+
+    QPS::QueryResultProjector* queryResultProjector = new QPS::QueryResultProjector();
+    queryResultProjector->getSelectTuples(query, results); // Call queryResultProjector to format and print out the query result.
 }
