@@ -465,7 +465,7 @@ milestone2test1, computeCentroid, readPoint
 5000
 93 - select all procedures that modifies variable count
 procedure p1;
-Select p1 such that Modifies(p1, "pointy")
+Select p1 such that Modifies(p1, "count")
 milestone2test1, computeCentroid
 5000
 94 - select all procedures that modifies variable cenX
@@ -480,11 +480,46 @@ milestone2test1, computeCentroid
 5000
 96 - select all procedures that modifies variable print
 procedure p1;
-Select p1 such that Modifies(p1, "cenY")
+Select p1 such that Modifies(p1, "print")
 milestone2test1, computeCentroid
 5000
 97 - select procedures and variable pairs that modifies the procedure modifies
 procedure p1; variable v;
 Select p1, v such that Modifies(p1, v)
 milestone2test1 var1234, milestone2test1 zy,milestone2test1 if,milestone2test1 else,milestone2test1 while,milestone2test1 d,milestone2test1 pointx, milestone2test1 pointy,milestone2test1 print,milestone2test1 cenX,milestone2test1 cenY,milestone2test1 normSq,milestone2test1 count,computeCentroid pointx, computeCentroid pointy,computeCentroid print,computeCentroid cenX,computeCentroid cenY,computeCentroid normSq,computeCentroid count,readPoint pointx, readPoint pointy
+5000
+98 - select all procedures that uses variable var1234
+procedure p1;
+Select p1 such that Uses(p1, "var1234")
+milestone2test1
+5000
+99 - select all procedures that uses variable pointx
+procedure p1;
+Select p1 such that Uses(p1, "pointx")
+milestone2test1, computeCentroid
+5000
+100 - select all procedures that uses variable pointy
+procedure p1;
+Select p1 such that Uses(p1, "pointy")
+milestone2test1, computeCentroid
+5000
+101 - select all procedures that uses variable count
+procedure p1;
+Select p1 such that Uses(p1, "count")
+milestone2test1, computeCentroid
+5000
+102 - select all procedures that uses variable cenX
+procedure p1;
+Select p1 such that Uses(p1, "cenX")
+milestone2test1, computeCentroid, printResults
+5000
+103 - select all procedures that uses variable cenY
+procedure p1;
+Select p1 such that Uses(p1, "cenY")
+milestone2test1, computeCentroid, printResults
+5000
+104 - select all procedures that uses variable print
+procedure p1;
+Select p1 such that Uses(p1, "print")
+milestone2test1, computeCentroid, printResults
 5000
