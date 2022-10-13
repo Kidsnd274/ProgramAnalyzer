@@ -523,3 +523,23 @@ procedure p1;
 Select p1 such that Uses(p1, "print")
 milestone2test1, computeCentroid, printResults
 5000
+105 - Simple test with pattern arg1 being variable, and arg2 be expression that does not exist
+assign a;
+Select a pattern a(_, "(x - xy) * (x - zy)")
+none
+5000
+106 - Simple test with pattern arg1 being variable, and arg2 be expression that exist with right wildcard
+assign a;
+Select a pattern a(_, "(x - xy) * (x - zy)"_)
+17
+5000
+107 - Simple test with pattern arg1 being variable, and arg2 be expression that exist with both wildcard
+assign a;
+Select a pattern a(_, _"(x - xy) * (x - zy)"_)
+17
+5000
+106 - Simple test with pattern arg1 being variable, and arg2 be expression that does exist with left wildcard
+assign a;
+Select a pattern a(_, _"(x - xy) * (x - zy)")
+none
+5000
