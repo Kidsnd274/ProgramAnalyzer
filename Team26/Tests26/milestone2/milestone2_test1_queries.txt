@@ -448,3 +448,38 @@ procedure p1, p2;
 Select p1 such that Calls(p1,"milestone2test1")
 none
 5000
+90 - select all procedures that modifies variable var1234
+procedure p1;
+Select p1 such that Modifies(p1, "var1234")
+milestone2test1
+5000
+91 - select all procedures that modifies variable pointx
+procedure p1;
+Select p1 such that Modifies(p1, "pointx")
+milestone2test1, computeCentroid, readPoint
+5000
+92 - select all procedures that modifies variable pointy
+procedure p1;
+Select p1 such that Modifies(p1, "pointy")
+milestone2test1, computeCentroid, readPoint
+5000
+93 - select all procedures that modifies variable count
+procedure p1;
+Select p1 such that Modifies(p1, "pointy")
+milestone2test1, computeCentroid
+5000
+94 - select all procedures that modifies variable cenX
+procedure p1;
+Select p1 such that Modifies(p1, "cenX")
+milestone2test1, computeCentroid
+5000
+95 - select all procedures that modifies variable cenY
+procedure p1;
+Select p1 such that Modifies(p1, "cenY")
+milestone2test1, computeCentroid
+5000
+96 - select all procedures that modifies variable print
+procedure p1;
+Select p1 such that Modifies(p1, "cenY")
+milestone2test1, computeCentroid
+5000
