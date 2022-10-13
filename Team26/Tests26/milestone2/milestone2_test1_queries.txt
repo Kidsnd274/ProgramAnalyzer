@@ -395,7 +395,7 @@ none
 5000
 79 - select Calls procedures
 procedure p1, p2;
-Select p1,p2 such that Calls(p1,p2)
+Select <p1,p2> such that Calls(p1,p2)
 milestone2test1 computeCentroid, computeCentroid printResults, computeCentroid readPoint
 5000
 80 - select Called procedures
@@ -485,7 +485,7 @@ milestone2test1, computeCentroid
 5000
 97 - select procedures and variable pairs that modifies the procedure modifies
 procedure p1; variable v;
-Select p1, v such that Modifies(p1, v)
+Select <p1, v> such that Modifies(p1, v)
 milestone2test1 var1234, milestone2test1 zy,milestone2test1 if,milestone2test1 else,milestone2test1 while,milestone2test1 d,milestone2test1 pointx, milestone2test1 pointy,milestone2test1 print,milestone2test1 cenX,milestone2test1 cenY,milestone2test1 normSq,milestone2test1 count,computeCentroid pointx, computeCentroid pointy,computeCentroid print,computeCentroid cenX,computeCentroid cenY,computeCentroid normSq,computeCentroid count,readPoint pointx, readPoint pointy
 5000
 98 - select all procedures that uses variable var1234
