@@ -65,7 +65,32 @@ void RelationClauseEvaluator::evaluateAffectsT(QPS::ResultTable *resultTable) {
 
 };
 void RelationClauseEvaluator::evaluateFollows(QPS::ResultTable *resultTable) {
-
+    unordered_map<int, int> map = QPS_PKB_Interface::getAllFollowsRelations();
+    Argument arg1 = relationClause->getFirstArgument();
+    Argument arg2 = relationClause->getSecondArgument();
+    unordered_set<vector<string>, StringVectorHash> result;
+    for (auto relation: map) { //e.g. "p1" calls "p2, p3"
+        if (arg1.argumentType == Argument::NUMBER) {
+            if (relation.first != stoi(arg1.argumentName)) {
+                continue;
+            }
+        }
+        if (arg2.argumentType == Argument::NUMBER) {
+            if (relation.second != stoi(arg2.argumentName)) {
+                continue;
+            }
+        }
+        result.insert({to_string(relation.first), to_string(relation.second)});
+    }
+    if (!Argument::isSynonym(arg1.argumentType) && !Argument::isSynonym(arg2.argumentType)) {
+        if (result.size() == 0) {
+            resultTable = QPS::falseTable;
+        } else {
+            resultTable = QPS::trueTable;
+        }
+        return;
+    }
+    resultTable = filterTable(&result);
 };
 
 void RelationClauseEvaluator::evaluateFollowsT(QPS::ResultTable *resultTable) {
@@ -150,12 +175,12 @@ void RelationClauseEvaluator::filterRelations(unordered_map<int, vector<int>> ma
     Argument arg2 = relationClause->getSecondArgument();
     unordered_set<vector<string>, StringVectorHash> result;
     for (auto relation: map) { //e.g. "p1" calls "p2, p3"
-        if (arg1.argumentType == Argument::ACTUAL_NAME) {
+        if (arg1.argumentType == Argument::NUMBER) {
             if (relation.first != stoi(arg1.argumentName)) {
                 continue;
             }
         }
-        if (arg2.argumentType == Argument::ACTUAL_NAME) {
+        if (arg2.argumentType == Argument::NUMBER) {
             if (!existInIntVector(stoi(arg2.argumentName), relation.second)) {
                 continue;
             } else {
@@ -192,7 +217,7 @@ RelationClauseEvaluator::filterRelations(unordered_map<int, vector<std::string>>
     Argument arg2 = relationClause->getSecondArgument();
     unordered_set<vector<string>, StringVectorHash> result;
     for (auto relation: map) { //e.g. "p1" calls "p2, p3"
-        if (arg1.argumentType == Argument::ACTUAL_NAME) {
+        if (arg1.argumentType == Argument::NUMBER) {
             if (relation.first != stoi(arg1.argumentName)) {
                 continue;
             }
