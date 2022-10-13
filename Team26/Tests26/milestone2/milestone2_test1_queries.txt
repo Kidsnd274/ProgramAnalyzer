@@ -393,3 +393,38 @@ read r;
 Select r such that Calls*("printResults", "milestone2test1")
 none
 5000
+79 - select Calls procedures
+procedure p1, p2;
+Select p1,p2 such that Calls(p1,p2)
+milestone2test1 computeCentroid, computeCentroid printResults, computeCentroid readPoint
+5000
+80 - select Called procedures
+procedure p1, p2;
+Select p2 such that Calls(p1,p2)
+printResults, computeCentroid, readPoint
+5000
+81 - select Calling procedures
+procedure p1, p2;
+Select p1 such that Calls(p1,p2)
+milestone2test1, computeCentroid
+5000
+82 - select all Called procedures of milestone2test1
+procedure p1, p2;
+Select p2 such that Calls("milestone2test1",p2)
+computeCentroid
+5000
+83 - select all Called procedures of computeCentroid
+procedure p1, p2;
+Select p2 such that Calls("computeCentroid",p2)
+printResults, readPoint
+5000
+84 - select all Called procedures of readPoint
+procedure p1, p2;
+Select p2 such that Calls("readPoint",p2)
+none
+5000
+85 - select all Called procedures of printResults
+procedure p1, p2;
+Select p2 such that Calls("printResults",p2)
+none
+5000
