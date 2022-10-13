@@ -68,30 +68,68 @@ void RelationClauseEvaluator::evaluateFollows(QPS::ResultTable *resultTable) {
 
 };
 
-void RelationClauseEvaluator::evaluateFollowsT(QPS::ResultTable *resultTable) {
+bool isStatementTypeMatched(StatementType::StmtType, Argument::ArgumentType) {
 
+}
+
+std::vector<std::vector<Statement>>& filterStmtList(const std::vector<std::vector<Statement>>& stmtList, Argument& arg) {
+    std::vector<std::vector<Statement>> resultStmtList;
+    for (auto iter = stmtList.begin(); iter != stmtList.end(); iter++) {
+        std::vector<Statement> lineResult;
+        for (auto stmt = iter->begin(); stmt != iter->end(); stmt++) {
+            bool matched = true;
+            if (Argument::isSynonym(arg.argumentType)) {
+                matched = isStatementTypeMatched(stmt->type, arg.argumentType);
+            }
+            if (arg.argumentType == Argument::NUMBER) {
+                matched = (stmt->lineNumber == stoi(arg.argumentName));
+            }
+            if (matched) {
+                lineResult.push_back(*stmt);
+            }
+        }
+        resultStmtList.push_back(lineResult);
+    }
+    return resultStmtList;
+}
+
+void RelationClauseEvaluator::evaluateFollowsT(QPS::ResultTable *resultTable) {
+    std::vector<std::vector<Statement>> stmtList = QPS_PKB_Interface::getAllStmtLists();
+    Argument arg1 = this->relationClause->getFirstArgument();
+    Argument arg2 = this->relationClause->getSecondArgument();
+
+    std::vector<std::vector<Statement>> stmtListOfArg1 = filterStmtList(stmtList, arg1);
+    std::vector<std::vector<Statement>> stmtListOfArg2 = filterStmtList(stmtList, arg2);
 };
+
 void RelationClauseEvaluator::evaluateModifiesS(QPS::ResultTable *resultTable) {
     filterRelations(QPS_PKB_Interface::getAllModifiesRelations(), resultTable);
 };
+
 void RelationClauseEvaluator::evaluateModifiesP(QPS::ResultTable *resultTable) {
     filterRelations(QPS_PKB_Interface::getAllModifiesProcRelations(), resultTable);
 };
+
 void RelationClauseEvaluator::evaluateNext(QPS::ResultTable *resultTable) {
 
 };
+
 void RelationClauseEvaluator::evaluateNextT(QPS::ResultTable *resultTable) {
 
 };
+
 void RelationClauseEvaluator::evaluateParent(QPS::ResultTable *resultTable) {
     filterRelations(QPS_PKB_Interface::getAllParentRelations(), resultTable);
 };
+
 void RelationClauseEvaluator::evaluateParentT(QPS::ResultTable *resultTable) {
     filterRelations(QPS_PKB_Interface::getAllParentTRelations(), resultTable);
 };
+
 void RelationClauseEvaluator::evaluateUsesP(QPS::ResultTable *resultTable) {
     filterRelations(QPS_PKB_Interface::getAllUsesProcRelations(), resultTable);
 };
+
 void RelationClauseEvaluator::evaluateUsesS(QPS::ResultTable *resultTable) {
     filterRelations(QPS_PKB_Interface::getAllUsesRelations(), resultTable);
 };
