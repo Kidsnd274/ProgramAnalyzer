@@ -183,27 +183,57 @@ assign a; variable v;
 Select a such that Uses (a, v) pattern a(v,_)
 2, 3, 10, 12, 17, 21, 34, 35, 36, 40, 41
 5000
-38 - check modifies for procedure
+38 - check modifies for procedure milestone2test1
 variable v;
 Select v such that Modifies("milestone2test1", v)
 var1234, zy if, else, while, d, pointx, pointy, print, cenX, cenY, normSq, count
 5000
-39 - check uses for procedure
+39 - check uses for procedure milestone2test1
 variable v;
 Select v such that Uses("milestone2test1", v)
 if, z, procedure, var1234, xy, p, k, kkk, true, zy, q, w, e, else, while, y, x, d, call, pointx, pointy, print, cenX, cenY, normSq, count
 5000
-40 - select calls
+39 - check modifies for procedure computeCentroid
+variable v;
+Select v such that Modifies("computeCentroid", v)
+pointx, pointy, print, cenX, cenY, normSq, count
+5000
+40 - check uses for procedure computeCentroid
+variable v;
+Select v such that Uses("computeCentroid", v)
+pointx, pointy, print, cenX, cenY, normSq, count
+5000
+41 - check modifies for procedure readPoint
+variable v;
+Select v such that Modifies("readPoint", v)
+pointx, pointy
+5000
+42 - check uses for procedure readPoint
+variable v;
+Select v such that Uses("readPoint", v)
+none
+5000
+43 - check modifies for procedure printResults
+variable v;
+Select v such that Modifies("printResults", v)
+none
+5000
+44 - check uses for procedure printResults
+variable v;
+Select v such that Uses("printResults", v)
+print, cenX, cenY, normSq
+5000
+45 - select calls
 call c;
 Select c
 18,32,37,43
 5000
-41 - select parents of call statement in milestone2test1
+46 - select parents of call statement in milestone2test1
 stmt s;
 Select s such that Parent*(s, 18)
 5,8,9,11,14
 5000
-42 - select Calls
+47 - select Calls
 read r;
 Select r such that Calls("milestone2test1", "computeCentroid")
 4, 16, 23, 24
