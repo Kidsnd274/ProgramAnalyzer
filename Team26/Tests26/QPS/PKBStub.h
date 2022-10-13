@@ -23,9 +23,7 @@ namespace QPSTests{
     };
 
     class PKBStub {
-    public:
-        static bool existRelation(QPS::RelationStruct relation);
-    };
+
 
 };
 

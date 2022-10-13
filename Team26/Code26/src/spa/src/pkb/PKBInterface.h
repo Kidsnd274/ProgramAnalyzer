@@ -50,7 +50,5 @@ public:
     virtual std::unordered_set<string> getCallStar(std::string procedure);
 
 
-    vector<string> getAllEntity(EntityType type);
-    bool existRelation(const RelationStruct& relation);
     shared_ptr<AssignNode> getAssignTNode(const string& assignRef);
 };

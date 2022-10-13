@@ -90,39 +90,6 @@ namespace QPS {
         VALID
     };
 
-    enum WithFieldType {
-        VARNAME,
-        PROCNAME,
-        CONSTANT_INTEGER,
-        STMT_INTEGER,
-        ACTUAL_WITH_NAME,
-        ACTUAL_WITH_INTEGER,
-        INVALID_WITH_TYPE
-    };
-
-
-    /*
-     * Enum of Argument Types in Relation or Pattern.
-     */
-//    enum ArgumentType {
-//        IF_SYNONYM,
-//        WHILE_SYNONYM,
-//        READ_SYNONYM,
-//        PRINT_SYNONYM,
-//        CALL_SYNONYM,
-//        ASSIGN_SYNONYM,
-//        STMT_SYNONYM,
-//        VAR_SYNONYM,
-//        PROCEDURE_SYNONYM,
-//        CONST_SYNONYM,
-//        ACTUAL_NAME,
-//        NUMBER,
-//        WILDCARD,
-//        EXPRESSION,
-//        INVALID_ARGUMENT_TYPE,
-//        PROCEDURE_ACTUAL_NAME
-//    };
-
 
     enum ExpressionMatchingType {
         EXACT_MATCHING,
@@ -130,68 +97,8 @@ namespace QPS {
         WILDCARD_MATCHING
     };
 
-    /*
-     * The structure to represent an entity.
-     */
-    struct EntityStruct {
-        EntityType typeOfEntity;
-        std::string nameOfEntity;
-    };
-
-    struct ArgumentStruct {
-        ArgumentType typeOfArgument;
-        std::string nameOfArgument;
-    };
-    /*
-     * The structure to represent a certain type.
-     */
-    struct RelationStruct {
-        RelationType typeOfRelation;
-        ArgumentStruct arg1;
-        ArgumentStruct arg2;
-    };
 
 
-    /*
-     * The structure to represent a certain pattern.
-     */
-    struct PatternStruct {
-        PatternType typeOfPattern;
-        std::string assign_syn;
-        ArgumentStruct arg1;
-        ArgumentStruct arg2;
-    };
-
-    /*
-     * The structure to represent a certain candidate.
-     */
-    struct CandidateStruct {
-        CandidateType typeOfCandidate;
-        EntityStruct entityOfCandidate;
-    };
-
-    struct WithStruct {
-        EntityType first_entity;
-        WithFieldType first_field_type;
-        std::string first_name;
-        EntityType second_entity;
-        WithFieldType second_field_type;
-        std::string second_name;
-    };
-
-    typedef std::unordered_map<std::string, EntityType> DECLARED_SYNONYM_MAP;
-    typedef std::vector<RelationStruct> SUCH_THAT_LIST;
-    typedef std::vector<PatternStruct> PATTERN_LIST;
-    typedef std::vector<CandidateStruct> CANDIDATE_LIST;
-    typedef std::vector<WithStruct> WITH_LIST;
-
-    CandidateType mapEntityToCandidate(EntityType entityType);
-    bool isArgumentTypeSynonym(QPS::ArgumentType argumentType);
-    std::string entityToString(EntityType entityType);
-    std::string candidateToString(CandidateType candidateType);
-    std::string relationToString (RelationType relationType);
-    std::string ARGToString (ArgumentType argumentType);
-    std::string exceptionToStringQPS(Exception e);
 
 }
 #endif // QUERYPROCESSOPES_H

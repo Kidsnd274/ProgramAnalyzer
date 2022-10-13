@@ -11,9 +11,9 @@ const std::unordered_map<
         {Argument::CALL_SYNONYM, STMT_LINE_NUMBER},
         {Argument::ASSIGN_SYNONYM, STMT_LINE_NUMBER},
         {Argument::STMT_SYNONYM, STMT_LINE_NUMBER},
-        {Argument::VAR_SYNONYM, VAR_NAME},
+        {Argument::VAR_SYNONYM, WITH_VAR_NAME},
         {Argument::PROCEDURE_SYNONYM, PROC_NAME},
-        {Argument::CONST_SYNONYM, CONST_VALUE},
+        {Argument::CONST_SYNONYM, WITH_CONST_VALUE},
 };
 
 const std::unordered_map<
@@ -27,9 +27,9 @@ const std::unordered_map<
         {Argument::CALL_SYNONYM, STMT_LINE_NUMBER},
         {Argument::ASSIGN_SYNONYM, STMT_LINE_NUMBER},
         {Argument::STMT_SYNONYM, STMT_LINE_NUMBER},
-        {Argument::VAR_SYNONYM, VAR_NAME},
+        {Argument::VAR_SYNONYM, WITH_VAR_NAME},
         {Argument::PROCEDURE_SYNONYM, PROC_NAME},
-        {Argument::CONST_SYNONYM, CONST_VALUE},
+        {Argument::CONST_SYNONYM, WITH_CONST_VALUE},
         {Argument::ACTUAL_NAME, INAPPLICABLE},
         {Argument::NUMBER, INAPPLICABLE}
 };

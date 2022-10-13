@@ -389,14 +389,14 @@ namespace QPS {
     }
 
     std::pair<int, Exception> parseWithClause(std::vector<QPS::Token> &tokens, int pos, Container &container) {
-        WithStruct withStruct;
+        WithClause::WithClauseArgument arg1, arg2;
+        Argument argument1, argument2;
         if (pos < tokens.size() && tokens[pos].tokenType == NAME) {
             Argument::ArgumentType argumentType = container.getSynonymType(tokens[pos].nameValue);
             if (argumentType == Argument::INVALID_ARGUMENT_TYPE) {
                 return {pos, UNDECLARED_ENTITY_WITH};
             }
-            withStruct.first_entity = argumentType;
-            withStruct.first_name = tokens[pos].nameValue;
+            argument1 = Argument(tokens[pos].nameValue, argumentType);
             pos++;
         } else {
             return {pos, INVALID_WITH_SYNTAX};
@@ -409,15 +409,15 @@ namespace QPS {
         pos++;
 
         if (pos < tokens.size() && tokens[pos].tokenType == NAME) {
-            std::pair<WithFieldType, Exception> fields = convertStringToWithType(tokens[pos]);
+            std::pair<AttributeType, Exception> fields = convertStringToWithType(tokens[pos]);
             if (fields.second != VALID) {
                 return {pos, INVALID_WITH_FIELD};
             } else {
-                withStruct.first_field_type = fields.first;
+               arg1 = {argument1, fields.first};
                 // handle stmt#
-                if (withStruct.first_field_type == STMT_INTEGER && tokens[pos + 1].tokenType == HASHTAG) {
+                if (fields.first == STMT_LINE_NUMBER && tokens[pos + 1].tokenType == HASHTAG) {
                     pos++;
-                } else if (withStruct.first_field_type == STMT_INTEGER) {
+                } else if (fields.first == STMT_LINE_NUMBER) {
                     return {pos, INVALID_WITH_SYNTAX};
                 }
                 pos++;
@@ -433,43 +433,43 @@ namespace QPS {
         //p.procName = "xxx"
         if (pos + 2 < tokens.size() && tokens[pos].tokenType == DOUBLE_QUOTE && tokens[pos+2].tokenType == DOUBLE_QUOTE
             && (tokens[pos + 1].tokenType == NAME)) {
-            switch (withStruct.first_entity) {
-                case Entity::READ:
-                case Entity::PRINT:
-                case Entity::VARIABLE:
-                case Entity::CALL:
-                case Entity::PROCEDURE:{
-                    withStruct.second_field_type = ACTUAL_WITH_NAME;
-                    withStruct.second_name = tokens[pos + 1].nameValue;
+            switch (arg1.argument.argumentType) {
+                case Argument::READ_SYNONYM:
+                case Argument::PRINT_SYNONYM:
+                case Argument::VAR_SYNONYM:
+                case Argument::CALL_SYNONYM:
+                case Argument::PROCEDURE_SYNONYM:{
+                    argument2 = Argument(tokens[pos + 1].nameValue, Argument::ACTUAL_NAME);
+                    arg2 = {argument2, INAPPLICABLE};
                     break;
                 }
-                case Entity::WHILE:
-                case Entity::IF:
-                case Entity::STATEMENT:
-                case Entity::ASSIGN:
-                case Entity::CONSTANT:
-                case Entity::INVALID_ENTITY_TYPE: {
+                case Argument::WHILE_SYNONYM:
+                case Argument::IF_SYNONYM:
+                case Argument::STMT_SYNONYM:
+                case Argument::ASSIGN_SYNONYM:
+                case Argument::CONST_SYNONYM:
+                case Argument::INVALID_ARGUMENT_TYPE: {
                     return {pos, INVALID_WITH_SYNTAX};
                 }
             }
             pos += 3;
         } else if (pos < tokens.size() && tokens[pos].tokenType == INTEGER) {
-            switch (withStruct.first_entity) {
-                case Entity::READ:
-                case Entity::PRINT:
-                case Entity::CALL:
-                case Entity::WHILE:
-                case Entity::IF:
-                case Entity::STATEMENT:
-                case Entity::ASSIGN:
-                case Entity::CONSTANT:{
-                    withStruct.second_field_type = ACTUAL_WITH_INTEGER;
-                    withStruct.second_name = tokens[pos].nameValue;
+            switch (arg1.argument.argumentType) {
+                case Argument::READ_SYNONYM:
+                case Argument::PRINT_SYNONYM:
+                case Argument::CALL_SYNONYM:
+                case Argument::WHILE_SYNONYM:
+                case Argument::IF_SYNONYM:
+                case Argument::STMT_SYNONYM:
+                case Argument::ASSIGN_SYNONYM:
+                case Argument::CONST_SYNONYM:{
+                    argument2 = Argument(tokens[pos + 1].nameValue, Argument::NUMBER);
+                    arg2 = {argument2, INAPPLICABLE};
                     break;
                 }
-                case Entity::VARIABLE:
-                case Entity::PROCEDURE:
-                case Entity::INVALID_ENTITY_TYPE: {
+                case Argument::VAR_SYNONYM:
+                case Argument::PROCEDURE_SYNONYM:
+                case Argument::INVALID_ARGUMENT_TYPE: {
                     return {pos, INVALID_WITH_SYNTAX};
                 }
             }
@@ -479,8 +479,8 @@ namespace QPS {
             if (argumentType == Argument::INVALID_ARGUMENT_TYPE) {
                 return {pos, UNDECLARED_ENTITY_WITH};
             }
-            withStruct.first_entity = argumentType;
-            withStruct.first_name = tokens[pos].nameValue;
+
+            argument2 = Argument(tokens[pos].nameValue, argumentType);
             pos++;
 
             if (pos < tokens.size() && tokens[pos].tokenType != DOT) {
@@ -492,15 +492,16 @@ namespace QPS {
             if (pos < tokens.size() && tokens[pos].tokenType != NAME) {
                 return {pos, INVALID_WITH_SYNTAX};
             }
-            std::pair<WithFieldType, Exception> fields = convertStringToWithType(tokens[pos]);
+            std::pair<AttributeType, Exception> fields = convertStringToWithType(tokens[pos]);
             if (fields.second != VALID) {
                 return {pos, INVALID_WITH_FIELD};
             } else {
-                withStruct.second_field_type = fields.first;
+                arg2 = {argument2, fields.first};
+
                 // handle stmt#
-                if (withStruct.second_field_type == STMT_INTEGER && tokens[pos + 1].tokenType == HASHTAG) {
+                if (fields.first == STMT_LINE_NUMBER && tokens[pos + 1].tokenType == HASHTAG) {
                     pos++;
-                } else {
+                } else if (fields.first == STMT_LINE_NUMBER) {
                     return {pos, INVALID_WITH_SYNTAX};
                 }
                 pos++;
@@ -509,7 +510,7 @@ namespace QPS {
         } else {
             return {pos, INVALID_WITH_SYNTAX};
         }
-        container.addWithClause(withStruct);
+        container.addWithClause(arg1, arg2);
         return {pos,VALID};
 
     }
@@ -541,8 +542,7 @@ namespace QPS {
             return {pos, INVALID_PATTERN_SYNTAX};
         }
 
-        std::pair<Argument, bool> ARG1 = {{"", Argument::INVALID_ARGUMENT_TYPE}, false},
-        ARG2 = {{"", Argument::INVALID_ARGUMENT_TYPE}, false};
+        std::pair<Argument, bool> ARG1 = {{"", Argument::INVALID_ARGUMENT_TYPE}, false};
 
         if (pos < tokens.size() && (tokens[pos].tokenType == NAME)) {
             ARG1 = convertStringToRef(tokens[pos], container);
@@ -610,8 +610,7 @@ namespace QPS {
             return {pos, INVALID_PATTERN_SYNTAX};
         }
 
-        ArgumentStruct aStruct = {expression, Argument::EXPRESSION};
-        container.addPatternClause(typeOfPattern, pattern_syn, ARG1.first, aStruct);
+        container.addPatternClause(typeOfPattern, pattern_syn, ARG1.first, Argument(expression, Argument::EXPRESSION));
         return {pos, VALID};
     }
 
@@ -914,21 +913,21 @@ namespace QPS {
 
 
 
-    std::pair<WithFieldType, Exception> convertStringToWithType (Token &token) {
+    std::pair<AttributeType, Exception> convertStringToWithType (Token &token) {
         if (token.tokenType != NAME) {
-            return {INVALID_WITH_TYPE, INVALID_WITH_TYPE_EXCEPTION};
+            return {INVALID_WITH_CLAUSE_TYPE, INVALID_WITH_TYPE_EXCEPTION};
         }
         std::string field = token.nameValue;
         if (field == "varName") {
-            return {VARNAME, VALID};
+            return {WITH_VAR_NAME, VALID};
         } else if (field == "procName") {
-            return {PROCNAME, VALID};
+            return {PROC_NAME, VALID};
         } else if (field == "value") {
-            return {CONSTANT_INTEGER, VALID};
+            return {WITH_CONST_VALUE, VALID};
         } else if (field == "stmt") {
-            return {STMT_INTEGER, VALID};
+            return {STMT_LINE_NUMBER, VALID};
         } else {
-            return {INVALID_WITH_TYPE, INVALID_WITH_TYPE_EXCEPTION};
+            return {INVALID_WITH_CLAUSE_TYPE, INVALID_WITH_TYPE_EXCEPTION};
         }
     }
 

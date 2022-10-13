@@ -9,6 +9,7 @@
 #include "QueryManager.h"
 #include "Tokenizer.h"
 #include "qps/type/Entity.h"
+#include "qps/type/WithClause.h"
 
 namespace QPS {
     std::pair<Entity::EntityType, bool> mapEntity(const Token& token);
@@ -16,7 +17,7 @@ namespace QPS {
     std::pair<Argument, Exception> convertStringToRef (Token &token, Container &container);
     Exception parseToken(std::vector<Token> &tokens, Container &container);
     std::pair<Argument, Exception> convertStringToStmtRefCalls (Token &token, Container &container);
-    std::pair<WithFieldType, Exception> convertStringToWithType (Token &token);
+    std::pair<AttributeType, Exception> convertStringToWithType (Token &token);
 }
 
 

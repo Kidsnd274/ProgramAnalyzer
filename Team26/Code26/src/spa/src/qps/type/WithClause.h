@@ -8,10 +8,11 @@
 
 enum AttributeType {
     PROC_NAME,
-    VAR_NAME,
-    CONST_VALUE,
+    WITH_VAR_NAME,
+    WITH_CONST_VALUE,
     STMT_LINE_NUMBER,
-    INAPPLICABLE
+    INAPPLICABLE,
+    INVALID_WITH_CLAUSE_TYPE
 };
 
 class WithClause : public Clause {
