@@ -188,13 +188,23 @@ variable v;
 Select v such that Modifies("milestone2test1", v)
 var1234, zy if, else, while, d, pointx, pointy, print, cenX, cenY, normSq, count
 5000
-39 - select calls
+39 - check uses for procedure
+variable v;
+Select v such that Uses("milestone2test1", v)
+if, z, procedure, var1234, xy, p, k, kkk, true, zy, q, w, e, else, while, y, x, d, call, pointx, pointy, print, cenX, cenY, normSq, count
+5000
+40 - select calls
 call c;
 Select c
 18,32,37,43
 5000
-40 - select parents of call statement in milestone2test1
+41 - select parents of call statement in milestone2test1
 stmt s;
 Select s such that Parent*(s, 18)
 5,8,9,11,14
+5000
+42 - select Calls
+read r;
+Select r such that Calls("milestone2test1", "computeCentroid")
+4, 16, 23, 24
 5000
