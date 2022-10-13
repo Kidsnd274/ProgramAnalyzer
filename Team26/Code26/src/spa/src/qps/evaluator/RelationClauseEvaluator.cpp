@@ -93,8 +93,8 @@ void RelationClauseEvaluator::evaluateFollows(QPS::ResultTable *resultTable) {
     resultTable = filterTable(&result);
 };
 
-bool isStatementTypeMatched(StatementType::StmtType, Argument::ArgumentType) {
-
+bool isStatementTypeMatched(StatementType::StmtType stmtType, Argument::ArgumentType ) {
+    if (stmtType)
 }
 
 std::vector<std::vector<Statement>>& filterStmtList(const std::vector<std::vector<Statement>>& stmtList, Argument& arg) {
