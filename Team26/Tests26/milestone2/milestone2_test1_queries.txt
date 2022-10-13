@@ -543,3 +543,8 @@ assign a;
 Select a pattern a(_, _"(x - xy) * (x - zy)")
 none
 5000
+107 - Degenerate test case for synonym names
+assign pattern; variable Select;
+Select Select pattern pattern(Select, _)
+zy, var1234, if, else, while, d, count, cenX, cenY, print, normSq
+5000
