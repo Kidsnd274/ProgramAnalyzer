@@ -31,3 +31,5 @@ std::unordered_map<int, std::vector<std::string>> QPS_PKB_Interface::getAllUsesR
 std::unordered_map<int, std::vector<std::string>> QPS_PKB_Interface::getAllModifiesRelations() {}
 
 std::unordered_map<int, vector<int>> QPS_PKB_Interface::getAllParentTRelations() {}
+
+std::unordered_map<int, int> QPS_PKB_Interface::getAllFollowsRelations() {}
