@@ -4,6 +4,7 @@
 #include "Query.h"
 
 class QueryEvaluator {
+public:
     static void evaluate(Query query);
 };
 
