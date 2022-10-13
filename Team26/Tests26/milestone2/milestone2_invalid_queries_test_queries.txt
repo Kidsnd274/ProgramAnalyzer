@@ -1,0 +1,35 @@
+1 - simple SyntaxError test
+lkj
+Select asd
+SyntaxError
+5000
+2 - simple SemanticError test (currently not sure if this is a syntaxerror or semantic error)
+procedure p;
+Select p such that Call (p,p)
+SyntaxError
+5000
+3 - procedures invalid Follows
+procedure p1, p2;
+Select p1 such that Follows (p1,p2)
+SyntaxError
+5000
+4 - procedures invalid Parent
+procedure p1, p2;
+Select p1 such that Parent (p1,p2)
+SyntaxError
+5000
+5 - procedures invalid Modifies
+procedure p1, p2;
+Select p1 such that Modifies (p1, p2)
+SyntaxError
+5000
+6 - procedures invalid Uses
+procedure p1, p2;
+Select p1 such that Uses (p1, p2)
+SyntaxError
+5000
+7 - procedures invalid pairs
+procedure p1, p2;
+Select p1, p2;
+SyntaxError
+5000
