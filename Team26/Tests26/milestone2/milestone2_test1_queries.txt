@@ -428,3 +428,23 @@ procedure p1, p2;
 Select p2 such that Calls("printResults",p2)
 none
 5000
+86 - select all procedures that calls printResults
+procedure p1, p2;
+Select p1 such that Calls(p1,"printResults")
+computeCentroid
+5000
+87 - select all procedures that calls readPoint
+procedure p1, p2;
+Select p1 such that Calls(p1,"readPoint")
+computeCentroid
+5000
+88 - select all procedures that calls computeCentroid
+procedure p1, p2;
+Select p1 such that Calls(p1,"computeCentroid")
+milestone2test1
+5000
+89 - select all procedures that calls milestone2test1
+procedure p1, p2;
+Select p1 such that Calls(p1,"milestone2test1")
+none
+5000
