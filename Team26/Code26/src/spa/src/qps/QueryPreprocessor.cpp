@@ -550,6 +550,7 @@ namespace QPS {
                     return {pos, UNDECLARED_ENTITY_WITH};
                 }
                 container.addCandidateList(argumentType, curr.nameValue);
+                pos++;
 
             } else if (curr.tokenType == QPS::NAME && curr.nameValue == "BOOLEAN" && !is_entity_select && !is_boolean_select){
                 container.addCandidateListBoolean();
@@ -561,10 +562,11 @@ namespace QPS {
                 return {pos, VALID};
             } else if (curr.tokenType == GT && !is_boolean_select) {
                 pos++;
-                is_multiple_select = true;
+                is_closed = true;
+                break;
             } else if (curr.tokenType == LT && !is_boolean_select) {
                 pos++;
-                is_closed = true;
+                is_multiple_select = true;
             } else {
                 return {pos, INVALID_SELECT};
             }

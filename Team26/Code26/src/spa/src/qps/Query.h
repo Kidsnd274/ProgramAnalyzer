@@ -29,6 +29,7 @@ public:
         this->candidateMap = new std::unordered_map<std::string, Argument>();
         this->clauseList = new std::vector<Clause*>();
         this->resultTable = new QPS::ResultTable();
+        this->status = VALID_QUERY;
     }
 
     ~Query() {

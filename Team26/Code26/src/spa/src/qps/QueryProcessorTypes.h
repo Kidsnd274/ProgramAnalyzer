@@ -9,7 +9,7 @@
 namespace QPS {
 
 
-    bool isRelation(std::string);
+
 
 /*
  * Enum of the Pattern Types in Program Query Language.

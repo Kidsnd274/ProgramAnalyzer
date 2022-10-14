@@ -1,8 +1,8 @@
 <?xml-stylesheet type="text/xsl" href="analysis.xsl"?>
 <test_results>
 <info>
-<name>autotester</name><parsing_time_taken>1.274000</parsing_time_taken>
+<name>autotester</name><parsing_time_taken>1.151000</parsing_time_taken>
 </info>
 <queries>
 <query>
-<id ReturnTuple="1" CondNum="1" RelNum="0" comment="(Valid Query)">6</id><querystr><![CDATA[variable v; constant c; while w; Select <v, c, w>]]></querystr>
+<id ReturnTuple="1" Follows="1" UnnamedVar="1" Pattern="1" SuchThat="1" CondNum="5" RelNum="1" comment="(Valid Query)">1</id><querystr><![CDATA[if ifs; while w; read rd; print pt; assign a; Select <ifs, w, rd, pt> such that Follows(rd, pt) pattern a(_, "x")]]></querystr>

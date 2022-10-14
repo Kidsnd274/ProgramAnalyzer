@@ -1,6 +1,6 @@
 1 - (Valid Query)
-if ifs; while w; read rd; print pt;
-Select <ifs, w, rd, pt> such that Follows(rd, pt)
+if ifs; while w; read rd; print pt; assign a;
+Select <ifs, w, rd, pt> such that Follows(rd, pt) pattern a(_, "x")
 10 8 3 4, 13 8 3 4
 5000
 2 - (Valid Query)
