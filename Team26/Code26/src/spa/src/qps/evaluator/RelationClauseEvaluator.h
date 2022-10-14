@@ -3,6 +3,8 @@
 
 #include "ClauseEvaluator.h"
 #include "../type/RelationClause.h"
+#include "../QPS_PKB_Interface.h"
+
 std::unordered_map<std::string, ::RelationType> evaluatorRelationMap = {
         {"Follows", ::RelationType::FOLLOWS},    // Follows(stmtRef, stmtRef)
         {"FollowStar", ::RelationType::FOLLOWS_T},  // Follows*(stmtRef, stmtRef)
