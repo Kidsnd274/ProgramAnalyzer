@@ -15,20 +15,20 @@ enum QueryStatus {
 
 class Query {
 private:
-    unordered_map<std::string, Argument>* synonymMap;
-    unordered_map<std::string, Argument>* candidateMap;
+    std::unordered_map<std::string, Argument>* synonymMap;
+    std::unordered_map<std::string, Argument>* candidateMap;
     QueryStatus status;
 
 public:
-    ResultTable* resultTable;
+    QPS::ResultTable* resultTable;
     std::vector<Clause*>* clauseList;
 
 public:
     Query() {
-        this->synonymMap = new unordered_map<std::string, Argument>();
-        this->candidateMap = new unordered_map<std::string, Argument>();
-        this->clauseList = new vector<Clause*>();
-        this->resultTable = new ResultTable();
+        this->synonymMap = new std::unordered_map<std::string, Argument>();
+        this->candidateMap = new std::unordered_map<std::string, Argument>();
+        this->clauseList = new std::vector<Clause*>();
+        this->resultTable = new QPS::ResultTable();
     }
 
     ~Query() {
@@ -52,9 +52,9 @@ public:
 
     Argument::ArgumentType getSynonymType(const std::string&);
 
-    unordered_map<std::string, Argument>& getSynonymMap();
+    std::unordered_map<std::string, Argument>& getSynonymMap();
 
-    unordered_map<std::string, Argument>& getCandidateMap();
+    std::unordered_map<std::string, Argument>& getCandidateMap();
 };
 
 
