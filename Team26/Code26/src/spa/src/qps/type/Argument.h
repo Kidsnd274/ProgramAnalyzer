@@ -23,7 +23,7 @@ public:
         EXPRESSION,
         INVALID_ARGUMENT_TYPE,
         PROCEDURE_ACTUAL_NAME,
-        BOOLEAN
+        BOOLEAN_ARG
     };
 
     const static std::map<std::string, ArgumentType> argumentMap;

@@ -9,7 +9,7 @@ public:
     static PKBInterface* pkbInterface;
 
 public:
-    static void setPKBInterface(PKBInterface* pkbInterface);
+    static void setPKBInterface(PKBInterface* myPKBInterface);
 
     /**
      * Call PKB interface to get the AST TNode of a certain assign statement.
@@ -109,7 +109,7 @@ public:
      * Call PKB interface to get all statement lists.
      * @return a vector of statement list.
      */
-    static std::vector<vector<Statement>> getAllStmtLists();
+    static std::vector<std::vector<Statement>> getAllStmtLists();
 };
 
 

@@ -76,7 +76,7 @@ namespace QPS {
         }
 
         void addCandidateListBoolean() {
-            Argument argument = Argument("boolean", Argument::BOOLEAN);
+            Argument argument = Argument("boolean", Argument::BOOLEAN_ARG);
             this->queryStruct.addCandidate(argument);
         }
 

@@ -8,7 +8,9 @@ protected:
     const static std::unordered_map<
             Argument::ArgumentType,
             std::unordered_set<Argument::ArgumentType>
-    > modifiesValidationTable;
+    > followStarValidationTable;
+
+    static const std::unordered_set<Argument::ArgumentType> stmtSet;
 
 public:
     FollowStar(Argument arg1, Argument arg2) : RelationClause(arg1, arg2) {

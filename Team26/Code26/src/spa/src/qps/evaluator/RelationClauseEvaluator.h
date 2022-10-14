@@ -5,22 +5,11 @@
 #include "../type/RelationClause.h"
 #include "../QPS_PKB_Interface.h"
 
-std::unordered_map<std::string, ::RelationType> evaluatorRelationMap = {
-        {"Follows", ::RelationType::FOLLOWS},    // Follows(stmtRef, stmtRef)
-        {"FollowStar", ::RelationType::FOLLOWS_T},  // Follows*(stmtRef, stmtRef)
-        {"Parent", ::RelationType::PARENT}, // Parent(stmtRef, stmtRef)
-        {"ParentStar", ::RelationType::PARENT_T},   // Parent*(stmtRef, stmtRef)
-        {"Uses", ::RelationType::USES_S},
-        {"Modifies", ::RelationType::MODIFIES_S},
-        {"Calls", ::RelationType::CALLS},
-        {"CallsStar", ::RelationType::CALLS_T},
-        {"Next", ::RelationType::NEXT},
-        {"NextStar", ::RelationType::NEXT_T},
-        {"Affects", ::RelationType::AFFECTS},
-        {"AffectsStar", ::RelationType::AFFECTS_T},
-};
 
 class RelationClauseEvaluator: public ClauseEvaluator{
+public:
+    const static std::unordered_map<std::string, ::RelationType> evaluatorRelationMap;
+
 private:
     RelationClause* relationClause;
     void evaluateCalls(QPS::ResultTable *resultTable);
