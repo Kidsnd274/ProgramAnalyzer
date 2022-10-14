@@ -224,16 +224,36 @@ void RelationClauseEvaluator::evaluateFollowsT(QPS::ResultTable *resultTable) {
 
     unordered_set<vector<string>, StringVectorHash> result;
     for (int i = 0; i < stmtList.size(); i++) {
-        for (auto stmt1 : stmtListOfArg1.at(i)) {
-            for (auto stmt2 : stmtListOfArg2.at(i)) {
+        for (Statement stmt1 : stmtListOfArg1.at(i)) {
+            for (Statement stmt2 : stmtListOfArg2.at(i)) {
                 if (stmt1.lineNumber >= stmt2.lineNumber) {
                     continue;
                 }
-                if (Argument::isSynonym(arg1.argumentType) && Argument::isSynonym(arg2.argumentType)) {
-                    result.insert()
+                bool isSynArg1 = Argument::isSynonym(arg1.argumentType);
+                bool isSynArg2 = Argument::isSynonym(arg2.argumentType);
+                if (isSynArg1 && isSynArg2) {
+                    result.insert({to_string(stmt1.lineNumber), to_string(stmt2.lineNumber)});
+                    continue;
+                }
+                if (isSynArg1 && !isSynArg2) {
+                    result.insert({to_string(stmt1.lineNumber)});
+                    continue;
+                }
+                if (!isSynArg1 && isSynArg2) {
+                    result.insert({to_string(stmt2.lineNumber)});
+                    continue;
+                }
+                if (!isSynArg1 && !isSynArg2) {
+                    resultTable = QPS::trueTable;
+                    return;
                 }
             }
         }
+    }
+    if (!Argument::isSynonym(arg1.argumentType) && !Argument::isSynonym(arg2.argumentType)) {
+        resultTable = QPS::falseTable;
+    } else {
+        resultTable = new ResultTable(*synonyms, result);
     }
 };
 
