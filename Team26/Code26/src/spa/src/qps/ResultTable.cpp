@@ -1,5 +1,4 @@
 #include "ResultTable.h"
-#include "../../../../Tests26/QPS/PKBStub.h"
 
 #include <string>
 #include <unordered_map>

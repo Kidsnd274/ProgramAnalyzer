@@ -26,12 +26,8 @@ void RelationClauseEvaluator::evaluate(QPS::ResultTable *resultTable) {
             evaluateFollowsT(resultTable);
             break;
         }
-        case (::RelationType::MODIFIES_P): {
-            evaluateModifiesP(resultTable);
-            break;
-        }
         case (::RelationType::MODIFIES_S): {
-            evaluateModifiesS(resultTable);
+            evaluateModify(resultTable);
             break;
         }
         case (::RelationType::NEXT): {
@@ -50,12 +46,8 @@ void RelationClauseEvaluator::evaluate(QPS::ResultTable *resultTable) {
             evaluateParentT(resultTable);
             break;
         }
-        case (::RelationType::USES_P): {
-            evaluateUsesP(resultTable);
-            break;
-        }
         case (::RelationType::USES_S): {
-            evaluateUsesS(resultTable);
+            evaluateUse(resultTable);
             break;
         }
         default:
@@ -64,6 +56,67 @@ void RelationClauseEvaluator::evaluate(QPS::ResultTable *resultTable) {
 
 }
 
+void RelationClauseEvaluator::evaluateUse(QPS::ResultTable *resultTable) {
+    //Uses_P only
+    if (relationClause->getFirstArgument().argumentType == Argument::PROCEDURE_ACTUAL_NAME
+    || relationClause->getSecondArgument().argumentType == Argument::PROCEDURE_SYNONYM) {
+        evaluateUsesP(resultTable);
+        return;
+    }
+    //Uses_S only
+    if (relationClause->getFirstArgument().argumentType != Argument::WILDCARD) {
+        evaluateUsesS(resultTable);
+        return;
+    }
+    //argument 1 is wildcard, can be both Uses_P and Uses_S
+    ResultTable r1 = ResultTable();
+    ResultTable r2 = ResultTable();
+    evaluateUsesS(&r1);
+    //if argument 2 is synonym, then merge both tables
+    if (Argument::isSynonym(relationClause->getSecondArgument().argumentType)) {
+        evaluateUsesP(&r2);
+        resultTable = ResultTable::mergeTable(&r1, &r2);
+        return;
+    }
+    //if argument 2 is wildcard or actual name, then we only need to return either a trueTable or a falseTable
+    if (&r1 == QPS::trueTable) {
+        resultTable = QPS::trueTable;
+        return;
+    }
+    evaluateUsesP(&r2);
+    resultTable = &r2;
+}
+
+void RelationClauseEvaluator::evaluateModify(QPS::ResultTable *resultTable) {
+    //Modifies_P only
+    if (relationClause->getFirstArgument().argumentType == Argument::PROCEDURE_ACTUAL_NAME
+        || relationClause->getSecondArgument().argumentType == Argument::PROCEDURE_SYNONYM) {
+        evaluateModifiesP(resultTable);
+        return;
+    }
+    //Modifies_S only
+    if (relationClause->getFirstArgument().argumentType != Argument::WILDCARD) {
+        evaluateModifiesS(resultTable);
+        return;
+    }
+    //argument 1 is wildcard, can be both Modifies_P and Modifies_S
+    ResultTable r1 = ResultTable();
+    ResultTable r2 = ResultTable();
+    evaluateModifiesS(&r1);
+    //if argument 2 is synonym, then merge both tables
+    if (Argument::isSynonym(relationClause->getSecondArgument().argumentType)) {
+        evaluateModifiesP(&r2);
+        resultTable = ResultTable::mergeTable(&r1, &r2);
+        return;
+    }
+    //if argument 2 is wildcard or actual name, then we only need to return either a trueTable or a falseTable
+    if (&r1 == QPS::trueTable) {
+        resultTable = QPS::trueTable;
+        return;
+    }
+    evaluateModifiesP(&r2);
+    resultTable = &r2;
+}
 void RelationClauseEvaluator::evaluateCalls(QPS::ResultTable *resultTable) {
     filterRelations(QPS_PKB_Interface::getAllCallRelations(), resultTable);
 }
@@ -223,18 +276,19 @@ bool RelationClauseEvaluator::existInStringVector(string s, vector<string> v) {
 bool RelationClauseEvaluator::existInIntVector(int s, vector<int> v) {
     return std::find(v.begin(), v.end(), s) != v.end();
 }
+
 void RelationClauseEvaluator::filterRelations(unordered_map<std::string, vector<std::string>> map,
                                               QPS::ResultTable *resultTable) {
     Argument arg1 = relationClause->getFirstArgument();
     Argument arg2 = relationClause->getSecondArgument();
     unordered_set<vector<string>, StringVectorHash> result;
     for (auto relation: map) { //e.g. "p1" calls "p2, p3"
-        if (arg1.argumentType == Argument::ACTUAL_NAME) {
+        if (arg1.argumentType == Argument::PROCEDURE_ACTUAL_NAME) {
             if (relation.first != arg1.argumentName) {
                 continue;
             }
         }
-        if (arg2.argumentType == Argument::ACTUAL_NAME) {
+        if (arg2.argumentType == Argument::PROCEDURE_ACTUAL_NAME) {
             if (!existInStringVector(arg2.argumentName, relation.second)) {
                 continue;
             } else {
@@ -312,34 +366,6 @@ RelationClauseEvaluator::filterRelations(unordered_map<int, vector<std::string>>
         for (auto s: relation.second) {
             result.insert({to_string(relation.first), s});
         }
-    }
-    if (!Argument::isSynonym(arg1.argumentType) && !Argument::isSynonym(arg2.argumentType)) {
-        if (result.size() == 0) {
-            resultTable = QPS::falseTable;
-        } else {
-            resultTable = QPS::trueTable;
-        }
-        return;
-    }
-    resultTable = filterTable(&result);
-}
-
-void RelationClauseEvaluator::filterRelations(unordered_map<int, int> map, QPS::ResultTable *resultTable) {
-    Argument arg1 = relationClause->getFirstArgument();
-    Argument arg2 = relationClause->getSecondArgument();
-    unordered_set<vector<string>, StringVectorHash> result;
-    for (auto relation: map) { //e.g. 3 follows 2
-        if (arg1.argumentType == Argument::NUMBER) {
-            if (relation.first != stoi(arg1.argumentName)) {
-                continue;
-            }
-        }
-        if (arg2.argumentType == Argument::NUMBER) {
-            if (relation.first != stoi(arg2.argumentName)) {
-                continue;
-            }
-        }
-        result.insert({to_string(relation.first), to_string(relation.second)});
     }
     if (!Argument::isSynonym(arg1.argumentType) && !Argument::isSynonym(arg2.argumentType)) {
         if (result.size() == 0) {

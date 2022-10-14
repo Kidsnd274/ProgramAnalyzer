@@ -9,7 +9,7 @@ namespace QPS {
 
     std::pair<int, Exception> parseSelect(std::vector<QPS::Token> &tokens, int pos, Container &container);
     std::pair<int, Exception> parseWithObject (std::vector<QPS::Token> &tokens, int pos, Container &container, Argument& argument1, WithClause::WithClauseArgument& arg1);
-    std::pair<int, Exception> parseRelation(std::vector<QPS::Token> &tokens, int tokenPos, Container &container, QPS::RelationType relationType);
+    std::pair<int, Exception> parseRelation(std::vector<QPS::Token> &tokens, int tokenPos, Container &container, RelationType relationType);
     std::pair<int, Exception> parseEntity(std::vector<QPS::Token> &tokens, int pos, Container &container, Entity::EntityType entityType);
     std::pair<int, Exception> parsePattern(std::vector<QPS::Token> &tokens, int pos, Container &container);
     std::pair<int, Exception> parseRelationStmtStmt(std::vector<QPS::Token> &tokens, int pos, RelationType relationType, Container &container);
@@ -177,7 +177,7 @@ namespace QPS {
     }
 
 
-    std::pair<int, Exception> parseRelation(std::vector<QPS::Token> &tokens, int tokenPos, Container &container, QPS::RelationType relationType) {
+    std::pair<int, Exception> parseRelation(std::vector<QPS::Token> &tokens, int tokenPos, Container &container, RelationType relationType) {
         std::pair<int, Exception> result;
         tokenPos++;
         switch (relationType) {
@@ -219,27 +219,27 @@ namespace QPS {
                 result = parseRelationCalls(tokens, tokenPos,CALLS, container);
                 break;
             }
-            case CALLS_P:{
+            case CALLS_T:{
                 tokenPos += 1;
-                result = parseRelationCalls(tokens, tokenPos,CALLS_P, container);
+                result = parseRelationCalls(tokens, tokenPos,CALLS_T, container);
                 break;
             }
             case NEXT:{
                 result = parseRelationStmtStmt(tokens, tokenPos,NEXT, container);
                 break;
             }
-            case NEXT_P:{
+            case NEXT_T:{
                 tokenPos += 1;
-                result = parseRelationStmtStmt(tokens, tokenPos,NEXT_P, container);
+                result = parseRelationStmtStmt(tokens, tokenPos,NEXT_T, container);
                 break;
             }
             case AFFECTS:{
                 result = parseRelationStmtStmt(tokens, tokenPos,AFFECTS, container);
                 break;
             }
-            case AFFECTS_P:{
+            case AFFECTS_T:{
                 tokenPos += 1;
-                result = parseRelationStmtStmt(tokens, tokenPos,AFFECTS_P, container);
+                result = parseRelationStmtStmt(tokens, tokenPos,AFFECTS_T, container);
                 break;
             }
             case INVALID_RELATION_TYPE: {
@@ -830,13 +830,13 @@ namespace QPS {
                 return {PARENT_T, true};
             }
             if (tokens[pos].nameValue == "Calls") {
-                return {CALLS_P, true};
+                return {CALLS_T, true};
             }
             if (tokens[pos].nameValue == "Next") {
-                return {NEXT_P, true};
+                return {NEXT_T, true};
             }
             if (tokens[pos].nameValue == "Affects") {
-                return {AFFECTS_P, true};
+                return {AFFECTS_T, true};
             }
             return {INVALID_RELATION_TYPE, false};
         }

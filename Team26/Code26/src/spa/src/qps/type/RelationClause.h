@@ -24,6 +24,20 @@ enum RelationType {
     INVALID_RELATION_TYPE
 };
 
+const std::map<std::string, RelationType> relationMap = {{"Follows",  FOLLOWS},
+                                                         {"Follows*", FOLLOWS_T},
+                                                         {"Parent",   PARENT},
+                                                         {"Parent*",  PARENT_T},
+                                                         {"Uses",     USES_S},
+                                                         {"Modifies", MODIFIES_S},
+                                                         {"Calls", CALLS},
+                                                         {"Calls*", CALLS_T},
+                                                         {"Next", NEXT},
+                                                         {"Next*", NEXT_T},
+                                                         {"Affects", AFFECTS},
+                                                         {"Affects*", AFFECTS_T},
+                                                         {"",         INVALID_RELATION_TYPE}};
+
 class RelationClause : public Clause{
 protected:
     Argument argument1;
