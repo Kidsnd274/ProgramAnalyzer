@@ -58,10 +58,17 @@ std::vector<pair<int, int>> QPS_PKB_Interface::getAllNextRelations() {
 //    return QPS_PKB_Interface::pkbInterface->getAllNext();
 }
 
-std::unordered_map<int, std::vector<std::string>> QPS_PKB_Interface::getAllUsesRelations() {}
+std::vector<pair<int, int>> QPS_PKB_Interface::getAllNextProcRelations() {
+//    return QPS_PKB_Interface::pkbInterface->getAllNextProc();
+}
+std::vector<std::string> QPS_PKB_Interface::getAllAssigns() {
+//    return QPS_PKB_Interface::pkbInterface->getAllAssigns();
+}
 
-std::unordered_map<int, std::vector<std::string>> QPS_PKB_Interface::getAllModifiesRelations() {}
+std::vector<std::vector<Statement>> QPS_PKB_Interface::getAllStmtLists() {
+//    return QPS_PKB_Interface::pkbInterface->getAllStmtLists();
+}
 
-std::unordered_map<int, vector<int>> QPS_PKB_Interface::getAllParentTRelations() {}
-
-std::unordered_map<int, int> QPS_PKB_Interface::getAllFollowsRelations() {}
+std::shared_ptr<AssignNode> QPS_PKB_Interface::getAssignTNode(std::string assignRef) {
+    return std::shared_ptr<AssignNode>();
+}
