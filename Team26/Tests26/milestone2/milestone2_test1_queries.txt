@@ -548,3 +548,18 @@ assign pattern; variable Select;
 Select Select pattern pattern(Select, _)
 zy, var1234, if, else, while, d, count, cenX, cenY, print, normSq
 5000
+108 - Degenerate test case for synonym names 2
+assign assign; variable variable;
+Select variable pattern assign(variable, _)
+zy, var1234, if, else, while, d, count, cenX, cenY, print, normSq
+5000
+109 - Degenerate test case for synonym names 3
+assign procedure; variable while;
+Select while pattern procedure(while, _)
+zy, var1234, if, else, while, d, count, cenX, cenY, print, normSq
+5000
+110 - Degenerate test case for synonym names 3
+assign if; variable call;
+Select call pattern if(call, _)
+zy, var1234, if, else, while, d, count, cenX, cenY, print, normSq
+5000
