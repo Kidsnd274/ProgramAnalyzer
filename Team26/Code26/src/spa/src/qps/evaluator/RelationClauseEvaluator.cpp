@@ -69,13 +69,13 @@ void RelationClauseEvaluator::evaluateUse(QPS::ResultTable *resultTable) {
         return;
     }
     //argument 1 is wildcard, can be both Uses_P and Uses_S
-    ResultTable r1 = ResultTable();
-    ResultTable r2 = ResultTable();
+    QPS::ResultTable r1 = QPS::ResultTable();
+    QPS::ResultTable r2 = QPS::ResultTable();
     evaluateUsesS(&r1);
     //if argument 2 is synonym, then merge both tables
     if (Argument::isSynonym(relationClause->getSecondArgument().argumentType)) {
         evaluateUsesP(&r2);
-        resultTable = ResultTable::mergeTable(&r1, &r2);
+        resultTable = QPS::ResultTable::mergeTable(&r1, &r2);
         return;
     }
     //if argument 2 is wildcard or actual name, then we only need to return either a trueTable or a falseTable
@@ -100,13 +100,13 @@ void RelationClauseEvaluator::evaluateModify(QPS::ResultTable *resultTable) {
         return;
     }
     //argument 1 is wildcard, can be both Modifies_P and Modifies_S
-    ResultTable r1 = ResultTable();
-    ResultTable r2 = ResultTable();
+    QPS::ResultTable r1 = QPS::ResultTable();
+    QPS::ResultTable r2 = QPS::ResultTable();
     evaluateModifiesS(&r1);
     //if argument 2 is synonym, then merge both tables
     if (Argument::isSynonym(relationClause->getSecondArgument().argumentType)) {
         evaluateModifiesP(&r2);
-        resultTable = ResultTable::mergeTable(&r1, &r2);
+        resultTable = QPS::ResultTable::mergeTable(&r1, &r2);
         return;
     }
     //if argument 2 is wildcard or actual name, then we only need to return either a trueTable or a falseTable

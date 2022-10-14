@@ -3,12 +3,13 @@
 
 #include "../ResultTable.h"
 #include "../type/Clause.h"
+#include "../QPS_PKB_Interface.h"
 
 class ClauseEvaluator {
 private:
     Clause* clause;
 public:
-    virtual void evaluate(ResultTable* resultTable);
+    virtual void evaluate(QPS::ResultTable* resultTable);
     ClauseEvaluator(Clause* clause);
 };
 
