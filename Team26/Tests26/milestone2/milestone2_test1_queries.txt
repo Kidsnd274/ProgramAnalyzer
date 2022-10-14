@@ -563,3 +563,13 @@ assign if; variable call;
 Select call pattern if(call, _)
 zy, var1234, if, else, while, d, count, cenX, cenY, print, normSq
 5000
+111 - Degenerate test case for synonym names 5
+assign stmt; variable read;
+Select read pattern stmt(read, _)
+zy, var1234, if, else, while, d, count, cenX, cenY, print, normSq
+5000
+112 - Degenerate test case for synonym names 6
+assign print; variable constant;
+Select constant pattern print(constant, _)
+zy, var1234, if, else, while, d, count, cenX, cenY, print, normSq
+5000
