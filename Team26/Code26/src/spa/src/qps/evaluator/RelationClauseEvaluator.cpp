@@ -107,8 +107,29 @@ void RelationClauseEvaluator::evaluateFollows(QPS::ResultTable *resultTable) {
     resultTable = filterTable(&result);
 };
 
-bool isStatementTypeMatched(StatementType::StmtType stmtType, Argument::ArgumentType ) {
-    if (stmtType)
+bool isStatementTypeMatched(StatementType::StmtType stmtType, Argument::ArgumentType argumentType) {
+    if (argumentType == Argument::STMT_SYNONYM) {
+        return true;
+    }
+    if (stmtType == StatementType::READ && argumentType == Argument::READ_SYNONYM) {
+        return true;
+    }
+    if (stmtType == StatementType::ASSIGN && argumentType == Argument::ASSIGN_SYNONYM) {
+        return true;
+    }
+    if (stmtType == StatementType::WHILE && argumentType == Argument::WHILE_SYNONYM) {
+        return true;
+    }
+    if (stmtType == StatementType::IF && argumentType == Argument::IF_SYNONYM) {
+        return true;
+    }
+    if (stmtType == StatementType::PRINT && argumentType == Argument::PRINT_SYNONYM) {
+        return true;
+    }
+    if (stmtType == StatementType::CALL && argumentType == Argument::CALL_SYNONYM) {
+        return true;
+    }
+    return false;
 }
 
 std::vector<std::vector<Statement>>& filterStmtList(const std::vector<std::vector<Statement>>& stmtList, Argument& arg) {
@@ -139,6 +160,28 @@ void RelationClauseEvaluator::evaluateFollowsT(QPS::ResultTable *resultTable) {
 
     std::vector<std::vector<Statement>> stmtListOfArg1 = filterStmtList(stmtList, arg1);
     std::vector<std::vector<Statement>> stmtListOfArg2 = filterStmtList(stmtList, arg2);
+
+    vector<string>* synonyms = new vector<string>();
+    if (Argument::isSynonym(arg1.argumentType)) {
+        synonyms->push_back(arg1.argumentName);
+    }
+    if (Argument::isSynonym(arg2.argumentType)) {
+        synonyms->push_back(arg2.argumentName);
+    }
+
+    unordered_set<vector<string>, StringVectorHash> result;
+    for (int i = 0; i < stmtList.size(); i++) {
+        for (auto stmt1 : stmtListOfArg1.at(i)) {
+            for (auto stmt2 : stmtListOfArg2.at(i)) {
+                if (stmt1.lineNumber >= stmt2.lineNumber) {
+                    continue;
+                }
+                if (Argument::isSynonym(arg1.argumentType) && Argument::isSynonym(arg2.argumentType)) {
+                    result.insert()
+                }
+            }
+        }
+    }
 };
 
 void RelationClauseEvaluator::evaluateModifiesS(QPS::ResultTable *resultTable) {
