@@ -3,6 +3,7 @@
 
 #include "../ResultTable.h"
 #include "../type/Clause.h"
+#include "../QPS_PKB_Interface.h"
 
 class ClauseEvaluator {
 private:

@@ -155,7 +155,7 @@ namespace QPS {
             this->queryStruct.addClause(&withClause);
         }
 
-        unordered_map<std::string, Argument> getDeclarationMap() {
+        std::unordered_map<std::string, Argument> getDeclarationMap() {
             return this->queryStruct.getSynonymMap();
         }
 
@@ -163,7 +163,7 @@ namespace QPS {
             return this->queryStruct.getSynonymType(synonym);
         }
 
-        unordered_map<std::string, Argument> getCandidateList() {
+        std::unordered_map<std::string, Argument> getCandidateList() {
             return this->queryStruct.getCandidateMap();
         }
 
