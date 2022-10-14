@@ -9,7 +9,7 @@ protected:
     const static std::unordered_map<
             Argument::ArgumentType,
             std::unordered_set<Argument::ArgumentType>
-    > modifiesValidationTable;
+    > nextStarValidationTable;
 
 public:
     NextStar(Argument arg1, Argument arg2) : RelationClause(arg1, arg2) {

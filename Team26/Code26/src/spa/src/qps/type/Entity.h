@@ -9,19 +9,19 @@ class Entity {
 public:
     enum EntityType {
         STATEMENT,
-        READ,
-        PRINT,
-        CALL,
-        WHILE,
-        IF,
-        ASSIGN,
+        READ_ENTITY,
+        PRINT_ENTITY,
+        CALL_ENTITY,
+        WHILE_ENTITY,
+        IF_ENTITY,
+        ASSIGN_ENTITY,
         VARIABLE,
         CONSTANT,
         PROCEDURE,
         INVALID_ENTITY_TYPE
     };
 
-    const static std::map<std::string, EntityType> entityMap;
+    static const std::map<std::string, Entity::EntityType> entityMap;
 
     static Argument::ArgumentType mapToArgument(EntityType entityType);
     static std::string entityToString(Entity::EntityType entityType);
