@@ -8,40 +8,6 @@
 
 namespace QPS {
 
-/*
- * Enum of the Relation Types in Program Query Language.
- */
-    enum RelationType {
-        FOLLOWS,    // Follows(stmtRef, stmtRef)
-        FOLLOWS_T,  // Follows*(stmtRef, stmtRef)
-        PARENT, // Parent(stmtRef, stmtRef)
-        PARENT_T,   // Parent*(stmtRef, stmtRef)
-        USES_S,
-        MODIFIES_S,
-        USES_P,
-        MODIFIES_P,
-        CALLS,
-        CALLS_P,
-        NEXT,
-        NEXT_P,
-        AFFECTS,
-        AFFECTS_P,
-        INVALID_RELATION_TYPE
-    };
-
-    const std::map<std::string, RelationType> relationMap = {{"Follows",  FOLLOWS},
-                                                       {"Follows*", FOLLOWS_T},
-                                                       {"Parent",   PARENT},
-                                                       {"Parent*",  PARENT_T},
-                                                       {"Uses",     USES_S},
-                                                       {"Modifies", MODIFIES_S},
-                                                       {"Calls", CALLS},
-                                                       {"Calls*", CALLS_P},
-                                                       {"Next", NEXT},
-                                                       {"Next*", NEXT_P},
-                                                       {"Affects", AFFECTS},
-                                                       {"Affects*", AFFECTS_P},
-                                                       {"",         INVALID_RELATION_TYPE}};
 
     bool isRelation(std::string);
 
