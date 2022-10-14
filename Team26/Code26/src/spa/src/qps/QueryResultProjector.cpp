@@ -2,15 +2,15 @@
 
 
 void QueryResultProjector::projectResult(Query query, std::list<std::string> &results) {
-    ResultTable* resultTable = query.resultTable;
+    QPS::ResultTable* resultTable = query.resultTable;
     auto candidateList = query.getCandidateMap();
     std::vector<std::string> synonyms;
     for (auto &candidate : candidateList) {
         synonyms.push_back(candidate.second.argumentName);
     }
-    std::unordered_set<std::vector<std::string>, StringVectorHash> values;
+    std::unordered_set<std::vector<std::string>, QPS::StringVectorHash> values;
     resultTable->getSynonymsValues(synonyms, values);
-    ResultTable result = ResultTable(synonyms, values);
+    QPS::ResultTable result = QPS::ResultTable(synonyms, values);
     result.deleteDuplicateRows({});
     result.printTable();
 }
@@ -30,7 +30,7 @@ std::string QueryResultProjector::getSelectTuples(Query query, std::list<std::st
     std::vector<std::vector<std::string>> table = query.resultTable->getTable();
     std::unordered_set<std::string> rowStringSet;
     std::vector<std::string> synonyms;
-    std::unordered_set<std::vector<std::string>, StringVectorHash> tupleValues;
+    std::unordered_set<std::vector<std::string>, QPS::StringVectorHash> tupleValues;
     for (auto &candidate : query.getCandidateMap()) {
         synonyms.push_back(candidate.second.argumentName);
     }

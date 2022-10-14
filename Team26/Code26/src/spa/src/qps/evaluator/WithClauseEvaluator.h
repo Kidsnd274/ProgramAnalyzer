@@ -11,7 +11,7 @@ public:
         this->withClause = (WithClause*)clause;
     };
 
-    void evaluate(ResultTable* resultTable);
+    void evaluate(QPS::ResultTable* resultTable);
 };
 
 
