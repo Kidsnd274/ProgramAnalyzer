@@ -558,7 +558,7 @@ assign procedure; variable while;
 Select while pattern procedure(while, _)
 zy, var1234, if, else, while, d, count, cenX, cenY, print, normSq
 5000
-110 - Degenerate test case for synonym names 3
+110 - Degenerate test case for synonym names 4
 assign if; variable call;
 Select call pattern if(call, _)
 zy, var1234, if, else, while, d, count, cenX, cenY, print, normSq
