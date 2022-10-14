@@ -8,7 +8,7 @@ class ClauseEvaluator {
 private:
     Clause* clause;
 public:
-    virtual void evaluate(ResultTable* resultTable);
+    virtual void evaluate(QPS::ResultTable* resultTable);
     ClauseEvaluator(Clause* clause);
 };
 
