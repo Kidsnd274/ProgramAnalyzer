@@ -9,7 +9,7 @@ public:
     static PKBInterface* pkbInterface;
 
 public:
-    static void setPKBInterface(PKBInterface* pkbInterface);
+    static void setPKBInterface(PKBInterface* myPKBInterface);
 
     /**
      * Call PKB interface to get the AST TNode of a certain assign statement.
