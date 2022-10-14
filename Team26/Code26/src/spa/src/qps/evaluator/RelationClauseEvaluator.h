@@ -52,28 +52,28 @@ private:
      * @param map map retrieved from PKB.
      * @param resultTable the result table used to store the result.
      */
-    void filterRelations(unordered_map<string, vector<string>> map, QPS::ResultTable *resultTable);
+    void filterRelations(std::unordered_map<std::string, std::vector<std::string>> map, QPS::ResultTable *resultTable);
 
     /**
      * Used by Parent and Parent_T to filter out relationships.
      * @param map map retrieved from PKB.
      * @param resultTable the result table used to store the result.
      */
-    void filterRelations(unordered_map<int, vector<int>> map, QPS::ResultTable *resultTable);
+    void filterRelations(std::unordered_map<int, std::vector<int>> map, QPS::ResultTable *resultTable);
 
     /**
      * Used by Modifies and Uses to filter out relationships.
      * @param map map retrieved from PKB.
      * @param resultTable the result table used to store the result.
      */
-    void filterRelations(unordered_map<int, vector<string>> map, QPS::ResultTable *resultTable);
+    void filterRelations(std::unordered_map<int, std::vector<std::string>> map, QPS::ResultTable *resultTable);
 
-    bool existInStringVector(string s, vector<string> v);
-    bool existInIntVector(int s, vector<int> v);
+    bool existInStringVector(std::string s, std::vector<std::string> v);
+    bool existInIntVector(int s, std::vector<int> v);
 
-    ResultTable* filterTable(unordered_set<vector<string>, StringVectorHash> *result);
+    QPS::ResultTable* filterTable(std::unordered_set<std::vector<std::string>, QPS::StringVectorHash> *result);
 public:
-    void evaluate(ResultTable* resultTable);
+    void evaluate(QPS::ResultTable* resultTable);
     RelationClauseEvaluator(Clause* clause): ClauseEvaluator(clause){
         this->relationClause = (RelationClause*)clause;
     };
