@@ -9,6 +9,7 @@
 #include <string>
 #include <vector>
 #include <unordered_map>
+#include <unordered_set>
 
 using namespace std;
 
@@ -18,7 +19,8 @@ private:
 public:
     void insertParentStar(int parentStmtLineNumber, int childStmtLineNumber);
     bool existParentStar(int parentStmtLineNumber, int childStmtLineNumber);
-    vector<int> getAllParentStar(int stmtLineNumber);
+    unordered_set<int> getAllParentStar(int childStmtLineNumber);
+    unordered_map<int, vector<int>> getAllParentStars();
 };
 
 #endif //SPA_PARENTSTARTABLE_H

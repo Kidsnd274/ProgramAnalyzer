@@ -37,8 +37,8 @@ bool ModifiesTable::existModifies(int stmtLineNumber, string varName) {
     }
     unordered_map<int,std::vector<std::string>> list = this->modifiesList;
     if (list.find(stmtLineNumber) != list.end() &&
-    (varName == std::string() ||
-    std::find(list[stmtLineNumber].begin(), list[stmtLineNumber].end(), varName) != list[stmtLineNumber].end())) {
+        (varName == std::string() ||
+         std::find(list[stmtLineNumber].begin(), list[stmtLineNumber].end(), varName) != list[stmtLineNumber].end())) {
         return true;
     }
     return false;
@@ -58,4 +58,12 @@ std::vector<std::string> ModifiesTable::getModifiesVar(int stmtLineNumber) {
 
 std::vector<std::string> ModifiesTable::getAllModifiedVarByProc(std::string procedureName) {
     return this->modifiesProcList[procedureName];
+}
+
+std::unordered_map<int, std::vector<std::string>> ModifiesTable::getAllModifiesByStmt() {
+    return this->modifiesList;
+}
+
+std::unordered_map<std::string, std::vector<std::string>> ModifiesTable::getAllModifiesByProc() {
+    return this->modifiesProcList;
 }

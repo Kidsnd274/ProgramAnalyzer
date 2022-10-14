@@ -18,6 +18,7 @@ private:
 public:
     void insertFollows(int frontStmtLineNumber, int backStmtLineNumber);
     bool existFollows(int frontStmtLineNumber, int backStmtLineNumber);
+    std::unordered_map<int, int> getAllFollows();
 };
 
 #endif //SPA_FOLLOWSTABLE_H

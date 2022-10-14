@@ -44,3 +44,7 @@ bool ParentTable::existParent(int parentStmtLineNumber, int childStmtLineNumber)
     }
     return false;
 }
+
+unordered_map<int, vector<int>> ParentTable::getAllParents() {
+    return this->parentList;
+}

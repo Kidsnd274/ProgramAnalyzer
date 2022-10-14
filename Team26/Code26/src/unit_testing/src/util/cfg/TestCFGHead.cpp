@@ -149,9 +149,9 @@ TEST_CASE("Test Reachable") {
     std::unordered_set<int> set1 = {1,2,3,4,5,6};
     std::unordered_set<int> set2 = {1,2,3,4,5,6};
     std::unordered_set<int> set3 = {1,2,3,4,5,6};
-    std::unordered_set<int> set4 = {4,5,6};
-    std::unordered_set<int> set5 = {5};
-    std::unordered_set<int> set6 = {6};
+    std::unordered_set<int> set4 = {5,6};
+    std::unordered_set<int> set5 = {};
+    std::unordered_set<int> set6 = {};
 
     REQUIRE(cfgTest->getReachableNodes(1) == set1);
     REQUIRE(cfgTest->getReachableNodes(2) == set2);
