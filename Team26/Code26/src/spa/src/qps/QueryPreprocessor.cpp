@@ -1,5 +1,4 @@
 #include "QueryPreprocessor.h"
-#include "QueryManager.h"
 
 namespace QPS {
     std::pair<int, Exception> parseDeclaration(std::vector<QPS::Token> &tokens,
@@ -126,28 +125,28 @@ namespace QPS {
                 result = parseDeclaration(tokens, tokenPos, Entity::STATEMENT,container);
                 break;
             }
-            case Entity::READ: {
-                result = parseDeclaration(tokens, tokenPos, Entity::READ,container);
+            case Entity::READ_ENTITY: {
+                result = parseDeclaration(tokens, tokenPos, Entity::READ_ENTITY,container);
                 break;
             }
-            case Entity::PRINT: {
-                result = parseDeclaration(tokens, tokenPos, Entity::PRINT,container);
+            case Entity::PRINT_ENTITY: {
+                result = parseDeclaration(tokens, tokenPos, Entity::PRINT_ENTITY,container);
                 break;
             }
-            case Entity::CALL: {
-                result = parseDeclaration(tokens, tokenPos, Entity::CALL,container);
+            case Entity::CALL_ENTITY: {
+                result = parseDeclaration(tokens, tokenPos, Entity::CALL_ENTITY,container);
                 break;
             }
-            case Entity::WHILE: {
-                result = parseDeclaration(tokens, tokenPos, Entity::WHILE,container);
+            case Entity::WHILE_ENTITY: {
+                result = parseDeclaration(tokens, tokenPos, Entity::WHILE_ENTITY,container);
                 break;
             }
-            case Entity::IF: {
-                result = parseDeclaration(tokens, tokenPos, Entity::IF,container);
+            case Entity::IF_ENTITY: {
+                result = parseDeclaration(tokens, tokenPos, Entity::IF_ENTITY,container);
                 break;
             }
-            case Entity::ASSIGN: {
-                result = parseDeclaration(tokens, tokenPos, Entity::ASSIGN,container);
+            case Entity::ASSIGN_ENTITY: {
+                result = parseDeclaration(tokens, tokenPos, Entity::ASSIGN_ENTITY,container);
                 break;
             }
             case Entity::VARIABLE: {
@@ -319,6 +318,12 @@ namespace QPS {
                     arg2 = {argument2, INAPPLICABLE};
                     break;
                 }
+                case Argument::ACTUAL_NAME:
+                case Argument::NUMBER:
+                case Argument::WILDCARD:
+                case Argument::EXPRESSION:
+                case Argument::PROCEDURE_ACTUAL_NAME:
+                case Argument::BOOLEAN_ARG:
                 case Argument::WHILE_SYNONYM:
                 case Argument::IF_SYNONYM:
                 case Argument::STMT_SYNONYM:
@@ -327,6 +332,7 @@ namespace QPS {
                 case Argument::INVALID_ARGUMENT_TYPE: {
                     return {pos, INVALID_WITH_SYNTAX};
                 }
+
             }
             pos += 3;
         } else if (pos < tokens.size() && tokens[pos].tokenType == INTEGER) {
@@ -343,11 +349,18 @@ namespace QPS {
                     arg2 = {argument2, INAPPLICABLE};
                     break;
                 }
+                case Argument::ACTUAL_NAME:
+                case Argument::NUMBER:
+                case Argument::WILDCARD:
+                case Argument::EXPRESSION:
+                case Argument::PROCEDURE_ACTUAL_NAME:
+                case Argument::BOOLEAN_ARG:
                 case Argument::VAR_SYNONYM:
                 case Argument::PROCEDURE_SYNONYM:
                 case Argument::INVALID_ARGUMENT_TYPE: {
                     return {pos, INVALID_WITH_SYNTAX};
                 }
+
             }
             pos++;
         } else if (pos < tokens.size() && tokens[pos].tokenType == NAME) {
@@ -417,6 +430,7 @@ namespace QPS {
         } else {
             return {pos, INVALID_PATTERN_CONTENT};
         }
+        return {pos, VALID};
     }
 
     std::pair<int, Exception> parsePatternLeft (std::vector<QPS::Token> &tokens,int pos,Container &container, std::pair<Argument, bool> &ARG1) {

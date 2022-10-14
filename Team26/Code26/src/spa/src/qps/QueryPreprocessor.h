@@ -6,10 +6,7 @@
 #include <iostream>
 #include "QueryProcessorTypes.h"
 #include "Container.h"
-#include "QueryManager.h"
 #include "Tokenizer.h"
-#include "qps/type/Entity.h"
-#include "qps/type/WithClause.h"
 
 namespace QPS {
     std::pair<Entity::EntityType, bool> mapEntity(const Token& token);

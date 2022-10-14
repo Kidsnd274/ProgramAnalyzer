@@ -1,17 +1,16 @@
 #include "Entity.h"
 
-const std::map<std::string, Entity::EntityType> entityMap = {{"stmt",      Entity::STATEMENT},
-                                                            {"read",      Entity::READ},
-                                                            {"print",     Entity::PRINT},
-                                                            {"call",      Entity::CALL},
-                                                            {"while",     Entity::WHILE},
-                                                            {"if",        Entity::IF},
-                                                            {"assign",    Entity::ASSIGN},
-                                                            {"variable",  Entity::VARIABLE},
-                                                            {"constant",  Entity::CONSTANT},
-                                                            {"procedure", Entity::PROCEDURE},
-                                                            {"",          Entity::INVALID_ENTITY_TYPE}};
-
+const std::map<std::string, Entity::EntityType> Entity::entityMap = {{"stmt",      Entity::STATEMENT},
+                                                             {"read",      Entity::READ_ENTITY},
+                                                             {"print",     Entity::PRINT_ENTITY},
+                                                             {"call",      Entity::CALL_ENTITY},
+                                                             {"while",     Entity::WHILE_ENTITY},
+                                                             {"if",        Entity::IF_ENTITY},
+                                                             {"assign",    Entity::ASSIGN_ENTITY},
+                                                             {"variable",  Entity::VARIABLE},
+                                                             {"constant",  Entity::CONSTANT},
+                                                             {"procedure", Entity::PROCEDURE},
+                                                             {"",          Entity::INVALID_ENTITY_TYPE}};
 
 Argument::ArgumentType Entity::mapToArgument(Entity::EntityType entityType) {
     switch (entityType) {
@@ -19,22 +18,22 @@ Argument::ArgumentType Entity::mapToArgument(Entity::EntityType entityType) {
         case Entity::STATEMENT: {
             return Argument::STMT_SYNONYM;
         }
-        case Entity::READ:{
+        case Entity::READ_ENTITY:{
             return Argument::READ_SYNONYM;
         }
-        case Entity::PRINT:{
+        case Entity::PRINT_ENTITY:{
             return Argument::PRINT_SYNONYM;
         }
-        case Entity::CALL:{
+        case Entity::CALL_ENTITY:{
             return Argument::CALL_SYNONYM;
         }
-        case Entity::WHILE:{
+        case Entity::WHILE_ENTITY:{
             return Argument::WHILE_SYNONYM;
         }
-        case Entity::IF:{
+        case Entity::IF_ENTITY:{
             return Argument::IF_SYNONYM;
         }
-        case Entity::ASSIGN:{
+        case Entity::ASSIGN_ENTITY:{
             return Argument::ASSIGN_SYNONYM;
         }
         case Entity::VARIABLE:{
@@ -57,22 +56,22 @@ std::string Entity::entityToString(Entity::EntityType entityType) {
         case Entity::STATEMENT: {
             return "stmt";
         }
-        case Entity::READ: {
+        case Entity::READ_ENTITY: {
             return "read";
         }
-        case Entity::PRINT: {
+        case Entity::PRINT_ENTITY: {
             return "print";
         }
-        case Entity::CALL: {
+        case Entity::CALL_ENTITY: {
             return "call";
         }
-        case Entity::WHILE: {
+        case Entity::WHILE_ENTITY: {
             return "while";
         }
-        case Entity::IF: {
+        case Entity::IF_ENTITY: {
             return "if";
         }
-        case Entity::ASSIGN: {
+        case Entity::ASSIGN_ENTITY: {
             return "assign";
         }
         case Entity::VARIABLE: {
