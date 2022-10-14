@@ -12,6 +12,7 @@
 
 #include "PKB.h"
 #include "util/ast/TNode.h"
+#include "util/cfg/CFGHead.h"
 #include "VarTable.h"
 #include "ConstantTable.h"
 #include "ProcedureTable.h"
@@ -29,11 +30,12 @@
 using namespace std;
 //using namespace StatementType;
 
-void PKBInterface::addProcedure(std::string name, int startingStmtNo, int endingStmtNo) {
+void PKBInterface::addProcedure(std::string name, int startingStmtNo, int endingStmtNo, CFGHead cfg) {
     Procedure proc;
     proc.name = std::move(name);
     proc.startingStmtNo = startingStmtNo;
     proc.endingStmtNo = endingStmtNo;
+    proc.cfg = cfg;
     pkb->procedureTable->insertProc(proc);
 }
 

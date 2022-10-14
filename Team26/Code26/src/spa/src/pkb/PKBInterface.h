@@ -11,6 +11,7 @@
 #include "PKB.h"
 #include "util/ast/AssignNode.h"
 #include "util/ast/TNode.h"
+#include "util/cfg/CFGHead.h"
 
 using namespace std;
 using namespace QPS;
@@ -20,7 +21,7 @@ class PKBInterface {
 public:
     PKB* pkb = new PKB();
 
-    void addProcedure(string name, int startingStmtNo, int endingStmtNo);
+    void addProcedure(string name, int startingStmtNo, int endingStmtNo, CFGHead cfg);
     void addVariable(string name);
     void addConst(int value);
 
