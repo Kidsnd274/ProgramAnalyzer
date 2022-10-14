@@ -109,7 +109,7 @@ public:
      * Call PKB interface to get all statement lists.
      * @return a vector of statement list.
      */
-    static std::vector<vector<Statement>> getAllStmtLists();
+    static std::vector<std::vector<Statement>> getAllStmtLists();
 };
 
 
