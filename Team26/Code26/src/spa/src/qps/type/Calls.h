@@ -13,6 +13,7 @@ const static std::unordered_map<
 
 public:
     Calls(Argument arg1, Argument arg2) : RelationClause(arg1, arg2) {
+        relationType = CALLS;
     }
 
     bool isValid() override;

@@ -13,6 +13,7 @@ protected:
 
 public:
     Affects(Argument arg1, Argument arg2) : RelationClause(arg1, arg2) {
+        relationType = AFFECTS;
     }
 
     bool isValid() override;

@@ -1,23 +1,28 @@
 #include "ClauseAssigner.h"
 
 void ClauseAssigner::assignClause(QPS::ResultTable *resultTable, Clause *clause) {
-    ClauseEvaluator evaluator = ClauseEvaluator(clause);
-    switch (clauseMap.find(typeid(clause).name())->second) {
+
+    switch (clauseMap.find(typeid(*clause).name())->second) {
         case (Pattern): {
-            evaluator = PatternClauseEvaluator(clause);
+            PatternClauseEvaluator evaluator = PatternClauseEvaluator(clause);
+            evaluator.evaluate(resultTable);
             break;
         }
         case (Relation): {
-            evaluator = RelationClauseEvaluator(clause);
+            RelationClauseEvaluator evaluator = RelationClauseEvaluator(clause);
+            evaluator.evaluate(resultTable);
             break;
         }
         case (With): {
-            evaluator = WithClauseEvaluator(clause);
+            WithClauseEvaluator evaluator = WithClauseEvaluator(clause);
+            evaluator.evaluate(resultTable);
             break;
         }
         default: {
+            RelationClauseEvaluator evaluator = RelationClauseEvaluator(clause);
+            evaluator.evaluate(resultTable);
+            break;
             break;
         }
     }
-    evaluator.evaluate(resultTable);
 }

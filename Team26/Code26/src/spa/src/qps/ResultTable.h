@@ -22,13 +22,33 @@ namespace QPS {
 
     class ResultTable {
     private:
+        enum TableType{
+            TRUE,
+            FALSE,
+            NORMAL
+        };
+        TableType type;
         bool isInitialized;
         int colNum, rowNum;
         std::unordered_map<std::string, int> synonymColRef;
         std::vector <std::vector<std::string> > table;
 
     public:
+        void setFalseTable() {
+            this->type = FALSE;
+            this->emptyTable();
+        }
+        void setTrueTable() {
+            this->type = TRUE;
+        }
+        bool isFalseTable() {
+            return this->type == FALSE;
+        }
+        bool isTrueTable() {
+            return this->type == TRUE;
+        }
         ResultTable(){
+            type = NORMAL;
             isInitialized = false;
             colNum = 0;
             rowNum = 1;
@@ -102,10 +122,12 @@ namespace QPS {
         std::unordered_map<std::string, int> getSynonymColRef();
         static void printStringVector(const std::vector<std::string>& v);
         void printIntVector(const std::vector<int>& v);
+        void emptyTable();
+        void replace(ResultTable* otherTable);
     };
 
     void suspendExecution(const std::string& errorMsg);
 
-    ResultTable* const trueTable = new ResultTable();
-    ResultTable* const falseTable = new ResultTable();
+//    ResultTable* const trueTable = new ResultTable();
+//    ResultTable* const falseTable = new ResultTable();
 }

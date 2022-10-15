@@ -11,6 +11,7 @@
 
 namespace QPS {
     ResultTable::ResultTable(const std::vector<std::string>& sNames, const std::unordered_set<std::vector<std::string>, StringVectorHash >& entries) {
+        type = ResultTable::NORMAL;
         colNum = 0;
         for (const std::string& sName: sNames) {
             if (isSynonymPresent(sName)) {
@@ -98,15 +99,13 @@ namespace QPS {
     }
 
     ResultTable* ResultTable::mergeTable(QPS::ResultTable* const t1, QPS::ResultTable* const t2) {
-        if (t1 == falseTable || t2 == falseTable) {
-            return falseTable;
-        }
-        if (t1 == trueTable) {
-            return t2;
-        }
-        if (t2 == trueTable) {
+        if (t1->isFalseTable() || t2 ->isTrueTable()) {
             return t1;
         }
+        if (t1->isTrueTable() || t2->isFalseTable()) {
+            return t2;
+        }
+
         ResultTable* resultTable = new ResultTable();
         resultTable->colNum = t1->colNum;
         resultTable->rowNum = t1->rowNum;
@@ -117,8 +116,11 @@ namespace QPS {
         return resultTable;
     }
 
+    void ResultTable::emptyTable() {
+        this->table = {};
+    }
     void ResultTable::mergeTable(const QPS::ResultTable& otherTable) {
-        if (!otherTable.isInitialized) {
+        if (!otherTable.isInitialized || this->isFalseTable()) {
             return;
         }
         if (!this->isInitialized) {
@@ -257,6 +259,23 @@ namespace QPS {
                 presentRows.insert(s);
             }
         }
+    }
+
+    void ResultTable::replace(QPS::ResultTable *otherTable) {
+        this->table = otherTable->table;
+        this->synonymColRef = otherTable->synonymColRef;
+//        this->synonymColRef.clear();
+//        for (auto ref: otherTable->synonymColRef) {
+//            this->synonymColRef.insert(ref);
+//        }
+//        this->table.clear();
+//        for (auto row: otherTable->table) {
+//            this->table.push_back(row);
+//        }
+        this->colNum = otherTable->colNum;
+        this->rowNum = otherTable->rowNum;
+        this->isInitialized = otherTable->isInitialized;
+        this->type = otherTable->type;
     }
 
     //The following methods are to print out a table or a vector for testing purpose.

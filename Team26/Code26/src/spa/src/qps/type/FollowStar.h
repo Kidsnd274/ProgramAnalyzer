@@ -14,6 +14,7 @@ protected:
 
 public:
     FollowStar(Argument arg1, Argument arg2) : RelationClause(arg1, arg2) {
+        relationType = FOLLOWS_T;
     }
 
     bool isValid() override;

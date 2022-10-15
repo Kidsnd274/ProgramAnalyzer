@@ -27,15 +27,15 @@ void PatternClauseEvaluator::evaluate(ResultTable* resultTable) {
         }
     }
     ResultTable tableToReturn = ResultTable(synonyms, result);
-    resultTable = &tableToReturn;
+    resultTable->replace(&tableToReturn);
 }
 
 WildcardPosition PatternClauseEvaluator::getWildcardPosition() {
     WildcardPosition pos;
     Argument arg2 = this->patternClause->argument3;
     std::string argumentName = arg2.argumentName;
-    bool firstCharIsUnderscore = argumentName[0] == Argument::WILDCARD;
-    bool lastCharIsUnderscore = argumentName[argumentName.length() - 1] == Argument::WILDCARD;
+    bool firstCharIsUnderscore = argumentName[0] == '_';
+    bool lastCharIsUnderscore = argumentName[argumentName.length() - 1] == '_';
     if (firstCharIsUnderscore) {
         if (lastCharIsUnderscore) {
             pos = WildcardPosition::BOTH;

@@ -12,6 +12,7 @@ protected:
 
 public:
     Uses(Argument arg1, Argument arg2) : RelationClause(arg1, arg2) {
+        relationType = USES_S;
     }
 
     bool isValid() override;

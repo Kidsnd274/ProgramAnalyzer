@@ -12,6 +12,7 @@ protected:
 
 public:
     Modifies(Argument arg1, Argument arg2) : RelationClause(arg1, arg2) {
+        relationType = MODIFIES_S;
     }
 
     bool isValid() override;

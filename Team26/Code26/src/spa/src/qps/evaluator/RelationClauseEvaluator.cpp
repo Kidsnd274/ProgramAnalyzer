@@ -16,7 +16,7 @@ const std::unordered_map<std::string, ::RelationType> RelationClauseEvaluator::e
 };
 
 void RelationClauseEvaluator::evaluate(QPS::ResultTable *resultTable) {
-    switch(evaluatorRelationMap.find(typeid(this->relationClause).name())->second) {
+    switch(this->relationClause->relationType) {
         case (::RelationType::CALLS_T): {
             evaluateCallsT(resultTable);
             break;
@@ -90,16 +90,17 @@ void RelationClauseEvaluator::evaluateUse(QPS::ResultTable *resultTable) {
     //if argument 2 is synonym, then merge both tables
     if (Argument::isSynonym(relationClause->getSecondArgument().argumentType)) {
         evaluateUsesP(&r2);
-        resultTable = QPS::ResultTable::mergeTable(&r1, &r2);
+        ResultTable* resultTable1 = QPS::ResultTable::mergeTable(&r1, &r2);
+        resultTable->replace(resultTable1);
         return;
     }
     //if argument 2 is wildcard or actual name, then we only need to return either a trueTable or a falseTable
-    if (&r1 == QPS::trueTable) {
-        resultTable = QPS::trueTable;
+    if (r1.isTrueTable()) {
+        resultTable->setTrueTable();
         return;
     }
     evaluateUsesP(&r2);
-    resultTable = &r2;
+    resultTable->replace(&r2);
 }
 
 void RelationClauseEvaluator::evaluateModify(QPS::ResultTable *resultTable) {
@@ -121,16 +122,17 @@ void RelationClauseEvaluator::evaluateModify(QPS::ResultTable *resultTable) {
     //if argument 2 is synonym, then merge both tables
     if (Argument::isSynonym(relationClause->getSecondArgument().argumentType)) {
         evaluateModifiesP(&r2);
-        resultTable = QPS::ResultTable::mergeTable(&r1, &r2);
+        ResultTable* resultTable1 = QPS::ResultTable::mergeTable(&r1, &r2);;
+        resultTable->replace(resultTable1);
         return;
     }
     //if argument 2 is wildcard or actual name, then we only need to return either a trueTable or a falseTable
-    if (&r1 == QPS::trueTable) {
-        resultTable = QPS::trueTable;
+    if (r1.isTrueTable()) {
+        resultTable->setTrueTable();
         return;
     }
     evaluateModifiesP(&r2);
-    resultTable = &r2;
+    resultTable->replace(&r2);
 }
 void RelationClauseEvaluator::evaluateCalls(QPS::ResultTable *resultTable) {
     filterRelations(QPS_PKB_Interface::getAllCallRelations(), resultTable);
@@ -166,13 +168,13 @@ void RelationClauseEvaluator::evaluateFollows(QPS::ResultTable *resultTable) {
     }
     if (!Argument::isSynonym(arg1.argumentType) && !Argument::isSynonym(arg2.argumentType)) {
         if (result.size() == 0) {
-            resultTable = QPS::falseTable;
+            resultTable->setFalseTable();
         } else {
-            resultTable = QPS::trueTable;
+            resultTable->setTrueTable();
         }
         return;
     }
-    resultTable = filterTable(&result);
+    resultTable->replace(filterTable(&result));
 };
 
 bool isStatementTypeMatched(StatementType::StmtType stmtType, Argument::ArgumentType argumentType) {
@@ -259,16 +261,16 @@ void RelationClauseEvaluator::evaluateFollowsT(QPS::ResultTable *resultTable) {
                     continue;
                 }
                 if (!isSynArg1 && !isSynArg2) {
-                    resultTable = QPS::trueTable;
+                    resultTable->setTrueTable();
                     return;
                 }
             }
         }
     }
     if (!Argument::isSynonym(arg1.argumentType) && !Argument::isSynonym(arg2.argumentType)) {
-        resultTable = QPS::falseTable;
+        resultTable->setFalseTable();
     } else {
-        resultTable = new ResultTable(*synonyms, result);
+        resultTable->replace(new ResultTable(*synonyms, result));
     }
 };
 
@@ -337,13 +339,13 @@ void RelationClauseEvaluator::filterRelations(unordered_map<std::string, vector<
     }
     if (!Argument::isSynonym(arg1.argumentType) && !Argument::isSynonym(arg2.argumentType)) {
         if (result.size() == 0) {
-            resultTable = QPS::falseTable;
+            resultTable->setFalseTable();
         } else {
-            resultTable = QPS::trueTable;
+            resultTable->setTrueTable();
         }
         return;
     }
-    resultTable = filterTable(&result);
+    resultTable->replace(filterTable(&result));
 }
 
 void RelationClauseEvaluator::filterRelations(unordered_map<int, vector<int>> map, QPS::ResultTable *resultTable) {
@@ -370,13 +372,13 @@ void RelationClauseEvaluator::filterRelations(unordered_map<int, vector<int>> ma
     }
     if (!Argument::isSynonym(arg1.argumentType) && !Argument::isSynonym(arg2.argumentType)) {
         if (result.size() == 0) {
-            resultTable = QPS::falseTable;
+            resultTable->setFalseTable();
         } else {
-            resultTable = QPS::trueTable;
+            resultTable->setTrueTable();
         }
         return;
     }
-    resultTable = filterTable(&result);
+    resultTable->replace(filterTable(&result));
 }
 
 void
@@ -404,40 +406,52 @@ RelationClauseEvaluator::filterRelations(unordered_map<int, vector<std::string>>
     }
     if (!Argument::isSynonym(arg1.argumentType) && !Argument::isSynonym(arg2.argumentType)) {
         if (result.size() == 0) {
-            resultTable = QPS::falseTable;
+            resultTable->setFalseTable();
         } else {
-            resultTable = QPS::trueTable;
+            resultTable->setTrueTable();
         }
         return;
     }
-    resultTable = filterTable(&result);
+    resultTable->replace(filterTable(&result));
 }
 
 ResultTable *RelationClauseEvaluator::filterTable(unordered_set<vector<std::string>, QPS::StringVectorHash> *result) {
     Argument arg1 = relationClause->getFirstArgument();
     Argument arg2 = relationClause->getSecondArgument();
-    vector<string> synonyms;
-    if (arg1.argumentType == Argument::PROCEDURE_SYNONYM) {
-        synonyms.push_back(arg1.argumentName);
-    }
-    if (arg2.argumentType == Argument:: PROCEDURE_SYNONYM) {
-        synonyms.push_back(arg2.argumentName);
-    }
-    unordered_set<vector<std::string>, QPS::StringVectorHash> filteredResult;
+    std::vector<std::string> a1;
+    std::vector<std::string> a2;
     bool isArg1Synonym = Argument::isSynonym(arg1.argumentType);
     bool isArg2Synonym = Argument::isSynonym(arg2.argumentType);
+    vector<string> synonyms;
+    if (isArg1Synonym) {
+        synonyms.push_back(arg1.argumentName);
+        a1 = QPS_PKB_Interface::getAllEntity(&arg1);
+    }
+    if (isArg2Synonym) {
+        synonyms.push_back(arg2.argumentName);
+        a2 = QPS_PKB_Interface::getAllEntity(&arg2);
+    }
+    unordered_set<vector<std::string>, QPS::StringVectorHash> filteredResult;
     for (auto r: *result) {
         vector<string> tableRow;
-        if (isArg1Synonym) {
+        if (isArg1Synonym && isArg2Synonym) {
+            if (std::find(a1.begin(), a1.end(), r[0])!= a1.end()
+            && std::find(a2.begin(), a2.end(), r[1])!= a2.end()) {
+                tableRow.push_back(r[0]);
+                tableRow.push_back(r[1]);
+                filteredResult.insert(tableRow);
+            }
+        } else if (isArg1Synonym && std::find(a1.begin(), a1.end(), r[0])!= a1.end() ) {
             tableRow.push_back(r[0]);
-        }
-        if (isArg2Synonym) {
+            filteredResult.insert(tableRow);
+        } else if (isArg2Synonym && std::find(a2.begin(), a2.end(), r[1])!= a2.end()) {
             tableRow.push_back(r[1]);
+            filteredResult.insert(tableRow);
         }
-        filteredResult.insert(tableRow);
+
     }
-    ResultTable r = ResultTable(synonyms, filteredResult);
-    return &r;
+    ResultTable* r = new ResultTable(synonyms, filteredResult);
+    return r;
 }
 
 

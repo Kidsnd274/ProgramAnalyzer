@@ -7,15 +7,16 @@
 #include "../type/Clause.h"
 #include "../QPS_PKB_Interface.h"
 
+
 enum ClauseType {
     Pattern,
     With,
     Relation
 };
 const std::map<std::string, ClauseType> clauseMap = {
-        {"PatternClause", Pattern},
-        {"WithClause", With},
-        {"RelationClause", Relation},
+        {typeid(PatternClause).name(), Pattern},
+        {typeid(WithClause).name(), With},
+        {typeid(RelationClause).name(), Relation},
 };
 class ClauseAssigner {
 public:

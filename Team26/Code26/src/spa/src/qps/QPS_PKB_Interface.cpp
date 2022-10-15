@@ -11,39 +11,39 @@ std::shared_ptr<AssignNode> getAssignTNode(std::string assignRef) {
 }
 
 std::unordered_map<int, int> QPS_PKB_Interface::getAllFollowsRelations() {
-//    return QPS_PKB_Interface::pkbInterface->getAllFollows();
+    return QPS_PKB_Interface::pkbInterface->getAllFollow();
 }
 
 std::unordered_map<int, vector<int>> QPS_PKB_Interface::getAllParentRelations() {
-//    return QPS_PKB_Interface::pkbInterface->getAllParent();
+    return QPS_PKB_Interface::pkbInterface->getAllParent();
 }
 
 std::unordered_map<int, vector<int>> QPS_PKB_Interface::getAllParentTRelations() {
-//    return QPS_PKB_Interface::pkbInterface->getAllParentT();
+    return QPS_PKB_Interface::pkbInterface->getAllParentStar();
 }
 
 std::unordered_map<std::string, std::vector<std::string>> QPS_PKB_Interface::getAllCallRelations() {
-//    return QPS_PKB_Interface::pkbInterface->getAllCall();
+    return QPS_PKB_Interface::pkbInterface->getAllCall();
 }
 
 std::unordered_map<std::string, std::vector<std::string>> QPS_PKB_Interface::getAllCallTRelations() {
-    //    return QPS_PKB_Interface::pkbInterface->getAllCallStar();
+        return QPS_PKB_Interface::pkbInterface->getAllCallStar();
 }
 
 std::unordered_map<int, std::vector<std::string>> QPS_PKB_Interface::getAllUsesRelations() {
-//    return QPS_PKB_Interface::pkbInterface->getAllUses();
+    return QPS_PKB_Interface::pkbInterface->getAllUseByStmt();
 }
 
 std::unordered_map<std::string, std::vector<std::string>> QPS_PKB_Interface::getAllUsesProcRelations() {
-//    return QPS_PKB_Interface::pkbInterface->getAllUsesProc();
+    return QPS_PKB_Interface::pkbInterface->getAllUseByProc();
 }
 
 std::unordered_map<int, std::vector<std::string>> QPS_PKB_Interface::getAllModifiesRelations() {
-//    return QPS_PKB_Interface::pkbInterface->getAllModifies();
+    return QPS_PKB_Interface::pkbInterface->getAllModifyByStmt();
 }
 
 std::unordered_map<std::string, std::vector<std::string>> QPS_PKB_Interface::getAllModifiesProcRelations() {
-//    return QPS_PKB_Interface::pkbInterface->getAllModifiesProc();
+    return QPS_PKB_Interface::pkbInterface->getAllModifyByProc();
 }
 
 std::vector<pair<int, int>> QPS_PKB_Interface::getAllAffectsRelations() {
@@ -62,7 +62,7 @@ std::vector<pair<int, int>> QPS_PKB_Interface::getAllNextProcRelations() {
 //    return QPS_PKB_Interface::pkbInterface->getAllNextProc();
 }
 std::vector<std::string> QPS_PKB_Interface::getAllAssigns() {
-//    return QPS_PKB_Interface::pkbInterface->getAllAssigns();
+    return QPS_PKB_Interface::pkbInterface->getAllAssigns();
 }
 
 std::vector<std::vector<Statement>> QPS_PKB_Interface::getAllStmtLists() {
@@ -70,7 +70,7 @@ std::vector<std::vector<Statement>> QPS_PKB_Interface::getAllStmtLists() {
 }
 
 std::shared_ptr<AssignNode> QPS_PKB_Interface::getAssignTNode(std::string assignRef) {
-    return std::shared_ptr<AssignNode>();
+    return pkbInterface->getAssignTNode(assignRef);
 }
 
 std::vector<std::string> QPS_PKB_Interface::getAllEntity(Argument *argument) {
