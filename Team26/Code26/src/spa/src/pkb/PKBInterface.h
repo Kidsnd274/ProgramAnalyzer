@@ -62,4 +62,17 @@ public:
     virtual unordered_map<int, std::vector<int>> getAllParentStar();
     virtual unordered_map<int, std::vector<std::string>> getAllUseByStmt();
     virtual unordered_map<std::string, std::vector<std::string>> getAllUseByProc();
+
+    vector<string> getAllStmts();
+    vector<string> getAllReads();
+    vector<string> getAllPrints();
+    vector<string> getAllCalls();
+    vector<string> getAllWhiles();
+    vector<string> getAllIfs();
+    vector<string> getAllAssigns();
+    vector<string> getAllVariables();
+    vector<string> getAllConstants();
+    vector<string> getAllProcedures();
+
+
 };

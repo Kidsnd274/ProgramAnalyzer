@@ -225,3 +225,43 @@ unordered_map<int, std::vector<std::string>> PKBInterface::getAllUseByStmt() {
 unordered_map<std::string, std::vector<std::string>> PKBInterface::getAllUseByProc() {
     return pkb->usesTable->getAllUsesByProc();
 }
+
+vector<string> PKBInterface::getAllStmts() {
+    return pkb->statementTable->getAllStmts();
+}
+
+vector<string> PKBInterface::getAllReads() {
+    return pkb->statementTable->getAllReads();
+}
+
+vector<string> PKBInterface::getAllPrints() {
+    return pkb->statementTable->getAllPrints();
+}
+
+vector<string> PKBInterface::getAllCalls() {
+    return pkb->statementTable->getAllCalls();
+}
+
+vector<string> PKBInterface::getAllWhiles() {
+    return pkb->statementTable->getAllWhiles();
+}
+
+vector<string> PKBInterface::getAllIfs() {
+    return pkb->statementTable->getAllIfs();
+}
+
+vector<string> PKBInterface::getAllAssigns() {
+    return pkb->statementTable->getAllAssigns();
+}
+
+vector<string> PKBInterface::getAllVariables() {
+    return pkb->varTable->getAllVariables();
+}
+
+vector<string> PKBInterface::getAllConstants() {
+    return pkb->constantTable->getAllConstants();
+}
+
+vector<string> PKBInterface::getAllProcedures() {
+    return pkb->procedureTable->getAllProcedures();
+}

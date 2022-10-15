@@ -1,8 +1,8 @@
 #include "QueryEvaluator.h"
 #include "evaluator/ClauseAssigner.h"
 
-void QueryEvaluator::evaluate(Query query) {
-    if (query.getStatus() != VALID_QUERY) {
+void QueryEvaluator::evaluate(Query* query) {
+    if (query->getStatus() != VALID_QUERY) {
         return;
     }
 
@@ -10,7 +10,7 @@ void QueryEvaluator::evaluate(Query query) {
     ClauseAssigner* clauseAssigner = new ClauseAssigner();
 
     // Relation clause and Pattern clause
-    for (auto iter = query.clauseList->begin(); iter != query.clauseList->end(); iter++) {
+    for (auto iter = query->clauseList->begin(); iter != query->clauseList->end(); iter++) {
         if (typeid(*iter) == typeid(WithClause)) {
             continue;
         }
@@ -20,11 +20,30 @@ void QueryEvaluator::evaluate(Query query) {
     }
 
     // With clause
-    for (auto iter = query.clauseList->begin(); iter != query.clauseList->end(); iter++) {
+    for (auto iter = query->clauseList->begin(); iter != query->clauseList->end(); iter++) {
         if (typeid(*iter) != typeid(WithClause)) {
             continue;
         }
         clauseAssigner->assignClause(resultOfEvaluation, *iter);
     }
-    query.resultTable = resultOfEvaluation;
+
+    // Merge with synonyms to be selected
+    for (auto s: query->getCandidateMap()) {
+        if (!resultOfEvaluation->isSynonymPresent(s.first)) {
+            getAllEntity(s.second, resultOfEvaluation);
+        }
+    }
+
+    query->resultTable = resultOfEvaluation;
+}
+
+void QueryEvaluator::getAllEntity(Argument argument, QPS::ResultTable *resultTable) {
+    vector<string> synonym = {argument.argumentName};
+    unordered_set<vector<string>, StringVectorHash> results;
+    vector<string> entities = QPS_PKB_Interface::getAllEntity(&argument);
+    for (auto e: entities) {
+        results.insert({e});
+    }
+    ResultTable* entityTable = new ResultTable(synonym, results);
+    resultTable->mergeTable(*entityTable);
 }

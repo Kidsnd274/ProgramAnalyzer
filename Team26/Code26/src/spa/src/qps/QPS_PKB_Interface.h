@@ -3,6 +3,7 @@
 
 #include "pkb/PKBInterface.h"
 #include "pkb/Statement.h"
+#include "type/Argument.h"
 
 class QPS_PKB_Interface {
 public:
@@ -110,6 +111,13 @@ public:
      * @return a vector of statement list.
      */
     static std::vector<std::vector<Statement>> getAllStmtLists();
+
+    /**
+     * Call PKB interface to get all entities of a certain type.
+     * @param argument
+     * @return
+     */
+    static std::vector<std::string> getAllEntity(Argument* argument);
 };
 
 

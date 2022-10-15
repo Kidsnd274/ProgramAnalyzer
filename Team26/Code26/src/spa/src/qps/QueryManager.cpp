@@ -140,7 +140,7 @@ void QueryManager::handleQuery(PKBInterface *pkb, std::string queryString, std::
 
     std::cout << exceptionToStringQPS(parsingException) << std::endl;
     Query query = container->getQueryStruct();
-    QueryEvaluator::evaluate(query); // Call QueryEvaluator to evaluate the query. Store the result in query.resultTable.
+    QueryEvaluator::evaluate(&query); // Call QueryEvaluator to evaluate the query. Store the result in query.resultTable.
 
     QueryResultProjector* queryResultProjector = new QueryResultProjector();
     queryResultProjector->getSelectTuples(query, results); // Call queryResultProjector to format and print out the query result.
