@@ -653,3 +653,98 @@ if w; assign a;
 Select w such that Parent*(w, a) pattern a(_, "(x - xy) * (x - zy)"_)
 5, 9
 5000
+129 - follows
+stmt s;
+Select s such that Follows (1, s)
+4
+5000
+130 - follows
+stmt s;
+Select s such that Follows (8, s)
+20
+5000
+131 - follows
+stmt s;
+Select s such that Follows (17, s)
+18
+5000
+132 - follows
+stmt s;
+Select s such that Follows (19, s)
+none
+5000
+133 - follows
+stmt s;
+Select s such that Follows (23, s)
+24
+5000
+134 - follows
+stmt s;
+Select s such that Follows (24, s)
+none
+5000
+135 - follows
+stmt s;
+Select s such that Follows (32, s)
+33
+5000
+136 - follows
+stmt s;
+Select s such that Follows (21, s)
+22
+5000
+137 - follows
+stmt s;
+Select s such that Follows (34, s)
+35
+5000
+138 - follows
+stmt s;
+Select s such that Follows (22, s)
+none
+5000
+139 - follows
+stmt s;
+Select s such that Follows (36, s)
+37
+5000
+140 - follows
+stmt s;
+Select s such that Follows (37, s)
+none
+5000
+141 - follows
+print pr;
+Select a such that Follows (29, pr)
+SemanticError
+5000
+142 - pattern
+assign a;
+Select a pattern a (_, _" +temp"_)
+SyntaxError
+5000
+143 - pattern
+constant c; assign a; variable v;
+Select c such that Uses (a, v) pattern a (_,  c)
+SyntaxError
+5000
+144 - pattern
+assign a; variable v; constant c;
+Select a such that Uses (a, c) pattern a (v,  _)
+SemanticError
+5000
+145 - pattern
+stmt s; assign a; variable v;
+Select a such that Follows* (a, v) pattern s (v,  _)
+SemanticError
+5000
+146 - while
+while w; stmt s;
+Select x such that Uses (s,  "x")
+SemanticError
+5000
+147 - follows*
+stmt s;
+Select a such that Follows* (s, 38)
+SemanticError
+5000
