@@ -261,6 +261,21 @@ namespace QPS {
         }
     }
 
+    void ResultTable::replace(QPS::ResultTable *otherTable) {
+        this->synonymColRef.clear();
+        for (auto ref: otherTable->synonymColRef) {
+            this->synonymColRef.insert(ref);
+        }
+        this->table.clear();
+        for (auto row: otherTable->table) {
+            this->table.push_back(row);
+        }
+        this->colNum = otherTable->colNum;
+        this->rowNum = otherTable->rowNum;
+        this->isInitialized = otherTable->isInitialized;
+        this->type = otherTable->type;
+    }
+
     //The following methods are to print out a table or a vector for testing purpose.
     void ResultTable::printTable() {
         std::cout << "Printing Table ... \n";

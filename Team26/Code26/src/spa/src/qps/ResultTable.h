@@ -123,6 +123,7 @@ namespace QPS {
         static void printStringVector(const std::vector<std::string>& v);
         void printIntVector(const std::vector<int>& v);
         void emptyTable();
+        void replace(ResultTable* otherTable);
     };
 
     void suspendExecution(const std::string& errorMsg);

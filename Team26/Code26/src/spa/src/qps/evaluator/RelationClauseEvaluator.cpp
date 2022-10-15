@@ -90,7 +90,8 @@ void RelationClauseEvaluator::evaluateUse(QPS::ResultTable *resultTable) {
     //if argument 2 is synonym, then merge both tables
     if (Argument::isSynonym(relationClause->getSecondArgument().argumentType)) {
         evaluateUsesP(&r2);
-        resultTable = QPS::ResultTable::mergeTable(&r1, &r2);
+        ResultTable* resultTable1 = QPS::ResultTable::mergeTable(&r1, &r2);
+        resultTable->replace(resultTable1);
         return;
     }
     //if argument 2 is wildcard or actual name, then we only need to return either a trueTable or a falseTable
@@ -99,7 +100,7 @@ void RelationClauseEvaluator::evaluateUse(QPS::ResultTable *resultTable) {
         return;
     }
     evaluateUsesP(&r2);
-    resultTable = &r2;
+    resultTable->replace(&r2);
 }
 
 void RelationClauseEvaluator::evaluateModify(QPS::ResultTable *resultTable) {
@@ -121,7 +122,8 @@ void RelationClauseEvaluator::evaluateModify(QPS::ResultTable *resultTable) {
     //if argument 2 is synonym, then merge both tables
     if (Argument::isSynonym(relationClause->getSecondArgument().argumentType)) {
         evaluateModifiesP(&r2);
-        resultTable = QPS::ResultTable::mergeTable(&r1, &r2);
+        ResultTable* resultTable1 = QPS::ResultTable::mergeTable(&r1, &r2);;
+        resultTable->replace(resultTable1);
         return;
     }
     //if argument 2 is wildcard or actual name, then we only need to return either a trueTable or a falseTable
@@ -130,7 +132,7 @@ void RelationClauseEvaluator::evaluateModify(QPS::ResultTable *resultTable) {
         return;
     }
     evaluateModifiesP(&r2);
-    resultTable = &r2;
+    resultTable->replace(&r2);
 }
 void RelationClauseEvaluator::evaluateCalls(QPS::ResultTable *resultTable) {
     filterRelations(QPS_PKB_Interface::getAllCallRelations(), resultTable);
@@ -172,7 +174,7 @@ void RelationClauseEvaluator::evaluateFollows(QPS::ResultTable *resultTable) {
         }
         return;
     }
-    resultTable = filterTable(&result);
+    resultTable->replace(filterTable(&result));
 };
 
 bool isStatementTypeMatched(StatementType::StmtType stmtType, Argument::ArgumentType argumentType) {
@@ -268,7 +270,7 @@ void RelationClauseEvaluator::evaluateFollowsT(QPS::ResultTable *resultTable) {
     if (!Argument::isSynonym(arg1.argumentType) && !Argument::isSynonym(arg2.argumentType)) {
         resultTable->setFalseTable();
     } else {
-        resultTable = new ResultTable(*synonyms, result);
+        resultTable->replace(new ResultTable(*synonyms, result));
     }
 };
 
@@ -343,7 +345,7 @@ void RelationClauseEvaluator::filterRelations(unordered_map<std::string, vector<
         }
         return;
     }
-    resultTable = filterTable(&result);
+    resultTable->replace(filterTable(&result));
 }
 
 void RelationClauseEvaluator::filterRelations(unordered_map<int, vector<int>> map, QPS::ResultTable *resultTable) {
@@ -376,7 +378,7 @@ void RelationClauseEvaluator::filterRelations(unordered_map<int, vector<int>> ma
         }
         return;
     }
-    resultTable = filterTable(&result);
+    resultTable->replace(filterTable(&result));
 }
 
 void
@@ -410,7 +412,7 @@ RelationClauseEvaluator::filterRelations(unordered_map<int, vector<std::string>>
         }
         return;
     }
-    resultTable = filterTable(&result);
+    resultTable->replace(filterTable(&result));
 }
 
 ResultTable *RelationClauseEvaluator::filterTable(unordered_set<vector<std::string>, QPS::StringVectorHash> *result) {
@@ -436,8 +438,8 @@ ResultTable *RelationClauseEvaluator::filterTable(unordered_set<vector<std::stri
         }
         filteredResult.insert(tableRow);
     }
-    ResultTable r = ResultTable(synonyms, filteredResult);
-    return &r;
+    ResultTable* r = new ResultTable(synonyms, filteredResult);
+    return r;
 }
 
 
