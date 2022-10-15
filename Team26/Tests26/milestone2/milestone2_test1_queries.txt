@@ -573,3 +573,23 @@ assign print; variable constant;
 Select constant pattern print(constant, _)
 zy, var1234, if, else, while, d, count, cenX, cenY, print, normSq
 5000
+113 - Call with wildcard
+procedure p;
+Select p such that Calls(_,_)
+milestone2test1, computeCentroid, readPoint, printResults
+5000
+114 - Call with wildcard as second argument
+procedure p;
+Select p such that Calls(p,_)
+milestone2test1, computeCentroid
+5000
+115 - Call with wildcard as first argument
+procedure p;
+Select p such that Calls(_,p)
+computeCentroid, readPoint, printResults
+5000
+116 - Call with procedure calling itself
+procedure p
+Select p such that Calls(p, p)
+none
+5000
