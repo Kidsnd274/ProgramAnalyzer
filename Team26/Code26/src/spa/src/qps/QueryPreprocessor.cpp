@@ -334,7 +334,7 @@ namespace QPS {
                 }
 
             }
-            pos += 3;
+            pos += 2;
         } else if (pos < tokens.size() && tokens[pos].tokenType == INTEGER) {
             switch (arg1.argument.argumentType) {
                 case Argument::READ_SYNONYM:
