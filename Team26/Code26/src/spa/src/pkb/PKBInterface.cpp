@@ -30,12 +30,12 @@
 using namespace std;
 //using namespace StatementType;
 
-void PKBInterface::addProcedure(std::string name, int startingStmtNo, int endingStmtNo, CFGHead cfg) {
+void PKBInterface::addProcedure(std::string name, int startingStmtNo, int endingStmtNo, std::shared_ptr<CFGHead> cfg) {
     Procedure proc;
     proc.name = std::move(name);
     proc.startingStmtNo = startingStmtNo;
     proc.endingStmtNo = endingStmtNo;
-    proc.cfg = cfg;
+    proc.cfg = std::move(cfg);
     pkb->procedureTable->insertProc(proc);
 }
 
