@@ -29,9 +29,9 @@ void QueryEvaluator::evaluate(Query* query) {
     }
 
     // Merge with synonyms to be selected
-    for (auto s: query->getCandidateMap()) {
-        if (!resultOfEvaluation->isSynonymPresent(s.first)) {
-            getAllEntity(s.second, resultOfEvaluation);
+    for (auto s: query->getCandidateList()) {
+        if (!resultOfEvaluation->isSynonymPresent(s.argumentName)) {
+            getAllEntity(s, resultOfEvaluation);
         }
     }
 
