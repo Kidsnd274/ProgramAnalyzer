@@ -66,7 +66,7 @@ std::vector<std::string> QPS_PKB_Interface::getAllAssigns() {
 }
 
 std::vector<std::vector<Statement>> QPS_PKB_Interface::getAllStmtLists() {
-//    return QPS_PKB_Interface::pkbInterface->getAllStmtLists();
+    return QPS_PKB_Interface::pkbInterface->getAllStmtLists();
 }
 
 std::shared_ptr<AssignNode> QPS_PKB_Interface::getAssignTNode(std::string assignRef) {

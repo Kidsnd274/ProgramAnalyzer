@@ -12,6 +12,7 @@
 
 #include "PKB.h"
 #include "util/ast/TNode.h"
+#include "util/cfg/CFGHead.h"
 #include "VarTable.h"
 #include "ConstantTable.h"
 #include "ProcedureTable.h"
@@ -29,11 +30,12 @@
 using namespace std;
 //using namespace StatementType;
 
-void PKBInterface::addProcedure(std::string name, int startingStmtNo, int endingStmtNo) {
+void PKBInterface::addProcedure(std::string name, int startingStmtNo, int endingStmtNo, std::shared_ptr<CFGHead> cfg) {
     Procedure proc;
     proc.name = std::move(name);
     proc.startingStmtNo = startingStmtNo;
     proc.endingStmtNo = endingStmtNo;
+    proc.cfg = std::move(cfg);
     pkb->procedureTable->insertProc(proc);
 }
 
@@ -224,6 +226,24 @@ unordered_map<int, std::vector<std::string>> PKBInterface::getAllUseByStmt() {
 
 unordered_map<std::string, std::vector<std::string>> PKBInterface::getAllUseByProc() {
     return pkb->usesTable->getAllUsesByProc();
+}
+
+std::vector<vector<Statement>> PKBInterface::getAllStmtLists() {
+    std::unordered_map<int, vector<Statement>> map;
+    for (Statement stmt: pkb->statementTable->getStatementList()) {
+        int listNumber = stmt.statementListNumber;
+        if (map.find(listNumber) != map.end()) {
+            map[listNumber].push_back(stmt);
+        } else {
+            std::pair<int, vector<Statement>> stmtList (listNumber, {stmt});
+            map.insert(stmtList);
+        }
+    }
+    std::vector<vector<Statement>> result;
+    for (auto it = map.begin(); it != map.end(); it++) {
+        result.push_back(it->second);
+    }
+    return result;
 }
 
 vector<string> PKBInterface::getAllStmts() {

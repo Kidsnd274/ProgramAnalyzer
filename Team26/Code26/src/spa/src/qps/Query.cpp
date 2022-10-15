@@ -10,12 +10,7 @@ void Query::addSynonym(Argument& synonym) {
 }
 
 void Query::addCandidate(Argument& candidate) {
-    auto iter = this->candidateMap->find(candidate.argumentName);
-    if (iter != this->candidateMap->end()) {
-        setStatus(SYNTAX_ERROR);
-    } else {
-        this->candidateMap->insert(make_pair(candidate.argumentName, candidate));
-    }
+    this->candidateList->push_back(candidate);
 }
 
 void Query::addClause(Clause* clause) {
@@ -55,6 +50,6 @@ std::unordered_map<std::string, Argument>& Query::getSynonymMap() {
     return *this->synonymMap;
 }
 
-std::unordered_map<std::string, Argument>& Query::getCandidateMap() {
-    return *this->candidateMap;
+std::vector<Argument>& Query::getCandidateList() {
+    return *this->candidateList;
 }
