@@ -159,13 +159,13 @@ namespace QPS {
 
         void addPatternClause(Argument::ArgumentType typeOfPattern, std::string pattern_syn, Argument arg1, Argument arg2) {
             Argument arg = Argument(pattern_syn, typeOfPattern);
-            PatternClause patternClause = PatternClause(arg, arg1, arg2);
-            this->queryStruct.addClause(&patternClause);
+            PatternClause* patternClause = new PatternClause(arg, arg1, arg2);
+            this->queryStruct.addClause(patternClause);
         }
 
         void addWithClause (WithClause::WithClauseArgument arg1, WithClause::WithClauseArgument arg2) {
-            WithClause withClause = WithClause(arg1, arg2);
-            this->queryStruct.addClause(&withClause);
+            WithClause* withClause = new WithClause(arg1, arg2);
+            this->queryStruct.addClause(withClause);
         }
 
         std::unordered_map<std::string, Argument> getDeclarationMap() {

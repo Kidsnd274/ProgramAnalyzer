@@ -70,7 +70,7 @@ std::vector<std::vector<Statement>> QPS_PKB_Interface::getAllStmtLists() {
 }
 
 std::shared_ptr<AssignNode> QPS_PKB_Interface::getAssignTNode(std::string assignRef) {
-    return std::shared_ptr<AssignNode>();
+    return pkbInterface->getAssignTNode(assignRef);
 }
 
 std::vector<std::string> QPS_PKB_Interface::getAllEntity(Argument *argument) {
