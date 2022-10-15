@@ -4,6 +4,7 @@
 #include <iostream>
 #include <string>
 #include <vector>
+#include "StatementTable.h"
 
 using namespace std;
 typedef short PROC;
@@ -13,7 +14,6 @@ class TNode;
 class VarTable;  // no need to #include "VarTable.h" as all I need is pointer
 class ConstantTable;
 class ProcedureTable;
-class StatementTable;
 class ModifiesTable;
 class UsesTable;
 class ParentTable;
@@ -28,7 +28,7 @@ public:
     static ProcedureTable* procedureTable;
 	static VarTable* varTable;
     static ConstantTable* constantTable;
-    static StatementTable* statementTable;
+    StatementTable* statementTable = new StatementTable();
     static ModifiesTable* modifiesTable;
     static UsesTable* usesTable;
     static ParentTable* parentTable;

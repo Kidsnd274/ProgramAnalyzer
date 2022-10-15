@@ -140,7 +140,7 @@ shared_ptr<AssignNode> PKBInterface::getAssignTNode(const string& assignRef) {
     assert(pkb->modifiesTable->existStatement(assignStmtNo) == true);
     string varName = (pkb->modifiesTable->getModifiesVar(assignStmtNo)).at(0);
     Statement assignStmt = pkb->statementTable->getStmtByLineNumber(assignStmtNo);
-    assert(assignStmt.type == StatementType::ASSIGN);
+//    assert(assignStmt.type == StatementType::ASSIGN);
     shared_ptr<TNode> tNode = assignStmt.rootNode;
 
     return AssignNode::createAssignNode(assignStmtNo, varName, tNode);
