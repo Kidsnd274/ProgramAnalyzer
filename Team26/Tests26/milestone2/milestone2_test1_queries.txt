@@ -593,3 +593,23 @@ procedure p
 Select p such that Calls(p, p)
 none
 5000
+117 - Call* with wildcard
+procedure p;
+Select p such that Calls*(_,_)
+milestone2test1, computeCentroid, readPoint, printResults
+5000
+118 - Call* with wildcard as second argument
+procedure p;
+Select p such that Calls*(p,_)
+milestone2test1, computeCentroid
+5000
+119 - Call* with wildcard as first argument
+procedure p;
+Select p such that Calls*(_,p)
+computeCentroid, readPoint, printResults
+5000
+120 - Call* with procedure calling itself
+procedure p
+Select p such that Calls*(p, p)
+none
+5000
