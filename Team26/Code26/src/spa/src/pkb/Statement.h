@@ -31,5 +31,4 @@ public:
     shared_ptr<TNode> rootNode;
 };
 
-
 #endif //SPA_STATEMENT_H
