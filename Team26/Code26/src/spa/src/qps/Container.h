@@ -176,10 +176,6 @@ namespace QPS {
             return this->queryStruct.getSynonymType(synonym);
         }
 
-        std::unordered_map<std::string, Argument> getCandidateList() {
-            return this->queryStruct.getCandidateMap();
-        }
-
 
         Query getQueryStruct() {
             return this->queryStruct;
