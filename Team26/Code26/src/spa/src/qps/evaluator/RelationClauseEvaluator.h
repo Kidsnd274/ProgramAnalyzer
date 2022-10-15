@@ -9,10 +9,6 @@
 class RelationClauseEvaluator: public ClauseEvaluator{
 public:
     const static std::unordered_map<std::string, ::RelationType> evaluatorRelationMap;
-    void evaluate(QPS::ResultTable* resultTable) override;
-    RelationClauseEvaluator(Clause* clause): ClauseEvaluator(clause){
-        this->relationClause = (RelationClause*)clause;
-    };
 
 private:
     RelationClause* relationClause;
@@ -67,6 +63,11 @@ private:
     bool existInIntVector(int s, std::vector<int> v);
 
     QPS::ResultTable* filterTable(std::unordered_set<std::vector<std::string>, QPS::StringVectorHash> *result);
+public:
+    void evaluate(QPS::ResultTable* resultTable);
+    RelationClauseEvaluator(Clause* clause): ClauseEvaluator(clause){
+        this->relationClause = (RelationClause*)clause;
+    };
 };
 
 

@@ -45,6 +45,7 @@ protected:
 //    const static std::unordered_map<ArgumentType, std::unordered_set<ArgumentType>> validationTable;
 
 public:
+    RelationType relationType = INVALID_RELATION_TYPE;
     RelationClause(Argument& arg1, Argument& arg2) :
             argument1(Argument("", Argument::INVALID_ARGUMENT_TYPE)),
             argument2(Argument("", Argument::INVALID_ARGUMENT_TYPE)) {

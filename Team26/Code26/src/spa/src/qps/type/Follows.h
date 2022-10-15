@@ -13,6 +13,7 @@ protected:
 
 public:
     Follows(Argument arg1, Argument arg2) : RelationClause(arg1, arg2) {
+        relationType = FOLLOWS;
     }
 
     bool isValid() override;

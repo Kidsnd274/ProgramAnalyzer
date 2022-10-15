@@ -18,9 +18,7 @@ void ClauseAssigner::assignClause(QPS::ResultTable *resultTable, Clause *clause)
             break;
         }
         default: {
-            ClauseEvaluator evaluator = ClauseEvaluator(clause);
             break;
         }
     }
-
 }

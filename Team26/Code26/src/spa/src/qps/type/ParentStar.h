@@ -13,6 +13,7 @@ protected:
 
 public:
     ParentStar(Argument arg1, Argument arg2) : RelationClause(arg1, arg2) {
+        relationType = PARENT_T;
     }
 
     virtual bool isValid() override;

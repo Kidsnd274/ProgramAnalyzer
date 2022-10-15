@@ -16,7 +16,7 @@ const std::unordered_map<std::string, ::RelationType> RelationClauseEvaluator::e
 };
 
 void RelationClauseEvaluator::evaluate(QPS::ResultTable *resultTable) {
-    switch(evaluatorRelationMap.find(typeid(this->relationClause).name())->second) {
+    switch(this->relationClause->relationType) {
         case (::RelationType::CALLS_T): {
             evaluateCallsT(resultTable);
             break;
