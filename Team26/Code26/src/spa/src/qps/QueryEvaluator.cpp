@@ -16,7 +16,8 @@ void QueryEvaluator::evaluate(Query* query) {
         }
         ResultTable* resultTable = new ResultTable();
         clauseAssigner->assignClause(resultTable, *iter);
-        resultOfEvaluation->mergeTable(*resultTable);
+        resultOfEvaluation = ResultTable::mergeTable(resultOfEvaluation, resultTable);
+//        resultOfEvaluation->mergeTable(*resultTable);
     }
 
     // With clause
@@ -33,6 +34,7 @@ void QueryEvaluator::evaluate(Query* query) {
             getAllEntity(s.second, resultOfEvaluation);
         }
     }
+
 
     query->resultTable = resultOfEvaluation;
 }

@@ -94,8 +94,8 @@ void RelationClauseEvaluator::evaluateUse(QPS::ResultTable *resultTable) {
         return;
     }
     //if argument 2 is wildcard or actual name, then we only need to return either a trueTable or a falseTable
-    if (&r1 == QPS::trueTable) {
-        resultTable = QPS::trueTable;
+    if (r1.isTrueTable()) {
+        resultTable->setTrueTable();
         return;
     }
     evaluateUsesP(&r2);
@@ -125,8 +125,8 @@ void RelationClauseEvaluator::evaluateModify(QPS::ResultTable *resultTable) {
         return;
     }
     //if argument 2 is wildcard or actual name, then we only need to return either a trueTable or a falseTable
-    if (&r1 == QPS::trueTable) {
-        resultTable = QPS::trueTable;
+    if (r1.isTrueTable()) {
+        resultTable->setTrueTable();
         return;
     }
     evaluateModifiesP(&r2);
@@ -166,9 +166,9 @@ void RelationClauseEvaluator::evaluateFollows(QPS::ResultTable *resultTable) {
     }
     if (!Argument::isSynonym(arg1.argumentType) && !Argument::isSynonym(arg2.argumentType)) {
         if (result.size() == 0) {
-            resultTable = QPS::falseTable;
+            resultTable->isFalseTable();
         } else {
-            resultTable = QPS::trueTable;
+            resultTable->isTrueTable();
         }
         return;
     }
@@ -259,14 +259,14 @@ void RelationClauseEvaluator::evaluateFollowsT(QPS::ResultTable *resultTable) {
                     continue;
                 }
                 if (!isSynArg1 && !isSynArg2) {
-                    resultTable = QPS::trueTable;
+                    resultTable->setTrueTable();
                     return;
                 }
             }
         }
     }
     if (!Argument::isSynonym(arg1.argumentType) && !Argument::isSynonym(arg2.argumentType)) {
-        resultTable = QPS::falseTable;
+        resultTable->setFalseTable();
     } else {
         resultTable = new ResultTable(*synonyms, result);
     }
@@ -337,9 +337,9 @@ void RelationClauseEvaluator::filterRelations(unordered_map<std::string, vector<
     }
     if (!Argument::isSynonym(arg1.argumentType) && !Argument::isSynonym(arg2.argumentType)) {
         if (result.size() == 0) {
-            resultTable = QPS::falseTable;
+            resultTable->setFalseTable();
         } else {
-            resultTable = QPS::trueTable;
+            resultTable->setTrueTable();
         }
         return;
     }
@@ -370,9 +370,9 @@ void RelationClauseEvaluator::filterRelations(unordered_map<int, vector<int>> ma
     }
     if (!Argument::isSynonym(arg1.argumentType) && !Argument::isSynonym(arg2.argumentType)) {
         if (result.size() == 0) {
-            resultTable = QPS::falseTable;
+            resultTable->setFalseTable();
         } else {
-            resultTable = QPS::trueTable;
+            resultTable->setTrueTable();
         }
         return;
     }
@@ -404,9 +404,9 @@ RelationClauseEvaluator::filterRelations(unordered_map<int, vector<std::string>>
     }
     if (!Argument::isSynonym(arg1.argumentType) && !Argument::isSynonym(arg2.argumentType)) {
         if (result.size() == 0) {
-            resultTable = QPS::falseTable;
+            resultTable->setFalseTable();
         } else {
-            resultTable = QPS::trueTable;
+            resultTable->setTrueTable();
         }
         return;
     }
@@ -417,10 +417,10 @@ ResultTable *RelationClauseEvaluator::filterTable(unordered_set<vector<std::stri
     Argument arg1 = relationClause->getFirstArgument();
     Argument arg2 = relationClause->getSecondArgument();
     vector<string> synonyms;
-    if (arg1.argumentType == Argument::PROCEDURE_SYNONYM) {
+    if (Argument::isSynonym(arg1.argumentType)) {
         synonyms.push_back(arg1.argumentName);
     }
-    if (arg2.argumentType == Argument:: PROCEDURE_SYNONYM) {
+    if (Argument::isSynonym(arg2.argumentType)) {
         synonyms.push_back(arg2.argumentName);
     }
     unordered_set<vector<std::string>, QPS::StringVectorHash> filteredResult;
