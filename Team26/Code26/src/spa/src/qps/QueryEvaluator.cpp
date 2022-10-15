@@ -11,8 +11,6 @@ void QueryEvaluator::evaluate(Query* query) {
 
     // Relation clause and Pattern clause
     for (auto iter = query->clauseList->begin(); iter != query->clauseList->end(); iter++) {
-        auto temp1 = typeid(**iter).name();
-        auto temp2 = typeid(WithClause).name();
         if (typeid(**iter).name() == typeid(WithClause).name()) {
             continue;
         }
