@@ -334,7 +334,7 @@ namespace QPS {
                 }
 
             }
-            pos += 2;
+            pos += 3;
         } else if (pos < tokens.size() && tokens[pos].tokenType == INTEGER) {
             switch (arg1.argument.argumentType) {
                 case Argument::READ_SYNONYM:
@@ -556,7 +556,7 @@ namespace QPS {
                 container.addCandidateListBoolean();
                 is_boolean_select = true;
                 pos++;
-            } else if (curr.tokenType == QPS::COMMA && !is_boolean_select){
+            } else if (curr.tokenType == QPS::COMMA && !is_boolean_select && is_multiple_select){
                 pos++;
             } else if (curr.tokenType == QPS::NAME && (curr.nameValue == "such" || curr.nameValue == "pattern" || curr.nameValue == "with")){
                 return {pos, VALID};
