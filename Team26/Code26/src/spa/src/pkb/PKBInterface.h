@@ -9,6 +9,7 @@
 
 #include "qps/QueryProcessorTypes.h"
 #include "PKB.h"
+#include "Statement.h"
 #include "util/ast/AssignNode.h"
 #include "util/ast/TNode.h"
 #include "util/cfg/CFGHead.h"
@@ -65,4 +66,5 @@ public:
     virtual unordered_map<int, std::vector<int>> getAllParentStar();
     virtual unordered_map<int, std::vector<std::string>> getAllUseByStmt();
     virtual unordered_map<std::string, std::vector<std::string>> getAllUseByProc();
+    virtual std::vector<vector<Statement>> getAllStmtLists();
 };
