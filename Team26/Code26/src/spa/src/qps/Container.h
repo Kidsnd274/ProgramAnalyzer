@@ -84,58 +84,72 @@ namespace QPS {
                 case FOLLOWS: {
                     Follows clause = Follows(arg1, arg2);
                     this->queryStruct.addClause(&clause);
+                    break;
                 }
                 case FOLLOWS_T:{
                     FollowStar clause = FollowStar(arg1, arg2);
                     this->queryStruct.addClause(&clause);
+                    break;
                 }
                 case PARENT:{
                     Parent clause = Parent(arg1, arg2);
                     this->queryStruct.addClause(&clause);
+                    break;
                 }
                 case PARENT_T:{
                     ParentStar clause = ParentStar(arg1, arg2);
                     this->queryStruct.addClause(&clause);
+                    break;
                 }
                 case USES_S:{
                     Uses clause = Uses(arg1, arg2);
                     this->queryStruct.addClause(&clause);
+                    break;
                 }
                 case MODIFIES_S:{
                     Modifies clause = Modifies(arg1, arg2);
                     this->queryStruct.addClause(&clause);
+                    break;
                 }
                 case USES_P:{
                     Uses clause = Uses(arg1, arg2);
                     this->queryStruct.addClause(&clause);
+                    break;
                 }
                 case MODIFIES_P:{
                     Modifies clause = Modifies(arg1, arg2);
                     this->queryStruct.addClause(&clause);
+                    break;
                 }
                 case CALLS:{
                     Calls clause = Calls(arg1, arg2);
                     this->queryStruct.addClause(&clause);
+                    break;
                 }
                 case CALLS_T:{
                     CallsStar clause = CallsStar(arg1, arg2);
                     this->queryStruct.addClause(&clause);
+                    break;
                 }
                 case NEXT:{
                     Next clause = Next(arg1, arg2);
                     this->queryStruct.addClause(&clause);
+                    break;
                 }
                 case NEXT_T:{
                     NextStar clause = NextStar(arg1, arg2);
                     this->queryStruct.addClause(&clause);
+                    break;
                 }
                 case AFFECTS:{
                     Affects clause = Affects(arg1, arg2);
                     this->queryStruct.addClause(&clause);
+                    break;
                 }
                 case AFFECTS_T:{
                     AffectsStar clause = AffectsStar(arg1, arg2);
                     this->queryStruct.addClause(&clause);
+                    break;
                 }
                 case INVALID_RELATION_TYPE:
                     break;

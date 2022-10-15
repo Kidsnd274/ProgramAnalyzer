@@ -15,7 +15,7 @@ public:
     Parent(Argument arg1, Argument arg2) : RelationClause(arg1, arg2) {
     }
 
-    bool isValid() override;
+    virtual bool isValid() override;
 };
 
 #endif //SPA_PARENT_H

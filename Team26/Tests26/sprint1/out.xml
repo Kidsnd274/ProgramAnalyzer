@@ -1,8 +1,8 @@
 <?xml-stylesheet type="text/xsl" href="analysis.xsl"?>
 <test_results>
 <info>
-<name>autotester</name><parsing_time_taken>1.151000</parsing_time_taken>
+<name>autotester</name><parsing_time_taken>1.109000</parsing_time_taken>
 </info>
 <queries>
 <query>
-<id ReturnTuple="1" Follows="1" UnnamedVar="1" Pattern="1" SuchThat="1" CondNum="5" RelNum="1" comment="(Valid Query)">1</id><querystr><![CDATA[if ifs; while w; read rd; print pt; assign a; Select <ifs, w, rd, pt> such that Follows(rd, pt) pattern a(_, "x")]]></querystr>
+<id ReturnTuple="1" Parent="1" SuchThat="1" CondNum="3" RelNum="1" comment="check if statement is parent of statement">9</id><querystr><![CDATA[stmt s; Select s such that Parent(8, 9)]]></querystr>
