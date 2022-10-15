@@ -84,7 +84,7 @@ namespace QPS {
     };
 
     bool tokenize(std::string queryString, std::vector<Token> &tokens);
-    Token createToken(TokenType t, int lineNUmber, int inLinePosition, std::string nameValue, int integerValue);
+    Token createToken(TokenType t, std::string nameValue);
 }
 
 #endif //SPA_TOKENIZER_H

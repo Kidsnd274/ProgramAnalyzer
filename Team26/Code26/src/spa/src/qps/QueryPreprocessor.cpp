@@ -1,11 +1,7 @@
 #include "QueryPreprocessor.h"
 
 namespace QPS {
-    std::pair<int, Exception> parseDeclaration(std::vector<QPS::Token> &tokens,
-                                          int pos,
-                                          Entity::EntityType entityType,
-                                          Container &container);
-
+    std::pair<int, Exception> parseDeclaration(std::vector<QPS::Token> &tokens,int pos,Entity::EntityType entityType,Container &container);
     std::pair<int, Exception> parseSelect(std::vector<QPS::Token> &tokens, int pos, Container &container);
     std::pair<int, Exception> parseWithObject (std::vector<QPS::Token> &tokens, int pos, Container &container, Argument& argument1, WithClause::WithClauseArgument& arg1);
     std::pair<int, Exception> parseRelation(std::vector<QPS::Token> &tokens, int tokenPos, Container &container, RelationType relationType);
@@ -435,7 +431,7 @@ namespace QPS {
 
     std::pair<int, Exception> parsePatternLeft (std::vector<QPS::Token> &tokens,int pos,Container &container, std::pair<Argument, bool> &ARG1) {
         if (pos < tokens.size() && (tokens[pos].tokenType == NAME)) {
-            ARG1 = convertStringToRef(tokens[pos], container);
+            ARG1 = convertStringToARG(tokens[pos], container);
             pos++;
         } else if (pos < tokens.size() && tokens[pos].tokenType == UNDERSCORE) {
             ARG1 = {{"_", Argument::WILDCARD}, true};
@@ -593,7 +589,7 @@ namespace QPS {
         }
 
         if (pos < tokens.size() && (tokens[pos].tokenType == NAME || (tokens[pos].tokenType == INTEGER && tokens[pos].nameValue != "0"))) {
-            ARG1 = convertStringToRef(tokens[pos], container);
+            ARG1 = convertStringToARG(tokens[pos], container);
             pos++;
         } else if (pos < tokens.size() && tokens[pos].tokenType == UNDERSCORE) {
             ARG1 = {{ "_", Argument::WILDCARD}, VALID};
@@ -611,7 +607,7 @@ namespace QPS {
         }
 
        if (pos < tokens.size() && (tokens[pos].tokenType == NAME || (tokens[pos].tokenType == INTEGER && tokens[pos].nameValue != "0"))) {
-            ARG2 = convertStringToRef(tokens[pos], container);
+            ARG2 = convertStringToARG(tokens[pos], container);
             pos++;
         } else if (pos < tokens.size() && tokens[pos].tokenType == DOUBLE_QUOTE && tokens[pos+1].tokenType == DOUBLE_QUOTE) {
            return {pos, INVALID_RELATION_CONTENT};
@@ -709,7 +705,7 @@ namespace QPS {
         }
 
         if (pos < tokens.size() && (tokens[pos].tokenType == NAME || (tokens[pos].tokenType == INTEGER && tokens[pos].nameValue != "0"))) {
-            ARG1 = convertStringToRef(tokens[pos], container);
+            ARG1 = convertStringToARG(tokens[pos], container);
 
             pos++;
         } else if (pos < tokens.size() && tokens[pos].tokenType == UNDERSCORE) {
@@ -740,7 +736,7 @@ namespace QPS {
         } else if (pos + 1 < tokens.size() && tokens[pos].tokenType == DOUBLE_QUOTE && tokens[pos+1].tokenType == DOUBLE_QUOTE) {
             return {pos, INVALID_RELATION_CONTENT};
         } else if (pos < tokens.size() && (tokens[pos].tokenType == NAME)) {
-            ARG2 = convertStringToRef(tokens[pos], container);
+            ARG2 = convertStringToARG(tokens[pos], container);
             pos++;
         } else if (pos < tokens.size() && tokens[pos].tokenType == UNDERSCORE) {
             ARG2 = {{"_", Argument::WILDCARD}, VALID};
@@ -779,7 +775,7 @@ namespace QPS {
 
 
 
-    std::pair<Argument, Exception> convertStringToRef (Token &token, Container &container) {
+    std::pair<Argument, Exception> convertStringToARG (Token &token, Container &container) {
         if (token.tokenType == INTEGER) {
             return {{token.nameValue, Argument::NUMBER}, VALID};
         } else if (token.tokenType == NAME) {
