@@ -418,25 +418,37 @@ RelationClauseEvaluator::filterRelations(unordered_map<int, vector<std::string>>
 ResultTable *RelationClauseEvaluator::filterTable(unordered_set<vector<std::string>, QPS::StringVectorHash> *result) {
     Argument arg1 = relationClause->getFirstArgument();
     Argument arg2 = relationClause->getSecondArgument();
-    vector<string> synonyms;
-    if (Argument::isSynonym(arg1.argumentType)) {
-        synonyms.push_back(arg1.argumentName);
-    }
-    if (Argument::isSynonym(arg2.argumentType)) {
-        synonyms.push_back(arg2.argumentName);
-    }
-    unordered_set<vector<std::string>, QPS::StringVectorHash> filteredResult;
+    std::vector<std::string> a1;
+    std::vector<std::string> a2;
     bool isArg1Synonym = Argument::isSynonym(arg1.argumentType);
     bool isArg2Synonym = Argument::isSynonym(arg2.argumentType);
+    vector<string> synonyms;
+    if (isArg1Synonym) {
+        synonyms.push_back(arg1.argumentName);
+        a1 = QPS_PKB_Interface::getAllEntity(&arg1);
+    }
+    if (isArg2Synonym) {
+        synonyms.push_back(arg2.argumentName);
+        a2 = QPS_PKB_Interface::getAllEntity(&arg2);
+    }
+    unordered_set<vector<std::string>, QPS::StringVectorHash> filteredResult;
     for (auto r: *result) {
         vector<string> tableRow;
-        if (isArg1Synonym) {
+        if (isArg1Synonym && isArg2Synonym) {
+            if (std::find(a1.begin(), a1.end(), r[0])!= a1.end()
+            && std::find(a2.begin(), a2.end(), r[1])!= a2.end()) {
+                tableRow.push_back(r[0]);
+                tableRow.push_back(r[1]);
+                filteredResult.insert(tableRow);
+            }
+        } else if (isArg1Synonym && std::find(a1.begin(), a1.end(), r[0])!= a1.end() ) {
             tableRow.push_back(r[0]);
-        }
-        if (isArg2Synonym) {
+            filteredResult.insert(tableRow);
+        } else if (isArg2Synonym && std::find(a2.begin(), a2.end(), r[1])!= a2.end()) {
             tableRow.push_back(r[1]);
+            filteredResult.insert(tableRow);
         }
-        filteredResult.insert(tableRow);
+
     }
     ResultTable* r = new ResultTable(synonyms, filteredResult);
     return r;
