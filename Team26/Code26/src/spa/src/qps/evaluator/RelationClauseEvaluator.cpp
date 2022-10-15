@@ -168,9 +168,9 @@ void RelationClauseEvaluator::evaluateFollows(QPS::ResultTable *resultTable) {
     }
     if (!Argument::isSynonym(arg1.argumentType) && !Argument::isSynonym(arg2.argumentType)) {
         if (result.size() == 0) {
-            resultTable->isFalseTable();
+            resultTable->setFalseTable();
         } else {
-            resultTable->isTrueTable();
+            resultTable->setTrueTable();
         }
         return;
     }
