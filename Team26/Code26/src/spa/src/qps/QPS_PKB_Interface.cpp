@@ -72,3 +72,28 @@ std::vector<std::vector<Statement>> QPS_PKB_Interface::getAllStmtLists() {
 std::shared_ptr<AssignNode> QPS_PKB_Interface::getAssignTNode(std::string assignRef) {
     return std::shared_ptr<AssignNode>();
 }
+
+std::vector<std::string> QPS_PKB_Interface::getAllEntity(Argument *argument) {
+    switch (argument->argumentType) {
+        case Argument::STMT_SYNONYM:
+            return pkbInterface->getAllStmts();
+        case Argument::READ_SYNONYM:
+            return pkbInterface->getAllReads();
+        case Argument::PRINT_SYNONYM:
+            return pkbInterface->getAllPrints();
+        case Argument::CALL_SYNONYM:
+            return pkbInterface->getAllPrints();
+        case Argument::WHILE_SYNONYM:
+            return pkbInterface->getAllWhiles();
+        case Argument::IF_SYNONYM:
+            return pkbInterface->getAllIfs();
+        case Argument::ASSIGN_SYNONYM:
+            return pkbInterface->getAllAssigns();
+        case Argument::VAR_SYNONYM:
+            return pkbInterface->getAllVariables();
+        case Argument::CONST_SYNONYM:
+            return pkbInterface->getAllConstants();
+        case Argument::PROCEDURE_SYNONYM:
+            return pkbInterface->getAllProcedures();
+    }
+}

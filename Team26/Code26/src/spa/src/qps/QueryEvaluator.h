@@ -5,7 +5,8 @@
 
 class QueryEvaluator {
 public:
-    static void evaluate(Query query);
+    static void evaluate(Query* query);
+    static void getAllEntity(Argument argument, QPS::ResultTable* resultTable);
 };
 
 
