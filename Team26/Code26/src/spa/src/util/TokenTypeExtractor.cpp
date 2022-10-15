@@ -59,6 +59,9 @@ bool isValidInteger(std::string &s) {
 }
 
 SPToken TokenTypeExtractor::createConst(std::string s) {
-    if(!isValidInteger(s)) throw SyntaxErrorException();
+    if(!isValidInteger(s)) {
+        throw SyntaxErrorException();
+    }
+
     return {s, SPTokenType::ConstToken};
 }
