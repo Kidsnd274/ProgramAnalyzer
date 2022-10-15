@@ -9,8 +9,10 @@
 
 #include "qps/QueryProcessorTypes.h"
 #include "PKB.h"
+#include "Statement.h"
 #include "util/ast/AssignNode.h"
 #include "util/ast/TNode.h"
+#include "util/cfg/CFGHead.h"
 
 using namespace std;
 using namespace QPS;
@@ -20,7 +22,7 @@ class PKBInterface {
 public:
     PKB* pkb = new PKB();
 
-    void addProcedure(string name, int startingStmtNo, int endingStmtNo);
+    void addProcedure(string name, int startingStmtNo, int endingStmtNo, CFGHead cfg);
     void addVariable(string name);
     void addConst(int value);
 
@@ -64,4 +66,5 @@ public:
     virtual unordered_map<int, std::vector<int>> getAllParentStar();
     virtual unordered_map<int, std::vector<std::string>> getAllUseByStmt();
     virtual unordered_map<std::string, std::vector<std::string>> getAllUseByProc();
+    virtual std::vector<vector<Statement>> getAllStmtLists();
 };
