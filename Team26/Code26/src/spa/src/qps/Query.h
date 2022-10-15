@@ -16,7 +16,7 @@ enum QueryStatus {
 class Query {
 private:
     std::unordered_map<std::string, Argument>* synonymMap;
-    std::unordered_map<std::string, Argument>* candidateMap;
+    std::vector<Argument>* candidateList;
     QueryStatus status;
 
 public:
@@ -26,7 +26,7 @@ public:
 public:
     Query() {
         this->synonymMap = new std::unordered_map<std::string, Argument>();
-        this->candidateMap = new std::unordered_map<std::string, Argument>();
+        this->candidateList = new std::vector<Argument>;
         this->clauseList = new std::vector<Clause*>();
         this->resultTable = new QPS::ResultTable();
         this->status = VALID_QUERY;
@@ -55,7 +55,7 @@ public:
 
     std::unordered_map<std::string, Argument>& getSynonymMap();
 
-    std::unordered_map<std::string, Argument>& getCandidateMap();
+    std::vector<Argument>& getCandidateList();
 };
 
 

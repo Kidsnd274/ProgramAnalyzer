@@ -3,10 +3,10 @@
 
 void QueryResultProjector::projectResult(Query query, std::list<std::string> &results) {
     QPS::ResultTable* resultTable = query.resultTable;
-    auto candidateList = query.getCandidateMap();
+    auto candidateList = query.getCandidateList();
     std::vector<std::string> synonyms;
     for (auto &candidate : candidateList) {
-        synonyms.push_back(candidate.second.argumentName);
+        synonyms.push_back(candidate.argumentName);
     }
     std::unordered_set<std::vector<std::string>, QPS::StringVectorHash> values;
     resultTable->getSynonymsValues(synonyms, values);
@@ -31,8 +31,8 @@ std::string QueryResultProjector::getSelectTuples(Query query, std::list<std::st
     std::unordered_set<std::string> rowStringSet;
     std::vector<std::string> synonyms;
     std::unordered_set<std::vector<std::string>, QPS::StringVectorHash> tupleValues;
-    for (auto &candidate : query.getCandidateMap()) {
-        synonyms.push_back(candidate.second.argumentName);
+    for (auto &candidate : query.getCandidateList()) {
+        synonyms.push_back(candidate.argumentName);
     }
     query.resultTable->getSynonymsValues(synonyms, tupleValues);
     for (auto row : tupleValues) {
