@@ -125,11 +125,11 @@ tests = [TestCase("test_calls", demo2)]
 run_multiple_tests(tests, "Demo 2")
 
 
-print("-----------------------SPRINT 4 / MILESTONE 2-----------------------")
-milestone2 = testdir / "milestone2"
-tests = [TestCase("milestone2_test1", milestone2)]
-
-run_multiple_tests(tests, "Milestone 2")
+# print("-----------------------SPRINT 4 / MILESTONE 2-----------------------")
+# milestone2 = testdir / "milestone2"
+# tests = [TestCase("milestone2_test1", milestone2)]
+#
+# run_multiple_tests(tests, "Milestone 2")
 
 
 
