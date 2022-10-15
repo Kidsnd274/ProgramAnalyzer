@@ -22,12 +22,12 @@ class PKBInterface {
 public:
     PKB* pkb = new PKB();
 
-    void addProcedure(string name, int startingStmtNo, int endingStmtNo, CFGHead cfg);
+    void addProcedure(string name, int startingStmtNo, int endingStmtNo, std::shared_ptr<CFGHead> cfg);
     void addVariable(string name);
     void addConst(int value);
 
     virtual void addReadStatement(int statementNumber, int statementListNumber);
-    virtual void addAssignStatement(int statementNumber, int statementListNumber, shared_ptr<TNode> rootNode);
+    virtual void addAssignStatement(int statementNumber, int statementListNumber, std::shared_ptr<TNode> rootNode);
     virtual void addWhileStatement(int statementNumber, int statementListNumber);
     virtual void addIfStatement(int statementNumber, int statementListNumber);
     virtual void addPrintStatement(int statementNumber, int statementListNumber);

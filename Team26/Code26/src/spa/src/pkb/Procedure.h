@@ -17,7 +17,7 @@ public:
     string name;
     int startingStmtNo;
     int endingStmtNo;
-    CFGHead cfg;
+    std::shared_ptr<CFGHead> cfg;
 };
 
 #endif //SPA_PROCEDURE_H
