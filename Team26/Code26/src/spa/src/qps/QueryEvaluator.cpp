@@ -11,21 +11,15 @@ void QueryEvaluator::evaluate(Query* query) {
 
     // Relation clause and Pattern clause
     for (auto iter = query->clauseList->begin(); iter != query->clauseList->end(); iter++) {
-        if (typeid(*iter) == typeid(WithClause)) {
+        auto temp1 = typeid(**iter).name();
+        auto temp2 = typeid(WithClause).name();
+        if (typeid(**iter).name() == typeid(WithClause).name()) {
             continue;
         }
         ResultTable* resultTable = new ResultTable();
         clauseAssigner->assignClause(resultTable, *iter);
         resultOfEvaluation = ResultTable::mergeTable(resultOfEvaluation, resultTable);
 //        resultOfEvaluation->mergeTable(*resultTable);
-    }
-
-    // With clause
-    for (auto iter = query->clauseList->begin(); iter != query->clauseList->end(); iter++) {
-        if (typeid(*iter) != typeid(WithClause)) {
-            continue;
-        }
-        clauseAssigner->assignClause(resultOfEvaluation, *iter);
     }
 
     // Merge with synonyms to be selected
@@ -35,6 +29,13 @@ void QueryEvaluator::evaluate(Query* query) {
         }
     }
 
+    // With clause
+    for (auto iter = query->clauseList->begin(); iter != query->clauseList->end(); iter++) {
+        if (typeid(**iter) != typeid(WithClause)) {
+            continue;
+        }
+        clauseAssigner->assignClause(resultOfEvaluation, *iter);
+    }
 
     query->resultTable = resultOfEvaluation;
 }
