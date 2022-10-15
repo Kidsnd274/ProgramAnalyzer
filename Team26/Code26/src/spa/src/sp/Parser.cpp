@@ -28,7 +28,7 @@ std::shared_ptr<ProcedureNode> Parser::parseProcedure() {
     std::vector<std::shared_ptr<StatementNode>> stmtList = parseStatementList();
     tokenStack->checkAndUseNextToken(SPTokenType::RCurlyToken);
     cfgManager->finalizeFinalNode();
-    pkbInterface->addProcedure(name, currStatement, statementCount, cfgManager->getCurrentCFG());
+    pkbInterface->addProcedure(name, currStatement, statementCount-1, cfgManager->getCurrentCFG());
     return make_shared<ProcedureNode>(name, stmtList);
 }
 
