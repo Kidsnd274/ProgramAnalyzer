@@ -92,7 +92,7 @@ public:
      * Call PKB interface to get all next relations in NextTable.
      * @return a vector containing all the next relations.
      */
-    static std::vector<pair<int, int>> getAllNextRelations();
+    static std::unordered_map<int, std::vector<int>> getAllNextRelations();
 
     /**
      * Call PKB interface to get all procedure xt relations in NextTable.
@@ -132,6 +132,13 @@ public:
     static std::string getReadVarName(std::string readLineNumber);
 
     static std::string getPrintVarName(std::string printLineNumber);
+
+    /**
+     * Call PKB interface to return the variable used in if/while condition statement.
+     * @param containerLineNumber the statement line number of if/while.
+     * @return the variable name.
+     */
+    static std::string getConditionVarNameByStmtNum(std::string containerLineNumber);
 
     static std::string getAttrName(std::string value, WithClause::WithClauseArgument candidate);
 };

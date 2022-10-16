@@ -8,6 +8,7 @@
 #include "UsesTable.h"
 #include "ModifiesTable.h"
 #include "ProcedureTable.h"
+#include "NextTable.h"
 
 using namespace std;
 typedef short PROC;
@@ -22,6 +23,8 @@ class FollowsTable;
 class FollowsStarTable;
 class CallTable;
 class CallStarTable;
+class NextTable;
+class ContainerTable;
 
 class PKB {
 public:
@@ -37,6 +40,8 @@ public:
     static FollowsStarTable* followsStarTable;
     static CallTable* callTable;
     static CallStarTable* callStarTable;
+    static ContainerTable* containerTable;
 	static int setProcToAST(PROC p, TNode* r);
 	static TNode* getRootAST (PROC p);
+    static NextTable* nextTable;
 };

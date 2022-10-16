@@ -63,12 +63,9 @@ namespace QPS {
                 container.setStatus(START_PARSE_SUCH_CLAUSE);
             } else if (container.getStatus() == START_PARSE_SUCH && (curr.tokenType != QPS::NAME || curr.nameValue != "that")) {
                 return INVALID_SUCH_THAT;
-            } else if (curr.tokenType == QPS::NAME && curr.nameValue == "pattern" &&
+            } else if (curr.tokenType == QPS::NAME && ((curr.nameValue == "pattern" &&
                     (container.getStatus() == FINISH_PARSE_SUCH_CLAUSE
-                    || container.getStatus() == FINISH_PARSE_SELECT
-                    || container.getStatus() == START_PARSE_PATTERN_CLAUSE
-                    || container.getStatus() == FINISH_PARSE_WITH_CLAUSE)) {
-                tokenPos++;
+                    || container.getStatus() == FINISH_PARSE_WITH_CLAUSE)) || container.getStatus() == START_PARSE_PATTERN_CLAUSE)) {
                 std::pair<int, Exception> result = parsePattern(tokens, tokenPos, container);
                 if (result.second != VALID) {
                     return result.second;
@@ -79,7 +76,7 @@ namespace QPS {
             } else if (curr.tokenType == QPS::NAME && curr.nameValue == "and"
                         && container.getStatus() == FINISH_PARSE_SUCH_CLAUSE ) {
                 Token next = tokens[tokenPos + 1];
-                if (next.tokenType == NAME && next.nameValue != "pattern" && next.nameValue != "such") {
+                if (next.tokenType == NAME && next.nameValue != "pattern" && next.nameValue != "such" && mapRelation(tokens, tokenPos + 1).second) {
                     container.setStatus(START_PARSE_SUCH_CLAUSE);
                 } else {
                     return INVALID_MULTIPLE_CLAUSE;
@@ -87,15 +84,18 @@ namespace QPS {
             } else if (curr.tokenType == QPS::NAME && curr.nameValue == "and"
                         && container.getStatus() == FINISH_PARSE_PATTERN_CLAUSE ) {
                 Token next = tokens[tokenPos + 1];
-                if (next.tokenType == NAME && next.nameValue == "pattern") {
+                if (next.tokenType == NAME && !mapRelation(tokens, tokenPos + 1).second) {
                     container.setStatus(START_PARSE_PATTERN_CLAUSE);
                 } else {
                     return INVALID_MULTIPLE_CLAUSE;
                 }
-            } else if (curr.tokenType == QPS::NAME && curr.nameValue == "with"
+            } else if (curr.nameValue == "pattern") {
+                container.setStatus(START_PARSE_PATTERN_CLAUSE);
+            } else if (curr.tokenType == QPS::NAME && ((curr.nameValue == "with"
                             && (container.getStatus() == FINISH_PARSE_SELECT
                                 || container.getStatus() == FINISH_PARSE_PATTERN_CLAUSE
-                                || container.getStatus() == FINISH_PARSE_SUCH_CLAUSE) ) {
+                                || container.getStatus() == FINISH_PARSE_SUCH_CLAUSE))
+                                || (tokenPos + 2 < tokens.size() && tokens[tokenPos+1].tokenType == NAME && tokens[tokenPos+2].tokenType == DOT)) ) {
                 container.setStatus(START_PARSE_WITH_CLAUSE);
                 tokenPos++;
                 std::pair<int, Exception> result = parseWithClause(tokens, tokenPos, container);
@@ -461,6 +461,9 @@ namespace QPS {
         std::string expression;
         std::string trimmedString;
         Argument::ArgumentType typeOfPattern;
+        if (tokens[pos].nameValue == "pattern") {
+            pos++;
+        }
         std::pair<int, Exception> result = parsePatternType(tokens, pos, container, typeOfPattern, pattern_syn);
         if (result.second == VALID) {
             pos = result.first;
