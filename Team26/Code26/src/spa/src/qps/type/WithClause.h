@@ -8,7 +8,6 @@
 
 enum AttributeType {
     PROC_NAME,
-    PROC_STMT_LINE_NUMBER,
     WITH_VAR_NAME,
     WITH_CONST_VALUE,
     STMT_LINE_NUMBER,
@@ -20,12 +19,12 @@ class WithClause : public Clause {
 protected:
     const static std::unordered_map<
          Argument::ArgumentType,
-         AttributeType
+         std::unordered_set<AttributeType>
          > withClauseValidationTableArg1;
 
     const static std::unordered_map<
             Argument::ArgumentType,
-            AttributeType
+            std::unordered_set<AttributeType>
         > withClauseValidationTableArg2;
 
 public:
