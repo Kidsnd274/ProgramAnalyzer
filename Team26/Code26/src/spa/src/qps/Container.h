@@ -2,7 +2,24 @@
 #define SPA_CONTAINER_H
 
 #include "Tokenizer.h"
-#include "QueryStruct.h"
+#include "qps/Query.h"
+#include "qps/type/Entity.h"
+#include "qps/type/PatternClause.h"
+#include "qps/type/RelationClause.h"
+#include "qps/type/WithClause.h"
+#include "qps/type/Follows.h"
+#include "qps/type/FollowStar.h"
+#include "qps/type/Parent.h"
+#include "qps/type/ParentStar.h"
+#include "qps/type/Uses.h"
+#include "qps/type/ParentStar.h"
+#include "qps/type/Modifies.h"
+#include "qps/type/Calls.h"
+#include "qps/type/CallsStar.h"
+#include "qps/type/Next.h"
+#include "qps/type/NextStar.h"
+#include "qps/type/Affects.h"
+#include "qps/type/AffectsStar.h"
 #include <list>
 #include <vector>
 #include <string>
@@ -27,20 +44,14 @@ namespace QPS {
     class Container {
     private:
         std::vector<QPS::Token> tokens;
-        QueryStruct queryStruct;
+        Query queryStruct;
         Status status;
 
     public:
         Container() = default;
 
-        explicit Container(std::vector<QPS::Token> &tokens) {
-            DECLARED_SYNONYM_MAP declaredSynonymMap;
-            SUCH_THAT_LIST suchThatList;
-            CANDIDATE_LIST candidateList;
-            PATTERN_LIST patternList;
-            WITH_LIST withList;
+        explicit Container(std::vector<QPS::Token> &tokens) : queryStruct(Query()) {
             this->tokens = tokens;
-            this->queryStruct = QueryStruct(declaredSynonymMap, suchThatList, patternList, candidateList, withList);
             this->status = INITIALIZED;
         }
 
@@ -52,50 +63,121 @@ namespace QPS {
             this->status = status1;
         }
 
-        void addDeclaration(EntityType entityType, std::string s) {
-            this->queryStruct.addSynonym(entityType, s);
+        void addDeclaration(Entity::EntityType entityType, std::string s) {
+            Argument::ArgumentType argumentType = Entity::mapToArgument(entityType);
+            Argument argument = Argument(s, argumentType);
+            this->queryStruct.addSynonym(argument);
         }
 
-        void addCandidateList(EntityType entityType, std::string s) {
-            CandidateType candidateType = mapEntityToCandidate(entityType);
-            this->queryStruct.addCandidateList(candidateType, std::move(s), entityType);
+        void addCandidateList(Argument::ArgumentType argumentType, std::string s) {
+            Argument argument = Argument(s, argumentType);
+            this->queryStruct.addCandidate(argument);
         }
 
         void addCandidateListBoolean() {
-            this->queryStruct.addCandidateListBoolean();
+            Argument argument = Argument("boolean", Argument::BOOLEAN_ARG);
+            this->queryStruct.addCandidate(argument);
         }
 
-        void addSuchThatClause(RelationType relationType, ArgumentStruct ARG1, ArgumentStruct ARG2) {
-            RelationStruct relationStruct = {relationType, std::move(ARG1), std::move(ARG2)};
-            this->queryStruct.addSuchThatClause(relationStruct);
+        void addSuchThatClause(RelationType relationType, Argument arg1, Argument arg2) {
+            switch (relationType) {
+                case FOLLOWS: {
+                    Follows* clause = new Follows(arg1, arg2);
+                    this->queryStruct.addClause(clause);
+                    break;
+                }
+                case FOLLOWS_T:{
+                    FollowStar* clause = new FollowStar(arg1, arg2);
+                    this->queryStruct.addClause(clause);
+                    break;
+                }
+                case PARENT:{
+                    Parent* clause = new Parent(arg1, arg2);
+                    this->queryStruct.addClause(clause);
+                    break;
+                }
+                case PARENT_T:{
+                    ParentStar* clause = new ParentStar(arg1, arg2);
+                    this->queryStruct.addClause(clause);
+                    break;
+                }
+                case USES_S:{
+                    Uses* clause = new Uses(arg1, arg2);
+                    this->queryStruct.addClause(clause);
+                    break;
+                }
+                case MODIFIES_S:{
+                    Modifies* clause = new Modifies(arg1, arg2);
+                    this->queryStruct.addClause(clause);
+                    break;
+                }
+                case USES_P:{
+                    Uses* clause = new Uses(arg1, arg2);
+                    this->queryStruct.addClause(clause);
+                    break;
+                }
+                case MODIFIES_P:{
+                    Modifies* clause = new Modifies(arg1, arg2);
+                    this->queryStruct.addClause(clause);
+                    break;
+                }
+                case CALLS:{
+                    Calls* clause = new Calls(arg1, arg2);
+                    this->queryStruct.addClause(clause);
+                    break;
+                }
+                case CALLS_T:{
+                    CallsStar* clause = new CallsStar(arg1, arg2);
+                    this->queryStruct.addClause(clause);
+                    break;
+                }
+                case NEXT:{
+                    Next* clause = new Next(arg1, arg2);
+                    this->queryStruct.addClause(clause);
+                    break;
+                }
+                case NEXT_T:{
+                    NextStar* clause = new NextStar(arg1, arg2);
+                    this->queryStruct.addClause(clause);
+                    break;
+                }
+                case AFFECTS:{
+                    Affects* clause = new Affects(arg1, arg2);
+                    this->queryStruct.addClause(clause);
+                    break;
+                }
+                case AFFECTS_T:{
+                    AffectsStar* clause = new AffectsStar(arg1, arg2);
+                    this->queryStruct.addClause(clause);
+                    break;
+                }
+                case INVALID_RELATION_TYPE:
+                    break;
+            }
+
         }
 
-        void addPatternClause(PatternType typeOfPattern, std::string assign_syn, ArgumentStruct arg1, ArgumentStruct arg2) {
-            PatternStruct patternStruct = {typeOfPattern, std::move(assign_syn), std::move(arg1), std::move(arg2)};
-            this->queryStruct.addPatternClause(patternStruct);
+        void addPatternClause(Argument::ArgumentType typeOfPattern, std::string pattern_syn, Argument arg1, Argument arg2) {
+            Argument arg = Argument(pattern_syn, typeOfPattern);
+            PatternClause* patternClause = new PatternClause(arg, arg1, arg2);
+            this->queryStruct.addClause(patternClause);
         }
 
-        void addWithClause (const WithStruct& withStruct) {
-            this->queryStruct.addWithClause(withStruct);
+        void addWithClause (WithClause::WithClauseArgument arg1, WithClause::WithClauseArgument arg2) {
+            WithClause* withClause = new WithClause(arg1, arg2);
+            this->queryStruct.addClause(withClause);
         }
 
-        DECLARED_SYNONYM_MAP getDeclarationMap() {
-            return this->queryStruct.getDeclaredSynonymMap();
+        std::unordered_map<std::string, Argument> getDeclarationMap() {
+            return this->queryStruct.getSynonymMap();
         }
 
-        CANDIDATE_LIST getCandidateList() {
-            return this->queryStruct.getCandidateList();
+        Argument::ArgumentType getSynonymType(std::string synonym) {
+            return this->queryStruct.getSynonymType(synonym);
         }
 
-        SUCH_THAT_LIST getSuchThatList() {
-            return this->queryStruct.getSuchThatList();
-        }
 
-        PATTERN_LIST getPatternList() {
-            return this->queryStruct.getPatternList();
-        }
-
-        QueryStruct getQueryStruct() {
+        Query getQueryStruct() {
             return this->queryStruct;
         }
     };

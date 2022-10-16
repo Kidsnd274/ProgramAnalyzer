@@ -52,8 +52,6 @@ public:
     virtual std::unordered_set<string> getCallStar(std::string procedure);
 
 
-    vector<string> getAllEntity(EntityType type);
-    bool existRelation(const RelationStruct& relation);
     shared_ptr<AssignNode> getAssignTNode(const string& assignRef);
 
     virtual unordered_map<std::string, std::vector<std::string>> getAllCall();
@@ -67,4 +65,17 @@ public:
     virtual unordered_map<int, std::vector<std::string>> getAllUseByStmt();
     virtual unordered_map<std::string, std::vector<std::string>> getAllUseByProc();
     virtual std::vector<vector<Statement>> getAllStmtLists();
+
+    vector<string> getAllStmts();
+    vector<string> getAllReads();
+    vector<string> getAllPrints();
+    vector<string> getAllCalls();
+    vector<string> getAllWhiles();
+    vector<string> getAllIfs();
+    vector<string> getAllAssigns();
+    vector<string> getAllVariables();
+    vector<string> getAllConstants();
+    vector<string> getAllProcedures();
+
+
 };
