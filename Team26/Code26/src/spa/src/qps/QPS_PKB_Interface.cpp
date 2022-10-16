@@ -86,7 +86,7 @@ std::vector<std::string> QPS_PKB_Interface::getAllEntity(Argument *argument) {
         case Argument::PRINT_SYNONYM:
             return pkbInterface->getAllPrints();
         case Argument::CALL_SYNONYM:
-            return pkbInterface->getAllPrints();
+            return pkbInterface->getAllCalls();
         case Argument::WHILE_SYNONYM:
             return pkbInterface->getAllWhiles();
         case Argument::IF_SYNONYM:
