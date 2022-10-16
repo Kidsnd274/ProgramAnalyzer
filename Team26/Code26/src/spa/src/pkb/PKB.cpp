@@ -18,7 +18,6 @@
 using namespace std;
 //using namespace StatementType;
 
-ProcedureTable* PKB::procedureTable = new ProcedureTable();
 VarTable* PKB::varTable = new VarTable();
 ConstantTable* PKB::constantTable = new ConstantTable();
 ParentTable* PKB::parentTable = new ParentTable();
