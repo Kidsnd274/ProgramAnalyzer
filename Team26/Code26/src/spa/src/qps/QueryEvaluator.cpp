@@ -38,6 +38,7 @@ void QueryEvaluator::evaluate(Query* query) {
         clauseAssigner->assignClause(resultOfEvaluation, *iter);
     }
 
+    changeToAttrName(query, resultOfEvaluation);
 
     query->resultTable = resultOfEvaluation;
 }
