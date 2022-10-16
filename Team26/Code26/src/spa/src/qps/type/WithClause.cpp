@@ -116,7 +116,7 @@ const std::unordered_map<
             Argument::CALL_SYNONYM,
             {
                     STMT_LINE_NUMBER,
-                    WITH_VAR_NAME
+                    PROC_NAME
             }
         },
         {
