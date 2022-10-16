@@ -325,7 +325,7 @@ void RelationClauseEvaluator::filterRelations(unordered_map<std::string, vector<
                 continue;
             }
         }
-        if (arg2.argumentType == Argument::ACTUAL_NAME) {
+        if (arg2.argumentType == Argument::ACTUAL_NAME || arg2.argumentType == Argument::PROCEDURE_ACTUAL_NAME) {
             if (!existInStringVector(arg2.argumentName, relation.second)) {
                 continue;
             } else {
