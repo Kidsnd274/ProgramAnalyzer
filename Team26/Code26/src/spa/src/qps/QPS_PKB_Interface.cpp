@@ -56,7 +56,7 @@ std::vector<pair<int, int>> QPS_PKB_Interface::getAllAffectsProcRelations() {
     return {};
 }
 
-std::unordered_map<int, int> QPS_PKB_Interface::getAllNextRelations() {
+std::unordered_map<int, std::vector<int>> QPS_PKB_Interface::getAllNextRelations() {
     return QPS_PKB_Interface::pkbInterface->getAllNext();
 }
 

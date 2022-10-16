@@ -2,13 +2,16 @@
 #define SPA_NEXTTABLE_H
 
 #include <unordered_map>
+#include <unordered_set>
+#include <vector>
+
 class NextTable {
 private:
-    std::unordered_map<int, int> nextList;
+    std::unordered_map<int, std::vector<int>> nextList;
 
 public:
     void insertNext(int frontStmtLineNumber, int backStmtLineNumber);
-    std::unordered_map<int, int>& getAllNext();
+    std::unordered_map<int, std::vector<int>>& getAllNext();
 };
 
 
