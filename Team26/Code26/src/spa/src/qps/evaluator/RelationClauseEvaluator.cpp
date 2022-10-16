@@ -74,7 +74,7 @@ void RelationClauseEvaluator::evaluate(QPS::ResultTable *resultTable) {
 void RelationClauseEvaluator::evaluateUse(QPS::ResultTable *resultTable) {
     //Uses_P only
     if (relationClause->getFirstArgument().argumentType == Argument::PROCEDURE_ACTUAL_NAME
-    || relationClause->getSecondArgument().argumentType == Argument::PROCEDURE_SYNONYM) {
+    || relationClause->getFirstArgument().argumentType == Argument::PROCEDURE_SYNONYM) {
         evaluateUsesP(resultTable);
         return;
     }
