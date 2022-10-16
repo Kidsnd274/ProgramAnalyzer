@@ -1,8 +1,327 @@
 <?xml-stylesheet type="text/xsl" href="analysis.xsl"?>
 <test_results>
 <info>
-<name>autotester</name><parsing_time_taken>3.651000</parsing_time_taken>
+<name>autotester</name><parsing_time_taken>3.899000</parsing_time_taken>
 </info>
 <queries>
 <query>
-<id ReturnBoolean="1" With="1" CondNum="2" RelNum="0" comment="valid query BOOLEAN 1 clause">5</id><querystr><![CDATA[assign a; Select BOOLEAN with a.stmt#=12]]></querystr>
+<id ReturnTuple="1" UnnamedVar="3" Pattern="1" CondNum="5" RelNum="0" >1</id><querystr><![CDATA[variable v, v2; assign a; if ifs; while w; Select ifs pattern ifs(v, _, _) and w(v2, _)]]></querystr>
+<stuans>26,11,48,47,74,72,4,13,38,28,69</stuans>
+<correct>26,11,48,47,74,72,4,13,38,28,69</correct>
+<time_taken>74.112000</time_taken>
+<passed/>
+</query>
+<query>
+<id ReturnTuple="1" UnnamedVar="1" Pattern="1" CondNum="3" RelNum="0" >2</id><querystr><![CDATA[variable v, v2; assign a; Select a pattern a (v, _)]]></querystr>
+<exception/>
+</query>
+<query>
+<id ReturnTuple="1" UnnamedVar="1" Pattern="1" CondNum="3" RelNum="0" >3</id><querystr><![CDATA[variable v, v2; assign a; Select a pattern a (v, _"z"_)]]></querystr>
+<stuans>5</stuans>
+<correct>5</correct>
+<time_taken>24.866000</time_taken>
+<passed/>
+</query>
+<query>
+<id ReturnTuple="1" UnnamedVar="2" Pattern="1" CondNum="4" RelNum="0" >4</id><querystr><![CDATA[variable v, v2; assign a; Select a pattern a (v, _"(b +c - d) / e % a"_)]]></querystr>
+<stuans>20</stuans>
+<correct>20</correct>
+<time_taken>40.245000</time_taken>
+<passed/>
+</query>
+<query>
+<id ReturnTuple="1" UnnamedVar="2" Pattern="1" CondNum="4" RelNum="0" >5</id><querystr><![CDATA[variable v, v2; assign a; Select a pattern a (v, _"(abc % d)"_)]]></querystr>
+<stuans>19,24</stuans>
+<correct>24,19</correct>
+<time_taken>28.908000</time_taken>
+<passed/>
+</query>
+<query>
+<id ReturnTuple="1" UnnamedVar="2" Pattern="1" CondNum="4" RelNum="0" >6</id><querystr><![CDATA[variable v, v2; assign a; Select a pattern a (v, _"abc % d"_)]]></querystr>
+<stuans>19,24</stuans>
+<correct>24,19</correct>
+<time_taken>28.186000</time_taken>
+<passed/>
+</query>
+<query>
+<id ReturnTuple="1" UnnamedVar="2" Pattern="1" CondNum="4" RelNum="0" >7</id><querystr><![CDATA[variable v, v2; assign a; Select a pattern a (v, _"abc % d"_)]]></querystr>
+<stuans>19,24</stuans>
+<correct>24,19</correct>
+<time_taken>28.244000</time_taken>
+<passed/>
+</query>
+<query>
+<id ReturnTuple="1" Pattern="1" CondNum="2" RelNum="0" >8</id><querystr><![CDATA[assign a; Select a pattern a ("x", "x+1")]]></querystr>
+<stuans>54</stuans>
+<correct>54</correct>
+<time_taken>14.416000</time_taken>
+<passed/>
+</query>
+<query>
+<id ReturnTuple="1" UnnamedVar="1" Pattern="1" CondNum="3" RelNum="0" >9</id><querystr><![CDATA[assign a; Select a pattern a ("ifB", _)]]></querystr>
+<exception/>
+</query>
+<query>
+<id ReturnTuple="1" UnnamedVar="1" Pattern="1" CondNum="3" RelNum="0" >10</id><querystr><![CDATA[assign a; Select a pattern a ("dA", _"dE+dF"_)]]></querystr>
+<stuans></stuans>
+<correct></correct>
+<time_taken>17.733000</time_taken>
+<passed/>
+</query>
+<query>
+<id ReturnTuple="1" UnnamedVar="1" Pattern="1" CondNum="3" RelNum="0" >11</id><querystr><![CDATA[assign a; Select a pattern a (_, "dB / dc % dD - dE + dF")]]></querystr>
+<stuans>67</stuans>
+<correct>67</correct>
+<time_taken>36.365000</time_taken>
+<passed/>
+</query>
+<query>
+<id ReturnBoolean="1" UnnamedVar="2" Pattern="1" CondNum="4" RelNum="0" >12</id><querystr><![CDATA[assign a; Select BOOLEAN pattern a (_, _)]]></querystr>
+<exception/>
+</query>
+<query>
+<id ReturnTuple="1" UnnamedVar="2" Pattern="1" CondNum="4" RelNum="0" >13</id><querystr><![CDATA[assign a; Select a pattern a (_, _"5"_)]]></querystr>
+<stuans>76</stuans>
+<correct>76</correct>
+<time_taken>13.160000</time_taken>
+<passed/>
+</query>
+<query>
+<id ReturnTuple="1" UnnamedVar="2" Pattern="1" CondNum="4" RelNum="0" >14</id><querystr><![CDATA[assign a; Select a pattern a (_, "5"_)]]></querystr>
+<stuans>SyntaxError</stuans>
+<correct>SyntaxError</correct>
+<time_taken>10.365000</time_taken>
+<passed/>
+</query>
+<query>
+<id ReturnTuple="1" UnnamedVar="2" Pattern="1" CondNum="4" RelNum="0" >15</id><querystr><![CDATA[assign a; Select a pattern a (_, _"5")]]></querystr>
+<stuans>SyntaxError</stuans>
+<correct>SyntaxError</correct>
+<time_taken>10.428000</time_taken>
+<passed/>
+</query>
+<query>
+<id ReturnTuple="1" UnnamedVar="2" Pattern="1" CondNum="4" RelNum="0" >16</id><querystr><![CDATA[assign a; variable v; Select a pattern a (_v, _"5"_)]]></querystr>
+<stuans>SyntaxError</stuans>
+<correct>SyntaxError</correct>
+<time_taken>18.154000</time_taken>
+<passed/>
+</query>
+<query>
+<id ReturnTuple="1" UnnamedVar="3" Pattern="1" CondNum="5" RelNum="0" comment="invalid args">17</id><querystr><![CDATA[assign a; Select a pattern a(_, _"("_)]]></querystr>
+<stuans>SyntaxError</stuans>
+<correct>SyntaxError</correct>
+<time_taken>10.893000</time_taken>
+<passed/>
+</query>
+<query>
+<id ReturnTuple="1" UnnamedVar="3" Pattern="1" CondNum="5" RelNum="0" comment="invalid args">18</id><querystr><![CDATA[assign a; Select a pattern a(_, _")"_)]]></querystr>
+<stuans>SyntaxError</stuans>
+<correct>SyntaxError</correct>
+<time_taken>10.590000</time_taken>
+<passed/>
+</query>
+<query>
+<id ReturnTuple="1" UnnamedVar="3" Pattern="1" CondNum="5" RelNum="0" comment="invalid args">19</id><querystr><![CDATA[assign a; Select a pattern a(_, _, _)]]></querystr>
+<stuans>SyntaxError</stuans>
+<correct>SyntaxError</correct>
+<time_taken>10.662000</time_taken>
+<passed/>
+</query>
+<query>
+<id ReturnTuple="1" UnnamedVar="1" Pattern="1" CondNum="3" RelNum="0" >1</id><querystr><![CDATA[while w; variable v; Select w pattern w (v, _)]]></querystr>
+<stuans>9,41,34,57,52,7,49,39,55,62</stuans>
+<correct>7,9,34,39,41,49,52,55,57,62</correct>
+<time_taken>14.786000</time_taken>
+<passed/>
+</query>
+<query>
+<id ReturnTuple="1" UnnamedVar="1" Pattern="1" CondNum="3" RelNum="0" >2</id><querystr><![CDATA[while w; variable v; Select w pattern w ("file", _)]]></querystr>
+<stuans></stuans>
+<correct>9</correct>
+<time_taken>18.739000</time_taken>
+<failed>
+<missing>9</missing>
+<additional></additional>
+<summary>
+<expected>1</expected>
+<matched>0</matched>
+<missing>1</missing>
+<additional>0</additional>
+</summary>
+</failed>
+</query>
+<query>
+<id ReturnTuple="1" UnnamedVar="2" Pattern="1" CondNum="4" RelNum="0" >3</id><querystr><![CDATA[while w; variable v; Select w pattern w (_, _)]]></querystr>
+<stuans>7,49,41,39,55,34,52,57,9,62</stuans>
+<correct>7,9,34,39,41,49,52,55,57,62</correct>
+<time_taken>16.978000</time_taken>
+<passed/>
+</query>
+<query>
+<id ReturnTuple="1" Pattern="1" CondNum="2" RelNum="0" >4</id><querystr><![CDATA[while w; variable v; Select w pattern w (v, v)]]></querystr>
+<stuans>SyntaxError</stuans>
+<correct>SyntaxError</correct>
+<time_taken>16.141000</time_taken>
+<passed/>
+</query>
+<query>
+<id ReturnTuple="1" UnnamedVar="2" Pattern="1" CondNum="4" RelNum="0" >5</id><querystr><![CDATA[while w; variable v; Select w pattern w (_v, _)]]></querystr>
+<stuans>SyntaxError</stuans>
+<correct>SyntaxError</correct>
+<time_taken>15.820000</time_taken>
+<passed/>
+</query>
+<query>
+<id ReturnTuple="1" UnnamedVar="2" Pattern="1" CondNum="4" RelNum="0" >6</id><querystr><![CDATA[while w; variable v; Select w pattern w (_"a1"_, _)]]></querystr>
+<stuans>SyntaxError</stuans>
+<correct>SyntaxError</correct>
+<time_taken>18.784000</time_taken>
+<passed/>
+</query>
+<query>
+<id ReturnTuple="1" UnnamedVar="1" Pattern="1" CondNum="3" RelNum="0" comment="pattern while multiple spaces">7</id><querystr><![CDATA[while w; Select w pattern w("    circle   " ,  _   )]]></querystr>
+<stuans></stuans>
+<correct></correct>
+<time_taken>17.733000</time_taken>
+<passed/>
+</query>
+<query>
+<id ReturnTuple="1" UnnamedVar="1" Pattern="1" CondNum="3" RelNum="0" comment="pattern while, invalid args">8</id><querystr><![CDATA[while w; Select w pattern w("", _)]]></querystr>
+<stuans>SyntaxError</stuans>
+<correct>SyntaxError</correct>
+<time_taken>10.064000</time_taken>
+<passed/>
+</query>
+<query>
+<id ReturnTuple="1" UnnamedVar="1" Pattern="1" CondNum="3" RelNum="0" comment="pattern while, invalid args">9</id><querystr><![CDATA[while w; Select w pattern w(" ", _)]]></querystr>
+<stuans>SyntaxError</stuans>
+<correct>SyntaxError</correct>
+<time_taken>10.478000</time_taken>
+<passed/>
+</query>
+<query>
+<id ReturnTuple="1" UnnamedVar="2" Pattern="1" CondNum="4" RelNum="0" comment="pattern while, invalid args">10</id><querystr><![CDATA[while w; Select w pattern w(_""_, _)]]></querystr>
+<stuans>SyntaxError</stuans>
+<correct>SyntaxError</correct>
+<time_taken>10.133000</time_taken>
+<passed/>
+</query>
+<query>
+<id ReturnTuple="1" UnnamedVar="1" Pattern="1" CondNum="3" RelNum="0" comment="pattern while, invalid args">11</id><querystr><![CDATA[while w; Select w pattern w("+", _)]]></querystr>
+<stuans>SyntaxError</stuans>
+<correct>SyntaxError</correct>
+<time_taken>10.829000</time_taken>
+<passed/>
+</query>
+<query>
+<id ReturnTuple="1" UnnamedVar="1" Pattern="1" CondNum="3" RelNum="0" comment="pattern while, invalid args">12</id><querystr><![CDATA[while w; Select w pattern w("%", _)]]></querystr>
+<stuans>SyntaxError</stuans>
+<correct>SyntaxError</correct>
+<time_taken>11.162000</time_taken>
+<passed/>
+</query>
+<query>
+<id ReturnTuple="1" UnnamedVar="1" Pattern="1" CondNum="3" RelNum="0" comment="pattern while, invalid args">13</id><querystr><![CDATA[while w; Select w pattern w("(", _)]]></querystr>
+<stuans>SyntaxError</stuans>
+<correct>SyntaxError</correct>
+<time_taken>9.826000</time_taken>
+<passed/>
+</query>
+<query>
+<id ReturnTuple="1" UnnamedVar="3" Pattern="1" CondNum="5" RelNum="0" comment="pattern while, invalid args">14</id><querystr><![CDATA[while w; Select w pattern w(_, _, _)]]></querystr>
+<stuans>SyntaxError</stuans>
+<correct>SyntaxError</correct>
+<time_taken>10.725000</time_taken>
+<passed/>
+</query>
+<query>
+<id ReturnTuple="1" UnnamedVar="2" Pattern="1" CondNum="4" RelNum="0" >1</id><querystr><![CDATA[if ifs; variable v; Select ifs pattern ifs (v, _, _)]]></querystr>
+<stuans>26,11,48,47,74,72,4,13,38,28,69</stuans>
+<correct>4,11,13,26,28,38,47,48,69,72,74</correct>
+<time_taken>18.753000</time_taken>
+<passed/>
+</query>
+<query>
+<id ReturnTuple="1" UnnamedVar="2" Pattern="1" CondNum="4" RelNum="0" >2</id><querystr><![CDATA[if ifs; variable v; Select ifs pattern ifs ("ifVar3", _, _)]]></querystr>
+<stuans></stuans>
+<correct>11</correct>
+<time_taken>23.706000</time_taken>
+<failed>
+<missing>11</missing>
+<additional></additional>
+<summary>
+<expected>1</expected>
+<matched>0</matched>
+<missing>1</missing>
+<additional>0</additional>
+</summary>
+</failed>
+</query>
+<query>
+<id ReturnTuple="1" UnnamedVar="2" Pattern="1" CondNum="4" RelNum="0" >3</id><querystr><![CDATA[if ifs; variable v; Select ifs pattern ifs ("ifVar3", _, _)]]></querystr>
+<stuans></stuans>
+<correct>11</correct>
+<time_taken>23.238000</time_taken>
+<failed>
+<missing>11</missing>
+<additional></additional>
+<summary>
+<expected>1</expected>
+<matched>0</matched>
+<missing>1</missing>
+<additional>0</additional>
+</summary>
+</failed>
+</query>
+<query>
+<id ReturnTuple="1" UnnamedVar="3" Pattern="1" CondNum="5" RelNum="0" >3</id><querystr><![CDATA[if ifs; variable v; Select ifs pattern ifs (_, _, _)]]></querystr>
+<stuans>28,69,11,48,38,13,4,26,47,74,72</stuans>
+<correct>4,11,13,26,28,38,47,48,69,72,74</correct>
+<time_taken>22.178000</time_taken>
+<passed/>
+</query>
+<query>
+<id ReturnTuple="1" Pattern="1" CondNum="2" RelNum="0" >4</id><querystr><![CDATA[if ifs; variable v; Select ifs pattern ifs (v, v, v)]]></querystr>
+<stuans>SyntaxError</stuans>
+<correct>SyntaxError</correct>
+<time_taken>18.873000</time_taken>
+<passed/>
+</query>
+<query>
+<id ReturnTuple="1" UnnamedVar="1" Pattern="1" CondNum="3" RelNum="0" >5</id><querystr><![CDATA[if ifs; variable v; Select ifs pattern ifs (v, _, v)]]></querystr>
+<stuans>SyntaxError</stuans>
+<correct>SyntaxError</correct>
+<time_taken>19.033000</time_taken>
+<passed/>
+</query>
+<query>
+<id ReturnTuple="1" UnnamedVar="1" Pattern="1" CondNum="3" RelNum="0" >6</id><querystr><![CDATA[if ifs; variable v; Select ifs pattern ifs (v, v, _)]]></querystr>
+<stuans>SyntaxError</stuans>
+<correct>SyntaxError</correct>
+<time_taken>19.869000</time_taken>
+<passed/>
+</query>
+<query>
+<id ReturnTuple="1" UnnamedVar="1" Pattern="1" CondNum="3" RelNum="0" >7</id><querystr><![CDATA[if ifs; variable v; Select ifs pattern ifs (v, _)]]></querystr>
+<stuans>SyntaxError</stuans>
+<correct>SyntaxError</correct>
+<time_taken>17.762000</time_taken>
+<passed/>
+</query>
+<query>
+<id ReturnTuple="1" UnnamedVar="2" Pattern="1" CondNum="4" RelNum="0" comment="invalid pattern if">8</id><querystr><![CDATA[if ifs; Select ifs pattern ifs(" ", _, _)]]></querystr>
+<stuans>SyntaxError</stuans>
+<correct>SyntaxError</correct>
+<time_taken>13.635000</time_taken>
+<passed/>
+</query>
+<query>
+<id ReturnTuple="1" UnnamedVar="2" Pattern="1" CondNum="4" RelNum="0" comment="invalid pattern if">9</id><querystr><![CDATA[if ifs; Select ifs pattern ifs("", _, _)]]></querystr>
+<stuans>SyntaxError</stuans>
+<correct>SyntaxError</correct>
+<time_taken>12.537000</time_taken>
+<passed/>
+</query>
+</queries>
+</test_results>

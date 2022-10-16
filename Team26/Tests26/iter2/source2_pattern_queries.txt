@@ -1,7 +1,7 @@
 1. valid pattern query
 variable v, v2; assign a; if ifs; while w;
 Select ifs pattern ifs(v, _, _) and w(v2, _)
-5
+26,11,48,47,74,72,4,13,38,28,69
 5000
 2. valid pattern query
 variable v, v2; assign a;
@@ -66,32 +66,32 @@ Select a pattern a (_, _"5"_)
 14. invalid pattern query
 assign a;
 Select a pattern a (_, "5"_)
-
+SyntaxError
 5000
 15. invalid pattern query
 assign a;
 Select a pattern a (_, _"5")
-
+SyntaxError
 5000
 16. invalid pattern query
 assign a; variable v;
 Select a pattern a (_v, _"5"_)
-
+SyntaxError
 5000
 17 - invalid args
 assign a;
 Select a pattern a(_, _"("_)
-none
+SyntaxError
 5000
 18 - invalid args
 assign a;
 Select a pattern a(_, _")"_)
-none
+SyntaxError
 5000
 19 - invalid args
 assign a;
 Select a pattern a(_, _, _)
-none
+SyntaxError
 5000
 1. pattern w
 while w; variable v;
@@ -111,17 +111,17 @@ Select w pattern w (_, _)
 4. invalid pattern w
 while w; variable v;
 Select w pattern w (v, v)
-
+SyntaxError
 5000
 5. invalid pattern w
 while w; variable v;
 Select w pattern w (_v, _)
-
+SyntaxError
 5000
 6. invalid pattern w
 while w; variable v;
 Select w pattern w (_"a1"_, _)
-
+SyntaxError
 5000
 7 - pattern while multiple spaces
 while w;
@@ -131,37 +131,37 @@ none
 8 - pattern while, invalid args
 while w;
 Select w pattern w("", _)
-none
+SyntaxError
 5000
 9 - pattern while, invalid args
 while w;
 Select w pattern w(" ", _)
-none
+SyntaxError
 5000
 10 - pattern while, invalid args
 while w;
 Select w pattern w(_""_, _)
-none
+SyntaxError
 5000
 11 - pattern while, invalid args
 while w;
 Select w pattern w("+", _)
-none
+SyntaxError
 5000
 12 - pattern while, invalid args
 while w;
 Select w pattern w("%", _)
-none
+SyntaxError
 5000
 13 - pattern while, invalid args
 while w;
 Select w pattern w("(", _)
-none
+SyntaxError
 5000
 14 - pattern while, invalid args
 while w;
 Select w pattern w(_, _, _)
-none
+SyntaxError
 5000
 1. pattern ifs
 if ifs; variable v;
@@ -186,30 +186,30 @@ Select ifs pattern ifs (_, _, _)
 4. invalid pattern ifs
 if ifs; variable v;
 Select ifs pattern ifs (v, v, v)
-
+SyntaxError
 5000
 5. invalid pattern ifs
 if ifs; variable v;
 Select ifs pattern ifs (v, _, v)
-
+SyntaxError
 5000
 6. invalid pattern ifs
 if ifs; variable v;
 Select ifs pattern ifs (v, v, _)
-
+SyntaxError
 5000
 7. invalid pattern ifs
 if ifs; variable v;
 Select ifs pattern ifs (v, _)
-
+SyntaxError
 5000
 8 - invalid pattern if
 if ifs;
 Select ifs pattern ifs(" ", _, _)
-none
+SyntaxError
 5000
 9 - invalid pattern if
 if ifs;
 Select ifs pattern ifs("", _, _)
-none
+SyntaxError
 5000
