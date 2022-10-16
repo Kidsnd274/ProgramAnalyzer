@@ -546,6 +546,18 @@ namespace QPS {
             if (curr.tokenType == QPS::NAME && curr.nameValue == "Select" && !is_select_parsed) {
                 is_select_parsed = true;
                 pos++;
+            } else if (pos + 1 < tokens.size() && curr.tokenType == QPS::NAME && tokens[pos + 1].tokenType == DOT) {
+                WithClause::WithClauseArgument arg;
+                Argument argument;
+                std::pair<int, Exception> result = parseWithObject(tokens, pos, container, argument, arg);
+                if (result.second == VALID) {
+                    pos = result.first;
+                    Query::CandidateStruct candidateStruct = {argument, arg.attributeType};
+                    container.addCandidateList(candidateStruct);
+                    continue;
+                } else {
+                    return {pos, result.second};
+                }
             } else if (curr.tokenType == QPS::NAME && curr.nameValue != "such" && curr.nameValue != "pattern"
                             && curr.nameValue != "BOOLEAN" && !is_boolean_select && curr.nameValue != "with") {
                 is_entity_select = true;
@@ -563,17 +575,6 @@ namespace QPS {
                 container.addCandidateListBoolean();
                 is_boolean_select = true;
                 pos++;
-            } else if (pos + 1 < tokens.size() && curr.tokenType == QPS::NAME && tokens[pos + 1].tokenType == DOT) {
-                WithClause::WithClauseArgument arg;
-                Argument argument;
-                std::pair<int, Exception> result = parseWithObject(tokens, pos, container, argument, arg);
-                if (result.second == VALID) {
-                    pos = result.first;
-                    Query::CandidateStruct candidateStruct = {argument, arg.attributeType};
-                    container.addCandidateList(candidateStruct);
-                } else {
-                    return {pos, result.second};
-                }
             } else if (curr.tokenType == QPS::COMMA && !is_boolean_select && is_multiple_select){
                 pos++;
             } else if (curr.tokenType == QPS::NAME && (curr.nameValue == "such" || curr.nameValue == "pattern" || curr.nameValue == "with")){
