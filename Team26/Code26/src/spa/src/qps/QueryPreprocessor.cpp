@@ -342,7 +342,7 @@ namespace QPS {
                 case Argument::STMT_SYNONYM:
                 case Argument::ASSIGN_SYNONYM:
                 case Argument::CONST_SYNONYM:{
-                    argument2 = Argument(tokens[pos + 1].nameValue, Argument::NUMBER);
+                    argument2 = Argument(tokens[pos].nameValue, Argument::NUMBER);
                     arg2 = {argument2, INAPPLICABLE};
                     break;
                 }
