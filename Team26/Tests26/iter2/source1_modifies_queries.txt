@@ -251,7 +251,7 @@ Select s such that Modifies(22, _)
 51 - exceed stmt num range
 stmt s;
 Select s such that Modifies(23, _)
-SyntaxError
+none
 5000
 52 - exceed stmt num range
 stmt s;
