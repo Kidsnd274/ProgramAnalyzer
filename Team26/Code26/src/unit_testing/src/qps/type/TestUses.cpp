@@ -86,14 +86,14 @@ TEST_CASE("Uses Validation Test - uses(procedure, \"varName\") - valid") {
 }
 
 TEST_CASE("Uses Validation Test - uses(\"procedureName\", var) - valid") {
-    Argument arg1 = Argument("arg1", Argument::ACTUAL_NAME);
+    Argument arg1 = Argument("arg1", Argument::PROCEDURE_ACTUAL_NAME);
     Argument arg2 = Argument("arg2", Argument::VAR_SYNONYM);
     Uses uses1 = Uses(arg1, arg2);
     REQUIRE(uses1.isValid() == true);
 }
 
 TEST_CASE("Uses Validation Test - uses(\"procedureName\", \"varName\") - valid") {
-    Argument arg1 = Argument("arg1", Argument::ACTUAL_NAME);
+    Argument arg1 = Argument("arg1", Argument::PROCEDURE_ACTUAL_NAME);
     Argument arg2 = Argument("arg2", Argument::ACTUAL_NAME);
     Uses uses1 = Uses(arg1, arg2);
     REQUIRE(uses1.isValid() == true);
