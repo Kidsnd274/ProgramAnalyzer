@@ -193,7 +193,7 @@ unordered_map<std::string, std::vector<std::string>> PKBInterface::getAllCall() 
 }
 
 unordered_map<std::string, std::vector<std::string>> PKBInterface::getAllCallStar() {
-    return pkb->callTable->getAllCalls();
+    return pkb->callStarTable->getAllCallStars();
 }
 
 unordered_map<int,int> PKBInterface::getAllFollow() {
