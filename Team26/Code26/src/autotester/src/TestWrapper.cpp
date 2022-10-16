@@ -47,6 +47,7 @@ void TestWrapper::parse(std::string filename) {
     } catch (EndOfFileException e) {
         // This case should never happen but catching it here for completeness
         std::cout << e.what() << std::endl;
+        exit(1);
     }
 }
 
