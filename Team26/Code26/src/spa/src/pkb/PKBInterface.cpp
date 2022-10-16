@@ -88,11 +88,12 @@ void PKBInterface::addPrintStatement(int statementNumber, int statementListNumbe
     pkb->statementTable->insertStmt(stmt);
 }
 
-void PKBInterface::addCallStatement(int statementNumber, int statementListNumber) {
+void PKBInterface::addCallStatement(int statementNumber, int statementListNumber, std::string calleeProcName) {
     Statement stmt;
     stmt.type = StatementType::CALL;
     stmt.lineNumber = statementNumber;
     stmt.statementListNumber = statementListNumber;
+    stmt.calleeProcName = calleeProcName;
     pkb->statementTable->insertStmt(stmt);
 }
 
@@ -462,7 +463,9 @@ std::string PKBInterface::getProcLineNumberByName(std::string procName) {
 }
 
 std::string PKBInterface::getCallProcName(std::string callLineNumber) {
-
+    int callLine = std::stoi(callLineNumber);
+    Statement callStmt = pkb->statementTable->getStmtByLineNumber(callLine);
+    return callStmt.calleeProcName;
 }
 
 std::string PKBInterface::getReadVarName(std::string readLineNumber) {

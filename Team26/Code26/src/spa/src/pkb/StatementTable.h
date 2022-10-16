@@ -25,6 +25,7 @@ public:
     vector<string> getAllIfs();
     vector<string> getAllPrints();
     vector<string> getAllCalls();
+    vector<Statement> getAllCallStatements();
     Statement getStmtByLineNumber(int stmtNo);
 };
 
