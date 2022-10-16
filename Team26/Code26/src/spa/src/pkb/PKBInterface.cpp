@@ -451,3 +451,28 @@ std::vector<vector<Statement>> PKBInterface::getAllStmtLists() {
     }
     return result;
 }
+
+std::string PKBInterface::getProcLineNumberByName(std::string procName) {
+    for (Procedure p: pkb->procedureTable->getProcList()) {
+        if (p.name == procName) {
+            return std::to_string(p.startingStmtNo);
+        }
+    }
+    return "";
+}
+
+std::string PKBInterface::getCallProcName(std::string callLineNumber) {
+
+}
+
+std::string PKBInterface::getReadVarName(std::string readLineNumber) {
+    int readLine = std::stoi(readLineNumber);
+    std::unordered_map<int, std::vector<std::string>> modifiesList = pkb->modifiesTable->getAllModifiesByStmt();
+    return modifiesList[readLine].front();
+}
+
+std::string PKBInterface::getPrintVarName(std::string printLineNumber) {
+    int printLine = std::stoi(printLineNumber);
+    std::unordered_map<int, std::vector<std::string>> usesList = pkb->usesTable->getAllUsesByStmt();
+    return usesList[printLine].front();
+}

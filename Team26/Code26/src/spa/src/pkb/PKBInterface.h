@@ -67,4 +67,8 @@ public:
     virtual unordered_map<int, std::vector<std::string>> getAllUseByStmt();
     virtual unordered_map<std::string, std::vector<std::string>> getAllUseByProc();
     virtual std::vector<vector<Statement>> getAllStmtLists();
+    virtual std::string getProcLineNumberByName(std::string procName);
+    virtual std::string getCallProcName(std::string callLineNumber);
+    virtual std::string getReadVarName(std::string readLineNumber);
+    virtual std::string getPrintVarName(std::string printLineNumber);
 };
