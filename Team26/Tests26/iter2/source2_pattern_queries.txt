@@ -1,6 +1,6 @@
 1. valid pattern query
-variable v, v2; assign a;
-Select a pattern a (v, "z")
+variable v, v2; assign a; if ifs; while w;
+Select ifs pattern ifs(v, _, _) and w(v2, _)
 5
 5000
 2. valid pattern query

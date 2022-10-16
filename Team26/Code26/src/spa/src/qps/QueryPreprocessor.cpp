@@ -16,6 +16,7 @@ namespace QPS {
     std::pair<int, Exception> parsePatternExpression (std::vector<QPS::Token> &tokens,int pos,Container &container, std::string &expression,  std::string &trimString);
     std::pair<int, Exception> parsePatternType (std::vector<QPS::Token> &tokens,int pos,Container &container, Argument::ArgumentType &typeOfPattern, std::string &pattern_syn);
     std::pair<int, Exception> parsePatternLeft (std::vector<QPS::Token> &tokens,int pos,Container &container, std::pair<Argument, bool> &ARG1);
+    std::pair<int, Exception> parsePatternIFWHILE (std::vector<QPS::Token> &tokens,int pos,Container &container, Argument& arg);
 
     Exception parseToken(std::vector<QPS::Token> &tokens, Container& container) {
         int tokenPos = 0;
@@ -456,6 +457,34 @@ namespace QPS {
         return {pos, VALID};
     }
 
+    std::pair<int, Exception> parsePatternIFWHILE (std::vector<QPS::Token> &tokens,int pos,Container &container, Argument& arg) {
+        if (pos < tokens.size() && tokens[pos].tokenType == LPAREN) {
+            pos++;
+        } else {
+            return {pos, INVALID_PATTERN_SYNTAX};
+        }
+
+        if (tokens[pos].tokenType == NAME) {
+            arg = {tokens[pos].nameValue, Argument::VAR_SYNONYM};
+            pos++;
+        } else if (pos + 2 < tokens.size() && tokens[pos].tokenType == DOUBLE_QUOTE && tokens[pos+2].tokenType == DOUBLE_QUOTE
+                   && tokens[pos + 1].tokenType == NAME) {
+            arg = {tokens[pos + 1].nameValue, Argument::ACTUAL_NAME};
+            pos += 3;
+        } else if(tokens[pos].tokenType == UNDERSCORE) {
+            arg = {"_", Argument::WILDCARD};
+            pos ++;
+        }
+
+        if (pos + 4 <tokens.size() && tokens[pos].tokenType == COMMA && tokens[pos+1].tokenType == UNDERSCORE
+            && tokens[pos+2].tokenType == COMMA && tokens[pos+3].tokenType == UNDERSCORE && tokens[pos+4].tokenType == RPAREN) {
+            pos +=4;
+            return {pos, VALID};
+        } else {
+            return {pos, INVALID_PATTERN_CONTENT};
+        }
+    }
+
     std::pair<int, Exception> parsePattern (std::vector<QPS::Token> &tokens,int pos,Container &container) {
         std::string pattern_syn;
         std::string expression;
@@ -469,6 +498,18 @@ namespace QPS {
             pos = result.first;
         } else {
             return {pos, result.second};
+        }
+
+        if (typeOfPattern == Argument::IF_SYNONYM) {
+            Argument arg = {"", Argument::INVALID_ARGUMENT_TYPE};
+            result = parsePatternIFWHILE(tokens, pos, container, arg);
+            if (result.second == VALID) {
+                pos = result.first + 1;
+            } else {
+                return {pos, result.second};
+            }
+            container.addPatternClause(typeOfPattern, pattern_syn, arg, Argument("_", Argument::EXPRESSION));
+            return {pos, VALID};
         }
 
         if (pos < tokens.size() && tokens[pos].tokenType == LPAREN) {
