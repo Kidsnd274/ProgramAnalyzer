@@ -554,7 +554,9 @@ namespace QPS {
                 if (argumentType == Argument::INVALID_ARGUMENT_TYPE) {
                     return {pos, UNDECLARED_SELECT_ENTITY};
                 }
-                container.addCandidateList(argumentType, curr.nameValue);
+                Argument argument = Argument(curr.nameValue, argumentType);
+                Query::CandidateStruct candidateStruct = {argument, INAPPLICABLE};
+                container.addCandidateList(candidateStruct);
                 pos++;
 
             } else if (curr.tokenType == QPS::NAME && curr.nameValue == "BOOLEAN" && !is_entity_select && !is_boolean_select){
@@ -562,12 +564,13 @@ namespace QPS {
                 is_boolean_select = true;
                 pos++;
             } else if (pos + 1 < tokens.size() && curr.tokenType == QPS::NAME && tokens[pos + 1].tokenType == DOT) {
-                WithClause::WithClauseArgument arg1;
-                Argument argument1;
-                std::pair<int, Exception> result = parseWithObject(tokens, pos, container, argument1, arg1);
+                WithClause::WithClauseArgument arg;
+                Argument argument;
+                std::pair<int, Exception> result = parseWithObject(tokens, pos, container, argument, arg);
                 if (result.second == VALID) {
                     pos = result.first;
-                    container.addCandidateList(argumentType, curr.nameValue);
+                    Query::CandidateStruct candidateStruct = {argument, arg.attributeType};
+                    container.addCandidateList(candidateStruct);
                 } else {
                     return {pos, result.second};
                 }
