@@ -107,3 +107,15 @@ std::vector<std::string> QPS_PKB_Interface::getAllEntity(Argument *argument) {
 std::string QPS_PKB_Interface::getProcLineNumberByName(std::string procName) {
     return pkbInterface->getProcLineNumberByName(procName);
 }
+
+std::string QPS_PKB_Interface::getCallProcName(std::string callLineNumber) {
+    return pkbInterface->getCallProcName(callLineNumber);
+}
+
+std::string QPS_PKB_Interface::getReadVarName(std::string readLineNumber) {
+    return pkbInterface->getReadVarName(readLineNumber);
+}
+
+std::string QPS_PKB_Interface::getPrintVarName(std::string printLineNumber) {
+    return pkbInterface->getPrintVarName(printLineNumber);
+}

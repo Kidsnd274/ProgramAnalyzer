@@ -125,6 +125,12 @@ public:
      * @return a string, the line number of given procedure
      */
     static std::string getProcLineNumberByName(std::string procName);
+
+    static std::string getCallProcName(std::string callLineNumber);
+
+    static std::string getReadVarName(std::string readLineNumber);
+
+    static std::string getPrintVarName(std::string printLineNumber);
 };
 
 

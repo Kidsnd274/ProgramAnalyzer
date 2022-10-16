@@ -38,6 +38,7 @@ void QueryEvaluator::evaluate(Query* query) {
         clauseAssigner->assignClause(resultOfEvaluation, *iter);
     }
 
+    // For select s.AttrName, change value to their corresponding AttrName
     changeToAttrName(query, resultOfEvaluation);
 
     query->resultTable = resultOfEvaluation;
@@ -69,14 +70,27 @@ void QueryEvaluator::changeToAttrName(Query *query, QPS::ResultTable *resultTabl
     for (auto row : resultTable->getTable()) {
         for (auto col : colsToChange) {
             int colNum = col.first;
-            row.at(colNum) = getAttr(row.at(colNum), col.second);
+            row.at(colNum) = getAttrName(row.at(colNum), col.second);
         }
     }
 }
 
-std::string QueryEvaluator::getAttr(std::string value, Query::CandidateStruct candidate) {
-    if (candidate.attributeType == PROC_STMT_LINE_NUMBER) {
+std::string QueryEvaluator::getAttrName(std::string value, Query::CandidateStruct candidate) {
+    if (candidate.attributeType == AttributeType::PROC_STMT_LINE_NUMBER
+        && candidate.argument.argumentType == Argument::PROCEDURE_SYNONYM) {
         return QPS_PKB_Interface::getProcLineNumberByName(value);
+    }
+    if (candidate.attributeType == AttributeType::PROC_NAME
+        && candidate.argument.argumentType == Argument::CALL_SYNONYM) {
+        return QPS_PKB_Interface::getCallProcName(value);
+    }
+    if (candidate.attributeType == AttributeType::WITH_VAR_NAME
+        && candidate.argument.argumentType == Argument::READ_SYNONYM) {
+        return QPS_PKB_Interface::getReadVarName(value);
+    }
+    if (candidate.attributeType == AttributeType::WITH_VAR_NAME
+        && candidate.argument.argumentType == Argument::PRINT_SYNONYM) {
+        return QPS_PKB_Interface::getPrintVarName(value);
     }
     return value;
 }
