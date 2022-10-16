@@ -1,24 +1,8 @@
 <?xml-stylesheet type="text/xsl" href="analysis.xsl"?>
 <test_results>
 <info>
-<name>autotester</name><parsing_time_taken>3.033000</parsing_time_taken>
+<name>autotester</name><parsing_time_taken>3.188000</parsing_time_taken>
 </info>
 <queries>
 <query>
-<id ReturnTuple="1" Calls="1" SuchThat="1" CondNum="3" RelNum="1" comment="Call with procedure calling itself">1</id><querystr><![CDATA[procedure p; call c; Select <c.procName, p.stmt#> such that Calls(p, "readPoint")]]></querystr>
-<stuans>computeCentroid 29,readPoint 29,printResults 29</stuans>
-<correct>TRUE</correct>
-<time_taken>51.541000</time_taken>
-<failed>
-<missing>TRUE</missing>
-<additional>computeCentroid 29,printResults 29,readPoint 29</additional>
-<summary>
-<expected>1</expected>
-<matched>0</matched>
-<missing>1</missing>
-<additional>3</additional>
-</summary>
-</failed>
-</query>
-</queries>
-</test_results>
+<id ReturnTuple="1" With="1" CondNum="2" RelNum="0" comment="test">1</id><querystr><![CDATA[assign a; procedure p; Select a with a.stmt#=6]]></querystr>
