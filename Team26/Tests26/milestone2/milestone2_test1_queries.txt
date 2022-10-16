@@ -186,7 +186,7 @@ Select a such that Uses (a, v) pattern a(v,_)
 38 - check modifies for procedure milestone2test1
 variable v;
 Select v such that Modifies("milestone2test1", v)
-var1234, zy if, else, while, d, pointx, pointy, print, cenX, cenY, normSq, count
+var1234, zy, if, else, while, d, pointx, pointy, print, cenX, cenY, normSq, count
 5000
 39 - check uses for procedure milestone2test1
 variable v;
