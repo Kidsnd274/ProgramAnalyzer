@@ -8,9 +8,6 @@
 #include "VarTable.h"
 #include "ConstantTable.h"
 #include "ProcedureTable.h"
-//#include "StatementTable.h"
-#include "ModifiesTable.h"
-#include "UsesTable.h"
 #include "ParentTable.h"
 #include "ParentStarTable.h"
 #include "FollowsTable.h"
@@ -21,12 +18,8 @@
 using namespace std;
 //using namespace StatementType;
 
-ProcedureTable* PKB::procedureTable = new ProcedureTable();
 VarTable* PKB::varTable = new VarTable();
 ConstantTable* PKB::constantTable = new ConstantTable();
-//StatementTable* PKB::statementTable = new StatementTable();
-ModifiesTable* PKB::modifiesTable = new ModifiesTable();
-//UsesTable* PKB::usesTable = new UsesTable();
 ParentTable* PKB::parentTable = new ParentTable();
 ParentStarTable* PKB::parentStarTable = new ParentStarTable();
 FollowsTable* PKB::followsTable = new FollowsTable();

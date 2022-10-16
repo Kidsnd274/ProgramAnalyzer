@@ -1,4 +1,5 @@
 #include "QueryPreprocessor.h"
+#include "sp/SourceProcessor.h"
 
 namespace QPS {
     std::pair<int, Exception> parseDeclaration(std::vector<QPS::Token> &tokens,int pos,Entity::EntityType entityType,Container &container);
@@ -12,7 +13,7 @@ namespace QPS {
     std::pair<int, Exception> parseRelationCalls(std::vector<QPS::Token> &tokens, int pos, RelationType relationType, Container &container);
     std::pair<int, Exception> parseWithClause(std::vector<QPS::Token> &tokens, int pos, Container &container);
     std::pair<int, Exception> parseCallArg(std::vector<QPS::Token> &tokens, int pos, std::pair<Argument, Exception>& ARG1, Container &container);
-    std::pair<int, Exception> parsePatternExpression (std::vector<QPS::Token> &tokens,int pos,Container &container, std::string &expression);
+    std::pair<int, Exception> parsePatternExpression (std::vector<QPS::Token> &tokens,int pos,Container &container, std::string &expression,  std::string &trimString);
     std::pair<int, Exception> parsePatternType (std::vector<QPS::Token> &tokens,int pos,Container &container, Argument::ArgumentType &typeOfPattern, std::string &pattern_syn);
     std::pair<int, Exception> parsePatternLeft (std::vector<QPS::Token> &tokens,int pos,Container &container, std::pair<Argument, bool> &ARG1);
 
@@ -375,7 +376,7 @@ namespace QPS {
 
     }
 
-    std::pair<int, Exception> parsePatternExpression (std::vector<QPS::Token> &tokens,int pos,Container &container, std::string &expression) {
+    std::pair<int, Exception> parsePatternExpression (std::vector<QPS::Token> &tokens,int pos,Container &container, std::string &expression, std::string &trimString) {
         // string without doubt quote is invalid for expression
         if (tokens[pos].tokenType == NAME) {
             return {pos, INVALID_PATTERN_CONTENT};
@@ -389,6 +390,7 @@ namespace QPS {
             pos++;
             while (pos < tokens.size() && tokens[pos].tokenType != DOUBLE_QUOTE) {
                 expression += tokens[pos].nameValue;
+                trimString += tokens[pos].nameValue;
                 pos++;
             }
 
@@ -457,6 +459,7 @@ namespace QPS {
     std::pair<int, Exception> parsePattern (std::vector<QPS::Token> &tokens,int pos,Container &container) {
         std::string pattern_syn;
         std::string expression;
+        std::string trimmedString;
         Argument::ArgumentType typeOfPattern;
         std::pair<int, Exception> result = parsePatternType(tokens, pos, container, typeOfPattern, pattern_syn);
         if (result.second == VALID) {
@@ -487,7 +490,7 @@ namespace QPS {
             return {pos, INVALID_PATTERN_SYNTAX};
         }
 
-        result = parsePatternExpression(tokens, pos, container, expression);
+        result = parsePatternExpression(tokens, pos, container, expression, trimmedString);
         if (result.second == VALID) {
             pos = result.first;
         } else {
@@ -497,6 +500,10 @@ namespace QPS {
         if (pos < tokens.size() && tokens[pos].tokenType == RPAREN) {
             pos++;
         } else {
+            return {pos, INVALID_PATTERN_SYNTAX};
+        }
+
+        if (!trimmedString.empty()  && !SourceProcessor::checkExpressionString(trimmedString)) {
             return {pos, INVALID_PATTERN_SYNTAX};
         }
 
@@ -512,7 +519,7 @@ namespace QPS {
         while (pos < tokens.size() && tokens[pos].tokenType != QPS::SEMICOLON ) {
             QPS::Token curr = tokens[pos];
             if (curr.tokenType == QPS::COMMA) {
-            } else if (curr.tokenType == QPS::NAME && curr.nameValue != "Select") {
+            } else if (curr.tokenType == QPS::NAME) {
                 container.addDeclaration(entityType, curr.nameValue);
             } else {
                 return {pos, INVALID_DECLARATION};
@@ -533,9 +540,11 @@ namespace QPS {
         bool is_closed = false;
         bool is_boolean_select = false;
         bool is_entity_select = false;
+        bool is_select_parsed = false;
         while (pos < tokens.size()) {
             QPS::Token curr = tokens[pos];
-            if (curr.tokenType == QPS::NAME && curr.nameValue == "Select") {
+            if (curr.tokenType == QPS::NAME && curr.nameValue == "Select" && !is_select_parsed) {
+                is_select_parsed = true;
                 pos++;
             } else if (curr.tokenType == QPS::NAME && curr.nameValue != "such" && curr.nameValue != "pattern"
                             && curr.nameValue != "BOOLEAN" && !is_boolean_select && curr.nameValue != "with") {
