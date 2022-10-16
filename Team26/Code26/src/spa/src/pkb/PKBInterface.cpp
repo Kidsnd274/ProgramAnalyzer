@@ -213,7 +213,7 @@ unordered_map<int,int> PKBInterface::getAllFollowStar() {
     return pkb->followsStarTable->getAllFollowStars();
 }
 
-unordered_map<int, int> PKBInterface::getAllNext() {
+unordered_map<int, vector<int>> PKBInterface::getAllNext() {
     return pkb->nextTable->getAllNext();
 }
 

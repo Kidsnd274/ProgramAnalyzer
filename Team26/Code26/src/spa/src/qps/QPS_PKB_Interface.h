@@ -92,7 +92,7 @@ public:
      * Call PKB interface to get all next relations in NextTable.
      * @return a vector containing all the next relations.
      */
-    static std::unordered_map<int, int> getAllNextRelations();
+    static std::unordered_map<int, std::vector<int>> getAllNextRelations();
 
     /**
      * Call PKB interface to get all procedure xt relations in NextTable.
