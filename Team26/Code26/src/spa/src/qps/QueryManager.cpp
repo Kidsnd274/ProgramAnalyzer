@@ -136,7 +136,6 @@ void QueryManager::handleQuery(PKBInterface *pkb, std::string queryString, std::
     QPS::Container* container = new QPS::Container(tokens); // Initialize a container to store the result of tokenization.
     Exception parsingException = QPS::parseToken(tokens, *container); // Call QPS parser to parse the tokens into Query Structure. Store the result in container.queryStruct.
 
-    std::cout << exceptionToStringQPS(parsingException) << std::endl;
     Query query = container->getQueryStruct();
 
     switch (parsingException) {

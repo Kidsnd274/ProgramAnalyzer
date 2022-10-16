@@ -421,7 +421,7 @@ namespace QPS {
             }
 
             // Skip the second double quote as it is handled in the while loop
-            if (pos < tokens.size() and tokens[pos].tokenType == DOUBLE_QUOTE) {
+            if (pos < tokens.size() && tokens[pos].tokenType == DOUBLE_QUOTE) {
                 pos++;
             } else {
                 return {pos, INVALID_PATTERN_CONTENT};
