@@ -67,6 +67,18 @@ const std::unordered_map<
             {
                 WITH_CONST_VALUE
             }
+        },
+        {
+                Argument::ACTUAL_NAME,
+                {
+                        INAPPLICABLE
+                }
+        },
+        {
+                Argument::NUMBER,
+                {
+                        INAPPLICABLE
+                }
         }
 };
 
