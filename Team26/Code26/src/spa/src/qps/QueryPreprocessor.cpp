@@ -561,6 +561,16 @@ namespace QPS {
                 container.addCandidateListBoolean();
                 is_boolean_select = true;
                 pos++;
+            } else if (pos + 1 < tokens.size() && curr.tokenType == QPS::NAME && tokens[pos + 1].tokenType == DOT) {
+                WithClause::WithClauseArgument arg1;
+                Argument argument1;
+                std::pair<int, Exception> result = parseWithObject(tokens, pos, container, argument1, arg1);
+                if (result.second == VALID) {
+                    pos = result.first;
+                    container.addCandidateList(argumentType, curr.nameValue);
+                } else {
+                    return {pos, result.second};
+                }
             } else if (curr.tokenType == QPS::COMMA && !is_boolean_select && is_multiple_select){
                 pos++;
             } else if (curr.tokenType == QPS::NAME && (curr.nameValue == "such" || curr.nameValue == "pattern" || curr.nameValue == "with")){
