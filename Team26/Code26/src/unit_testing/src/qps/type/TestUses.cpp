@@ -144,10 +144,3 @@ TEST_CASE("Uses Validation Test - uses(var, \"varName\") - invalid") {
 }
 
 // Negative testcases
-// uses(_, stmt)
-TEST_CASE("Uses Validation Test - uses(stmt, if) - invalid") {
-    Argument arg1 = Argument("arg1", Argument::STMT_SYNONYM);
-    Argument arg2 = Argument("arg2", Argument::IF_SYNONYM);
-    Uses uses1 = Uses(arg1, arg2);
-    REQUIRE(uses1.isValid() == false);
-}
