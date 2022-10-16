@@ -5,6 +5,14 @@ void WithClauseEvaluator::evaluate(QPS::ResultTable *resultTable) {
     WithClause::WithClauseArgument arg1 = this->withClause->arg1;
     WithClause::WithClauseArgument arg2 = this->withClause->arg2;
     if (arg2.argument.argumentType == Argument::ACTUAL_NAME || arg2.argument.argumentType == Argument::NUMBER) { // a.attribute = "x"
+        if (arg1.argument.argumentType == Argument::ACTUAL_NAME || arg2.argument.argumentType == Argument::NUMBER) {
+            for (int i = table.size() - 1; i >= 0; i--) {
+                if (arg1.argument.argumentName != arg2.argument.argumentName) {
+                    resultTable->deleteRowFromTable(i);
+                }
+            }
+            return;
+        }
         auto iter = resultTable->getSynonymColRef().find(arg1.argument.argumentName);
         if (iter == resultTable->getSynonymColRef().end()) {
             return;
