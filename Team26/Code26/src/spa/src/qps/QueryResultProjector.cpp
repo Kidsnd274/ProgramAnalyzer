@@ -6,7 +6,7 @@ void QueryResultProjector::projectResult(Query query, std::list<std::string> &re
     auto candidateList = query.getCandidateList();
     std::vector<std::string> synonyms;
     for (auto &candidate : candidateList) {
-        synonyms.push_back(candidate.argumentName);
+        synonyms.push_back(candidate.argument.argumentName);
     }
     std::unordered_set<std::vector<std::string>, QPS::StringVectorHash> values;
     resultTable->getSynonymsValues(synonyms, values);
@@ -40,7 +40,7 @@ std::string QueryResultProjector::getSelectTuples(Query query, std::list<std::st
         }
     } else {
         for (auto &candidate: query.getCandidateList()) {
-            synonyms.push_back(candidate.argumentName);
+            synonyms.push_back(candidate.argument.argumentName);
         }
         query.resultTable->getSynonymsValues(synonyms, tupleValues);
         for (auto row: tupleValues) {

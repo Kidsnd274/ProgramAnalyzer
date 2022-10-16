@@ -6,6 +6,7 @@
 #include <unordered_set>
 #include "ResultTable.h"
 #include "type/Clause.h"
+#include "type/WithClause.h"
 
 enum QueryStatus {
     VALID_QUERY,
@@ -14,9 +15,15 @@ enum QueryStatus {
 };
 
 class Query {
+public:
+    struct CandidateStruct {
+        Argument argument;
+        AttributeType attributeType;
+    };
+
 private:
     std::unordered_map<std::string, Argument>* synonymMap;
-    std::vector<Argument>* candidateList;
+    std::vector<CandidateStruct>* candidateList;
     QueryStatus status;
 
 public:
@@ -26,7 +33,7 @@ public:
 public:
     Query() {
         this->synonymMap = new std::unordered_map<std::string, Argument>();
-        this->candidateList = new std::vector<Argument>;
+        this->candidateList = new std::vector<CandidateStruct>;
         this->clauseList = new std::vector<Clause*>();
         this->resultTable = new QPS::ResultTable();
         this->status = VALID_QUERY;
@@ -41,7 +48,7 @@ public:
 
     void addSynonym(Argument& synonym);
 
-    void addCandidate(Argument& synonym);
+    void addCandidate(CandidateStruct& candidate);
 
     void addClause(Clause* clause);
 
@@ -55,7 +62,7 @@ public:
 
     std::unordered_map<std::string, Argument>& getSynonymMap();
 
-    std::vector<Argument>& getCandidateList();
+    std::vector<CandidateStruct>& getCandidateList();
 
     bool isBooleanQuery();
 };

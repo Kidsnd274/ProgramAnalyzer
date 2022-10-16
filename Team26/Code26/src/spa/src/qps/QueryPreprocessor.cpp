@@ -805,7 +805,7 @@ namespace QPS {
 
     std::pair<AttributeType, Exception> convertStringToWithType (Token &token) {
         if (token.tokenType != NAME) {
-            return {INVALID_WITH_CLAUSE_TYPE, INVALID_WITH_TYPE_EXCEPTION};
+            return {INVALID_ATTR_TYPE, INVALID_WITH_TYPE_EXCEPTION};
         }
         std::string field = token.nameValue;
         if (field == "varName") {
@@ -817,7 +817,7 @@ namespace QPS {
         } else if (field == "stmt") {
             return {STMT_LINE_NUMBER, VALID};
         } else {
-            return {INVALID_WITH_CLAUSE_TYPE, INVALID_WITH_TYPE_EXCEPTION};
+            return {INVALID_ATTR_TYPE, INVALID_WITH_TYPE_EXCEPTION};
         }
     }
 
