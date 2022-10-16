@@ -169,6 +169,7 @@ void QueryManager::handleQuery(PKBInterface *pkb, std::string queryString, std::
             query.setStatus(VALID_QUERY);;
         }
     }
+    query.validate();
     QueryEvaluator::evaluate(&query); // Call QueryEvaluator to evaluate the query. Store the result in query.resultTable.
 
     QueryResultProjector* queryResultProjector = new QueryResultProjector();

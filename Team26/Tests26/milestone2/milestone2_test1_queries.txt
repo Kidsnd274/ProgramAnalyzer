@@ -589,7 +589,7 @@ Select p such that Calls(_,p)
 computeCentroid, readPoint, printResults
 5000
 116 - Call with procedure calling itself
-procedure p
+procedure p;
 Select p such that Calls(p, p)
 none
 5000
@@ -609,7 +609,7 @@ Select p such that Calls*(_,p)
 computeCentroid, readPoint, printResults
 5000
 120 - Call* with procedure calling itself
-procedure p
+procedure p；
 Select p such that Calls*(p, p)
 none
 5000
