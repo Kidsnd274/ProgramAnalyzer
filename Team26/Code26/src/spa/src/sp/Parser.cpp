@@ -112,6 +112,7 @@ std::shared_ptr<IfNode> Parser::parseIf(int stmtListNum) {
 
     tokenStack->checkAndUseNextToken(SPTokenType::LParenToken);
     std::shared_ptr<TNode> cond = std::move(parseCond());
+    this->pkbInterface->addConditionNode(currStatement, cond);
     tokenStack->checkAndUseNextToken(SPTokenType::RParenToken);
 
     tokenStack->checkAndUseNextToken(SPTokenType::ThenToken);
@@ -186,6 +187,7 @@ std::shared_ptr<WhileNode> Parser::parseWhile(int stmtListNum) {
 
     tokenStack->checkAndUseNextToken(SPTokenType::LParenToken);
     std::shared_ptr<TNode> cond = std::move(parseCond());
+    this->pkbInterface->addConditionNode(currStatement, cond);
     tokenStack->checkAndUseNextToken(SPTokenType::RParenToken);
     tokenStack->checkAndUseNextToken(SPTokenType::LCurlyToken);
     std::vector<std::shared_ptr<StatementNode>> statementList = parseStatementList();

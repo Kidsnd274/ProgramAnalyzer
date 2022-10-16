@@ -149,32 +149,7 @@ void RelationClauseEvaluator::evaluateAffectsT(QPS::ResultTable *resultTable) {
 
 };
 void RelationClauseEvaluator::evaluateFollows(QPS::ResultTable *resultTable) {
-    unordered_map<int, int> map = QPS_PKB_Interface::getAllFollowsRelations();
-    Argument arg1 = relationClause->getFirstArgument();
-    Argument arg2 = relationClause->getSecondArgument();
-    unordered_set<vector<string>, StringVectorHash> result;
-    for (auto relation: map) { //e.g. "p1" calls "p2, p3"
-        if (arg1.argumentType == Argument::NUMBER) {
-            if (relation.first != stoi(arg1.argumentName)) {
-                continue;
-            }
-        }
-        if (arg2.argumentType == Argument::NUMBER) {
-            if (relation.second != stoi(arg2.argumentName)) {
-                continue;
-            }
-        }
-        result.insert({to_string(relation.first), to_string(relation.second)});
-    }
-    if (!Argument::isSynonym(arg1.argumentType) && !Argument::isSynonym(arg2.argumentType)) {
-        if (result.size() == 0) {
-            resultTable->setFalseTable();
-        } else {
-            resultTable->setTrueTable();
-        }
-        return;
-    }
-    resultTable->replace(filterTable(&result));
+    filterRelations(QPS_PKB_Interface::getAllFollowsRelations(), resultTable);
 };
 
 bool isStatementTypeMatched(StatementType::StmtType stmtType, Argument::ArgumentType argumentType) {
@@ -283,7 +258,7 @@ void RelationClauseEvaluator::evaluateModifiesP(QPS::ResultTable *resultTable) {
 };
 
 void RelationClauseEvaluator::evaluateNext(QPS::ResultTable *resultTable) {
-
+    filterRelations(QPS_PKB_Interface::getAllNextRelations(), resultTable);
 };
 
 void RelationClauseEvaluator::evaluateNextT(QPS::ResultTable *resultTable) {
@@ -381,8 +356,7 @@ void RelationClauseEvaluator::filterRelations(unordered_map<int, vector<int>> ma
     resultTable->replace(filterTable(&result));
 }
 
-void
-RelationClauseEvaluator::filterRelations(unordered_map<int, vector<std::string>> map, QPS::ResultTable *resultTable) {
+void RelationClauseEvaluator::filterRelations(unordered_map<int, vector<std::string>> map, QPS::ResultTable *resultTable) {
     Argument arg1 = relationClause->getFirstArgument();
     Argument arg2 = relationClause->getSecondArgument();
     unordered_set<vector<string>, StringVectorHash> result;
@@ -403,6 +377,34 @@ RelationClauseEvaluator::filterRelations(unordered_map<int, vector<std::string>>
         for (auto s: relation.second) {
             result.insert({to_string(relation.first), s});
         }
+    }
+    if (!Argument::isSynonym(arg1.argumentType) && !Argument::isSynonym(arg2.argumentType)) {
+        if (result.size() == 0) {
+            resultTable->setFalseTable();
+        } else {
+            resultTable->setTrueTable();
+        }
+        return;
+    }
+    resultTable->replace(filterTable(&result));
+}
+
+void RelationClauseEvaluator::filterRelations(std::unordered_map<int, int> map, QPS::ResultTable *resultTable) {
+    Argument arg1 = relationClause->getFirstArgument();
+    Argument arg2 = relationClause->getSecondArgument();
+    unordered_set<vector<string>, StringVectorHash> result;
+    for (auto relation: map) { //e.g. "p1" calls "p2, p3"
+        if (arg1.argumentType == Argument::NUMBER) {
+            if (relation.first != stoi(arg1.argumentName)) {
+                continue;
+            }
+        }
+        if (arg2.argumentType == Argument::NUMBER) {
+            if (relation.second != stoi(arg2.argumentName)) {
+                continue;
+            }
+        }
+        result.insert({to_string(relation.first), to_string(relation.second)});
     }
     if (!Argument::isSynonym(arg1.argumentType) && !Argument::isSynonym(arg2.argumentType)) {
         if (result.size() == 0) {

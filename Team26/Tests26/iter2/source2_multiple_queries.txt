@@ -70,17 +70,17 @@ a, b, bA, bD, c, dA, dAAA, file, ifA, ifB, ifVar, k, n, procC, uniA, uniC, x, y,
 5000
 15 - syn Parent* while, call with proc name, pattern ifs
 procedure p; call c; while w; if ifs;
-Select p such that Calls("procB", p) and Parent*(w, c) with c.procName = p.procName pattern ifs("file",_)
+Select p such that Calls("procB", p) and Parent*(w, c) with c.procName = p.procName pattern ifs("file",_,_)
 
 5000
 15 - bool Parent* while, call with proc name, pattern ifs
 procedure p; call c; while w; if ifs;
-Select BOOLEAN such that Calls("procB", p) and Parent*(w, c) with c.procName = p.procName pattern ifs("file",_)
+Select BOOLEAN such that Calls("procB", p) and Parent*(w, c) with c.procName = p.procName pattern ifs("file",_,_)
 FALSE
 5000
 15 - tuple Parent* while, call with proc name, pattern ifs
 procedure p; call c; while w; if ifs;
-Select <p,ifs> such that Calls("procB", p) and Parent*(w, c) with c.procName = p.procName pattern ifs("file",_)
+Select <p,ifs> such that Calls("procB", p) and Parent*(w, c) with c.procName = p.procName pattern ifs("file",_,_)
 
 5000
 16 - pattern pattern Uses with
@@ -105,42 +105,42 @@ Select <s, c.procName> with cs.value = s.stmt# and c.procName = "procE" such tha
 5000
 19 - tuple Follows* pattern pattern with
 stmt s; if ifs; assign a; procedure p;
-Select <a, ifs, s> such that Follows*(s,24) pattern ifs("y",_) pattern a(_,_"b+c"_) with p.procName = "procC"
+Select <a, ifs, s> such that Follows*(s,24) pattern ifs("y",_,_) pattern a(_,_"b+c"_) with p.procName = "procC"
 17 4 1, 17 4 11, 17 4 17, 17 4 18, 17 4 19, 17 4 2, 17 4 20, 17 4 21, 17 4 22, 17 4 23, 17 4 3, 17 4 4, 17 4 7, 17 4 9, 17 48 1, 17 48 11, 17 48 17, 17 48 18, 17 48 19, 17 48 2, 17 48 20, 17 48 21, 17 48 22, 17 48 23, 17 48 3, 17 48 4, 17 48 7, 17 48 9, 19 4 1, 19 4 11, 19 4 17, 19 4 18, 19 4 19, 19 4 2, 19 4 20, 19 4 21, 19 4 22, 19 4 23, 19 4 3, 19 4 4, 19 4 7, 19 4 9, 19 48 1, 19 48 11, 19 48 17, 19 48 18, 19 48 19, 19 48 2, 19 48 20, 19 48 21, 19 48 22, 19 48 23, 19 48 3, 19 48 4, 19 48 7, 19 48 9, 20 4 1, 20 4 11, 20 4 17, 20 4 18, 20 4 19, 20 4 2, 20 4 20, 20 4 21, 20 4 22, 20 4 23, 20 4 3, 20 4 4, 20 4 7, 20 4 9, 20 48 1, 20 48 11, 20 48 17, 20 48 18, 20 48 19, 20 48 2, 20 48 20, 20 48 21, 20 48 22, 20 48 23, 20 48 3, 20 48 4, 20 48 7, 20 48 9, 21 4 1, 21 4 11, 21 4 17, 21 4 18, 21 4 19, 21 4 2, 21 4 20, 21 4 21, 21 4 22, 21 4 23, 21 4 3, 21 4 4, 21 4 7, 21 4 9, 21 48 1, 21 48 11, 21 48 17, 21 48 18, 21 48 19, 21 48 2, 21 48 20, 21 48 21, 21 48 22, 21 48 23, 21 48 3, 21 48 4, 21 48 7, 21 48 9, 23 4 1, 23 4 11, 23 4 17, 23 4 18, 23 4 19, 23 4 2, 23 4 20, 23 4 21, 23 4 22, 23 4 23, 23 4 3, 23 4 4, 23 4 7, 23 4 9, 23 48 1, 23 48 11, 23 48 17, 23 48 18, 23 48 19, 23 48 2, 23 48 20, 23 48 21, 23 48 22, 23 48 23, 23 48 3, 23 48 4, 23 48 7, 23 48 9
 5000
 20 - syn Follows* pattern pattern with
 stmt s; if ifs; assign a; procedure p;
-Select a such that Follows*(s,24) pattern ifs("y",_) pattern a(_,_"b+c"_) with p.procName = "procC"
+Select a such that Follows*(s,24) pattern ifs("y",_,_) pattern a(_,_"b+c"_) with p.procName = "procC"
 17, 19, 20, 21, 23
 5000
 21 - boolean Follows* pattern pattern with
 stmt s; if ifs; assign a; procedure p;
-Select BOOLEAN such that Follows*(s,24) pattern ifs("y",_) pattern a(_,_"b+c"_) with p.procName = "procC"
+Select BOOLEAN such that Follows*(s,24) pattern ifs("y",_,_) pattern a(_,_"b+c"_) with p.procName = "procC"
 TRUE
 5000
 22 - tuple Follows pattern pattern with
 stmt s; if ifs; assign a; procedure p;
-Select <a, ifs, s> such that Follows(s,24) pattern ifs("y",_) pattern a(_,_"b+c"_) with p.procName = "procC"
+Select <a, ifs, s> such that Follows(s,24) pattern ifs("y",_,_) pattern a(_,_"b+c"_) with p.procName = "procC"
 17 4 23, 17 48 23, 19 48 23, 20 4 23, 20 48 23, 21 4 23, 21 48 23, 23 4 23, 23 48 23, 19 4 23
 5000
 23 - syn Follows pattern pattern with
 stmt s; if ifs; assign a; procedure p;
-Select a such that Follows(s,24) pattern ifs("y",_) pattern a(_,_"b+c"_) with p.procName = "procC"
+Select a such that Follows(s,24) pattern ifs("y",_,_) pattern a(_,_"b+c"_) with p.procName = "procC"
 17, 19, 20, 21, 23
 5000
 24 - syn Follows pattern pattern with
 stmt s; if ifs; assign a; procedure p;
-Select BOOLEAN such that Follows(s,24) pattern ifs("y",_) pattern a(_,_"b+c"_) with p.procName = "procC"
+Select BOOLEAN such that Follows(s,24) pattern ifs("y",_,_) pattern a(_,_"b+c"_) with p.procName = "procC"
 TRUE
 5000
 25 - reordered
 stmt s; if ifs; assign a;
-Select <s, a, ifs> such that Follows*(s,24) pattern ifs("y",_) pattern a(_,_"b+c"_)
+Select <s, a, ifs> such that Follows*(s,24) pattern ifs("y",_,_) pattern a(_,_"b+c"_)
 1 17 4, 1 17 48, 1 19 4, 1 19 48, 1 20 4, 1 20 48, 1 21 4, 1 21 48, 1 23 4, 1 23 48, 11 17 4, 11 17 48, 11 19 4, 11 19 48, 11 20 4, 11 20 48, 11 21 4, 11 21 48, 11 23 4, 11 23 48, 17 17 4, 17 17 48, 17 19 4, 17 19 48, 17 20 4, 17 20 48, 17 21 4, 17 21 48, 17 23 4, 17 23 48, 18 17 4, 18 17 48, 18 19 4, 18 19 48, 18 20 4, 18 20 48, 18 21 4, 18 21 48, 18 23 4, 18 23 48, 19 17 4, 19 17 48, 19 19 4, 19 19 48, 19 20 4, 19 20 48, 19 21 4, 19 21 48, 19 23 4, 19 23 48, 2 17 4, 2 17 48, 2 19 4, 2 19 48, 2 20 4, 2 20 48, 2 21 4, 2 21 48, 2 23 4, 2 23 48, 20 17 4, 20 17 48, 20 19 4, 20 19 48, 20 20 4, 20 20 48, 20 21 4, 20 21 48, 20 23 4, 20 23 48, 21 17 4, 21 17 48, 21 19 4, 21 19 48, 21 20 4, 21 20 48, 21 21 4, 21 21 48, 21 23 4, 21 23 48, 22 17 4, 22 17 48, 22 19 4, 22 19 48, 22 20 4, 22 20 48, 22 21 4, 22 21 48, 22 23 4, 22 23 48, 23 17 4, 23 17 48, 23 19 4, 23 19 48, 23 20 4, 23 20 48, 23 21 4, 23 21 48, 23 23 4, 23 23 48, 3 17 4, 3 17 48, 3 19 4, 3 19 48, 3 20 4, 3 20 48, 3 21 4, 3 21 48, 3 23 4, 3 23 48, 4 17 4, 4 17 48, 4 19 4, 4 19 48, 4 20 4, 4 20 48, 4 21 4, 4 21 48, 4 23 4, 4 23 48, 7 17 4, 7 17 48, 7 19 4, 7 19 48, 7 20 4, 7 20 48, 7 21 4, 7 21 48, 7 23 4, 7 23 48, 9 17 4, 9 17 48, 9 19 4, 9 19 48, 9 20 4, 9 20 48, 9 21 4, 9 21 48, 9 23 4, 9 23 48
 5000
 26 - With Pattern Pattern
 if ifs1, ifs2; 
-Select <ifs2, ifs1> with ifs1.stmt# = 10 pattern ifs1("z", _) and ifs2("y", _)
+Select <ifs2, ifs1> with ifs1.stmt# = 10 pattern ifs1("z", _, _) and ifs2("y", _, _)
 
 5000
 61 - Multi Clause 2 Clause Follows Follows
@@ -226,12 +226,12 @@ TRUE
 77 - Multi Clause 2 Clause FollowsT UsesP
 stmt s; read r;
 Select s such that Follows*(r, s) such that Uses("main", "x")
-none
+
 5000
 78 - Multi Clause 2 Clause FollowsT ModifiesS
 procedure p; print pn;
 Select <p, pn> such that Follows*(34, pn) and Modifies(p, "x")
-none
+
 5000
 79 - Multi Clause 2 Clause FollowsT ModifiesP
 stmt s1, s2; procedure p1;
@@ -326,7 +326,7 @@ procA 11,procA 13,procA 26,procA 34,procA 4,procA 47,procA 48,procA 49,procA 52,
 97 - Multi Clause 2 Clause ParentT ModifiesS
 stmt s1, s2; read r;
 Select <s1, s2, r> such that Parent*(s2, r) and Modifies(s1, "f")
-none
+
 5000
 98 - Multi Clause 2 Clause ParentT ModifiesP
 stmt s; print p;
@@ -351,7 +351,7 @@ procB 29,procB 31,procB 37,procB 40,procB 64,procC 29,procC 31,procC 37,procC 40
 102 - Multi Clause 2 Clause ParentT CallsT
 procedure p; stmt s; assign a;
 Select <s, p> such that Parent(s, a) such that Calls*(p, "func3")
-none
+
 5000
 103 - Multi Clause 2 Clause UsesS UsesS
 variable v1, v2;
@@ -381,17 +381,17 @@ Select s2 such that Uses(s1, v) and Next(s1, s2)
 108 - Multi Clause 2 Clause UsesS NextT
 assign a; if ifs;
 Select <ifs, a> such that Uses(ifs, "c") such that Next(ifs, a)
-none
+
 5000
 109 - Multi Clause 2 Clause UsesS Calls
 procedure p; stmt s;
 Select <p, s> such that Uses(s, "i") and Calls("printer", p)
-none
+
 5000
 110 - Multi Clause 2 Clause UsesS CallsT
 procedure p1; variable v;
 Select <v, p1> such that Uses(39, v) and Calls*("printer", p1)
-none
+
 5000
 111 - Multi Clause 2 Clause UsesP UsesP
 procedure p1; variable v;
@@ -406,7 +406,7 @@ Select <r, p1> such that Uses(p1, v) and Modifies(r, v)
 113 - Multi Clause 2 Clause UsesP ModifiesP
 procedure p1, p2;
 Select <p1, p2> such that Uses(p1, "e") and Modifies(p2, "f")
-none
+
 5000
 114 - Multi Clause 2 Clause UsesP Next
 procedure p; stmt s;
@@ -421,27 +421,27 @@ FALSE
 116 - Multi Clause 2 Clause UsesP Calls
 procedure p1, p2;
 Select p1 such that Uses(p2, "e") and Calls(p1, p2)
-none
+
 5000
 117 - Multi Clause 2 Clause UsesP CallsT
 procedure p1, p2;
 Select <p1, p2> such that Uses(p2, "e") and Calls*(p1, p2)
-none
+
 5000
 118 - Multi Clause 2 Clause ModifiesS ModifiesS
 stmt s1; variable v;
 Select v such that Modifies(s1, v) and Modifies(s1, "f")
-none
+
 5000
 119 - Multi Clause 2 Clause ModifiesS ModifiesP
 stmt s1; variable v;
 Select <s1, v> such that Modifies(s1, v) and Modifies("printer", v)
-none
+
 5000
 120 - Multi Clause 2 Clause ModifiesS Next
 read r; assign a;
 Select <r, a> such that Modifies(r, "k") and Next(r, a)
-none
+
 5000
 121 - Multi Clause 2 Clause ModifiesS NextT
 if ifs; read r; variable v;
@@ -461,7 +461,7 @@ FALSE
 124 - Multi Clause 2 Clause ModifiesP ModifiesP
 procedure p1, p2;
 Select <p1, p2> such that Modifies(p1, "o") and Modifies(p2, "f")
-none
+
 5000
 125 - Multi Clause 2 Clause ModifiesP Next
 procedure p; if ifs; assign a;
@@ -471,17 +471,17 @@ ifA,ifInIf,procA,procB,procC,procD,withTest
 126 - Multi Clause 2 Clause ModifiesP NextT
 read r1, r2; variable v;
 Select <r1,v> such that Modifies("func3", v) such that Next*(r1, r2)
-none
+
 5000
 127 - Multi Clause 2 Clause ModifiesP Calls
 procedure p; variable v;
 Select <p, v> such that Modifies(p, v) and Calls("printer", p)
-none
+
 5000
 128 - Multi Clause 2 Clause ModifiesP CallsT
 procedure p; variable v;
 Select <p, v> such that Modifies(p, v) and Calls*("printer", p)
-none
+
 5000
 129 - Multi Clause 2 Clause Next Next
 stmt s1, s2; print pn;
@@ -496,7 +496,7 @@ Select s1 such that Next(s1, s2) and Next*(s2, pn)
 131 - Multi Clause 2 Clause Next Calls
 procedure p; while w; assign a;
 Select <p, w, a> such that Next(a, w) such that Calls("printer", p)
-none
+
 5000
 132 - Multi Clause 2 Clause Next CallsT
 if ifs; stmt s1;
@@ -511,12 +511,12 @@ Select c such that Next*(c, pn) and Next*(pn, ifs)
 134 - Multi Clause 2 Clause NextT Calls
 while w1, w2; procedure p;
 Select <w2, p> such that Next*(w1, w2) such that Calls("main", p)
-none
+
 5000
 135 - Multi Clause 2 Clause NextT Calls
 while w1, w2; procedure p;
 Select <w2, p> such that Next*(w1, w2) such that Calls*("main", p)
-none
+
 5000
 136 - Multi Clause 2 Clause Calls Calls
 procedure p1, p2, p3;
@@ -540,7 +540,7 @@ Select a2 pattern a1(v, _"z"_) and a2(v, _"y"_)
 5000
 140 - Multi Clause 2 Clause Pattern Assign If
 variable v; assign a; if ifs;
-Select <ifs, v> pattern a(v, _"c"_) and ifs(v,_)
+Select <ifs, v> pattern a(v, _"c"_) and ifs(v,_,_)
 13 a
 5000
 141 - Multi Clause 2 Clause Pattern Assign While
@@ -550,18 +550,18 @@ FALSE
 5000
 142 - Multi Clause 2 Clause Pattern If If
 print p; if ifs;
-Select <p, ifs> pattern ifs("z", _) and ifs("i", _)
+Select <p, ifs> pattern ifs("z", _, _) and ifs("i", _, _)
 none
 5000
 143 - Multi Clause 2 Clause Pattern If While
 if ifs; while w; variable v1, v2;
-Select <v1, v2> pattern ifs(v1, _) and w(v2, _)
+Select <v1, v2> pattern ifs(v1, _, _) and w(v2, _)
 a a,a a1,a b1,a bA,a bB,a bD,a dAAA,a file,a m,a p,a result,a x,a y,b a,b a1,b b1,b bA,b bB,b bD,b dAAA,b file,b m,b p,b result,b x,b y,bA a,bA a1,bA b1,bA bA,bA bB,bA bD,bA dAAA,bA file,bA m,bA p,bA result,bA x,bA y,bAAA a,bAAA a1,bAAA b1,bAAA bA,bAAA bB,bAAA bD,bAAA dAAA,bAAA file,bAAA m,bAAA p,bAAA result,bAAA x,bAAA y,bB a,bB a1,bB b1,bB bA,bB bB,bB bD,bB dAAA,bB file,bB m,bB p,bB result,bB x,bB y,bBBB a,bBBB a1,bBBB b1,bBBB bA,bBBB bB,bBBB bD,bBBB dAAA,bBBB file,bBBB m,bBBB p,bBBB result,bBBB x,bBBB y,bC a,bC a1,bC b1,bC bA,bC bB,bC bD,bC dAAA,bC file,bC m,bC p,bC result,bC x,bC y,bD a,bD a1,bD b1,bD bA,bD bB,bD bD,bD dAAA,bD file,bD m,bD p,bD result,bD x,bD y,ifA a,ifA a1,ifA b1,ifA bA,ifA bB,ifA bD,ifA dAAA,ifA file,ifA m,ifA p,ifA result,ifA x,ifA y,ifB a,ifB a1,ifB b1,ifB bA,ifB bB,ifB bD,ifB dAAA,ifB file,ifB m,ifB p,ifB result,ifB x,ifB y,ifC a,ifC a1,ifC b1,ifC bA,ifC bB,ifC bD,ifC dAAA,ifC file,ifC m,ifC p,ifC result,ifC x,ifC y,ifD a,ifD a1,ifD b1,ifD bA,ifD bB,ifD bD,ifD dAAA,ifD file,ifD m,ifD p,ifD result,ifD x,ifD y,ifVar a,ifVar a1,ifVar b1,ifVar bA,ifVar bB,ifVar bD,ifVar dAAA,ifVar file,ifVar m,ifVar p,ifVar result,ifVar x,ifVar y,ifVar2 a,ifVar2 a1,ifVar2 b1,ifVar2 bA,ifVar2 bB,ifVar2 bD,ifVar2 dAAA,ifVar2 file,ifVar2 m,ifVar2 p,ifVar2 result,ifVar2 x,ifVar2 y,ifVar3 a,ifVar3 a1,ifVar3 b1,ifVar3 bA,ifVar3 bB,ifVar3 bD,ifVar3 dAAA,ifVar3 file,ifVar3 m,ifVar3 p,ifVar3 result,ifVar3 x,ifVar3 y,max a,max a1,max b1,max bA,max bB,max bD,max dAAA,max file,max m,max p,max result,max x,max y,min a,min a1,min b1,min bA,min bB,min bD,min dAAA,min file,min m,min p,min result,min x,min y,r a,r a1,r b1,r bA,r bB,r bD,r dAAA,r file,r m,r p,r result,r x,r y,x a,x a1,x b1,x bA,x bB,x bD,x dAAA,x file,x m,x p,x result,x x,x y,y a,y a1,y b1,y bA,y bB,y bD,y dAAA,y file,y m,y p,y result,y x,y y,z a,z a1,z b1,z bA,z bB,z bD,z dAAA,z file,z m,z p,z result,z x,z y
 5000
 144 - Multi Clause 2 Clause Pattern While While
 while w1, w2;
 Select w2 pattern w1("x", _) and w2("k", _)
-none
+
 5000
 145 - Multi Clause 2 Clause With With
 stmt n1, n2;
@@ -571,7 +571,7 @@ TRUE
 146 - Multi Clause 2 Clause With With
 variable v; procedure p;
 Select p with v.varName = "d" and p.procName = "main"
-none
+
 5000
 147 - Multi Clause 2 Clause With With
 stmt s; constant c;
@@ -581,7 +581,7 @@ Select <s, c> with s.stmt# = c.value with 1 = 1
 148 - Multi Clause 2 Clause With With
 print p; read r; stmt n;
 Select <p, r, n> with p.stmt# = n.stmt# and r.stmt# = n.stmt
-none
+
 5000
 149 - Multi Clause 2 Clause Such that Pattern
 assign a1; variable v;
@@ -590,7 +590,7 @@ TRUE
 5000
 150 - Multi Clause 2 Clause Such that Pattern
 if ifs; procedure p; variable v;
-Select <ifs, p> pattern ifs(v, _) such that Uses(p, v)
+Select <ifs, p> pattern ifs(v, _, _) such that Uses(p, v)
 11 procA,13 procA,26 procA,26 procB,28 procA,28 procB,38 procA,38 procB,4 procA,4 procB,4 procC,47 procA,47 procB,47 procC,48 procA,48 procB,48 procC,69 ifInIf,72 ifInIf,74 ifInIf
 5000
 151 - Multi Clause 2 Clause Such that Pattern
@@ -601,12 +601,12 @@ Select <w, ifs> such that Next*(ifs, w) pattern w("y", _)
 152 - Multi Clause 2 Clause Such that Pattern
 stmt s1; assign a;
 Select <a, s1> pattern a("z", _) such that Follows(s1, a)
-none
+
 5000
 153 - Multi Clause 2 Clause Such that Pattern
 print pn; while w; procedure p;
 Select <p, w, pn> such that Calls(p, "func1") pattern w("j", _)
-none
+
 5000
 154 - Multi Clause 2 Clause Such that Pattern
 read r; assign a;
@@ -615,13 +615,13 @@ FALSE
 5000
 155 - Multi Clause 2 Clause Such that Pattern
 if ifs1, ifs2, ifs3;
-Select BOOLEAN such that Parent*(ifs1, ifs3) pattern ifs2(_,_)
+Select BOOLEAN such that Parent*(ifs1, ifs3) pattern ifs2(_, _, _)
 TRUE
 5000
 156 - Multi Clause 2 Clause Such that Pattern
 call c1, c2; assign a1;
 Select <c1, c2> pattern a1("z", _"x"_) such that Follows*(c1, c2)
-none
+
 5000
 157 - Multi Clause 2 Clause Such that Pattern
 procedure p1, p2; assign a1;
@@ -640,13 +640,13 @@ FALSE
 5000
 160 - Multi Clause 2 Clause Pattern With
 read r; if ifs;
-Select <r, ifs> with 5 = r.stmt# pattern ifs("j", _)
-none
+Select <r, ifs> with 5 = r.stmt# pattern ifs("j", _, _)
+
 5000
 161 - Multi Clause 2 Clause Pattern With
 while w; print pn; constant c;
 Select <c, pn, w> with pn.stmt# = 33 pattern w("j", _)
-none
+
 5000
 162 - Multi Clause 2 Clause Pattern With
 variable v1, v2; if ifs;
@@ -660,13 +660,13 @@ FALSE
 5000
 164 - Multi Clause 2 Clause Pattern With
 variable v1; if ifs; procedure p;
-Select <p, ifs> pattern ifs(v1, _) with p.procName = "func3"
-none
+Select <p, ifs> pattern ifs(v1, _, _) with p.procName = "func3"
+
 5000
 165 - Multi Clause 2 Clause Pattern With
 procedure p; while w;
 Select w with p.procName = "main" pattern w("j", _)
-none
+
 5000
 166 - Multi Clause 2 Clause With Such That
 stmt n; call c; 
@@ -676,7 +676,7 @@ Select c with c.stmt# = n.stmt# such that Next*(c, n)
 167 - Multi Clause 2 Clause With Such That
 read r1, r2; variable v;
 Select <r2, v> such that Modifies(r1, v) with r2.stmt# = 4
-none
+
 5000
 168 - Multi Clause 2 Clause With Such That
 if ifs; stmt s;
@@ -686,7 +686,7 @@ FALSE
 169 - Multi Clause 2 Clause With Such That
 variable v; procedure p;
 Select <v, p> such that Modifies(p, v) with v.varName = "d"
-none
+
 5000
 170 - Multi Clause 2 Clause With Such That
 stmt s; procedure p; constant c;
@@ -696,7 +696,7 @@ Select <s, c, p> with c.value = s.stmt# such that Parent*(s, _)
 171 - Multi Clause 2 Clause With Such That
 while w; stmt s1;
 Select w such that Parent*(w, s1) with s1.stmt# = 15
-none
+
 5000
 172 - Multi Clause 2 Clause With Such That
 assign a; 
@@ -706,7 +706,7 @@ FALSE
 173 - Multi Clause 2 Clause With Such That
 procedure p1, p2;
 Select <p1, p2> with p2.procName = "func1" such that Calls*(p2, p1)
-none
+
 5000
 174 - Multi Clause 2 Clause With Such That
 stmt s1, s2; constant c;
@@ -716,12 +716,12 @@ Select s1 such that Next(s1, s2) with s1.stmt# = c.value
 175 - Multi Clause 2 Clause With Such That
 variable v; procedure p;
 Select p with "o" = v.varName such that Modifies(p, v)
-none
+
 5000
 176 - Multi Clause 2 Clause With Such That
 call c; read r;
 Select <c, r> such that Follows*(r, c) with r.stmt# = 41
-none
+
 5000
 177 - Multi Clause 2 Clause With Such That
 while w; assign a; if ifs;
@@ -731,22 +731,22 @@ Select <w, a, ifs> such that Next*(ifs, w) with a.stmt# = 51
 178 - Multi Clause 2 Clause With Such That
 call c; print pn;
 Select pn with c.procName = "func2" such that Next*(pn, c)
-none
+
 5000
 179 - Multi Clause 2 Clause With Such That
 read r; stmt s;
 Select <r, s> with r.varName = "e" such that Parent*(s, r)
-none
+
 5000
 180 - Multi Clause 2 Clause With Such That
 print pn; stmt s;
 Select <pn, s> such that Parent(s, pn) with pn.varName = "k"
-none
+
 5000
 181 - Multi Clause 3 or More Clauses Modifies Pattern With
 procedure p; read r; assign a; variable v;
 Select <r, v> such that Modifies(r, v) pattern a(v, _"j"_) with r.varName = "j"
-none
+
 5000
 182 - Multi Clause 3 or More Clauses CallsT Parent with
 procedure p; call c; stmt s1;
@@ -756,7 +756,7 @@ procD 29 28,procD 37 34
 183 - Multi Clause 3 or More Clauses Follows With Modifies
 print pn; assign a; variable v; read r;
 Select <r, a> such that Follows(a, pn) with pn.varName = v.varName such that Modifies(a, v)
-none
+
 5000
 184 - Multi Clause 3 or More Clauses Calls Uses Calls
 procedure p1, p2, p3; variable v;
@@ -771,7 +771,7 @@ Select s1 such that Follows(s2, s1) and Next*(s1, s3) and Parent*(s3, _)
 186 - Multi Clause 3 or More Clauses Uses With Pattern
 stmt s1, s2; assign a;
 Select <s2, a> such that Uses(s1, _) with s2.stmt# = 23 pattern a("j", _)
-none
+
 5000
 187 - Multi Clause 3 or More Clauses Pattern With ParentT
 if ifs1, ifs2; stmt s;
@@ -796,7 +796,7 @@ procA EEEEE,procA bA,procA bAAA,procA bB,procA bBBB,procA bC,procA bD,procA cA,p
 191 - Multi Clause 3 or More Clauses Pattern Follows FollowsT
 assign a1, a2, a3;
 Select a3 pattern a1 ("e", _) such that Follows(a1, a2) and Follows(a2, a3)
-none
+
 5000
 192 - Multi Clause 3 or More Clauses CallsT Modifies NextT
 call c1, c2; variable v;
@@ -806,16 +806,16 @@ FALSE
 193 - Multi Clause 3 or More Clauses Uses Follows Pattern
 print pn1, pn2; stmt s; assign a;
 Select <a, s, pn2> such that Uses(pn1, "y") and Follows(s, pn2) pattern a ("z",_)
-none
+
 5000
 194 - Multi Clause 3 or More Clauses Modifies Uses with
 procedure p; variable v; stmt s1, s2;
 Select <v, p> such that Modifies(p, v) and Uses(s1, v) with s1.stmt# = 10
-none
+
 5000
 195 - Multi Clause 3 or More Clauses Pattern Uses Parent
 variable v1, v2; assign a; if ifs;
-Select v1 pattern ifs(v1, _) such that Uses(a, v1) and Parent(ifs, a)
+Select v1 pattern ifs(v1, _, _) such that Uses(a, v1) and Parent(ifs, a)
 a,ifVar3,x
 5000
 196 - Multi Clause 3 or More Clauses With Uses Pattern
@@ -825,7 +825,7 @@ Select <w, v> with v.varName = "x" such that Uses(p, v) pattern w(v, _)
 5000
 197 - Multi Clause 3 or More Clauses Pattern Pattern ParentT
 while w; if ifs; assign a;
-Select BOOLEAN pattern ifs("x", _) and w("y", _) such that Parent*(ifs, a)
+Select BOOLEAN pattern ifs("x", _, _) and w("y", _) such that Parent*(ifs, a)
 TRUE
 5000
 198 - Multi Clause 3 or More Clauses Modifies Next With
@@ -836,12 +836,12 @@ EEEEE 3,a 3,a1 3,ab 3,abc 3,ai 3,b 3,b1 3,bA 3,bAAA 3,bB 3,bBBB 3,bC 3,bD 3,c 3,
 199 - Multi Clause 3 or More Clauses Parent Parent Pattern
 while w1; if ifs; variable v1;
 Select w1 such that Parent(w1, ifs) such that Parent(ifs, 13) pattern w1 ("x", _)
-none
+
 5000
 200 - Multi Clause 3 or More Clauses With Uses Follows
 stmt s; print pn; variable v;
 Select <s, v> with 70 = pn.stmt# such that Uses(s, v) such that Follows(s, pn)
-none
+
 5000
 201 - Multi Clause 3 or More Clauses NextT Pattern Pattern
 if ifs1, ifs2; read r;
@@ -851,42 +851,42 @@ Select <ifs2, ifs1, r> such that Next*(r, ifs1) pattern ifs1("z", _, _) and ifs2
 202 - Multi Clause 3 or More Clauses With With Pattern
 assign a; constant c; variable v;
 Select <a, c> with a.stmt# = c.value with v.varName = "d" pattern a(v, _"d"_)
-none
+
 5000
 203 - Multi Clause 3 or More Clauses CallsT Pattern With
 procedure p1, p2; if ifs;
-Select <ifs, p2> such that Calls*(p1, p2) pattern ifs("z",_) with p1.procName = "func1"
-none
+Select <ifs, p2> such that Calls*(p1, p2) pattern ifs("z",_,_) with p1.procName = "func1"
+
 5000
 204 - Multi Clause 3 or More Clauses Pattern Pattern Modifies
 while w; if ifs; variable v;
-Select <w, ifs, v> pattern w ("j", _) and ifs (_,_) such that Modifies(w, v)
-none
+Select <w, ifs, v> pattern w ("j", _) and ifs (_,_,_) such that Modifies(w, v)
+
 5000
 205 - Multi Clause 3 or More Clauses Modifies With Uses
 procedure p1, p2; print pn;
 Select <p1, pn> such that Modifies(p1, "e") with p2.procName = "main" such that Uses(pn, "x")
-none
+
 5000
 206 - Multi Clause 3 or More Clauses Pattern Next Parent
 assign a; if ifs; stmt s1, s2;
-Select <s1, a, ifs> pattern ifs("j", _) such that Next(ifs, a) and Parent(s1, s2)
-none
+Select <s1, a, ifs> pattern ifs("j", _, _) such that Next(ifs, a) and Parent(s1, s2)
+
 5000
 207 - Multi Clause 3 or More Clauses Pattern Pattern Pattern
 assign a1, a2, a3;
 Select <a1, a2> pattern a1("d", _) and a2("k", _"k"_) and a3(_, "e")
-none
+
 5000
 208 - Multi Clause 3 or More Clauses Next Calls FollowsT
 stmt s; procedure p; call c;
 Select c such that Next(s, c) such that Calls(p, "func3") and Follows*(s, c)
-none
+
 5000
 209 - Multi Clause 3 or More Clauses With ParentT Pattern
 constant c; while w1, w2;
 Select w1 with w1.stmt# = c.value such that Parent*(w1, w2) pattern w2("i", _)
-none
+
 5000
 210 - Multi Clause 3 or More Clauses Uses Calls Modifies
 variable v; procedure p1, p2;
@@ -900,8 +900,8 @@ Select <c, p3, pn> such that Calls(p1, p2) and Calls*(p2, p3) and Next*(c, pn)
 5000
 212 - Multi Clause 3 or More Clauses Pattern ParentT With
 if ifs1, ifs2; stmt s;
-Select <s, ifs2> pattern ifs1("y",_) such that Parent*(ifs1, ifs2) with ifs2.stmt# = s.stmt#
-none
+Select <s, ifs2> pattern ifs1("y",_,_) such that Parent*(ifs1, ifs2) with ifs2.stmt# = s.stmt#
+
 5000
 213 - Multi Clause 3 or More Clauses With Modifies With
 variable v1, v2; procedure p;
@@ -915,8 +915,8 @@ Select <n1, n3> with n3.stmt# = 20 and n1.stmt# = n2.stmt# such that Next*(n1, n
 5000
 215 - Multi Clause 3 or More Clauses Parent With Pattern Uses
 if ifs; while w; variable v1, v2;
-Select w such that Parent(w, ifs) with v2.varName = "z" pattern ifs(v2, _) such that Uses(w, v1)
-none
+Select w such that Parent(w, ifs) with v2.varName = "z" pattern ifs(v2, _, _) such that Uses(w, v1)
+
 5000
 216 - Multi Clause 3 or More Clauses With With FollowsT Modifies
 constant c1, c2; stmt s1, s2; variable v;
@@ -926,22 +926,22 @@ FALSE
 217 - Multi Clause 3 or More Clauses Parent Modifies Uses ParentT
 stmt s1, s2, s3; variable v;
 Select <s2, v, s3> such that Parent(s1, s2) and Modifies(s2, "i") and Uses(s3, "y") and Parent*(s2, s3)
-none
+
 5000
 218 - Multi Clause 3 or More Clauses With Follows Pattern Pattern
 assign a1, a2; stmt s1, s2;
 Select <s1, a1> with s1.stmt# = a2.stmt# such that Follows(s1, a1) pattern a1(_, _) and a2 ("y", _"y"_)
-none
+
 5000
 219 - Multi Clause 3 or More Clauses Pattern Next Follows Modifies
 variable v1; stmt s1, s2; constant c; assign a;
 Select <v1, s2> pattern a(v1, _"x"_) such that Next(a, s1) and Follows(s1, s2) and Modifies(s2, v1)
-none
+
 5000
 220 - Multi Clause 3 or More Clauses Parent With Pattern With
 if ifs; constant c; stmt s,s2;
-Select <ifs, c, s> such that Parent(ifs, s) with s.stmt# = s2.stmt# pattern ifs ("d", _) with c.value = 10
-none
+Select <ifs, c, s> such that Parent(ifs, s) with s.stmt# = s2.stmt# pattern ifs ("d", _, _) with c.value = 10
+
 5000
 221 - Multi Clause 3 or More Clauses Follows FollowsT Next NextT
 call c; read r; print pn; assign a;
@@ -950,28 +950,28 @@ FALSE
 5000
 222 - Multi Clause 3 or More Clauses Pattern Pattern Modifies With
 procedure p1, p2; while w; if ifs; variable v;
-Select <p1, ifs> pattern ifs("j", _) pattern w(v, _) such that Modifies(p1, v) with p1.procName = p2.procName
-none
+Select <p1, ifs> pattern ifs("j", _, _) pattern w(v, _) such that Modifies(p1, v) with p1.procName = p2.procName
+
 5000
 223 - Multi Clause 3 or More Clauses ParentT Modifies Parent Uses
 stmt s1, s2; variable v1, v2;
 Select <s1, v2> such that Parent*(s1, s2) and Modifies(s2, v2) and Parent(s2, 52) and Uses(s1, v1)
-none
+
 5000
 224 - Multi Clause 3 or More Clauses FollowsT With With Pattern
 stmt s1, s2; constant c; assign a;
 Select <s2, a> such that Follows*(s1, a) with s2.stmt# = c.value and a.stmt# = c.value pattern a ("y", _)
-none
+
 5000
 225 - Multi Clause 3 or More Clauses Pattern Pattern Pattern Pattern
 while w1, w2; if ifs1, ifs2;
-Select ifs1 pattern w1("i", _) and w2("j", _) and ifs1("z",_) and ifs2("y",_)
-none
+Select ifs1 pattern w1("i", _) and w2("j", _) and ifs1("z",_,_) and ifs2("y",_,_)
+
 5000
 226 - Multi Clause 3 or More Clauses With Next CallsT ParentT
 procedure p; stmt s1, s2; constant c; while w;
 Select <s1, p, s2, c> with s1.stmt# = c.value such that Next(s1, s2) and Calls(p, "func1") and Parent*(w, s2)
-none
+
 5000
 227 - Multi Clause 3 or More Clauses Modifies Uses Modifies Pattern
 procedure p; stmt s1, s2; variable v; assign a;
@@ -985,8 +985,8 @@ none
 5000
 229 - Multi Clause 3 or More Clauses Next Pattern Pattern Uses
 print pn; stmt s; if ifs; variable v;
-Select <s, v, ifs> such that Next(s, pn) pattern ifs(v, _) pattern ifs("x",_) such that Uses(pn, v)
-none
+Select <s, v, ifs> such that Next(s, pn) pattern ifs(v, _,_) pattern ifs("x",_,_) such that Uses(pn, v)
+
 5000
 230 - Multi Clause 3 or More Clauses Follows With With FollowsT
 stmt s1, s2; constant c;
@@ -1001,27 +1001,27 @@ y
 232 - Multi Clause 3 or More Clauses With NextT Modifies Pattern
 stmt s; read r; variable v; assign a;
 Select <r, a, v> with r.varName = "e" such that Next*(s, r) and Modifies(s, v) pattern a(v, _)
-none
+
 5000
 233 - Multi Clause 3 or More Clauses Uses With Pattern With
 print pn; assign a; while w; variable v;
 Select <pn, a, w, v> such that Uses(w, v) with pn.varName = v.varName pattern a(v, _) with w.stmt# = 49
-none
+
 5000
 234 - Multi Clause 3 or More Clauses Calls Pattern With Uses
 call c; procedure p; if ifs; variable v; print pn;
-Select <c, p, pn, v> such that Calls(p, _) pattern ifs(v,_) with c.procName = p.procName such that Uses(pn , v)
+Select <c, p, pn, v> such that Calls(p, _) pattern ifs(v,_,_) with c.procName = p.procName such that Uses(pn , v)
 29 procD 2 b,29 procD 25 bA,29 procD 42 bD,29 procD 43 bD,3 procB 2 b,3 procB 25 bA,3 procB 42 bD,3 procB 43 bD,37 procD 2 b,37 procD 25 bA,37 procD 42 bD,37 procD 43 bD
 5000
 235 - Multi Clause 3 or More Clauses With FollowsT Modifies ParentT
 read r; stmt s1, s2; variable v;
 Select <r, s2, v, s1> with r.varName = v.varName such that Follows*(s1, r) and Modifies(s1, v) and Parent*(s2, s1)
-none
+
 5000
 236 - Multi Clause 3 or More Clauses Modifies NextT Pattern With Pattern
 variable v1, v2; stmt s1, s2; if ifs; constant c;
-Select <c, ifs> such that Modifies(ifs, v1) and Next*(s1, ifs) pattern ifs("y",_) with c.value = s2.stmt# pattern ifs("z",_)
-none
+Select <c, ifs> such that Modifies(ifs, v1) and Next*(s1, ifs) pattern ifs("y",_,_) with c.value = s2.stmt# pattern ifs("z",_,_)
+
 5000
 237 - Multi Clause 3 or More Clauses FollowsT ParentT With CallsT Uses
 stmt s1, s2, s3; procedure p1, p2; variable v;
@@ -1035,53 +1035,53 @@ ifA 54 x,ifA 56 x,procA 20 a,procA 24 a,procA 54 x,procA 56 x,procA 58 y,procB 5
 5000
 239 - Multi Clause 3 or More Clauses Next Parent Pattern With Pattern
 stmt s1, s2; if ifs; while w; variable v;
-Select <ifs, v> such that Next(s1, ifs) and Parent(s2, ifs) pattern w("j", _) with v.varName = "i" pattern ifs("z",_)
-none
+Select <ifs, v> such that Next(s1, ifs) and Parent(s2, ifs) pattern w("j", _) with v.varName = "i" pattern ifs("z",_,_)
+
 5000
 240 - Multi Clause 3 or More Clauses Pattern With Uses With With
 stmt n1, n2; variable v1, v2; assign a;
 Select <n1, v2, a> pattern a(_, _"y"_) with v1.varName = "i" such that Uses(n1, v2) with n1.stmt# = n2.stmt# and n2.stmt# = a.stmt#
-none
+
 5000
 241 - Multi Clause 3 or More Clauses ParentT Uses ParentT Pattern With
 stmt s1, s2; if ifs; assign a; variable v;
-Select <s1, s2, ifs, a, v> such that Parent*(s1, a) and Uses(ifs, v) and Parent*(ifs, s1) pattern ifs(v,_) with s2.stmt# = 10
+Select <s1, s2, ifs, a, v> such that Parent*(s1, a) and Uses(ifs, v) and Parent*(ifs, s1) pattern ifs(v, _,_) with s2.stmt# = 10
 13 10 11 14 ifVar,13 10 11 14 ifVar2,13 10 11 14 ifVar3,34 10 26 35 bA,34 10 26 36 bA,48 10 47 50 x,48 10 47 51 x,49 10 47 50 x,49 10 48 50 y,52 10 47 53 x,55 10 47 56 x,55 10 47 58 x,57 10 47 58 x,72 10 69 73 ifA,72 10 69 73 ifB,72 10 69 75 ifA,72 10 69 75 ifB,72 10 69 76 ifA,72 10 69 76 ifB,72 10 69 77 ifA,72 10 69 77 ifB,74 10 69 75 ifA,74 10 69 75 ifB,74 10 69 76 ifA,74 10 69 76 ifB,74 10 72 75 ifA,74 10 72 75 ifC,74 10 72 76 ifA,74 10 72 76 ifC
 5000
 242 - Multi Clause 3 or More Clauses Calls CallsT Uses With Modifies
 procedure p1, p2; variable v1, v2;
 Select <p1,v1,p2,v2> such that Calls(p1, "func3") and Calls*(p2, p1) and Uses(p1, v1) with v2.varName = "i" such that Modifies(p2, v2)
-none
+
 5000
 243 - Multi Clause 3 or More Clauses With With Pattern FollowsT NextT Calls
 constant c; assign a; stmt s1, s2; procedure p; variable v;
 Select <c, v> with c.value = s1.stmt# and a.stmt# = s2.stmt# pattern a(v, _"z"_) such that Follows*(_, s2) and Next*(s1, s2) and Calls("func1", "func2")
-none
+
 5000
 244 - Multi Clause 3 or More Clauses Follows Pattern With FollowsT Pattern Modifies
 stmt s1, s2; print pn; while w; variable v;
 Select <pn, v, s2, w> such that Follows(s1, pn) pattern w(v, _) with s2.stmt# = 10 such that Follows*(_, s2) pattern w("k", _) such that Modifies(w, v)
-none
+
 5000
 245 - Multi Clause 3 or More Clauses Pattern With Pattern Parent Modifies Next
 if ifs1, ifs2; while w; variable v1, v2;
-Select BOOLEAN pattern ifs1(v1,_) with ifs1.stmt# = ifs2.stmt# pattern w(v2,_) such that Parent(ifs2, w) such that Modifies(ifs1, v1) and Next(1, 2)
+Select BOOLEAN pattern ifs1(v1,_,_) with ifs1.stmt# = ifs2.stmt# pattern w(v2,_) such that Parent(ifs2, w) such that Modifies(ifs1, v1) and Next(1, 2)
 TRUE
 5000
 246 - Multi Clause 3 or More Clauses Follows Follows Uses With With Uses
 call c1, c2; print pn1, pn2; read r;
 Select <c1, r, pn2, c2> such that Follows(_, c1) and Follows(pn1, pn2) and Uses(pn1, "c") with r.stmt# = 4 and c2.stmt# = 40 such that Uses(c2, _)
-none
+
 5000
 247 - Multi Clause 3 or More Clauses Next CallsT With Pattern Pattern Modifies
 stmt s1, s2; while w; assign a; constant c;
 Select <w, a, c> such that Next(s1, s2) and Calls*("main", "func3") with c.value = s1.stmt# pattern w(_, _) and a("k", _"a"_) such that Modifies (w, "i")
-none
+
 5000
 248 - Multi Clause 3 or More Clauses With Pattern ParentT Modifies CallsT NextT
 procedure p1, p2; variable v1, v2; stmt s1, s2; if ifs;
-Select <p1, ifs> with p1.procName = "func1" pattern ifs(v1, _) such that Parent*(ifs, s1) and Modifies(s1, v1) and Calls(p2, p1) and Next*(s2, s1)
-none
+Select <p1, ifs> with p1.procName = "func1" pattern ifs(v1, _, _) such that Parent*(ifs, s1) and Modifies(s1, v1) and Calls(p2, p1) and Next*(s2, s1)
+
 5000
 249 - Multi Clause 3 or More Clauses FollowsT Pattern ParentT CallsT ParentT Uses
 procedure p; variable v1, v2; while w1, w2; stmt s;
@@ -1091,30 +1091,30 @@ procB 41 EEEEE,procB 41 bA,procB 41 bAAA,procB 41 bB,procB 41 bBBB,procB 41 bC,p
 250 - Multi Clause 3 or More Clauses Pattern Pattern With With Modifies Modifies
 assign a1, a2; variable v1, v2; constant c;
 Select <a1, v1, c> pattern a1(v1, _"a"_) and a2(v2, _"b"_) with c.value = 10 and v2.varName = "c" such that Modifies(a1, _) and Modifies(a2, v1)
-none
+
 5000
 251 - Multi Clause 3 or More Clauses With Parent Next Follows Pattern Pattern
 stmt n; stmt s1, s2; if ifs; assign a;
-Select <s1, ifs, a, n> with n.stmt# = 10 such that Parent(s2, s1) and Next(_, a) and Follows(a, _) pattern ifs("d",_) and a("x", "z")
-none
+Select <s1, ifs, a, n> with n.stmt# = 10 such that Parent(s2, s1) and Next(_, a) and Follows(a, _) pattern ifs("d",_,_) and a("x", "z")
+
 5000
 252 - Multi Clause 3 or More Clauses Modifies CallsT Pattern With NextT Uses
 procedure p1, p2; call c; print pn; while w; variable v1;
 Select <pn, c> such that Modifies(c, v1) and Calls*(p1, p2) pattern w("j",_) with p1.procName = "func1" such that Next*(pn, c) and Uses(p2, v1)
-none
+
 5000
 253 - Multi Clause 3 or More Clauses ParentT Modifies Pattern Pattern Modifies With
 constant c; if ifs1, ifs2; procedure p; variable v;
-Select <p, ifs2, v> such that Parent*(ifs1, ifs2) and Modifies(ifs2, v) pattern ifs1(v, _) and ifs2(_, _) such that Modifies(p, v) with p.procName = "main"
-none
+Select <p, ifs2, v> such that Parent*(ifs1, ifs2) and Modifies(ifs2, v) pattern ifs1(v, _, _) and ifs2(_, _, _) such that Modifies(p, v) with p.procName = "main"
+
 5000
 254 - Multi Clause 3 or More Clauses With Parent With Pattern With Modifies ParentT
 read r; print pn; stmt s; variable v1, v2; if ifs; procedure p; call c;
-Select <r, pn, s, v1, v2, ifs, p> with r.varName = v1.varName such that Parent(s, pn) with p.procName = c.procName pattern ifs(v1,_) with pn.stmt# = 53 such that Modifies(p, v2) and Parent*(ifs, pn)
-none
+Select <r, pn, s, v1, v2, ifs, p> with r.varName = v1.varName such that Parent(s, pn) with p.procName = c.procName pattern ifs(v1,_,_) with pn.stmt# = 53 such that Modifies(p, v2) and Parent*(ifs, pn)
+
 5000
 255 - Multi Clause 3 or More Clauses Next Pattern With Parent Pattern With NextT With FollowsT With Uses Calls
 stmt s1, s2; assign a; call c; if ifs; while w; variable v1, v2; procedure p; print pn; read r;
 Select <p, v1, v2, s1, s2, a, c, ifs, w, r, pn> such that Next(s1, s2) pattern a(v1, _"c"_) with v1.varName = pn.varName such that Parent(ifs, a) pattern w(v2,  _) with v2.varName = r.varName such that Next*(w, c) with c.procName = p.procName such that Follows*(pn, _) with s2.stmt# = c.stmt# such that Uses(p, v1) and Calls(p, _)
-none
+
 5000

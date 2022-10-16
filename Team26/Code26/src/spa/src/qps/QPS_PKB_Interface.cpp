@@ -56,9 +56,8 @@ std::vector<pair<int, int>> QPS_PKB_Interface::getAllAffectsProcRelations() {
     return {};
 }
 
-std::vector<pair<int, int>> QPS_PKB_Interface::getAllNextRelations() {
-//    return QPS_PKB_Interface::pkbInterface->getAllNext();
-    return {};
+std::unordered_map<int, std::vector<int>> QPS_PKB_Interface::getAllNextRelations() {
+    return QPS_PKB_Interface::pkbInterface->getAllNext();
 }
 
 std::vector<pair<int, int>> QPS_PKB_Interface::getAllNextProcRelations() {
@@ -118,6 +117,10 @@ std::string QPS_PKB_Interface::getReadVarName(std::string readLineNumber) {
 
 std::string QPS_PKB_Interface::getPrintVarName(std::string printLineNumber) {
     return pkbInterface->getPrintVarName(printLineNumber);
+}
+
+std::string QPS_PKB_Interface::getConditionVarNameByStmtNum(std::string containerLineNumber) {
+    return pkbInterface->getConditionVar(containerLineNumber);
 }
 
 std::string QPS_PKB_Interface::getAttrName(std::string value, WithClause::WithClauseArgument candidate) {

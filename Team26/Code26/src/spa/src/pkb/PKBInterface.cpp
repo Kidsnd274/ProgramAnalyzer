@@ -26,6 +26,8 @@
 #include "FollowsStarTable.h"
 #include "CallTable.h"
 #include "CallStarTable.h"
+#include "ContainerTable.h"
+#include "ProcedureNotFoundException.h"
 
 using namespace std;
 //using namespace StatementType;
@@ -37,6 +39,14 @@ void PKBInterface::addProcedure(std::string name, int startingStmtNo, int ending
     proc.endingStmtNo = endingStmtNo;
     proc.cfg = std::move(cfg);
     pkb->procedureTable->insertProc(proc);
+
+    // insert stmts into NextTable
+    for (int i = startingStmtNo; i <= endingStmtNo; i++) {
+        EDGES edges = proc.cfg->getEdges(i);
+        for (auto node : edges) {
+            pkb->nextTable->insertNext(i, node.getStmtNumber());
+        }
+    }
 }
 
 void PKBInterface::addVariable(string name) {
@@ -149,6 +159,16 @@ shared_ptr<AssignNode> PKBInterface::getAssignTNode(const string& assignRef) {
     return AssignNode::createAssignNode(assignStmtNo, varName, tNode);
 }
 
+string PKBInterface::getConditionVar(const std::string &containerRef) {
+    int containerStmtNo = stoi(containerRef);
+    std::shared_ptr<TNode> node = pkb->containerTable->getConditionByStmtNumber(containerStmtNo);
+    return pkb->containerTable->getVarName(node);
+}
+
+void PKBInterface::addConditionNode(int statementNumber, shared_ptr<TNode> conditionNode) {
+    this->pkb->containerTable->insertCondition(statementNumber, conditionNode);
+}
+
 std::unordered_set<std::string> PKBInterface::getAllVariablesModified(std::string procedureName) {
     std::vector<std::string> varsModified = pkb->modifiesTable->getAllModifiedVarByProc(procedureName);
     std::unordered_set<string> result;
@@ -203,6 +223,10 @@ unordered_map<int,int> PKBInterface::getAllFollow() {
 
 unordered_map<int,int> PKBInterface::getAllFollowStar() {
     return pkb->followsStarTable->getAllFollowStars();
+}
+
+unordered_map<int, vector<int>> PKBInterface::getAllNext() {
+    return pkb->nextTable->getAllNext();
 }
 
 unordered_map<int, std::vector<std::string>> PKBInterface::getAllModifyByStmt() {
@@ -334,4 +358,14 @@ void PKBInterface::addCallToUsesAndModifies() {
         }
     }
     this->isCallAdded = true;
+}
+
+CFGHeadPtr PKBInterface::getCfgOfProcedure(std::string procedureName) {
+    for (Procedure currentProcedure:pkb->procedureTable->getProcList()) {
+        if (currentProcedure.name == procedureName) {
+            return currentProcedure.cfg;
+        }
+    }
+    throw ProcedureNotFoundException();
+    return nullptr;
 }

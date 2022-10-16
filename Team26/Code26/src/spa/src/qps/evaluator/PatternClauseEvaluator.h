@@ -9,6 +9,7 @@ private:
     PatternClause* patternClause;
 public:
     void evaluate(ResultTable* resultTable);
+    void evaluateContainer(ResultTable* resultTable);
 
     WildcardPosition getWildcardPosition();
 
