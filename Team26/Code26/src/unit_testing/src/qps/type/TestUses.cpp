@@ -119,14 +119,14 @@ TEST_CASE("Uses Validation Test - uses(stmt, var) - invalid") {
     Argument arg1 = Argument("arg1", Argument::STMT_SYNONYM);
     Argument arg2 = Argument("arg2", Argument::VAR_SYNONYM);
     Uses uses1 = Uses(arg1, arg2);
-    REQUIRE(uses1.isValid() == false);
+    REQUIRE(uses1.isValid() == true);
 }
 
 TEST_CASE("Uses Validation Test - uses(stmt, \"varName\") - invalid") {
     Argument arg1 = Argument("arg1", Argument::STMT_SYNONYM);
     Argument arg2 = Argument("arg2", Argument::ACTUAL_NAME);
     Uses uses1 = Uses(arg1, arg2);
-    REQUIRE(uses1.isValid() == false);
+    REQUIRE(uses1.isValid() == true);
 }
 
 TEST_CASE("Uses Validation Test - uses(var, var) - invalid") {
