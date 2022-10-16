@@ -42,12 +42,17 @@ void PKBInterface::addProcedure(std::string name, int startingStmtNo, int ending
 
     // insert stmts into NextTable
     for (int i = startingStmtNo; i <= endingStmtNo; i++) {
-        EDGES edges = proc.cfg->getEdges(i);
-        for (auto node : edges) {
-            if (i == node.getStmtNumber()) {
-                continue;
+//        EDGES edges = proc.cfg->getEdges(i);
+//        for (auto node : edges) {
+//            if (i == node.getStmtNumber()) {
+//                continue;
+//            }
+//            pkb->nextTable->insertNext(i, node.getStmtNumber());
+//        }
+        for (int j = startingStmtNo; j <= endingStmtNo; j++) {
+            if (proc.cfg->isNext(i, j)) {
+                pkb->nextTable->insertNext(i, j);
             }
-            pkb->nextTable->insertNext(i, node.getStmtNumber());
         }
     }
 }

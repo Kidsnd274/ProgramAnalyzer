@@ -324,6 +324,7 @@ void RelationClauseEvaluator::filterRelations(unordered_map<std::string, vector<
 }
 
 void RelationClauseEvaluator::filterRelations(unordered_map<int, vector<int>> map, QPS::ResultTable *resultTable) {
+    unordered_map<int, vector<int>> temp = map;
     Argument arg1 = relationClause->getFirstArgument();
     Argument arg2 = relationClause->getSecondArgument();
     unordered_set<vector<string>, StringVectorHash> result;
