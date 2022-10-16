@@ -578,7 +578,7 @@ namespace QPS {
             } else if (curr.tokenType == QPS::COMMA && !is_boolean_select && is_multiple_select){
                 pos++;
             } else if (curr.tokenType == QPS::NAME && (curr.nameValue == "such" || curr.nameValue == "pattern" || curr.nameValue == "with")){
-                return {pos, VALID};
+                break;
             } else if (curr.tokenType == GT && !is_boolean_select) {
                 pos++;
                 is_closed = true;
