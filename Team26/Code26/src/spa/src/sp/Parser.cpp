@@ -234,7 +234,7 @@ std::shared_ptr<CallNode> Parser::parseCall(int stmtListNum) {
     de->addCallStatement(cs);
 
     cfgManager->addStandardNode(currStatement);
-    pkbInterface->addCallStatement(currStatement, stmtListNum);
+    pkbInterface->addCallStatement(currStatement, stmtListNum, varName);
     return CallNode::createCallNode(currStatement, varName);
 }
 
