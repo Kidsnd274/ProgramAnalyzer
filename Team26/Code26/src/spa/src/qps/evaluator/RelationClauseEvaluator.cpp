@@ -106,7 +106,7 @@ void RelationClauseEvaluator::evaluateUse(QPS::ResultTable *resultTable) {
 void RelationClauseEvaluator::evaluateModify(QPS::ResultTable *resultTable) {
     //Modifies_P only
     if (relationClause->getFirstArgument().argumentType == Argument::PROCEDURE_ACTUAL_NAME
-        || relationClause->getSecondArgument().argumentType == Argument::PROCEDURE_SYNONYM) {
+        || relationClause->getFirstArgument().argumentType == Argument::PROCEDURE_SYNONYM) {
         evaluateModifiesP(resultTable);
         return;
     }
@@ -325,7 +325,7 @@ void RelationClauseEvaluator::filterRelations(unordered_map<std::string, vector<
                 continue;
             }
         }
-        if (arg2.argumentType == Argument::PROCEDURE_ACTUAL_NAME) {
+        if (arg2.argumentType == Argument::ACTUAL_NAME) {
             if (!existInStringVector(arg2.argumentName, relation.second)) {
                 continue;
             } else {
