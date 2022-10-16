@@ -103,3 +103,7 @@ std::vector<std::string> QPS_PKB_Interface::getAllEntity(Argument *argument) {
             return {};
     }
 }
+
+std::string QPS_PKB_Interface::getProcLineNumberByName(std::string procName) {
+    return pkbInterface->getProcLineNumberByName(procName);
+}
