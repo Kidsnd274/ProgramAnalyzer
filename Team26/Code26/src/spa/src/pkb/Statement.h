@@ -29,6 +29,7 @@ public:
     int lineNumber;
     int statementListNumber;
     shared_ptr<TNode> rootNode;
+    string calleeProcName;
 };
 
 #endif //SPA_STATEMENT_H

@@ -84,6 +84,16 @@ vector<string> StatementTable::getAllCalls() {
     return result;
 }
 
+vector<Statement> StatementTable::getAllCallStatements() {
+    vector<Statement> result;
+    for (Statement stmt: this->statementList) {
+        if (stmt.type == StatementType::CALL) {
+            result.push_back(stmt);
+        }
+    }
+    return result;
+}
+
 Statement StatementTable::getStmtByLineNumber(int stmtNo) {
     Statement result;
     for (Statement stmt: this->statementList) {
