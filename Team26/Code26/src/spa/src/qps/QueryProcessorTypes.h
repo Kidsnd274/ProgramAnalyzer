@@ -11,13 +11,6 @@ namespace QPS {
 
 
 
-/*
- * Enum of the Pattern Types in Program Query Language.
- */
-    enum PatternType {
-        ASSIGN_PATTERN, // pattern syn_assign(entRef, expression_spec)
-        INVALID_PATTERN_TYPE
-    };
 
     /*
      * Enum of the Evaluation Result Candidate Types
@@ -51,6 +44,7 @@ namespace QPS {
         INVALID_RELATION,
         INVALID_RELATION_CONTENT,
         INVALID_PATTERN_CONTENT,
+        INVALID_PATTERN_TYPE,
         INVALID_DECLARATION,
         INVALID_MULTIPLE_CLAUSE,
         VALID

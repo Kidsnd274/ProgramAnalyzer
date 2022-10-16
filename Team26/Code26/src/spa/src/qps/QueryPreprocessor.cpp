@@ -421,10 +421,10 @@ namespace QPS {
                 typeOfPattern = argumentType;
                 pos++;
             } else {
-                return {pos, INVALID_PATTERN_CONTENT};
+                return {pos, INVALID_PATTERN_TYPE};
             }
         } else {
-            return {pos, INVALID_PATTERN_CONTENT};
+            return {pos, INVALID_PATTERN_TYPE};
         }
         return {pos, VALID};
     }
@@ -543,7 +543,7 @@ namespace QPS {
 
                 Argument::ArgumentType argumentType = container.getSynonymType(curr.nameValue);
                 if (argumentType == Argument::INVALID_ARGUMENT_TYPE) {
-                    return {pos, UNDECLARED_ENTITY_WITH};
+                    return {pos, UNDECLARED_SELECT_ENTITY};
                 }
                 container.addCandidateList(argumentType, curr.nameValue);
                 pos++;
