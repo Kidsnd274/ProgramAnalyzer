@@ -1,120 +1,273 @@
 <?xml-stylesheet type="text/xsl" href="analysis.xsl"?>
 <test_results>
 <info>
-<name>autotester</name><parsing_time_taken>1.128000</parsing_time_taken>
+<name>autotester</name><parsing_time_taken>2.681000</parsing_time_taken>
 </info>
 <queries>
 <query>
-<id ReturnTuple="1" Modifies="1" UnnamedVar="1" Pattern="1" SuchThat="1" CondNum="5" RelNum="1" comment="Simple test with pattern arg1 being variable, and arg2 be variable name">1</id><querystr><![CDATA[constant c; variable v; assign a; Select <a, v> such that Modifies(a, v) pattern a(v, _"x")]]></querystr>
-<stuans>SyntaxError</stuans>
-<correct>SyntaxError</correct>
-<time_taken>53.665000</time_taken>
+<id ReturnTuple="1" CondNum="1" RelNum="0" comment="select all statement">1</id><querystr><![CDATA[stmt s; Select s]]></querystr>
+<stuans>3,15,4,10,13,12,1,5,2,14,9,21,7,17,11,19,20,18,6,16,8</stuans>
+<correct>1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21</correct>
+<time_taken>4.188000</time_taken>
 <passed/>
 </query>
 <query>
-<id ReturnTuple="1" Modifies="1" UnnamedVar="1" Pattern="1" SuchThat="1" CondNum="5" RelNum="1" comment="Simple test with pattern arg1 being variable, and arg2 be variable name">2</id><querystr><![CDATA[constant c; variable v; assign a; Select <a, v> such that Modifies(a, v) pattern a(v, _"x"_)]]></querystr>
-<stuans>3 x,6 y,10 z,7 z,11 z</stuans>
-<correct>6 y,10 z,3 x,7 z,11 z</correct>
-<time_taken>54.049000</time_taken>
+<id ReturnTuple="1" CondNum="1" RelNum="0" comment="select all read">2</id><querystr><![CDATA[read r; Select r]]></querystr>
+<stuans>4,16</stuans>
+<correct>4,16</correct>
+<time_taken>3.272000</time_taken>
 <passed/>
 </query>
 <query>
-<id ReturnTuple="1" Modifies="1" UnnamedVar="1" Pattern="1" SuchThat="1" CondNum="5" RelNum="1" comment="Simple test with pattern arg1 being variable, and arg2 be variable name">3</id><querystr><![CDATA[constant c; variable v; assign a; Select <a, v> such that Modifies(a, v) pattern a(v, "x"_)]]></querystr>
-<stuans>SyntaxError</stuans>
-<correct>SyntaxError</correct>
-<time_taken>53.962000</time_taken>
+<id ReturnTuple="1" CondNum="1" RelNum="0" comment="select all variable">3</id><querystr><![CDATA[variable v; Select v]]></querystr>
+<stuans>y,z,zy,var1234,while,if,w,procedure,k,xy,kkk,x,true,q,e,d,else,p,call</stuans>
+<correct>var1234,y,zy,x,z,k,if,procedure,p,xy,kkk,true,q,w,e,else,while,d,call</correct>
+<time_taken>3.799000</time_taken>
 <passed/>
 </query>
 <query>
-<id ReturnTuple="1" Modifies="1" Pattern="1" SuchThat="1" CondNum="4" RelNum="1" comment="Simple test with pattern arg1 being variable, and arg2 be variable name">4</id><querystr><![CDATA[constant c; variable v; assign a; Select <a, v> such that Modifies(a, v) pattern a(v, "x")]]></querystr>
+<id ReturnTuple="1" CondNum="1" RelNum="0" comment="select all constant">4</id><querystr><![CDATA[constant c; Select c]]></querystr>
+<stuans>4,10,5,1,7,17,90,780,2,0,3,555,12,66,11,6</stuans>
+<correct>2,4,5,780,11,7,12,90,10,555,66,6,0,1,3,17</correct>
+<time_taken>3.468000</time_taken>
+<passed/>
+</query>
+<query>
+<id ReturnTuple="1" CondNum="1" RelNum="0" comment="select all print">5</id><querystr><![CDATA[print pn; Select pn]]></querystr>
+<stuans>13,21</stuans>
+<correct>13,21</correct>
+<time_taken>3.359000</time_taken>
+<passed/>
+</query>
+<query>
+<id ReturnTuple="1" CondNum="1" RelNum="0" comment="select all while">6</id><querystr><![CDATA[while w; Select w]]></querystr>
+<stuans>1,14,11,19,8</stuans>
+<correct>1,8,11,14,19</correct>
+<time_taken>2.919000</time_taken>
+<passed/>
+</query>
+<query>
+<id ReturnTuple="1" CondNum="1" RelNum="0" comment="select all if">7</id><querystr><![CDATA[if ifs; Select ifs]]></querystr>
+<stuans>9,5</stuans>
+<correct>5,9</correct>
+<time_taken>3.322000</time_taken>
+<passed/>
+</query>
+<query>
+<id ReturnTuple="1" CondNum="1" RelNum="0" comment="select all assign">8</id><querystr><![CDATA[assign a; Select a]]></querystr>
+<stuans>2,3,12,15,17,7,10,6,18,20</stuans>
+<correct>2,3,6,7,10,12,15,17,18,20</correct>
+<time_taken>3.254000</time_taken>
+<passed/>
+</query>
+<query>
+<id ReturnTuple="1" Parent="1" SuchThat="1" CondNum="3" RelNum="1" comment="check if statement is parent of statement">9</id><querystr><![CDATA[stmt s; Select s such that Parent(8, 9)]]></querystr>
+<stuans>3,15,4,10,13,12,1,5,2,14,9,21,7,17,11,19,20,18,6,16,8</stuans>
+<correct>1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21</correct>
+<time_taken>12.800000</time_taken>
+<passed/>
+</query>
+<query>
+<id ReturnTuple="1" Parent="1" SuchThat="1" CondNum="3" RelNum="1" comment="check if statement is parent of statement that does not exist">10</id><querystr><![CDATA[stmt s; Select s such that Parent(8, 10)]]></querystr>
 <stuans></stuans>
 <correct></correct>
-<time_taken>52.653000</time_taken>
+<time_taken>11.879000</time_taken>
 <passed/>
 </query>
 <query>
-<id ReturnTuple="1" Modifies="1" UnnamedVar="1" Pattern="1" SuchThat="1" CondNum="5" RelNum="1" comment="Simple test with pattern arg1 being variable, and arg2 be constant">5</id><querystr><![CDATA[constant c; variable v; assign a; Select <a, v> such that Modifies(a, v) pattern a(v, _"1")]]></querystr>
-<stuans>SyntaxError</stuans>
-<correct>SyntaxError</correct>
-<time_taken>53.469000</time_taken>
+<id ReturnTuple="1" Parent="1" SuchThat="1" CondNum="3" RelNum="1" comment="select parent of 1 statement">11</id><querystr><![CDATA[stmt s; Select s such that Parent(s, 8)]]></querystr>
+<stuans>5</stuans>
+<correct>5</correct>
+<time_taken>11.223000</time_taken>
 <passed/>
 </query>
 <query>
-<id ReturnTuple="1" Modifies="1" UnnamedVar="1" Pattern="1" SuchThat="1" CondNum="5" RelNum="1" comment="Simple test with pattern arg1 being variable, and arg2 be constant">6</id><querystr><![CDATA[constant c; variable v; assign a; Select <a, v> such that Modifies(a, v) pattern a(v, "1"_)]]></querystr>
-<stuans>SyntaxError</stuans>
-<correct>SyntaxError</correct>
-<time_taken>53.515000</time_taken>
+<id ReturnTuple="1" Parent="1" SuchThat="1" CondNum="3" RelNum="1" comment="select direct children of 1 statement">12</id><querystr><![CDATA[stmt s; Select s such that Parent(5, s)]]></querystr>
+<stuans>8,7,6</stuans>
+<correct>6,7,8</correct>
+<time_taken>11.593000</time_taken>
 <passed/>
 </query>
 <query>
-<id ReturnTuple="1" Modifies="1" UnnamedVar="1" Pattern="1" SuchThat="1" CondNum="5" RelNum="1" comment="Simple test with pattern arg1 being variable, and arg2 be constant">7</id><querystr><![CDATA[constant c; variable v; assign a; Select <a, v> such that Modifies(a, v) pattern a(v, _"3"_)]]></querystr>
-<stuans>5 x,9 x,10 z</stuans>
-<correct>5 x,10 z,9 x</correct>
-<time_taken>53.135000</time_taken>
+<id ReturnTuple="1" Parentstar="1" SuchThat="1" CondNum="3" RelNum="1" comment="select parents of 1 statement">13</id><querystr><![CDATA[stmt s; Select s such that Parent*(s, 15)]]></querystr>
+<stuans>9,8,14,11,5</stuans>
+<correct>5,8,9,11,14</correct>
+<time_taken>11.863000</time_taken>
 <passed/>
 </query>
 <query>
-<id ReturnTuple="1" Modifies="1" Pattern="1" SuchThat="1" CondNum="4" RelNum="1" comment="Simple test with pattern arg1 being variable, and arg2 be constant">8</id><querystr><![CDATA[constant c; variable v; assign a; Select <a, v> such that Modifies(a, v) pattern a(v, "3")]]></querystr>
-<stuans>9 x</stuans>
-<correct>9 x</correct>
-<time_taken>52.140000</time_taken>
+<id ReturnTuple="1" Parentstar="1" SuchThat="1" CondNum="3" RelNum="1" comment="select all children of 1 statement">14</id><querystr><![CDATA[stmt s; Select s such that Parent*(5, s)]]></querystr>
+<stuans>17,15,16,6,11,19,13,12,20,18,14,9,21,10,8,7</stuans>
+<correct>6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21</correct>
+<time_taken>12.236000</time_taken>
 <passed/>
 </query>
 <query>
-<id ReturnTuple="1" Modifies="1" Pattern="1" SuchThat="1" CondNum="4" RelNum="1" comment="Simple test with pattern arg1 being variable actual name, and arg2 be constant">9</id><querystr><![CDATA[constant c; variable v; assign a; Select <a, c> such that Modifies(a, v) pattern a("v", "3")]]></querystr>
+<id ReturnTuple="1" Parentstar="1" SuchThat="1" CondNum="3" RelNum="1" comment="select all children of another statement">15</id><querystr><![CDATA[stmt s; Select s such that Parent*(9, s)]]></querystr>
+<stuans>16,11,14,18,12,17,15,13,10</stuans>
+<correct>10,11,12,13,14,15,16,17,18</correct>
+<time_taken>11.446000</time_taken>
+<passed/>
+</query>
+<query>
+<id ReturnTuple="1" Parentstar="1" SuchThat="1" CondNum="3" RelNum="1" comment="select statements which are parent* of itself">16</id><querystr><![CDATA[stmt s; Select s such that Parent*(s, s)]]></querystr>
 <stuans></stuans>
 <correct></correct>
-<time_taken>56.715000</time_taken>
+<time_taken>11.684000</time_taken>
 <passed/>
 </query>
 <query>
-<id ReturnTuple="1" Modifies="1" Pattern="1" SuchThat="1" CondNum="4" RelNum="1" comment="Simple test with pattern arg1 being variable actual name, and arg2 be constant">10</id><querystr><![CDATA[constant c; variable v; assign a; Select <a, c> such that Modifies(a, v) pattern a("x", "3")]]></querystr>
-<stuans>9 1,9 3,9 5</stuans>
-<correct>9 1,9 3,9 5</correct>
-<time_taken>54.827000</time_taken>
+<id ReturnTuple="1" Follows="1" SuchThat="1" CondNum="3" RelNum="1" comment="select statement that a statement follows">17</id><querystr><![CDATA[stmt s; Select s such that Follows(s, 3)]]></querystr>
+<stuans>2</stuans>
+<correct>2</correct>
+<time_taken>12.207000</time_taken>
 <passed/>
 </query>
 <query>
-<id ReturnTuple="1" Modifies="1" Pattern="1" SuchThat="1" CondNum="4" RelNum="1" comment="Simple test with pattern arg1 being variable actual name, and arg2 be constant">11</id><querystr><![CDATA[constant c; variable v; assign a; Select <a, c> such that Modifies(a, v) pattern a("x", "3")]]></querystr>
-<stuans>9 1,9 3,9 5</stuans>
-<correct>9 1,9 3,9 5</correct>
-<time_taken>54.789000</time_taken>
+<id ReturnTuple="1" Follows="1" SuchThat="1" CondNum="3" RelNum="1" comment="select statement that a statement follows but does not exist">18</id><querystr><![CDATA[stmt s; Select s such that Follows(s, 1)]]></querystr>
+<stuans></stuans>
+<correct></correct>
+<time_taken>11.519000</time_taken>
 <passed/>
 </query>
 <query>
-<id ReturnTuple="1" Modifies="1" UnnamedVar="1" Pattern="1" SuchThat="1" CondNum="5" RelNum="1" comment="Simple test with pattern arg1 being variable actual name, and arg2 be constant">12</id><querystr><![CDATA[constant c; variable v; assign a; Select <a, c> such that Modifies(a, v) pattern a("x", _"3")]]></querystr>
+<id ReturnTuple="1" Follows="1" SuchThat="1" CondNum="3" RelNum="1" comment="select another statement that a statement follows but does not exist">19</id><querystr><![CDATA[stmt s; Select s such that Follows(s, 9)]]></querystr>
+<stuans></stuans>
+<correct></correct>
+<time_taken>11.258000</time_taken>
+<passed/>
+</query>
+<query>
+<id ReturnTuple="1" Follows="1" SuchThat="1" CondNum="3" RelNum="1" comment="select statement follows a statement">20</id><querystr><![CDATA[stmt s; Select s such that Follows(9, s)]]></querystr>
+<stuans>19</stuans>
+<correct>19</correct>
+<time_taken>11.830000</time_taken>
+<passed/>
+</query>
+<query>
+<id ReturnTuple="1" Follows="1" SuchThat="1" CondNum="3" RelNum="1" comment="select statement follows a statement that does not exist">21</id><querystr><![CDATA[stmt s; Select s such that Follows(14, s)]]></querystr>
+<stuans></stuans>
+<correct></correct>
+<time_taken>11.939000</time_taken>
+<passed/>
+</query>
+<query>
+<id ReturnTuple="1" Follows="1" SuchThat="1" CondNum="3" RelNum="1" comment="select assign that follows a statement">22</id><querystr><![CDATA[stmt s; assign a; Select a such that Follows(s, a)]]></querystr>
+<stuans>3,17</stuans>
+<correct>3,17</correct>
+<time_taken>18.089000</time_taken>
+<passed/>
+</query>
+<query>
+<id ReturnTuple="1" Followsstar="1" SuchThat="1" CondNum="3" RelNum="1" comment="select all statements follows a statement">23</id><querystr><![CDATA[stmt s; Select s such that Follows*(10, s)]]></querystr>
+<stuans>11</stuans>
+<correct>11</correct>
+<time_taken>12.531000</time_taken>
+<passed/>
+</query>
+<query>
+<id ReturnTuple="1" Followsstar="1" SuchThat="1" CondNum="3" RelNum="1" comment="select statements that a statement follows*">24</id><querystr><![CDATA[stmt s; Select s such that Follows*(s, 17)]]></querystr>
+<stuans>15,16</stuans>
+<correct>15,16</correct>
+<time_taken>12.285000</time_taken>
+<passed/>
+</query>
+<query>
+<id ReturnTuple="1" Uses="1" SuchThat="1" CondNum="3" RelNum="1" comment="select statements that use a certain variable">25</id><querystr><![CDATA[stmt s; Select s such that Uses (s, "var1234")]]></querystr>
+<stuans>8,3,5,1</stuans>
+<correct>1,3,5,8</correct>
+<time_taken>14.990000</time_taken>
+<passed/>
+</query>
+<query>
+<id ReturnTuple="1" Uses="1" SuchThat="1" CondNum="3" RelNum="1" comment="select variables that a certain statement uses">26</id><querystr><![CDATA[variable v; Select v such that Uses (5, v)]]></querystr>
+<stuans>call,p,d,e,w,if,else,x,kkk,k,xy,procedure,q,y,zy,z,true,while,var1234</stuans>
+<correct>if,z,procedure,var1234,xy,p,k,kkk,true,zy,q,w,e,else,while,y,x,d,call</correct>
+<time_taken>11.316000</time_taken>
+<passed/>
+</query>
+<query>
+<id ReturnTuple="1" Uses="1" SuchThat="1" CondNum="3" RelNum="1" comment="select variables that another statement uses">27</id><querystr><![CDATA[variable v; Select v such that Uses (9, v)]]></querystr>
+<stuans>xy,x,zy,call,k,kkk,while,else,y,d,if</stuans>
+<correct>if,else,while,kkk,y,x,zy,xy,d,k,call</correct>
+<time_taken>11.681000</time_taken>
+<passed/>
+</query>
+<query>
+<id ReturnTuple="1" Uses="1" SuchThat="1" CondNum="3" RelNum="1" comment="select variables that another statement uses">28</id><querystr><![CDATA[variable v; Select v such that Uses (14, v)]]></querystr>
+<stuans>d,xy,y,kkk,x,zy,k</stuans>
+<correct>y,x,d,xy,zy,kkk,k</correct>
+<time_taken>12.138000</time_taken>
+<passed/>
+</query>
+<query>
+<id ReturnTuple="1" Modifies="1" SuchThat="1" CondNum="3" RelNum="1" comment="select statements that modify a certain variable">29</id><querystr><![CDATA[stmt s; Select s such that Modifies (s, "zy")]]></querystr>
+<stuans>15,14,8,16,11,9,5,1,2</stuans>
+<correct>1,2,15,14,11,9,8,5,16</correct>
+<time_taken>13.954000</time_taken>
+<passed/>
+</query>
+<query>
+<id ReturnTuple="1" Modifies="1" SuchThat="1" CondNum="3" RelNum="1" comment="select variables that a statement modifies">30</id><querystr><![CDATA[variable v; Select v such that Modifies (5, v)]]></querystr>
+<stuans>d,else,zy,while,if</stuans>
+<correct>if,else,while,zy,d</correct>
+<time_taken>12.472000</time_taken>
+<passed/>
+</query>
+<query>
+<id ReturnTuple="1" Modifies="1" SuchThat="1" CondNum="3" RelNum="1" comment="select variables that another statement modifies">31</id><querystr><![CDATA[variable v; Select v such that Modifies (11, v)]]></querystr>
+<stuans>d,zy,while</stuans>
+<correct>while,zy,d</correct>
+<time_taken>12.970000</time_taken>
+<passed/>
+</query>
+<query>
+<id ReturnTuple="1" UnnamedVar="1" Pattern="1" CondNum="3" RelNum="0" comment="select statements with pattern">32</id><querystr><![CDATA[assign a; Select a pattern a(_,_"else"_)]]></querystr>
+<stuans>10</stuans>
+<correct>10</correct>
+<time_taken>11.507000</time_taken>
+<passed/>
+</query>
+<query>
+<id ReturnTuple="1" UnnamedVar="1" Pattern="1" CondNum="3" RelNum="0" comment="select statements with pattern that does not exist">33</id><querystr><![CDATA[assign a; Select a pattern a(_,_"else")]]></querystr>
 <stuans>SyntaxError</stuans>
-<correct>SyntaxError</correct>
-<time_taken>53.697000</time_taken>
+<correct></correct>
+<time_taken>11.250000</time_taken>
+<failed>
+<missing></missing>
+<additional>SyntaxError</additional>
+<summary>
+<expected>0</expected>
+<matched>0</matched>
+<missing>0</missing>
+<additional>1</additional>
+</summary>
+</failed>
+</query>
+<query>
+<id ReturnTuple="1" UnnamedVar="1" Uses="1" Pattern="1" SuchThat="1" CondNum="5" RelNum="1" comment="select uses and pattern">34</id><querystr><![CDATA[assign a, a1; variable v; Select a such that Uses (a, v) pattern a1(v,_"x"_)]]></querystr>
+<stuans>3,2,17</stuans>
+<correct>2,3,17</correct>
+<time_taken>39.336000</time_taken>
 <passed/>
 </query>
 <query>
-<id ReturnTuple="1" Modifies="1" UnnamedVar="1" Pattern="1" SuchThat="1" CondNum="5" RelNum="1" comment="Simple test with pattern arg1 being variable, and arg2 be constant">13</id><querystr><![CDATA[constant c; variable v; assign a; Select <a, c> such that Modifies(a, v) pattern a("z", "3"_)]]></querystr>
-<stuans>SyntaxError</stuans>
-<correct>SyntaxError</correct>
-<time_taken>55.045000</time_taken>
+<id ReturnTuple="1" Modifies="1" UnnamedVar="1" Pattern="1" SuchThat="1" CondNum="5" RelNum="1" comment="select modifies and pattern">35</id><querystr><![CDATA[stmt s; assign a1; variable v; Select s such that Modifies (s, v) pattern a1(v,_"call"_)]]></querystr>
+<stuans>18,6,9,4,8,7,5</stuans>
+<correct>4,5,6,7,8,9,18</correct>
+<time_taken>48.694000</time_taken>
 <passed/>
 </query>
 <query>
-<id ReturnTuple="1" Modifies="1" UnnamedVar="1" Pattern="1" SuchThat="1" CondNum="5" RelNum="1" comment="Simple test with pattern arg1 being variable actual name, and arg2 be constant">14</id><querystr><![CDATA[constant c; variable v; assign a; Select <a, v> such that Modifies(a, v) pattern a("x", _"3"_)]]></querystr>
-<stuans>5 x,9 x</stuans>
-<correct>5 x,9 x</correct>
-<time_taken>59.360000</time_taken>
+<id ReturnTuple="1" UnnamedVar="1" Uses="1" Pattern="1" SuchThat="1" CondNum="5" RelNum="1" comment="select assignment statements that uses itself and "zy"">36</id><querystr><![CDATA[assign a; variable v; Select a such that Uses (a, v) pattern a(v,_"zy"_)]]></querystr>
+<stuans>2,3,17</stuans>
+<correct>2,3,17</correct>
+<time_taken>34.267000</time_taken>
 <passed/>
 </query>
 <query>
-<id ReturnTuple="1" Modifies="1" UnnamedVar="1" Pattern="1" SuchThat="1" CondNum="5" RelNum="1" comment="Simple test with undeclared pattern variable">15</id><querystr><![CDATA[constant c; variable v; assign a; Select <a, v> such that Modifies(a, v) pattern a1(v, _"3"_)]]></querystr>
-<stuans>SyntaxError</stuans>
-<correct>SyntaxError</correct>
-<time_taken>55.256000</time_taken>
-<passed/>
-</query>
-<query>
-<id ReturnTuple="1" Modifies="1" UnnamedVar="1" Pattern="1" SuchThat="1" CondNum="5" RelNum="1" comment="Simple test with invalid pattern variable">16</id><querystr><![CDATA[constant c; variable v; assign a; Select <a, v> such that Modifies(a, v) pattern c(v, _"3"_)]]></querystr>
-<stuans>SemanticError</stuans>
-<correct>SemanticError</correct>
-<time_taken>55.185000</time_taken>
-<passed/>
+<id ReturnTuple="1" UnnamedVar="1" Uses="1" Pattern="1" SuchThat="1" CondNum="5" RelNum="1" comment="select assignment statements that uses itself">37</id><querystr><![CDATA[assign a; variable v; Select a such that Uses (a, v) pattern a(v,_)]]></querystr>
+<exception/>
 </query>
 </queries>
 </test_results>
