@@ -616,17 +616,17 @@ none
 121 - Uses with pattern 1
 assign a; variable v;
 Select v such that Uses(a, v) pattern a(v,_)
-zy, var1234, if, else, while, d, count, cenX, cenY, print, normSq
+zy, var1234, else, while, d, count, cenX, cenY
 5000
 122 - Uses with pattern 2
 procedure p; assign a;
 Select p such that Uses(p, "cenX") pattern a(_,_)
-milestone2test1, computeCentroid, readPoint, printResults
+milestone2test1, computeCentroid, printResults
 5000
 123 - Follows with pattern
 assign a; variable v; stmt s;
 Select s such that Follows*(s, a) pattern a(v, _"x"_)
-16
+15, 16
 5000
 124 - Uses with pattern 3
 assign a;
