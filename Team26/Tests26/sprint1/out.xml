@@ -1,22 +1,22 @@
 <?xml-stylesheet type="text/xsl" href="analysis.xsl"?>
 <test_results>
 <info>
-<name>autotester</name><parsing_time_taken>2.706000</parsing_time_taken>
+<name>autotester</name><parsing_time_taken>2.744000</parsing_time_taken>
 </info>
 <queries>
 <query>
-<id ReturnTuple="1" With="1" CondNum="2" RelNum="0" comment="test">1</id><querystr><![CDATA[assign a; procedure p; call c; Select c with c.procName="readPoint"]]></querystr>
-<stuans>32,37</stuans>
+<id ReturnTuple="1" With="1" CondNum="2" RelNum="0" comment="test">1</id><querystr><![CDATA[assign a; procedure p; call c; Select <c.stmt#, p> with c.procName="readPoint"]]></querystr>
+<stuans>37 milestone2test1,32 readPoint,32 printResults,32 milestone2test1,37 printResults,32 computeCentroid,37 readPoint,37 computeCentroid</stuans>
 <correct>6</correct>
-<time_taken>32.827000</time_taken>
+<time_taken>51.873000</time_taken>
 <failed>
 <missing>6</missing>
-<additional>32,37</additional>
+<additional>32 computeCentroid,32 milestone2test1,32 printResults,32 readPoint,37 computeCentroid,37 milestone2test1,37 printResults,37 readPoint</additional>
 <summary>
 <expected>1</expected>
 <matched>0</matched>
 <missing>1</missing>
-<additional>2</additional>
+<additional>8</additional>
 </summary>
 </failed>
 </query>
