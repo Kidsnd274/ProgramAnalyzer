@@ -6,10 +6,8 @@ void WithClauseEvaluator::evaluate(QPS::ResultTable *resultTable) {
     WithClause::WithClauseArgument arg2 = this->withClause->arg2;
 
     if (arg1.argument.argumentType == Argument::ACTUAL_NAME || arg1.argument.argumentType == Argument::NUMBER) {
-        if (Argument::isSynonym(arg2.argument.argumentType)) {
-            arg1 = this->withClause->arg2;
-            arg2 = this->withClause->arg1;
-        }
+        arg1 = this->withClause->arg2;
+        arg2 = this->withClause->arg1;
     }
 
     if (arg2.argument.argumentType == Argument::ACTUAL_NAME || arg2.argument.argumentType == Argument::NUMBER) { // a.attribute = "x"
