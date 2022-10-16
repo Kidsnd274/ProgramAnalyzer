@@ -161,7 +161,7 @@ Select a pattern a(_,_"else"_)
 33 - select statements with pattern that does not exist
 assign a;
 Select a pattern a(_,_"else")
-none
+SyntaxError
 5000
 34 - select uses and pattern
 assign a, a1; variable v;
@@ -531,7 +531,7 @@ none
 106 - Simple test with pattern arg1 being variable, and arg2 be expression that exist with right wildcard
 assign a;
 Select a pattern a(_, "(x - xy) * (x - zy)"_)
-17
+SyntaxError
 5000
 107 - Simple test with pattern arg1 being variable, and arg2 be expression that exist with both wildcard
 assign a;
@@ -541,7 +541,7 @@ Select a pattern a(_, _"(x - xy) * (x - zy)"_)
 106 - Simple test with pattern arg1 being variable, and arg2 be expression that does exist with left wildcard
 assign a;
 Select a pattern a(_, _"(x - xy) * (x - zy)")
-none
+SyntaxError
 5000
 108 - Degenerate test case for synonym names 2
 assign assign; variable variable;
@@ -626,27 +626,27 @@ Select s such that Follows*(s, a) pattern a(v, _"x"_)
 124 - Uses with pattern 3
 assign a;
 Select a such that Uses(a, "zy") pattern a(_, "(x - xy) * (x - zy)"_)
-17
+SyntaxError
 5000
 125 - Parent with pattern 1
 while w; assign a;
 Select w such that Parent(w, a) pattern a(_, "(x - xy) * (x - zy)"_)
-14
+SyntaxError
 5000
 126 - Parent* with pattern 1
 while w; assign a;
 Select w such that Parent*(w, a) pattern a(_, "(x - xy) * (x - zy)"_)
-8, 11, 14
+SyntaxError
 5000
 127 - Parent with pattern 2
 if w; assign a;
 Select w such that Parent(w, a) pattern a(_, "(x - xy) * (x - zy)"_)
-none
+SyntaxError
 5000
 128 - Parent* with pattern 2
 if w; assign a;
 Select w such that Parent*(w, a) pattern a(_, "(x - xy) * (x - zy)"_)
-5, 9
+SyntaxError
 5000
 129 - follows
 stmt s;
