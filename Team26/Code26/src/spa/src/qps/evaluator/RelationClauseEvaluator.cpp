@@ -428,7 +428,7 @@ ResultTable *RelationClauseEvaluator::filterTable(unordered_set<vector<std::stri
         synonyms.push_back(arg1.argumentName);
         a1 = QPS_PKB_Interface::getAllEntity(&arg1);
     }
-    if (isArg2Synonym && std::find(synonyms.begin(), synonyms.end(), arg1.argumentName) == synonyms.end()) {
+    if (isArg2Synonym && std::find(synonyms.begin(), synonyms.end(), arg2.argumentName) == synonyms.end()) {
         synonyms.push_back(arg2.argumentName);
         a2 = QPS_PKB_Interface::getAllEntity(&arg2);
         isArg2Pushed = true;
