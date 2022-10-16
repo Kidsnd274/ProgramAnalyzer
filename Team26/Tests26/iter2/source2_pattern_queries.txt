@@ -1,5 +1,5 @@
 1. valid pattern query
-variable v, v2; assign a;
-Select <a,v> such that Follows(1, 2) with a.stmt# = 5 and v.varName = "x"
+variable v, v2; assign a; if ifs; while w;
+Select ifs pattern ifs(v, _, _) and w(v2, _)
 5
 5000
