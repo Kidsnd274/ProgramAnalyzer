@@ -17,6 +17,14 @@ void Query::addClause(Clause* clause) {
     this->clauseList->push_back(clause);
 }
 
+void Query::validate() {
+    for (auto clause : *this->clauseList) {
+        if (!clause->isValid()) {
+            this->setStatus(SEMANTIC_ERROR);
+        }
+    }
+}
+
 void Query::setStatus(QueryStatus statusToUpdate) {
     switch (this->status) {
         case SYNTAX_ERROR: {
