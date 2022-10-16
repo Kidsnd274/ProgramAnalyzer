@@ -19,6 +19,8 @@ using namespace QPS;
 typedef short PROC;
 
 class PKBInterface {
+private:
+    bool isCallAdded = false;
 public:
     PKB* pkb = new PKB();
 
@@ -82,4 +84,6 @@ public:
     virtual std::string getCallProcName(std::string callLineNumber);
     virtual std::string getReadVarName(std::string readLineNumber);
     virtual std::string getPrintVarName(std::string printLineNumber);
+
+    virtual void addCallToUsesAndModifies();
 };

@@ -119,3 +119,24 @@ std::string QPS_PKB_Interface::getReadVarName(std::string readLineNumber) {
 std::string QPS_PKB_Interface::getPrintVarName(std::string printLineNumber) {
     return pkbInterface->getPrintVarName(printLineNumber);
 }
+
+std::string QPS_PKB_Interface::getAttrName(std::string value, WithClause::WithClauseArgument candidate) {
+    if (candidate.attributeType == AttributeType::STMT_LINE_NUMBER
+        && candidate.argument.argumentType == Argument::PROCEDURE_SYNONYM) {
+        string temp = QPS_PKB_Interface::getProcLineNumberByName(value);
+        return QPS_PKB_Interface::getProcLineNumberByName(value);
+    }
+    if (candidate.attributeType == AttributeType::PROC_NAME
+        && candidate.argument.argumentType == Argument::CALL_SYNONYM) {
+        return QPS_PKB_Interface::getCallProcName(value);
+    }
+    if (candidate.attributeType == AttributeType::WITH_VAR_NAME
+        && candidate.argument.argumentType == Argument::READ_SYNONYM) {
+        return QPS_PKB_Interface::getReadVarName(value);
+    }
+    if (candidate.attributeType == AttributeType::WITH_VAR_NAME
+        && candidate.argument.argumentType == Argument::PRINT_SYNONYM) {
+        return QPS_PKB_Interface::getPrintVarName(value);
+    }
+    return value;
+}
