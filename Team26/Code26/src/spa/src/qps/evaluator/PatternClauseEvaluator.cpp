@@ -75,9 +75,6 @@ shared_ptr<TNode> PatternClauseEvaluator::getPatternNode(WildcardPosition pos) {
         }
     }
     shared_ptr<TNode> node = nullptr;
-    if (!SourceProcessor::checkExpressionString(trimmedString)) {
-        return node;
-    }
     node = SourceProcessor::parseExpressionFromString(trimmedString);
     return node;
 }
