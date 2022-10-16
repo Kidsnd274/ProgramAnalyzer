@@ -7,6 +7,8 @@ class QueryEvaluator {
 public:
     static void evaluate(Query* query);
     static void getAllEntity(Argument argument, QPS::ResultTable* resultTable);
+    static void changeToAttrName(Query* query, QPS::ResultTable* resultTable);
+    static std::string getAttr(std::string value, Query::CandidateStruct candidate);
 };
 
 

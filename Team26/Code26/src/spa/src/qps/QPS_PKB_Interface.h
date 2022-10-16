@@ -118,6 +118,13 @@ public:
      * @return
      */
     static std::vector<std::string> getAllEntity(Argument* argument);
+
+    /**
+     * Call PKB interface to get the line number of a certain procedure.
+     * @param procName the name of procedure
+     * @return a string, the line number of given procedure
+     */
+    static std::string getProcLineNumberByName(std::string procName);
 };
 
 

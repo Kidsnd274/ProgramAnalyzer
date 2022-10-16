@@ -8,6 +8,7 @@
 
 enum AttributeType {
     PROC_NAME,
+    PROC_STMT_LINE_NUMBER,
     WITH_VAR_NAME,
     WITH_CONST_VALUE,
     STMT_LINE_NUMBER,
