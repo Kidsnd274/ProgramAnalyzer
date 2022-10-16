@@ -1,14 +1,14 @@
 <?xml-stylesheet type="text/xsl" href="analysis.xsl"?>
 <test_results>
 <info>
-<name>autotester</name><parsing_time_taken>4.226000</parsing_time_taken>
+<name>autotester</name><parsing_time_taken>2.987000</parsing_time_taken>
 </info>
 <queries>
 <query>
-<id ReturnBoolean="1" CondNum="1" RelNum="0" comment="Call with procedure calling itself">1</id><querystr><![CDATA[procedure p; Select BOOLEAN]]></querystr>
+<id ReturnBoolean="1" Calls="1" SuchThat="1" CondNum="3" RelNum="1" comment="Call with procedure calling itself">1</id><querystr><![CDATA[procedure p; Select BOOLEAN such that Calls(p, "readPoint")]]></querystr>
 <stuans>TRUE</stuans>
 <correct>TRUE</correct>
-<time_taken>6.267000</time_taken>
+<time_taken>23.948000</time_taken>
 <passed/>
 </query>
 </queries>

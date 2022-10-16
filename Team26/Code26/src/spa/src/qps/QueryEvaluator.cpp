@@ -22,6 +22,9 @@ void QueryEvaluator::evaluate(Query* query) {
 
     // Merge with synonyms to be selected
     for (auto s: query->getCandidateList()) {
+        if (s.argumentType == Argument::BOOLEAN_ARG) {
+            continue;
+        }
         if (!resultOfEvaluation->isSynonymPresent(s.argumentName)) {
             getAllEntity(s, resultOfEvaluation);
         }
