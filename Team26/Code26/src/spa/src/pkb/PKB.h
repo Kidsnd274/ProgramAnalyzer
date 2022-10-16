@@ -39,5 +39,4 @@ public:
     static CallStarTable* callStarTable;
 	static int setProcToAST(PROC p, TNode* r);
 	static TNode* getRootAST (PROC p);
-
 };
