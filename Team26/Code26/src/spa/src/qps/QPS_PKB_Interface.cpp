@@ -48,18 +48,22 @@ std::unordered_map<std::string, std::vector<std::string>> QPS_PKB_Interface::get
 
 std::vector<pair<int, int>> QPS_PKB_Interface::getAllAffectsRelations() {
 //    return QPS_PKB_Interface::pkbInterface->getAllAffects();
+    return {};
 }
 
 std::vector<pair<int, int>> QPS_PKB_Interface::getAllAffectsProcRelations() {
 //    return QPS_PKB_Interface::pkbInterface->getAllAffectsProc();
+    return {};
 }
 
 std::vector<pair<int, int>> QPS_PKB_Interface::getAllNextRelations() {
 //    return QPS_PKB_Interface::pkbInterface->getAllNext();
+    return {};
 }
 
 std::vector<pair<int, int>> QPS_PKB_Interface::getAllNextProcRelations() {
 //    return QPS_PKB_Interface::pkbInterface->getAllNextProc();
+    return {};
 }
 std::vector<std::string> QPS_PKB_Interface::getAllAssigns() {
     return QPS_PKB_Interface::pkbInterface->getAllAssigns();
@@ -95,5 +99,7 @@ std::vector<std::string> QPS_PKB_Interface::getAllEntity(Argument *argument) {
             return pkbInterface->getAllConstants();
         case Argument::PROCEDURE_SYNONYM:
             return pkbInterface->getAllProcedures();
+        default:
+            return {};
     }
 }

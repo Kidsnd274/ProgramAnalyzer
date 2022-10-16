@@ -123,6 +123,8 @@ std::string exceptionToStringQPS(Exception e) {
         case UNDECLARED_ENTITY_WITH:{
             return "UNDECLARED_ENTITY_WITH";
         }
+        default: //should not reach this line.
+            return "";
     }
 }
 
