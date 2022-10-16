@@ -1,0 +1,1365 @@
+1 - tuples 2 arg
+stmt s1; while w;
+Select <s1.stmt#, w.stmt#> such that Next(s1, w)
+10 9,33 34,38 39,39 34,40 41,41 39,42 41,43 34,47 55,48 49,49 52,5 7,50 49,51 52,53 52,56 57,57 55,58 57,6 7,64 62,7 9,8 7
+5000
+2 - tuples 2 arg
+assign a; while w;
+Select <a.stmt#, w.stmt#> such that Next(a, w)
+10 9,33 34,5 7,50 49,51 52,53 52,56 57,58 57,6 7,8 7
+5000
+3 - tuples 1 arg
+assign a; while w;
+Select <w.stmt#> such that Next(a, w)
+34,49,52,57,7,9
+5000
+4 - tuples 2 arg
+read r; while w;
+Select <r.stmt#, w.stmt#> such that Next(r, w)
+
+5000
+5 - tuples 2 arg
+print pn; while w;
+Select <pn.stmt#, w.stmt#> such that Next(pn, w)
+42 41,43 34
+5000
+6 - tuples 2 arg
+while w, w1;
+Select <w1.stmt#, w.stmt#> such that Next(w1, w)
+39 34,41 39,49 52,57 55,7 9
+5000
+7 - tuples 2 arg
+while w; if ifs;
+Select <ifs.stmt#, w.stmt#> such that Next(ifs, w)
+38 39,47 55,48 49
+5000
+8 - tuples 2 arg
+while w; if ifs;
+Select <w.stmt#, ifs.stmt#> such that Next(ifs, w)
+39 38,49 48,55 47
+5000
+9 - valid query 1 tuple STMT.stmt#
+stmt s;
+Select <s.stmt#> with 12 = 12
+1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31, 32, 33, 34, 35, 36, 37, 38, 39, 40, 41, 42, 43, 44, 45, 46, 47, 48, 49, 50, 51, 52, 53, 54, 55, 56, 57, 58, 59, 60, 61, 62, 63, 64, 65, 66, 67, 68, 69, 70, 71, 72, 73, 74, 75, 76, 77, 78, 79, 80
+5000
+10 - valid query 1 tuple STMT.stmt#
+stmt s;
+Select <s.stmt#> with 99999999999999999999999 = 99999999999999999999999
+1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31, 32, 33, 34, 35, 36, 37, 38, 39, 40, 41, 42, 43, 44, 45, 46, 47, 48, 49, 50, 51, 52, 53, 54, 55, 56, 57, 58, 59, 60, 61, 62, 63, 64, 65, 66, 67, 68, 69, 70, 71, 72, 73, 74, 75, 76, 77, 78, 79, 80
+5000
+11 - valid query 1 tuple READ.stmt#
+read r;
+Select <r.stmt#> with 0 = 0
+1, 30, 68, 80
+5000
+12 - valid query 1 tuple READ.varName
+read r;
+Select <r.varName> with 101 = 100
+
+5000
+13 - valid query 2 tuples PROCEDURE.procName
+procedure p;
+Select <p.procName, p.procName> with p.procName = "ifInIf"
+ifInIf ifInIf
+5000
+14 - valid query PROCEDURE.procName
+procedure p, q;
+Select <p.procName, q.procName> with "procedures" = q.procName
+
+5000
+15 - valid query PROCEDURE.procName
+procedure p;
+Select <p.procName, p.procName> with p.procName = p.procName
+ifA ifA,ifInIf ifInIf,procA procA,procB procB,procC procC,procD procD,procE procE,withTest withTest
+5000
+16 - valid query PROCEDURE.procName
+procedure p, q;
+Select <p.procName, q.procName> with p.procName = q.procName
+ifA ifA,ifInIf ifInIf,procA procA,procB procB,procC procC,procD procD,procE procE,withTest withTest
+5000
+17 - valid query PROCEDURE.procName
+procedure p; call cl;
+Select <p.procName, cl.procName> with p.procName = cl.procName
+procB procB,procC procC,procD procD,procE procE
+5000
+18 - valid query PROCEDURE.procName
+procedure p; call cl;
+Select <cl.procName, p.procName> with cl.procName = p.procName
+procB procB,procC procC,procD procD,procE procE
+5000
+19 - valid query PROCEDURE.procName
+procedure p; variable v;
+Select <p.procName, v.varName> with p.procName = v.varName
+ifA ifA,procC procC
+5000
+20 - valid query PROCEDURE.procName
+procedure p; variable v;
+Select <v.varName, p.procName> such that Modifies(p, v)
+a procA,b procA,bA procA,bA procB,bD procA,bD procB,c procA,dA procA,dA procB,dA procD,dAAA procA,dAAA procB,dAAA procD,file procA,file procB,file procC,ifA ifInIf,ifB ifInIf,ifVar procA,k procA,k procB,k procC,n procA,procC withTest,uniA procA,uniA procB,uniC ifInIf,x ifA,x procA,x procB,x procC,y procA,y procB,y procC,z procA,z procB,z procC
+5000
+21 - valid query PROCEDURE.procName
+procedure p; variable v;
+Select <v.varName, p.procName> such that Uses(p, v)
+EEEEE procA,EEEEE procB,EEEEE procD,EEEEE procE,a procA,a1 procA,ab procA,abc procA,ai procA,b procA,b1 procA,bA procA,bA procB,bAAA procA,bAAA procB,bB procA,bB procB,bBBB procA,bBBB procB,bC procA,bC procB,bD procA,bD procB,c procA,cA procA,cA procB,cA procC,d procA,dAAA procA,dAAA procB,dAAA procD,dB procA,dB procB,dB procD,dBBB procA,dBBB procB,dBBB procD,dC procA,dC procB,dC procD,dD procA,dD procB,dD procD,dE procA,dE procB,dE procD,dF procA,dF procB,dF procD,dc procA,dc procB,dc procD,e procA,file procA,ifA ifInIf,ifB ifInIf,ifC ifInIf,ifD ifInIf,ifVar procA,ifVar2 procA,ifVar3 procA,k procA,k procB,k procC,m procA,max procA,min procA,o procA,p procA,q procA,r procA,result procA,uniA procA,uniA procB,uniA procD,uniB procA,uniB procB,uniC ifInIf,x procA,x procB,x procC,y procA,y procB,y procC,z procA
+5000
+22 - valid query PROCEDURE.procName
+procedure p; read r;
+Select <p.procName, r.varName> such that Modifies(r, _) with p.procName = r.varName
+
+5000
+23 - valid query PROCEDURE.procName
+procedure p; read r;
+Select <r.varName, p.procName> with r.varName = p.procName
+
+5000
+23 - valid query PROCEDURE.procName
+procedure p; print pn;
+Select <pn.varName, p.procName> such that Uses(pn, _) with p.procName = pn.varName
+
+5000
+24 - valid query READ.varName
+read r, r1;
+Select <r.varName, r1.varName> with "a" = r1.varName
+a a,uniA a,uniC a,x a
+5000
+25 - valid query READ.varName
+read r;
+Select <r.varName, r.stmt#> with r.varName = "uniA"
+uniA 30
+5000
+26 - valid query READ.varName
+read r; call cl;
+Select <r.stmt#, cl.procName> with r.varName = cl.procName
+
+5000
+27 - valid query READ.varName
+read r; call cl;
+Select <r.varName, cl.procName> with cl.procName = r.varName
+
+5000
+28 - valid query READ.varName
+read r; variable v;
+Select <r.stmt#, v.varName> with r.varName = v.varName
+1 a,30 uniA,68 uniC,80 x
+5000
+29 - valid query READ.varName
+read r; variable v;
+Select <r.varName, v.varName> such that Modifies(r, v)
+a a,uniA uniA,uniC uniC,x x
+5000
+30 - valid query READ.varName
+read r; procedure p;
+Select <r.varName, p.procName> with r.varName = p.procName
+
+5000
+31 - valid query PROCEDURE.procName
+read r; procedure p;
+Select <p.procName, r,varName> such that Modifies(r, "x") with p.procName = r.varName
+
+5000
+32 - valid query PROCEDURE.procName
+procedure p;
+Select <p.procName> with p.procName = "ifInIf"
+ifInIf
+5000
+33 - valid query PROCEDURE.procName
+procedure p;
+Select <p.procName, p.procName> with "procA" = p.procName
+procA procA
+5000
+34 - valid query PROCEDURE.procName
+procedure p, q;
+Select <p.procName, q.procName> with "procA" = q.procName
+ifA procA,ifInIf procA,procA procA,procB procA,procC procA,procD procA,procE procA,withTest procA
+5000
+35 - valid query PROCEDURE.procName
+procedure p, q;
+Select <q.procName, p.procName> with "procedures" = q.procName
+
+5000
+36 - valid query PROCEDURE.procName
+procedure p, q;
+Select <q.procName, p.procName> such that Calls(p, q)
+procB procA,procC procB,procD procB,procE procB,procE procD
+5000
+37 - valid query PROCEDURE.procName
+procedure p; call cl;
+Select <p.procName, cl.procName> with p.procName = cl.procName
+procB procB,procC procC,procD procD,procE procE
+5000
+38 - valid query PROCEDURE.procName
+procedure p; call cl;
+Select <cl.procName, p.procName> with cl.procName = p.procName
+procB procB,procC procC,procD procD,procE procE
+5000
+39 - valid query PROCEDURE.procName
+procedure p; variable v;
+Select <p.procName, v.varName> such that Modifies(p, v)
+ifA x,ifInIf ifA,ifInIf ifB,ifInIf uniC,procA a,procA b,procA bA,procA bD,procA c,procA dA,procA dAAA,procA file,procA ifVar,procA k,procA n,procA uniA,procA x,procA y,procA z,procB bA,procB bD,procB dA,procB dAAA,procB file,procB k,procB uniA,procB x,procB y,procB z,procC file,procC k,procC x,procC y,procC z,procD dA,procD dAAA,withTest procC
+5000
+40 - valid query PROCEDURE.procName
+procedure p; variable v;
+Select <v.varName, p.procName> with v.varName = p.procName
+ifA ifA,procC procC
+5000
+41 - valid query PROCEDURE.procName
+procedure p; read r;
+Select <p.procName, r.varName> with p.procName = r.varName
+
+5000
+42 - valid query PROCEDURE.procName
+procedure p; read r;
+Select <r.stmt#, p.procName> with r.varName = p.procName
+
+5000
+43 - valid query PROCEDURE.procName
+procedure p; print pn;
+Select <p.procName, pn.varName>  with p.procName = pn.varName
+
+5000
+44 - valid query PROCEDURE.procName
+procedure p; print pn;
+Select <pn.stmt#, p.procName> with pn.varName = p.procName
+
+5000
+45 - valid query READ.varName
+read r;
+Select <r.varName, r.stmt#> with r.varName = "uniAB"
+
+5000
+46 - valid query READ.varName
+read r;
+Select <r.varName, r.varName> with r.varName = "uniC"
+uniC uniC
+5000
+47 - valid query READ.varName
+read r;
+Select <r.varName> with "a" = r.varName
+a
+5000
+48 - valid query name READ.varName
+read r;
+Select <r.varName> with "uniA" = r.varName
+uniA
+5000
+49 - valid query READ.varName
+read r;
+Select <r.varName> with r.varName = "uniCA"
+
+5000
+50 - valid query READ.varName
+read r;
+Select <r.varName> with "abc" = r.varName
+
+5000
+51 - valid query READ.varName
+read r, r1;
+Select <r.varName, r1.varName> with "uniA" = r1.varName
+a uniA,uniA uniA,uniC uniA,x uniA
+5000
+52 - valid query READ.varName
+read r, r1;
+Select <r.varName, r1.varName> with "abc" = r1.varName
+
+5000
+53 - valid query READ.varName
+read r;
+Select <r.varName, r.varName> with r.varName = r.varName
+a a,uniA uniA,uniC uniC,x x
+5000
+54 - valid query READ.varName
+read r, r1;
+Select <r1.varName, r.varName> with r.varName = r1.varName
+a a,uniA uniA,uniC uniC,x x
+5000
+55 - valid query READ.varName
+read r, r1;
+Select <r1.varName, r.stmt#> with r1.varName = r1.varName
+a 1,a 30,a 68,a 80,uniA 1,uniA 30,uniA 68,uniA 80,uniC 1,uniC 30,uniC 68,uniC 80,x 1,x 30,x 68,x 80
+5000
+56 - valid query READ.varName
+read r; call cl;
+Select <r.varName, cl.procName> such that Next(r, cl) with r.varName = cl.procName
+
+5000
+57 - valid query READ.varName
+read r; call cl;
+Select <cl.procName, r.varName> with cl.procName = r.varName
+
+5000
+58 - valid query READ.varName
+read r; variable v;
+Select <r.varName, v.varName> with r.varName = v.varName
+a a,uniA uniA,uniC uniC,x x
+5000
+59 - valid query READ.varName
+read r; variable v;
+Select <v.varName, r.varName> with v.varName = r.varName
+a a,uniA uniA,uniC uniC,x x
+5000
+60 - valid query READ.varName
+read r; procedure p;
+Select <r.varName, p.procName> with r.varName = p.procName
+
+5000
+61 - valid query READ.varName
+read r; procedure p;
+Select <p.procName, r.varName> with p.procName = r.varName
+
+5000
+62 - valid query READ.varName
+read r; print pn;
+Select <r.varName, pn.varName> with r.varName = pn.varName
+uniA uniA, uniC uniC
+5000
+63 - valid query READ.varName
+read r; print pn;
+Select <pn.varName, r.varName> with pn.varName = r.varName
+uniA uniA, uniC uniC
+5000
+64 - valid query PRINT.varName
+print pn;
+Select <pn.varName> with pn.varName = "b"
+b
+5000
+65 - valid query PRINT.varName
+print pn;
+Select <pn.varName, pn.varName> with pn.varName = "uniB"
+uniB uniB
+5000
+66 - valid query PRINT.varName
+print pn;
+Select <pn.varName, pn.varName> with pn.varName = "uniCA"
+
+5000
+67 - valid query PRINT.varName
+print pn;
+Select <pn.varName> with "abc" = pn.varName
+
+5000
+68 - valid query PRINT.varName
+print pn, pn1;
+Select <pn.varName, pn1.varName> with "b" = pn1.varName
+EEEEE b,ai b,b b,bA b,bD b,cA b,uniA b,uniB b,uniC b
+5000
+69 - valid query PRINT.varName
+print pn, pn1;
+Select <pn1.varName, pn.varName> with "abc" = pn1.varName
+
+5000
+70 - valid query PRINT.varName
+print pn;
+Select <pn.varName, pn.varName> such that Uses(pn, "uniB")
+uniB uniB
+5000
+71 - valid query PRINT.varName
+print pn, pn1;
+Select <pn.varName, pn1.varName> such that Uses(pn1, "uniB")
+EEEEE uniB,ai uniB,b uniB,bA uniB,bD uniB,cA uniB,uniA uniB,uniB uniB,uniC uniB
+5000
+72 - valid query PRINT.varName
+print pn, pn1;
+Select <pn.varName, pn1.varName> with pn1.varName = pn1.varName
+EEEEE EEEEE,EEEEE ai,EEEEE b,EEEEE bA,EEEEE bD,EEEEE cA,EEEEE uniA,EEEEE uniB,EEEEE uniC,ai EEEEE,ai ai,ai b,ai bA,ai bD,ai cA,ai uniA,ai uniB,ai uniC,b EEEEE,b ai,b b,b bA,b bD,b cA,b uniA,b uniB,b uniC,bA EEEEE,bA ai,bA b,bA bA,bA bD,bA cA,bA uniA,bA uniB,bA uniC,bD EEEEE,bD ai,bD b,bD bA,bD bD,bD cA,bD uniA,bD uniB,bD uniC,cA EEEEE,cA ai,cA b,cA bA,cA bD,cA cA,cA uniA,cA uniB,cA uniC,uniA EEEEE,uniA ai,uniA b,uniA bA,uniA bD,uniA cA,uniA uniA,uniA uniB,uniA uniC,uniB EEEEE,uniB ai,uniB b,uniB bA,uniB bD,uniB cA,uniB uniA,uniB uniB,uniB uniC,uniC EEEEE,uniC ai,uniC b,uniC bA,uniC bD,uniC cA,uniC uniA,uniC uniB,uniC uniC
+5000
+73 - valid query PRINT.varName
+print pn; call cl;
+Select <pn.varName, cl.procName> with pn.varName = cl.procName
+
+5000
+74 - valid query PRINT.varName
+print pn; call cl;
+Select <cl.procName, pn.varName> with cl.procName = pn.varName
+
+5000
+75 - valid query PRINT.varName
+print pn; variable v;
+Select <pn.varName, v.varName> such that Uses(pn, v)
+EEEEE EEEEE,ai ai,b b,bA bA,bD bD,cA cA,uniA uniA,uniB uniB,uniC uniC
+5000
+76 - valid query PRINT.varName
+print pn; variable v;
+Select <pn.stmt#, v.varName> such that Uses(pn, v)
+15 ai,2 b,25 bA,32 uniB,42 bD,43 bD,46 EEEEE,61 cA,65 uniA,78 uniC
+5000
+77 - valid query PRINT.varName
+print pn; procedure p;
+Select <pn.varName, p.procName> with pn.varName = p.procName
+
+5000
+78 - valid query PRINT.varName
+print pn; procedure p;
+Select <p.procName, pn.varName> with p.procName = pn.varName
+
+5000
+79 - valid query CALL.procName
+call cl;
+Select <cl.procName> with cl.procName = "procD"
+procD
+5000
+80 - valid query CALL.procName
+call cl;
+Select <cl.procName> with "procE" = cl.procName
+procE
+5000
+81 - valid query CALL.procName
+call cl;
+Select <cl.procName, cl.procName> such that Modifies(cl, "withT")
+
+5000
+82 - valid query CALL.procName
+call cl;
+Select <cl.procName, cl.procName> with "procde" = cl.procName
+
+5000
+83 - valid query CALL.procName
+call cl, cl1;
+Select <cl.procName, cl1.procName> such that Modifies(cl1, "procD")
+
+5000
+84 - valid query name CALL.procName
+call cl, cl1;
+Select <cl.procName, cl1.procName> with "procedures" = cl1.procName
+
+5000
+85 - valid query CALL.procName
+call cl;
+Select <cl.procName, cl.procName> with cl.procName = cl.procName
+procB procB,procC procC,procD procD,procE procE
+5000
+86 - valid query CALL.procName
+call cl, cl1;
+Select <cl1.procName, cl.procName> with cl.procName = cl1.procName
+procB procB,procC procC,procD procD,procE procE
+5000
+87 - valid query CALL.procName
+call cl, cl1;
+Select <cl.stmt#, cl1.procName> with cl1.procName = cl1.procName
+29 procB,29 procC,29 procD,29 procE,3 procB,3 procC,3 procD,3 procE,31 procB,31 procC,31 procD,31 procE,37 procB,37 procC,37 procD,37 procE,40 procB,40 procC,40 procD,40 procE,45 procB,45 procC,45 procD,45 procE,64 procB,64 procC,64 procD,64 procE
+5000
+88 - valid query CALL.procName
+call cl; procedure p;
+Select <cl.procName, p.procName> with cl.procName = p.procName
+procB procB,procC procC,procD procD,procE procE
+5000
+89 - valid query CALL.procName
+call cl; procedure p;
+Select <p.procName, cl.procName> with p.procName = cl.procName
+procB procB,procC procC,procD procD,procE procE
+5000
+90 - valid query CALL.procName
+call cl; variable v;
+Select <cl.procName, v.varName> with cl.procName = v.varName
+procC procC
+5000
+91 - valid query CALL.procName
+call cl; variable v;
+Select <v.varName, cl.procName> such that Modifies(cl, v)
+bA procB,bD procB,dA procB,dA procD,dAAA procB,dAAA procD,file procB,file procC,k procB,k procC,uniA procB,x procB,x procC,y procB,y procC,z procB,z procC
+5000
+92 - valid query CALL.procName
+call cl; read r;
+Select <cl.procName, r.varName> with cl.procName = r.varName
+
+5000
+93 - valid query CALL.procName
+call cl; read r;
+Select <r.varName, cl.procName> with r.varName = cl.procName
+
+5000
+94 - valid query CALL.procName
+call cl; print pn;
+Select <cl.procName, pn.varName> with cl.procName = pn.varName
+
+5000
+95 - valid query CALL.procName
+call cl; print pn;
+Select ,pn.varName, cl.procName> with pn.varName = cl.procName
+
+5000
+96 - valid query VARIABLE.varName
+variable v;
+Select <v.varName> with v.varName = "bA"
+bA
+5000
+97 - valid query VARIABLE.varName
+variable v;
+Select <v.varName, v.varName> with "z" = v.varName
+z z
+5000
+98 - valid query VARIABLE.varName
+variable v;
+Select <v.varName, v.varName> with "procde" = v.varName
+
+5000
+99 - valid query VARIABLE.varName
+variable v, v1;
+Select <v.varName, v1.varName> with "bA" = v1.varName
+EEEEE bA,a bA,a1 bA,ab bA,abc bA,ai bA,b bA,b1 bA,bA bA,bAAA bA,bB bA,bBBB bA,bC bA,bD bA,c bA,cA bA,d bA,dA bA,dAAA bA,dB bA,dBBB bA,dC bA,dD bA,dE bA,dF bA,dc bA,e bA,file bA,ifA bA,ifB bA,ifC bA,ifD bA,ifVar bA,ifVar2 bA,ifVar3 bA,k bA,m bA,max bA,min bA,n bA,o bA,p bA,procC bA,q bA,r bA,result bA,uniA bA,uniB bA,uniC bA,x bA,y bA,z bA
+5000
+100 - valid query VARIABLE.varName
+variable v, v1;
+Select <v1.varName, v.varName> with "bAbc" = v1.varName
+
+5000
+101 - valid query VARIABLE.varName
+variable v, v1;
+Select <v.varName, v1.varName> with v.varName = v1.varName
+EEEEE EEEEE,a a,a1 a1,ab ab,abc abc,ai ai,b b,b1 b1,bA bA,bAAA bAAA,bB bB,bBBB bBBB,bC bC,bD bD,c c,cA cA,d d,dA dA,dAAA dAAA,dB dB,dBBB dBBB,dC dC,dD dD,dE dE,dF dF,dc dc,e e,file file,ifA ifA,ifB ifB,ifC ifC,ifD ifD,ifVar ifVar,ifVar2 ifVar2,ifVar3 ifVar3,k k,m m,max max,min min,n n,o o,p p,procC procC,q q,r r,result result,uniA uniA,uniB uniB,uniC uniC,x x,y y,z z
+5000
+102 - valid query VARIABLE.varName
+variable v, v1;
+Select <v.varName, v1.varName> with v1.varName = v1.varName
+EEEEE EEEEE,EEEEE a,EEEEE a1,EEEEE ab,EEEEE abc,EEEEE ai,EEEEE b,EEEEE b1,EEEEE bA,EEEEE bAAA,EEEEE bB,EEEEE bBBB,EEEEE bC,EEEEE bD,EEEEE c,EEEEE cA,EEEEE d,EEEEE dA,EEEEE dAAA,EEEEE dB,EEEEE dBBB,EEEEE dC,EEEEE dD,EEEEE dE,EEEEE dF,EEEEE dc,EEEEE e,EEEEE file,EEEEE ifA,EEEEE ifB,EEEEE ifC,EEEEE ifD,EEEEE ifVar,EEEEE ifVar2,EEEEE ifVar3,EEEEE k,EEEEE m,EEEEE max,EEEEE min,EEEEE n,EEEEE o,EEEEE p,EEEEE procC,EEEEE q,EEEEE r,EEEEE result,EEEEE uniA,EEEEE uniB,EEEEE uniC,EEEEE x,EEEEE y,EEEEE z,a EEEEE,a a,a a1,a ab,a abc,a ai,a b,a b1,a bA,a bAAA,a bB,a bBBB,a bC,a bD,a c,a cA,a d,a dA,a dAAA,a dB,a dBBB,a dC,a dD,a dE,a dF,a dc,a e,a file,a ifA,a ifB,a ifC,a ifD,a ifVar,a ifVar2,a ifVar3,a k,a m,a max,a min,a n,a o,a p,a procC,a q,a r,a result,a uniA,a uniB,a uniC,a x,a y,a z,a1 EEEEE,a1 a,a1 a1,a1 ab,a1 abc,a1 ai,a1 b,a1 b1,a1 bA,a1 bAAA,a1 bB,a1 bBBB,a1 bC,a1 bD,a1 c,a1 cA,a1 d,a1 dA,a1 dAAA,a1 dB,a1 dBBB,a1 dC,a1 dD,a1 dE,a1 dF,a1 dc,a1 e,a1 file,a1 ifA,a1 ifB,a1 ifC,a1 ifD,a1 ifVar,a1 ifVar2,a1 ifVar3,a1 k,a1 m,a1 max,a1 min,a1 n,a1 o,a1 p,a1 procC,a1 q,a1 r,a1 result,a1 uniA,a1 uniB,a1 uniC,a1 x,a1 y,a1 z,ab EEEEE,ab a,ab a1,ab ab,ab abc,ab ai,ab b,ab b1,ab bA,ab bAAA,ab bB,ab bBBB,ab bC,ab bD,ab c,ab cA,ab d,ab dA,ab dAAA,ab dB,ab dBBB,ab dC,ab dD,ab dE,ab dF,ab dc,ab e,ab file,ab ifA,ab ifB,ab ifC,ab ifD,ab ifVar,ab ifVar2,ab ifVar3,ab k,ab m,ab max,ab min,ab n,ab o,ab p,ab procC,ab q,ab r,ab result,ab uniA,ab uniB,ab uniC,ab x,ab y,ab z,abc EEEEE,abc a,abc a1,abc ab,abc abc,abc ai,abc b,abc b1,abc bA,abc bAAA,abc bB,abc bBBB,abc bC,abc bD,abc c,abc cA,abc d,abc dA,abc dAAA,abc dB,abc dBBB,abc dC,abc dD,abc dE,abc dF,abc dc,abc e,abc file,abc ifA,abc ifB,abc ifC,abc ifD,abc ifVar,abc ifVar2,abc ifVar3,abc k,abc m,abc max,abc min,abc n,abc o,abc p,abc procC,abc q,abc r,abc result,abc uniA,abc uniB,abc uniC,abc x,abc y,abc z,ai EEEEE,ai a,ai a1,ai ab,ai abc,ai ai,ai b,ai b1,ai bA,ai bAAA,ai bB,ai bBBB,ai bC,ai bD,ai c,ai cA,ai d,ai dA,ai dAAA,ai dB,ai dBBB,ai dC,ai dD,ai dE,ai dF,ai dc,ai e,ai file,ai ifA,ai ifB,ai ifC,ai ifD,ai ifVar,ai ifVar2,ai ifVar3,ai k,ai m,ai max,ai min,ai n,ai o,ai p,ai procC,ai q,ai r,ai result,ai uniA,ai uniB,ai uniC,ai x,ai y,ai z,b EEEEE,b a,b a1,b ab,b abc,b ai,b b,b b1,b bA,b bAAA,b bB,b bBBB,b bC,b bD,b c,b cA,b d,b dA,b dAAA,b dB,b dBBB,b dC,b dD,b dE,b dF,b dc,b e,b file,b ifA,b ifB,b ifC,b ifD,b ifVar,b ifVar2,b ifVar3,b k,b m,b max,b min,b n,b o,b p,b procC,b q,b r,b result,b uniA,b uniB,b uniC,b x,b y,b z,b1 EEEEE,b1 a,b1 a1,b1 ab,b1 abc,b1 ai,b1 b,b1 b1,b1 bA,b1 bAAA,b1 bB,b1 bBBB,b1 bC,b1 bD,b1 c,b1 cA,b1 d,b1 dA,b1 dAAA,b1 dB,b1 dBBB,b1 dC,b1 dD,b1 dE,b1 dF,b1 dc,b1 e,b1 file,b1 ifA,b1 ifB,b1 ifC,b1 ifD,b1 ifVar,b1 ifVar2,b1 ifVar3,b1 k,b1 m,b1 max,b1 min,b1 n,b1 o,b1 p,b1 procC,b1 q,b1 r,b1 result,b1 uniA,b1 uniB,b1 uniC,b1 x,b1 y,b1 z,bA EEEEE,bA a,bA a1,bA ab,bA abc,bA ai,bA b,bA b1,bA bA,bA bAAA,bA bB,bA bBBB,bA bC,bA bD,bA c,bA cA,bA d,bA dA,bA dAAA,bA dB,bA dBBB,bA dC,bA dD,bA dE,bA dF,bA dc,bA e,bA file,bA ifA,bA ifB,bA ifC,bA ifD,bA ifVar,bA ifVar2,bA ifVar3,bA k,bA m,bA max,bA min,bA n,bA o,bA p,bA procC,bA q,bA r,bA result,bA uniA,bA uniB,bA uniC,bA x,bA y,bA z,bAAA EEEEE,bAAA a,bAAA a1,bAAA ab,bAAA abc,bAAA ai,bAAA b,bAAA b1,bAAA bA,bAAA bAAA,bAAA bB,bAAA bBBB,bAAA bC,bAAA bD,bAAA c,bAAA cA,bAAA d,bAAA dA,bAAA dAAA,bAAA dB,bAAA dBBB,bAAA dC,bAAA dD,bAAA dE,bAAA dF,bAAA dc,bAAA e,bAAA file,bAAA ifA,bAAA ifB,bAAA ifC,bAAA ifD,bAAA ifVar,bAAA ifVar2,bAAA ifVar3,bAAA k,bAAA m,bAAA max,bAAA min,bAAA n,bAAA o,bAAA p,bAAA procC,bAAA q,bAAA r,bAAA result,bAAA uniA,bAAA uniB,bAAA uniC,bAAA x,bAAA y,bAAA z,bB EEEEE,bB a,bB a1,bB ab,bB abc,bB ai,bB b,bB b1,bB bA,bB bAAA,bB bB,bB bBBB,bB bC,bB bD,bB c,bB cA,bB d,bB dA,bB dAAA,bB dB,bB dBBB,bB dC,bB dD,bB dE,bB dF,bB dc,bB e,bB file,bB ifA,bB ifB,bB ifC,bB ifD,bB ifVar,bB ifVar2,bB ifVar3,bB k,bB m,bB max,bB min,bB n,bB o,bB p,bB procC,bB q,bB r,bB result,bB uniA,bB uniB,bB uniC,bB x,bB y,bB z,bBBB EEEEE,bBBB a,bBBB a1,bBBB ab,bBBB abc,bBBB ai,bBBB b,bBBB b1,bBBB bA,bBBB bAAA,bBBB bB,bBBB bBBB,bBBB bC,bBBB bD,bBBB c,bBBB cA,bBBB d,bBBB dA,bBBB dAAA,bBBB dB,bBBB dBBB,bBBB dC,bBBB dD,bBBB dE,bBBB dF,bBBB dc,bBBB e,bBBB file,bBBB ifA,bBBB ifB,bBBB ifC,bBBB ifD,bBBB ifVar,bBBB ifVar2,bBBB ifVar3,bBBB k,bBBB m,bBBB max,bBBB min,bBBB n,bBBB o,bBBB p,bBBB procC,bBBB q,bBBB r,bBBB result,bBBB uniA,bBBB uniB,bBBB uniC,bBBB x,bBBB y,bBBB z,bC EEEEE,bC a,bC a1,bC ab,bC abc,bC ai,bC b,bC b1,bC bA,bC bAAA,bC bB,bC bBBB,bC bC,bC bD,bC c,bC cA,bC d,bC dA,bC dAAA,bC dB,bC dBBB,bC dC,bC dD,bC dE,bC dF,bC dc,bC e,bC file,bC ifA,bC ifB,bC ifC,bC ifD,bC ifVar,bC ifVar2,bC ifVar3,bC k,bC m,bC max,bC min,bC n,bC o,bC p,bC procC,bC q,bC r,bC result,bC uniA,bC uniB,bC uniC,bC x,bC y,bC z,bD EEEEE,bD a,bD a1,bD ab,bD abc,bD ai,bD b,bD b1,bD bA,bD bAAA,bD bB,bD bBBB,bD bC,bD bD,bD c,bD cA,bD d,bD dA,bD dAAA,bD dB,bD dBBB,bD dC,bD dD,bD dE,bD dF,bD dc,bD e,bD file,bD ifA,bD ifB,bD ifC,bD ifD,bD ifVar,bD ifVar2,bD ifVar3,bD k,bD m,bD max,bD min,bD n,bD o,bD p,bD procC,bD q,bD r,bD result,bD uniA,bD uniB,bD uniC,bD x,bD y,bD z,c EEEEE,c a,c a1,c ab,c abc,c ai,c b,c b1,c bA,c bAAA,c bB,c bBBB,c bC,c bD,c c,c cA,c d,c dA,c dAAA,c dB,c dBBB,c dC,c dD,c dE,c dF,c dc,c e,c file,c ifA,c ifB,c ifC,c ifD,c ifVar,c ifVar2,c ifVar3,c k,c m,c max,c min,c n,c o,c p,c procC,c q,c r,c result,c uniA,c uniB,c uniC,c x,c y,c z,cA EEEEE,cA a,cA a1,cA ab,cA abc,cA ai,cA b,cA b1,cA bA,cA bAAA,cA bB,cA bBBB,cA bC,cA bD,cA c,cA cA,cA d,cA dA,cA dAAA,cA dB,cA dBBB,cA dC,cA dD,cA dE,cA dF,cA dc,cA e,cA file,cA ifA,cA ifB,cA ifC,cA ifD,cA ifVar,cA ifVar2,cA ifVar3,cA k,cA m,cA max,cA min,cA n,cA o,cA p,cA procC,cA q,cA r,cA result,cA uniA,cA uniB,cA uniC,cA x,cA y,cA z,d EEEEE,d a,d a1,d ab,d abc,d ai,d b,d b1,d bA,d bAAA,d bB,d bBBB,d bC,d bD,d c,d cA,d d,d dA,d dAAA,d dB,d dBBB,d dC,d dD,d dE,d dF,d dc,d e,d file,d ifA,d ifB,d ifC,d ifD,d ifVar,d ifVar2,d ifVar3,d k,d m,d max,d min,d n,d o,d p,d procC,d q,d r,d result,d uniA,d uniB,d uniC,d x,d y,d z,dA EEEEE,dA a,dA a1,dA ab,dA abc,dA ai,dA b,dA b1,dA bA,dA bAAA,dA bB,dA bBBB,dA bC,dA bD,dA c,dA cA,dA d,dA dA,dA dAAA,dA dB,dA dBBB,dA dC,dA dD,dA dE,dA dF,dA dc,dA e,dA file,dA ifA,dA ifB,dA ifC,dA ifD,dA ifVar,dA ifVar2,dA ifVar3,dA k,dA m,dA max,dA min,dA n,dA o,dA p,dA procC,dA q,dA r,dA result,dA uniA,dA uniB,dA uniC,dA x,dA y,dA z,dAAA EEEEE,dAAA a,dAAA a1,dAAA ab,dAAA abc,dAAA ai,dAAA b,dAAA b1,dAAA bA,dAAA bAAA,dAAA bB,dAAA bBBB,dAAA bC,dAAA bD,dAAA c,dAAA cA,dAAA d,dAAA dA,dAAA dAAA,dAAA dB,dAAA dBBB,dAAA dC,dAAA dD,dAAA dE,dAAA dF,dAAA dc,dAAA e,dAAA file,dAAA ifA,dAAA ifB,dAAA ifC,dAAA ifD,dAAA ifVar,dAAA ifVar2,dAAA ifVar3,dAAA k,dAAA m,dAAA max,dAAA min,dAAA n,dAAA o,dAAA p,dAAA procC,dAAA q,dAAA r,dAAA result,dAAA uniA,dAAA uniB,dAAA uniC,dAAA x,dAAA y,dAAA z,dB EEEEE,dB a,dB a1,dB ab,dB abc,dB ai,dB b,dB b1,dB bA,dB bAAA,dB bB,dB bBBB,dB bC,dB bD,dB c,dB cA,dB d,dB dA,dB dAAA,dB dB,dB dBBB,dB dC,dB dD,dB dE,dB dF,dB dc,dB e,dB file,dB ifA,dB ifB,dB ifC,dB ifD,dB ifVar,dB ifVar2,dB ifVar3,dB k,dB m,dB max,dB min,dB n,dB o,dB p,dB procC,dB q,dB r,dB result,dB uniA,dB uniB,dB uniC,dB x,dB y,dB z,dBBB EEEEE,dBBB a,dBBB a1,dBBB ab,dBBB abc,dBBB ai,dBBB b,dBBB b1,dBBB bA,dBBB bAAA,dBBB bB,dBBB bBBB,dBBB bC,dBBB bD,dBBB c,dBBB cA,dBBB d,dBBB dA,dBBB dAAA,dBBB dB,dBBB dBBB,dBBB dC,dBBB dD,dBBB dE,dBBB dF,dBBB dc,dBBB e,dBBB file,dBBB ifA,dBBB ifB,dBBB ifC,dBBB ifD,dBBB ifVar,dBBB ifVar2,dBBB ifVar3,dBBB k,dBBB m,dBBB max,dBBB min,dBBB n,dBBB o,dBBB p,dBBB procC,dBBB q,dBBB r,dBBB result,dBBB uniA,dBBB uniB,dBBB uniC,dBBB x,dBBB y,dBBB z,dC EEEEE,dC a,dC a1,dC ab,dC abc,dC ai,dC b,dC b1,dC bA,dC bAAA,dC bB,dC bBBB,dC bC,dC bD,dC c,dC cA,dC d,dC dA,dC dAAA,dC dB,dC dBBB,dC dC,dC dD,dC dE,dC dF,dC dc,dC e,dC file,dC ifA,dC ifB,dC ifC,dC ifD,dC ifVar,dC ifVar2,dC ifVar3,dC k,dC m,dC max,dC min,dC n,dC o,dC p,dC procC,dC q,dC r,dC result,dC uniA,dC uniB,dC uniC,dC x,dC y,dC z,dD EEEEE,dD a,dD a1,dD ab,dD abc,dD ai,dD b,dD b1,dD bA,dD bAAA,dD bB,dD bBBB,dD bC,dD bD,dD c,dD cA,dD d,dD dA,dD dAAA,dD dB,dD dBBB,dD dC,dD dD,dD dE,dD dF,dD dc,dD e,dD file,dD ifA,dD ifB,dD ifC,dD ifD,dD ifVar,dD ifVar2,dD ifVar3,dD k,dD m,dD max,dD min,dD n,dD o,dD p,dD procC,dD q,dD r,dD result,dD uniA,dD uniB,dD uniC,dD x,dD y,dD z,dE EEEEE,dE a,dE a1,dE ab,dE abc,dE ai,dE b,dE b1,dE bA,dE bAAA,dE bB,dE bBBB,dE bC,dE bD,dE c,dE cA,dE d,dE dA,dE dAAA,dE dB,dE dBBB,dE dC,dE dD,dE dE,dE dF,dE dc,dE e,dE file,dE ifA,dE ifB,dE ifC,dE ifD,dE ifVar,dE ifVar2,dE ifVar3,dE k,dE m,dE max,dE min,dE n,dE o,dE p,dE procC,dE q,dE r,dE result,dE uniA,dE uniB,dE uniC,dE x,dE y,dE z,dF EEEEE,dF a,dF a1,dF ab,dF abc,dF ai,dF b,dF b1,dF bA,dF bAAA,dF bB,dF bBBB,dF bC,dF bD,dF c,dF cA,dF d,dF dA,dF dAAA,dF dB,dF dBBB,dF dC,dF dD,dF dE,dF dF,dF dc,dF e,dF file,dF ifA,dF ifB,dF ifC,dF ifD,dF ifVar,dF ifVar2,dF ifVar3,dF k,dF m,dF max,dF min,dF n,dF o,dF p,dF procC,dF q,dF r,dF result,dF uniA,dF uniB,dF uniC,dF x,dF y,dF z,dc EEEEE,dc a,dc a1,dc ab,dc abc,dc ai,dc b,dc b1,dc bA,dc bAAA,dc bB,dc bBBB,dc bC,dc bD,dc c,dc cA,dc d,dc dA,dc dAAA,dc dB,dc dBBB,dc dC,dc dD,dc dE,dc dF,dc dc,dc e,dc file,dc ifA,dc ifB,dc ifC,dc ifD,dc ifVar,dc ifVar2,dc ifVar3,dc k,dc m,dc max,dc min,dc n,dc o,dc p,dc procC,dc q,dc r,dc result,dc uniA,dc uniB,dc uniC,dc x,dc y,dc z,e EEEEE,e a,e a1,e ab,e abc,e ai,e b,e b1,e bA,e bAAA,e bB,e bBBB,e bC,e bD,e c,e cA,e d,e dA,e dAAA,e dB,e dBBB,e dC,e dD,e dE,e dF,e dc,e e,e file,e ifA,e ifB,e ifC,e ifD,e ifVar,e ifVar2,e ifVar3,e k,e m,e max,e min,e n,e o,e p,e procC,e q,e r,e result,e uniA,e uniB,e uniC,e x,e y,e z,file EEEEE,file a,file a1,file ab,file abc,file ai,file b,file b1,file bA,file bAAA,file bB,file bBBB,file bC,file bD,file c,file cA,file d,file dA,file dAAA,file dB,file dBBB,file dC,file dD,file dE,file dF,file dc,file e,file file,file ifA,file ifB,file ifC,file ifD,file ifVar,file ifVar2,file ifVar3,file k,file m,file max,file min,file n,file o,file p,file procC,file q,file r,file result,file uniA,file uniB,file uniC,file x,file y,file z,ifA EEEEE,ifA a,ifA a1,ifA ab,ifA abc,ifA ai,ifA b,ifA b1,ifA bA,ifA bAAA,ifA bB,ifA bBBB,ifA bC,ifA bD,ifA c,ifA cA,ifA d,ifA dA,ifA dAAA,ifA dB,ifA dBBB,ifA dC,ifA dD,ifA dE,ifA dF,ifA dc,ifA e,ifA file,ifA ifA,ifA ifB,ifA ifC,ifA ifD,ifA ifVar,ifA ifVar2,ifA ifVar3,ifA k,ifA m,ifA max,ifA min,ifA n,ifA o,ifA p,ifA procC,ifA q,ifA r,ifA result,ifA uniA,ifA uniB,ifA uniC,ifA x,ifA y,ifA z,ifB EEEEE,ifB a,ifB a1,ifB ab,ifB abc,ifB ai,ifB b,ifB b1,ifB bA,ifB bAAA,ifB bB,ifB bBBB,ifB bC,ifB bD,ifB c,ifB cA,ifB d,ifB dA,ifB dAAA,ifB dB,ifB dBBB,ifB dC,ifB dD,ifB dE,ifB dF,ifB dc,ifB e,ifB file,ifB ifA,ifB ifB,ifB ifC,ifB ifD,ifB ifVar,ifB ifVar2,ifB ifVar3,ifB k,ifB m,ifB max,ifB min,ifB n,ifB o,ifB p,ifB procC,ifB q,ifB r,ifB result,ifB uniA,ifB uniB,ifB uniC,ifB x,ifB y,ifB z,ifC EEEEE,ifC a,ifC a1,ifC ab,ifC abc,ifC ai,ifC b,ifC b1,ifC bA,ifC bAAA,ifC bB,ifC bBBB,ifC bC,ifC bD,ifC c,ifC cA,ifC d,ifC dA,ifC dAAA,ifC dB,ifC dBBB,ifC dC,ifC dD,ifC dE,ifC dF,ifC dc,ifC e,ifC file,ifC ifA,ifC ifB,ifC ifC,ifC ifD,ifC ifVar,ifC ifVar2,ifC ifVar3,ifC k,ifC m,ifC max,ifC min,ifC n,ifC o,ifC p,ifC procC,ifC q,ifC r,ifC result,ifC uniA,ifC uniB,ifC uniC,ifC x,ifC y,ifC z,ifD EEEEE,ifD a,ifD a1,ifD ab,ifD abc,ifD ai,ifD b,ifD b1,ifD bA,ifD bAAA,ifD bB,ifD bBBB,ifD bC,ifD bD,ifD c,ifD cA,ifD d,ifD dA,ifD dAAA,ifD dB,ifD dBBB,ifD dC,ifD dD,ifD dE,ifD dF,ifD dc,ifD e,ifD file,ifD ifA,ifD ifB,ifD ifC,ifD ifD,ifD ifVar,ifD ifVar2,ifD ifVar3,ifD k,ifD m,ifD max,ifD min,ifD n,ifD o,ifD p,ifD procC,ifD q,ifD r,ifD result,ifD uniA,ifD uniB,ifD uniC,ifD x,ifD y,ifD z,ifVar EEEEE,ifVar a,ifVar a1,ifVar ab,ifVar abc,ifVar ai,ifVar b,ifVar b1,ifVar bA,ifVar bAAA,ifVar bB,ifVar bBBB,ifVar bC,ifVar bD,ifVar c,ifVar cA,ifVar d,ifVar dA,ifVar dAAA,ifVar dB,ifVar dBBB,ifVar dC,ifVar dD,ifVar dE,ifVar dF,ifVar dc,ifVar e,ifVar file,ifVar ifA,ifVar ifB,ifVar ifC,ifVar ifD,ifVar ifVar,ifVar ifVar2,ifVar ifVar3,ifVar k,ifVar m,ifVar max,ifVar min,ifVar n,ifVar o,ifVar p,ifVar procC,ifVar q,ifVar r,ifVar result,ifVar uniA,ifVar uniB,ifVar uniC,ifVar x,ifVar y,ifVar z,ifVar2 EEEEE,ifVar2 a,ifVar2 a1,ifVar2 ab,ifVar2 abc,ifVar2 ai,ifVar2 b,ifVar2 b1,ifVar2 bA,ifVar2 bAAA,ifVar2 bB,ifVar2 bBBB,ifVar2 bC,ifVar2 bD,ifVar2 c,ifVar2 cA,ifVar2 d,ifVar2 dA,ifVar2 dAAA,ifVar2 dB,ifVar2 dBBB,ifVar2 dC,ifVar2 dD,ifVar2 dE,ifVar2 dF,ifVar2 dc,ifVar2 e,ifVar2 file,ifVar2 ifA,ifVar2 ifB,ifVar2 ifC,ifVar2 ifD,ifVar2 ifVar,ifVar2 ifVar2,ifVar2 ifVar3,ifVar2 k,ifVar2 m,ifVar2 max,ifVar2 min,ifVar2 n,ifVar2 o,ifVar2 p,ifVar2 procC,ifVar2 q,ifVar2 r,ifVar2 result,ifVar2 uniA,ifVar2 uniB,ifVar2 uniC,ifVar2 x,ifVar2 y,ifVar2 z,ifVar3 EEEEE,ifVar3 a,ifVar3 a1,ifVar3 ab,ifVar3 abc,ifVar3 ai,ifVar3 b,ifVar3 b1,ifVar3 bA,ifVar3 bAAA,ifVar3 bB,ifVar3 bBBB,ifVar3 bC,ifVar3 bD,ifVar3 c,ifVar3 cA,ifVar3 d,ifVar3 dA,ifVar3 dAAA,ifVar3 dB,ifVar3 dBBB,ifVar3 dC,ifVar3 dD,ifVar3 dE,ifVar3 dF,ifVar3 dc,ifVar3 e,ifVar3 file,ifVar3 ifA,ifVar3 ifB,ifVar3 ifC,ifVar3 ifD,ifVar3 ifVar,ifVar3 ifVar2,ifVar3 ifVar3,ifVar3 k,ifVar3 m,ifVar3 max,ifVar3 min,ifVar3 n,ifVar3 o,ifVar3 p,ifVar3 procC,ifVar3 q,ifVar3 r,ifVar3 result,ifVar3 uniA,ifVar3 uniB,ifVar3 uniC,ifVar3 x,ifVar3 y,ifVar3 z,k EEEEE,k a,k a1,k ab,k abc,k ai,k b,k b1,k bA,k bAAA,k bB,k bBBB,k bC,k bD,k c,k cA,k d,k dA,k dAAA,k dB,k dBBB,k dC,k dD,k dE,k dF,k dc,k e,k file,k ifA,k ifB,k ifC,k ifD,k ifVar,k ifVar2,k ifVar3,k k,k m,k max,k min,k n,k o,k p,k procC,k q,k r,k result,k uniA,k uniB,k uniC,k x,k y,k z,m EEEEE,m a,m a1,m ab,m abc,m ai,m b,m b1,m bA,m bAAA,m bB,m bBBB,m bC,m bD,m c,m cA,m d,m dA,m dAAA,m dB,m dBBB,m dC,m dD,m dE,m dF,m dc,m e,m file,m ifA,m ifB,m ifC,m ifD,m ifVar,m ifVar2,m ifVar3,m k,m m,m max,m min,m n,m o,m p,m procC,m q,m r,m result,m uniA,m uniB,m uniC,m x,m y,m z,max EEEEE,max a,max a1,max ab,max abc,max ai,max b,max b1,max bA,max bAAA,max bB,max bBBB,max bC,max bD,max c,max cA,max d,max dA,max dAAA,max dB,max dBBB,max dC,max dD,max dE,max dF,max dc,max e,max file,max ifA,max ifB,max ifC,max ifD,max ifVar,max ifVar2,max ifVar3,max k,max m,max max,max min,max n,max o,max p,max procC,max q,max r,max result,max uniA,max uniB,max uniC,max x,max y,max z,min EEEEE,min a,min a1,min ab,min abc,min ai,min b,min b1,min bA,min bAAA,min bB,min bBBB,min bC,min bD,min c,min cA,min d,min dA,min dAAA,min dB,min dBBB,min dC,min dD,min dE,min dF,min dc,min e,min file,min ifA,min ifB,min ifC,min ifD,min ifVar,min ifVar2,min ifVar3,min k,min m,min max,min min,min n,min o,min p,min procC,min q,min r,min result,min uniA,min uniB,min uniC,min x,min y,min z,n EEEEE,n a,n a1,n ab,n abc,n ai,n b,n b1,n bA,n bAAA,n bB,n bBBB,n bC,n bD,n c,n cA,n d,n dA,n dAAA,n dB,n dBBB,n dC,n dD,n dE,n dF,n dc,n e,n file,n ifA,n ifB,n ifC,n ifD,n ifVar,n ifVar2,n ifVar3,n k,n m,n max,n min,n n,n o,n p,n procC,n q,n r,n result,n uniA,n uniB,n uniC,n x,n y,n z,o EEEEE,o a,o a1,o ab,o abc,o ai,o b,o b1,o bA,o bAAA,o bB,o bBBB,o bC,o bD,o c,o cA,o d,o dA,o dAAA,o dB,o dBBB,o dC,o dD,o dE,o dF,o dc,o e,o file,o ifA,o ifB,o ifC,o ifD,o ifVar,o ifVar2,o ifVar3,o k,o m,o max,o min,o n,o o,o p,o procC,o q,o r,o result,o uniA,o uniB,o uniC,o x,o y,o z,p EEEEE,p a,p a1,p ab,p abc,p ai,p b,p b1,p bA,p bAAA,p bB,p bBBB,p bC,p bD,p c,p cA,p d,p dA,p dAAA,p dB,p dBBB,p dC,p dD,p dE,p dF,p dc,p e,p file,p ifA,p ifB,p ifC,p ifD,p ifVar,p ifVar2,p ifVar3,p k,p m,p max,p min,p n,p o,p p,p procC,p q,p r,p result,p uniA,p uniB,p uniC,p x,p y,p z,procC EEEEE,procC a,procC a1,procC ab,procC abc,procC ai,procC b,procC b1,procC bA,procC bAAA,procC bB,procC bBBB,procC bC,procC bD,procC c,procC cA,procC d,procC dA,procC dAAA,procC dB,procC dBBB,procC dC,procC dD,procC dE,procC dF,procC dc,procC e,procC file,procC ifA,procC ifB,procC ifC,procC ifD,procC ifVar,procC ifVar2,procC ifVar3,procC k,procC m,procC max,procC min,procC n,procC o,procC p,procC procC,procC q,procC r,procC result,procC uniA,procC uniB,procC uniC,procC x,procC y,procC z,q EEEEE,q a,q a1,q ab,q abc,q ai,q b,q b1,q bA,q bAAA,q bB,q bBBB,q bC,q bD,q c,q cA,q d,q dA,q dAAA,q dB,q dBBB,q dC,q dD,q dE,q dF,q dc,q e,q file,q ifA,q ifB,q ifC,q ifD,q ifVar,q ifVar2,q ifVar3,q k,q m,q max,q min,q n,q o,q p,q procC,q q,q r,q result,q uniA,q uniB,q uniC,q x,q y,q z,r EEEEE,r a,r a1,r ab,r abc,r ai,r b,r b1,r bA,r bAAA,r bB,r bBBB,r bC,r bD,r c,r cA,r d,r dA,r dAAA,r dB,r dBBB,r dC,r dD,r dE,r dF,r dc,r e,r file,r ifA,r ifB,r ifC,r ifD,r ifVar,r ifVar2,r ifVar3,r k,r m,r max,r min,r n,r o,r p,r procC,r q,r r,r result,r uniA,r uniB,r uniC,r x,r y,r z,result EEEEE,result a,result a1,result ab,result abc,result ai,result b,result b1,result bA,result bAAA,result bB,result bBBB,result bC,result bD,result c,result cA,result d,result dA,result dAAA,result dB,result dBBB,result dC,result dD,result dE,result dF,result dc,result e,result file,result ifA,result ifB,result ifC,result ifD,result ifVar,result ifVar2,result ifVar3,result k,result m,result max,result min,result n,result o,result p,result procC,result q,result r,result result,result uniA,result uniB,result uniC,result x,result y,result z,uniA EEEEE,uniA a,uniA a1,uniA ab,uniA abc,uniA ai,uniA b,uniA b1,uniA bA,uniA bAAA,uniA bB,uniA bBBB,uniA bC,uniA bD,uniA c,uniA cA,uniA d,uniA dA,uniA dAAA,uniA dB,uniA dBBB,uniA dC,uniA dD,uniA dE,uniA dF,uniA dc,uniA e,uniA file,uniA ifA,uniA ifB,uniA ifC,uniA ifD,uniA ifVar,uniA ifVar2,uniA ifVar3,uniA k,uniA m,uniA max,uniA min,uniA n,uniA o,uniA p,uniA procC,uniA q,uniA r,uniA result,uniA uniA,uniA uniB,uniA uniC,uniA x,uniA y,uniA z,uniB EEEEE,uniB a,uniB a1,uniB ab,uniB abc,uniB ai,uniB b,uniB b1,uniB bA,uniB bAAA,uniB bB,uniB bBBB,uniB bC,uniB bD,uniB c,uniB cA,uniB d,uniB dA,uniB dAAA,uniB dB,uniB dBBB,uniB dC,uniB dD,uniB dE,uniB dF,uniB dc,uniB e,uniB file,uniB ifA,uniB ifB,uniB ifC,uniB ifD,uniB ifVar,uniB ifVar2,uniB ifVar3,uniB k,uniB m,uniB max,uniB min,uniB n,uniB o,uniB p,uniB procC,uniB q,uniB r,uniB result,uniB uniA,uniB uniB,uniB uniC,uniB x,uniB y,uniB z,uniC EEEEE,uniC a,uniC a1,uniC ab,uniC abc,uniC ai,uniC b,uniC b1,uniC bA,uniC bAAA,uniC bB,uniC bBBB,uniC bC,uniC bD,uniC c,uniC cA,uniC d,uniC dA,uniC dAAA,uniC dB,uniC dBBB,uniC dC,uniC dD,uniC dE,uniC dF,uniC dc,uniC e,uniC file,uniC ifA,uniC ifB,uniC ifC,uniC ifD,uniC ifVar,uniC ifVar2,uniC ifVar3,uniC k,uniC m,uniC max,uniC min,uniC n,uniC o,uniC p,uniC procC,uniC q,uniC r,uniC result,uniC uniA,uniC uniB,uniC uniC,uniC x,uniC y,uniC z,x EEEEE,x a,x a1,x ab,x abc,x ai,x b,x b1,x bA,x bAAA,x bB,x bBBB,x bC,x bD,x c,x cA,x d,x dA,x dAAA,x dB,x dBBB,x dC,x dD,x dE,x dF,x dc,x e,x file,x ifA,x ifB,x ifC,x ifD,x ifVar,x ifVar2,x ifVar3,x k,x m,x max,x min,x n,x o,x p,x procC,x q,x r,x result,x uniA,x uniB,x uniC,x x,x y,x z,y EEEEE,y a,y a1,y ab,y abc,y ai,y b,y b1,y bA,y bAAA,y bB,y bBBB,y bC,y bD,y c,y cA,y d,y dA,y dAAA,y dB,y dBBB,y dC,y dD,y dE,y dF,y dc,y e,y file,y ifA,y ifB,y ifC,y ifD,y ifVar,y ifVar2,y ifVar3,y k,y m,y max,y min,y n,y o,y p,y procC,y q,y r,y result,y uniA,y uniB,y uniC,y x,y y,y z,z EEEEE,z a,z a1,z ab,z abc,z ai,z b,z b1,z bA,z bAAA,z bB,z bBBB,z bC,z bD,z c,z cA,z d,z dA,z dAAA,z dB,z dBBB,z dC,z dD,z dE,z dF,z dc,z e,z file,z ifA,z ifB,z ifC,z ifD,z ifVar,z ifVar2,z ifVar3,z k,z m,z max,z min,z n,z o,z p,z procC,z q,z r,z result,z uniA,z uniB,z uniC,z x,z y,z z
+5000
+103 - valid query VARIABLE.varName
+variable v; procedure p;
+Select <v.varName, p.procName> with v.varName = p.procName
+ifA ifA,procC procC
+5000
+104 - valid query VARIABLE.varName
+variable v; procedure p;
+Select <p.procName, v.varName> such that Uses(p, v) with p.procName = v.varName
+
+5000
+105 - valid query VARIABLE.varName
+variable v; call cl;
+Select <v.varName, cl.procName> such that Modifies(cl, v) with cl.varName = v.varName
+
+5000
+107 - valid query VARIABLE.varName
+variable v; call cl;
+Select <cl.procName, v.varName> with cl.varName = v.varName
+
+5000
+108 - valid query VARIABLE.varName
+variable v; read r;
+Select <v.varName, r.varName> with v.varName = r.varName
+a a,uniA uniA,uniC uniC,x x
+5000
+109 - valid query VARIABLE.varName
+variable v; read r;
+Select <r.varName, v.varName> such that Modifies(r, v) with r.varName = v.varName
+a a,uniA uniA,uniC uniC,x x
+5000
+110 - valid query VARIABLE.varName
+variable v; print pn;
+Select <v.varName, pn.varName> with v.varName = pn.varName
+EEEEE EEEEE,ai ai,b b,bA bA,bD bD,cA cA,uniA uniA,uniB uniB,uniC uniC
+5000
+111 - valid query VARIABLE.varName
+variable v; print pn;
+Select <v.varName, pn.varName> such that Uses(pn, v) with pn.varName = v.varName
+EEEEE EEEEE,ai ai,b b,bA bA,bD bD,cA cA,uniA uniA,uniB uniB,uniC uniC
+5000
+112 - valid query CONSTANT.value
+constant c;
+Select <c.value> with c.value = 1
+1
+5000
+113 - valid query CONSTANT.value
+constant c;
+Select <c.value, c.value> with 2 = c.value
+2 2
+5000
+114 - valid query CONSTANT.value
+constant c;
+Select <c.value> with c.value = 99999999999999999999
+
+5000
+115 - valid query CONSTANT.value
+constant c;
+Select <c.value> with 123456 = c.value
+
+5000
+116 - valid query CONSTANT.value
+constant c, c1;
+Select <c.value, c1.value> with 1 = c1.value
+0 1,1 1,10 1,11 1,1234 1,13 1,15 1,16 1,2 1,24134 1,3 1,4321 1,5 1,9 1
+5000
+117 - valid query CONSTANT.value
+constant c, c1;
+Select <c1.value, c.value> with 12345 = c1.value
+
+5000
+118 - valid query CONSTANT.value
+constant c;
+Select <c.value, c.value> with c.value = c.value
+0 0,1 1,10 10,11 11,1234 1234,13 13,15 15,16 16,2 2,24134 24134,3 3,4321 4321,5 5,9 9
+5000
+119 - valid query CONSTANT.value
+constant c, c1;
+Select <c.value, c1.value> with c.value = c1.value
+0 0,1 1,10 10,11 11,1234 1234,13 13,15 15,16 16,2 2,24134 24134,3 3,4321 4321,5 5,9 9
+5000
+120 - valid query CONSTANT.value
+constant c, c1;
+Select <c1.value, c.value> with c1.value = c.value
+0 0,1 1,10 10,11 11,1234 1234,13 13,15 15,16 16,2 2,24134 24134,3 3,4321 4321,5 5,9 9
+5000
+121 - valid query CONSTANT.value
+constant c; call cl;
+Select <c.value, cl.procName> with c.value = cl.stmt#
+3 procB
+5000
+122 - valid query CONSTANT.value
+constant c; call cl;
+Select <cl.stmt#, c.value> with cl.stmt# = c.value
+3 3
+5000
+123 - valid query CONSTANT.value
+constant c; read r;
+Select <c.value, r.varName> with c.value = r.stmt#
+1 a
+5000
+124 - valid query CONSTANT.value
+constant c; read r;
+Select <r.stmt#, c.value> with r.stmt# = c.value
+1 1
+5000
+125 - valid query CONSTANT.value
+constant c; print pn;
+Select <c.value, pn.varName> with c.value = pn.stmt#
+15 ai,2 b
+5000
+126- valid query CONSTANT.value
+constant c; print pn;
+Select <pn.stmt#, c.value> with pn.stmt# = c.value
+15 15,2 2
+5000
+127 - valid query CONSTANT.value
+constant c; while w;
+Select <c.value, w.stmt#> with c.value = w.stmt#
+9 9
+5000
+128 - valid query CONSTANT.value
+constant c; while w;
+Select <w.stmt#, c.value> with w.stmt# = c.value
+9 9
+5000
+129 - valid query CONSTANT.value
+constant c; if ifs;
+Select <c.value, ifs.stmt#> with c.value = ifs.stmt#
+11 11,13 13
+5000
+130 - valid query CONSTANT.value
+constant c; if ifs;
+Select <ifs.stmt#, c.value> with ifs.stmt# = c.value
+11 11,13 13
+5000
+131 - valid query CONSTANT.value
+constant c; assign a; variable v;
+Select <c.value, a.stmt#> pattern a(v, _"z"_)
+0 5,1 5,10 5,11 5,1234 5,13 5,15 5,16 5,2 5,24134 5,3 5,4321 5,5 5,9 5
+5000
+132 - valid query CONSTANT.value
+constant c; assign a;
+Select <a.stmt#, c.value> with a.stmt# = c.value
+10 10,16 16,5 5
+5000
+133 - valid query CONSTANT.value
+constant c; stmt s;
+Select <c.value, s.stmt#> with c.value = s.stmt#
+1 1,10 10,11 11,13 13,15 15,16 16,2 2,3 3,5 5,9 9
+5000
+134 - valid query CONSTANT.value
+constant c; stmt s;
+Select <s.stmt#, c.value> with s.stmt# = c.value
+1 1,10 10,11 11,13 13,15 15,16 16,2 2,3 3,5 5,9 9
+5000
+135 - valid query STMT.stmt# = integer (exist)
+stmt s;
+Select <s.stmt#> with s.stmt# = 1
+1
+5000
+136 - valid query STMT.stmt#
+stmt s;
+Select <s.stmt#, s.stmt#> with 2 = s.stmt#
+2 2
+5000
+137 - valid query STMT.stmt#
+stmt s;
+Select <s.stmt#> with s.stmt# = 99999999999999999999
+
+5000
+138 - valid query STMT.stmt#
+stmt s;
+Select <s.stmt#> with 123456 = s.stmt#
+
+5000
+139 - valid query STMT.stmt#
+stmt s;
+stmt s; Select <s.stmt#, s.stmt#> with s.stmt# = s.stmt#
+
+5000
+140 - valid query STMT.stmt#
+stmt s; call cl;
+Select <s.stmt#, cl.stmt#> with s.stmt# = cl.stmt#
+29 29,3 3,31 31,37 37,40 40,45 45,64 64
+5000
+141 - valid query STMT.stmt#
+stmt s; call cl;
+Select <cl.stmt#, s.stmt#> with cl.stmt# = s.stmt#
+29 29,3 3,31 31,37 37,40 40,45 45,64 64
+5000
+142 - valid query STMT.stmt#
+stmt s; read r;
+Select <s.stmt#, r.stmt#> with s.stmt# = r.stmt#
+1 1,30 30,68 68,80 80
+5000
+143 - valid query STMT.stmt#
+stmt s; read r;
+Select <r.varName, s.stmt#> with r.stmt# = s.stmt#
+a 1,uniA 30,uniC 68,x 80
+5000
+144 - valid query STMT.stmt#
+stmt s; print pn;
+Select <s.stmt#, pn.stmt#> with s.stmt# = pn.stmt#
+15 15,2 2,25 25,32 32,42 42,43 43,46 46,61 61,65 65,78 78
+5000
+145- valid query STMT.stmt#
+stmt s; print pn;
+Select <pn.varName, s.stmt#> with pn.stmt# = s.stmt#
+EEEEE 46,ai 15,b 2,bA 25,bD 42,bD 43,cA 61,uniA 65,uniB 32,uniC 78
+5000
+146 - valid query STMT.stmt#
+stmt s; while w;
+Select <s.stmt#, w.stmt#> with s.stmt# = w.stmt#
+34 34,39 39,41 41,49 49,52 52,55 55,57 57,62 62,7 7,9 9
+5000
+147 - valid query STMT.stmt#
+stmt s; while w;
+Select <w.stmt#, s.stmt#> with w.stmt# = s.stmt#
+34 34,39 39,41 41,49 49,52 52,55 55,57 57,62 62,7 7,9 9
+5000
+148 - valid query STMT.stmt#
+stmt s; if ifs;
+Select <s.stmt#, ifs.stmt#> with s.stmt# = ifs.stmt#
+11 11,13 13,26 26,28 28,38 38,4 4,47 47,48 48,69 69,72 72,74 74
+5000
+149 - valid query STMT.stmt#
+stmt s; if ifs;
+Select <ifs.stmt#, s.stmt#> with ifs.stmt# = s.stmt#
+11 11,13 13,26 26,28 28,38 38,4 4,47 47,48 48,69 69,72 72,74 74
+5000
+150 - valid query STMT.stmt#
+stmt s; assign a;
+Select <s.stmt#, a.stmt#> with s.stmt# = a.stmt#
+10 10,12 12,14 14,16 16,17 17,18 18,19 19,20 20,21 21,22 22,23 23,24 24,27 27,33 33,35 35,36 36,44 44,5 5,50 50,51 51,53 53,54 54,56 56,58 58,59 59,6 6,60 60,63 63,66 66,67 67,70 70,71 71,73 73,75 75,76 76,77 77,79 79,8 8
+5000
+151 - valid query STMT.stmt#
+stmt s; assign a;
+Select <a.stmt#, s.stmt#> with a.stmt# = s.stmt#
+10 10,12 12,14 14,16 16,17 17,18 18,19 19,20 20,21 21,22 22,23 23,24 24,27 27,33 33,35 35,36 36,44 44,5 5,50 50,51 51,53 53,54 54,56 56,58 58,59 59,6 6,60 60,63 63,66 66,67 67,70 70,71 71,73 73,75 75,76 76,77 77,79 79,8 8
+5000
+152 - valid query STMT.stmt#
+stmt s; constant c;
+Select <s.stmt#, c.value> with s.stmt# = c.value
+1 1,10 10,11 11,13 13,15 15,16 16,2 2,3 3,5 5,9 9
+5000
+153 - valid query STMT.stmt#
+stmt s; constant c;
+Select <c.value, s.stmt#> with c.value = s.stmt#
+1 1,10 10,11 11,13 13,15 15,16 16,2 2,3 3,5 5,9 9
+5000
+154 - valid query READ.stmt#
+read r;
+Select <r.stmt#> with r.stmt# = 1
+1
+5000
+155 - valid query READ.stmt#
+read r;
+Select <r.stmt#> with 68 = r.stmt#
+68
+5000
+156 - valid query READ.stmt#
+read r;
+Select <r.stmt#> with r.stmt# = 99999999999999999999
+
+5000
+157 - valid query READ.stmt#
+read r;
+Select <r.stmt#> with 123456 = r.stmt#
+
+5000
+158 - valid query READ.stmt#
+read r, r1;
+Select <r.stmt#, r1.stmt#> with 1 = r1.stmt#
+1 1,30 1,68 1,80 1
+5000
+159 - valid query READ.stmt#
+read r, r1;
+Select <r.stmt#, r1.stmt#> with 12345 = r1.stmt#
+
+5000
+160 - valid query READ.stmt#
+read r;
+Select <r.stmt#, r.stmt#> with r.stmt# = r.stmt#
+1 1,30 30,68 68,80 80
+5000
+161 - valid query READ.stmt#
+read r, r1;
+Select <r.stmt#, r1.stmt#> with r.stmt# = r1.stmt#
+1 1,30 30,68 68,80 80
+5000
+162 - valid query READ.stmt#
+read r, r1;
+Select <r1.stmt#, r.stmt#> with r1.stmt# = r.stmt#
+1 1,30 30,68 68,80 80
+5000
+163 - valid query READ.stmt#
+read r; call cl;
+Select <r.stmt#, cl.stmt#> with r.stmt# = cl.stmt#
+
+5000
+164 - valid query READ.stmt#
+read r; call cl;
+Select <r.varName, cl.stmt#> with cl.stmt# = s.stmt#
+
+5000
+165 - valid query READ.stmt#
+read r; stmt s;
+Select <r.stmt#, r.varName> with r.stmt# = s.stmt#
+1 a,30 uniA,68 uniC,80 x
+5000
+166 - valid query READ.stmt#
+read r; stmt s;
+Select <r.stmt#, s.stmt#> with s.stmt# = r.stmt#
+1 1,30 30,68 68,80 80
+5000
+167 - valid query READ.stmt#
+read r; print pn;
+Select <r.stmt#, pn.varName> with r.stmt# = pn.stmt#
+
+5000
+168- valid query READ.stmt#
+read r; print pn;
+Select <r.varName, pn.stmt#> with pn.stmt# = r.stmt#
+
+5000
+169 - valid query READ.stmt#
+read r; while w;
+Select <r.stmt#, w.stmt#> with r.stmt# = w.stmt#
+
+5000
+170 - valid query READ.stmt#
+read r; while w;
+Select <w.stmt#, r.stmt#> with w.stmt# = r.stmt#
+
+5000
+171 - valid query READ.stmt#
+read r; if ifs;
+Select <r.varName, ifs.stmt#> with r.stmt# = ifs.stmt#
+
+5000
+172 - valid query READ.stmt#
+read r; if ifs;
+Select <ifs.stmt#, r.varName> with ifs.stmt# = r.stmt#
+
+5000
+173 - valid query READ.stmt#
+read r; assign a;
+Select <r.stmt#, a.stmt#> with r.stmt# = a.stmt#
+
+5000
+174 - valid query READ.stmt#
+read r; assign a;
+Select <a.stmt#, r.stmt#> with a.stmt# = r.stmt#
+
+5000
+175 - valid query READ.stmt#
+read r; constant c;
+Select <r.varName, c.value> with r.stmt# = c.value
+a 1
+5000
+176 - valid query READ.stmt#
+read r; constant c;
+Select <c.value, r.varName> with c.value = r.stmt#
+1 a
+5000
+174 - valid query PRINT.stmt#
+print pn;
+Select <pn.stmt#> with pn.stmt# = 78
+78
+5000
+175 - valid query PRINT.stmt#
+print pn;
+Select <pn.stmt#, pn.varName> with 65 = pn.stmt#
+65 uniA
+5000
+176 - valid query PRINT.stmt#
+print pn;
+Select <pn.stmt#> with pn.stmt# = 99999999999999999999
+
+5000
+177 - valid query PRINT.stmt#
+print pn;
+Select <pn.stmt#, pn.stmt#> with 123456 = pn.stmt#
+
+5000
+178 - valid query PRINT.stmt#
+print pn, pn1;
+Select <pn.stmt#, pn1.varName> with 78 = pn1.stmt#
+15 uniC,2 uniC,25 uniC,32 uniC,42 uniC,43 uniC,46 uniC,61 uniC,65 uniC,78 uniC
+5000
+179 - valid query PRINT.stmt#
+print pn;
+Select <pn.stmt#, pn.stmt#> with pn.stmt# = pn.stmt#
+15 15,2 2,25 25,32 32,42 42,43 43,46 46,61 61,65 65,78 78
+5000
+180 - valid query PRINT.stmt#
+print pn, pn1;
+Select <pn1.varName, pn.stmt#> with pn.stmt# = pn1.stmt#
+EEEEE 46,ai 15,b 2,bA 25,bD 42,bD 43,cA 61,uniA 65,uniB 32,uniC 78
+5000
+181 - valid query PRINT.stmt#
+print pn, pn1;
+Select <pn.stmt#, pn1.stmt#> with pn1.stmt# = pn.stmt#
+15 15,2 2,25 25,32 32,42 42,43 43,46 46,61 61,65 65,78 78
+5000
+182 - valid query PRINT.stmt#
+print pn; call cl;
+Select <pn.stmt#, cl.procName> with pn.stmt# = cl.stmt#
+
+5000
+183 - valid query PRINT.stmt#
+print pn; call cl;
+Select <cl.stmt#, pn.stmt#> with cl.stmt# = pn.stmt#
+
+5000
+184 - valid query PRINT.stmt#
+print pn; stmt s;
+Select <pn.stmt#, s.stmt#> with pn.stmt# = s.stmt#
+15 15,2 2,25 25,32 32,42 42,43 43,46 46,61 61,65 65,78 78
+5000
+185 - valid query PRINT.stmt#
+print pn; stmt s;
+Select <s.stmt#, pn.varName> with s.stmt# = pn.stmt#
+15 ai,2 b,25 bA,32 uniB,42 bD,43 bD,46 EEEEE,61 cA,65 uniA,78 uniC
+5000
+186 - valid query PRINT.stmt#
+print pn; read r;
+Select <pn.stmt#, r.stmt#> with pn.stmt# = r.stmt#
+
+5000
+187- valid query PRINT.stmt#
+print pn; read r;
+Select <pn.stmt#, r.varName> with r.stmt# = pn.stmt#
+
+5000
+188 - valid query PRINT.stmt#
+print pn; while w;
+Select <pn.stmt#, w.stmt#> with pn.stmt# = w.stmt#
+
+5000
+189 - valid query PRINT.stmt#
+print pn; while w;
+Select <pn.stmt#, w.stmt#> such that Next*(pn, w)
+2 7,2 9,25 34,25 39,25 41,42 34,42 39,42 41,43 34,43 39,43 41
+5000
+190 - valid query PRINT.stmt#
+print pn; while w;
+Select <w.stmt#, pn.smt#> with w.stmt# = pn.stmt#
+
+5000
+191 - valid query PRINT.stmt#
+print pn; if ifs;
+Select <pn.stmt#, ifs.stmt#> with pn.stmt# = ifs.stmt#
+
+5000
+193 - valid query PRINT.stmt#
+print pn; assign a; variable v;
+Select <pn.stmt#, a.stmt#> pattern a(v, _"x"_) with pn.stmt# = a.stmt#
+
+5000
+194 - valid query PRINT.stmt#
+print pn; constant c;
+Select <c.value, pn.stmt#> such that Uses(pn, "ai") with pn.stmt# = c.value
+15 15
+5000
+197 - valid query CALL.stmt#
+call cl;
+Select <cl.stmt#> with cl.stmt# = 64
+64
+5000
+202 - valid query CALL.stmt#
+call cl, cl1;
+Select <cl.stmt#, cl.stmt#> with 12345 = cl1.stmt#
+
+5000
+203 - valid query CALL.stmt#
+call cl;
+Select <cl.stmt#, cl.stmt#> with cl.stmt# = cl.stmt#
+29 29,3 3,31 31,37 37,40 40,45 45,64 64
+5000
+204 - valid query CALL.stmt#
+call cl, cl1;
+Select <cl.stmt#, cl1.stmt#> with cl.stmt# = cl1.stmt#
+29 29,3 3,31 31,37 37,40 40,45 45,64 64
+5000
+205 - valid query CALL.stmt#
+call cl, cl1;
+Select <cl1.stmt#, cl.stmt#> with cl1.stmt# = cl.stmt#
+29 29,3 3,31 31,37 37,40 40,45 45,64 64
+5000
+206 - valid query CALL.stmt#
+call cl; print pn;
+Select <cl.stmt#, pn.stmt#> with cl.stmt# = pn.stmt#
+
+5000
+207 - valid query CALL.stmt#
+call cl; print pn;
+Select <pn.stmt#, cl.procName> with pn stmt# = cl.stmt#
+
+5000
+208 - valid query CALL.stmt#
+call cl; stmt s;
+Select <cl.stmt#, s.stmt#> with cl.stmt# = s.stmt#
+29 29,3 3,31 31,37 37,40 40,45 45,64 64
+5000
+209 - valid query CALL.stmt#
+call cl; stmt s;
+Select <cl.stmt#, s.stmt#> with s.stmt# = cl.stmt#
+29 29,3 3,31 31,37 37,40 40,45 45,64 64
+5000
+210 - valid query CALL.stmt#
+call cl; read r;
+Select <cl,stmt#, r.stmt#> with cl.stmt# = r.stmt#
+
+5000
+211 - valid query CALL.stmt#
+call cl; read r;
+Select <cl.stmt#, r.varName> with r.stmt# = cl.stmt#
+
+5000
+212 - valid query CALL.stmt#
+call cl; while w;
+Select <cl.stmt#, w.stmt#> with cl.stmt# = w.stmt#
+
+5000
+213 - valid query CALL.stmt#
+call cl; while w;
+Select <w.stmt#, cl.stmt#> with w.stmt# = cl.stmt#
+
+5000
+214 - valid query CALL.stmt#
+call cl; if ifs;
+Select <cl.stmt#, ifs.stmt#> with cl.stmt# = ifs.stmt#
+
+5000
+215 - valid query CALL.stmt#
+call cl; if ifs;
+Select <ifs.stmt#, cl.procName> with ifs.stmt# = cl.stmt#
+
+5000
+216 - valid query CALL.stmt#
+call cl; assign a;
+Select <cl.stmt#, a.stmt#> with cl.stmt# = a.stmt#
+
+5000
+217 - valid query CALL.stmt#
+call cl; assign a;
+Select <a.stmt#, cl.stmt#> with a.stmt# = cl.stmt#
+
+5000
+218 - valid query CALL.stmt#
+call cl; constant c;
+Select <cl.stmt#, c.value> with cl.stmt# = c.value
+3 3
+5000
+219 - valid query CALL.stmt#
+call cl; constant c;
+Select <c.value, cl.stmt#> with c.value = cl.stmt#
+3 3
+5000
+220 - valid query WHILE.stmt#
+while w;
+Select <w.stmt#> with w.stmt# = 49
+49
+5000
+224 - valid query WHILE.stmt#
+while w, w1;
+Select <w.stmt#, w1.stmt#> with 49 = w1.stmt#
+34 49,39 49,41 49,49 49,52 49,55 49,57 49,62 49,7 49,9 49
+5000
+225 - valid query WHILE.stmt#
+while w, w1;
+Select <w.stmt#, w1.stmt#> with 12345 = w1.stmt#
+
+5000
+226 - valid query WHILE.stmt#
+while w;
+Select <w.stmt#, w.stmt#> with w.stmt# = w.stmt#
+34 34,39 39,41 41,49 49,52 52,55 55,57 57,62 62,7 7,9 9
+5000
+227 - valid query WHILE.stmt#
+while w, w1;
+Select <w.stmt#, w1.stmt#> with w.stmt# = w1.stmt#
+34 34,39 39,41 41,49 49,52 52,55 55,57 57,62 62,7 7,9 9
+5000
+228 - valid query WHILE.stmt#
+while w, w1;
+Select <w1.stmt#, w.stmt#> with w1.stmt# = w.stmt#
+34 34,39 39,41 41,49 49,52 52,55 55,57 57,62 62,7 7,9 9
+5000
+229 - valid query WHILE.stmt#
+while w; print pn;
+Select <w.stmt#, pn.stmt#> with w.stmt# = pn.stmt#
+
+5000
+230 - valid query WHILE.stmt#
+while w; print pn;
+Select <pn.varName, w.stmt#> with pn stmt# = w.stmt#
+
+5000
+231 - valid query WHILE.stmt#
+while w; stmt s;
+Select <w.stmt#, s.stmt#> with w.stmt# = s.stmt#
+34 34,39 39,41 41,49 49,52 52,55 55,57 57,62 62,7 7,9 9
+5000
+232 - valid query WHILE.stmt#
+while w; stmt s;
+Select <s.stmt#, w.stmt#> with s.stmt# = w.stmt#
+34 34,39 39,41 41,49 49,52 52,55 55,57 57,62 62,7 7,9 9
+5000
+233 - valid query WHILE.stmt#
+while w; read r;
+Select <w.stmt#, r.stmt#> with w.stmt# = r.stmt#
+
+5000
+234 - valid query WHILE.stmt#
+while w; read r;
+Select <r.varName, w.stmt#> with r.stmt# = w.stmt#
+
+5000
+235 - valid query WHILE.stmt#
+while w; call cl;
+Select <w.stmt#, cl.stmt#> with w.stmt# = cl.stmt#
+
+5000
+236 - valid query WHILE.stmt#
+while w; call c;
+Select <cl.stmt#, w.stmt#> with cl.stmt# = w.stmt#
+
+5000
+237 - valid query WHILE.stmt#
+while w; if ifs;
+Select <w.stmt#, ifs.stmt#> with w.stmt# = ifs.stmt#
+
+5000
+238 - valid query WHILE.stmt#
+while w; if ifs;
+Select <ifs.stmt#, w.stmt#> with ifs.stmt# = w.stmt#
+
+5000
+239 - valid query WHILE.stmt#
+while w; assign a;
+Select <w.stmt#, a.stmt#> with w.stmt# = a.stmt#
+
+5000
+240 - valid query WHILE.stmt#
+while w; assign a;
+Select <a.stmt#, w.stmt#> with a.stmt# = w.stmt#
+
+5000
+241 - valid query WHILE.stmt#
+while w; constant c;
+Select <w.stmt#, c.value> with w.stmt# = c.value
+9 9
+5000
+242 - valid query WHILE.stmt#
+while w; constant c;
+Select <c.value, w.stmt#> with c.value = w.stmt#
+9 9
+5000
+243 - valid query IF.stmt#
+if ifs;
+Select <ifs.stmt#> with ifs.stmt# = 48
+48
+5000
+249 - valid query IF.stmt#
+if ifs;
+Select <ifs.stmt#, ifs.stmt#> with ifs.stmt# = ifs.stmt#
+11 11,13 13,26 26,28 28,38 38,4 4,47 47,48 48,69 69,72 72,74 74
+5000
+250 - valid query IF.stmt#
+if ifs, ifs1;
+Select <ifs.stmt#, ifs1.stmt#> with ifs.stmt# = ifs1.stmt#
+11 11,13 13,26 26,28 28,38 38,4 4,47 47,48 48,69 69,72 72,74 74
+5000
+251 - valid query IF.stmt#
+if ifs, ifs1;
+Select <ifs.stmt#, ifs1.stmt#> with ifs1.stmt# = ifs.stmt#
+11 11,13 13,26 26,28 28,38 38,4 4,47 47,48 48,69 69,72 72,74 74
+5000
+252 - valid query IF.stmt#
+if ifs; print pn;
+Select <ifs.stmt#, pn.varName> with ifs.stmt# = pn.stmt#
+
+5000
+253 - valid query IF.stmt#
+if ifs; print pn;
+Select <ifs.stmt#, pn.stmt#> with pn stmt# = ifs.stmt#
+
+5000
+254 - valid query IF.stmt#
+if ifs; stmt s;
+Select <ifs.stmt#, s.stmt#> with ifs.stmt# = s.stmt#
+11 11,13 13,26 26,28 28,38 38,4 4,47 47,48 48,69 69,72 72,74 74
+5000
+255 - valid query IF.stmt#
+if ifs; stmt s;
+Select <s.stmt#, ifs.stmt#> with s.stmt# = ifs.stmt#
+11 11,13 13,26 26,28 28,38 38,4 4,47 47,48 48,69 69,72 72,74 74
+5000
+256 - valid query IF.stmt#
+if ifs; read r;
+Select <ifs.stmt#, r.stmt#> with ifs.stmt# = r.stmt#
+
+5000
+257 - valid query IF.stmt#
+if ifs; read r;
+Select <r.varName, ifs.stmt#> with r.stmt# = ifs.stmt#
+
+5000
+258 - valid query IF.stmt#
+if ifs; call cl;
+Select <ifs.stmt#, cl.procName> with ifs.stmt# = cl.stmt#
+
+5000
+259 - valid query IF.stmt#
+if ifs; call cl;
+Select <ifs.stmt#, cl.stmt#> with cl.stmt# = ifs.stmt#
+
+5000
+260 - valid query IF.stmt#
+if ifs; while w;
+Select <ifs.stmt#, w.stmt#> with ifs.stmt# = w.stmt#
+
+5000
+261 - valid query IF.stmt#
+if ifs; while w;
+Select <ifs.stmt#, w.stmt#> with w.stmt# = ifs.stmt#
+
+5000
+262 - valid query IF.stmt#
+if ifs; assign a;
+Select <ifs.stmt#, a.stmt#> with ifs.stmt# = a.stmt#
+
+5000
+263 - valid query IF.stmt#
+if ifs; assign a;
+Select <ifs.stmt#, a.stmt#> with a.stmt# = ifs.stmt#
+
+5000
+264 - valid query IF.stmt#
+if ifs; constant c;
+Select <ifs.stmt#, c.value> with ifs.stmt# = c.value
+11 11,13 13
+5000
+265 - valid query IF.stmt#
+if ifs; constant c;
+Select <c.value, ifs.stmt#> with c.value = ifs.stmt#
+11 11,13 13
+5000
+266 - valid query ASSIGN.stmt#
+assign a;
+Select <a.stmt#> with a.stmt# = 17
+17
+5000
+270 - valid query ASSIGN.stmt#
+assign a, a1;
+Select <a.stmt#, a1.stmt#> with 27 = a1.stmt#
+10 27,12 27,14 27,16 27,17 27,18 27,19 27,20 27,21 27,22 27,23 27,24 27,27 27,33 27,35 27,36 27,44 27,5 27,50 27,51 27,53 27,54 27,56 27,58 27,59 27,6 27,60 27,63 27,66 27,67 27,70 27,71 27,73 27,75 27,76 27,77 27,79 27,8 27
+5000
+271 - valid query ASSIGN.stmt#
+assign a, a1;
+Select <a.stmt#, a1.stmt#> with 12345 = a1.stmt#
+
+5000
+272 - valid query ASSIGN.stmt#
+assign a;
+Select <a.stmt#, a.stmt#> with a.stmt# = a.stmt#
+10 10,12 12,14 14,16 16,17 17,18 18,19 19,20 20,21 21,22 22,23 23,24 24,27 27,33 33,35 35,36 36,44 44,5 5,50 50,51 51,53 53,54 54,56 56,58 58,59 59,6 6,60 60,63 63,66 66,67 67,70 70,71 71,73 73,75 75,76 76,77 77,79 79,8 8
+5000
+273 - valid query ASSIGN.stmt#
+assign a, a1;
+Select <a1.stmt#, a.stmt#> with a.stmt# = a1.stmt#
+10 10,12 12,14 14,16 16,17 17,18 18,19 19,20 20,21 21,22 22,23 23,24 24,27 27,33 33,35 35,36 36,44 44,5 5,50 50,51 51,53 53,54 54,56 56,58 58,59 59,6 6,60 60,63 63,66 66,67 67,70 70,71 71,73 73,75 75,76 76,77 77,79 79,8 8
+5000
+275 - valid query ASSIGN.stmt#
+assign a; print pn;
+Select <a.stmt#, pn.stmt#> with a.stmt# = pn.stmt#
+
+5000
+276 - valid query ASSIGN.stmt#
+assign a; print pn;
+Select <a.stmt#, pn.varName> with pn stmt# = a.stmt#
+
+5000
+277 - valid query ASSIGN.stmt#
+assign a; stmt s;
+Select <a.stmt#, s.stmt#> with a.stmt# = s.stmt#
+10 10,12 12,14 14,16 16,17 17,18 18,19 19,20 20,21 21,22 22,23 23,24 24,27 27,33 33,35 35,36 36,44 44,5 5,50 50,51 51,53 53,54 54,56 56,58 58,59 59,6 6,60 60,63 63,66 66,67 67,70 70,71 71,73 73,75 75,76 76,77 77,79 79,8 8
+5000
+279 - valid query ASSIGN.stmt#
+assign a; read r;
+Select <a.stmt#, r.stmt#> with a.stmt# = r.stmt#
+
+5000
+280 - valid query ASSIGN.stmt#
+assign a; read r;
+Select <a.stmt#, r.varName> with r.stmt# = a.stmt#
+
+5000
+281 - valid query ASSIGN.stmt#
+assign a; call cl;
+Select <a.stmt#, cl.stmt#> with a.stmt# = cl.stmt#
+
+5000
+282 - valid query ASSIGN.stmt#
+assign a; call c;
+Select <cl.procName, a.stmt#> with cl.stmt# = a.stmt#
+
+5000
+283 - valid query ASSIGN.stmt#
+assign a; while w;
+Select <a.stmt#, w.stmt#> with a.stmt# = w.stmt#
+
+5000
+284 - valid query ASSIGN.stmt#
+assign a; while w;
+Select <w.stmt#, a.stmt#> with w.stmt# = a.stmt#
+
+5000
+285 - valid query ASSIGN.stmt#
+assign a; if ifs;
+Select <a.stmt#, ifs.stmt#> with a.stmt# = ifs.stmt#
+
+5000
+286 - valid query ASSIGN.stmt#
+assign a; if ifs;
+Select <ifs.stmt#, a.stmt#> with ifs.stmt# = a.stmt#
+
+5000
+287 - valid query ASSIGN.stmt#
+assign a; constant c;
+Select <a.stmt#, c.value> with a.stmt# = c.value
+10 10,16 16,5 5
+5000
+288 - valid query ASSIGN.stmt#
+assign a; constant c;
+Select <c.value, a.stmt#> with c.value = a.stmt#
+10 10,16 16,5 5
+5000
+62 - valid query READ.varName
+read r; print pn;
+Select <r.varName, pn.varName> with r.varName = pn.varName
+uniA uniA, uniC uniC
+5000
+63 - valid query READ.varName
+read r; print pn;
+Select <pn.varName, r.varName> with pn.varName = r.varName
+uniA uniA, uniC uniC
+5000

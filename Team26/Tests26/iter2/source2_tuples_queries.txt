@@ -1,0 +1,1015 @@
+1 - tuples 2 arg
+stmt s1; while w;
+Select <s1, w> such that Next(s1, w)
+10 9,33 34,38 39,39 34,40 41,41 39,42 41,43 34,47 55,48 49,49 52,5 7,50 49,51 52,53 52,56 57,57 55,58 57,6 7,64 62,7 9,8 7
+5000
+2 - tuples 2 arg
+assign a; while w;
+Select <a, w> such that Next(a, w)
+10 9,33 34,5 7,50 49,51 52,53 52,56 57,58 57,6 7,8 7
+5000
+3 - tuples 2 arg
+assign a; while w;
+Select <w> such that Next(a, w)
+34,49,52,57,7,9
+5000
+4 - tuples 2 arg
+read r; while w;
+Select <r,w> such that Next(r, w)
+
+5000
+5 - tuples 2 arg
+print pn; while w;
+Select <pn,w> such that Next(pn, w)
+42 41,43 34
+5000
+6 - tuples 2 arg
+while w, w1;
+Select <w1,w> such that Next(w1, w)
+39 34,41 39,49 52,57 55,7 9
+5000
+7 - tuples 2 arg
+while w; if ifs;
+Select <ifs,w> such that Next(ifs, w)
+38 39,47 55,48 49
+5000
+8 - tuples 2 arg
+while w; if ifs;
+Select <w,ifs> such that Next(ifs, w)
+39 38,49 48,55 47
+5000
+9 - valid query Next (2 synonym)
+stmt s1; if ifs;
+Select <s1,ifs> such that Next(s1, ifs)
+11 13,25 26,27 28,3 4,37 38,47 48,68 69,71 72,72 74,9 11
+5000
+10 - valid query Next (2 synonym)
+assign a; if ifs;
+Select <a,ifs> such that Next(a, ifs)
+27 28,71 72
+5000
+11 - valid query Next (2 synonym)
+print pn; if ifs;
+Select <pn,ifs> such that Next(pn, ifs)
+25 26
+5000
+12 - valid query Next (2 synonym)
+read re; if ifs;
+Select <re,ifs> such that Next(re, ifs)
+68 69
+5000
+13 - valid query Next (2 synonym)
+read re; if ifs, ifs2;
+Select <ifs2,ifs> such that Next(ifs2, ifs)
+11 13,47 48,72 74
+5000
+14 - valid query Next (2 synonym)
+while w; if ifs;
+Select <w,ifs> such that Next(w, ifs)
+9 11
+5000
+15 - valid query Next (2 synonym)
+while w; read r;
+Select <w,r> such that Next(w, r)
+
+5000
+16 - valid query Next (2 synonym)
+stmt s; read r;
+Select <s,r> such that Next(s, r)
+29 30
+5000
+17 - valid query Next (2 synonym)
+assign a; read r;
+Select <a,r> such that Next(a, r)
+
+5000
+18 - valid query Next (2 synonym)
+read r, r1;
+Select <r1,r> such that Next(r1, r)
+
+5000
+19 - valid query Next (2 synonym)
+read r; print pn
+Select <pn,r> such that Next(pn, r)
+
+5000
+20 - valid query Next (2 synonym)
+while w; print pr;
+Select <w,pr> such that Next(w, pr)
+41 42,62 65
+5000
+21 - valid query Next (2 synonym)
+stmt s; print pr;
+Select <s,pr> such that Next(s, pr)
+1 2,13 15,31 32,38 43,41 42,60 61,62 65,70 78,73 78,77 78
+5000
+22 - valid query Next (2 synonym)
+assign a; print pr;
+Select <a,pr> such that Next(a, pr)
+60 61,70 78,73 78,77 78
+5000
+23 - valid query Next (2 synonym)
+read r; print pr;
+Select <r,pr> such that Next(r, pr)
+1 2
+5000
+24 - valid query Next (2 synonym)
+stmt s; print pr, pr2;
+Select <pr2,pr> such that Next(pr2, pr)
+
+5000
+25 - valid query Next (2 synonym)
+if ifs; print pr;
+Select <ifs,pr> such that Next(ifs, pr)
+13 15,38 43
+5000
+26 - valid query Next (2 synonym)
+while w; assign a;
+Select <w,a> such that Next(w, a)
+34 35,34 44,49 50,52 53,52 54,55 56,55 59,57 58,62 63,7 8,9 10
+5000
+27 - valid query Next (2 synonym)
+assign a; read re;
+Select <re,a> such that Next(re, a)
+
+5000
+28 - valid query Next (2 synonym)
+assign a; print pn;
+Select <pn,a> such that Next(pn, a)
+15 16,65 66
+5000
+29 - valid query Next (2 synonym)
+if ifs; assign a;
+Select <ifs,a> such that Next(ifs, a)
+11 12,13 14,26 27,26 33,4 5,4 6,48 51,69 70,69 71,72 73,74 75,74 76
+5000
+30 - valid query Next (2 synonym)
+assign a1, a2;
+Select <a1,a2> such that Next(a1, a2)
+12 17,14 16,16 17,17 18,18 19,19 20,20 21,21 22,22 23,23 24,35 36,54 60,59 60,66 67,75 77,76 77
+5000
+31 - valid query Next* (2 synonym)
+stmt s2; assign a;
+Select <a,s2> such that Next*(a, s2)
+10 10,10 11,10 12,10 13,10 14,10 15,10 16,10 17,10 18,10 19,10 20,10 21,10 22,10 23,10 24,10 9,12 17,12 18,12 19,12 20,12 21,12 22,12 23,12 24,14 16,14 17,14 18,14 19,14 20,14 21,14 22,14 23,14 24,16 17,16 18,16 19,16 20,16 21,16 22,16 23,16 24,17 18,17 19,17 20,17 21,17 22,17 23,17 24,18 19,18 20,18 21,18 22,18 23,18 24,19 20,19 21,19 22,19 23,19 24,20 21,20 22,20 23,20 24,21 22,21 23,21 24,22 23,22 24,23 24,27 28,27 29,27 30,27 31,27 32,27 45,33 34,33 35,33 36,33 37,33 38,33 39,33 40,33 41,33 42,33 43,33 44,33 45,35 34,35 35,35 36,35 37,35 38,35 39,35 40,35 41,35 42,35 43,35 44,35 45,36 34,36 35,36 36,36 37,36 38,36 39,36 40,36 41,36 42,36 43,36 44,36 45,44 45,5 10,5 11,5 12,5 13,5 14,5 15,5 16,5 17,5 18,5 19,5 20,5 21,5 22,5 23,5 24,5 7,5 8,5 9,50 49,50 50,50 52,50 53,50 54,50 60,50 61,51 52,51 53,51 54,51 60,51 61,53 52,53 53,53 54,53 60,53 61,54 60,54 61,56 55,56 56,56 57,56 58,56 59,56 60,56 61,58 55,58 56,58 57,58 58,58 59,58 60,58 61,59 60,59 61,6 10,6 11,6 12,6 13,6 14,6 15,6 16,6 17,6 18,6 19,6 20,6 21,6 22,6 23,6 24,6 7,6 8,6 9,60 61,63 62,63 63,63 64,63 65,63 66,63 67,66 67,70 78,71 72,71 73,71 74,71 75,71 76,71 77,71 78,73 78,75 77,75 78,76 77,76 78,77 78,8 10,8 11,8 12,8 13,8 14,8 15,8 16,8 17,8 18,8 19,8 20,8 21,8 22,8 23,8 24,8 7,8 8,8 9
+5000
+32 - valid query Next* (2 synonym)
+stmt s1, s2;
+Select <s1,s2> such that Next*(s1, s2)
+1 10,1 11,1 12,1 13,1 14,1 15,1 16,1 17,1 18,1 19,1 2,1 20,1 21,1 22,1 23,1 24,1 3,1 4,1 5,1 6,1 7,1 8,1 9,10 10,10 11,10 12,10 13,10 14,10 15,10 16,10 17,10 18,10 19,10 20,10 21,10 22,10 23,10 24,10 9,11 12,11 13,11 14,11 15,11 16,11 17,11 18,11 19,11 20,11 21,11 22,11 23,11 24,12 17,12 18,12 19,12 20,12 21,12 22,12 23,12 24,13 14,13 15,13 16,13 17,13 18,13 19,13 20,13 21,13 22,13 23,13 24,14 16,14 17,14 18,14 19,14 20,14 21,14 22,14 23,14 24,15 16,15 17,15 18,15 19,15 20,15 21,15 22,15 23,15 24,16 17,16 18,16 19,16 20,16 21,16 22,16 23,16 24,17 18,17 19,17 20,17 21,17 22,17 23,17 24,18 19,18 20,18 21,18 22,18 23,18 24,19 20,19 21,19 22,19 23,19 24,2 10,2 11,2 12,2 13,2 14,2 15,2 16,2 17,2 18,2 19,2 20,2 21,2 22,2 23,2 24,2 3,2 4,2 5,2 6,2 7,2 8,2 9,20 21,20 22,20 23,20 24,21 22,21 23,21 24,22 23,22 24,23 24,25 26,25 27,25 28,25 29,25 30,25 31,25 32,25 33,25 34,25 35,25 36,25 37,25 38,25 39,25 40,25 41,25 42,25 43,25 44,25 45,26 27,26 28,26 29,26 30,26 31,26 32,26 33,26 34,26 35,26 36,26 37,26 38,26 39,26 40,26 41,26 42,26 43,26 44,26 45,27 28,27 29,27 30,27 31,27 32,27 45,28 29,28 30,28 31,28 32,28 45,29 30,29 45,3 10,3 11,3 12,3 13,3 14,3 15,3 16,3 17,3 18,3 19,3 20,3 21,3 22,3 23,3 24,3 4,3 5,3 6,3 7,3 8,3 9,30 45,31 32,31 45,32 45,33 34,33 35,33 36,33 37,33 38,33 39,33 40,33 41,33 42,33 43,33 44,33 45,34 34,34 35,34 36,34 37,34 38,34 39,34 40,34 41,34 42,34 43,34 44,34 45,35 34,35 35,35 36,35 37,35 38,35 39,35 40,35 41,35 42,35 43,35 44,35 45,36 34,36 35,36 36,36 37,36 38,36 39,36 40,36 41,36 42,36 43,36 44,36 45,37 34,37 35,37 36,37 37,37 38,37 39,37 40,37 41,37 42,37 43,37 44,37 45,38 34,38 35,38 36,38 37,38 38,38 39,38 40,38 41,38 42,38 43,38 44,38 45,39 34,39 35,39 36,39 37,39 38,39 39,39 40,39 41,39 42,39 43,39 44,39 45,4 10,4 11,4 12,4 13,4 14,4 15,4 16,4 17,4 18,4 19,4 20,4 21,4 22,4 23,4 24,4 5,4 6,4 7,4 8,4 9,40 34,40 35,40 36,40 37,40 38,40 39,40 40,40 41,40 42,40 43,40 44,40 45,41 34,41 35,41 36,41 37,41 38,41 39,41 40,41 41,41 42,41 43,41 44,41 45,42 34,42 35,42 36,42 37,42 38,42 39,42 40,42 41,42 42,42 43,42 44,42 45,43 34,43 35,43 36,43 37,43 38,43 39,43 40,43 41,43 42,43 43,43 44,43 45,44 45,47 48,47 49,47 50,47 51,47 52,47 53,47 54,47 55,47 56,47 57,47 58,47 59,47 60,47 61,48 49,48 50,48 51,48 52,48 53,48 54,48 60,48 61,49 49,49 50,49 52,49 53,49 54,49 60,49 61,5 10,5 11,5 12,5 13,5 14,5 15,5 16,5 17,5 18,5 19,5 20,5 21,5 22,5 23,5 24,5 7,5 8,5 9,50 49,50 50,50 52,50 53,50 54,50 60,50 61,51 52,51 53,51 54,51 60,51 61,52 52,52 53,52 54,52 60,52 61,53 52,53 53,53 54,53 60,53 61,54 60,54 61,55 55,55 56,55 57,55 58,55 59,55 60,55 61,56 55,56 56,56 57,56 58,56 59,56 60,56 61,57 55,57 56,57 57,57 58,57 59,57 60,57 61,58 55,58 56,58 57,58 58,58 59,58 60,58 61,59 60,59 61,6 10,6 11,6 12,6 13,6 14,6 15,6 16,6 17,6 18,6 19,6 20,6 21,6 22,6 23,6 24,6 7,6 8,6 9,60 61,62 62,62 63,62 64,62 65,62 66,62 67,63 62,63 63,63 64,63 65,63 66,63 67,64 62,64 63,64 64,64 65,64 66,64 67,65 66,65 67,66 67,68 69,68 70,68 71,68 72,68 73,68 74,68 75,68 76,68 77,68 78,69 70,69 71,69 72,69 73,69 74,69 75,69 76,69 77,69 78,7 10,7 11,7 12,7 13,7 14,7 15,7 16,7 17,7 18,7 19,7 20,7 21,7 22,7 23,7 24,7 7,7 8,7 9,70 78,71 72,71 73,71 74,71 75,71 76,71 77,71 78,72 73,72 74,72 75,72 76,72 77,72 78,73 78,74 75,74 76,74 77,74 78,75 77,75 78,76 77,76 78,77 78,8 10,8 11,8 12,8 13,8 14,8 15,8 16,8 17,8 18,8 19,8 20,8 21,8 22,8 23,8 24,8 7,8 8,8 9,9 10,9 11,9 12,9 13,9 14,9 15,9 16,9 17,9 18,9 19,9 20,9 21,9 22,9 23,9 24,9 9
+5000
+33 - valid query Next* (2 synonym)
+stmt s2; while w;
+Select <w,s2> such that Next*(w, s2)
+34 34,34 35,34 36,34 37,34 38,34 39,34 40,34 41,34 42,34 43,34 44,34 45,39 34,39 35,39 36,39 37,39 38,39 39,39 40,39 41,39 42,39 43,39 44,39 45,41 34,41 35,41 36,41 37,41 38,41 39,41 40,41 41,41 42,41 43,41 44,41 45,49 49,49 50,49 52,49 53,49 54,49 60,49 61,52 52,52 53,52 54,52 60,52 61,55 55,55 56,55 57,55 58,55 59,55 60,55 61,57 55,57 56,57 57,57 58,57 59,57 60,57 61,62 62,62 63,62 64,62 65,62 66,62 67,7 10,7 11,7 12,7 13,7 14,7 15,7 16,7 17,7 18,7 19,7 20,7 21,7 22,7 23,7 24,7 7,7 8,7 9,9 10,9 11,9 12,9 13,9 14,9 15,9 16,9 17,9 18,9 19,9 20,9 21,9 22,9 23,9 24,9 9
+5000
+34 - valid query Next* (2 synonym)
+stmt s2; if ifs;
+Select <ifs,s2> such that Next*(ifs, s2)
+11 12,11 13,11 14,11 15,11 16,11 17,11 18,11 19,11 20,11 21,11 22,11 23,11 24,13 14,13 15,13 16,13 17,13 18,13 19,13 20,13 21,13 22,13 23,13 24,26 27,26 28,26 29,26 30,26 31,26 32,26 33,26 34,26 35,26 36,26 37,26 38,26 39,26 40,26 41,26 42,26 43,26 44,26 45,28 29,28 30,28 31,28 32,28 45,38 34,38 35,38 36,38 37,38 38,38 39,38 40,38 41,38 42,38 43,38 44,38 45,4 10,4 11,4 12,4 13,4 14,4 15,4 16,4 17,4 18,4 19,4 20,4 21,4 22,4 23,4 24,4 5,4 6,4 7,4 8,4 9,47 48,47 49,47 50,47 51,47 52,47 53,47 54,47 55,47 56,47 57,47 58,47 59,47 60,47 61,48 49,48 50,48 51,48 52,48 53,48 54,48 60,48 61,69 70,69 71,69 72,69 73,69 74,69 75,69 76,69 77,69 78,72 73,72 74,72 75,72 76,72 77,72 78,74 75,74 76,74 77,74 78
+5000
+35 - valid query Next (2 num)
+stmt s2; if ifs;
+Select <ifs,s2> such that Next(47, 55)
+11 1,11 10,11 11,11 12,11 13,11 14,11 15,11 16,11 17,11 18,11 19,11 2,11 20,11 21,11 22,11 23,11 24,11 25,11 26,11 27,11 28,11 29,11 3,11 30,11 31,11 32,11 33,11 34,11 35,11 36,11 37,11 38,11 39,11 4,11 40,11 41,11 42,11 43,11 44,11 45,11 46,11 47,11 48,11 49,11 5,11 50,11 51,11 52,11 53,11 54,11 55,11 56,11 57,11 58,11 59,11 6,11 60,11 61,11 62,11 63,11 64,11 65,11 66,11 67,11 68,11 69,11 7,11 70,11 71,11 72,11 73,11 74,11 75,11 76,11 77,11 78,11 79,11 8,11 80,11 9,13 1,13 10,13 11,13 12,13 13,13 14,13 15,13 16,13 17,13 18,13 19,13 2,13 20,13 21,13 22,13 23,13 24,13 25,13 26,13 27,13 28,13 29,13 3,13 30,13 31,13 32,13 33,13 34,13 35,13 36,13 37,13 38,13 39,13 4,13 40,13 41,13 42,13 43,13 44,13 45,13 46,13 47,13 48,13 49,13 5,13 50,13 51,13 52,13 53,13 54,13 55,13 56,13 57,13 58,13 59,13 6,13 60,13 61,13 62,13 63,13 64,13 65,13 66,13 67,13 68,13 69,13 7,13 70,13 71,13 72,13 73,13 74,13 75,13 76,13 77,13 78,13 79,13 8,13 80,13 9,26 1,26 10,26 11,26 12,26 13,26 14,26 15,26 16,26 17,26 18,26 19,26 2,26 20,26 21,26 22,26 23,26 24,26 25,26 26,26 27,26 28,26 29,26 3,26 30,26 31,26 32,26 33,26 34,26 35,26 36,26 37,26 38,26 39,26 4,26 40,26 41,26 42,26 43,26 44,26 45,26 46,26 47,26 48,26 49,26 5,26 50,26 51,26 52,26 53,26 54,26 55,26 56,26 57,26 58,26 59,26 6,26 60,26 61,26 62,26 63,26 64,26 65,26 66,26 67,26 68,26 69,26 7,26 70,26 71,26 72,26 73,26 74,26 75,26 76,26 77,26 78,26 79,26 8,26 80,26 9,28 1,28 10,28 11,28 12,28 13,28 14,28 15,28 16,28 17,28 18,28 19,28 2,28 20,28 21,28 22,28 23,28 24,28 25,28 26,28 27,28 28,28 29,28 3,28 30,28 31,28 32,28 33,28 34,28 35,28 36,28 37,28 38,28 39,28 4,28 40,28 41,28 42,28 43,28 44,28 45,28 46,28 47,28 48,28 49,28 5,28 50,28 51,28 52,28 53,28 54,28 55,28 56,28 57,28 58,28 59,28 6,28 60,28 61,28 62,28 63,28 64,28 65,28 66,28 67,28 68,28 69,28 7,28 70,28 71,28 72,28 73,28 74,28 75,28 76,28 77,28 78,28 79,28 8,28 80,28 9,38 1,38 10,38 11,38 12,38 13,38 14,38 15,38 16,38 17,38 18,38 19,38 2,38 20,38 21,38 22,38 23,38 24,38 25,38 26,38 27,38 28,38 29,38 3,38 30,38 31,38 32,38 33,38 34,38 35,38 36,38 37,38 38,38 39,38 4,38 40,38 41,38 42,38 43,38 44,38 45,38 46,38 47,38 48,38 49,38 5,38 50,38 51,38 52,38 53,38 54,38 55,38 56,38 57,38 58,38 59,38 6,38 60,38 61,38 62,38 63,38 64,38 65,38 66,38 67,38 68,38 69,38 7,38 70,38 71,38 72,38 73,38 74,38 75,38 76,38 77,38 78,38 79,38 8,38 80,38 9,4 1,4 10,4 11,4 12,4 13,4 14,4 15,4 16,4 17,4 18,4 19,4 2,4 20,4 21,4 22,4 23,4 24,4 25,4 26,4 27,4 28,4 29,4 3,4 30,4 31,4 32,4 33,4 34,4 35,4 36,4 37,4 38,4 39,4 4,4 40,4 41,4 42,4 43,4 44,4 45,4 46,4 47,4 48,4 49,4 5,4 50,4 51,4 52,4 53,4 54,4 55,4 56,4 57,4 58,4 59,4 6,4 60,4 61,4 62,4 63,4 64,4 65,4 66,4 67,4 68,4 69,4 7,4 70,4 71,4 72,4 73,4 74,4 75,4 76,4 77,4 78,4 79,4 8,4 80,4 9,47 1,47 10,47 11,47 12,47 13,47 14,47 15,47 16,47 17,47 18,47 19,47 2,47 20,47 21,47 22,47 23,47 24,47 25,47 26,47 27,47 28,47 29,47 3,47 30,47 31,47 32,47 33,47 34,47 35,47 36,47 37,47 38,47 39,47 4,47 40,47 41,47 42,47 43,47 44,47 45,47 46,47 47,47 48,47 49,47 5,47 50,47 51,47 52,47 53,47 54,47 55,47 56,47 57,47 58,47 59,47 6,47 60,47 61,47 62,47 63,47 64,47 65,47 66,47 67,47 68,47 69,47 7,47 70,47 71,47 72,47 73,47 74,47 75,47 76,47 77,47 78,47 79,47 8,47 80,47 9,48 1,48 10,48 11,48 12,48 13,48 14,48 15,48 16,48 17,48 18,48 19,48 2,48 20,48 21,48 22,48 23,48 24,48 25,48 26,48 27,48 28,48 29,48 3,48 30,48 31,48 32,48 33,48 34,48 35,48 36,48 37,48 38,48 39,48 4,48 40,48 41,48 42,48 43,48 44,48 45,48 46,48 47,48 48,48 49,48 5,48 50,48 51,48 52,48 53,48 54,48 55,48 56,48 57,48 58,48 59,48 6,48 60,48 61,48 62,48 63,48 64,48 65,48 66,48 67,48 68,48 69,48 7,48 70,48 71,48 72,48 73,48 74,48 75,48 76,48 77,48 78,48 79,48 8,48 80,48 9,69 1,69 10,69 11,69 12,69 13,69 14,69 15,69 16,69 17,69 18,69 19,69 2,69 20,69 21,69 22,69 23,69 24,69 25,69 26,69 27,69 28,69 29,69 3,69 30,69 31,69 32,69 33,69 34,69 35,69 36,69 37,69 38,69 39,69 4,69 40,69 41,69 42,69 43,69 44,69 45,69 46,69 47,69 48,69 49,69 5,69 50,69 51,69 52,69 53,69 54,69 55,69 56,69 57,69 58,69 59,69 6,69 60,69 61,69 62,69 63,69 64,69 65,69 66,69 67,69 68,69 69,69 7,69 70,69 71,69 72,69 73,69 74,69 75,69 76,69 77,69 78,69 79,69 8,69 80,69 9,72 1,72 10,72 11,72 12,72 13,72 14,72 15,72 16,72 17,72 18,72 19,72 2,72 20,72 21,72 22,72 23,72 24,72 25,72 26,72 27,72 28,72 29,72 3,72 30,72 31,72 32,72 33,72 34,72 35,72 36,72 37,72 38,72 39,72 4,72 40,72 41,72 42,72 43,72 44,72 45,72 46,72 47,72 48,72 49,72 5,72 50,72 51,72 52,72 53,72 54,72 55,72 56,72 57,72 58,72 59,72 6,72 60,72 61,72 62,72 63,72 64,72 65,72 66,72 67,72 68,72 69,72 7,72 70,72 71,72 72,72 73,72 74,72 75,72 76,72 77,72 78,72 79,72 8,72 80,72 9,74 1,74 10,74 11,74 12,74 13,74 14,74 15,74 16,74 17,74 18,74 19,74 2,74 20,74 21,74 22,74 23,74 24,74 25,74 26,74 27,74 28,74 29,74 3,74 30,74 31,74 32,74 33,74 34,74 35,74 36,74 37,74 38,74 39,74 4,74 40,74 41,74 42,74 43,74 44,74 45,74 46,74 47,74 48,74 49,74 5,74 50,74 51,74 52,74 53,74 54,74 55,74 56,74 57,74 58,74 59,74 6,74 60,74 61,74 62,74 63,74 64,74 65,74 66,74 67,74 68,74 69,74 7,74 70,74 71,74 72,74 73,74 74,74 75,74 76,74 77,74 78,74 79,74 8,74 80,74 9
+5000
+36 - valid query Next (2 synonym)
+stmt s2; print pn;
+Select <pn,s2> such that Next(pn, s2)
+15 16,2 3,25 26,32 45,42 41,43 34,65 66
+5000
+37 - valid query Next (2 synonym)
+stmt s2; read re;
+Select <re,s2> such that Next(re, s2)
+1 2,30 45,68 69
+5000
+38 - modifies statement
+stmt s; variable v;
+Select <s,v> such that Modifies(s, v)
+1 a,10 c,11 a,11 b,11 ifVar,12 ifVar,13 b,14 b,16 a,17 a,18 a,19 a,20 a,21 a,22 a,23 a,24 a,26 bA,26 bD,26 dA,26 dAAA,26 uniA,26 x,27 bA,28 dA,28 dAAA,28 uniA,29 dA,29 dAAA,3 bA,3 bD,3 dA,3 dAAA,3 file,3 k,3 uniA,3 x,3 y,3 z,30 uniA,33 bA,34 bA,34 dA,34 dAAA,34 x,35 bA,36 x,37 dA,37 dAAA,4 y,4 z,44 bD,45 file,45 k,45 x,45 y,45 z,47 k,47 x,47 y,47 z,48 z,49 z,5 y,50 z,51 z,52 y,53 y,54 x,55 x,55 y,56 x,57 y,58 y,59 k,6 z,60 file,62 dAAA,63 dAAA,66 dA,67 dA,68 uniC,69 ifA,69 ifB,7 n,70 ifA,71 ifA,72 ifA,72 ifB,73 ifA,74 ifA,74 ifB,75 ifB,76 ifA,77 ifA,79 procC,8 n,80 x,9 c
+5000
+39 - modifies statement
+assign a; variable v;
+Select <a,v> such that Modifies(a, v)
+10 c,12 ifVar,14 b,16 a,17 a,18 a,19 a,20 a,21 a,22 a,23 a,24 a,27 bA,33 bA,35 bA,36 x,44 bD,5 y,50 z,51 z,53 y,54 x,56 x,58 y,59 k,6 z,60 file,63 dAAA,66 dA,67 dA,70 ifA,71 ifA,73 ifA,75 ifB,76 ifA,77 ifA,79 procC,8 n
+5000
+40 - modifies statement
+read r; variable v;
+Select <r,v> such that Modifies(r, v)
+1 a,30 uniA,68 uniC,80 x
+5000
+41 - modifies statement
+print pn; variable v;
+Select <pn,v> such that Modifies(pn, v)
+
+5000
+42 - modifies statement
+while w; variable v;
+Select <w,v> such that Modifies(w, v)
+34 bA,34 dA,34 dAAA,34 x,49 z,52 y,55 x,55 y,57 y,62 dAAA,7 n,9 c
+5000
+43 - modifies statement
+if ifs; variable v;
+Select <ifs,v> such that Modifies(ifs, v)
+11 a,11 b,11 ifVar,13 b,26 bA,26 bD,26 dA,26 dAAA,26 uniA,26 x,28 dA,28 dAAA,28 uniA,4 y,4 z,47 k,47 x,47 y,47 z,48 z,69 ifA,69 ifB,72 ifA,72 ifB,74 ifA,74 ifB
+5000
+44 - modifies statement
+stmt s; variable v;
+Select <v,s> such that Modifies(s, v)
+a 1,a 11,a 16,a 17,a 18,a 19,a 20,a 21,a 22,a 23,a 24,b 11,b 13,b 14,bA 26,bA 27,bA 3,bA 33,bA 34,bA 35,bD 26,bD 3,bD 44,c 10,c 9,dA 26,dA 28,dA 29,dA 3,dA 34,dA 37,dA 66,dA 67,dAAA 26,dAAA 28,dAAA 29,dAAA 3,dAAA 34,dAAA 37,dAAA 62,dAAA 63,file 3,file 45,file 60,ifA 69,ifA 70,ifA 71,ifA 72,ifA 73,ifA 74,ifA 76,ifA 77,ifB 69,ifB 72,ifB 74,ifB 75,ifVar 11,ifVar 12,k 3,k 45,k 47,k 59,n 7,n 8,procC 79,uniA 26,uniA 28,uniA 3,uniA 30,uniC 68,x 26,x 3,x 34,x 36,x 45,x 47,x 54,x 55,x 56,x 80,y 3,y 4,y 45,y 47,y 5,y 52,y 53,y 55,y 57,y 58,z 3,z 4,z 45,z 47,z 48,z 49,z 50,z 51,z 6
+5000
+45 - modifies statement
+assign a; variable v;
+Select <v,a> such that Modifies(a, v)
+a 16,a 17,a 18,a 19,a 20,a 21,a 22,a 23,a 24,b 14,bA 27,bA 33,bA 35,bD 44,c 10,dA 66,dA 67,dAAA 63,file 60,ifA 70,ifA 71,ifA 73,ifA 76,ifA 77,ifB 75,ifVar 12,k 59,n 8,procC 79,x 36,x 54,x 56,y 5,y 53,y 58,z 50,z 51,z 6
+5000
+46 - modifies statement
+read r; variable v;
+Select <v,r> such that Modifies(r, v)
+a 1,uniA 30,uniC 68,x 80
+5000
+47 - modifies statement
+print pn; variable v;
+Select <v,pn> such that Modifies(pn, v)
+
+5000
+48 - modifies statement
+while w; variable v;
+Select <v,w> such that Modifies(w, v)
+bA 34,c 9,dA 34,dAAA 34,dAAA 62,n 7,x 34,x 55,y 52,y 55,y 57,z 49
+5000
+49 - modifies statement
+if ifs; variable v;
+Select <v,ifs> such that Modifies(ifs, v)
+a 11,b 11,b 13,bA 26,bD 26,dA 26,dA 28,dAAA 26,dAAA 28,ifA 69,ifA 72,ifA 74,ifB 69,ifB 72,ifB 74,ifVar 11,k 47,uniA 26,uniA 28,x 26,x 47,y 4,y 47,z 4,z 47,z 48
+5000
+50 - modifies statement
+stmt s; variable v; procedure p;
+Select <p,s,v> such that Modifies(s, v) and Modifies(p,v)
+ifA 26 x,ifA 3 x,ifA 34 x,ifA 36 x,ifA 45 x,ifA 47 x,ifA 54 x,ifA 55 x,ifA 56 x,ifA 80 x,ifInIf 68 uniC,ifInIf 69 ifA,ifInIf 69 ifB,ifInIf 70 ifA,ifInIf 71 ifA,ifInIf 72 ifA,ifInIf 72 ifB,ifInIf 73 ifA,ifInIf 74 ifA,ifInIf 74 ifB,ifInIf 75 ifB,ifInIf 76 ifA,ifInIf 77 ifA,procA 1 a,procA 10 c,procA 11 a,procA 11 b,procA 11 ifVar,procA 12 ifVar,procA 13 b,procA 14 b,procA 16 a,procA 17 a,procA 18 a,procA 19 a,procA 20 a,procA 21 a,procA 22 a,procA 23 a,procA 24 a,procA 26 bA,procA 26 bD,procA 26 dA,procA 26 dAAA,procA 26 uniA,procA 26 x,procA 27 bA,procA 28 dA,procA 28 dAAA,procA 28 uniA,procA 29 dA,procA 29 dAAA,procA 3 bA,procA 3 bD,procA 3 dA,procA 3 dAAA,procA 3 file,procA 3 k,procA 3 uniA,procA 3 x,procA 3 y,procA 3 z,procA 30 uniA,procA 33 bA,procA 34 bA,procA 34 dA,procA 34 dAAA,procA 34 x,procA 35 bA,procA 36 x,procA 37 dA,procA 37 dAAA,procA 4 y,procA 4 z,procA 44 bD,procA 45 file,procA 45 k,procA 45 x,procA 45 y,procA 45 z,procA 47 k,procA 47 x,procA 47 y,procA 47 z,procA 48 z,procA 49 z,procA 5 y,procA 50 z,procA 51 z,procA 52 y,procA 53 y,procA 54 x,procA 55 x,procA 55 y,procA 56 x,procA 57 y,procA 58 y,procA 59 k,procA 6 z,procA 60 file,procA 62 dAAA,procA 63 dAAA,procA 66 dA,procA 67 dA,procA 7 n,procA 8 n,procA 80 x,procA 9 c,procB 26 bA,procB 26 bD,procB 26 dA,procB 26 dAAA,procB 26 uniA,procB 26 x,procB 27 bA,procB 28 dA,procB 28 dAAA,procB 28 uniA,procB 29 dA,procB 29 dAAA,procB 3 bA,procB 3 bD,procB 3 dA,procB 3 dAAA,procB 3 file,procB 3 k,procB 3 uniA,procB 3 x,procB 3 y,procB 3 z,procB 30 uniA,procB 33 bA,procB 34 bA,procB 34 dA,procB 34 dAAA,procB 34 x,procB 35 bA,procB 36 x,procB 37 dA,procB 37 dAAA,procB 4 y,procB 4 z,procB 44 bD,procB 45 file,procB 45 k,procB 45 x,procB 45 y,procB 45 z,procB 47 k,procB 47 x,procB 47 y,procB 47 z,procB 48 z,procB 49 z,procB 5 y,procB 50 z,procB 51 z,procB 52 y,procB 53 y,procB 54 x,procB 55 x,procB 55 y,procB 56 x,procB 57 y,procB 58 y,procB 59 k,procB 6 z,procB 60 file,procB 62 dAAA,procB 63 dAAA,procB 66 dA,procB 67 dA,procB 80 x,procC 26 x,procC 3 file,procC 3 k,procC 3 x,procC 3 y,procC 3 z,procC 34 x,procC 36 x,procC 4 y,procC 4 z,procC 45 file,procC 45 k,procC 45 x,procC 45 y,procC 45 z,procC 47 k,procC 47 x,procC 47 y,procC 47 z,procC 48 z,procC 49 z,procC 5 y,procC 50 z,procC 51 z,procC 52 y,procC 53 y,procC 54 x,procC 55 x,procC 55 y,procC 56 x,procC 57 y,procC 58 y,procC 59 k,procC 6 z,procC 60 file,procC 80 x,procD 26 dA,procD 26 dAAA,procD 28 dA,procD 28 dAAA,procD 29 dA,procD 29 dAAA,procD 3 dA,procD 3 dAAA,procD 34 dA,procD 34 dAAA,procD 37 dA,procD 37 dAAA,procD 62 dAAA,procD 63 dAAA,procD 66 dA,procD 67 dA,withTest 79 procC
+5000
+51 - modifies statement
+assign a; variable v; procedure p;
+Select <p,a,v> such that Modifies(a, v) and Modifies(p,v)
+ifA 36 x,ifA 54 x,ifA 56 x,ifInIf 70 ifA,ifInIf 71 ifA,ifInIf 73 ifA,ifInIf 75 ifB,ifInIf 76 ifA,ifInIf 77 ifA,procA 10 c,procA 12 ifVar,procA 14 b,procA 16 a,procA 17 a,procA 18 a,procA 19 a,procA 20 a,procA 21 a,procA 22 a,procA 23 a,procA 24 a,procA 27 bA,procA 33 bA,procA 35 bA,procA 36 x,procA 44 bD,procA 5 y,procA 50 z,procA 51 z,procA 53 y,procA 54 x,procA 56 x,procA 58 y,procA 59 k,procA 6 z,procA 60 file,procA 63 dAAA,procA 66 dA,procA 67 dA,procA 8 n,procB 27 bA,procB 33 bA,procB 35 bA,procB 36 x,procB 44 bD,procB 5 y,procB 50 z,procB 51 z,procB 53 y,procB 54 x,procB 56 x,procB 58 y,procB 59 k,procB 6 z,procB 60 file,procB 63 dAAA,procB 66 dA,procB 67 dA,procC 36 x,procC 5 y,procC 50 z,procC 51 z,procC 53 y,procC 54 x,procC 56 x,procC 58 y,procC 59 k,procC 6 z,procC 60 file,procD 63 dAAA,procD 66 dA,procD 67 dA,withTest 79 procC
+5000
+52 - modifies statement
+read r; variable v; procedure p;
+Select <p,r,v> such that Modifies(r, v) and Modifies(p,v)
+ifA 80 x,ifInIf 68 uniC,procA 1 a,procA 30 uniA,procA 80 x,procB 30 uniA,procB 80 x,procC 80 x
+5000
+53 - modifies statement
+print pn; variable v; procedure p;
+Select <p,pn,v> such that Modifies(pn, v) and Modifies(p,v)
+
+5000
+54 - modifies statement
+while w; variable v; procedure p;
+Select <p,w,v> such that Modifies(w, v) and Modifies(p,v)
+ifA 34 x,ifA 55 x,procA 34 bA,procA 34 dA,procA 34 dAAA,procA 34 x,procA 49 z,procA 52 y,procA 55 x,procA 55 y,procA 57 y,procA 62 dAAA,procA 7 n,procA 9 c,procB 34 bA,procB 34 dA,procB 34 dAAA,procB 34 x,procB 49 z,procB 52 y,procB 55 x,procB 55 y,procB 57 y,procB 62 dAAA,procC 34 x,procC 49 z,procC 52 y,procC 55 x,procC 55 y,procC 57 y,procD 34 dA,procD 34 dAAA,procD 62 dAAA
+5000
+55 - modifies statement
+if ifs; variable v; procedure p;
+Select <p,ifs,v> such that Modifies(ifs, v) and Modifies(p,v)
+ifA 26 x,ifA 47 x,ifInIf 69 ifA,ifInIf 69 ifB,ifInIf 72 ifA,ifInIf 72 ifB,ifInIf 74 ifA,ifInIf 74 ifB,procA 11 a,procA 11 b,procA 11 ifVar,procA 13 b,procA 26 bA,procA 26 bD,procA 26 dA,procA 26 dAAA,procA 26 uniA,procA 26 x,procA 28 dA,procA 28 dAAA,procA 28 uniA,procA 4 y,procA 4 z,procA 47 k,procA 47 x,procA 47 y,procA 47 z,procA 48 z,procB 26 bA,procB 26 bD,procB 26 dA,procB 26 dAAA,procB 26 uniA,procB 26 x,procB 28 dA,procB 28 dAAA,procB 28 uniA,procB 4 y,procB 4 z,procB 47 k,procB 47 x,procB 47 y,procB 47 z,procB 48 z,procC 26 x,procC 4 y,procC 4 z,procC 47 k,procC 47 x,procC 47 y,procC 47 z,procC 48 z,procD 26 dA,procD 26 dAAA,procD 28 dA,procD 28 dAAA
+5000
+56 - modifies statement
+stmt s; variable v; procedure p;
+Select <s,p,v> such that Modifies(s, v) and Modifies(p,v)
+1 procA a,10 procA c,11 procA a,11 procA b,11 procA ifVar,12 procA ifVar,13 procA b,14 procA b,16 procA a,17 procA a,18 procA a,19 procA a,20 procA a,21 procA a,22 procA a,23 procA a,24 procA a,26 ifA x,26 procA bA,26 procA bD,26 procA dA,26 procA dAAA,26 procA uniA,26 procA x,26 procB bA,26 procB bD,26 procB dA,26 procB dAAA,26 procB uniA,26 procB x,26 procC x,26 procD dA,26 procD dAAA,27 procA bA,27 procB bA,28 procA dA,28 procA dAAA,28 procA uniA,28 procB dA,28 procB dAAA,28 procB uniA,28 procD dA,28 procD dAAA,29 procA dA,29 procA dAAA,29 procB dA,29 procB dAAA,29 procD dA,29 procD dAAA,3 ifA x,3 procA bA,3 procA bD,3 procA dA,3 procA dAAA,3 procA file,3 procA k,3 procA uniA,3 procA x,3 procA y,3 procA z,3 procB bA,3 procB bD,3 procB dA,3 procB dAAA,3 procB file,3 procB k,3 procB uniA,3 procB x,3 procB y,3 procB z,3 procC file,3 procC k,3 procC x,3 procC y,3 procC z,3 procD dA,3 procD dAAA,30 procA uniA,30 procB uniA,33 procA bA,33 procB bA,34 ifA x,34 procA bA,34 procA dA,34 procA dAAA,34 procA x,34 procB bA,34 procB dA,34 procB dAAA,34 procB x,34 procC x,34 procD dA,34 procD dAAA,35 procA bA,35 procB bA,36 ifA x,36 procA x,36 procB x,36 procC x,37 procA dA,37 procA dAAA,37 procB dA,37 procB dAAA,37 procD dA,37 procD dAAA,4 procA y,4 procA z,4 procB y,4 procB z,4 procC y,4 procC z,44 procA bD,44 procB bD,45 ifA x,45 procA file,45 procA k,45 procA x,45 procA y,45 procA z,45 procB file,45 procB k,45 procB x,45 procB y,45 procB z,45 procC file,45 procC k,45 procC x,45 procC y,45 procC z,47 ifA x,47 procA k,47 procA x,47 procA y,47 procA z,47 procB k,47 procB x,47 procB y,47 procB z,47 procC k,47 procC x,47 procC y,47 procC z,48 procA z,48 procB z,48 procC z,49 procA z,49 procB z,49 procC z,5 procA y,5 procB y,5 procC y,50 procA z,50 procB z,50 procC z,51 procA z,51 procB z,51 procC z,52 procA y,52 procB y,52 procC y,53 procA y,53 procB y,53 procC y,54 ifA x,54 procA x,54 procB x,54 procC x,55 ifA x,55 procA x,55 procA y,55 procB x,55 procB y,55 procC x,55 procC y,56 ifA x,56 procA x,56 procB x,56 procC x,57 procA y,57 procB y,57 procC y,58 procA y,58 procB y,58 procC y,59 procA k,59 procB k,59 procC k,6 procA z,6 procB z,6 procC z,60 procA file,60 procB file,60 procC file,62 procA dAAA,62 procB dAAA,62 procD dAAA,63 procA dAAA,63 procB dAAA,63 procD dAAA,66 procA dA,66 procB dA,66 procD dA,67 procA dA,67 procB dA,67 procD dA,68 ifInIf uniC,69 ifInIf ifA,69 ifInIf ifB,7 procA n,70 ifInIf ifA,71 ifInIf ifA,72 ifInIf ifA,72 ifInIf ifB,73 ifInIf ifA,74 ifInIf ifA,74 ifInIf ifB,75 ifInIf ifB,76 ifInIf ifA,77 ifInIf ifA,79 withTest procC,8 procA n,80 ifA x,80 procA x,80 procB x,80 procC x,9 procA c
+5000
+57 - modifies statement
+assign a; variable v; procedure p;
+Select <a,p,v> such that Modifies(a, v) and Modifies(p,v)
+10 procA c,12 procA ifVar,14 procA b,16 procA a,17 procA a,18 procA a,19 procA a,20 procA a,21 procA a,22 procA a,23 procA a,24 procA a,27 procA bA,27 procB bA,33 procA bA,33 procB bA,35 procA bA,35 procB bA,36 ifA x,36 procA x,36 procB x,36 procC x,44 procA bD,44 procB bD,5 procA y,5 procB y,5 procC y,50 procA z,50 procB z,50 procC z,51 procA z,51 procB z,51 procC z,53 procA y,53 procB y,53 procC y,54 ifA x,54 procA x,54 procB x,54 procC x,56 ifA x,56 procA x,56 procB x,56 procC x,58 procA y,58 procB y,58 procC y,59 procA k,59 procB k,59 procC k,6 procA z,6 procB z,6 procC z,60 procA file,60 procB file,60 procC file,63 procA dAAA,63 procB dAAA,63 procD dAAA,66 procA dA,66 procB dA,66 procD dA,67 procA dA,67 procB dA,67 procD dA,70 ifInIf ifA,71 ifInIf ifA,73 ifInIf ifA,75 ifInIf ifB,76 ifInIf ifA,77 ifInIf ifA,79 withTest procC,8 procA n
+5000
+58 - modifies statement
+read r; variable v; procedure p;
+Select <r,p,v> such that Modifies(r, v) and Modifies(p,v)
+1 procA a,30 procA uniA,30 procB uniA,68 ifInIf uniC,80 ifA x,80 procA x,80 procB x,80 procC x
+5000
+59 - modifies statement
+print pn; variable v; procedure p;
+Select <pn,p,v> such that Modifies(pn, v) and Modifies(p,v)
+
+5000
+60 - modifies statement
+while w; variable v; procedure p;
+Select <w,p,v> such that Modifies(w, v) and Modifies(p,v)
+34 ifA x,34 procA bA,34 procA dA,34 procA dAAA,34 procA x,34 procB bA,34 procB dA,34 procB dAAA,34 procB x,34 procC x,34 procD dA,34 procD dAAA,49 procA z,49 procB z,49 procC z,52 procA y,52 procB y,52 procC y,55 ifA x,55 procA x,55 procA y,55 procB x,55 procB y,55 procC x,55 procC y,57 procA y,57 procB y,57 procC y,62 procA dAAA,62 procB dAAA,62 procD dAAA,7 procA n,9 procA c
+5000
+61 - modifies statement
+if ifs; variable v; procedure p;
+Select <ifs,p,v> such that Modifies(ifs, v) and Modifies(p,v)
+11 procA a,11 procA b,11 procA ifVar,13 procA b,26 ifA x,26 procA bA,26 procA bD,26 procA dA,26 procA dAAA,26 procA uniA,26 procA x,26 procB bA,26 procB bD,26 procB dA,26 procB dAAA,26 procB uniA,26 procB x,26 procC x,26 procD dA,26 procD dAAA,28 procA dA,28 procA dAAA,28 procA uniA,28 procB dA,28 procB dAAA,28 procB uniA,28 procD dA,28 procD dAAA,4 procA y,4 procA z,4 procB y,4 procB z,4 procC y,4 procC z,47 ifA x,47 procA k,47 procA x,47 procA y,47 procA z,47 procB k,47 procB x,47 procB y,47 procB z,47 procC k,47 procC x,47 procC y,47 procC z,48 procA z,48 procB z,48 procC z,69 ifInIf ifA,69 ifInIf ifB,72 ifInIf ifA,72 ifInIf ifB,74 ifInIf ifA,74 ifInIf ifB
+5000
+62 - modifies statement
+variable v; procedure p, p2;
+Select <p,p2,v> such that Modifies(p, v) and Modifies(p2,v)
+ifA ifA x,ifA procA x,ifA procB x,ifA procC x,ifInIf ifInIf ifA,ifInIf ifInIf ifB,ifInIf ifInIf uniC,procA ifA x,procA procA a,procA procA b,procA procA bA,procA procA bD,procA procA c,procA procA dA,procA procA dAAA,procA procA file,procA procA ifVar,procA procA k,procA procA n,procA procA uniA,procA procA x,procA procA y,procA procA z,procA procB bA,procA procB bD,procA procB dA,procA procB dAAA,procA procB file,procA procB k,procA procB uniA,procA procB x,procA procB y,procA procB z,procA procC file,procA procC k,procA procC x,procA procC y,procA procC z,procA procD dA,procA procD dAAA,procB ifA x,procB procA bA,procB procA bD,procB procA dA,procB procA dAAA,procB procA file,procB procA k,procB procA uniA,procB procA x,procB procA y,procB procA z,procB procB bA,procB procB bD,procB procB dA,procB procB dAAA,procB procB file,procB procB k,procB procB uniA,procB procB x,procB procB y,procB procB z,procB procC file,procB procC k,procB procC x,procB procC y,procB procC z,procB procD dA,procB procD dAAA,procC ifA x,procC procA file,procC procA k,procC procA x,procC procA y,procC procA z,procC procB file,procC procB k,procC procB x,procC procB y,procC procB z,procC procC file,procC procC k,procC procC x,procC procC y,procC procC z,procD procA dA,procD procA dAAA,procD procB dA,procD procB dAAA,procD procD dA,procD procD dAAA,withTest withTest procC
+5000
+63 - valid query CONSTANT.value
+constant c; call cl;
+Select <c, cl> with c.value = cl.stmt#
+3 3
+5000
+64 - valid query CONSTANT.value
+constant c; call cl;
+Select <cl, c> with cl.stmt# = c.value
+3 3
+5000
+65 - valid query CONSTANT.value
+constant c; read r;
+Select <c, r> with c.value = r.stmt#
+1 1
+5000
+66 - valid query CONSTANT.value
+constant c; read r;
+Select <r, c> with r.stmt# = c.value
+1 1
+5000
+67 - valid query CONSTANT.value
+constant c; print pn;
+Select <c, pn> with c.value = pn.stmt#
+15 15,2 2
+5000
+68- valid query CONSTANT.value
+constant c; print pn;
+Select <pn, c> with pn.stmt# = c.value
+15 15,2 2
+5000
+69 - valid query CONSTANT.value
+constant c; while w;
+Select <c, w> with c.value = w.stmt#
+9 9
+5000
+70 - valid query CONSTANT.value
+constant c; while w;
+Select <w, c> with w.stmt# = c.value
+9 9
+5000
+71 - valid query CONSTANT.value
+constant c; if ifs;
+Select <c, ifs> with c.value = ifs.stmt#
+11 11,13 13
+5000
+72 - valid query CONSTANT.value
+constant c; if ifs;
+Select <ifs, c> with ifs.stmt# = c.value
+11 11,13 13
+5000
+73 - valid query CONSTANT.value
+constant c; assign a; variable v;
+Select <c, a> pattern a(v, _"z"_)
+0 5,1 5,10 5,11 5,1234 5,13 5,15 5,16 5,2 5,24134 5,3 5,4321 5,5 5,9 5
+5000
+74 - valid query CONSTANT.value
+constant c; assign a;
+Select <a, c> with a.stmt# = c.value
+10 10,16 16,5 5
+5000
+75 - valid query CONSTANT.value
+constant c; stmt s;
+Select <c, s> with c.value = s.stmt#
+1 1,10 10,11 11,13 13,15 15,16 16,2 2,3 3,5 5,9 9
+5000
+76 - valid query CONSTANT.value
+constant c; stmt s;
+Select <s, c> with s.stmt# = c.value
+1 1,10 10,11 11,13 13,15 15,16 16,2 2,3 3,5 5,9 9
+5000
+77 - valid query CONSTANT.value
+constant c,c2; stmt s;
+Select <c, c2> with c.value = c2.value
+0 0,1234 1234,24134 24134,4321 4321, 1 1,10 10,11 11,13 13,15 15,16 16,2 2,3 3,5 5,9 9
+5000
+78 - valid query variable
+variable v,v2; stmt s;
+Select <v, v2> such that Uses(s,v) and Uses(s,v2)
+EEEEE EEEEE,EEEEE bA,EEEEE bAAA,EEEEE bB,EEEEE bBBB,EEEEE bC,EEEEE bD,EEEEE cA,EEEEE dAAA,EEEEE dB,EEEEE dBBB,EEEEE dC,EEEEE dD,EEEEE dE,EEEEE dF,EEEEE dc,EEEEE k,EEEEE uniA,EEEEE uniB,EEEEE x,EEEEE y,a a,a abc,a ai,a b,a c,a d,a e,a file,a ifVar,a ifVar2,a ifVar3,a m,a max,a min,a o,a p,a q,a r,a result,a z,a1 a1,a1 b1,a1 q,ab ab,ab b,ab c,ab d,ab e,abc a,abc abc,abc b,abc c,abc d,abc e,abc q,ai a,ai ai,ai b,ai ifVar,ai ifVar2,ai ifVar3,ai max,ai min,ai r,ai z,b a,b ab,b abc,b ai,b b,b c,b d,b e,b ifVar,b ifVar2,b ifVar3,b max,b min,b q,b r,b z,b1 a1,b1 b1,b1 q,bA EEEEE,bA bA,bA bAAA,bA bB,bA bBBB,bA bC,bA bD,bA cA,bA dAAA,bA dB,bA dBBB,bA dC,bA dD,bA dE,bA dF,bA dc,bA k,bA uniA,bA uniB,bA x,bA y,bAAA EEEEE,bAAA bA,bAAA bAAA,bAAA bB,bAAA bBBB,bAAA bC,bAAA bD,bAAA cA,bAAA dAAA,bAAA dB,bAAA dBBB,bAAA dC,bAAA dD,bAAA dE,bAAA dF,bAAA dc,bAAA k,bAAA uniA,bAAA uniB,bAAA x,bAAA y,bB EEEEE,bB bA,bB bAAA,bB bB,bB bBBB,bB bC,bB bD,bB cA,bB dAAA,bB dB,bB dBBB,bB dC,bB dD,bB dE,bB dF,bB dc,bB k,bB uniA,bB uniB,bB x,bB y,bBBB EEEEE,bBBB bA,bBBB bAAA,bBBB bB,bBBB bBBB,bBBB bC,bBBB bD,bBBB cA,bBBB dAAA,bBBB dB,bBBB dBBB,bBBB dC,bBBB dD,bBBB dE,bBBB dF,bBBB dc,bBBB k,bBBB uniA,bBBB uniB,bBBB x,bBBB y,bC EEEEE,bC bA,bC bAAA,bC bB,bC bBBB,bC bC,bC bD,bC cA,bC dAAA,bC dB,bC dBBB,bC dC,bC dD,bC dE,bC dF,bC dc,bC k,bC uniA,bC uniB,bC x,bC y,bD EEEEE,bD bA,bD bAAA,bD bB,bD bBBB,bD bC,bD bD,bD cA,bD dAAA,bD dB,bD dBBB,bD dC,bD dD,bD dE,bD dF,bD dc,bD k,bD uniA,bD uniB,bD x,bD y,c a,c ab,c abc,c b,c c,c d,c e,c q,cA EEEEE,cA bA,cA bAAA,cA bB,cA bBBB,cA bC,cA bD,cA cA,cA dAAA,cA dB,cA dBBB,cA dC,cA dD,cA dE,cA dF,cA dc,cA k,cA uniA,cA uniB,cA x,cA y,d a,d ab,d abc,d b,d c,d d,d e,d q,dAAA EEEEE,dAAA bA,dAAA bAAA,dAAA bB,dAAA bBBB,dAAA bC,dAAA bD,dAAA cA,dAAA dAAA,dAAA dB,dAAA dBBB,dAAA dC,dAAA dD,dAAA dE,dAAA dF,dAAA dc,dAAA k,dAAA uniA,dAAA uniB,dAAA x,dAAA y,dB EEEEE,dB bA,dB bAAA,dB bB,dB bBBB,dB bC,dB bD,dB cA,dB dAAA,dB dB,dB dBBB,dB dC,dB dD,dB dE,dB dF,dB dc,dB k,dB uniA,dB uniB,dB x,dB y,dBBB EEEEE,dBBB bA,dBBB bAAA,dBBB bB,dBBB bBBB,dBBB bC,dBBB bD,dBBB cA,dBBB dAAA,dBBB dB,dBBB dBBB,dBBB dC,dBBB dD,dBBB dE,dBBB dF,dBBB dc,dBBB k,dBBB uniA,dBBB uniB,dBBB x,dBBB y,dC EEEEE,dC bA,dC bAAA,dC bB,dC bBBB,dC bC,dC bD,dC cA,dC dAAA,dC dB,dC dBBB,dC dC,dC dD,dC dE,dC dF,dC dc,dC k,dC uniA,dC uniB,dC x,dC y,dD EEEEE,dD bA,dD bAAA,dD bB,dD bBBB,dD bC,dD bD,dD cA,dD dAAA,dD dB,dD dBBB,dD dC,dD dD,dD dE,dD dF,dD dc,dD k,dD uniA,dD uniB,dD x,dD y,dE EEEEE,dE bA,dE bAAA,dE bB,dE bBBB,dE bC,dE bD,dE cA,dE dAAA,dE dB,dE dBBB,dE dC,dE dD,dE dE,dE dF,dE dc,dE k,dE uniA,dE uniB,dE x,dE y,dF EEEEE,dF bA,dF bAAA,dF bB,dF bBBB,dF bC,dF bD,dF cA,dF dAAA,dF dB,dF dBBB,dF dC,dF dD,dF dE,dF dF,dF dc,dF k,dF uniA,dF uniB,dF x,dF y,dc EEEEE,dc bA,dc bAAA,dc bB,dc bBBB,dc bC,dc bD,dc cA,dc dAAA,dc dB,dc dBBB,dc dC,dc dD,dc dE,dc dF,dc dc,dc k,dc uniA,dc uniB,dc x,dc y,e a,e ab,e abc,e b,e c,e d,e e,e q,file a,file file,file m,file o,file p,file result,ifA ifA,ifA ifB,ifA ifC,ifA ifD,ifB ifA,ifB ifB,ifB ifC,ifB ifD,ifC ifA,ifC ifB,ifC ifC,ifC ifD,ifD ifA,ifD ifB,ifD ifC,ifD ifD,ifVar a,ifVar ai,ifVar b,ifVar ifVar,ifVar ifVar2,ifVar ifVar3,ifVar max,ifVar min,ifVar r,ifVar z,ifVar2 a,ifVar2 ai,ifVar2 b,ifVar2 ifVar,ifVar2 ifVar2,ifVar2 ifVar3,ifVar2 max,ifVar2 min,ifVar2 r,ifVar2 z,ifVar3 a,ifVar3 ai,ifVar3 b,ifVar3 ifVar,ifVar3 ifVar2,ifVar3 ifVar3,ifVar3 max,ifVar3 min,ifVar3 r,ifVar3 z,k EEEEE,k bA,k bAAA,k bB,k bBBB,k bC,k bD,k cA,k dAAA,k dB,k dBBB,k dC,k dD,k dE,k dF,k dc,k k,k uniA,k uniB,k x,k y,m a,m file,m m,m o,m p,m result,max a,max ai,max b,max ifVar,max ifVar2,max ifVar3,max max,max min,max r,max z,min a,min ai,min b,min ifVar,min ifVar2,min ifVar3,min max,min min,min r,min z,o a,o file,o m,o o,o p,o result,p a,p file,p m,p o,p p,p result,q a,q a1,q abc,q b,q b1,q c,q d,q e,q q,r a,r ai,r b,r ifVar,r ifVar2,r ifVar3,r max,r min,r r,r z,result a,result file,result m,result o,result p,result result,uniA EEEEE,uniA bA,uniA bAAA,uniA bB,uniA bBBB,uniA bC,uniA bD,uniA cA,uniA dAAA,uniA dB,uniA dBBB,uniA dC,uniA dD,uniA dE,uniA dF,uniA dc,uniA k,uniA uniA,uniA uniB,uniA x,uniA y,uniB EEEEE,uniB bA,uniB bAAA,uniB bB,uniB bBBB,uniB bC,uniB bD,uniB cA,uniB dAAA,uniB dB,uniB dBBB,uniB dC,uniB dD,uniB dE,uniB dF,uniB dc,uniB k,uniB uniA,uniB uniB,uniB x,uniB y,uniC uniC,x EEEEE,x bA,x bAAA,x bB,x bBBB,x bC,x bD,x cA,x dAAA,x dB,x dBBB,x dC,x dD,x dE,x dF,x dc,x k,x uniA,x uniB,x x,x y,x z,y EEEEE,y bA,y bAAA,y bB,y bBBB,y bC,y bD,y cA,y dAAA,y dB,y dBBB,y dC,y dD,y dE,y dF,y dc,y k,y uniA,y uniB,y x,y y,y z,z a,z ai,z b,z ifVar,z ifVar2,z ifVar3,z max,z min,z r,z x,z y,z z
+5000
+79 - valid query variable
+variable v,v2; stmt s; constant c;
+Select <v, c> such that Uses(s,v) with s.stmt# = c.value
+EEEEE 3,a 11,a 13,a 9,ai 11,ai 13,ai 15,b 11,b 13,b 16,b 2,bA 3,bAAA 3,bB 3,bBBB 3,bC 3,bD 3,cA 3,dAAA 3,dB 3,dBBB 3,dC 3,dD 3,dE 3,dF 3,dc 3,file 9,ifVar 11,ifVar2 11,ifVar3 11,k 3,m 9,max 11,max 13,min 11,min 13,o 10,o 9,p 9,r 11,r 13,result 9,uniA 3,uniB 3,x 3,y 3,z 11,z 13,z 5
+5000
+80 - valid query variable
+variable v,v2; stmt s; constant c;
+Select <c,v> such that Uses(s,v) with s.stmt# = c.value
+10 o,11 a,11 ai,11 b,11 ifVar,11 ifVar2,11 ifVar3,11 max,11 min,11 r,11 z,13 a,13 ai,13 b,13 max,13 min,13 r,13 z,15 ai,16 b,2 b,3 EEEEE,3 bA,3 bAAA,3 bB,3 bBBB,3 bC,3 bD,3 cA,3 dAAA,3 dB,3 dBBB,3 dC,3 dD,3 dE,3 dF,3 dc,3 k,3 uniA,3 uniB,3 x,3 y,5 z,9 a,9 file,9 m,9 o,9 p,9 result
+5000
+81 - valid query variable
+variable v,v2; stmt s; constant c; procedure p;
+Select <p, v, s, c> such that Uses(p,v) with s.stmt# = c.value
+ifInIf ifA 1 1,ifInIf ifA 10 10,ifInIf ifA 11 11,ifInIf ifA 13 13,ifInIf ifA 15 15,ifInIf ifA 16 16,ifInIf ifA 2 2,ifInIf ifA 3 3,ifInIf ifA 5 5,ifInIf ifA 9 9,ifInIf ifB 1 1,ifInIf ifB 10 10,ifInIf ifB 11 11,ifInIf ifB 13 13,ifInIf ifB 15 15,ifInIf ifB 16 16,ifInIf ifB 2 2,ifInIf ifB 3 3,ifInIf ifB 5 5,ifInIf ifB 9 9,ifInIf ifC 1 1,ifInIf ifC 10 10,ifInIf ifC 11 11,ifInIf ifC 13 13,ifInIf ifC 15 15,ifInIf ifC 16 16,ifInIf ifC 2 2,ifInIf ifC 3 3,ifInIf ifC 5 5,ifInIf ifC 9 9,ifInIf ifD 1 1,ifInIf ifD 10 10,ifInIf ifD 11 11,ifInIf ifD 13 13,ifInIf ifD 15 15,ifInIf ifD 16 16,ifInIf ifD 2 2,ifInIf ifD 3 3,ifInIf ifD 5 5,ifInIf ifD 9 9,ifInIf uniC 1 1,ifInIf uniC 10 10,ifInIf uniC 11 11,ifInIf uniC 13 13,ifInIf uniC 15 15,ifInIf uniC 16 16,ifInIf uniC 2 2,ifInIf uniC 3 3,ifInIf uniC 5 5,ifInIf uniC 9 9,procA EEEEE 1 1,procA EEEEE 10 10,procA EEEEE 11 11,procA EEEEE 13 13,procA EEEEE 15 15,procA EEEEE 16 16,procA EEEEE 2 2,procA EEEEE 3 3,procA EEEEE 5 5,procA EEEEE 9 9,procA a 1 1,procA a 10 10,procA a 11 11,procA a 13 13,procA a 15 15,procA a 16 16,procA a 2 2,procA a 3 3,procA a 5 5,procA a 9 9,procA a1 1 1,procA a1 10 10,procA a1 11 11,procA a1 13 13,procA a1 15 15,procA a1 16 16,procA a1 2 2,procA a1 3 3,procA a1 5 5,procA a1 9 9,procA ab 1 1,procA ab 10 10,procA ab 11 11,procA ab 13 13,procA ab 15 15,procA ab 16 16,procA ab 2 2,procA ab 3 3,procA ab 5 5,procA ab 9 9,procA abc 1 1,procA abc 10 10,procA abc 11 11,procA abc 13 13,procA abc 15 15,procA abc 16 16,procA abc 2 2,procA abc 3 3,procA abc 5 5,procA abc 9 9,procA ai 1 1,procA ai 10 10,procA ai 11 11,procA ai 13 13,procA ai 15 15,procA ai 16 16,procA ai 2 2,procA ai 3 3,procA ai 5 5,procA ai 9 9,procA b 1 1,procA b 10 10,procA b 11 11,procA b 13 13,procA b 15 15,procA b 16 16,procA b 2 2,procA b 3 3,procA b 5 5,procA b 9 9,procA b1 1 1,procA b1 10 10,procA b1 11 11,procA b1 13 13,procA b1 15 15,procA b1 16 16,procA b1 2 2,procA b1 3 3,procA b1 5 5,procA b1 9 9,procA bA 1 1,procA bA 10 10,procA bA 11 11,procA bA 13 13,procA bA 15 15,procA bA 16 16,procA bA 2 2,procA bA 3 3,procA bA 5 5,procA bA 9 9,procA bAAA 1 1,procA bAAA 10 10,procA bAAA 11 11,procA bAAA 13 13,procA bAAA 15 15,procA bAAA 16 16,procA bAAA 2 2,procA bAAA 3 3,procA bAAA 5 5,procA bAAA 9 9,procA bB 1 1,procA bB 10 10,procA bB 11 11,procA bB 13 13,procA bB 15 15,procA bB 16 16,procA bB 2 2,procA bB 3 3,procA bB 5 5,procA bB 9 9,procA bBBB 1 1,procA bBBB 10 10,procA bBBB 11 11,procA bBBB 13 13,procA bBBB 15 15,procA bBBB 16 16,procA bBBB 2 2,procA bBBB 3 3,procA bBBB 5 5,procA bBBB 9 9,procA bC 1 1,procA bC 10 10,procA bC 11 11,procA bC 13 13,procA bC 15 15,procA bC 16 16,procA bC 2 2,procA bC 3 3,procA bC 5 5,procA bC 9 9,procA bD 1 1,procA bD 10 10,procA bD 11 11,procA bD 13 13,procA bD 15 15,procA bD 16 16,procA bD 2 2,procA bD 3 3,procA bD 5 5,procA bD 9 9,procA c 1 1,procA c 10 10,procA c 11 11,procA c 13 13,procA c 15 15,procA c 16 16,procA c 2 2,procA c 3 3,procA c 5 5,procA c 9 9,procA cA 1 1,procA cA 10 10,procA cA 11 11,procA cA 13 13,procA cA 15 15,procA cA 16 16,procA cA 2 2,procA cA 3 3,procA cA 5 5,procA cA 9 9,procA d 1 1,procA d 10 10,procA d 11 11,procA d 13 13,procA d 15 15,procA d 16 16,procA d 2 2,procA d 3 3,procA d 5 5,procA d 9 9,procA dAAA 1 1,procA dAAA 10 10,procA dAAA 11 11,procA dAAA 13 13,procA dAAA 15 15,procA dAAA 16 16,procA dAAA 2 2,procA dAAA 3 3,procA dAAA 5 5,procA dAAA 9 9,procA dB 1 1,procA dB 10 10,procA dB 11 11,procA dB 13 13,procA dB 15 15,procA dB 16 16,procA dB 2 2,procA dB 3 3,procA dB 5 5,procA dB 9 9,procA dBBB 1 1,procA dBBB 10 10,procA dBBB 11 11,procA dBBB 13 13,procA dBBB 15 15,procA dBBB 16 16,procA dBBB 2 2,procA dBBB 3 3,procA dBBB 5 5,procA dBBB 9 9,procA dC 1 1,procA dC 10 10,procA dC 11 11,procA dC 13 13,procA dC 15 15,procA dC 16 16,procA dC 2 2,procA dC 3 3,procA dC 5 5,procA dC 9 9,procA dD 1 1,procA dD 10 10,procA dD 11 11,procA dD 13 13,procA dD 15 15,procA dD 16 16,procA dD 2 2,procA dD 3 3,procA dD 5 5,procA dD 9 9,procA dE 1 1,procA dE 10 10,procA dE 11 11,procA dE 13 13,procA dE 15 15,procA dE 16 16,procA dE 2 2,procA dE 3 3,procA dE 5 5,procA dE 9 9,procA dF 1 1,procA dF 10 10,procA dF 11 11,procA dF 13 13,procA dF 15 15,procA dF 16 16,procA dF 2 2,procA dF 3 3,procA dF 5 5,procA dF 9 9,procA dc 1 1,procA dc 10 10,procA dc 11 11,procA dc 13 13,procA dc 15 15,procA dc 16 16,procA dc 2 2,procA dc 3 3,procA dc 5 5,procA dc 9 9,procA e 1 1,procA e 10 10,procA e 11 11,procA e 13 13,procA e 15 15,procA e 16 16,procA e 2 2,procA e 3 3,procA e 5 5,procA e 9 9,procA file 1 1,procA file 10 10,procA file 11 11,procA file 13 13,procA file 15 15,procA file 16 16,procA file 2 2,procA file 3 3,procA file 5 5,procA file 9 9,procA ifVar 1 1,procA ifVar 10 10,procA ifVar 11 11,procA ifVar 13 13,procA ifVar 15 15,procA ifVar 16 16,procA ifVar 2 2,procA ifVar 3 3,procA ifVar 5 5,procA ifVar 9 9,procA ifVar2 1 1,procA ifVar2 10 10,procA ifVar2 11 11,procA ifVar2 13 13,procA ifVar2 15 15,procA ifVar2 16 16,procA ifVar2 2 2,procA ifVar2 3 3,procA ifVar2 5 5,procA ifVar2 9 9,procA ifVar3 1 1,procA ifVar3 10 10,procA ifVar3 11 11,procA ifVar3 13 13,procA ifVar3 15 15,procA ifVar3 16 16,procA ifVar3 2 2,procA ifVar3 3 3,procA ifVar3 5 5,procA ifVar3 9 9,procA k 1 1,procA k 10 10,procA k 11 11,procA k 13 13,procA k 15 15,procA k 16 16,procA k 2 2,procA k 3 3,procA k 5 5,procA k 9 9,procA m 1 1,procA m 10 10,procA m 11 11,procA m 13 13,procA m 15 15,procA m 16 16,procA m 2 2,procA m 3 3,procA m 5 5,procA m 9 9,procA max 1 1,procA max 10 10,procA max 11 11,procA max 13 13,procA max 15 15,procA max 16 16,procA max 2 2,procA max 3 3,procA max 5 5,procA max 9 9,procA min 1 1,procA min 10 10,procA min 11 11,procA min 13 13,procA min 15 15,procA min 16 16,procA min 2 2,procA min 3 3,procA min 5 5,procA min 9 9,procA o 1 1,procA o 10 10,procA o 11 11,procA o 13 13,procA o 15 15,procA o 16 16,procA o 2 2,procA o 3 3,procA o 5 5,procA o 9 9,procA p 1 1,procA p 10 10,procA p 11 11,procA p 13 13,procA p 15 15,procA p 16 16,procA p 2 2,procA p 3 3,procA p 5 5,procA p 9 9,procA q 1 1,procA q 10 10,procA q 11 11,procA q 13 13,procA q 15 15,procA q 16 16,procA q 2 2,procA q 3 3,procA q 5 5,procA q 9 9,procA r 1 1,procA r 10 10,procA r 11 11,procA r 13 13,procA r 15 15,procA r 16 16,procA r 2 2,procA r 3 3,procA r 5 5,procA r 9 9,procA result 1 1,procA result 10 10,procA result 11 11,procA result 13 13,procA result 15 15,procA result 16 16,procA result 2 2,procA result 3 3,procA result 5 5,procA result 9 9,procA uniA 1 1,procA uniA 10 10,procA uniA 11 11,procA uniA 13 13,procA uniA 15 15,procA uniA 16 16,procA uniA 2 2,procA uniA 3 3,procA uniA 5 5,procA uniA 9 9,procA uniB 1 1,procA uniB 10 10,procA uniB 11 11,procA uniB 13 13,procA uniB 15 15,procA uniB 16 16,procA uniB 2 2,procA uniB 3 3,procA uniB 5 5,procA uniB 9 9,procA x 1 1,procA x 10 10,procA x 11 11,procA x 13 13,procA x 15 15,procA x 16 16,procA x 2 2,procA x 3 3,procA x 5 5,procA x 9 9,procA y 1 1,procA y 10 10,procA y 11 11,procA y 13 13,procA y 15 15,procA y 16 16,procA y 2 2,procA y 3 3,procA y 5 5,procA y 9 9,procA z 1 1,procA z 10 10,procA z 11 11,procA z 13 13,procA z 15 15,procA z 16 16,procA z 2 2,procA z 3 3,procA z 5 5,procA z 9 9,procB EEEEE 1 1,procB EEEEE 10 10,procB EEEEE 11 11,procB EEEEE 13 13,procB EEEEE 15 15,procB EEEEE 16 16,procB EEEEE 2 2,procB EEEEE 3 3,procB EEEEE 5 5,procB EEEEE 9 9,procB bA 1 1,procB bA 10 10,procB bA 11 11,procB bA 13 13,procB bA 15 15,procB bA 16 16,procB bA 2 2,procB bA 3 3,procB bA 5 5,procB bA 9 9,procB bAAA 1 1,procB bAAA 10 10,procB bAAA 11 11,procB bAAA 13 13,procB bAAA 15 15,procB bAAA 16 16,procB bAAA 2 2,procB bAAA 3 3,procB bAAA 5 5,procB bAAA 9 9,procB bB 1 1,procB bB 10 10,procB bB 11 11,procB bB 13 13,procB bB 15 15,procB bB 16 16,procB bB 2 2,procB bB 3 3,procB bB 5 5,procB bB 9 9,procB bBBB 1 1,procB bBBB 10 10,procB bBBB 11 11,procB bBBB 13 13,procB bBBB 15 15,procB bBBB 16 16,procB bBBB 2 2,procB bBBB 3 3,procB bBBB 5 5,procB bBBB 9 9,procB bC 1 1,procB bC 10 10,procB bC 11 11,procB bC 13 13,procB bC 15 15,procB bC 16 16,procB bC 2 2,procB bC 3 3,procB bC 5 5,procB bC 9 9,procB bD 1 1,procB bD 10 10,procB bD 11 11,procB bD 13 13,procB bD 15 15,procB bD 16 16,procB bD 2 2,procB bD 3 3,procB bD 5 5,procB bD 9 9,procB cA 1 1,procB cA 10 10,procB cA 11 11,procB cA 13 13,procB cA 15 15,procB cA 16 16,procB cA 2 2,procB cA 3 3,procB cA 5 5,procB cA 9 9,procB dAAA 1 1,procB dAAA 10 10,procB dAAA 11 11,procB dAAA 13 13,procB dAAA 15 15,procB dAAA 16 16,procB dAAA 2 2,procB dAAA 3 3,procB dAAA 5 5,procB dAAA 9 9,procB dB 1 1,procB dB 10 10,procB dB 11 11,procB dB 13 13,procB dB 15 15,procB dB 16 16,procB dB 2 2,procB dB 3 3,procB dB 5 5,procB dB 9 9,procB dBBB 1 1,procB dBBB 10 10,procB dBBB 11 11,procB dBBB 13 13,procB dBBB 15 15,procB dBBB 16 16,procB dBBB 2 2,procB dBBB 3 3,procB dBBB 5 5,procB dBBB 9 9,procB dC 1 1,procB dC 10 10,procB dC 11 11,procB dC 13 13,procB dC 15 15,procB dC 16 16,procB dC 2 2,procB dC 3 3,procB dC 5 5,procB dC 9 9,procB dD 1 1,procB dD 10 10,procB dD 11 11,procB dD 13 13,procB dD 15 15,procB dD 16 16,procB dD 2 2,procB dD 3 3,procB dD 5 5,procB dD 9 9,procB dE 1 1,procB dE 10 10,procB dE 11 11,procB dE 13 13,procB dE 15 15,procB dE 16 16,procB dE 2 2,procB dE 3 3,procB dE 5 5,procB dE 9 9,procB dF 1 1,procB dF 10 10,procB dF 11 11,procB dF 13 13,procB dF 15 15,procB dF 16 16,procB dF 2 2,procB dF 3 3,procB dF 5 5,procB dF 9 9,procB dc 1 1,procB dc 10 10,procB dc 11 11,procB dc 13 13,procB dc 15 15,procB dc 16 16,procB dc 2 2,procB dc 3 3,procB dc 5 5,procB dc 9 9,procB k 1 1,procB k 10 10,procB k 11 11,procB k 13 13,procB k 15 15,procB k 16 16,procB k 2 2,procB k 3 3,procB k 5 5,procB k 9 9,procB uniA 1 1,procB uniA 10 10,procB uniA 11 11,procB uniA 13 13,procB uniA 15 15,procB uniA 16 16,procB uniA 2 2,procB uniA 3 3,procB uniA 5 5,procB uniA 9 9,procB uniB 1 1,procB uniB 10 10,procB uniB 11 11,procB uniB 13 13,procB uniB 15 15,procB uniB 16 16,procB uniB 2 2,procB uniB 3 3,procB uniB 5 5,procB uniB 9 9,procB x 1 1,procB x 10 10,procB x 11 11,procB x 13 13,procB x 15 15,procB x 16 16,procB x 2 2,procB x 3 3,procB x 5 5,procB x 9 9,procB y 1 1,procB y 10 10,procB y 11 11,procB y 13 13,procB y 15 15,procB y 16 16,procB y 2 2,procB y 3 3,procB y 5 5,procB y 9 9,procC cA 1 1,procC cA 10 10,procC cA 11 11,procC cA 13 13,procC cA 15 15,procC cA 16 16,procC cA 2 2,procC cA 3 3,procC cA 5 5,procC cA 9 9,procC k 1 1,procC k 10 10,procC k 11 11,procC k 13 13,procC k 15 15,procC k 16 16,procC k 2 2,procC k 3 3,procC k 5 5,procC k 9 9,procC x 1 1,procC x 10 10,procC x 11 11,procC x 13 13,procC x 15 15,procC x 16 16,procC x 2 2,procC x 3 3,procC x 5 5,procC x 9 9,procC y 1 1,procC y 10 10,procC y 11 11,procC y 13 13,procC y 15 15,procC y 16 16,procC y 2 2,procC y 3 3,procC y 5 5,procC y 9 9,procD EEEEE 1 1,procD EEEEE 10 10,procD EEEEE 11 11,procD EEEEE 13 13,procD EEEEE 15 15,procD EEEEE 16 16,procD EEEEE 2 2,procD EEEEE 3 3,procD EEEEE 5 5,procD EEEEE 9 9,procD dAAA 1 1,procD dAAA 10 10,procD dAAA 11 11,procD dAAA 13 13,procD dAAA 15 15,procD dAAA 16 16,procD dAAA 2 2,procD dAAA 3 3,procD dAAA 5 5,procD dAAA 9 9,procD dB 1 1,procD dB 10 10,procD dB 11 11,procD dB 13 13,procD dB 15 15,procD dB 16 16,procD dB 2 2,procD dB 3 3,procD dB 5 5,procD dB 9 9,procD dBBB 1 1,procD dBBB 10 10,procD dBBB 11 11,procD dBBB 13 13,procD dBBB 15 15,procD dBBB 16 16,procD dBBB 2 2,procD dBBB 3 3,procD dBBB 5 5,procD dBBB 9 9,procD dC 1 1,procD dC 10 10,procD dC 11 11,procD dC 13 13,procD dC 15 15,procD dC 16 16,procD dC 2 2,procD dC 3 3,procD dC 5 5,procD dC 9 9,procD dD 1 1,procD dD 10 10,procD dD 11 11,procD dD 13 13,procD dD 15 15,procD dD 16 16,procD dD 2 2,procD dD 3 3,procD dD 5 5,procD dD 9 9,procD dE 1 1,procD dE 10 10,procD dE 11 11,procD dE 13 13,procD dE 15 15,procD dE 16 16,procD dE 2 2,procD dE 3 3,procD dE 5 5,procD dE 9 9,procD dF 1 1,procD dF 10 10,procD dF 11 11,procD dF 13 13,procD dF 15 15,procD dF 16 16,procD dF 2 2,procD dF 3 3,procD dF 5 5,procD dF 9 9,procD dc 1 1,procD dc 10 10,procD dc 11 11,procD dc 13 13,procD dc 15 15,procD dc 16 16,procD dc 2 2,procD dc 3 3,procD dc 5 5,procD dc 9 9,procD uniA 1 1,procD uniA 10 10,procD uniA 11 11,procD uniA 13 13,procD uniA 15 15,procD uniA 16 16,procD uniA 2 2,procD uniA 3 3,procD uniA 5 5,procD uniA 9 9,procE EEEEE 1 1,procE EEEEE 10 10,procE EEEEE 11 11,procE EEEEE 13 13,procE EEEEE 15 15,procE EEEEE 16 16,procE EEEEE 2 2,procE EEEEE 3 3,procE EEEEE 5 5,procE EEEEE 9 9
+5000
+82 - valid query variable
+variable v,v2; stmt s; constant c; procedure p;
+Select <s, c, p, v> such that Uses(p,v) with s.stmt# = c.value
+1 1 ifInIf ifA,1 1 ifInIf ifB,1 1 ifInIf ifC,1 1 ifInIf ifD,1 1 ifInIf uniC,1 1 procA EEEEE,1 1 procA a,1 1 procA a1,1 1 procA ab,1 1 procA abc,1 1 procA ai,1 1 procA b,1 1 procA b1,1 1 procA bA,1 1 procA bAAA,1 1 procA bB,1 1 procA bBBB,1 1 procA bC,1 1 procA bD,1 1 procA c,1 1 procA cA,1 1 procA d,1 1 procA dAAA,1 1 procA dB,1 1 procA dBBB,1 1 procA dC,1 1 procA dD,1 1 procA dE,1 1 procA dF,1 1 procA dc,1 1 procA e,1 1 procA file,1 1 procA ifVar,1 1 procA ifVar2,1 1 procA ifVar3,1 1 procA k,1 1 procA m,1 1 procA max,1 1 procA min,1 1 procA o,1 1 procA p,1 1 procA q,1 1 procA r,1 1 procA result,1 1 procA uniA,1 1 procA uniB,1 1 procA x,1 1 procA y,1 1 procA z,1 1 procB EEEEE,1 1 procB bA,1 1 procB bAAA,1 1 procB bB,1 1 procB bBBB,1 1 procB bC,1 1 procB bD,1 1 procB cA,1 1 procB dAAA,1 1 procB dB,1 1 procB dBBB,1 1 procB dC,1 1 procB dD,1 1 procB dE,1 1 procB dF,1 1 procB dc,1 1 procB k,1 1 procB uniA,1 1 procB uniB,1 1 procB x,1 1 procB y,1 1 procC cA,1 1 procC k,1 1 procC x,1 1 procC y,1 1 procD EEEEE,1 1 procD dAAA,1 1 procD dB,1 1 procD dBBB,1 1 procD dC,1 1 procD dD,1 1 procD dE,1 1 procD dF,1 1 procD dc,1 1 procD uniA,1 1 procE EEEEE,10 10 ifInIf ifA,10 10 ifInIf ifB,10 10 ifInIf ifC,10 10 ifInIf ifD,10 10 ifInIf uniC,10 10 procA EEEEE,10 10 procA a,10 10 procA a1,10 10 procA ab,10 10 procA abc,10 10 procA ai,10 10 procA b,10 10 procA b1,10 10 procA bA,10 10 procA bAAA,10 10 procA bB,10 10 procA bBBB,10 10 procA bC,10 10 procA bD,10 10 procA c,10 10 procA cA,10 10 procA d,10 10 procA dAAA,10 10 procA dB,10 10 procA dBBB,10 10 procA dC,10 10 procA dD,10 10 procA dE,10 10 procA dF,10 10 procA dc,10 10 procA e,10 10 procA file,10 10 procA ifVar,10 10 procA ifVar2,10 10 procA ifVar3,10 10 procA k,10 10 procA m,10 10 procA max,10 10 procA min,10 10 procA o,10 10 procA p,10 10 procA q,10 10 procA r,10 10 procA result,10 10 procA uniA,10 10 procA uniB,10 10 procA x,10 10 procA y,10 10 procA z,10 10 procB EEEEE,10 10 procB bA,10 10 procB bAAA,10 10 procB bB,10 10 procB bBBB,10 10 procB bC,10 10 procB bD,10 10 procB cA,10 10 procB dAAA,10 10 procB dB,10 10 procB dBBB,10 10 procB dC,10 10 procB dD,10 10 procB dE,10 10 procB dF,10 10 procB dc,10 10 procB k,10 10 procB uniA,10 10 procB uniB,10 10 procB x,10 10 procB y,10 10 procC cA,10 10 procC k,10 10 procC x,10 10 procC y,10 10 procD EEEEE,10 10 procD dAAA,10 10 procD dB,10 10 procD dBBB,10 10 procD dC,10 10 procD dD,10 10 procD dE,10 10 procD dF,10 10 procD dc,10 10 procD uniA,10 10 procE EEEEE,11 11 ifInIf ifA,11 11 ifInIf ifB,11 11 ifInIf ifC,11 11 ifInIf ifD,11 11 ifInIf uniC,11 11 procA EEEEE,11 11 procA a,11 11 procA a1,11 11 procA ab,11 11 procA abc,11 11 procA ai,11 11 procA b,11 11 procA b1,11 11 procA bA,11 11 procA bAAA,11 11 procA bB,11 11 procA bBBB,11 11 procA bC,11 11 procA bD,11 11 procA c,11 11 procA cA,11 11 procA d,11 11 procA dAAA,11 11 procA dB,11 11 procA dBBB,11 11 procA dC,11 11 procA dD,11 11 procA dE,11 11 procA dF,11 11 procA dc,11 11 procA e,11 11 procA file,11 11 procA ifVar,11 11 procA ifVar2,11 11 procA ifVar3,11 11 procA k,11 11 procA m,11 11 procA max,11 11 procA min,11 11 procA o,11 11 procA p,11 11 procA q,11 11 procA r,11 11 procA result,11 11 procA uniA,11 11 procA uniB,11 11 procA x,11 11 procA y,11 11 procA z,11 11 procB EEEEE,11 11 procB bA,11 11 procB bAAA,11 11 procB bB,11 11 procB bBBB,11 11 procB bC,11 11 procB bD,11 11 procB cA,11 11 procB dAAA,11 11 procB dB,11 11 procB dBBB,11 11 procB dC,11 11 procB dD,11 11 procB dE,11 11 procB dF,11 11 procB dc,11 11 procB k,11 11 procB uniA,11 11 procB uniB,11 11 procB x,11 11 procB y,11 11 procC cA,11 11 procC k,11 11 procC x,11 11 procC y,11 11 procD EEEEE,11 11 procD dAAA,11 11 procD dB,11 11 procD dBBB,11 11 procD dC,11 11 procD dD,11 11 procD dE,11 11 procD dF,11 11 procD dc,11 11 procD uniA,11 11 procE EEEEE,13 13 ifInIf ifA,13 13 ifInIf ifB,13 13 ifInIf ifC,13 13 ifInIf ifD,13 13 ifInIf uniC,13 13 procA EEEEE,13 13 procA a,13 13 procA a1,13 13 procA ab,13 13 procA abc,13 13 procA ai,13 13 procA b,13 13 procA b1,13 13 procA bA,13 13 procA bAAA,13 13 procA bB,13 13 procA bBBB,13 13 procA bC,13 13 procA bD,13 13 procA c,13 13 procA cA,13 13 procA d,13 13 procA dAAA,13 13 procA dB,13 13 procA dBBB,13 13 procA dC,13 13 procA dD,13 13 procA dE,13 13 procA dF,13 13 procA dc,13 13 procA e,13 13 procA file,13 13 procA ifVar,13 13 procA ifVar2,13 13 procA ifVar3,13 13 procA k,13 13 procA m,13 13 procA max,13 13 procA min,13 13 procA o,13 13 procA p,13 13 procA q,13 13 procA r,13 13 procA result,13 13 procA uniA,13 13 procA uniB,13 13 procA x,13 13 procA y,13 13 procA z,13 13 procB EEEEE,13 13 procB bA,13 13 procB bAAA,13 13 procB bB,13 13 procB bBBB,13 13 procB bC,13 13 procB bD,13 13 procB cA,13 13 procB dAAA,13 13 procB dB,13 13 procB dBBB,13 13 procB dC,13 13 procB dD,13 13 procB dE,13 13 procB dF,13 13 procB dc,13 13 procB k,13 13 procB uniA,13 13 procB uniB,13 13 procB x,13 13 procB y,13 13 procC cA,13 13 procC k,13 13 procC x,13 13 procC y,13 13 procD EEEEE,13 13 procD dAAA,13 13 procD dB,13 13 procD dBBB,13 13 procD dC,13 13 procD dD,13 13 procD dE,13 13 procD dF,13 13 procD dc,13 13 procD uniA,13 13 procE EEEEE,15 15 ifInIf ifA,15 15 ifInIf ifB,15 15 ifInIf ifC,15 15 ifInIf ifD,15 15 ifInIf uniC,15 15 procA EEEEE,15 15 procA a,15 15 procA a1,15 15 procA ab,15 15 procA abc,15 15 procA ai,15 15 procA b,15 15 procA b1,15 15 procA bA,15 15 procA bAAA,15 15 procA bB,15 15 procA bBBB,15 15 procA bC,15 15 procA bD,15 15 procA c,15 15 procA cA,15 15 procA d,15 15 procA dAAA,15 15 procA dB,15 15 procA dBBB,15 15 procA dC,15 15 procA dD,15 15 procA dE,15 15 procA dF,15 15 procA dc,15 15 procA e,15 15 procA file,15 15 procA ifVar,15 15 procA ifVar2,15 15 procA ifVar3,15 15 procA k,15 15 procA m,15 15 procA max,15 15 procA min,15 15 procA o,15 15 procA p,15 15 procA q,15 15 procA r,15 15 procA result,15 15 procA uniA,15 15 procA uniB,15 15 procA x,15 15 procA y,15 15 procA z,15 15 procB EEEEE,15 15 procB bA,15 15 procB bAAA,15 15 procB bB,15 15 procB bBBB,15 15 procB bC,15 15 procB bD,15 15 procB cA,15 15 procB dAAA,15 15 procB dB,15 15 procB dBBB,15 15 procB dC,15 15 procB dD,15 15 procB dE,15 15 procB dF,15 15 procB dc,15 15 procB k,15 15 procB uniA,15 15 procB uniB,15 15 procB x,15 15 procB y,15 15 procC cA,15 15 procC k,15 15 procC x,15 15 procC y,15 15 procD EEEEE,15 15 procD dAAA,15 15 procD dB,15 15 procD dBBB,15 15 procD dC,15 15 procD dD,15 15 procD dE,15 15 procD dF,15 15 procD dc,15 15 procD uniA,15 15 procE EEEEE,16 16 ifInIf ifA,16 16 ifInIf ifB,16 16 ifInIf ifC,16 16 ifInIf ifD,16 16 ifInIf uniC,16 16 procA EEEEE,16 16 procA a,16 16 procA a1,16 16 procA ab,16 16 procA abc,16 16 procA ai,16 16 procA b,16 16 procA b1,16 16 procA bA,16 16 procA bAAA,16 16 procA bB,16 16 procA bBBB,16 16 procA bC,16 16 procA bD,16 16 procA c,16 16 procA cA,16 16 procA d,16 16 procA dAAA,16 16 procA dB,16 16 procA dBBB,16 16 procA dC,16 16 procA dD,16 16 procA dE,16 16 procA dF,16 16 procA dc,16 16 procA e,16 16 procA file,16 16 procA ifVar,16 16 procA ifVar2,16 16 procA ifVar3,16 16 procA k,16 16 procA m,16 16 procA max,16 16 procA min,16 16 procA o,16 16 procA p,16 16 procA q,16 16 procA r,16 16 procA result,16 16 procA uniA,16 16 procA uniB,16 16 procA x,16 16 procA y,16 16 procA z,16 16 procB EEEEE,16 16 procB bA,16 16 procB bAAA,16 16 procB bB,16 16 procB bBBB,16 16 procB bC,16 16 procB bD,16 16 procB cA,16 16 procB dAAA,16 16 procB dB,16 16 procB dBBB,16 16 procB dC,16 16 procB dD,16 16 procB dE,16 16 procB dF,16 16 procB dc,16 16 procB k,16 16 procB uniA,16 16 procB uniB,16 16 procB x,16 16 procB y,16 16 procC cA,16 16 procC k,16 16 procC x,16 16 procC y,16 16 procD EEEEE,16 16 procD dAAA,16 16 procD dB,16 16 procD dBBB,16 16 procD dC,16 16 procD dD,16 16 procD dE,16 16 procD dF,16 16 procD dc,16 16 procD uniA,16 16 procE EEEEE,2 2 ifInIf ifA,2 2 ifInIf ifB,2 2 ifInIf ifC,2 2 ifInIf ifD,2 2 ifInIf uniC,2 2 procA EEEEE,2 2 procA a,2 2 procA a1,2 2 procA ab,2 2 procA abc,2 2 procA ai,2 2 procA b,2 2 procA b1,2 2 procA bA,2 2 procA bAAA,2 2 procA bB,2 2 procA bBBB,2 2 procA bC,2 2 procA bD,2 2 procA c,2 2 procA cA,2 2 procA d,2 2 procA dAAA,2 2 procA dB,2 2 procA dBBB,2 2 procA dC,2 2 procA dD,2 2 procA dE,2 2 procA dF,2 2 procA dc,2 2 procA e,2 2 procA file,2 2 procA ifVar,2 2 procA ifVar2,2 2 procA ifVar3,2 2 procA k,2 2 procA m,2 2 procA max,2 2 procA min,2 2 procA o,2 2 procA p,2 2 procA q,2 2 procA r,2 2 procA result,2 2 procA uniA,2 2 procA uniB,2 2 procA x,2 2 procA y,2 2 procA z,2 2 procB EEEEE,2 2 procB bA,2 2 procB bAAA,2 2 procB bB,2 2 procB bBBB,2 2 procB bC,2 2 procB bD,2 2 procB cA,2 2 procB dAAA,2 2 procB dB,2 2 procB dBBB,2 2 procB dC,2 2 procB dD,2 2 procB dE,2 2 procB dF,2 2 procB dc,2 2 procB k,2 2 procB uniA,2 2 procB uniB,2 2 procB x,2 2 procB y,2 2 procC cA,2 2 procC k,2 2 procC x,2 2 procC y,2 2 procD EEEEE,2 2 procD dAAA,2 2 procD dB,2 2 procD dBBB,2 2 procD dC,2 2 procD dD,2 2 procD dE,2 2 procD dF,2 2 procD dc,2 2 procD uniA,2 2 procE EEEEE,3 3 ifInIf ifA,3 3 ifInIf ifB,3 3 ifInIf ifC,3 3 ifInIf ifD,3 3 ifInIf uniC,3 3 procA EEEEE,3 3 procA a,3 3 procA a1,3 3 procA ab,3 3 procA abc,3 3 procA ai,3 3 procA b,3 3 procA b1,3 3 procA bA,3 3 procA bAAA,3 3 procA bB,3 3 procA bBBB,3 3 procA bC,3 3 procA bD,3 3 procA c,3 3 procA cA,3 3 procA d,3 3 procA dAAA,3 3 procA dB,3 3 procA dBBB,3 3 procA dC,3 3 procA dD,3 3 procA dE,3 3 procA dF,3 3 procA dc,3 3 procA e,3 3 procA file,3 3 procA ifVar,3 3 procA ifVar2,3 3 procA ifVar3,3 3 procA k,3 3 procA m,3 3 procA max,3 3 procA min,3 3 procA o,3 3 procA p,3 3 procA q,3 3 procA r,3 3 procA result,3 3 procA uniA,3 3 procA uniB,3 3 procA x,3 3 procA y,3 3 procA z,3 3 procB EEEEE,3 3 procB bA,3 3 procB bAAA,3 3 procB bB,3 3 procB bBBB,3 3 procB bC,3 3 procB bD,3 3 procB cA,3 3 procB dAAA,3 3 procB dB,3 3 procB dBBB,3 3 procB dC,3 3 procB dD,3 3 procB dE,3 3 procB dF,3 3 procB dc,3 3 procB k,3 3 procB uniA,3 3 procB uniB,3 3 procB x,3 3 procB y,3 3 procC cA,3 3 procC k,3 3 procC x,3 3 procC y,3 3 procD EEEEE,3 3 procD dAAA,3 3 procD dB,3 3 procD dBBB,3 3 procD dC,3 3 procD dD,3 3 procD dE,3 3 procD dF,3 3 procD dc,3 3 procD uniA,3 3 procE EEEEE,5 5 ifInIf ifA,5 5 ifInIf ifB,5 5 ifInIf ifC,5 5 ifInIf ifD,5 5 ifInIf uniC,5 5 procA EEEEE,5 5 procA a,5 5 procA a1,5 5 procA ab,5 5 procA abc,5 5 procA ai,5 5 procA b,5 5 procA b1,5 5 procA bA,5 5 procA bAAA,5 5 procA bB,5 5 procA bBBB,5 5 procA bC,5 5 procA bD,5 5 procA c,5 5 procA cA,5 5 procA d,5 5 procA dAAA,5 5 procA dB,5 5 procA dBBB,5 5 procA dC,5 5 procA dD,5 5 procA dE,5 5 procA dF,5 5 procA dc,5 5 procA e,5 5 procA file,5 5 procA ifVar,5 5 procA ifVar2,5 5 procA ifVar3,5 5 procA k,5 5 procA m,5 5 procA max,5 5 procA min,5 5 procA o,5 5 procA p,5 5 procA q,5 5 procA r,5 5 procA result,5 5 procA uniA,5 5 procA uniB,5 5 procA x,5 5 procA y,5 5 procA z,5 5 procB EEEEE,5 5 procB bA,5 5 procB bAAA,5 5 procB bB,5 5 procB bBBB,5 5 procB bC,5 5 procB bD,5 5 procB cA,5 5 procB dAAA,5 5 procB dB,5 5 procB dBBB,5 5 procB dC,5 5 procB dD,5 5 procB dE,5 5 procB dF,5 5 procB dc,5 5 procB k,5 5 procB uniA,5 5 procB uniB,5 5 procB x,5 5 procB y,5 5 procC cA,5 5 procC k,5 5 procC x,5 5 procC y,5 5 procD EEEEE,5 5 procD dAAA,5 5 procD dB,5 5 procD dBBB,5 5 procD dC,5 5 procD dD,5 5 procD dE,5 5 procD dF,5 5 procD dc,5 5 procD uniA,5 5 procE EEEEE,9 9 ifInIf ifA,9 9 ifInIf ifB,9 9 ifInIf ifC,9 9 ifInIf ifD,9 9 ifInIf uniC,9 9 procA EEEEE,9 9 procA a,9 9 procA a1,9 9 procA ab,9 9 procA abc,9 9 procA ai,9 9 procA b,9 9 procA b1,9 9 procA bA,9 9 procA bAAA,9 9 procA bB,9 9 procA bBBB,9 9 procA bC,9 9 procA bD,9 9 procA c,9 9 procA cA,9 9 procA d,9 9 procA dAAA,9 9 procA dB,9 9 procA dBBB,9 9 procA dC,9 9 procA dD,9 9 procA dE,9 9 procA dF,9 9 procA dc,9 9 procA e,9 9 procA file,9 9 procA ifVar,9 9 procA ifVar2,9 9 procA ifVar3,9 9 procA k,9 9 procA m,9 9 procA max,9 9 procA min,9 9 procA o,9 9 procA p,9 9 procA q,9 9 procA r,9 9 procA result,9 9 procA uniA,9 9 procA uniB,9 9 procA x,9 9 procA y,9 9 procA z,9 9 procB EEEEE,9 9 procB bA,9 9 procB bAAA,9 9 procB bB,9 9 procB bBBB,9 9 procB bC,9 9 procB bD,9 9 procB cA,9 9 procB dAAA,9 9 procB dB,9 9 procB dBBB,9 9 procB dC,9 9 procB dD,9 9 procB dE,9 9 procB dF,9 9 procB dc,9 9 procB k,9 9 procB uniA,9 9 procB uniB,9 9 procB x,9 9 procB y,9 9 procC cA,9 9 procC k,9 9 procC x,9 9 procC y,9 9 procD EEEEE,9 9 procD dAAA,9 9 procD dB,9 9 procD dBBB,9 9 procD dC,9 9 procD dD,9 9 procD dE,9 9 procD dF,9 9 procD dc,9 9 procD uniA,9 9 procE EEEEE
+5000
+83 - valid query (independent synonym)
+call c; variable v;
+Select <c,v> such that Modifies(c,v)
+29 dA,29 dAAA,3 bA,3 bD,3 dA,3 dAAA,3 file,3 k,3 uniA,3 x,3 y,3 z,37 dA,37 dAAA,45 file,45 k,45 x,45 y,45 z
+5000
+84 - valid query (independent synonym)
+call c; stmt s; 
+Select <c,s> such that Next(c, s) 
+29 30,3 4,31 32,37 38,40 41,64 62
+5000
+85 - valid query (independent synonym)
+call c; read re; 
+Select <c,re> such that Next(c, re) 
+29 30
+5000
+86 - valid query (independent synonym)
+call c; assign a; 
+Select <c,a> such that Next(c, a) 
+
+5000
+87 - valid query (independent synonym)
+call c; print pn; 
+Select <c,pn> such that Next(c, pn) 
+31 32
+5000
+88 - valid query (independent synonym)
+call c; while w; 
+Select <c,w> such that Next(c, w) 
+40 41,64 62
+5000
+89 - valid query (independent synonym)
+call c; if ifs; 
+Select <c,ifs> such that Next(c, ifs) 
+3 4,37 38
+5000
+90 - valid query (independent synonym)
+call c; variable v;
+Select <v,c> such that Modifies(c,v)
+bA 3,bD 3,dA 29,dA 3,dA 37,dAAA 29,dAAA 3,dAAA 37,file 3,file 45,k 3,k 45,uniA 3,x 3,x 45,y 3,y 45,z 3,z 45
+5000
+91 - valid query (independent synonym)
+call c; stmt s; 
+Select <s,c> such that Next(c, s) 
+30 29,32 31,38 37,4 3,41 40,62 64
+5000
+92 - valid query (independent synonym)
+call c; read re; 
+Select <re,c> such that Next(c, re) 
+30 29
+5000
+93 - valid query (independent synonym)
+call c; assign a; 
+Select <a,c> such that Next(c, a) 
+
+5000
+94 - valid query (independent synonym)
+call c; print pn; 
+Select <pn,c> such that Next(c, pn) 
+32 31
+5000
+95 - valid query (independent synonym)
+call c; while w; 
+Select <w,c> such that Next(c, w) 
+41 40,62 64
+5000
+96 - valid query (independent synonym)
+call c; if ifs; 
+Select <ifs,c> such that Next(c, ifs) 
+38 37,4 3
+5000
+1 - tuples 2 arg
+stmt s1; while w;
+Select <s1, w.stmt#> such that Next(s1, w)
+10 9,33 34,38 39,39 34,40 41,41 39,42 41,43 34,47 55,48 49,49 52,5 7,50 49,51 52,53 52,56 57,57 55,58 57,6 7,64 62,7 9,8 7
+5000
+2 - tuples 2 arg
+assign a; while w;
+Select <a, w.stmt#> such that Next(a, w)
+10 9,33 34,5 7,50 49,51 52,53 52,56 57,58 57,6 7,8 7
+5000
+3 - tuples 2 arg
+assign a; while w;
+Select <w.stmt#> such that Next(a, w)
+34,49,52,57,7,9
+5000
+4 - tuples 2 arg
+read r; while w;
+Select <r,w.stmt#> such that Next(r, w)
+
+5000
+5 - tuples 2 arg
+print pn; while w;
+Select <pn,w.stmt#> such that Next(pn, w)
+42 41,43 34
+5000
+6 - tuples 2 arg
+while w, w1;
+Select <w1,w.stmt#> such that Next(w1, w)
+39 34,41 39,49 52,57 55,7 9
+5000
+7 - tuples 2 arg
+while w; if ifs;
+Select <ifs,w.stmt#> such that Next(ifs, w)
+38 39,47 55,48 49
+5000
+8 - tuples 2 arg
+while w; if ifs;
+Select <w,ifs.stmt#> such that Next(ifs, w)
+39 38,49 48,55 47
+5000
+9 - valid query Next (2 synonym)
+stmt s1; if ifs;
+Select <s1,ifs.stmt#> such that Next(s1, ifs)
+11 13,25 26,27 28,3 4,37 38,47 48,68 69,71 72,72 74,9 11
+5000
+10 - valid query Next (2 synonym)
+assign a; if ifs;
+Select <a,ifs.stmt#> such that Next(a, ifs)
+27 28,71 72
+5000
+11 - valid query Next (2 synonym)
+print pn; if ifs;
+Select <pn,ifs.stmt#> such that Next(pn, ifs)
+25 26
+5000
+12 - valid query Next (2 synonym)
+read re; if ifs;
+Select <re,ifs.stmt#> such that Next(re, ifs)
+68 69
+5000
+13 - valid query Next (2 synonym)
+read re; if ifs, ifs2;
+Select <ifs2,ifs.stmt#> such that Next(ifs2, ifs)
+11 13,47 48,72 74
+5000
+14 - valid query Next (2 synonym)
+while w; if ifs;
+Select <w,ifs.stmt#> such that Next(w, ifs)
+9 11
+5000
+15 - valid query Next (2 synonym)
+while w; read r;
+Select <w,r.stmt#> such that Next(w, r)
+
+5000
+16 - valid query Next (2 synonym)
+stmt s; read r;
+Select <s,r.stmt#> such that Next(s, r)
+29 30
+5000
+17 - valid query Next (2 synonym)
+assign a; read r;
+Select <a,r.stmt#> such that Next(a, r)
+
+5000
+18 - valid query Next (2 synonym)
+read r, r1;
+Select <r1,r.stmt#> such that Next(r1, r)
+
+5000
+19 - valid query Next (2 synonym)
+read r; print pn
+Select <pn,r.stmt#> such that Next(pn, r)
+
+5000
+20 - valid query Next (2 synonym)
+while w; print pr;
+Select <w,pr.stmt#> such that Next(w, pr)
+41 42,62 65
+5000
+21 - valid query Next (2 synonym)
+stmt s; print pr;
+Select <s,pr.stmt#> such that Next(s, pr)
+1 2,13 15,31 32,38 43,41 42,60 61,62 65,70 78,73 78,77 78
+5000
+22 - valid query Next (2 synonym)
+assign a; print pr;
+Select <a,pr.stmt#> such that Next(a, pr)
+60 61,70 78,73 78,77 78
+5000
+23 - valid query Next (2 synonym)
+read r; print pr;
+Select <r,pr.stmt#> such that Next(r, pr)
+1 2
+5000
+24 - valid query Next (2 synonym)
+stmt s; print pr, pr2;
+Select <pr2,pr.stmt#> such that Next(pr2, pr)
+
+5000
+25 - valid query Next (2 synonym)
+if ifs; print pr;
+Select <ifs,pr.stmt#> such that Next(ifs, pr)
+13 15,38 43
+5000
+26 - valid query Next (2 synonym)
+while w; assign a;
+Select <w,a.stmt#> such that Next(w, a)
+34 35,34 44,49 50,52 53,52 54,55 56,55 59,57 58,62 63,7 8,9 10
+5000
+27 - valid query Next (2 synonym)
+assign a; read re;
+Select <re,a.stmt#> such that Next(re, a)
+
+5000
+28 - valid query Next (2 synonym)
+assign a; print pn;
+Select <pn,a.stmt#> such that Next(pn, a)
+15 16,65 66
+5000
+29 - valid query Next (2 synonym)
+if ifs; assign a;
+Select <ifs,a.stmt#> such that Next(ifs, a)
+11 12,13 14,26 27,26 33,4 5,4 6,48 51,69 70,69 71,72 73,74 75,74 76
+5000
+30 - valid query Next (2 synonym)
+assign a1, a2;
+Select <a1,a2.stmt#> such that Next(a1, a2)
+12 17,14 16,16 17,17 18,18 19,19 20,20 21,21 22,22 23,23 24,35 36,54 60,59 60,66 67,75 77,76 77
+5000
+31 - valid query Next* (2 synonym)
+stmt s2; assign a;
+Select <a,s2.stmt#> such that Next*(a, s2)
+10 10,10 11,10 12,10 13,10 14,10 15,10 16,10 17,10 18,10 19,10 20,10 21,10 22,10 23,10 24,10 9,12 17,12 18,12 19,12 20,12 21,12 22,12 23,12 24,14 16,14 17,14 18,14 19,14 20,14 21,14 22,14 23,14 24,16 17,16 18,16 19,16 20,16 21,16 22,16 23,16 24,17 18,17 19,17 20,17 21,17 22,17 23,17 24,18 19,18 20,18 21,18 22,18 23,18 24,19 20,19 21,19 22,19 23,19 24,20 21,20 22,20 23,20 24,21 22,21 23,21 24,22 23,22 24,23 24,27 28,27 29,27 30,27 31,27 32,27 45,33 34,33 35,33 36,33 37,33 38,33 39,33 40,33 41,33 42,33 43,33 44,33 45,35 34,35 35,35 36,35 37,35 38,35 39,35 40,35 41,35 42,35 43,35 44,35 45,36 34,36 35,36 36,36 37,36 38,36 39,36 40,36 41,36 42,36 43,36 44,36 45,44 45,5 10,5 11,5 12,5 13,5 14,5 15,5 16,5 17,5 18,5 19,5 20,5 21,5 22,5 23,5 24,5 7,5 8,5 9,50 49,50 50,50 52,50 53,50 54,50 60,50 61,51 52,51 53,51 54,51 60,51 61,53 52,53 53,53 54,53 60,53 61,54 60,54 61,56 55,56 56,56 57,56 58,56 59,56 60,56 61,58 55,58 56,58 57,58 58,58 59,58 60,58 61,59 60,59 61,6 10,6 11,6 12,6 13,6 14,6 15,6 16,6 17,6 18,6 19,6 20,6 21,6 22,6 23,6 24,6 7,6 8,6 9,60 61,63 62,63 63,63 64,63 65,63 66,63 67,66 67,70 78,71 72,71 73,71 74,71 75,71 76,71 77,71 78,73 78,75 77,75 78,76 77,76 78,77 78,8 10,8 11,8 12,8 13,8 14,8 15,8 16,8 17,8 18,8 19,8 20,8 21,8 22,8 23,8 24,8 7,8 8,8 9
+5000
+32 - valid query Next* (2 synonym)
+stmt s1, s2;
+Select <s1,s2.stmt#> such that Next*(s1, s2)
+1 10,1 11,1 12,1 13,1 14,1 15,1 16,1 17,1 18,1 19,1 2,1 20,1 21,1 22,1 23,1 24,1 3,1 4,1 5,1 6,1 7,1 8,1 9,10 10,10 11,10 12,10 13,10 14,10 15,10 16,10 17,10 18,10 19,10 20,10 21,10 22,10 23,10 24,10 9,11 12,11 13,11 14,11 15,11 16,11 17,11 18,11 19,11 20,11 21,11 22,11 23,11 24,12 17,12 18,12 19,12 20,12 21,12 22,12 23,12 24,13 14,13 15,13 16,13 17,13 18,13 19,13 20,13 21,13 22,13 23,13 24,14 16,14 17,14 18,14 19,14 20,14 21,14 22,14 23,14 24,15 16,15 17,15 18,15 19,15 20,15 21,15 22,15 23,15 24,16 17,16 18,16 19,16 20,16 21,16 22,16 23,16 24,17 18,17 19,17 20,17 21,17 22,17 23,17 24,18 19,18 20,18 21,18 22,18 23,18 24,19 20,19 21,19 22,19 23,19 24,2 10,2 11,2 12,2 13,2 14,2 15,2 16,2 17,2 18,2 19,2 20,2 21,2 22,2 23,2 24,2 3,2 4,2 5,2 6,2 7,2 8,2 9,20 21,20 22,20 23,20 24,21 22,21 23,21 24,22 23,22 24,23 24,25 26,25 27,25 28,25 29,25 30,25 31,25 32,25 33,25 34,25 35,25 36,25 37,25 38,25 39,25 40,25 41,25 42,25 43,25 44,25 45,26 27,26 28,26 29,26 30,26 31,26 32,26 33,26 34,26 35,26 36,26 37,26 38,26 39,26 40,26 41,26 42,26 43,26 44,26 45,27 28,27 29,27 30,27 31,27 32,27 45,28 29,28 30,28 31,28 32,28 45,29 30,29 45,3 10,3 11,3 12,3 13,3 14,3 15,3 16,3 17,3 18,3 19,3 20,3 21,3 22,3 23,3 24,3 4,3 5,3 6,3 7,3 8,3 9,30 45,31 32,31 45,32 45,33 34,33 35,33 36,33 37,33 38,33 39,33 40,33 41,33 42,33 43,33 44,33 45,34 34,34 35,34 36,34 37,34 38,34 39,34 40,34 41,34 42,34 43,34 44,34 45,35 34,35 35,35 36,35 37,35 38,35 39,35 40,35 41,35 42,35 43,35 44,35 45,36 34,36 35,36 36,36 37,36 38,36 39,36 40,36 41,36 42,36 43,36 44,36 45,37 34,37 35,37 36,37 37,37 38,37 39,37 40,37 41,37 42,37 43,37 44,37 45,38 34,38 35,38 36,38 37,38 38,38 39,38 40,38 41,38 42,38 43,38 44,38 45,39 34,39 35,39 36,39 37,39 38,39 39,39 40,39 41,39 42,39 43,39 44,39 45,4 10,4 11,4 12,4 13,4 14,4 15,4 16,4 17,4 18,4 19,4 20,4 21,4 22,4 23,4 24,4 5,4 6,4 7,4 8,4 9,40 34,40 35,40 36,40 37,40 38,40 39,40 40,40 41,40 42,40 43,40 44,40 45,41 34,41 35,41 36,41 37,41 38,41 39,41 40,41 41,41 42,41 43,41 44,41 45,42 34,42 35,42 36,42 37,42 38,42 39,42 40,42 41,42 42,42 43,42 44,42 45,43 34,43 35,43 36,43 37,43 38,43 39,43 40,43 41,43 42,43 43,43 44,43 45,44 45,47 48,47 49,47 50,47 51,47 52,47 53,47 54,47 55,47 56,47 57,47 58,47 59,47 60,47 61,48 49,48 50,48 51,48 52,48 53,48 54,48 60,48 61,49 49,49 50,49 52,49 53,49 54,49 60,49 61,5 10,5 11,5 12,5 13,5 14,5 15,5 16,5 17,5 18,5 19,5 20,5 21,5 22,5 23,5 24,5 7,5 8,5 9,50 49,50 50,50 52,50 53,50 54,50 60,50 61,51 52,51 53,51 54,51 60,51 61,52 52,52 53,52 54,52 60,52 61,53 52,53 53,53 54,53 60,53 61,54 60,54 61,55 55,55 56,55 57,55 58,55 59,55 60,55 61,56 55,56 56,56 57,56 58,56 59,56 60,56 61,57 55,57 56,57 57,57 58,57 59,57 60,57 61,58 55,58 56,58 57,58 58,58 59,58 60,58 61,59 60,59 61,6 10,6 11,6 12,6 13,6 14,6 15,6 16,6 17,6 18,6 19,6 20,6 21,6 22,6 23,6 24,6 7,6 8,6 9,60 61,62 62,62 63,62 64,62 65,62 66,62 67,63 62,63 63,63 64,63 65,63 66,63 67,64 62,64 63,64 64,64 65,64 66,64 67,65 66,65 67,66 67,68 69,68 70,68 71,68 72,68 73,68 74,68 75,68 76,68 77,68 78,69 70,69 71,69 72,69 73,69 74,69 75,69 76,69 77,69 78,7 10,7 11,7 12,7 13,7 14,7 15,7 16,7 17,7 18,7 19,7 20,7 21,7 22,7 23,7 24,7 7,7 8,7 9,70 78,71 72,71 73,71 74,71 75,71 76,71 77,71 78,72 73,72 74,72 75,72 76,72 77,72 78,73 78,74 75,74 76,74 77,74 78,75 77,75 78,76 77,76 78,77 78,8 10,8 11,8 12,8 13,8 14,8 15,8 16,8 17,8 18,8 19,8 20,8 21,8 22,8 23,8 24,8 7,8 8,8 9,9 10,9 11,9 12,9 13,9 14,9 15,9 16,9 17,9 18,9 19,9 20,9 21,9 22,9 23,9 24,9 9
+5000
+33 - valid query Next* (2 synonym)
+stmt s2; while w;
+Select <w,s2.stmt#> such that Next*(w, s2)
+34 34,34 35,34 36,34 37,34 38,34 39,34 40,34 41,34 42,34 43,34 44,34 45,39 34,39 35,39 36,39 37,39 38,39 39,39 40,39 41,39 42,39 43,39 44,39 45,41 34,41 35,41 36,41 37,41 38,41 39,41 40,41 41,41 42,41 43,41 44,41 45,49 49,49 50,49 52,49 53,49 54,49 60,49 61,52 52,52 53,52 54,52 60,52 61,55 55,55 56,55 57,55 58,55 59,55 60,55 61,57 55,57 56,57 57,57 58,57 59,57 60,57 61,62 62,62 63,62 64,62 65,62 66,62 67,7 10,7 11,7 12,7 13,7 14,7 15,7 16,7 17,7 18,7 19,7 20,7 21,7 22,7 23,7 24,7 7,7 8,7 9,9 10,9 11,9 12,9 13,9 14,9 15,9 16,9 17,9 18,9 19,9 20,9 21,9 22,9 23,9 24,9 9
+5000
+34 - valid query Next* (2 synonym)
+stmt s2; if ifs;
+Select <ifs,s2.stmt#> such that Next*(ifs, s2)
+11 12,11 13,11 14,11 15,11 16,11 17,11 18,11 19,11 20,11 21,11 22,11 23,11 24,13 14,13 15,13 16,13 17,13 18,13 19,13 20,13 21,13 22,13 23,13 24,26 27,26 28,26 29,26 30,26 31,26 32,26 33,26 34,26 35,26 36,26 37,26 38,26 39,26 40,26 41,26 42,26 43,26 44,26 45,28 29,28 30,28 31,28 32,28 45,38 34,38 35,38 36,38 37,38 38,38 39,38 40,38 41,38 42,38 43,38 44,38 45,4 10,4 11,4 12,4 13,4 14,4 15,4 16,4 17,4 18,4 19,4 20,4 21,4 22,4 23,4 24,4 5,4 6,4 7,4 8,4 9,47 48,47 49,47 50,47 51,47 52,47 53,47 54,47 55,47 56,47 57,47 58,47 59,47 60,47 61,48 49,48 50,48 51,48 52,48 53,48 54,48 60,48 61,69 70,69 71,69 72,69 73,69 74,69 75,69 76,69 77,69 78,72 73,72 74,72 75,72 76,72 77,72 78,74 75,74 76,74 77,74 78
+5000
+35 - valid query Next (2 num)
+stmt s2; if ifs;
+Select <ifs,s2.stmt#> such that Next(47, 55)
+11 1,11 10,11 11,11 12,11 13,11 14,11 15,11 16,11 17,11 18,11 19,11 2,11 20,11 21,11 22,11 23,11 24,11 25,11 26,11 27,11 28,11 29,11 3,11 30,11 31,11 32,11 33,11 34,11 35,11 36,11 37,11 38,11 39,11 4,11 40,11 41,11 42,11 43,11 44,11 45,11 46,11 47,11 48,11 49,11 5,11 50,11 51,11 52,11 53,11 54,11 55,11 56,11 57,11 58,11 59,11 6,11 60,11 61,11 62,11 63,11 64,11 65,11 66,11 67,11 68,11 69,11 7,11 70,11 71,11 72,11 73,11 74,11 75,11 76,11 77,11 78,11 79,11 8,11 80,11 9,13 1,13 10,13 11,13 12,13 13,13 14,13 15,13 16,13 17,13 18,13 19,13 2,13 20,13 21,13 22,13 23,13 24,13 25,13 26,13 27,13 28,13 29,13 3,13 30,13 31,13 32,13 33,13 34,13 35,13 36,13 37,13 38,13 39,13 4,13 40,13 41,13 42,13 43,13 44,13 45,13 46,13 47,13 48,13 49,13 5,13 50,13 51,13 52,13 53,13 54,13 55,13 56,13 57,13 58,13 59,13 6,13 60,13 61,13 62,13 63,13 64,13 65,13 66,13 67,13 68,13 69,13 7,13 70,13 71,13 72,13 73,13 74,13 75,13 76,13 77,13 78,13 79,13 8,13 80,13 9,26 1,26 10,26 11,26 12,26 13,26 14,26 15,26 16,26 17,26 18,26 19,26 2,26 20,26 21,26 22,26 23,26 24,26 25,26 26,26 27,26 28,26 29,26 3,26 30,26 31,26 32,26 33,26 34,26 35,26 36,26 37,26 38,26 39,26 4,26 40,26 41,26 42,26 43,26 44,26 45,26 46,26 47,26 48,26 49,26 5,26 50,26 51,26 52,26 53,26 54,26 55,26 56,26 57,26 58,26 59,26 6,26 60,26 61,26 62,26 63,26 64,26 65,26 66,26 67,26 68,26 69,26 7,26 70,26 71,26 72,26 73,26 74,26 75,26 76,26 77,26 78,26 79,26 8,26 80,26 9,28 1,28 10,28 11,28 12,28 13,28 14,28 15,28 16,28 17,28 18,28 19,28 2,28 20,28 21,28 22,28 23,28 24,28 25,28 26,28 27,28 28,28 29,28 3,28 30,28 31,28 32,28 33,28 34,28 35,28 36,28 37,28 38,28 39,28 4,28 40,28 41,28 42,28 43,28 44,28 45,28 46,28 47,28 48,28 49,28 5,28 50,28 51,28 52,28 53,28 54,28 55,28 56,28 57,28 58,28 59,28 6,28 60,28 61,28 62,28 63,28 64,28 65,28 66,28 67,28 68,28 69,28 7,28 70,28 71,28 72,28 73,28 74,28 75,28 76,28 77,28 78,28 79,28 8,28 80,28 9,38 1,38 10,38 11,38 12,38 13,38 14,38 15,38 16,38 17,38 18,38 19,38 2,38 20,38 21,38 22,38 23,38 24,38 25,38 26,38 27,38 28,38 29,38 3,38 30,38 31,38 32,38 33,38 34,38 35,38 36,38 37,38 38,38 39,38 4,38 40,38 41,38 42,38 43,38 44,38 45,38 46,38 47,38 48,38 49,38 5,38 50,38 51,38 52,38 53,38 54,38 55,38 56,38 57,38 58,38 59,38 6,38 60,38 61,38 62,38 63,38 64,38 65,38 66,38 67,38 68,38 69,38 7,38 70,38 71,38 72,38 73,38 74,38 75,38 76,38 77,38 78,38 79,38 8,38 80,38 9,4 1,4 10,4 11,4 12,4 13,4 14,4 15,4 16,4 17,4 18,4 19,4 2,4 20,4 21,4 22,4 23,4 24,4 25,4 26,4 27,4 28,4 29,4 3,4 30,4 31,4 32,4 33,4 34,4 35,4 36,4 37,4 38,4 39,4 4,4 40,4 41,4 42,4 43,4 44,4 45,4 46,4 47,4 48,4 49,4 5,4 50,4 51,4 52,4 53,4 54,4 55,4 56,4 57,4 58,4 59,4 6,4 60,4 61,4 62,4 63,4 64,4 65,4 66,4 67,4 68,4 69,4 7,4 70,4 71,4 72,4 73,4 74,4 75,4 76,4 77,4 78,4 79,4 8,4 80,4 9,47 1,47 10,47 11,47 12,47 13,47 14,47 15,47 16,47 17,47 18,47 19,47 2,47 20,47 21,47 22,47 23,47 24,47 25,47 26,47 27,47 28,47 29,47 3,47 30,47 31,47 32,47 33,47 34,47 35,47 36,47 37,47 38,47 39,47 4,47 40,47 41,47 42,47 43,47 44,47 45,47 46,47 47,47 48,47 49,47 5,47 50,47 51,47 52,47 53,47 54,47 55,47 56,47 57,47 58,47 59,47 6,47 60,47 61,47 62,47 63,47 64,47 65,47 66,47 67,47 68,47 69,47 7,47 70,47 71,47 72,47 73,47 74,47 75,47 76,47 77,47 78,47 79,47 8,47 80,47 9,48 1,48 10,48 11,48 12,48 13,48 14,48 15,48 16,48 17,48 18,48 19,48 2,48 20,48 21,48 22,48 23,48 24,48 25,48 26,48 27,48 28,48 29,48 3,48 30,48 31,48 32,48 33,48 34,48 35,48 36,48 37,48 38,48 39,48 4,48 40,48 41,48 42,48 43,48 44,48 45,48 46,48 47,48 48,48 49,48 5,48 50,48 51,48 52,48 53,48 54,48 55,48 56,48 57,48 58,48 59,48 6,48 60,48 61,48 62,48 63,48 64,48 65,48 66,48 67,48 68,48 69,48 7,48 70,48 71,48 72,48 73,48 74,48 75,48 76,48 77,48 78,48 79,48 8,48 80,48 9,69 1,69 10,69 11,69 12,69 13,69 14,69 15,69 16,69 17,69 18,69 19,69 2,69 20,69 21,69 22,69 23,69 24,69 25,69 26,69 27,69 28,69 29,69 3,69 30,69 31,69 32,69 33,69 34,69 35,69 36,69 37,69 38,69 39,69 4,69 40,69 41,69 42,69 43,69 44,69 45,69 46,69 47,69 48,69 49,69 5,69 50,69 51,69 52,69 53,69 54,69 55,69 56,69 57,69 58,69 59,69 6,69 60,69 61,69 62,69 63,69 64,69 65,69 66,69 67,69 68,69 69,69 7,69 70,69 71,69 72,69 73,69 74,69 75,69 76,69 77,69 78,69 79,69 8,69 80,69 9,72 1,72 10,72 11,72 12,72 13,72 14,72 15,72 16,72 17,72 18,72 19,72 2,72 20,72 21,72 22,72 23,72 24,72 25,72 26,72 27,72 28,72 29,72 3,72 30,72 31,72 32,72 33,72 34,72 35,72 36,72 37,72 38,72 39,72 4,72 40,72 41,72 42,72 43,72 44,72 45,72 46,72 47,72 48,72 49,72 5,72 50,72 51,72 52,72 53,72 54,72 55,72 56,72 57,72 58,72 59,72 6,72 60,72 61,72 62,72 63,72 64,72 65,72 66,72 67,72 68,72 69,72 7,72 70,72 71,72 72,72 73,72 74,72 75,72 76,72 77,72 78,72 79,72 8,72 80,72 9,74 1,74 10,74 11,74 12,74 13,74 14,74 15,74 16,74 17,74 18,74 19,74 2,74 20,74 21,74 22,74 23,74 24,74 25,74 26,74 27,74 28,74 29,74 3,74 30,74 31,74 32,74 33,74 34,74 35,74 36,74 37,74 38,74 39,74 4,74 40,74 41,74 42,74 43,74 44,74 45,74 46,74 47,74 48,74 49,74 5,74 50,74 51,74 52,74 53,74 54,74 55,74 56,74 57,74 58,74 59,74 6,74 60,74 61,74 62,74 63,74 64,74 65,74 66,74 67,74 68,74 69,74 7,74 70,74 71,74 72,74 73,74 74,74 75,74 76,74 77,74 78,74 79,74 8,74 80,74 9
+5000
+36 - valid query Next (2 synonym)
+stmt s2; print pn;
+Select <pn,s2.stmt#> such that Next(pn, s2)
+15 16,2 3,25 26,32 45,42 41,43 34,65 66
+5000
+37 - valid query Next (2 synonym)
+stmt s2; read re;
+Select <re,s2.stmt#> such that Next(re, s2)
+1 2,30 45,68 69
+5000
+38 - modifies statement
+stmt s; variable v;
+Select <s,v.varName> such that Modifies(s, v)
+1 a,10 c,11 a,11 b,11 ifVar,12 ifVar,13 b,14 b,16 a,17 a,18 a,19 a,20 a,21 a,22 a,23 a,24 a,26 bA,26 bD,26 dA,26 dAAA,26 uniA,26 x,27 bA,28 dA,28 dAAA,28 uniA,29 dA,29 dAAA,3 bA,3 bD,3 dA,3 dAAA,3 file,3 k,3 uniA,3 x,3 y,3 z,30 uniA,33 bA,34 bA,34 dA,34 dAAA,34 x,35 bA,36 x,37 dA,37 dAAA,4 y,4 z,44 bD,45 file,45 k,45 x,45 y,45 z,47 k,47 x,47 y,47 z,48 z,49 z,5 y,50 z,51 z,52 y,53 y,54 x,55 x,55 y,56 x,57 y,58 y,59 k,6 z,60 file,62 dAAA,63 dAAA,66 dA,67 dA,68 uniC,69 ifA,69 ifB,7 n,70 ifA,71 ifA,72 ifA,72 ifB,73 ifA,74 ifA,74 ifB,75 ifB,76 ifA,77 ifA,79 procC,8 n,80 x,9 c
+5000
+39 - modifies statement
+assign a; variable v;
+Select <a,v.varName> such that Modifies(a, v)
+10 c,12 ifVar,14 b,16 a,17 a,18 a,19 a,20 a,21 a,22 a,23 a,24 a,27 bA,33 bA,35 bA,36 x,44 bD,5 y,50 z,51 z,53 y,54 x,56 x,58 y,59 k,6 z,60 file,63 dAAA,66 dA,67 dA,70 ifA,71 ifA,73 ifA,75 ifB,76 ifA,77 ifA,79 procC,8 n
+5000
+40 - modifies statement
+read r; variable v;
+Select <r,v.varName> such that Modifies(r, v)
+1 a,30 uniA,68 uniC,80 x
+5000
+41 - modifies statement
+print pn; variable v;
+Select <pn,v.varName> such that Modifies(pn, v)
+
+5000
+42 - modifies statement
+while w; variable v;
+Select <w,v.varName> such that Modifies(w, v)
+34 bA,34 dA,34 dAAA,34 x,49 z,52 y,55 x,55 y,57 y,62 dAAA,7 n,9 c
+5000
+43 - modifies statement
+if ifs; variable v;
+Select <ifs,v.varName> such that Modifies(ifs, v)
+11 a,11 b,11 ifVar,13 b,26 bA,26 bD,26 dA,26 dAAA,26 uniA,26 x,28 dA,28 dAAA,28 uniA,4 y,4 z,47 k,47 x,47 y,47 z,48 z,69 ifA,69 ifB,72 ifA,72 ifB,74 ifA,74 ifB
+5000
+44 - modifies statement
+stmt s; variable v;
+Select <v,s.stmt#> such that Modifies(s, v)
+a 1,a 11,a 16,a 17,a 18,a 19,a 20,a 21,a 22,a 23,a 24,b 11,b 13,b 14,bA 26,bA 27,bA 3,bA 33,bA 34,bA 35,bD 26,bD 3,bD 44,c 10,c 9,dA 26,dA 28,dA 29,dA 3,dA 34,dA 37,dA 66,dA 67,dAAA 26,dAAA 28,dAAA 29,dAAA 3,dAAA 34,dAAA 37,dAAA 62,dAAA 63,file 3,file 45,file 60,ifA 69,ifA 70,ifA 71,ifA 72,ifA 73,ifA 74,ifA 76,ifA 77,ifB 69,ifB 72,ifB 74,ifB 75,ifVar 11,ifVar 12,k 3,k 45,k 47,k 59,n 7,n 8,procC 79,uniA 26,uniA 28,uniA 3,uniA 30,uniC 68,x 26,x 3,x 34,x 36,x 45,x 47,x 54,x 55,x 56,x 80,y 3,y 4,y 45,y 47,y 5,y 52,y 53,y 55,y 57,y 58,z 3,z 4,z 45,z 47,z 48,z 49,z 50,z 51,z 6
+5000
+45 - modifies statement
+assign a; variable v;
+Select <v,a.stmt#> such that Modifies(a, v)
+a 16,a 17,a 18,a 19,a 20,a 21,a 22,a 23,a 24,b 14,bA 27,bA 33,bA 35,bD 44,c 10,dA 66,dA 67,dAAA 63,file 60,ifA 70,ifA 71,ifA 73,ifA 76,ifA 77,ifB 75,ifVar 12,k 59,n 8,procC 79,x 36,x 54,x 56,y 5,y 53,y 58,z 50,z 51,z 6
+5000
+46 - modifies statement
+read r; variable v;
+Select <v,r.stmt#> such that Modifies(r, v)
+a 1,uniA 30,uniC 68,x 80
+5000
+47 - modifies statement
+print pn; variable v;
+Select <v,pn.stmt#> such that Modifies(pn, v)
+
+5000
+48 - modifies statement
+while w; variable v;
+Select <v,w.stmt#> such that Modifies(w, v)
+bA 34,c 9,dA 34,dAAA 34,dAAA 62,n 7,x 34,x 55,y 52,y 55,y 57,z 49
+5000
+49 - modifies statement
+if ifs; variable v;
+Select <v,ifs.stmt#> such that Modifies(ifs, v)
+a 11,b 11,b 13,bA 26,bD 26,dA 26,dA 28,dAAA 26,dAAA 28,ifA 69,ifA 72,ifA 74,ifB 69,ifB 72,ifB 74,ifVar 11,k 47,uniA 26,uniA 28,x 26,x 47,y 4,y 47,z 4,z 47,z 48
+5000
+50 - modifies statement
+stmt s; variable v; procedure p;
+Select <p,s.stmt#,v> such that Modifies(s, v) and Modifies(p,v)
+ifA 26 x,ifA 3 x,ifA 34 x,ifA 36 x,ifA 45 x,ifA 47 x,ifA 54 x,ifA 55 x,ifA 56 x,ifA 80 x,ifInIf 68 uniC,ifInIf 69 ifA,ifInIf 69 ifB,ifInIf 70 ifA,ifInIf 71 ifA,ifInIf 72 ifA,ifInIf 72 ifB,ifInIf 73 ifA,ifInIf 74 ifA,ifInIf 74 ifB,ifInIf 75 ifB,ifInIf 76 ifA,ifInIf 77 ifA,procA 1 a,procA 10 c,procA 11 a,procA 11 b,procA 11 ifVar,procA 12 ifVar,procA 13 b,procA 14 b,procA 16 a,procA 17 a,procA 18 a,procA 19 a,procA 20 a,procA 21 a,procA 22 a,procA 23 a,procA 24 a,procA 26 bA,procA 26 bD,procA 26 dA,procA 26 dAAA,procA 26 uniA,procA 26 x,procA 27 bA,procA 28 dA,procA 28 dAAA,procA 28 uniA,procA 29 dA,procA 29 dAAA,procA 3 bA,procA 3 bD,procA 3 dA,procA 3 dAAA,procA 3 file,procA 3 k,procA 3 uniA,procA 3 x,procA 3 y,procA 3 z,procA 30 uniA,procA 33 bA,procA 34 bA,procA 34 dA,procA 34 dAAA,procA 34 x,procA 35 bA,procA 36 x,procA 37 dA,procA 37 dAAA,procA 4 y,procA 4 z,procA 44 bD,procA 45 file,procA 45 k,procA 45 x,procA 45 y,procA 45 z,procA 47 k,procA 47 x,procA 47 y,procA 47 z,procA 48 z,procA 49 z,procA 5 y,procA 50 z,procA 51 z,procA 52 y,procA 53 y,procA 54 x,procA 55 x,procA 55 y,procA 56 x,procA 57 y,procA 58 y,procA 59 k,procA 6 z,procA 60 file,procA 62 dAAA,procA 63 dAAA,procA 66 dA,procA 67 dA,procA 7 n,procA 8 n,procA 80 x,procA 9 c,procB 26 bA,procB 26 bD,procB 26 dA,procB 26 dAAA,procB 26 uniA,procB 26 x,procB 27 bA,procB 28 dA,procB 28 dAAA,procB 28 uniA,procB 29 dA,procB 29 dAAA,procB 3 bA,procB 3 bD,procB 3 dA,procB 3 dAAA,procB 3 file,procB 3 k,procB 3 uniA,procB 3 x,procB 3 y,procB 3 z,procB 30 uniA,procB 33 bA,procB 34 bA,procB 34 dA,procB 34 dAAA,procB 34 x,procB 35 bA,procB 36 x,procB 37 dA,procB 37 dAAA,procB 4 y,procB 4 z,procB 44 bD,procB 45 file,procB 45 k,procB 45 x,procB 45 y,procB 45 z,procB 47 k,procB 47 x,procB 47 y,procB 47 z,procB 48 z,procB 49 z,procB 5 y,procB 50 z,procB 51 z,procB 52 y,procB 53 y,procB 54 x,procB 55 x,procB 55 y,procB 56 x,procB 57 y,procB 58 y,procB 59 k,procB 6 z,procB 60 file,procB 62 dAAA,procB 63 dAAA,procB 66 dA,procB 67 dA,procB 80 x,procC 26 x,procC 3 file,procC 3 k,procC 3 x,procC 3 y,procC 3 z,procC 34 x,procC 36 x,procC 4 y,procC 4 z,procC 45 file,procC 45 k,procC 45 x,procC 45 y,procC 45 z,procC 47 k,procC 47 x,procC 47 y,procC 47 z,procC 48 z,procC 49 z,procC 5 y,procC 50 z,procC 51 z,procC 52 y,procC 53 y,procC 54 x,procC 55 x,procC 55 y,procC 56 x,procC 57 y,procC 58 y,procC 59 k,procC 6 z,procC 60 file,procC 80 x,procD 26 dA,procD 26 dAAA,procD 28 dA,procD 28 dAAA,procD 29 dA,procD 29 dAAA,procD 3 dA,procD 3 dAAA,procD 34 dA,procD 34 dAAA,procD 37 dA,procD 37 dAAA,procD 62 dAAA,procD 63 dAAA,procD 66 dA,procD 67 dA,withTest 79 procC
+5000
+51 - modifies statement
+assign a; variable v; procedure p;
+Select <p,a.stmt#,v> such that Modifies(a, v) and Modifies(p,v)
+ifA 36 x,ifA 54 x,ifA 56 x,ifInIf 70 ifA,ifInIf 71 ifA,ifInIf 73 ifA,ifInIf 75 ifB,ifInIf 76 ifA,ifInIf 77 ifA,procA 10 c,procA 12 ifVar,procA 14 b,procA 16 a,procA 17 a,procA 18 a,procA 19 a,procA 20 a,procA 21 a,procA 22 a,procA 23 a,procA 24 a,procA 27 bA,procA 33 bA,procA 35 bA,procA 36 x,procA 44 bD,procA 5 y,procA 50 z,procA 51 z,procA 53 y,procA 54 x,procA 56 x,procA 58 y,procA 59 k,procA 6 z,procA 60 file,procA 63 dAAA,procA 66 dA,procA 67 dA,procA 8 n,procB 27 bA,procB 33 bA,procB 35 bA,procB 36 x,procB 44 bD,procB 5 y,procB 50 z,procB 51 z,procB 53 y,procB 54 x,procB 56 x,procB 58 y,procB 59 k,procB 6 z,procB 60 file,procB 63 dAAA,procB 66 dA,procB 67 dA,procC 36 x,procC 5 y,procC 50 z,procC 51 z,procC 53 y,procC 54 x,procC 56 x,procC 58 y,procC 59 k,procC 6 z,procC 60 file,procD 63 dAAA,procD 66 dA,procD 67 dA,withTest 79 procC
+5000
+52 - modifies statement
+read r; variable v; procedure p;
+Select <p,r.stmt#,v> such that Modifies(r, v) and Modifies(p,v)
+ifA 80 x,ifInIf 68 uniC,procA 1 a,procA 30 uniA,procA 80 x,procB 30 uniA,procB 80 x,procC 80 x
+5000
+53 - modifies statement
+print pn; variable v; procedure p;
+Select <p,pn.stmt#,v> such that Modifies(pn, v) and Modifies(p,v)
+
+5000
+54 - modifies statement
+while w; variable v; procedure p;
+Select <p,w.stmt#,v> such that Modifies(w, v) and Modifies(p,v)
+ifA 34 x,ifA 55 x,procA 34 bA,procA 34 dA,procA 34 dAAA,procA 34 x,procA 49 z,procA 52 y,procA 55 x,procA 55 y,procA 57 y,procA 62 dAAA,procA 7 n,procA 9 c,procB 34 bA,procB 34 dA,procB 34 dAAA,procB 34 x,procB 49 z,procB 52 y,procB 55 x,procB 55 y,procB 57 y,procB 62 dAAA,procC 34 x,procC 49 z,procC 52 y,procC 55 x,procC 55 y,procC 57 y,procD 34 dA,procD 34 dAAA,procD 62 dAAA
+5000
+55 - modifies statement
+if ifs; variable v; procedure p;
+Select <p,ifs.stmt#,v> such that Modifies(ifs, v) and Modifies(p,v)
+ifA 26 x,ifA 47 x,ifInIf 69 ifA,ifInIf 69 ifB,ifInIf 72 ifA,ifInIf 72 ifB,ifInIf 74 ifA,ifInIf 74 ifB,procA 11 a,procA 11 b,procA 11 ifVar,procA 13 b,procA 26 bA,procA 26 bD,procA 26 dA,procA 26 dAAA,procA 26 uniA,procA 26 x,procA 28 dA,procA 28 dAAA,procA 28 uniA,procA 4 y,procA 4 z,procA 47 k,procA 47 x,procA 47 y,procA 47 z,procA 48 z,procB 26 bA,procB 26 bD,procB 26 dA,procB 26 dAAA,procB 26 uniA,procB 26 x,procB 28 dA,procB 28 dAAA,procB 28 uniA,procB 4 y,procB 4 z,procB 47 k,procB 47 x,procB 47 y,procB 47 z,procB 48 z,procC 26 x,procC 4 y,procC 4 z,procC 47 k,procC 47 x,procC 47 y,procC 47 z,procC 48 z,procD 26 dA,procD 26 dAAA,procD 28 dA,procD 28 dAAA
+5000
+56 - modifies statement
+stmt s; variable v; procedure p;
+Select <s,p.procName,v> such that Modifies(s, v) and Modifies(p,v)
+1 procA a,10 procA c,11 procA a,11 procA b,11 procA ifVar,12 procA ifVar,13 procA b,14 procA b,16 procA a,17 procA a,18 procA a,19 procA a,20 procA a,21 procA a,22 procA a,23 procA a,24 procA a,26 ifA x,26 procA bA,26 procA bD,26 procA dA,26 procA dAAA,26 procA uniA,26 procA x,26 procB bA,26 procB bD,26 procB dA,26 procB dAAA,26 procB uniA,26 procB x,26 procC x,26 procD dA,26 procD dAAA,27 procA bA,27 procB bA,28 procA dA,28 procA dAAA,28 procA uniA,28 procB dA,28 procB dAAA,28 procB uniA,28 procD dA,28 procD dAAA,29 procA dA,29 procA dAAA,29 procB dA,29 procB dAAA,29 procD dA,29 procD dAAA,3 ifA x,3 procA bA,3 procA bD,3 procA dA,3 procA dAAA,3 procA file,3 procA k,3 procA uniA,3 procA x,3 procA y,3 procA z,3 procB bA,3 procB bD,3 procB dA,3 procB dAAA,3 procB file,3 procB k,3 procB uniA,3 procB x,3 procB y,3 procB z,3 procC file,3 procC k,3 procC x,3 procC y,3 procC z,3 procD dA,3 procD dAAA,30 procA uniA,30 procB uniA,33 procA bA,33 procB bA,34 ifA x,34 procA bA,34 procA dA,34 procA dAAA,34 procA x,34 procB bA,34 procB dA,34 procB dAAA,34 procB x,34 procC x,34 procD dA,34 procD dAAA,35 procA bA,35 procB bA,36 ifA x,36 procA x,36 procB x,36 procC x,37 procA dA,37 procA dAAA,37 procB dA,37 procB dAAA,37 procD dA,37 procD dAAA,4 procA y,4 procA z,4 procB y,4 procB z,4 procC y,4 procC z,44 procA bD,44 procB bD,45 ifA x,45 procA file,45 procA k,45 procA x,45 procA y,45 procA z,45 procB file,45 procB k,45 procB x,45 procB y,45 procB z,45 procC file,45 procC k,45 procC x,45 procC y,45 procC z,47 ifA x,47 procA k,47 procA x,47 procA y,47 procA z,47 procB k,47 procB x,47 procB y,47 procB z,47 procC k,47 procC x,47 procC y,47 procC z,48 procA z,48 procB z,48 procC z,49 procA z,49 procB z,49 procC z,5 procA y,5 procB y,5 procC y,50 procA z,50 procB z,50 procC z,51 procA z,51 procB z,51 procC z,52 procA y,52 procB y,52 procC y,53 procA y,53 procB y,53 procC y,54 ifA x,54 procA x,54 procB x,54 procC x,55 ifA x,55 procA x,55 procA y,55 procB x,55 procB y,55 procC x,55 procC y,56 ifA x,56 procA x,56 procB x,56 procC x,57 procA y,57 procB y,57 procC y,58 procA y,58 procB y,58 procC y,59 procA k,59 procB k,59 procC k,6 procA z,6 procB z,6 procC z,60 procA file,60 procB file,60 procC file,62 procA dAAA,62 procB dAAA,62 procD dAAA,63 procA dAAA,63 procB dAAA,63 procD dAAA,66 procA dA,66 procB dA,66 procD dA,67 procA dA,67 procB dA,67 procD dA,68 ifInIf uniC,69 ifInIf ifA,69 ifInIf ifB,7 procA n,70 ifInIf ifA,71 ifInIf ifA,72 ifInIf ifA,72 ifInIf ifB,73 ifInIf ifA,74 ifInIf ifA,74 ifInIf ifB,75 ifInIf ifB,76 ifInIf ifA,77 ifInIf ifA,79 withTest procC,8 procA n,80 ifA x,80 procA x,80 procB x,80 procC x,9 procA c
+5000
+57 - modifies statement
+assign a; variable v; procedure p;
+Select <a,p.procName,v> such that Modifies(a, v) and Modifies(p,v)
+10 procA c,12 procA ifVar,14 procA b,16 procA a,17 procA a,18 procA a,19 procA a,20 procA a,21 procA a,22 procA a,23 procA a,24 procA a,27 procA bA,27 procB bA,33 procA bA,33 procB bA,35 procA bA,35 procB bA,36 ifA x,36 procA x,36 procB x,36 procC x,44 procA bD,44 procB bD,5 procA y,5 procB y,5 procC y,50 procA z,50 procB z,50 procC z,51 procA z,51 procB z,51 procC z,53 procA y,53 procB y,53 procC y,54 ifA x,54 procA x,54 procB x,54 procC x,56 ifA x,56 procA x,56 procB x,56 procC x,58 procA y,58 procB y,58 procC y,59 procA k,59 procB k,59 procC k,6 procA z,6 procB z,6 procC z,60 procA file,60 procB file,60 procC file,63 procA dAAA,63 procB dAAA,63 procD dAAA,66 procA dA,66 procB dA,66 procD dA,67 procA dA,67 procB dA,67 procD dA,70 ifInIf ifA,71 ifInIf ifA,73 ifInIf ifA,75 ifInIf ifB,76 ifInIf ifA,77 ifInIf ifA,79 withTest procC,8 procA n
+5000
+58 - modifies statement
+read r; variable v; procedure p;
+Select <r,p.procName,v> such that Modifies(r, v) and Modifies(p,v)
+1 procA a,30 procA uniA,30 procB uniA,68 ifInIf uniC,80 ifA x,80 procA x,80 procB x,80 procC x
+5000
+59 - modifies statement
+print pn; variable v; procedure p;
+Select <pn,p.procName,v> such that Modifies(pn, v) and Modifies(p,v)
+
+5000
+60 - modifies statement
+while w; variable v; procedure p;
+Select <w,p.procName,v> such that Modifies(w, v) and Modifies(p,v)
+34 ifA x,34 procA bA,34 procA dA,34 procA dAAA,34 procA x,34 procB bA,34 procB dA,34 procB dAAA,34 procB x,34 procC x,34 procD dA,34 procD dAAA,49 procA z,49 procB z,49 procC z,52 procA y,52 procB y,52 procC y,55 ifA x,55 procA x,55 procA y,55 procB x,55 procB y,55 procC x,55 procC y,57 procA y,57 procB y,57 procC y,62 procA dAAA,62 procB dAAA,62 procD dAAA,7 procA n,9 procA c
+5000
+61 - modifies statement
+if ifs; variable v; procedure p;
+Select <ifs,p.procName,v> such that Modifies(ifs, v) and Modifies(p,v)
+11 procA a,11 procA b,11 procA ifVar,13 procA b,26 ifA x,26 procA bA,26 procA bD,26 procA dA,26 procA dAAA,26 procA uniA,26 procA x,26 procB bA,26 procB bD,26 procB dA,26 procB dAAA,26 procB uniA,26 procB x,26 procC x,26 procD dA,26 procD dAAA,28 procA dA,28 procA dAAA,28 procA uniA,28 procB dA,28 procB dAAA,28 procB uniA,28 procD dA,28 procD dAAA,4 procA y,4 procA z,4 procB y,4 procB z,4 procC y,4 procC z,47 ifA x,47 procA k,47 procA x,47 procA y,47 procA z,47 procB k,47 procB x,47 procB y,47 procB z,47 procC k,47 procC x,47 procC y,47 procC z,48 procA z,48 procB z,48 procC z,69 ifInIf ifA,69 ifInIf ifB,72 ifInIf ifA,72 ifInIf ifB,74 ifInIf ifA,74 ifInIf ifB
+5000
+62 - modifies statement
+variable v; procedure p, p2;
+Select <p,p2.procName,v> such that Modifies(p, v) and Modifies(p2,v)
+ifA ifA x,ifA procA x,ifA procB x,ifA procC x,ifInIf ifInIf ifA,ifInIf ifInIf ifB,ifInIf ifInIf uniC,procA ifA x,procA procA a,procA procA b,procA procA bA,procA procA bD,procA procA c,procA procA dA,procA procA dAAA,procA procA file,procA procA ifVar,procA procA k,procA procA n,procA procA uniA,procA procA x,procA procA y,procA procA z,procA procB bA,procA procB bD,procA procB dA,procA procB dAAA,procA procB file,procA procB k,procA procB uniA,procA procB x,procA procB y,procA procB z,procA procC file,procA procC k,procA procC x,procA procC y,procA procC z,procA procD dA,procA procD dAAA,procB ifA x,procB procA bA,procB procA bD,procB procA dA,procB procA dAAA,procB procA file,procB procA k,procB procA uniA,procB procA x,procB procA y,procB procA z,procB procB bA,procB procB bD,procB procB dA,procB procB dAAA,procB procB file,procB procB k,procB procB uniA,procB procB x,procB procB y,procB procB z,procB procC file,procB procC k,procB procC x,procB procC y,procB procC z,procB procD dA,procB procD dAAA,procC ifA x,procC procA file,procC procA k,procC procA x,procC procA y,procC procA z,procC procB file,procC procB k,procC procB x,procC procB y,procC procB z,procC procC file,procC procC k,procC procC x,procC procC y,procC procC z,procD procA dA,procD procA dAAA,procD procB dA,procD procB dAAA,procD procD dA,procD procD dAAA,withTest withTest procC
+5000
+63 - valid query CONSTANT.value
+constant c; call cl;
+Select <c, cl.procName> with c.value = cl.stmt#
+3 procB
+5000
+64 - valid query CONSTANT.value
+constant c; call cl;
+Select <cl, c.value> with cl.stmt# = c.value
+3 3
+5000
+65 - valid query CONSTANT.value
+constant c; read r;
+Select <c, r.varName> with c.value = r.stmt#
+1 a
+5000
+66 - valid query CONSTANT.value
+constant c; read r;
+Select <r, c.value> with r.stmt# = c.value
+1 1
+5000
+67 - valid query CONSTANT.value
+constant c; print pn;
+Select <c, pn.varName> with c.value = pn.stmt#
+15 ai,2 b
+5000
+68- valid query CONSTANT.value
+constant c; print pn;
+Select <pn, c.value> with pn.stmt# = c.value
+15 15,2 2
+5000
+69 - valid query CONSTANT.value
+constant c; while w;
+Select <c, w.stmt#> with c.value = w.stmt#
+9 9
+5000
+70 - valid query CONSTANT.value
+constant c; while w;
+Select <w, c.stmt#> with w.stmt# = c.value
+
+5000
+71 - valid query CONSTANT.value
+constant c; if ifs;
+Select <c, ifs.stmt#> with c.value = ifs.stmt#
+11 11,13 13
+5000
+72 - valid query CONSTANT.value
+constant c; if ifs;
+Select <ifs, c.value> with ifs.stmt# = c.value
+11 11,13 13
+5000
+73 - valid query CONSTANT.value
+constant c; assign a; variable v;
+Select <c, a.stmt#> pattern a(v, _"z"_)
+0 5,1 5,10 5,11 5,1234 5,13 5,15 5,16 5,2 5,24134 5,3 5,4321 5,5 5,9 5
+5000
+74 - valid query CONSTANT.value
+constant c; assign a;
+Select <a, c.value> with a.stmt# = c.value
+10 10,16 16,5 5
+5000
+75 - valid query CONSTANT.value
+constant c; stmt s;
+Select <c, s.stmt#> with c.value = s.stmt#
+1 1,10 10,11 11,13 13,15 15,16 16,2 2,3 3,5 5,9 9
+5000
+76 - valid query CONSTANT.value
+constant c; stmt s;
+Select <s, c.value> with s.stmt# = c.value
+1 1,10 10,11 11,13 13,15 15,16 16,2 2,3 3,5 5,9 9
+5000
+77 - valid query CONSTANT.value
+constant c,c2; stmt s;
+Select <c, c2.value> with c.value = c2.value
+0 0,1 1,10 10,11 11,1234 1234,13 13,15 15,16 16,2 2,24134 24134,3 3,4321 4321,5 5,9 9
+5000
+78 - valid query variable
+variable v,v2; stmt s;
+Select <v, v2.varName> such that Uses(s,v) and Uses(s,v2)
+EEEEE EEEEE,EEEEE bA,EEEEE bAAA,EEEEE bB,EEEEE bBBB,EEEEE bC,EEEEE bD,EEEEE cA,EEEEE dAAA,EEEEE dB,EEEEE dBBB,EEEEE dC,EEEEE dD,EEEEE dE,EEEEE dF,EEEEE dc,EEEEE k,EEEEE uniA,EEEEE uniB,EEEEE x,EEEEE y,a a,a abc,a ai,a b,a c,a d,a e,a file,a ifVar,a ifVar2,a ifVar3,a m,a max,a min,a o,a p,a q,a r,a result,a z,a1 a1,a1 b1,a1 q,ab ab,ab b,ab c,ab d,ab e,abc a,abc abc,abc b,abc c,abc d,abc e,abc q,ai a,ai ai,ai b,ai ifVar,ai ifVar2,ai ifVar3,ai max,ai min,ai r,ai z,b a,b ab,b abc,b ai,b b,b c,b d,b e,b ifVar,b ifVar2,b ifVar3,b max,b min,b q,b r,b z,b1 a1,b1 b1,b1 q,bA EEEEE,bA bA,bA bAAA,bA bB,bA bBBB,bA bC,bA bD,bA cA,bA dAAA,bA dB,bA dBBB,bA dC,bA dD,bA dE,bA dF,bA dc,bA k,bA uniA,bA uniB,bA x,bA y,bAAA EEEEE,bAAA bA,bAAA bAAA,bAAA bB,bAAA bBBB,bAAA bC,bAAA bD,bAAA cA,bAAA dAAA,bAAA dB,bAAA dBBB,bAAA dC,bAAA dD,bAAA dE,bAAA dF,bAAA dc,bAAA k,bAAA uniA,bAAA uniB,bAAA x,bAAA y,bB EEEEE,bB bA,bB bAAA,bB bB,bB bBBB,bB bC,bB bD,bB cA,bB dAAA,bB dB,bB dBBB,bB dC,bB dD,bB dE,bB dF,bB dc,bB k,bB uniA,bB uniB,bB x,bB y,bBBB EEEEE,bBBB bA,bBBB bAAA,bBBB bB,bBBB bBBB,bBBB bC,bBBB bD,bBBB cA,bBBB dAAA,bBBB dB,bBBB dBBB,bBBB dC,bBBB dD,bBBB dE,bBBB dF,bBBB dc,bBBB k,bBBB uniA,bBBB uniB,bBBB x,bBBB y,bC EEEEE,bC bA,bC bAAA,bC bB,bC bBBB,bC bC,bC bD,bC cA,bC dAAA,bC dB,bC dBBB,bC dC,bC dD,bC dE,bC dF,bC dc,bC k,bC uniA,bC uniB,bC x,bC y,bD EEEEE,bD bA,bD bAAA,bD bB,bD bBBB,bD bC,bD bD,bD cA,bD dAAA,bD dB,bD dBBB,bD dC,bD dD,bD dE,bD dF,bD dc,bD k,bD uniA,bD uniB,bD x,bD y,c a,c ab,c abc,c b,c c,c d,c e,c q,cA EEEEE,cA bA,cA bAAA,cA bB,cA bBBB,cA bC,cA bD,cA cA,cA dAAA,cA dB,cA dBBB,cA dC,cA dD,cA dE,cA dF,cA dc,cA k,cA uniA,cA uniB,cA x,cA y,d a,d ab,d abc,d b,d c,d d,d e,d q,dAAA EEEEE,dAAA bA,dAAA bAAA,dAAA bB,dAAA bBBB,dAAA bC,dAAA bD,dAAA cA,dAAA dAAA,dAAA dB,dAAA dBBB,dAAA dC,dAAA dD,dAAA dE,dAAA dF,dAAA dc,dAAA k,dAAA uniA,dAAA uniB,dAAA x,dAAA y,dB EEEEE,dB bA,dB bAAA,dB bB,dB bBBB,dB bC,dB bD,dB cA,dB dAAA,dB dB,dB dBBB,dB dC,dB dD,dB dE,dB dF,dB dc,dB k,dB uniA,dB uniB,dB x,dB y,dBBB EEEEE,dBBB bA,dBBB bAAA,dBBB bB,dBBB bBBB,dBBB bC,dBBB bD,dBBB cA,dBBB dAAA,dBBB dB,dBBB dBBB,dBBB dC,dBBB dD,dBBB dE,dBBB dF,dBBB dc,dBBB k,dBBB uniA,dBBB uniB,dBBB x,dBBB y,dC EEEEE,dC bA,dC bAAA,dC bB,dC bBBB,dC bC,dC bD,dC cA,dC dAAA,dC dB,dC dBBB,dC dC,dC dD,dC dE,dC dF,dC dc,dC k,dC uniA,dC uniB,dC x,dC y,dD EEEEE,dD bA,dD bAAA,dD bB,dD bBBB,dD bC,dD bD,dD cA,dD dAAA,dD dB,dD dBBB,dD dC,dD dD,dD dE,dD dF,dD dc,dD k,dD uniA,dD uniB,dD x,dD y,dE EEEEE,dE bA,dE bAAA,dE bB,dE bBBB,dE bC,dE bD,dE cA,dE dAAA,dE dB,dE dBBB,dE dC,dE dD,dE dE,dE dF,dE dc,dE k,dE uniA,dE uniB,dE x,dE y,dF EEEEE,dF bA,dF bAAA,dF bB,dF bBBB,dF bC,dF bD,dF cA,dF dAAA,dF dB,dF dBBB,dF dC,dF dD,dF dE,dF dF,dF dc,dF k,dF uniA,dF uniB,dF x,dF y,dc EEEEE,dc bA,dc bAAA,dc bB,dc bBBB,dc bC,dc bD,dc cA,dc dAAA,dc dB,dc dBBB,dc dC,dc dD,dc dE,dc dF,dc dc,dc k,dc uniA,dc uniB,dc x,dc y,e a,e ab,e abc,e b,e c,e d,e e,e q,file a,file file,file m,file o,file p,file result,ifA ifA,ifA ifB,ifA ifC,ifA ifD,ifB ifA,ifB ifB,ifB ifC,ifB ifD,ifC ifA,ifC ifB,ifC ifC,ifC ifD,ifD ifA,ifD ifB,ifD ifC,ifD ifD,ifVar a,ifVar ai,ifVar b,ifVar ifVar,ifVar ifVar2,ifVar ifVar3,ifVar max,ifVar min,ifVar r,ifVar z,ifVar2 a,ifVar2 ai,ifVar2 b,ifVar2 ifVar,ifVar2 ifVar2,ifVar2 ifVar3,ifVar2 max,ifVar2 min,ifVar2 r,ifVar2 z,ifVar3 a,ifVar3 ai,ifVar3 b,ifVar3 ifVar,ifVar3 ifVar2,ifVar3 ifVar3,ifVar3 max,ifVar3 min,ifVar3 r,ifVar3 z,k EEEEE,k bA,k bAAA,k bB,k bBBB,k bC,k bD,k cA,k dAAA,k dB,k dBBB,k dC,k dD,k dE,k dF,k dc,k k,k uniA,k uniB,k x,k y,m a,m file,m m,m o,m p,m result,max a,max ai,max b,max ifVar,max ifVar2,max ifVar3,max max,max min,max r,max z,min a,min ai,min b,min ifVar,min ifVar2,min ifVar3,min max,min min,min r,min z,o a,o file,o m,o o,o p,o result,p a,p file,p m,p o,p p,p result,q a,q a1,q abc,q b,q b1,q c,q d,q e,q q,r a,r ai,r b,r ifVar,r ifVar2,r ifVar3,r max,r min,r r,r z,result a,result file,result m,result o,result p,result result,uniA EEEEE,uniA bA,uniA bAAA,uniA bB,uniA bBBB,uniA bC,uniA bD,uniA cA,uniA dAAA,uniA dB,uniA dBBB,uniA dC,uniA dD,uniA dE,uniA dF,uniA dc,uniA k,uniA uniA,uniA uniB,uniA x,uniA y,uniB EEEEE,uniB bA,uniB bAAA,uniB bB,uniB bBBB,uniB bC,uniB bD,uniB cA,uniB dAAA,uniB dB,uniB dBBB,uniB dC,uniB dD,uniB dE,uniB dF,uniB dc,uniB k,uniB uniA,uniB uniB,uniB x,uniB y,uniC uniC,x EEEEE,x bA,x bAAA,x bB,x bBBB,x bC,x bD,x cA,x dAAA,x dB,x dBBB,x dC,x dD,x dE,x dF,x dc,x k,x uniA,x uniB,x x,x y,x z,y EEEEE,y bA,y bAAA,y bB,y bBBB,y bC,y bD,y cA,y dAAA,y dB,y dBBB,y dC,y dD,y dE,y dF,y dc,y k,y uniA,y uniB,y x,y y,y z,z a,z ai,z b,z ifVar,z ifVar2,z ifVar3,z max,z min,z r,z x,z y,z z
+5000
+79 - valid query variable
+variable v,v2; stmt s; constant c;
+Select <v, c.value> such that Uses(s,v) with s.stmt# = c.value
+EEEEE 3,a 11,a 13,a 9,ai 11,ai 13,ai 15,b 11,b 13,b 16,b 2,bA 3,bAAA 3,bB 3,bBBB 3,bC 3,bD 3,cA 3,dAAA 3,dB 3,dBBB 3,dC 3,dD 3,dE 3,dF 3,dc 3,file 9,ifVar 11,ifVar2 11,ifVar3 11,k 3,m 9,max 11,max 13,min 11,min 13,o 10,o 9,p 9,r 11,r 13,result 9,uniA 3,uniB 3,x 3,y 3,z 11,z 13,z 5
+5000
+80 - valid query variable
+variable v,v2; stmt s; constant c;
+Select <c,v.varName> such that Uses(s,v) with s.stmt# = c.value
+10 o,11 a,11 ai,11 b,11 ifVar,11 ifVar2,11 ifVar3,11 max,11 min,11 r,11 z,13 a,13 ai,13 b,13 max,13 min,13 r,13 z,15 ai,16 b,2 b,3 EEEEE,3 bA,3 bAAA,3 bB,3 bBBB,3 bC,3 bD,3 cA,3 dAAA,3 dB,3 dBBB,3 dC,3 dD,3 dE,3 dF,3 dc,3 k,3 uniA,3 uniB,3 x,3 y,5 z,9 a,9 file,9 m,9 o,9 p,9 result
+5000
+81 - valid query variable
+variable v,v2; stmt s; constant c; procedure p;
+Select <p, v, s, c.value> such that Uses(p,v) with s.stmt# = c.value
+ifInIf ifA 1 1,ifInIf ifA 10 10,ifInIf ifA 11 11,ifInIf ifA 13 13,ifInIf ifA 15 15,ifInIf ifA 16 16,ifInIf ifA 2 2,ifInIf ifA 3 3,ifInIf ifA 5 5,ifInIf ifA 9 9,ifInIf ifB 1 1,ifInIf ifB 10 10,ifInIf ifB 11 11,ifInIf ifB 13 13,ifInIf ifB 15 15,ifInIf ifB 16 16,ifInIf ifB 2 2,ifInIf ifB 3 3,ifInIf ifB 5 5,ifInIf ifB 9 9,ifInIf ifC 1 1,ifInIf ifC 10 10,ifInIf ifC 11 11,ifInIf ifC 13 13,ifInIf ifC 15 15,ifInIf ifC 16 16,ifInIf ifC 2 2,ifInIf ifC 3 3,ifInIf ifC 5 5,ifInIf ifC 9 9,ifInIf ifD 1 1,ifInIf ifD 10 10,ifInIf ifD 11 11,ifInIf ifD 13 13,ifInIf ifD 15 15,ifInIf ifD 16 16,ifInIf ifD 2 2,ifInIf ifD 3 3,ifInIf ifD 5 5,ifInIf ifD 9 9,ifInIf uniC 1 1,ifInIf uniC 10 10,ifInIf uniC 11 11,ifInIf uniC 13 13,ifInIf uniC 15 15,ifInIf uniC 16 16,ifInIf uniC 2 2,ifInIf uniC 3 3,ifInIf uniC 5 5,ifInIf uniC 9 9,procA EEEEE 1 1,procA EEEEE 10 10,procA EEEEE 11 11,procA EEEEE 13 13,procA EEEEE 15 15,procA EEEEE 16 16,procA EEEEE 2 2,procA EEEEE 3 3,procA EEEEE 5 5,procA EEEEE 9 9,procA a 1 1,procA a 10 10,procA a 11 11,procA a 13 13,procA a 15 15,procA a 16 16,procA a 2 2,procA a 3 3,procA a 5 5,procA a 9 9,procA a1 1 1,procA a1 10 10,procA a1 11 11,procA a1 13 13,procA a1 15 15,procA a1 16 16,procA a1 2 2,procA a1 3 3,procA a1 5 5,procA a1 9 9,procA ab 1 1,procA ab 10 10,procA ab 11 11,procA ab 13 13,procA ab 15 15,procA ab 16 16,procA ab 2 2,procA ab 3 3,procA ab 5 5,procA ab 9 9,procA abc 1 1,procA abc 10 10,procA abc 11 11,procA abc 13 13,procA abc 15 15,procA abc 16 16,procA abc 2 2,procA abc 3 3,procA abc 5 5,procA abc 9 9,procA ai 1 1,procA ai 10 10,procA ai 11 11,procA ai 13 13,procA ai 15 15,procA ai 16 16,procA ai 2 2,procA ai 3 3,procA ai 5 5,procA ai 9 9,procA b 1 1,procA b 10 10,procA b 11 11,procA b 13 13,procA b 15 15,procA b 16 16,procA b 2 2,procA b 3 3,procA b 5 5,procA b 9 9,procA b1 1 1,procA b1 10 10,procA b1 11 11,procA b1 13 13,procA b1 15 15,procA b1 16 16,procA b1 2 2,procA b1 3 3,procA b1 5 5,procA b1 9 9,procA bA 1 1,procA bA 10 10,procA bA 11 11,procA bA 13 13,procA bA 15 15,procA bA 16 16,procA bA 2 2,procA bA 3 3,procA bA 5 5,procA bA 9 9,procA bAAA 1 1,procA bAAA 10 10,procA bAAA 11 11,procA bAAA 13 13,procA bAAA 15 15,procA bAAA 16 16,procA bAAA 2 2,procA bAAA 3 3,procA bAAA 5 5,procA bAAA 9 9,procA bB 1 1,procA bB 10 10,procA bB 11 11,procA bB 13 13,procA bB 15 15,procA bB 16 16,procA bB 2 2,procA bB 3 3,procA bB 5 5,procA bB 9 9,procA bBBB 1 1,procA bBBB 10 10,procA bBBB 11 11,procA bBBB 13 13,procA bBBB 15 15,procA bBBB 16 16,procA bBBB 2 2,procA bBBB 3 3,procA bBBB 5 5,procA bBBB 9 9,procA bC 1 1,procA bC 10 10,procA bC 11 11,procA bC 13 13,procA bC 15 15,procA bC 16 16,procA bC 2 2,procA bC 3 3,procA bC 5 5,procA bC 9 9,procA bD 1 1,procA bD 10 10,procA bD 11 11,procA bD 13 13,procA bD 15 15,procA bD 16 16,procA bD 2 2,procA bD 3 3,procA bD 5 5,procA bD 9 9,procA c 1 1,procA c 10 10,procA c 11 11,procA c 13 13,procA c 15 15,procA c 16 16,procA c 2 2,procA c 3 3,procA c 5 5,procA c 9 9,procA cA 1 1,procA cA 10 10,procA cA 11 11,procA cA 13 13,procA cA 15 15,procA cA 16 16,procA cA 2 2,procA cA 3 3,procA cA 5 5,procA cA 9 9,procA d 1 1,procA d 10 10,procA d 11 11,procA d 13 13,procA d 15 15,procA d 16 16,procA d 2 2,procA d 3 3,procA d 5 5,procA d 9 9,procA dAAA 1 1,procA dAAA 10 10,procA dAAA 11 11,procA dAAA 13 13,procA dAAA 15 15,procA dAAA 16 16,procA dAAA 2 2,procA dAAA 3 3,procA dAAA 5 5,procA dAAA 9 9,procA dB 1 1,procA dB 10 10,procA dB 11 11,procA dB 13 13,procA dB 15 15,procA dB 16 16,procA dB 2 2,procA dB 3 3,procA dB 5 5,procA dB 9 9,procA dBBB 1 1,procA dBBB 10 10,procA dBBB 11 11,procA dBBB 13 13,procA dBBB 15 15,procA dBBB 16 16,procA dBBB 2 2,procA dBBB 3 3,procA dBBB 5 5,procA dBBB 9 9,procA dC 1 1,procA dC 10 10,procA dC 11 11,procA dC 13 13,procA dC 15 15,procA dC 16 16,procA dC 2 2,procA dC 3 3,procA dC 5 5,procA dC 9 9,procA dD 1 1,procA dD 10 10,procA dD 11 11,procA dD 13 13,procA dD 15 15,procA dD 16 16,procA dD 2 2,procA dD 3 3,procA dD 5 5,procA dD 9 9,procA dE 1 1,procA dE 10 10,procA dE 11 11,procA dE 13 13,procA dE 15 15,procA dE 16 16,procA dE 2 2,procA dE 3 3,procA dE 5 5,procA dE 9 9,procA dF 1 1,procA dF 10 10,procA dF 11 11,procA dF 13 13,procA dF 15 15,procA dF 16 16,procA dF 2 2,procA dF 3 3,procA dF 5 5,procA dF 9 9,procA dc 1 1,procA dc 10 10,procA dc 11 11,procA dc 13 13,procA dc 15 15,procA dc 16 16,procA dc 2 2,procA dc 3 3,procA dc 5 5,procA dc 9 9,procA e 1 1,procA e 10 10,procA e 11 11,procA e 13 13,procA e 15 15,procA e 16 16,procA e 2 2,procA e 3 3,procA e 5 5,procA e 9 9,procA file 1 1,procA file 10 10,procA file 11 11,procA file 13 13,procA file 15 15,procA file 16 16,procA file 2 2,procA file 3 3,procA file 5 5,procA file 9 9,procA ifVar 1 1,procA ifVar 10 10,procA ifVar 11 11,procA ifVar 13 13,procA ifVar 15 15,procA ifVar 16 16,procA ifVar 2 2,procA ifVar 3 3,procA ifVar 5 5,procA ifVar 9 9,procA ifVar2 1 1,procA ifVar2 10 10,procA ifVar2 11 11,procA ifVar2 13 13,procA ifVar2 15 15,procA ifVar2 16 16,procA ifVar2 2 2,procA ifVar2 3 3,procA ifVar2 5 5,procA ifVar2 9 9,procA ifVar3 1 1,procA ifVar3 10 10,procA ifVar3 11 11,procA ifVar3 13 13,procA ifVar3 15 15,procA ifVar3 16 16,procA ifVar3 2 2,procA ifVar3 3 3,procA ifVar3 5 5,procA ifVar3 9 9,procA k 1 1,procA k 10 10,procA k 11 11,procA k 13 13,procA k 15 15,procA k 16 16,procA k 2 2,procA k 3 3,procA k 5 5,procA k 9 9,procA m 1 1,procA m 10 10,procA m 11 11,procA m 13 13,procA m 15 15,procA m 16 16,procA m 2 2,procA m 3 3,procA m 5 5,procA m 9 9,procA max 1 1,procA max 10 10,procA max 11 11,procA max 13 13,procA max 15 15,procA max 16 16,procA max 2 2,procA max 3 3,procA max 5 5,procA max 9 9,procA min 1 1,procA min 10 10,procA min 11 11,procA min 13 13,procA min 15 15,procA min 16 16,procA min 2 2,procA min 3 3,procA min 5 5,procA min 9 9,procA o 1 1,procA o 10 10,procA o 11 11,procA o 13 13,procA o 15 15,procA o 16 16,procA o 2 2,procA o 3 3,procA o 5 5,procA o 9 9,procA p 1 1,procA p 10 10,procA p 11 11,procA p 13 13,procA p 15 15,procA p 16 16,procA p 2 2,procA p 3 3,procA p 5 5,procA p 9 9,procA q 1 1,procA q 10 10,procA q 11 11,procA q 13 13,procA q 15 15,procA q 16 16,procA q 2 2,procA q 3 3,procA q 5 5,procA q 9 9,procA r 1 1,procA r 10 10,procA r 11 11,procA r 13 13,procA r 15 15,procA r 16 16,procA r 2 2,procA r 3 3,procA r 5 5,procA r 9 9,procA result 1 1,procA result 10 10,procA result 11 11,procA result 13 13,procA result 15 15,procA result 16 16,procA result 2 2,procA result 3 3,procA result 5 5,procA result 9 9,procA uniA 1 1,procA uniA 10 10,procA uniA 11 11,procA uniA 13 13,procA uniA 15 15,procA uniA 16 16,procA uniA 2 2,procA uniA 3 3,procA uniA 5 5,procA uniA 9 9,procA uniB 1 1,procA uniB 10 10,procA uniB 11 11,procA uniB 13 13,procA uniB 15 15,procA uniB 16 16,procA uniB 2 2,procA uniB 3 3,procA uniB 5 5,procA uniB 9 9,procA x 1 1,procA x 10 10,procA x 11 11,procA x 13 13,procA x 15 15,procA x 16 16,procA x 2 2,procA x 3 3,procA x 5 5,procA x 9 9,procA y 1 1,procA y 10 10,procA y 11 11,procA y 13 13,procA y 15 15,procA y 16 16,procA y 2 2,procA y 3 3,procA y 5 5,procA y 9 9,procA z 1 1,procA z 10 10,procA z 11 11,procA z 13 13,procA z 15 15,procA z 16 16,procA z 2 2,procA z 3 3,procA z 5 5,procA z 9 9,procB EEEEE 1 1,procB EEEEE 10 10,procB EEEEE 11 11,procB EEEEE 13 13,procB EEEEE 15 15,procB EEEEE 16 16,procB EEEEE 2 2,procB EEEEE 3 3,procB EEEEE 5 5,procB EEEEE 9 9,procB bA 1 1,procB bA 10 10,procB bA 11 11,procB bA 13 13,procB bA 15 15,procB bA 16 16,procB bA 2 2,procB bA 3 3,procB bA 5 5,procB bA 9 9,procB bAAA 1 1,procB bAAA 10 10,procB bAAA 11 11,procB bAAA 13 13,procB bAAA 15 15,procB bAAA 16 16,procB bAAA 2 2,procB bAAA 3 3,procB bAAA 5 5,procB bAAA 9 9,procB bB 1 1,procB bB 10 10,procB bB 11 11,procB bB 13 13,procB bB 15 15,procB bB 16 16,procB bB 2 2,procB bB 3 3,procB bB 5 5,procB bB 9 9,procB bBBB 1 1,procB bBBB 10 10,procB bBBB 11 11,procB bBBB 13 13,procB bBBB 15 15,procB bBBB 16 16,procB bBBB 2 2,procB bBBB 3 3,procB bBBB 5 5,procB bBBB 9 9,procB bC 1 1,procB bC 10 10,procB bC 11 11,procB bC 13 13,procB bC 15 15,procB bC 16 16,procB bC 2 2,procB bC 3 3,procB bC 5 5,procB bC 9 9,procB bD 1 1,procB bD 10 10,procB bD 11 11,procB bD 13 13,procB bD 15 15,procB bD 16 16,procB bD 2 2,procB bD 3 3,procB bD 5 5,procB bD 9 9,procB cA 1 1,procB cA 10 10,procB cA 11 11,procB cA 13 13,procB cA 15 15,procB cA 16 16,procB cA 2 2,procB cA 3 3,procB cA 5 5,procB cA 9 9,procB dAAA 1 1,procB dAAA 10 10,procB dAAA 11 11,procB dAAA 13 13,procB dAAA 15 15,procB dAAA 16 16,procB dAAA 2 2,procB dAAA 3 3,procB dAAA 5 5,procB dAAA 9 9,procB dB 1 1,procB dB 10 10,procB dB 11 11,procB dB 13 13,procB dB 15 15,procB dB 16 16,procB dB 2 2,procB dB 3 3,procB dB 5 5,procB dB 9 9,procB dBBB 1 1,procB dBBB 10 10,procB dBBB 11 11,procB dBBB 13 13,procB dBBB 15 15,procB dBBB 16 16,procB dBBB 2 2,procB dBBB 3 3,procB dBBB 5 5,procB dBBB 9 9,procB dC 1 1,procB dC 10 10,procB dC 11 11,procB dC 13 13,procB dC 15 15,procB dC 16 16,procB dC 2 2,procB dC 3 3,procB dC 5 5,procB dC 9 9,procB dD 1 1,procB dD 10 10,procB dD 11 11,procB dD 13 13,procB dD 15 15,procB dD 16 16,procB dD 2 2,procB dD 3 3,procB dD 5 5,procB dD 9 9,procB dE 1 1,procB dE 10 10,procB dE 11 11,procB dE 13 13,procB dE 15 15,procB dE 16 16,procB dE 2 2,procB dE 3 3,procB dE 5 5,procB dE 9 9,procB dF 1 1,procB dF 10 10,procB dF 11 11,procB dF 13 13,procB dF 15 15,procB dF 16 16,procB dF 2 2,procB dF 3 3,procB dF 5 5,procB dF 9 9,procB dc 1 1,procB dc 10 10,procB dc 11 11,procB dc 13 13,procB dc 15 15,procB dc 16 16,procB dc 2 2,procB dc 3 3,procB dc 5 5,procB dc 9 9,procB k 1 1,procB k 10 10,procB k 11 11,procB k 13 13,procB k 15 15,procB k 16 16,procB k 2 2,procB k 3 3,procB k 5 5,procB k 9 9,procB uniA 1 1,procB uniA 10 10,procB uniA 11 11,procB uniA 13 13,procB uniA 15 15,procB uniA 16 16,procB uniA 2 2,procB uniA 3 3,procB uniA 5 5,procB uniA 9 9,procB uniB 1 1,procB uniB 10 10,procB uniB 11 11,procB uniB 13 13,procB uniB 15 15,procB uniB 16 16,procB uniB 2 2,procB uniB 3 3,procB uniB 5 5,procB uniB 9 9,procB x 1 1,procB x 10 10,procB x 11 11,procB x 13 13,procB x 15 15,procB x 16 16,procB x 2 2,procB x 3 3,procB x 5 5,procB x 9 9,procB y 1 1,procB y 10 10,procB y 11 11,procB y 13 13,procB y 15 15,procB y 16 16,procB y 2 2,procB y 3 3,procB y 5 5,procB y 9 9,procC cA 1 1,procC cA 10 10,procC cA 11 11,procC cA 13 13,procC cA 15 15,procC cA 16 16,procC cA 2 2,procC cA 3 3,procC cA 5 5,procC cA 9 9,procC k 1 1,procC k 10 10,procC k 11 11,procC k 13 13,procC k 15 15,procC k 16 16,procC k 2 2,procC k 3 3,procC k 5 5,procC k 9 9,procC x 1 1,procC x 10 10,procC x 11 11,procC x 13 13,procC x 15 15,procC x 16 16,procC x 2 2,procC x 3 3,procC x 5 5,procC x 9 9,procC y 1 1,procC y 10 10,procC y 11 11,procC y 13 13,procC y 15 15,procC y 16 16,procC y 2 2,procC y 3 3,procC y 5 5,procC y 9 9,procD EEEEE 1 1,procD EEEEE 10 10,procD EEEEE 11 11,procD EEEEE 13 13,procD EEEEE 15 15,procD EEEEE 16 16,procD EEEEE 2 2,procD EEEEE 3 3,procD EEEEE 5 5,procD EEEEE 9 9,procD dAAA 1 1,procD dAAA 10 10,procD dAAA 11 11,procD dAAA 13 13,procD dAAA 15 15,procD dAAA 16 16,procD dAAA 2 2,procD dAAA 3 3,procD dAAA 5 5,procD dAAA 9 9,procD dB 1 1,procD dB 10 10,procD dB 11 11,procD dB 13 13,procD dB 15 15,procD dB 16 16,procD dB 2 2,procD dB 3 3,procD dB 5 5,procD dB 9 9,procD dBBB 1 1,procD dBBB 10 10,procD dBBB 11 11,procD dBBB 13 13,procD dBBB 15 15,procD dBBB 16 16,procD dBBB 2 2,procD dBBB 3 3,procD dBBB 5 5,procD dBBB 9 9,procD dC 1 1,procD dC 10 10,procD dC 11 11,procD dC 13 13,procD dC 15 15,procD dC 16 16,procD dC 2 2,procD dC 3 3,procD dC 5 5,procD dC 9 9,procD dD 1 1,procD dD 10 10,procD dD 11 11,procD dD 13 13,procD dD 15 15,procD dD 16 16,procD dD 2 2,procD dD 3 3,procD dD 5 5,procD dD 9 9,procD dE 1 1,procD dE 10 10,procD dE 11 11,procD dE 13 13,procD dE 15 15,procD dE 16 16,procD dE 2 2,procD dE 3 3,procD dE 5 5,procD dE 9 9,procD dF 1 1,procD dF 10 10,procD dF 11 11,procD dF 13 13,procD dF 15 15,procD dF 16 16,procD dF 2 2,procD dF 3 3,procD dF 5 5,procD dF 9 9,procD dc 1 1,procD dc 10 10,procD dc 11 11,procD dc 13 13,procD dc 15 15,procD dc 16 16,procD dc 2 2,procD dc 3 3,procD dc 5 5,procD dc 9 9,procD uniA 1 1,procD uniA 10 10,procD uniA 11 11,procD uniA 13 13,procD uniA 15 15,procD uniA 16 16,procD uniA 2 2,procD uniA 3 3,procD uniA 5 5,procD uniA 9 9,procE EEEEE 1 1,procE EEEEE 10 10,procE EEEEE 11 11,procE EEEEE 13 13,procE EEEEE 15 15,procE EEEEE 16 16,procE EEEEE 2 2,procE EEEEE 3 3,procE EEEEE 5 5,procE EEEEE 9 9
+5000
+82 - valid query variable
+variable v,v2; stmt s; constant c; procedure p;
+Select <s, c.value, p, v> such that Uses(p,v) with s.stmt# = c.value
+1 1 ifInIf ifA,1 1 ifInIf ifB,1 1 ifInIf ifC,1 1 ifInIf ifD,1 1 ifInIf uniC,1 1 procA EEEEE,1 1 procA a,1 1 procA a1,1 1 procA ab,1 1 procA abc,1 1 procA ai,1 1 procA b,1 1 procA b1,1 1 procA bA,1 1 procA bAAA,1 1 procA bB,1 1 procA bBBB,1 1 procA bC,1 1 procA bD,1 1 procA c,1 1 procA cA,1 1 procA d,1 1 procA dAAA,1 1 procA dB,1 1 procA dBBB,1 1 procA dC,1 1 procA dD,1 1 procA dE,1 1 procA dF,1 1 procA dc,1 1 procA e,1 1 procA file,1 1 procA ifVar,1 1 procA ifVar2,1 1 procA ifVar3,1 1 procA k,1 1 procA m,1 1 procA max,1 1 procA min,1 1 procA o,1 1 procA p,1 1 procA q,1 1 procA r,1 1 procA result,1 1 procA uniA,1 1 procA uniB,1 1 procA x,1 1 procA y,1 1 procA z,1 1 procB EEEEE,1 1 procB bA,1 1 procB bAAA,1 1 procB bB,1 1 procB bBBB,1 1 procB bC,1 1 procB bD,1 1 procB cA,1 1 procB dAAA,1 1 procB dB,1 1 procB dBBB,1 1 procB dC,1 1 procB dD,1 1 procB dE,1 1 procB dF,1 1 procB dc,1 1 procB k,1 1 procB uniA,1 1 procB uniB,1 1 procB x,1 1 procB y,1 1 procC cA,1 1 procC k,1 1 procC x,1 1 procC y,1 1 procD EEEEE,1 1 procD dAAA,1 1 procD dB,1 1 procD dBBB,1 1 procD dC,1 1 procD dD,1 1 procD dE,1 1 procD dF,1 1 procD dc,1 1 procD uniA,1 1 procE EEEEE,10 10 ifInIf ifA,10 10 ifInIf ifB,10 10 ifInIf ifC,10 10 ifInIf ifD,10 10 ifInIf uniC,10 10 procA EEEEE,10 10 procA a,10 10 procA a1,10 10 procA ab,10 10 procA abc,10 10 procA ai,10 10 procA b,10 10 procA b1,10 10 procA bA,10 10 procA bAAA,10 10 procA bB,10 10 procA bBBB,10 10 procA bC,10 10 procA bD,10 10 procA c,10 10 procA cA,10 10 procA d,10 10 procA dAAA,10 10 procA dB,10 10 procA dBBB,10 10 procA dC,10 10 procA dD,10 10 procA dE,10 10 procA dF,10 10 procA dc,10 10 procA e,10 10 procA file,10 10 procA ifVar,10 10 procA ifVar2,10 10 procA ifVar3,10 10 procA k,10 10 procA m,10 10 procA max,10 10 procA min,10 10 procA o,10 10 procA p,10 10 procA q,10 10 procA r,10 10 procA result,10 10 procA uniA,10 10 procA uniB,10 10 procA x,10 10 procA y,10 10 procA z,10 10 procB EEEEE,10 10 procB bA,10 10 procB bAAA,10 10 procB bB,10 10 procB bBBB,10 10 procB bC,10 10 procB bD,10 10 procB cA,10 10 procB dAAA,10 10 procB dB,10 10 procB dBBB,10 10 procB dC,10 10 procB dD,10 10 procB dE,10 10 procB dF,10 10 procB dc,10 10 procB k,10 10 procB uniA,10 10 procB uniB,10 10 procB x,10 10 procB y,10 10 procC cA,10 10 procC k,10 10 procC x,10 10 procC y,10 10 procD EEEEE,10 10 procD dAAA,10 10 procD dB,10 10 procD dBBB,10 10 procD dC,10 10 procD dD,10 10 procD dE,10 10 procD dF,10 10 procD dc,10 10 procD uniA,10 10 procE EEEEE,11 11 ifInIf ifA,11 11 ifInIf ifB,11 11 ifInIf ifC,11 11 ifInIf ifD,11 11 ifInIf uniC,11 11 procA EEEEE,11 11 procA a,11 11 procA a1,11 11 procA ab,11 11 procA abc,11 11 procA ai,11 11 procA b,11 11 procA b1,11 11 procA bA,11 11 procA bAAA,11 11 procA bB,11 11 procA bBBB,11 11 procA bC,11 11 procA bD,11 11 procA c,11 11 procA cA,11 11 procA d,11 11 procA dAAA,11 11 procA dB,11 11 procA dBBB,11 11 procA dC,11 11 procA dD,11 11 procA dE,11 11 procA dF,11 11 procA dc,11 11 procA e,11 11 procA file,11 11 procA ifVar,11 11 procA ifVar2,11 11 procA ifVar3,11 11 procA k,11 11 procA m,11 11 procA max,11 11 procA min,11 11 procA o,11 11 procA p,11 11 procA q,11 11 procA r,11 11 procA result,11 11 procA uniA,11 11 procA uniB,11 11 procA x,11 11 procA y,11 11 procA z,11 11 procB EEEEE,11 11 procB bA,11 11 procB bAAA,11 11 procB bB,11 11 procB bBBB,11 11 procB bC,11 11 procB bD,11 11 procB cA,11 11 procB dAAA,11 11 procB dB,11 11 procB dBBB,11 11 procB dC,11 11 procB dD,11 11 procB dE,11 11 procB dF,11 11 procB dc,11 11 procB k,11 11 procB uniA,11 11 procB uniB,11 11 procB x,11 11 procB y,11 11 procC cA,11 11 procC k,11 11 procC x,11 11 procC y,11 11 procD EEEEE,11 11 procD dAAA,11 11 procD dB,11 11 procD dBBB,11 11 procD dC,11 11 procD dD,11 11 procD dE,11 11 procD dF,11 11 procD dc,11 11 procD uniA,11 11 procE EEEEE,13 13 ifInIf ifA,13 13 ifInIf ifB,13 13 ifInIf ifC,13 13 ifInIf ifD,13 13 ifInIf uniC,13 13 procA EEEEE,13 13 procA a,13 13 procA a1,13 13 procA ab,13 13 procA abc,13 13 procA ai,13 13 procA b,13 13 procA b1,13 13 procA bA,13 13 procA bAAA,13 13 procA bB,13 13 procA bBBB,13 13 procA bC,13 13 procA bD,13 13 procA c,13 13 procA cA,13 13 procA d,13 13 procA dAAA,13 13 procA dB,13 13 procA dBBB,13 13 procA dC,13 13 procA dD,13 13 procA dE,13 13 procA dF,13 13 procA dc,13 13 procA e,13 13 procA file,13 13 procA ifVar,13 13 procA ifVar2,13 13 procA ifVar3,13 13 procA k,13 13 procA m,13 13 procA max,13 13 procA min,13 13 procA o,13 13 procA p,13 13 procA q,13 13 procA r,13 13 procA result,13 13 procA uniA,13 13 procA uniB,13 13 procA x,13 13 procA y,13 13 procA z,13 13 procB EEEEE,13 13 procB bA,13 13 procB bAAA,13 13 procB bB,13 13 procB bBBB,13 13 procB bC,13 13 procB bD,13 13 procB cA,13 13 procB dAAA,13 13 procB dB,13 13 procB dBBB,13 13 procB dC,13 13 procB dD,13 13 procB dE,13 13 procB dF,13 13 procB dc,13 13 procB k,13 13 procB uniA,13 13 procB uniB,13 13 procB x,13 13 procB y,13 13 procC cA,13 13 procC k,13 13 procC x,13 13 procC y,13 13 procD EEEEE,13 13 procD dAAA,13 13 procD dB,13 13 procD dBBB,13 13 procD dC,13 13 procD dD,13 13 procD dE,13 13 procD dF,13 13 procD dc,13 13 procD uniA,13 13 procE EEEEE,15 15 ifInIf ifA,15 15 ifInIf ifB,15 15 ifInIf ifC,15 15 ifInIf ifD,15 15 ifInIf uniC,15 15 procA EEEEE,15 15 procA a,15 15 procA a1,15 15 procA ab,15 15 procA abc,15 15 procA ai,15 15 procA b,15 15 procA b1,15 15 procA bA,15 15 procA bAAA,15 15 procA bB,15 15 procA bBBB,15 15 procA bC,15 15 procA bD,15 15 procA c,15 15 procA cA,15 15 procA d,15 15 procA dAAA,15 15 procA dB,15 15 procA dBBB,15 15 procA dC,15 15 procA dD,15 15 procA dE,15 15 procA dF,15 15 procA dc,15 15 procA e,15 15 procA file,15 15 procA ifVar,15 15 procA ifVar2,15 15 procA ifVar3,15 15 procA k,15 15 procA m,15 15 procA max,15 15 procA min,15 15 procA o,15 15 procA p,15 15 procA q,15 15 procA r,15 15 procA result,15 15 procA uniA,15 15 procA uniB,15 15 procA x,15 15 procA y,15 15 procA z,15 15 procB EEEEE,15 15 procB bA,15 15 procB bAAA,15 15 procB bB,15 15 procB bBBB,15 15 procB bC,15 15 procB bD,15 15 procB cA,15 15 procB dAAA,15 15 procB dB,15 15 procB dBBB,15 15 procB dC,15 15 procB dD,15 15 procB dE,15 15 procB dF,15 15 procB dc,15 15 procB k,15 15 procB uniA,15 15 procB uniB,15 15 procB x,15 15 procB y,15 15 procC cA,15 15 procC k,15 15 procC x,15 15 procC y,15 15 procD EEEEE,15 15 procD dAAA,15 15 procD dB,15 15 procD dBBB,15 15 procD dC,15 15 procD dD,15 15 procD dE,15 15 procD dF,15 15 procD dc,15 15 procD uniA,15 15 procE EEEEE,16 16 ifInIf ifA,16 16 ifInIf ifB,16 16 ifInIf ifC,16 16 ifInIf ifD,16 16 ifInIf uniC,16 16 procA EEEEE,16 16 procA a,16 16 procA a1,16 16 procA ab,16 16 procA abc,16 16 procA ai,16 16 procA b,16 16 procA b1,16 16 procA bA,16 16 procA bAAA,16 16 procA bB,16 16 procA bBBB,16 16 procA bC,16 16 procA bD,16 16 procA c,16 16 procA cA,16 16 procA d,16 16 procA dAAA,16 16 procA dB,16 16 procA dBBB,16 16 procA dC,16 16 procA dD,16 16 procA dE,16 16 procA dF,16 16 procA dc,16 16 procA e,16 16 procA file,16 16 procA ifVar,16 16 procA ifVar2,16 16 procA ifVar3,16 16 procA k,16 16 procA m,16 16 procA max,16 16 procA min,16 16 procA o,16 16 procA p,16 16 procA q,16 16 procA r,16 16 procA result,16 16 procA uniA,16 16 procA uniB,16 16 procA x,16 16 procA y,16 16 procA z,16 16 procB EEEEE,16 16 procB bA,16 16 procB bAAA,16 16 procB bB,16 16 procB bBBB,16 16 procB bC,16 16 procB bD,16 16 procB cA,16 16 procB dAAA,16 16 procB dB,16 16 procB dBBB,16 16 procB dC,16 16 procB dD,16 16 procB dE,16 16 procB dF,16 16 procB dc,16 16 procB k,16 16 procB uniA,16 16 procB uniB,16 16 procB x,16 16 procB y,16 16 procC cA,16 16 procC k,16 16 procC x,16 16 procC y,16 16 procD EEEEE,16 16 procD dAAA,16 16 procD dB,16 16 procD dBBB,16 16 procD dC,16 16 procD dD,16 16 procD dE,16 16 procD dF,16 16 procD dc,16 16 procD uniA,16 16 procE EEEEE,2 2 ifInIf ifA,2 2 ifInIf ifB,2 2 ifInIf ifC,2 2 ifInIf ifD,2 2 ifInIf uniC,2 2 procA EEEEE,2 2 procA a,2 2 procA a1,2 2 procA ab,2 2 procA abc,2 2 procA ai,2 2 procA b,2 2 procA b1,2 2 procA bA,2 2 procA bAAA,2 2 procA bB,2 2 procA bBBB,2 2 procA bC,2 2 procA bD,2 2 procA c,2 2 procA cA,2 2 procA d,2 2 procA dAAA,2 2 procA dB,2 2 procA dBBB,2 2 procA dC,2 2 procA dD,2 2 procA dE,2 2 procA dF,2 2 procA dc,2 2 procA e,2 2 procA file,2 2 procA ifVar,2 2 procA ifVar2,2 2 procA ifVar3,2 2 procA k,2 2 procA m,2 2 procA max,2 2 procA min,2 2 procA o,2 2 procA p,2 2 procA q,2 2 procA r,2 2 procA result,2 2 procA uniA,2 2 procA uniB,2 2 procA x,2 2 procA y,2 2 procA z,2 2 procB EEEEE,2 2 procB bA,2 2 procB bAAA,2 2 procB bB,2 2 procB bBBB,2 2 procB bC,2 2 procB bD,2 2 procB cA,2 2 procB dAAA,2 2 procB dB,2 2 procB dBBB,2 2 procB dC,2 2 procB dD,2 2 procB dE,2 2 procB dF,2 2 procB dc,2 2 procB k,2 2 procB uniA,2 2 procB uniB,2 2 procB x,2 2 procB y,2 2 procC cA,2 2 procC k,2 2 procC x,2 2 procC y,2 2 procD EEEEE,2 2 procD dAAA,2 2 procD dB,2 2 procD dBBB,2 2 procD dC,2 2 procD dD,2 2 procD dE,2 2 procD dF,2 2 procD dc,2 2 procD uniA,2 2 procE EEEEE,3 3 ifInIf ifA,3 3 ifInIf ifB,3 3 ifInIf ifC,3 3 ifInIf ifD,3 3 ifInIf uniC,3 3 procA EEEEE,3 3 procA a,3 3 procA a1,3 3 procA ab,3 3 procA abc,3 3 procA ai,3 3 procA b,3 3 procA b1,3 3 procA bA,3 3 procA bAAA,3 3 procA bB,3 3 procA bBBB,3 3 procA bC,3 3 procA bD,3 3 procA c,3 3 procA cA,3 3 procA d,3 3 procA dAAA,3 3 procA dB,3 3 procA dBBB,3 3 procA dC,3 3 procA dD,3 3 procA dE,3 3 procA dF,3 3 procA dc,3 3 procA e,3 3 procA file,3 3 procA ifVar,3 3 procA ifVar2,3 3 procA ifVar3,3 3 procA k,3 3 procA m,3 3 procA max,3 3 procA min,3 3 procA o,3 3 procA p,3 3 procA q,3 3 procA r,3 3 procA result,3 3 procA uniA,3 3 procA uniB,3 3 procA x,3 3 procA y,3 3 procA z,3 3 procB EEEEE,3 3 procB bA,3 3 procB bAAA,3 3 procB bB,3 3 procB bBBB,3 3 procB bC,3 3 procB bD,3 3 procB cA,3 3 procB dAAA,3 3 procB dB,3 3 procB dBBB,3 3 procB dC,3 3 procB dD,3 3 procB dE,3 3 procB dF,3 3 procB dc,3 3 procB k,3 3 procB uniA,3 3 procB uniB,3 3 procB x,3 3 procB y,3 3 procC cA,3 3 procC k,3 3 procC x,3 3 procC y,3 3 procD EEEEE,3 3 procD dAAA,3 3 procD dB,3 3 procD dBBB,3 3 procD dC,3 3 procD dD,3 3 procD dE,3 3 procD dF,3 3 procD dc,3 3 procD uniA,3 3 procE EEEEE,5 5 ifInIf ifA,5 5 ifInIf ifB,5 5 ifInIf ifC,5 5 ifInIf ifD,5 5 ifInIf uniC,5 5 procA EEEEE,5 5 procA a,5 5 procA a1,5 5 procA ab,5 5 procA abc,5 5 procA ai,5 5 procA b,5 5 procA b1,5 5 procA bA,5 5 procA bAAA,5 5 procA bB,5 5 procA bBBB,5 5 procA bC,5 5 procA bD,5 5 procA c,5 5 procA cA,5 5 procA d,5 5 procA dAAA,5 5 procA dB,5 5 procA dBBB,5 5 procA dC,5 5 procA dD,5 5 procA dE,5 5 procA dF,5 5 procA dc,5 5 procA e,5 5 procA file,5 5 procA ifVar,5 5 procA ifVar2,5 5 procA ifVar3,5 5 procA k,5 5 procA m,5 5 procA max,5 5 procA min,5 5 procA o,5 5 procA p,5 5 procA q,5 5 procA r,5 5 procA result,5 5 procA uniA,5 5 procA uniB,5 5 procA x,5 5 procA y,5 5 procA z,5 5 procB EEEEE,5 5 procB bA,5 5 procB bAAA,5 5 procB bB,5 5 procB bBBB,5 5 procB bC,5 5 procB bD,5 5 procB cA,5 5 procB dAAA,5 5 procB dB,5 5 procB dBBB,5 5 procB dC,5 5 procB dD,5 5 procB dE,5 5 procB dF,5 5 procB dc,5 5 procB k,5 5 procB uniA,5 5 procB uniB,5 5 procB x,5 5 procB y,5 5 procC cA,5 5 procC k,5 5 procC x,5 5 procC y,5 5 procD EEEEE,5 5 procD dAAA,5 5 procD dB,5 5 procD dBBB,5 5 procD dC,5 5 procD dD,5 5 procD dE,5 5 procD dF,5 5 procD dc,5 5 procD uniA,5 5 procE EEEEE,9 9 ifInIf ifA,9 9 ifInIf ifB,9 9 ifInIf ifC,9 9 ifInIf ifD,9 9 ifInIf uniC,9 9 procA EEEEE,9 9 procA a,9 9 procA a1,9 9 procA ab,9 9 procA abc,9 9 procA ai,9 9 procA b,9 9 procA b1,9 9 procA bA,9 9 procA bAAA,9 9 procA bB,9 9 procA bBBB,9 9 procA bC,9 9 procA bD,9 9 procA c,9 9 procA cA,9 9 procA d,9 9 procA dAAA,9 9 procA dB,9 9 procA dBBB,9 9 procA dC,9 9 procA dD,9 9 procA dE,9 9 procA dF,9 9 procA dc,9 9 procA e,9 9 procA file,9 9 procA ifVar,9 9 procA ifVar2,9 9 procA ifVar3,9 9 procA k,9 9 procA m,9 9 procA max,9 9 procA min,9 9 procA o,9 9 procA p,9 9 procA q,9 9 procA r,9 9 procA result,9 9 procA uniA,9 9 procA uniB,9 9 procA x,9 9 procA y,9 9 procA z,9 9 procB EEEEE,9 9 procB bA,9 9 procB bAAA,9 9 procB bB,9 9 procB bBBB,9 9 procB bC,9 9 procB bD,9 9 procB cA,9 9 procB dAAA,9 9 procB dB,9 9 procB dBBB,9 9 procB dC,9 9 procB dD,9 9 procB dE,9 9 procB dF,9 9 procB dc,9 9 procB k,9 9 procB uniA,9 9 procB uniB,9 9 procB x,9 9 procB y,9 9 procC cA,9 9 procC k,9 9 procC x,9 9 procC y,9 9 procD EEEEE,9 9 procD dAAA,9 9 procD dB,9 9 procD dBBB,9 9 procD dC,9 9 procD dD,9 9 procD dE,9 9 procD dF,9 9 procD dc,9 9 procD uniA,9 9 procE EEEEE
+5000
+83 - valid query (independent synonym)
+call c; variable v;
+Select <c,v.varName> such that Modifies(c,v)
+29 dA,29 dAAA,3 bA,3 bD,3 dA,3 dAAA,3 file,3 k,3 uniA,3 x,3 y,3 z,37 dA,37 dAAA,45 file,45 k,45 x,45 y,45 z
+5000
+84 - valid query (independent synonym)
+call c; stmt s; 
+Select <c,s.stmt#> such that Next(c, s) 
+29 30,3 4,31 32,37 38,40 41,64 62
+5000
+85 - valid query (independent synonym)
+call c; read re; 
+Select <c,re.stmt#> such that Next(c, re) 
+29 30
+5000
+86 - valid query (independent synonym)
+call c; assign a; 
+Select <c,a.stmt#> such that Next(c, a) 
+
+5000
+87 - valid query (independent synonym)
+call c; print pn; 
+Select <c,pn.stmt#> such that Next(c, pn) 
+31 32
+5000
+88 - valid query (independent synonym)
+call c; while w; 
+Select <c,w.stmt#> such that Next(c, w) 
+40 41,64 62
+5000
+89 - valid query (independent synonym)
+call c; if ifs; 
+Select <c,ifs.stmt#> such that Next(c, ifs) 
+3 4,37 38
+5000
+90 - valid query (independent synonym)
+call c; variable v;
+Select <v,c.stmt#> such that Modifies(c,v)
+bA 3,bD 3,dA 29,dA 3,dA 37,dAAA 29,dAAA 3,dAAA 37,file 3,file 45,k 3,k 45,uniA 3,x 3,x 45,y 3,y 45,z 3,z 45
+5000
+91 - valid query (independent synonym)
+call c; stmt s; 
+Select <s,c.stmt#> such that Next(c, s) 
+30 29,32 31,38 37,4 3,41 40,62 64
+5000
+92 - valid query (independent synonym)
+call c; read re; 
+Select <re,c.stmt#> such that Next(c, re) 
+30 29
+5000
+93 - valid query (independent synonym)
+call c; assign a; 
+Select <a,c.stmt#> such that Next(c, a) 
+
+5000
+94 - valid query (independent synonym)
+call c; print pn; 
+Select <pn,c.stmt#> such that Next(c, pn) 
+32 31
+5000
+95 - valid query (independent synonym)
+call c; while w; 
+Select <w,c.stmt#> such that Next(c, w) 
+41 40,62 64
+5000
+96 - valid query (independent synonym)
+call c; if ifs; 
+Select <ifs,c.stmt#> such that Next(c, ifs) 
+38 37,4 3
+5000
+97 - valid query (independent synonym)
+call c; variable v;
+Select <v,c.procName> such that Modifies(c,v)
+bA procB,bD procB,dA procB,dA procD,dAAA procB,dAAA procD,file procB,file procC,k procB,k procC,uniA procB,x procB,x procC,y procB,y procC,z procB,z procC
+5000
+98 - valid query (independent synonym)
+call c; stmt s; 
+Select <s,c.procName> such that Next(c, s) 
+30 procD,32 procE,38 procD,4 procB,41 procE,62 procE
+5000
+99 - valid query (independent synonym)
+call c; read re; 
+Select <re,c.procName> such that Next(c, re) 
+30 procD
+5000
+100 - valid query (independent synonym)
+call c; assign a; 
+Select <a,c.procName> such that Next(c, a) 
+
+5000
+101 - valid query (independent synonym)
+call c; print pn; 
+Select <pn,c.procName> such that Next(c, pn) 
+32 procE
+5000
+102 - valid query (independent synonym)
+call c; while w; 
+Select <w,c.procName> such that Next(c, w) 
+41 procE,62 procE
+5000
+103 - valid query (independent synonym)
+call c; if ifs; 
+Select <ifs,c.procName> such that Next(c, ifs) 
+38 procD,4 procB
+5000
+104 - valid query (independent synonym)
+call c; read re; 
+Select <c,re.varName> such that Next(c, re) 
+29 uniA
+5000
+105 - valid query (independent synonym)
+call c; print pn; 
+Select <c,pn.varName> such that Next(c, pn) 
+31 uniB
+5000
+106 - valid query variable
+variable v,v2; stmt s;
+Select <v, v2, s> such that Uses(s,v) and Uses(s,v2)
+EEEEE EEEEE 26,EEEEE EEEEE 28,EEEEE EEEEE 29,EEEEE EEEEE 3,EEEEE EEEEE 31,EEEEE EEEEE 34,EEEEE EEEEE 37,EEEEE EEEEE 38,EEEEE EEEEE 39,EEEEE EEEEE 40,EEEEE EEEEE 46,EEEEE EEEEE 62,EEEEE EEEEE 64,EEEEE bA 26,EEEEE bA 3,EEEEE bA 34,EEEEE bA 38,EEEEE bA 39,EEEEE bAAA 26,EEEEE bAAA 28,EEEEE bAAA 3,EEEEE bB 26,EEEEE bB 3,EEEEE bB 34,EEEEE bB 38,EEEEE bBBB 26,EEEEE bBBB 28,EEEEE bBBB 3,EEEEE bC 26,EEEEE bC 3,EEEEE bC 34,EEEEE bC 38,EEEEE bD 26,EEEEE bD 3,EEEEE bD 34,EEEEE bD 38,EEEEE bD 39,EEEEE cA 3,EEEEE dAAA 26,EEEEE dAAA 28,EEEEE dAAA 29,EEEEE dAAA 3,EEEEE dAAA 34,EEEEE dAAA 37,EEEEE dAAA 62,EEEEE dB 26,EEEEE dB 28,EEEEE dB 29,EEEEE dB 3,EEEEE dB 34,EEEEE dB 37,EEEEE dBBB 26,EEEEE dBBB 28,EEEEE dBBB 29,EEEEE dBBB 3,EEEEE dBBB 34,EEEEE dBBB 37,EEEEE dBBB 62,EEEEE dC 26,EEEEE dC 28,EEEEE dC 29,EEEEE dC 3,EEEEE dC 34,EEEEE dC 37,EEEEE dD 26,EEEEE dD 28,EEEEE dD 29,EEEEE dD 3,EEEEE dD 34,EEEEE dD 37,EEEEE dE 26,EEEEE dE 28,EEEEE dE 29,EEEEE dE 3,EEEEE dE 34,EEEEE dE 37,EEEEE dF 26,EEEEE dF 28,EEEEE dF 29,EEEEE dF 3,EEEEE dF 34,EEEEE dF 37,EEEEE dc 26,EEEEE dc 28,EEEEE dc 29,EEEEE dc 3,EEEEE dc 34,EEEEE dc 37,EEEEE k 3,EEEEE uniA 26,EEEEE uniA 28,EEEEE uniA 29,EEEEE uniA 3,EEEEE uniA 34,EEEEE uniA 37,EEEEE uniB 26,EEEEE uniB 28,EEEEE uniB 3,EEEEE x 3,EEEEE y 3,a a 11,a a 13,a a 14,a a 20,a a 24,a a 9,a abc 24,a ai 11,a ai 13,a b 11,a b 13,a b 20,a b 24,a c 20,a c 24,a d 20,a d 24,a e 20,a e 24,a file 9,a ifVar 11,a ifVar2 11,a ifVar3 11,a m 9,a max 11,a max 13,a min 11,a min 13,a o 9,a p 9,a q 24,a r 11,a r 13,a result 9,a z 11,a z 13,a1 a1 7,a1 b1 7,a1 q 7,ab ab 23,ab b 23,ab c 23,ab d 23,ab e 23,abc a 24,abc abc 19,abc abc 24,abc b 19,abc b 24,abc c 19,abc c 24,abc d 19,abc d 24,abc e 19,abc e 24,abc q 24,ai a 11,ai a 13,ai ai 11,ai ai 13,ai ai 15,ai b 11,ai b 13,ai ifVar 11,ai ifVar2 11,ai ifVar3 11,ai max 11,ai max 13,ai min 11,ai min 13,ai r 11,ai r 13,ai z 11,ai z 13,b a 11,b a 13,b a 20,b a 24,b ab 23,b abc 19,b abc 24,b ai 11,b ai 13,b b 11,b b 13,b b 16,b b 17,b b 18,b b 19,b b 2,b b 20,b b 21,b b 22,b b 23,b b 24,b c 17,b c 18,b c 19,b c 20,b c 21,b c 22,b c 23,b c 24,b d 18,b d 19,b d 20,b d 21,b d 22,b d 23,b d 24,b e 19,b e 20,b e 23,b e 24,b ifVar 11,b ifVar2 11,b ifVar3 11,b max 11,b max 13,b min 11,b min 13,b q 24,b r 11,b r 13,b z 11,b z 13,b1 a1 7,b1 b1 7,b1 q 7,bA EEEEE 26,bA EEEEE 3,bA EEEEE 34,bA EEEEE 38,bA EEEEE 39,bA bA 25,bA bA 26,bA bA 3,bA bA 34,bA bA 38,bA bA 39,bA bA 41,bA bAAA 26,bA bAAA 3,bA bB 26,bA bB 3,bA bB 34,bA bB 38,bA bBBB 26,bA bBBB 3,bA bC 26,bA bC 3,bA bC 34,bA bC 38,bA bD 26,bA bD 3,bA bD 34,bA bD 38,bA bD 39,bA bD 41,bA cA 3,bA dAAA 26,bA dAAA 3,bA dAAA 34,bA dB 26,bA dB 3,bA dB 34,bA dBBB 26,bA dBBB 3,bA dBBB 34,bA dC 26,bA dC 3,bA dC 34,bA dD 26,bA dD 3,bA dD 34,bA dE 26,bA dE 3,bA dE 34,bA dF 26,bA dF 3,bA dF 34,bA dc 26,bA dc 3,bA dc 34,bA k 3,bA uniA 26,bA uniA 3,bA uniA 34,bA uniB 26,bA uniB 3,bA x 3,bA y 3,bAAA EEEEE 26,bAAA EEEEE 28,bAAA EEEEE 3,bAAA bA 26,bAAA bA 3,bAAA bAAA 26,bAAA bAAA 28,bAAA bAAA 3,bAAA bB 26,bAAA bB 3,bAAA bBBB 26,bAAA bBBB 28,bAAA bBBB 3,bAAA bC 26,bAAA bC 3,bAAA bD 26,bAAA bD 3,bAAA cA 3,bAAA dAAA 26,bAAA dAAA 28,bAAA dAAA 3,bAAA dB 26,bAAA dB 28,bAAA dB 3,bAAA dBBB 26,bAAA dBBB 28,bAAA dBBB 3,bAAA dC 26,bAAA dC 28,bAAA dC 3,bAAA dD 26,bAAA dD 28,bAAA dD 3,bAAA dE 26,bAAA dE 28,bAAA dE 3,bAAA dF 26,bAAA dF 28,bAAA dF 3,bAAA dc 26,bAAA dc 28,bAAA dc 3,bAAA k 3,bAAA uniA 26,bAAA uniA 28,bAAA uniA 3,bAAA uniB 26,bAAA uniB 28,bAAA uniB 3,bAAA x 3,bAAA y 3,bB EEEEE 26,bB EEEEE 3,bB EEEEE 34,bB EEEEE 38,bB bA 26,bB bA 3,bB bA 34,bB bA 38,bB bAAA 26,bB bAAA 3,bB bB 26,bB bB 3,bB bB 34,bB bB 38,bB bBBB 26,bB bBBB 3,bB bC 26,bB bC 3,bB bC 34,bB bC 38,bB bD 26,bB bD 3,bB bD 34,bB bD 38,bB cA 3,bB dAAA 26,bB dAAA 3,bB dAAA 34,bB dB 26,bB dB 3,bB dB 34,bB dBBB 26,bB dBBB 3,bB dBBB 34,bB dC 26,bB dC 3,bB dC 34,bB dD 26,bB dD 3,bB dD 34,bB dE 26,bB dE 3,bB dE 34,bB dF 26,bB dF 3,bB dF 34,bB dc 26,bB dc 3,bB dc 34,bB k 3,bB uniA 26,bB uniA 3,bB uniA 34,bB uniB 26,bB uniB 3,bB x 3,bB y 3,bBBB EEEEE 26,bBBB EEEEE 28,bBBB EEEEE 3,bBBB bA 26,bBBB bA 3,bBBB bAAA 26,bBBB bAAA 28,bBBB bAAA 3,bBBB bB 26,bBBB bB 3,bBBB bBBB 26,bBBB bBBB 28,bBBB bBBB 3,bBBB bC 26,bBBB bC 3,bBBB bD 26,bBBB bD 3,bBBB cA 3,bBBB dAAA 26,bBBB dAAA 28,bBBB dAAA 3,bBBB dB 26,bBBB dB 28,bBBB dB 3,bBBB dBBB 26,bBBB dBBB 28,bBBB dBBB 3,bBBB dC 26,bBBB dC 28,bBBB dC 3,bBBB dD 26,bBBB dD 28,bBBB dD 3,bBBB dE 26,bBBB dE 28,bBBB dE 3,bBBB dF 26,bBBB dF 28,bBBB dF 3,bBBB dc 26,bBBB dc 28,bBBB dc 3,bBBB k 3,bBBB uniA 26,bBBB uniA 28,bBBB uniA 3,bBBB uniB 26,bBBB uniB 28,bBBB uniB 3,bBBB x 3,bBBB y 3,bC EEEEE 26,bC EEEEE 3,bC EEEEE 34,bC EEEEE 38,bC bA 26,bC bA 3,bC bA 34,bC bA 38,bC bAAA 26,bC bAAA 3,bC bB 26,bC bB 3,bC bB 34,bC bB 38,bC bBBB 26,bC bBBB 3,bC bC 26,bC bC 3,bC bC 33,bC bC 34,bC bC 38,bC bC 44,bC bD 26,bC bD 3,bC bD 34,bC bD 38,bC cA 3,bC dAAA 26,bC dAAA 3,bC dAAA 34,bC dB 26,bC dB 3,bC dB 34,bC dBBB 26,bC dBBB 3,bC dBBB 34,bC dC 26,bC dC 3,bC dC 34,bC dD 26,bC dD 3,bC dD 34,bC dE 26,bC dE 3,bC dE 34,bC dF 26,bC dF 3,bC dF 34,bC dc 26,bC dc 3,bC dc 34,bC k 3,bC uniA 26,bC uniA 3,bC uniA 34,bC uniB 26,bC uniB 3,bC x 3,bC y 3,bD EEEEE 26,bD EEEEE 3,bD EEEEE 34,bD EEEEE 38,bD EEEEE 39,bD bA 26,bD bA 3,bD bA 34,bD bA 38,bD bA 39,bD bA 41,bD bAAA 26,bD bAAA 3,bD bB 26,bD bB 3,bD bB 34,bD bB 38,bD bBBB 26,bD bBBB 3,bD bC 26,bD bC 3,bD bC 34,bD bC 38,bD bD 26,bD bD 3,bD bD 34,bD bD 38,bD bD 39,bD bD 41,bD bD 42,bD bD 43,bD cA 3,bD dAAA 26,bD dAAA 3,bD dAAA 34,bD dB 26,bD dB 3,bD dB 34,bD dBBB 26,bD dBBB 3,bD dBBB 34,bD dC 26,bD dC 3,bD dC 34,bD dD 26,bD dD 3,bD dD 34,bD dE 26,bD dE 3,bD dE 34,bD dF 26,bD dF 3,bD dF 34,bD dc 26,bD dc 3,bD dc 34,bD k 3,bD uniA 26,bD uniA 3,bD uniA 34,bD uniB 26,bD uniB 3,bD x 3,bD y 3,c a 20,c a 24,c ab 23,c abc 19,c abc 24,c b 17,c b 18,c b 19,c b 20,c b 21,c b 22,c b 23,c b 24,c c 17,c c 18,c c 19,c c 20,c c 21,c c 22,c c 23,c c 24,c d 18,c d 19,c d 20,c d 21,c d 22,c d 23,c d 24,c e 19,c e 20,c e 23,c e 24,c q 24,cA EEEEE 3,cA bA 3,cA bAAA 3,cA bB 3,cA bBBB 3,cA bC 3,cA bD 3,cA cA 3,cA cA 45,cA cA 61,cA dAAA 3,cA dB 3,cA dBBB 3,cA dC 3,cA dD 3,cA dE 3,cA dF 3,cA dc 3,cA k 3,cA k 45,cA uniA 3,cA uniB 3,cA x 3,cA x 45,cA y 3,cA y 45,d a 20,d a 24,d ab 23,d abc 19,d abc 24,d b 18,d b 19,d b 20,d b 21,d b 22,d b 23,d b 24,d c 18,d c 19,d c 20,d c 21,d c 22,d c 23,d c 24,d d 18,d d 19,d d 20,d d 21,d d 22,d d 23,d d 24,d e 19,d e 20,d e 23,d e 24,d q 24,dAAA EEEEE 26,dAAA EEEEE 28,dAAA EEEEE 29,dAAA EEEEE 3,dAAA EEEEE 34,dAAA EEEEE 37,dAAA EEEEE 62,dAAA bA 26,dAAA bA 3,dAAA bA 34,dAAA bAAA 26,dAAA bAAA 28,dAAA bAAA 3,dAAA bB 26,dAAA bB 3,dAAA bB 34,dAAA bBBB 26,dAAA bBBB 28,dAAA bBBB 3,dAAA bC 26,dAAA bC 3,dAAA bC 34,dAAA bD 26,dAAA bD 3,dAAA bD 34,dAAA cA 3,dAAA dAAA 26,dAAA dAAA 28,dAAA dAAA 29,dAAA dAAA 3,dAAA dAAA 34,dAAA dAAA 37,dAAA dAAA 62,dAAA dB 26,dAAA dB 28,dAAA dB 29,dAAA dB 3,dAAA dB 34,dAAA dB 37,dAAA dBBB 26,dAAA dBBB 28,dAAA dBBB 29,dAAA dBBB 3,dAAA dBBB 34,dAAA dBBB 37,dAAA dBBB 62,dAAA dC 26,dAAA dC 28,dAAA dC 29,dAAA dC 3,dAAA dC 34,dAAA dC 37,dAAA dD 26,dAAA dD 28,dAAA dD 29,dAAA dD 3,dAAA dD 34,dAAA dD 37,dAAA dE 26,dAAA dE 28,dAAA dE 29,dAAA dE 3,dAAA dE 34,dAAA dE 37,dAAA dF 26,dAAA dF 28,dAAA dF 29,dAAA dF 3,dAAA dF 34,dAAA dF 37,dAAA dc 26,dAAA dc 28,dAAA dc 29,dAAA dc 3,dAAA dc 34,dAAA dc 37,dAAA k 3,dAAA uniA 26,dAAA uniA 28,dAAA uniA 29,dAAA uniA 3,dAAA uniA 34,dAAA uniA 37,dAAA uniB 26,dAAA uniB 28,dAAA uniB 3,dAAA x 3,dAAA y 3,dB EEEEE 26,dB EEEEE 28,dB EEEEE 29,dB EEEEE 3,dB EEEEE 34,dB EEEEE 37,dB bA 26,dB bA 3,dB bA 34,dB bAAA 26,dB bAAA 28,dB bAAA 3,dB bB 26,dB bB 3,dB bB 34,dB bBBB 26,dB bBBB 28,dB bBBB 3,dB bC 26,dB bC 3,dB bC 34,dB bD 26,dB bD 3,dB bD 34,dB cA 3,dB dAAA 26,dB dAAA 28,dB dAAA 29,dB dAAA 3,dB dAAA 34,dB dAAA 37,dB dB 26,dB dB 28,dB dB 29,dB dB 3,dB dB 34,dB dB 37,dB dB 66,dB dB 67,dB dBBB 26,dB dBBB 28,dB dBBB 29,dB dBBB 3,dB dBBB 34,dB dBBB 37,dB dC 26,dB dC 28,dB dC 29,dB dC 3,dB dC 34,dB dC 37,dB dC 66,dB dD 26,dB dD 28,dB dD 29,dB dD 3,dB dD 34,dB dD 37,dB dD 67,dB dE 26,dB dE 28,dB dE 29,dB dE 3,dB dE 34,dB dE 37,dB dE 67,dB dF 26,dB dF 28,dB dF 29,dB dF 3,dB dF 34,dB dF 37,dB dF 67,dB dc 26,dB dc 28,dB dc 29,dB dc 3,dB dc 34,dB dc 37,dB dc 67,dB k 3,dB uniA 26,dB uniA 28,dB uniA 29,dB uniA 3,dB uniA 34,dB uniA 37,dB uniA 66,dB uniB 26,dB uniB 28,dB uniB 3,dB x 3,dB y 3,dBBB EEEEE 26,dBBB EEEEE 28,dBBB EEEEE 29,dBBB EEEEE 3,dBBB EEEEE 34,dBBB EEEEE 37,dBBB EEEEE 62,dBBB bA 26,dBBB bA 3,dBBB bA 34,dBBB bAAA 26,dBBB bAAA 28,dBBB bAAA 3,dBBB bB 26,dBBB bB 3,dBBB bB 34,dBBB bBBB 26,dBBB bBBB 28,dBBB bBBB 3,dBBB bC 26,dBBB bC 3,dBBB bC 34,dBBB bD 26,dBBB bD 3,dBBB bD 34,dBBB cA 3,dBBB dAAA 26,dBBB dAAA 28,dBBB dAAA 29,dBBB dAAA 3,dBBB dAAA 34,dBBB dAAA 37,dBBB dAAA 62,dBBB dB 26,dBBB dB 28,dBBB dB 29,dBBB dB 3,dBBB dB 34,dBBB dB 37,dBBB dBBB 26,dBBB dBBB 28,dBBB dBBB 29,dBBB dBBB 3,dBBB dBBB 34,dBBB dBBB 37,dBBB dBBB 62,dBBB dBBB 63,dBBB dC 26,dBBB dC 28,dBBB dC 29,dBBB dC 3,dBBB dC 34,dBBB dC 37,dBBB dD 26,dBBB dD 28,dBBB dD 29,dBBB dD 3,dBBB dD 34,dBBB dD 37,dBBB dE 26,dBBB dE 28,dBBB dE 29,dBBB dE 3,dBBB dE 34,dBBB dE 37,dBBB dF 26,dBBB dF 28,dBBB dF 29,dBBB dF 3,dBBB dF 34,dBBB dF 37,dBBB dc 26,dBBB dc 28,dBBB dc 29,dBBB dc 3,dBBB dc 34,dBBB dc 37,dBBB k 3,dBBB uniA 26,dBBB uniA 28,dBBB uniA 29,dBBB uniA 3,dBBB uniA 34,dBBB uniA 37,dBBB uniB 26,dBBB uniB 28,dBBB uniB 3,dBBB x 3,dBBB y 3,dC EEEEE 26,dC EEEEE 28,dC EEEEE 29,dC EEEEE 3,dC EEEEE 34,dC EEEEE 37,dC bA 26,dC bA 3,dC bA 34,dC bAAA 26,dC bAAA 28,dC bAAA 3,dC bB 26,dC bB 3,dC bB 34,dC bBBB 26,dC bBBB 28,dC bBBB 3,dC bC 26,dC bC 3,dC bC 34,dC bD 26,dC bD 3,dC bD 34,dC cA 3,dC dAAA 26,dC dAAA 28,dC dAAA 29,dC dAAA 3,dC dAAA 34,dC dAAA 37,dC dB 26,dC dB 28,dC dB 29,dC dB 3,dC dB 34,dC dB 37,dC dB 66,dC dBBB 26,dC dBBB 28,dC dBBB 29,dC dBBB 3,dC dBBB 34,dC dBBB 37,dC dC 26,dC dC 28,dC dC 29,dC dC 3,dC dC 34,dC dC 37,dC dC 66,dC dD 26,dC dD 28,dC dD 29,dC dD 3,dC dD 34,dC dD 37,dC dE 26,dC dE 28,dC dE 29,dC dE 3,dC dE 34,dC dE 37,dC dF 26,dC dF 28,dC dF 29,dC dF 3,dC dF 34,dC dF 37,dC dc 26,dC dc 28,dC dc 29,dC dc 3,dC dc 34,dC dc 37,dC k 3,dC uniA 26,dC uniA 28,dC uniA 29,dC uniA 3,dC uniA 34,dC uniA 37,dC uniA 66,dC uniB 26,dC uniB 28,dC uniB 3,dC x 3,dC y 3,dD EEEEE 26,dD EEEEE 28,dD EEEEE 29,dD EEEEE 3,dD EEEEE 34,dD EEEEE 37,dD bA 26,dD bA 3,dD bA 34,dD bAAA 26,dD bAAA 28,dD bAAA 3,dD bB 26,dD bB 3,dD bB 34,dD bBBB 26,dD bBBB 28,dD bBBB 3,dD bC 26,dD bC 3,dD bC 34,dD bD 26,dD bD 3,dD bD 34,dD cA 3,dD dAAA 26,dD dAAA 28,dD dAAA 29,dD dAAA 3,dD dAAA 34,dD dAAA 37,dD dB 26,dD dB 28,dD dB 29,dD dB 3,dD dB 34,dD dB 37,dD dB 67,dD dBBB 26,dD dBBB 28,dD dBBB 29,dD dBBB 3,dD dBBB 34,dD dBBB 37,dD dC 26,dD dC 28,dD dC 29,dD dC 3,dD dC 34,dD dC 37,dD dD 26,dD dD 28,dD dD 29,dD dD 3,dD dD 34,dD dD 37,dD dD 67,dD dE 26,dD dE 28,dD dE 29,dD dE 3,dD dE 34,dD dE 37,dD dE 67,dD dF 26,dD dF 28,dD dF 29,dD dF 3,dD dF 34,dD dF 37,dD dF 67,dD dc 26,dD dc 28,dD dc 29,dD dc 3,dD dc 34,dD dc 37,dD dc 67,dD k 3,dD uniA 26,dD uniA 28,dD uniA 29,dD uniA 3,dD uniA 34,dD uniA 37,dD uniB 26,dD uniB 28,dD uniB 3,dD x 3,dD y 3,dE EEEEE 26,dE EEEEE 28,dE EEEEE 29,dE EEEEE 3,dE EEEEE 34,dE EEEEE 37,dE bA 26,dE bA 3,dE bA 34,dE bAAA 26,dE bAAA 28,dE bAAA 3,dE bB 26,dE bB 3,dE bB 34,dE bBBB 26,dE bBBB 28,dE bBBB 3,dE bC 26,dE bC 3,dE bC 34,dE bD 26,dE bD 3,dE bD 34,dE cA 3,dE dAAA 26,dE dAAA 28,dE dAAA 29,dE dAAA 3,dE dAAA 34,dE dAAA 37,dE dB 26,dE dB 28,dE dB 29,dE dB 3,dE dB 34,dE dB 37,dE dB 67,dE dBBB 26,dE dBBB 28,dE dBBB 29,dE dBBB 3,dE dBBB 34,dE dBBB 37,dE dC 26,dE dC 28,dE dC 29,dE dC 3,dE dC 34,dE dC 37,dE dD 26,dE dD 28,dE dD 29,dE dD 3,dE dD 34,dE dD 37,dE dD 67,dE dE 26,dE dE 28,dE dE 29,dE dE 3,dE dE 34,dE dE 37,dE dE 67,dE dF 26,dE dF 28,dE dF 29,dE dF 3,dE dF 34,dE dF 37,dE dF 67,dE dc 26,dE dc 28,dE dc 29,dE dc 3,dE dc 34,dE dc 37,dE dc 67,dE k 3,dE uniA 26,dE uniA 28,dE uniA 29,dE uniA 3,dE uniA 34,dE uniA 37,dE uniB 26,dE uniB 28,dE uniB 3,dE x 3,dE y 3,dF EEEEE 26,dF EEEEE 28,dF EEEEE 29,dF EEEEE 3,dF EEEEE 34,dF EEEEE 37,dF bA 26,dF bA 3,dF bA 34,dF bAAA 26,dF bAAA 28,dF bAAA 3,dF bB 26,dF bB 3,dF bB 34,dF bBBB 26,dF bBBB 28,dF bBBB 3,dF bC 26,dF bC 3,dF bC 34,dF bD 26,dF bD 3,dF bD 34,dF cA 3,dF dAAA 26,dF dAAA 28,dF dAAA 29,dF dAAA 3,dF dAAA 34,dF dAAA 37,dF dB 26,dF dB 28,dF dB 29,dF dB 3,dF dB 34,dF dB 37,dF dB 67,dF dBBB 26,dF dBBB 28,dF dBBB 29,dF dBBB 3,dF dBBB 34,dF dBBB 37,dF dC 26,dF dC 28,dF dC 29,dF dC 3,dF dC 34,dF dC 37,dF dD 26,dF dD 28,dF dD 29,dF dD 3,dF dD 34,dF dD 37,dF dD 67,dF dE 26,dF dE 28,dF dE 29,dF dE 3,dF dE 34,dF dE 37,dF dE 67,dF dF 26,dF dF 28,dF dF 29,dF dF 3,dF dF 34,dF dF 37,dF dF 67,dF dc 26,dF dc 28,dF dc 29,dF dc 3,dF dc 34,dF dc 37,dF dc 67,dF k 3,dF uniA 26,dF uniA 28,dF uniA 29,dF uniA 3,dF uniA 34,dF uniA 37,dF uniB 26,dF uniB 28,dF uniB 3,dF x 3,dF y 3,dc EEEEE 26,dc EEEEE 28,dc EEEEE 29,dc EEEEE 3,dc EEEEE 34,dc EEEEE 37,dc bA 26,dc bA 3,dc bA 34,dc bAAA 26,dc bAAA 28,dc bAAA 3,dc bB 26,dc bB 3,dc bB 34,dc bBBB 26,dc bBBB 28,dc bBBB 3,dc bC 26,dc bC 3,dc bC 34,dc bD 26,dc bD 3,dc bD 34,dc cA 3,dc dAAA 26,dc dAAA 28,dc dAAA 29,dc dAAA 3,dc dAAA 34,dc dAAA 37,dc dB 26,dc dB 28,dc dB 29,dc dB 3,dc dB 34,dc dB 37,dc dB 67,dc dBBB 26,dc dBBB 28,dc dBBB 29,dc dBBB 3,dc dBBB 34,dc dBBB 37,dc dC 26,dc dC 28,dc dC 29,dc dC 3,dc dC 34,dc dC 37,dc dD 26,dc dD 28,dc dD 29,dc dD 3,dc dD 34,dc dD 37,dc dD 67,dc dE 26,dc dE 28,dc dE 29,dc dE 3,dc dE 34,dc dE 37,dc dE 67,dc dF 26,dc dF 28,dc dF 29,dc dF 3,dc dF 34,dc dF 37,dc dF 67,dc dc 26,dc dc 28,dc dc 29,dc dc 3,dc dc 34,dc dc 37,dc dc 67,dc k 3,dc uniA 26,dc uniA 28,dc uniA 29,dc uniA 3,dc uniA 34,dc uniA 37,dc uniB 26,dc uniB 28,dc uniB 3,dc x 3,dc y 3,e a 20,e a 24,e ab 23,e abc 19,e abc 24,e b 19,e b 20,e b 23,e b 24,e c 19,e c 20,e c 23,e c 24,e d 19,e d 20,e d 23,e d 24,e e 19,e e 20,e e 23,e e 24,e q 24,file a 9,file file 9,file m 9,file o 9,file p 9,file result 9,ifA ifA 69,ifA ifA 72,ifA ifA 74,ifA ifB 69,ifA ifC 69,ifA ifC 72,ifA ifD 69,ifA ifD 72,ifA ifD 74,ifB ifA 69,ifB ifB 69,ifB ifC 69,ifB ifD 69,ifC ifA 69,ifC ifA 72,ifC ifB 69,ifC ifC 69,ifC ifC 72,ifC ifD 69,ifC ifD 72,ifD ifA 69,ifD ifA 72,ifD ifA 74,ifD ifB 69,ifD ifC 69,ifD ifC 72,ifD ifD 69,ifD ifD 72,ifD ifD 74,ifVar a 11,ifVar ai 11,ifVar b 11,ifVar ifVar 11,ifVar ifVar2 11,ifVar ifVar3 11,ifVar max 11,ifVar min 11,ifVar r 11,ifVar z 11,ifVar2 a 11,ifVar2 ai 11,ifVar2 b 11,ifVar2 ifVar 11,ifVar2 ifVar2 11,ifVar2 ifVar3 11,ifVar2 max 11,ifVar2 min 11,ifVar2 r 11,ifVar2 z 11,ifVar3 a 11,ifVar3 ai 11,ifVar3 b 11,ifVar3 ifVar 11,ifVar3 ifVar2 11,ifVar3 ifVar3 11,ifVar3 ifVar3 12,ifVar3 max 11,ifVar3 min 11,ifVar3 r 11,ifVar3 z 11,k EEEEE 3,k bA 3,k bAAA 3,k bB 3,k bBBB 3,k bC 3,k bD 3,k cA 3,k cA 45,k dAAA 3,k dB 3,k dBBB 3,k dC 3,k dD 3,k dE 3,k dF 3,k dc 3,k k 3,k k 45,k k 60,k uniA 3,k uniB 3,k x 3,k x 45,k x 60,k y 3,k y 45,k y 60,m a 9,m file 9,m m 9,m o 9,m p 9,m result 9,max a 11,max a 13,max ai 11,max ai 13,max b 11,max b 13,max ifVar 11,max ifVar2 11,max ifVar3 11,max max 11,max max 13,max min 11,max min 13,max r 11,max r 13,max z 11,max z 13,min a 11,min a 13,min ai 11,min ai 13,min b 11,min b 13,min ifVar 11,min ifVar2 11,min ifVar3 11,min max 11,min max 13,min min 11,min min 13,min r 11,min r 13,min z 11,min z 13,o a 9,o file 9,o m 9,o o 10,o o 9,o p 9,o result 9,p a 9,p file 9,p m 9,p o 9,p p 9,p result 9,q a 24,q a1 7,q abc 24,q b 24,q b1 7,q c 24,q d 24,q e 24,q q 24,q q 7,q q 8,r a 11,r a 13,r ai 11,r ai 13,r b 11,r b 13,r ifVar 11,r ifVar2 11,r ifVar3 11,r max 11,r max 13,r min 11,r min 13,r r 11,r r 13,r z 11,r z 13,result a 9,result file 9,result m 9,result o 9,result p 9,result result 9,uniA EEEEE 26,uniA EEEEE 28,uniA EEEEE 29,uniA EEEEE 3,uniA EEEEE 34,uniA EEEEE 37,uniA bA 26,uniA bA 3,uniA bA 34,uniA bAAA 26,uniA bAAA 28,uniA bAAA 3,uniA bB 26,uniA bB 3,uniA bB 34,uniA bBBB 26,uniA bBBB 28,uniA bBBB 3,uniA bC 26,uniA bC 3,uniA bC 34,uniA bD 26,uniA bD 3,uniA bD 34,uniA cA 3,uniA dAAA 26,uniA dAAA 28,uniA dAAA 29,uniA dAAA 3,uniA dAAA 34,uniA dAAA 37,uniA dB 26,uniA dB 28,uniA dB 29,uniA dB 3,uniA dB 34,uniA dB 37,uniA dB 66,uniA dBBB 26,uniA dBBB 28,uniA dBBB 29,uniA dBBB 3,uniA dBBB 34,uniA dBBB 37,uniA dC 26,uniA dC 28,uniA dC 29,uniA dC 3,uniA dC 34,uniA dC 37,uniA dC 66,uniA dD 26,uniA dD 28,uniA dD 29,uniA dD 3,uniA dD 34,uniA dD 37,uniA dE 26,uniA dE 28,uniA dE 29,uniA dE 3,uniA dE 34,uniA dE 37,uniA dF 26,uniA dF 28,uniA dF 29,uniA dF 3,uniA dF 34,uniA dF 37,uniA dc 26,uniA dc 28,uniA dc 29,uniA dc 3,uniA dc 34,uniA dc 37,uniA k 3,uniA uniA 26,uniA uniA 28,uniA uniA 29,uniA uniA 3,uniA uniA 34,uniA uniA 37,uniA uniA 65,uniA uniA 66,uniA uniB 26,uniA uniB 28,uniA uniB 3,uniA x 3,uniA y 3,uniB EEEEE 26,uniB EEEEE 28,uniB EEEEE 3,uniB bA 26,uniB bA 3,uniB bAAA 26,uniB bAAA 28,uniB bAAA 3,uniB bB 26,uniB bB 3,uniB bBBB 26,uniB bBBB 28,uniB bBBB 3,uniB bC 26,uniB bC 3,uniB bD 26,uniB bD 3,uniB cA 3,uniB dAAA 26,uniB dAAA 28,uniB dAAA 3,uniB dB 26,uniB dB 28,uniB dB 3,uniB dBBB 26,uniB dBBB 28,uniB dBBB 3,uniB dC 26,uniB dC 28,uniB dC 3,uniB dD 26,uniB dD 28,uniB dD 3,uniB dE 26,uniB dE 28,uniB dE 3,uniB dF 26,uniB dF 28,uniB dF 3,uniB dc 26,uniB dc 28,uniB dc 3,uniB k 3,uniB uniA 26,uniB uniA 28,uniB uniA 3,uniB uniB 26,uniB uniB 28,uniB uniB 3,uniB uniB 32,uniB x 3,uniB y 3,uniC uniC 78,x EEEEE 3,x bA 3,x bAAA 3,x bB 3,x bBBB 3,x bC 3,x bD 3,x cA 3,x cA 45,x dAAA 3,x dB 3,x dBBB 3,x dC 3,x dD 3,x dE 3,x dF 3,x dc 3,x k 3,x k 45,x k 60,x uniA 3,x uniB 3,x x 3,x x 4,x x 45,x x 47,x x 48,x x 49,x x 50,x x 52,x x 54,x x 55,x x 56,x x 60,x y 3,x y 4,x y 45,x y 47,x y 48,x y 49,x y 50,x y 55,x y 60,x z 4,y EEEEE 3,y bA 3,y bAAA 3,y bB 3,y bBBB 3,y bC 3,y bD 3,y cA 3,y cA 45,y dAAA 3,y dB 3,y dBBB 3,y dC 3,y dD 3,y dE 3,y dF 3,y dc 3,y k 3,y k 45,y k 60,y uniA 3,y uniB 3,y x 3,y x 4,y x 45,y x 47,y x 48,y x 49,y x 50,y x 55,y x 60,y y 3,y y 4,y y 45,y y 47,y y 48,y y 49,y y 50,y y 55,y y 57,y y 58,y y 60,y z 4,z a 11,z a 13,z ai 11,z ai 13,z b 11,z b 13,z ifVar 11,z ifVar2 11,z ifVar3 11,z max 11,z max 13,z min 11,z min 13,z r 11,z r 13,z x 4,z y 4,z z 11,z z 13,z z 4,z z 5
+5000
+107 - valid query variable
+variable v; procedure p;
+Select <p,v> such that Uses(p,v) 
+ifInIf ifA,ifInIf ifB,ifInIf ifC,ifInIf ifD,ifInIf uniC,procA EEEEE,procA a,procA a1,procA ab,procA abc,procA ai,procA b,procA b1,procA bA,procA bAAA,procA bB,procA bBBB,procA bC,procA bD,procA c,procA cA,procA d,procA dAAA,procA dB,procA dBBB,procA dC,procA dD,procA dE,procA dF,procA dc,procA e,procA file,procA ifVar,procA ifVar2,procA ifVar3,procA k,procA m,procA max,procA min,procA o,procA p,procA q,procA r,procA result,procA uniA,procA uniB,procA x,procA y,procA z,procB EEEEE,procB bA,procB bAAA,procB bB,procB bBBB,procB bC,procB bD,procB cA,procB dAAA,procB dB,procB dBBB,procB dC,procB dD,procB dE,procB dF,procB dc,procB k,procB uniA,procB uniB,procB x,procB y,procC cA,procC k,procC x,procC y,procD EEEEE,procD dAAA,procD dB,procD dBBB,procD dC,procD dD,procD dE,procD dF,procD dc,procD uniA,procE EEEEE
+5000

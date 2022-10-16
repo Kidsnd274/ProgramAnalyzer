@@ -1,0 +1,39 @@
+procedure opq {
+    a = a + 1;  	
+}
+
+procedure klm {
+    call opq;		
+    x = x + 1;				
+}
+
+procedure hij {
+    call opq;		
+    while (l > i){	
+        call klm;		            
+        z = x + y;		
+        read b;		
+    }
+    v = v + v;		
+    c = c * 2;		
+}
+
+procedure efg {
+    if (h == 0) then {	
+	    call klm;	
+        b = c + 4;	
+        n = p + q + 5;	
+        print f;	
+    } else {
+        call opq;	
+        read m;		
+    }
+    call hij;		
+}
+
+procedure abc {
+    call efg;		
+    call hij;		
+    call klm;		
+    call opq;		
+}
