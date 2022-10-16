@@ -4,6 +4,7 @@
 #include "pkb/PKBInterface.h"
 #include "pkb/Statement.h"
 #include "type/Argument.h"
+#include "Query.h"
 
 class QPS_PKB_Interface {
 public:
@@ -131,6 +132,8 @@ public:
     static std::string getReadVarName(std::string readLineNumber);
 
     static std::string getPrintVarName(std::string printLineNumber);
+
+    static std::string getAttrName(std::string value, WithClause::WithClauseArgument candidate);
 };
 
 
