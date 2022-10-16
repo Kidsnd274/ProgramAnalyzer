@@ -298,6 +298,10 @@ namespace QPS {
             argument1 = Argument(tokens[pos + 1].nameValue, Argument::ACTUAL_NAME);
             arg1 = {argument1, INAPPLICABLE};
             pos+=3;
+        } else if (pos < tokens.size() && tokens[pos].tokenType == INTEGER ) {
+            argument1 = Argument(tokens[pos].nameValue, Argument::NUMBER);
+            arg1 = {argument1, INAPPLICABLE};
+            pos++;
         } else {
             result = parseWithObject(tokens, pos, container, argument1, arg1);
             if (result.second == VALID) {
@@ -321,12 +325,12 @@ namespace QPS {
                 case Argument::PRINT_SYNONYM:
                 case Argument::VAR_SYNONYM:
                 case Argument::CALL_SYNONYM:
+                case Argument::ACTUAL_NAME:
                 case Argument::PROCEDURE_SYNONYM:{
                     argument2 = Argument(tokens[pos + 1].nameValue, Argument::ACTUAL_NAME);
                     arg2 = {argument2, INAPPLICABLE};
                     break;
                 }
-                case Argument::ACTUAL_NAME:
                 case Argument::NUMBER:
                 case Argument::WILDCARD:
                 case Argument::EXPRESSION:
@@ -350,6 +354,7 @@ namespace QPS {
                 case Argument::CALL_SYNONYM:
                 case Argument::WHILE_SYNONYM:
                 case Argument::IF_SYNONYM:
+                case Argument::NUMBER:
                 case Argument::STMT_SYNONYM:
                 case Argument::ASSIGN_SYNONYM:
                 case Argument::CONST_SYNONYM:{
@@ -358,7 +363,6 @@ namespace QPS {
                     break;
                 }
                 case Argument::ACTUAL_NAME:
-                case Argument::NUMBER:
                 case Argument::WILDCARD:
                 case Argument::EXPRESSION:
                 case Argument::PROCEDURE_ACTUAL_NAME:
@@ -372,7 +376,7 @@ namespace QPS {
             }
             pos++;
         } else if (pos < tokens.size() && tokens[pos].tokenType == NAME) {
-            result = parseWithObject(tokens, pos, container, argument1, arg1);
+            result = parseWithObject(tokens, pos, container, argument2, arg2);
             if (result.second == VALID) {
                 pos = result.first;
             } else {
