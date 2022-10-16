@@ -512,7 +512,7 @@ namespace QPS {
         while (pos < tokens.size() && tokens[pos].tokenType != QPS::SEMICOLON ) {
             QPS::Token curr = tokens[pos];
             if (curr.tokenType == QPS::COMMA) {
-            } else if (curr.tokenType == QPS::NAME && curr.nameValue != "Select") {
+            } else if (curr.tokenType == QPS::NAME) {
                 container.addDeclaration(entityType, curr.nameValue);
             } else {
                 return {pos, INVALID_DECLARATION};
@@ -533,9 +533,11 @@ namespace QPS {
         bool is_closed = false;
         bool is_boolean_select = false;
         bool is_entity_select = false;
+        bool is_select_parsed = false;
         while (pos < tokens.size()) {
             QPS::Token curr = tokens[pos];
-            if (curr.tokenType == QPS::NAME && curr.nameValue == "Select") {
+            if (curr.tokenType == QPS::NAME && curr.nameValue == "Select" && !is_select_parsed) {
+                is_select_parsed = true;
                 pos++;
             } else if (curr.tokenType == QPS::NAME && curr.nameValue != "such" && curr.nameValue != "pattern"
                             && curr.nameValue != "BOOLEAN" && !is_boolean_select && curr.nameValue != "with") {
