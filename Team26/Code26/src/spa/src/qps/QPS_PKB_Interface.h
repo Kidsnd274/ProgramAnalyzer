@@ -4,6 +4,7 @@
 #include "pkb/PKBInterface.h"
 #include "pkb/Statement.h"
 #include "type/Argument.h"
+#include "Query.h"
 
 class QPS_PKB_Interface {
 public:
@@ -91,7 +92,7 @@ public:
      * Call PKB interface to get all next relations in NextTable.
      * @return a vector containing all the next relations.
      */
-    static std::vector<pair<int, int>> getAllNextRelations();
+    static std::unordered_map<int, int> getAllNextRelations();
 
     /**
      * Call PKB interface to get all procedure xt relations in NextTable.
@@ -138,6 +139,8 @@ public:
      * @return the variable name.
      */
     static std::string getConditionVarNameByStmtNum(std::string containerLineNumber);
+
+    static std::string getAttrName(std::string value, WithClause::WithClauseArgument candidate);
 };
 
 

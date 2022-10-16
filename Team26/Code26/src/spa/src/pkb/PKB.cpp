@@ -27,6 +27,7 @@ FollowsStarTable* PKB::followsStarTable = new FollowsStarTable();
 CallTable* PKB::callTable = new CallTable();
 CallStarTable* PKB::callStarTable = new CallStarTable();
 ContainerTable* PKB::containerTable = new ContainerTable();
+NextTable* PKB::nextTable = new NextTable();
 
 int PKB::setProcToAST(PROC p, TNode* r) {
 	return 0;

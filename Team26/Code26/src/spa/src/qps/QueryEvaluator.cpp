@@ -20,13 +20,19 @@ void QueryEvaluator::evaluate(Query* query) {
 //        resultOfEvaluation->mergeTable(*resultTable);
     }
 
+//    for (auto candidate: query->getCandidateList()) {
+//        if (candidate.argument.argumentType == Argument::BOOLEAN_ARG) {
+//            continue;
+//        }
+//        if (!resultOfEvaluation->isSynonymPresent(candidate.argument.argumentName)) {
+//            getAllEntity(candidate.argument, resultOfEvaluation);
+//        }
+//    }
+
     // Merge with synonyms to be selected
-    for (auto candidate: query->getCandidateList()) {
-        if (candidate.argument.argumentType == Argument::BOOLEAN_ARG) {
-            continue;
-        }
-        if (!resultOfEvaluation->isSynonymPresent(candidate.argument.argumentName)) {
-            getAllEntity(candidate.argument, resultOfEvaluation);
+    for (auto synonym: query->getSynonymMap()) {
+        if (!resultOfEvaluation->isSynonymPresent(synonym.second.argumentName)) {
+            getAllEntity(synonym.second, resultOfEvaluation);
         }
     }
 
