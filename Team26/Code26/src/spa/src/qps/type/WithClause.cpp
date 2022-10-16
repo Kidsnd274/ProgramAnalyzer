@@ -2,36 +2,154 @@
 
 const std::unordered_map<
         Argument::ArgumentType,
-        AttributeType
+        std::unordered_set<AttributeType>
     > WithClause::withClauseValidationTableArg1{
-        {Argument::IF_SYNONYM, STMT_LINE_NUMBER},
-        {Argument::WHILE_SYNONYM, STMT_LINE_NUMBER},
-        {Argument::READ_SYNONYM, STMT_LINE_NUMBER},
-        {Argument::PRINT_SYNONYM, STMT_LINE_NUMBER},
-        {Argument::CALL_SYNONYM, STMT_LINE_NUMBER},
-        {Argument::ASSIGN_SYNONYM, STMT_LINE_NUMBER},
-        {Argument::STMT_SYNONYM, STMT_LINE_NUMBER},
-        {Argument::VAR_SYNONYM, WITH_VAR_NAME},
-        {Argument::PROCEDURE_SYNONYM, PROC_NAME},
-        {Argument::CONST_SYNONYM, WITH_CONST_VALUE},
+        {
+            Argument::IF_SYNONYM,
+            {
+                STMT_LINE_NUMBER
+            }
+        },
+        {
+            Argument::WHILE_SYNONYM,
+            {
+                STMT_LINE_NUMBER
+            }
+        },
+        {
+            Argument::READ_SYNONYM,
+            {
+                STMT_LINE_NUMBER,
+                WITH_VAR_NAME
+            }
+        },
+        {
+            Argument::PRINT_SYNONYM,
+            {
+                STMT_LINE_NUMBER,
+                WITH_VAR_NAME
+            }
+        },
+        {
+            Argument::CALL_SYNONYM,
+            {
+                STMT_LINE_NUMBER,
+                PROC_NAME
+            }
+        },
+        {
+            Argument::ASSIGN_SYNONYM,
+            {
+                STMT_LINE_NUMBER,
+            }
+        },
+        {
+            Argument::STMT_SYNONYM,
+            {
+                STMT_LINE_NUMBER
+            }
+        },
+        {
+            Argument::VAR_SYNONYM,
+            {
+                WITH_VAR_NAME
+            }
+        },
+        {
+            Argument::PROCEDURE_SYNONYM,
+            {
+                PROC_NAME,
+                STMT_LINE_NUMBER
+            }
+        },
+        {
+            Argument::CONST_SYNONYM,
+            {
+                WITH_CONST_VALUE
+            }
+        }
 };
 
 const std::unordered_map<
         Argument::ArgumentType,
-        AttributeType
-    > WithClause::withClauseValidationTableArg2 {
-        {Argument::IF_SYNONYM, STMT_LINE_NUMBER},
-        {Argument::WHILE_SYNONYM, STMT_LINE_NUMBER},
-        {Argument::READ_SYNONYM, STMT_LINE_NUMBER},
-        {Argument::PRINT_SYNONYM, STMT_LINE_NUMBER},
-        {Argument::CALL_SYNONYM, STMT_LINE_NUMBER},
-        {Argument::ASSIGN_SYNONYM, STMT_LINE_NUMBER},
-        {Argument::STMT_SYNONYM, STMT_LINE_NUMBER},
-        {Argument::VAR_SYNONYM, WITH_VAR_NAME},
-        {Argument::PROCEDURE_SYNONYM, PROC_NAME},
-        {Argument::CONST_SYNONYM, WITH_CONST_VALUE},
-        {Argument::ACTUAL_NAME, INAPPLICABLE},
-        {Argument::NUMBER, INAPPLICABLE}
+        std::unordered_set<AttributeType>
+    > WithClause::withClauseValidationTableArg2{
+        {
+            Argument::IF_SYNONYM,
+            {
+                    STMT_LINE_NUMBER
+            }
+        },
+        {
+            Argument::WHILE_SYNONYM,
+            {
+                    STMT_LINE_NUMBER
+            }
+        },
+        {
+            Argument::READ_SYNONYM,
+            {
+                    STMT_LINE_NUMBER,
+                    WITH_VAR_NAME
+            }
+        },
+        {
+            Argument::PRINT_SYNONYM,
+            {
+                    STMT_LINE_NUMBER,
+                    WITH_VAR_NAME
+            }
+        },
+        {
+            Argument::CALL_SYNONYM,
+            {
+                    STMT_LINE_NUMBER,
+                    WITH_VAR_NAME
+            }
+        },
+        {
+            Argument::ASSIGN_SYNONYM,
+            {
+                    STMT_LINE_NUMBER,
+            }
+        },
+        {
+            Argument::STMT_SYNONYM,
+            {
+                    STMT_LINE_NUMBER
+            }
+        },
+        {
+            Argument::VAR_SYNONYM,
+            {
+                    WITH_VAR_NAME
+            }
+        },
+        {
+            Argument::PROCEDURE_SYNONYM,
+            {
+                    PROC_NAME,
+                    STMT_LINE_NUMBER
+            }
+        },
+        {
+            Argument::CONST_SYNONYM,
+            {
+                    WITH_CONST_VALUE
+            }
+        },
+        {
+            Argument::ACTUAL_NAME,
+            {
+                INAPPLICABLE
+            }
+        },
+        {
+            Argument::NUMBER,
+            {
+                INAPPLICABLE
+            }
+        }
 };
 
 bool WithClause::isValid() {
@@ -45,7 +163,12 @@ bool WithClause::isValid() {
     if (iter2 == WithClause::withClauseValidationTableArg2.end()) {
         return false;
     }
-    if (iter1->second != this->arg1.attributeType || iter2->second != this->arg2.attributeType) {
+    auto iter3 = iter1->second.find(this->arg1.attributeType);
+    if (iter3 == iter1->second.end()) {
+        return false;
+    }
+    auto iter4 = iter2->second.find(this->arg2.attributeType);
+    if (iter4 == iter2->second.end()) {
         return false;
     }
     return true;
