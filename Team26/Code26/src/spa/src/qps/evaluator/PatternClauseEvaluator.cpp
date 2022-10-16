@@ -1,6 +1,11 @@
 #include "PatternClauseEvaluator.h"
 void PatternClauseEvaluator::evaluate(ResultTable* resultTable) {
     //initialize result table
+    if (this->patternClause->argument1.argumentType == Argument::IF_SYNONYM
+    || this->patternClause->argument1.argumentType == Argument::WHILE_SYNONYM) {
+        evaluateContainer(resultTable);
+        return;
+    }
     std::unordered_set<std::vector<std::string>, StringVectorHash> result;
     std::vector<std::string> synonyms = {this->patternClause->argument1.argumentName};
     if (patternClause->argument2.argumentType == Argument::VAR_SYNONYM) {
@@ -50,6 +55,31 @@ WildcardPosition PatternClauseEvaluator::getWildcardPosition() {
         }
     }
     return pos;
+}
+
+void PatternClauseEvaluator::evaluateContainer(QPS::ResultTable *resultTable) {
+    vector<string> stmtNumbers = QPS_PKB_Interface::getAllEntity(&this->patternClause->argument1);
+    unordered_set<vector<string>, StringVectorHash> result;
+    for (auto s: stmtNumbers) {
+        string varName = QPS_PKB_Interface::getConditionVarNameByStmtNum(s);
+        if (this->patternClause->argument2.argumentType == Argument::ACTUAL_NAME) {
+            if (varName != this->patternClause->argument2.argumentName) {
+                continue;
+            }
+            result.insert({s});
+        } else if (this->patternClause->argument2.argumentType == Argument::VAR_SYNONYM){
+            result.insert({s, varName});
+        } else { //wildcard
+            result.insert({s});
+        }
+    }
+    vector<string> synonyms;
+    synonyms.push_back(this->patternClause->argument1.argumentName);
+    if (this->patternClause->argument2.argumentType == Argument::VAR_SYNONYM) {
+        synonyms.push_back(this->patternClause->argument2.argumentName);
+    }
+    ResultTable tableToReturn = ResultTable(synonyms, result);
+    resultTable->replace(&tableToReturn);
 }
 
 shared_ptr<TNode> PatternClauseEvaluator::getPatternNode(WildcardPosition pos) {

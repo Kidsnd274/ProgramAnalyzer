@@ -26,6 +26,7 @@
 #include "FollowsStarTable.h"
 #include "CallTable.h"
 #include "CallStarTable.h"
+#include "ContainerTable.h"
 
 using namespace std;
 //using namespace StatementType;
@@ -147,6 +148,16 @@ shared_ptr<AssignNode> PKBInterface::getAssignTNode(const string& assignRef) {
     shared_ptr<TNode> tNode = assignStmt.rootNode;
 
     return AssignNode::createAssignNode(assignStmtNo, varName, tNode);
+}
+
+string PKBInterface::getConditionVar(const std::string &containerRef) {
+    int containerStmtNo = stoi(containerRef);
+    std::shared_ptr<TNode> node = pkb->containerTable->getConditionByStmtNumber(containerStmtNo);
+    return pkb->containerTable->getVarName(node);
+}
+
+void PKBInterface::addConditionNode(int statementNumber, shared_ptr<TNode> conditionNode) {
+    this->pkb->containerTable->insertCondition(statementNumber, conditionNode);
 }
 
 std::unordered_set<std::string> PKBInterface::getAllVariablesModified(std::string procedureName) {

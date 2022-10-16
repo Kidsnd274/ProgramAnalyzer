@@ -131,6 +131,13 @@ public:
     static std::string getReadVarName(std::string readLineNumber);
 
     static std::string getPrintVarName(std::string printLineNumber);
+
+    /**
+     * Call PKB interface to return the variable used in if/while condition statement.
+     * @param containerLineNumber the statement line number of if/while.
+     * @return the variable name.
+     */
+    static std::string getConditionVarNameByStmtNum(std::string containerLineNumber);
 };
 
 
