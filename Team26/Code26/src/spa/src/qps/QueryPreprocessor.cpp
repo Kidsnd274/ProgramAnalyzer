@@ -11,7 +11,7 @@ namespace QPS {
     std::pair<int, Exception> parseRelationStmtEnt(std::vector<QPS::Token> &tokens, int pos, RelationType relationType, Container &container);
     std::pair<int, Exception> parseRelationCalls(std::vector<QPS::Token> &tokens, int pos, RelationType relationType, Container &container);
     std::pair<int, Exception> parseWithClause(std::vector<QPS::Token> &tokens, int pos, Container &container);
-    std::pair<int, Exception> parseCallArg(std::vector<QPS::Token> &tokens, int pos, std::pair<Argument, Exception> ARG1, Container &container);
+    std::pair<int, Exception> parseCallArg(std::vector<QPS::Token> &tokens, int pos, std::pair<Argument, Exception>& ARG1, Container &container);
     std::pair<int, Exception> parsePatternExpression (std::vector<QPS::Token> &tokens,int pos,Container &container, std::string &expression);
     std::pair<int, Exception> parsePatternType (std::vector<QPS::Token> &tokens,int pos,Container &container, Argument::ArgumentType &typeOfPattern, std::string &pattern_syn);
     std::pair<int, Exception> parsePatternLeft (std::vector<QPS::Token> &tokens,int pos,Container &container, std::pair<Argument, bool> &ARG1);
@@ -628,7 +628,7 @@ namespace QPS {
         return {pos, VALID};
     }
 
-    std::pair<int, Exception> parseCallArg(std::vector<QPS::Token> &tokens, int pos, std::pair<Argument, Exception> ARG1, Container &container) {
+    std::pair<int, Exception> parseCallArg(std::vector<QPS::Token> &tokens, int pos, std::pair<Argument, Exception>& ARG1, Container &container) {
         if (pos < tokens.size() && tokens[pos].tokenType == NAME) {
             ARG1 = convertStringToStmtRefCalls(tokens[pos], container);
             if (ARG1.second != VALID) {
