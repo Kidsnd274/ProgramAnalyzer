@@ -31,17 +31,26 @@ std::string QueryResultProjector::getSelectTuples(Query query, std::list<std::st
     std::unordered_set<std::string> rowStringSet;
     std::vector<std::string> synonyms;
     std::unordered_set<std::vector<std::string>, QPS::StringVectorHash> tupleValues;
-    for (auto &candidate : query.getCandidateList()) {
-        synonyms.push_back(candidate.argumentName);
-    }
-    query.resultTable->getSynonymsValues(synonyms, tupleValues);
-    for (auto row : tupleValues) {
-        std::string rowString;
-        std::for_each(row.begin(), row.end(), [&](const std::string &piece){ rowString += piece + " "; });
-        std::string trimmedRowString = rowString.substr(0, rowString.length() - 1);
-        resultString += trimmedRowString + ", ";
-        rowStringSet.insert(trimmedRowString);
-        results.push_back(trimmedRowString);
+
+    if (query.isBooleanQuery()) {
+        if (!table.empty() || query.clauseList->empty()) {
+            results.push_back("TRUE");
+        } else {
+            results.push_back("FALSE");
+        }
+    } else {
+        for (auto &candidate: query.getCandidateList()) {
+            synonyms.push_back(candidate.argumentName);
+        }
+        query.resultTable->getSynonymsValues(synonyms, tupleValues);
+        for (auto row: tupleValues) {
+            std::string rowString;
+            std::for_each(row.begin(), row.end(), [&](const std::string &piece) { rowString += piece + " "; });
+            std::string trimmedRowString = rowString.substr(0, rowString.length() - 1);
+            resultString += trimmedRowString + ", ";
+            rowStringSet.insert(trimmedRowString);
+            results.push_back(trimmedRowString);
+        }
     }
     return resultString.substr(0, resultString.length() - 2);
 }

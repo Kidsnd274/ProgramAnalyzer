@@ -56,6 +56,8 @@ public:
     std::unordered_map<std::string, Argument>& getSynonymMap();
 
     std::vector<Argument>& getCandidateList();
+
+    bool isBooleanQuery();
 };
 
 
