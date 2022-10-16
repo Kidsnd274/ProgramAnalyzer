@@ -58,7 +58,7 @@ void QueryEvaluator::getAllEntity(Argument argument, QPS::ResultTable *resultTab
 void QueryEvaluator::changeToAttrName(Query *query, QPS::ResultTable *resultTable) {
     std::vector<pair<int, Query::CandidateStruct>> colsToChange;
     for (auto candidate : query->getCandidateList()) {
-        if (candidate.attributeType != INVALID_ATTR_TYPE) {
+        if (candidate.attributeType != INAPPLICABLE) {
             colsToChange.push_back(
                     make_pair(
                             resultTable->getSynonymColRef().find(candidate.argument.argumentName)->second,
