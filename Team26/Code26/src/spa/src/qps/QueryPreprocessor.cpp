@@ -292,11 +292,20 @@ namespace QPS {
     std::pair<int, Exception> parseWithClause(std::vector<QPS::Token> &tokens, int pos, Container &container) {
         WithClause::WithClauseArgument arg1, arg2;
         Argument argument1, argument2;
-        std::pair<int, Exception> result = parseWithObject(tokens, pos, container, argument1, arg1);
-        if (result.second == VALID) {
-            pos = result.first;
+        std::pair<int, Exception> result;
+        if (pos + 2 < tokens.size() && tokens[pos].tokenType == DOUBLE_QUOTE && tokens[pos+2].tokenType == DOUBLE_QUOTE
+            && (tokens[pos + 1].tokenType == NAME)) {
+            argument1 = Argument(tokens[pos + 1].nameValue, Argument::ACTUAL_NAME);
+            arg1 = {argument1, INAPPLICABLE};
+            pos+=3;
         } else {
-            return {pos, result.second};
+            result = parseWithObject(tokens, pos, container, argument1, arg1);
+            if (result.second == VALID) {
+                pos = result.first;
+            } else {
+                return {pos, result.second};
+            }
+
         }
 
         if (pos < tokens.size() && tokens[pos].tokenType != SINGLE_EQ) {

@@ -414,33 +414,33 @@ Select <c,v> such that Modifies(c,v)
 29 dA,29 dAAA,3 bA,3 bD,3 dA,3 dAAA,3 file,3 k,3 uniA,3 x,3 y,3 z,37 dA,37 dAAA,45 file,45 k,45 x,45 y,45 z
 5000
 84 - valid query (independent synonym)
-call c; stmt s; 
-Select <c,s> such that Next(c, s) 
+call c; stmt s;
+Select <c,s> such that Next(c, s)
 29 30,3 4,31 32,37 38,40 41,64 62
 5000
 85 - valid query (independent synonym)
-call c; read re; 
-Select <c,re> such that Next(c, re) 
+call c; read re;
+Select <c,re> such that Next(c, re)
 29 30
 5000
 86 - valid query (independent synonym)
-call c; assign a; 
-Select <c,a> such that Next(c, a) 
+call c; assign a;
+Select <c,a> such that Next(c, a)
 
 5000
 87 - valid query (independent synonym)
-call c; print pn; 
-Select <c,pn> such that Next(c, pn) 
+call c; print pn;
+Select <c,pn> such that Next(c, pn)
 31 32
 5000
 88 - valid query (independent synonym)
-call c; while w; 
-Select <c,w> such that Next(c, w) 
+call c; while w;
+Select <c,w> such that Next(c, w)
 40 41,64 62
 5000
 89 - valid query (independent synonym)
-call c; if ifs; 
-Select <c,ifs> such that Next(c, ifs) 
+call c; if ifs;
+Select <c,ifs> such that Next(c, ifs)
 3 4,37 38
 5000
 90 - valid query (independent synonym)
@@ -449,33 +449,33 @@ Select <v,c> such that Modifies(c,v)
 bA 3,bD 3,dA 29,dA 3,dA 37,dAAA 29,dAAA 3,dAAA 37,file 3,file 45,k 3,k 45,uniA 3,x 3,x 45,y 3,y 45,z 3,z 45
 5000
 91 - valid query (independent synonym)
-call c; stmt s; 
-Select <s,c> such that Next(c, s) 
+call c; stmt s;
+Select <s,c> such that Next(c, s)
 30 29,32 31,38 37,4 3,41 40,62 64
 5000
 92 - valid query (independent synonym)
-call c; read re; 
-Select <re,c> such that Next(c, re) 
+call c; read re;
+Select <re,c> such that Next(c, re)
 30 29
 5000
 93 - valid query (independent synonym)
-call c; assign a; 
-Select <a,c> such that Next(c, a) 
+call c; assign a;
+Select <a,c> such that Next(c, a)
 
 5000
 94 - valid query (independent synonym)
-call c; print pn; 
-Select <pn,c> such that Next(c, pn) 
+call c; print pn;
+Select <pn,c> such that Next(c, pn)
 32 31
 5000
 95 - valid query (independent synonym)
-call c; while w; 
-Select <w,c> such that Next(c, w) 
+call c; while w;
+Select <w,c> such that Next(c, w)
 41 40,62 64
 5000
 96 - valid query (independent synonym)
-call c; if ifs; 
-Select <ifs,c> such that Next(c, ifs) 
+call c; if ifs;
+Select <ifs,c> such that Next(c, ifs)
 38 37,4 3
 5000
 1 - tuples 2 arg
@@ -894,33 +894,33 @@ Select <c,v.varName> such that Modifies(c,v)
 29 dA,29 dAAA,3 bA,3 bD,3 dA,3 dAAA,3 file,3 k,3 uniA,3 x,3 y,3 z,37 dA,37 dAAA,45 file,45 k,45 x,45 y,45 z
 5000
 84 - valid query (independent synonym)
-call c; stmt s; 
-Select <c,s.stmt#> such that Next(c, s) 
+call c; stmt s;
+Select <c,s.stmt#> such that Next(c, s)
 29 30,3 4,31 32,37 38,40 41,64 62
 5000
 85 - valid query (independent synonym)
-call c; read re; 
-Select <c,re.stmt#> such that Next(c, re) 
+call c; read re;
+Select <c,re.stmt#> such that Next(c, re)
 29 30
 5000
 86 - valid query (independent synonym)
-call c; assign a; 
-Select <c,a.stmt#> such that Next(c, a) 
+call c; assign a;
+Select <c,a.stmt#> such that Next(c, a)
 
 5000
 87 - valid query (independent synonym)
-call c; print pn; 
-Select <c,pn.stmt#> such that Next(c, pn) 
+call c; print pn;
+Select <c,pn.stmt#> such that Next(c, pn)
 31 32
 5000
 88 - valid query (independent synonym)
-call c; while w; 
-Select <c,w.stmt#> such that Next(c, w) 
+call c; while w;
+Select <c,w.stmt#> such that Next(c, w)
 40 41,64 62
 5000
 89 - valid query (independent synonym)
-call c; if ifs; 
-Select <c,ifs.stmt#> such that Next(c, ifs) 
+call c; if ifs;
+Select <c,ifs.stmt#> such that Next(c, ifs)
 3 4,37 38
 5000
 90 - valid query (independent synonym)
@@ -929,33 +929,33 @@ Select <v,c.stmt#> such that Modifies(c,v)
 bA 3,bD 3,dA 29,dA 3,dA 37,dAAA 29,dAAA 3,dAAA 37,file 3,file 45,k 3,k 45,uniA 3,x 3,x 45,y 3,y 45,z 3,z 45
 5000
 91 - valid query (independent synonym)
-call c; stmt s; 
-Select <s,c.stmt#> such that Next(c, s) 
+call c; stmt s;
+Select <s,c.stmt#> such that Next(c, s)
 30 29,32 31,38 37,4 3,41 40,62 64
 5000
 92 - valid query (independent synonym)
-call c; read re; 
-Select <re,c.stmt#> such that Next(c, re) 
+call c; read re;
+Select <re,c.stmt#> such that Next(c, re)
 30 29
 5000
 93 - valid query (independent synonym)
-call c; assign a; 
-Select <a,c.stmt#> such that Next(c, a) 
+call c; assign a;
+Select <a,c.stmt#> such that Next(c, a)
 
 5000
 94 - valid query (independent synonym)
-call c; print pn; 
-Select <pn,c.stmt#> such that Next(c, pn) 
+call c; print pn;
+Select <pn,c.stmt#> such that Next(c, pn)
 32 31
 5000
 95 - valid query (independent synonym)
-call c; while w; 
-Select <w,c.stmt#> such that Next(c, w) 
+call c; while w;
+Select <w,c.stmt#> such that Next(c, w)
 41 40,62 64
 5000
 96 - valid query (independent synonym)
-call c; if ifs; 
-Select <ifs,c.stmt#> such that Next(c, ifs) 
+call c; if ifs;
+Select <ifs,c.stmt#> such that Next(c, ifs)
 38 37,4 3
 5000
 97 - valid query (independent synonym)
@@ -964,43 +964,43 @@ Select <v,c.procName> such that Modifies(c,v)
 bA procB,bD procB,dA procB,dA procD,dAAA procB,dAAA procD,file procB,file procC,k procB,k procC,uniA procB,x procB,x procC,y procB,y procC,z procB,z procC
 5000
 98 - valid query (independent synonym)
-call c; stmt s; 
-Select <s,c.procName> such that Next(c, s) 
+call c; stmt s;
+Select <s,c.procName> such that Next(c, s)
 30 procD,32 procE,38 procD,4 procB,41 procE,62 procE
 5000
 99 - valid query (independent synonym)
-call c; read re; 
-Select <re,c.procName> such that Next(c, re) 
+call c; read re;
+Select <re,c.procName> such that Next(c, re)
 30 procD
 5000
 100 - valid query (independent synonym)
-call c; assign a; 
-Select <a,c.procName> such that Next(c, a) 
+call c; assign a;
+Select <a,c.procName> such that Next(c, a)
 
 5000
 101 - valid query (independent synonym)
-call c; print pn; 
-Select <pn,c.procName> such that Next(c, pn) 
+call c; print pn;
+Select <pn,c.procName> such that Next(c, pn)
 32 procE
 5000
 102 - valid query (independent synonym)
-call c; while w; 
-Select <w,c.procName> such that Next(c, w) 
+call c; while w;
+Select <w,c.procName> such that Next(c, w)
 41 procE,62 procE
 5000
 103 - valid query (independent synonym)
-call c; if ifs; 
-Select <ifs,c.procName> such that Next(c, ifs) 
+call c; if ifs;
+Select <ifs,c.procName> such that Next(c, ifs)
 38 procD,4 procB
 5000
 104 - valid query (independent synonym)
-call c; read re; 
-Select <c,re.varName> such that Next(c, re) 
+call c; read re;
+Select <c,re.varName> such that Next(c, re)
 29 uniA
 5000
 105 - valid query (independent synonym)
-call c; print pn; 
-Select <c,pn.varName> such that Next(c, pn) 
+call c; print pn;
+Select <c,pn.varName> such that Next(c, pn)
 31 uniB
 5000
 106 - valid query variable
@@ -1010,6 +1010,6 @@ EEEEE EEEEE 26,EEEEE EEEEE 28,EEEEE EEEEE 29,EEEEE EEEEE 3,EEEEE EEEEE 31,EEEEE 
 5000
 107 - valid query variable
 variable v; procedure p;
-Select <p,v> such that Uses(p,v) 
+Select <p,v> such that Uses(p,v)
 ifInIf ifA,ifInIf ifB,ifInIf ifC,ifInIf ifD,ifInIf uniC,procA EEEEE,procA a,procA a1,procA ab,procA abc,procA ai,procA b,procA b1,procA bA,procA bAAA,procA bB,procA bBBB,procA bC,procA bD,procA c,procA cA,procA d,procA dAAA,procA dB,procA dBBB,procA dC,procA dD,procA dE,procA dF,procA dc,procA e,procA file,procA ifVar,procA ifVar2,procA ifVar3,procA k,procA m,procA max,procA min,procA o,procA p,procA q,procA r,procA result,procA uniA,procA uniB,procA x,procA y,procA z,procB EEEEE,procB bA,procB bAAA,procB bB,procB bBBB,procB bC,procB bD,procB cA,procB dAAA,procB dB,procB dBBB,procB dC,procB dD,procB dE,procB dF,procB dc,procB k,procB uniA,procB uniB,procB x,procB y,procC cA,procC k,procC x,procC y,procD EEEEE,procD dAAA,procD dB,procD dBBB,procD dC,procD dD,procD dE,procD dF,procD dc,procD uniA,procE EEEEE
 5000
