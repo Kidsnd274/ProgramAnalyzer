@@ -203,7 +203,7 @@ bool isStatementTypeMatched(StatementType::StmtType stmtType, Argument::Argument
 }
 
 std::vector<std::vector<Statement>>& filterStmtList(const std::vector<std::vector<Statement>>& stmtList, Argument& arg) {
-    std::vector<std::vector<Statement>> resultStmtList;
+    std::vector<std::vector<Statement>>* resultStmtList = new vector<vector<Statement>>();
     for (auto iter = stmtList.begin(); iter != stmtList.end(); iter++) {
         std::vector<Statement> lineResult;
         for (auto stmt = iter->begin(); stmt != iter->end(); stmt++) {
@@ -218,9 +218,9 @@ std::vector<std::vector<Statement>>& filterStmtList(const std::vector<std::vecto
                 lineResult.push_back(*stmt);
             }
         }
-        resultStmtList.push_back(lineResult);
+        resultStmtList->push_back(lineResult);
     }
-    return resultStmtList;
+    return *resultStmtList;
 }
 
 void RelationClauseEvaluator::evaluateFollowsT(QPS::ResultTable *resultTable) {
