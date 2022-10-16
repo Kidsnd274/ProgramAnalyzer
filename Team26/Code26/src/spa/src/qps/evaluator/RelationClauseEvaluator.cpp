@@ -422,14 +422,16 @@ ResultTable *RelationClauseEvaluator::filterTable(unordered_set<vector<std::stri
     std::vector<std::string> a2;
     bool isArg1Synonym = Argument::isSynonym(arg1.argumentType);
     bool isArg2Synonym = Argument::isSynonym(arg2.argumentType);
+    bool isArg2Pushed = false;
     vector<string> synonyms;
     if (isArg1Synonym) {
         synonyms.push_back(arg1.argumentName);
         a1 = QPS_PKB_Interface::getAllEntity(&arg1);
     }
-    if (isArg2Synonym) {
+    if (isArg2Synonym && std::find(synonyms.begin(), synonyms.end(), arg1.argumentName) == synonyms.end()) {
         synonyms.push_back(arg2.argumentName);
         a2 = QPS_PKB_Interface::getAllEntity(&arg2);
+        isArg2Pushed = true;
     }
     unordered_set<vector<std::string>, QPS::StringVectorHash> filteredResult;
     for (auto r: *result) {
@@ -437,8 +439,15 @@ ResultTable *RelationClauseEvaluator::filterTable(unordered_set<vector<std::stri
         if (isArg1Synonym && isArg2Synonym) {
             if (std::find(a1.begin(), a1.end(), r[0])!= a1.end()
             && std::find(a2.begin(), a2.end(), r[1])!= a2.end()) {
+                if (arg1.argumentType == arg2.argumentType && arg1.argumentName == arg2.argumentName) {
+                    if (r[0] != r[1]) {
+                        continue;
+                    }
+                }
                 tableRow.push_back(r[0]);
-                tableRow.push_back(r[1]);
+                if (isArg2Pushed) {
+                    tableRow.push_back(r[1]);
+                }
                 filteredResult.insert(tableRow);
             }
         } else if (isArg1Synonym && std::find(a1.begin(), a1.end(), r[0])!= a1.end() ) {
@@ -450,6 +459,7 @@ ResultTable *RelationClauseEvaluator::filterTable(unordered_set<vector<std::stri
         }
 
     }
+
     ResultTable* r = new ResultTable(synonyms, filteredResult);
     return r;
 }
