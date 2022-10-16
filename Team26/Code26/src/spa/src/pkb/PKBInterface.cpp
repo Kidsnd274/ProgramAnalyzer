@@ -206,6 +206,9 @@ unordered_map<int,int> PKBInterface::getAllFollowStar() {
 }
 
 unordered_map<int, std::vector<std::string>> PKBInterface::getAllModifyByStmt() {
+    if (!isCallAdded) {
+        this->addCallToUsesAndModifies();
+    }
     return pkb->modifiesTable->getAllModifiesByStmt();
 }
 
@@ -222,6 +225,9 @@ unordered_map<int, std::vector<int>> PKBInterface::getAllParentStar() {
 }
 
 unordered_map<int, std::vector<std::string>> PKBInterface::getAllUseByStmt() {
+    if (!isCallAdded) {
+        this->addCallToUsesAndModifies();
+    }
     return pkb->usesTable->getAllUsesByStmt();
 }
 
@@ -312,4 +318,20 @@ std::string PKBInterface::getPrintVarName(std::string printLineNumber) {
     int printLine = std::stoi(printLineNumber);
     std::unordered_map<int, std::vector<std::string>> usesList = pkb->usesTable->getAllUsesByStmt();
     return usesList[printLine].front();
+}
+
+void PKBInterface::addCallToUsesAndModifies() {
+    vector<string> allCalls = pkb->statementTable->getAllCalls();
+    for (auto c: allCalls) {
+        string pName = getCallProcName(c);
+        unordered_set<string> varNamesUsed = getAllVariablesUsed(pName);
+        unordered_set<string> varNamesModified = getAllVariablesModified(pName);
+        for (auto var: varNamesUsed) {
+            pkb->usesTable->insertUses(stoi(c), var);
+        }
+        for (auto var: varNamesModified) {
+            pkb->modifiesTable->insertModifies(stoi(c), var);
+        }
+    }
+    this->isCallAdded = true;
 }
