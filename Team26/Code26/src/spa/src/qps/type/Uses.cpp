@@ -39,7 +39,7 @@ const std::unordered_map<
             secondARGs
         },
         {
-            Argument::ACTUAL_NAME,    // Actual name of procedure, i.e. "prod1"
+            Argument::PROCEDURE_ACTUAL_NAME,    // Actual name of procedure, i.e. "prod1"
             secondARGs
         },
         {
