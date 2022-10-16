@@ -154,16 +154,18 @@ void QueryManager::handleQuery(PKBInterface *pkb, std::string queryString, std::
         case UNDECLARED_SELECT_ENTITY:
         case INVALID_WITH_TYPE_EXCEPTION:
         case UNDECLARED_ENTITY_WITH:
+        case UNDECLARED_ENTITY_SUCH_THAT:
+        case UNDECLARED_ENTITY_PATTERN:
         case INVALID_PATTERN_CONTENT:
         case INVALID_RELATION: {
             query.setStatus(SYNTAX_ERROR);
             break;
         }
-        case UNDECLARED_ENTITY_PATTERN:
-        case UNDECLARED_ENTITY_SUCH_THAT:{
-            query.setStatus(SEMANTIC_ERROR);;
-            break;
-        }
+//        case UNDECLARED_ENTITY_PATTERN:
+//        case UNDECLARED_ENTITY_SUCH_THAT:{
+//            query.setStatus(SEMANTIC_ERROR);;
+//            break;
+//        }
         case VALID: {
             query.setStatus(VALID_QUERY);;
         }

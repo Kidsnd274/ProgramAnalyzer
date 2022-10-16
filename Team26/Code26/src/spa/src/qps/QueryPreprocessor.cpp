@@ -737,6 +737,9 @@ namespace QPS {
             return {pos, INVALID_RELATION_CONTENT};
         } else if (pos < tokens.size() && (tokens[pos].tokenType == NAME)) {
             ARG2 = convertStringToARG(tokens[pos], container);
+            if (ARG2.second != VALID) {
+                return {pos, ARG2.second};
+            }
             pos++;
         } else if (pos < tokens.size() && tokens[pos].tokenType == UNDERSCORE) {
             ARG2 = {{"_", Argument::WILDCARD}, VALID};
