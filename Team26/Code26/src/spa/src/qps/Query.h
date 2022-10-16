@@ -39,13 +39,6 @@ public:
         this->status = VALID_QUERY;
     }
 
-//    ~Query() {
-//        delete this->synonymMap;
-//        delete this->candidateMap;
-//        delete this->clauseList;
-//        delete this->resultTable;
-//    }
-
     void addSynonym(Argument& synonym);
 
     void addCandidate(CandidateStruct& candidate);

@@ -69,14 +69,14 @@ namespace QPS {
             this->queryStruct.addSynonym(argument);
         }
 
-        void addCandidateList(Argument::ArgumentType argumentType, std::string s) {
-            Argument argument = Argument(s, argumentType);
-            this->queryStruct.addCandidate(argument);
+        void addCandidateList(Query::CandidateStruct candidateStruct) {
+            this->queryStruct.addCandidate(candidateStruct);
         }
 
         void addCandidateListBoolean() {
             Argument argument = Argument("boolean", Argument::BOOLEAN_ARG);
-            this->queryStruct.addCandidate(argument);
+            Query::CandidateStruct candidateStruct = {argument, INAPPLICABLE};
+            this->queryStruct.addCandidate(candidateStruct);
         }
 
         void addSuchThatClause(RelationType relationType, Argument arg1, Argument arg2) {
