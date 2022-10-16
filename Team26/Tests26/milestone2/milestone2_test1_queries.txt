@@ -716,7 +716,7 @@ none
 141 - follows
 print pr;
 Select a such that Follows (29, pr)
-SemanticError
+SyntaxError
 5000
 142 - pattern
 assign a;
@@ -741,15 +741,20 @@ SemanticError
 146 - while
 while w; stmt s;
 Select x such that Uses (s,  "x")
-SemanticError
+SyntaxError
 5000
 147 - follows*
 stmt s;
 Select a such that Follows* (s, 38)
-SemanticError
+SyntaxError
 5000
 148 - modifies with pattern
 assign a; variable v; while w;
 Select w such that Modifies (w, v) pattern a (v,  _"pointx"_)
 33, 8, 11, 14
+5000
+148 - modifies with pattern
+assign a; variable v; stmt s;
+Select s pattern s (v,  _"pointx"_)
+SemanticError
 5000
