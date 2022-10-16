@@ -3,6 +3,7 @@
 
 #include "Query.h"
 #include "ResultTable.h"
+#include <algorithm>
 #include <list>
 
 class QueryResultProjector {
