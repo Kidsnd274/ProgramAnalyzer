@@ -124,6 +124,7 @@ namespace QPS {
         void printIntVector(const std::vector<int>& v);
         void emptyTable();
         void replace(ResultTable* otherTable);
+        void setTable(std::vector<std::vector<std::string>>& newTable);
     };
 
     void suspendExecution(const std::string& errorMsg);

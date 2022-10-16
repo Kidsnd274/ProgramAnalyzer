@@ -331,4 +331,8 @@ namespace QPS {
     std::unordered_map<std::string, int> ResultTable::getSynonymColRef() {
         return this->synonymColRef;
     }
+
+    void ResultTable::setTable(std::vector<std::vector<std::string>>& newTable) {
+        this->table = newTable;
+    }
 }

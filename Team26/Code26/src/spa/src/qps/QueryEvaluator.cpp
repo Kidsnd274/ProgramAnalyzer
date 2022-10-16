@@ -67,17 +67,23 @@ void QueryEvaluator::changeToAttrName(Query *query, QPS::ResultTable *resultTabl
             );
         }
     }
-    for (auto row : resultTable->getTable()) {
+    std::vector<std::vector<std::string>> attrNameResultTable = resultTable->getTable();
+    for (int i = 0; i < attrNameResultTable.size(); i++) {
+        std::vector<std::string> row = attrNameResultTable.at(i);
         for (auto col : colsToChange) {
             int colNum = col.first;
-            row.at(colNum) = getAttrName(row.at(colNum), col.second);
+            string temp = getAttrName(row.at(colNum), col.second);
+            row[colNum] = getAttrName(row.at(colNum), col.second);
         }
+        attrNameResultTable[i] = row;
     }
+    resultTable->setTable(attrNameResultTable);
 }
 
 std::string QueryEvaluator::getAttrName(std::string value, Query::CandidateStruct candidate) {
-    if (candidate.attributeType == AttributeType::PROC_STMT_LINE_NUMBER
+    if (candidate.attributeType == AttributeType::STMT_LINE_NUMBER
         && candidate.argument.argumentType == Argument::PROCEDURE_SYNONYM) {
+        string temp = QPS_PKB_Interface::getProcLineNumberByName(value);
         return QPS_PKB_Interface::getProcLineNumberByName(value);
     }
     if (candidate.attributeType == AttributeType::PROC_NAME
