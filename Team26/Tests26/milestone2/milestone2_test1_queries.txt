@@ -758,3 +758,8 @@ assign a; variable v; stmt s;
 Select s pattern s (v,  _"pointx"_)
 SemanticError
 5000
+148 - modifies with pattern
+assign a; variable v; if ifs;
+Select ifs pattern ifs (v,  _)
+38
+5000
