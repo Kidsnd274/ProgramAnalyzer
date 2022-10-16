@@ -59,6 +59,8 @@ private:
      */
     void filterRelations(std::unordered_map<int, std::vector<std::string>> map, QPS::ResultTable *resultTable);
 
+    void filterRelations(std::unordered_map<int, int> map, QPS::ResultTable* resultTable);
+
     bool existInStringVector(std::string s, std::vector<std::string> v);
     bool existInIntVector(int s, std::vector<int> v);
 

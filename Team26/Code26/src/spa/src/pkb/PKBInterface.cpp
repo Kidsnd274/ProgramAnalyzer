@@ -37,6 +37,14 @@ void PKBInterface::addProcedure(std::string name, int startingStmtNo, int ending
     proc.endingStmtNo = endingStmtNo;
     proc.cfg = std::move(cfg);
     pkb->procedureTable->insertProc(proc);
+
+    // insert stmts into NextTable
+    for (int i = startingStmtNo; i <= endingStmtNo; i++) {
+        EDGES edges = cfg->getEdges(i);
+        for (auto node : edges) {
+            pkb->nextTable->insertNext(i, node.getStmtNumber());
+        }
+    }
 }
 
 void PKBInterface::addVariable(string name) {
@@ -203,6 +211,10 @@ unordered_map<int,int> PKBInterface::getAllFollow() {
 
 unordered_map<int,int> PKBInterface::getAllFollowStar() {
     return pkb->followsStarTable->getAllFollowStars();
+}
+
+unordered_map<int, int> PKBInterface::getAllNext() {
+    return pkb->nextTable->getAllNext();
 }
 
 unordered_map<int, std::vector<std::string>> PKBInterface::getAllModifyByStmt() {

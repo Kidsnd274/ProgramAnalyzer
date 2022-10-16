@@ -60,6 +60,7 @@ public:
     virtual unordered_map<std::string, std::vector<std::string>> getAllCallStar();
     virtual unordered_map<int,int> getAllFollow();
     virtual unordered_map<int,int> getAllFollowStar();
+    virtual unordered_map<int, int> getAllNext();
     virtual unordered_map<int, std::vector<std::string>> getAllModifyByStmt();
     virtual unordered_map<std::string, std::vector<std::string>> getAllModifyByProc();
     virtual unordered_map<int, std::vector<int>> getAllParent();
