@@ -45,7 +45,11 @@ const std::unordered_map<
         {
             Argument::WILDCARD,
             secondARGs
-        }
+        },
+        {
+            Argument::STMT_SYNONYM,
+            secondARGs
+        },
 };
 
 bool Uses::isValid() {
