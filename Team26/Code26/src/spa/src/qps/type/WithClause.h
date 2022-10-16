@@ -12,7 +12,7 @@ enum AttributeType {
     WITH_CONST_VALUE,
     STMT_LINE_NUMBER,
     INAPPLICABLE,
-    INVALID_WITH_CLAUSE_TYPE
+    INVALID_ATTR_TYPE
 };
 
 class WithClause : public Clause {

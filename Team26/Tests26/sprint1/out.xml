@@ -1,63 +1,14 @@
 <?xml-stylesheet type="text/xsl" href="analysis.xsl"?>
 <test_results>
 <info>
-<name>autotester</name><parsing_time_taken>0.984000</parsing_time_taken>
+<name>autotester</name><parsing_time_taken>2.987000</parsing_time_taken>
 </info>
 <queries>
 <query>
-<id ReturnTuple="1" Modifies="1" SuchThat="1" CondNum="3" RelNum="1" comment="Simple test with Modifies">1</id><querystr><![CDATA[constant c; variable v; assign a; Select <a, v> such that Modifies(a, "x")]]></querystr>
-<stuans>9 z,5 p,5 x,3 x,9 x,5 z,9 p,3 y,5 y,3 z,9 y,3 p</stuans>
-<correct>5 z,9 x,5 p,5 x,3 x,9 z,3 y,9 p,5 y,3 z,9 y,3 p</correct>
-<time_taken>46.004000</time_taken>
-<passed/>
-</query>
-<query>
-<id ReturnTuple="1" Modifies="1" SuchThat="1" CondNum="3" RelNum="1" comment="Simple test with Modifies">2</id><querystr><![CDATA[constant c; variable v; assign a; Select <a, v> such that Modifies(a, v)]]></querystr>
-<stuans>11 z,10 z,9 x,5 x,3 x,7 z,6 y</stuans>
-<correct>9 x,5 x,3 x,11 z,10 z,6 y,7 z</correct>
-<time_taken>40.190000</time_taken>
-<passed/>
-</query>
-<query>
-<id ReturnTuple="1" Modifies="1" SuchThat="1" CondNum="3" RelNum="1" comment="Simple test with Modifies">3</id><querystr><![CDATA[constant c; variable v; assign a; Select <a, v> such that Modifies(a, "k")]]></querystr>
-<stuans></stuans>
-<correct></correct>
-<time_taken>43.526000</time_taken>
-<passed/>
-</query>
-<query>
-<id ReturnTuple="1" Modifies="1" SuchThat="1" CondNum="3" RelNum="1" comment="Simple test with Modifies">4</id><querystr><![CDATA[constant c; variable v; assign a; Select <a, v> such that Modifies(a, k)]]></querystr>
-<stuans>SyntaxError</stuans>
-<correct>SyntaxError</correct>
-<time_taken>41.049000</time_taken>
-<passed/>
-</query>
-<query>
-<id ReturnTuple="1" Uses="1" SuchThat="1" CondNum="3" RelNum="1" comment="Simple test with Uses">5</id><querystr><![CDATA[constant c; variable v; assign a; Select <a, v> such that Uses(a, "x")]]></querystr>
-<stuans>11 x,11 p,10 x,10 y,3 x,3 p,7 x,11 y,7 y,3 y,10 p,6 p,11 z,7 p,3 z,6 x,10 z,7 z,6 y,6 z</stuans>
-<correct>10 y,11 y,7 y,6 y,3 y,11 x,10 x,7 x,6 x,3 x,7 p,3 z,11 z,10 z,7 z,6 z,6 p,10 p,3 p,11 p</correct>
-<time_taken>34.943000</time_taken>
-<passed/>
-</query>
-<query>
-<id ReturnTuple="1" Uses="1" SuchThat="1" CondNum="3" RelNum="1" comment="Simple test with Uses">6</id><querystr><![CDATA[constant c; variable v; assign a; Select <a, v> such that Uses(a, v)]]></querystr>
-<stuans>11 y,5 y,6 x,5 z,11 x,10 x,7 x,3 x</stuans>
-<correct>11 x,5 z,10 x,7 x,3 x,11 y,5 y,6 x</correct>
-<time_taken>29.407000</time_taken>
-<passed/>
-</query>
-<query>
-<id ReturnTuple="1" Uses="1" SuchThat="1" CondNum="3" RelNum="1" comment="Simple test with Uses">7</id><querystr><![CDATA[constant c; variable v; assign a; Select <a, v> such that Uses(a, "k")]]></querystr>
-<stuans></stuans>
-<correct></correct>
-<time_taken>32.392000</time_taken>
-<passed/>
-</query>
-<query>
-<id ReturnTuple="1" Uses="1" SuchThat="1" CondNum="3" RelNum="1" comment="Simple test with Uses">8</id><querystr><![CDATA[constant c; variable v; assign a; Select <a, v> such that Uses(a, k)]]></querystr>
-<stuans>SyntaxError</stuans>
-<correct>SyntaxError</correct>
-<time_taken>33.963000</time_taken>
+<id ReturnBoolean="1" Calls="1" SuchThat="1" CondNum="3" RelNum="1" comment="Call with procedure calling itself">1</id><querystr><![CDATA[procedure p; Select BOOLEAN such that Calls(p, "readPoint")]]></querystr>
+<stuans>TRUE</stuans>
+<correct>TRUE</correct>
+<time_taken>23.948000</time_taken>
 <passed/>
 </query>
 </queries>
