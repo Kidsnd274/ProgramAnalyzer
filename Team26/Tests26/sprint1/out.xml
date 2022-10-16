@@ -1,8 +1,24 @@
 <?xml-stylesheet type="text/xsl" href="analysis.xsl"?>
 <test_results>
 <info>
-<name>autotester</name><parsing_time_taken>3.188000</parsing_time_taken>
+<name>autotester</name><parsing_time_taken>3.042000</parsing_time_taken>
 </info>
 <queries>
 <query>
-<id ReturnTuple="1" With="1" CondNum="2" RelNum="0" comment="test">1</id><querystr><![CDATA[assign a; procedure p; Select a with a.stmt#=6]]></querystr>
+<id ReturnTuple="1" Next="1" SuchThat="1" CondNum="3" RelNum="1" comment="test">1</id><querystr><![CDATA[stmt s1, s2; Select s1 such that Next(s1, 2)]]></querystr>
+<stuans>1</stuans>
+<correct>6</correct>
+<time_taken>19.425000</time_taken>
+<failed>
+<missing>6</missing>
+<additional>1</additional>
+<summary>
+<expected>1</expected>
+<matched>0</matched>
+<missing>1</missing>
+<additional>1</additional>
+</summary>
+</failed>
+</query>
+</queries>
+</test_results>

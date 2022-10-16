@@ -44,6 +44,9 @@ void PKBInterface::addProcedure(std::string name, int startingStmtNo, int ending
     for (int i = startingStmtNo; i <= endingStmtNo; i++) {
         EDGES edges = proc.cfg->getEdges(i);
         for (auto node : edges) {
+            if (i == node.getStmtNumber()) {
+                continue;
+            }
             pkb->nextTable->insertNext(i, node.getStmtNumber());
         }
     }
