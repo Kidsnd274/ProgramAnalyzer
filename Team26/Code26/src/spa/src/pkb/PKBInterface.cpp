@@ -26,6 +26,7 @@
 #include "FollowsStarTable.h"
 #include "CallTable.h"
 #include "CallStarTable.h"
+#include "ProcedureNotFoundException.h"
 
 using namespace std;
 //using namespace StatementType;
@@ -334,4 +335,14 @@ void PKBInterface::addCallToUsesAndModifies() {
         }
     }
     this->isCallAdded = true;
+}
+
+CFGHeadPtr PKBInterface::getCfgOfProcedure(std::string procedureName) {
+    for (Procedure currentProcedure:pkb->procedureTable->getProcList()) {
+        if (currentProcedure.name == procedureName) {
+            return currentProcedure.cfg;
+        }
+    }
+    throw ProcedureNotFoundException();
+    return nullptr;
 }

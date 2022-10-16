@@ -86,4 +86,7 @@ public:
     virtual std::string getPrintVarName(std::string printLineNumber);
 
     virtual void addCallToUsesAndModifies();
+
+    // For testing
+    CFGHeadPtr getCfgOfProcedure(std::string procedureName);
 };
