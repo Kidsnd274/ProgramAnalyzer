@@ -512,7 +512,7 @@ namespace QPS {
         while (pos < tokens.size() && tokens[pos].tokenType != QPS::SEMICOLON ) {
             QPS::Token curr = tokens[pos];
             if (curr.tokenType == QPS::COMMA) {
-            } else if (curr.tokenType == QPS::NAME && !mapEntity(curr).second && curr.nameValue != "Select") {
+            } else if (curr.tokenType == QPS::NAME && curr.nameValue != "Select") {
                 container.addDeclaration(entityType, curr.nameValue);
             } else {
                 return {pos, INVALID_DECLARATION};
