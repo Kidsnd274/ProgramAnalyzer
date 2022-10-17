@@ -33,6 +33,10 @@ TEST_CASE("Test checkExpressionString") {
         std::string exprString = "thisisavaria.ble + 12313211 + hehehaha";
         REQUIRE(SourceProcessor::checkExpressionString(exprString) == false);
     }
+    SECTION("Negative 4") {
+        std::string exprString = "+temp";
+        REQUIRE(SourceProcessor::checkExpressionString(exprString) == false);
+    }
 }
 
 TEST_CASE("Test parseExpressionFromString") {

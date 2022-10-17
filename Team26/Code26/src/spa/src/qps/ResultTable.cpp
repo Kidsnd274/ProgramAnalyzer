@@ -1,5 +1,4 @@
 #include "ResultTable.h"
-#include "../../../../Tests26/QPS/PKBStub.h"
 
 #include <string>
 #include <unordered_map>
@@ -12,6 +11,7 @@
 
 namespace QPS {
     ResultTable::ResultTable(const std::vector<std::string>& sNames, const std::unordered_set<std::vector<std::string>, StringVectorHash >& entries) {
+        type = ResultTable::NORMAL;
         colNum = 0;
         for (const std::string& sName: sNames) {
             if (isSynonymPresent(sName)) {
@@ -98,8 +98,29 @@ namespace QPS {
         throw errorMsg;
     }
 
-    void ResultTable::mergeTable(const QPS::ResultTable &otherTable) {
-        if (!otherTable.isInitialized) {
+    ResultTable* ResultTable::mergeTable(QPS::ResultTable* const t1, QPS::ResultTable* const t2) {
+        if (t1->isFalseTable() || t2 ->isTrueTable()) {
+            return t1;
+        }
+        if (t1->isTrueTable() || t2->isFalseTable()) {
+            return t2;
+        }
+
+        ResultTable* resultTable = new ResultTable();
+        resultTable->colNum = t1->colNum;
+        resultTable->rowNum = t1->rowNum;
+        resultTable->synonymColRef = t1->synonymColRef;
+        resultTable->table = t1->table;
+        resultTable->isInitialized = t1->isInitialized;
+        resultTable->mergeTable(*t2);
+        return resultTable;
+    }
+
+    void ResultTable::emptyTable() {
+        this->table = {};
+    }
+    void ResultTable::mergeTable(const QPS::ResultTable& otherTable) {
+        if (!otherTable.isInitialized || this->isFalseTable()) {
             return;
         }
         if (!this->isInitialized) {
@@ -240,6 +261,23 @@ namespace QPS {
         }
     }
 
+    void ResultTable::replace(QPS::ResultTable *otherTable) {
+        this->table = otherTable->table;
+        this->synonymColRef = otherTable->synonymColRef;
+//        this->synonymColRef.clear();
+//        for (auto ref: otherTable->synonymColRef) {
+//            this->synonymColRef.insert(ref);
+//        }
+//        this->table.clear();
+//        for (auto row: otherTable->table) {
+//            this->table.push_back(row);
+//        }
+        this->colNum = otherTable->colNum;
+        this->rowNum = otherTable->rowNum;
+        this->isInitialized = otherTable->isInitialized;
+        this->type = otherTable->type;
+    }
+
     //The following methods are to print out a table or a vector for testing purpose.
     void ResultTable::printTable() {
         std::cout << "Printing Table ... \n";
@@ -286,170 +324,6 @@ namespace QPS {
         std::cout << s + "\n";
     }
 
-    void ResultTable::addColumnAndMerge(std::string nameOfSynonym, std::vector<std::string> entities) {
-        this->rowNum = this->rowNum * entities.size();
-        this->synonymColRef.insert(std::make_pair(nameOfSynonym, colNum));
-        this->colNum++;
-        std::vector<std::vector<std::string>> newTable;
-        for (auto iter1 = this->table.begin(); iter1 != this->table.end(); iter1++) { // iter1: row of original table
-            for (auto iter2 = entities.begin(); iter2 != entities.end(); iter2++) { // iter2: row of new column
-                std::vector<std::string> newRow = *iter1;
-                newRow.emplace_back(*iter2);
-                newTable.emplace_back(newRow);
-            }
-        }
-        this->table = newTable;
-    }
-
-    void ResultTable::filterRowsBySuchThatList(const QPS::SUCH_THAT_LIST& suchThatList) {
-        std::vector<std::vector<std::string>> newTable;
-        for (const auto& relation: suchThatList) {
-            bool relationshipSynonymsPresent =
-                    (!QPS::isArgumentTypeSynonym(relation.arg1.typeOfArgument) || isSynonymPresent(relation.arg1.nameOfArgument))
-                    && (!QPS::isArgumentTypeSynonym(relation.arg2.typeOfArgument) || isSynonymPresent(relation.arg2.nameOfArgument));
-            if (!relationshipSynonymsPresent) {
-                continue;
-            }
-            for (auto & row_iter : this->table) {
-                if (followsRelation(row_iter, relation)) {
-                    newTable.emplace_back(row_iter);
-                }
-            }
-            this->table = newTable;
-            this->rowNum = newTable.size();
-        }
-    }
-
-    void ResultTable::filterRowsByPatternList(const QPS::PATTERN_LIST& patternList) {
-        std::vector<std::vector<std::string>> newTable;
-        for (const auto& pattern : patternList) {
-            bool patternSynonymsPresent = isSynonymPresent(pattern.assign_syn)
-                    && (!QPS::isArgumentTypeSynonym(pattern.arg1.typeOfArgument) || isSynonymPresent(pattern.arg1.nameOfArgument))
-                    && (!QPS::isArgumentTypeSynonym(pattern.arg2.typeOfArgument) || isSynonymPresent(pattern.arg2.nameOfArgument));
-            if (!patternSynonymsPresent) {
-                continue;
-            }
-            for (auto & row_iter : this->table) {
-                if (followsPattern(row_iter, pattern)) {
-                    newTable.emplace_back(row_iter);
-                }
-            }
-            this->table = newTable;
-            this->rowNum = newTable.size();
-        }
-    }
-
-    bool ResultTable::followsRelation(std::vector<std::string> &row, const QPS::RelationStruct& relation) {
-        RelationStruct realRelation; // replace the synonyms in relationStruct by their actual name in result table.
-        realRelation.typeOfRelation = relation.typeOfRelation;
-        if (QPS::isArgumentTypeSynonym(relation.arg1.typeOfArgument)) {
-            realRelation.arg1 = {
-                    relation.arg1.typeOfArgument,
-                    row.at(this->synonymColRef.find(relation.arg1.nameOfArgument)->second)
-            };
-        } else {
-            realRelation.arg1 = relation.arg1;
-        }
-        if (QPS::isArgumentTypeSynonym(relation.arg2.typeOfArgument)) {
-            realRelation.arg2 = {
-                    relation.arg2.typeOfArgument,
-                    row.at(this->synonymColRef.find(relation.arg2.nameOfArgument)->second)
-            };
-        } else {
-            realRelation.arg2 = relation.arg2;
-        }
-//        std::cout << realRelation.arg2.typeOfArgument << std::endl; // for test only
-//        std::cout << realRelation.arg2.nameOfArgument << std::endl;
-        if (QueryManager::isRelationExist(realRelation)) {
-            return true;
-        } else {
-            return false;
-        }
-//        if (QPSTests::PKBStub::existRelation(realRelation)) { // for test only.
-//            return true;
-//        } else {
-//            return false;
-//        }
-    }
-
-    bool ResultTable::followsPattern(std::vector<std::string> &row, QPS::PatternStruct pattern) {
-        PatternStruct realPattern; // replace the synonyms in patternStruct by their actual name in result table.
-        realPattern.typeOfPattern = pattern.typeOfPattern;
-        realPattern.assign_syn = row.at(this->synonymColRef.find(pattern.assign_syn)->second);
-        if (QPS::isArgumentTypeSynonym(pattern.arg1.typeOfArgument)) {
-            realPattern.arg1 = {
-                    pattern.arg1.typeOfArgument,
-                    row.at(this->synonymColRef.find(pattern.arg1.nameOfArgument)->second)
-            };
-        } else {
-            realPattern.arg1 = pattern.arg1;
-        }
-        if (QPS::isArgumentTypeSynonym(pattern.arg2.typeOfArgument)) {
-            realPattern.arg2 = {
-                    pattern.arg2.typeOfArgument,
-                    row.at(this->synonymColRef.find(pattern.arg2.nameOfArgument)->second)
-            };
-        } else {
-            realPattern.arg2 = pattern.arg2;
-        }
-//        std::cout << realPattern.arg2.typeOfArgument << std::endl; // for test only
-//        std::cout << realPattern.arg2.nameOfArgument << std::endl;
-        if (ResultTable::isPatternMatched(realPattern)) {
-            return true;
-        } else {
-            return false;
-        }
-    }
-
-    //Issues: when match non-existent symbol: VALID
-    bool ResultTable::isPatternMatched(QPS::PatternStruct pattern) {
-        shared_ptr<AssignNode> assignNode = QueryManager::getAssignTNode(pattern.assign_syn);
-        // check variable names
-        std::string varName = assignNode->getVariableName();
-        if (pattern.arg1.typeOfArgument != WILDCARD && varName != pattern.arg1.nameOfArgument) {
-            return false;
-        }
-        //Check position of wildcard and get a trimmed string.
-        char wildcard = '_';
-        WildcardPosition pos;
-        std::string trimmedString;
-        bool firstCharIsUnderscore =pattern.arg2.nameOfArgument[0] == wildcard;
-        bool lastCharIsUnderscore = pattern.arg2.nameOfArgument[pattern.arg2.nameOfArgument.length() - 1] == wildcard;
-        if (firstCharIsUnderscore) {
-            if (lastCharIsUnderscore) {
-                pos = WildcardPosition::BOTH;
-                trimmedString = pattern.arg2.nameOfArgument.substr(1, pattern.arg2.nameOfArgument.length() - 2);
-            } else {
-                pos = WildcardPosition::LEFT;
-                trimmedString = pattern.arg2.nameOfArgument.substr(1, pattern.arg2.nameOfArgument.length() - 1);
-            }
-        } else {
-            if (lastCharIsUnderscore) {
-                pos = WildcardPosition::RIGHT;
-                trimmedString = pattern.arg2.nameOfArgument.substr(0, pattern.arg2.nameOfArgument.length() - 1);
-            } else {
-                pos = WildcardPosition::NONE;
-                trimmedString = pattern.arg2.nameOfArgument;
-            }
-        }
-        //Check type of pattern be constant matching or variable matching.
-        shared_ptr<TNode> node = nullptr;
-        for (char i : pattern.arg2.nameOfArgument) {
-            if (i == wildcard) {
-                continue;
-            } else if (isdigit(i)){
-                node = TNode::createConstantValue(0, trimmedString);
-                break;
-            } else {
-                node = TNode::createVariableName(0, trimmedString);
-                break;
-            }
-        }
-        // check expressions
-        std::shared_ptr<TNode> expression = assignNode->getExpression();
-        return TNode::matchSubTree(expression, node, pos);
-    }
-
     std::vector<std::vector<std::string>> ResultTable::getTable() {
         return this->table;
     }
@@ -457,36 +331,8 @@ namespace QPS {
     std::unordered_map<std::string, int> ResultTable::getSynonymColRef() {
         return this->synonymColRef;
     }
+
+    void ResultTable::setTable(std::vector<std::vector<std::string>>& newTable) {
+        this->table = newTable;
+    }
 }
-//
-//int main() {
-//    //get table
-//    std::vector<std::string> v = { "A0", "B0", "C0" };
-//    std::vector<std::string> vOther = { "A0", "E0", "C0", "F0"};
-//    std::vector<std::string> v1 = { "A2", "B1", "C1" };
-//    std::vector<std::string> v2 = { "A1", "B2", "C2" };
-//    std::vector<std::string> v3 = { "A1", "B3", "C3" };
-//    std::vector<std::string> v4 = { "A2", "E1", "C1", "F1" };
-//    std::vector<std::string> v5 = { "A2", "E2", "C1", "F2" };
-//    std::vector<std::string> v6 = { "A1", "E3", "C3", "F3" };
-//    std::unordered_set<std::vector<std::string>, QPS::StringVectorHash> entries;
-//    std::unordered_set<std::vector<std::string>, QPS::StringVectorHash> entries2;
-//    entries.insert(v1);
-//    entries.insert(v2);
-//    entries.insert(v3);
-//    entries2.insert(v4);
-//    entries2.insert(v5);
-//    entries2.insert(v6);
-//    QPS::ResultTable rt(v, entries);
-//    QPS::ResultTable rtOther(vOther, entries2);
-//    rt.mergeTable(rtOther);
-//    rt.printTable();
-//    rt.deleteColFromTable("F0");
-//    rt.deleteColFromTable("E0");
-//    rt.deleteDuplicateRows();
-//    rt.printTable();
-//    std::vector<std::string> values;
-//    rt.getSynonymValue("F0", values);
-//    rt.printStringVector(values);
-//
-//}

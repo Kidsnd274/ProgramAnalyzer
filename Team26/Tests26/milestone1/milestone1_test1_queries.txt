@@ -161,7 +161,7 @@ Select a pattern a(_,_"else"_)
 33 - select statements with pattern that does not exist
 assign a;
 Select a pattern a(_,_"else")
-none
+SyntaxError
 5000
 34 - select uses and pattern
 assign a, a1; variable v;

@@ -1,15 +1,5 @@
-1 - (Valid Query)
-if ifs; while w; read rd; print pt;
-Select <ifs, w, rd, pt> such that Follows(rd, pt)
-10 8 3 4, 13 8 3 4
-5000
-2 - (Valid Query)
-variable v; constant c; while w;
-Select <v, c, w>
-a 1 8, b 1 8
-5000
-1 - (Valid Query) Both return values in same clause
-assign a;
-Select <a, v, pt> such that Uses(a, v)
-7 a, 7 b, 14 b
+9 - check if statement is parent of statement
+stmt s; variable v;
+Select <s, v> such that Parent(8, 9) with v.varName = "a"
+1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21
 5000

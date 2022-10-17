@@ -1,0 +1,77 @@
+1 - INVALID Simple test with pattern arg1 being variable, and arg2 being variable name
+constant c; variable v; assign a;
+Select <a, v> pattern a1(v, _"x")
+SemanticError
+5000
+2 - INVALID Simple test with pattern arg1 being variable, and arg2 being variable name
+constant c; variable v; assign a;
+Select <a, v> pattern print(v, _"x")
+SemanticError
+5000
+3 - INVALID Simple test with pattern arg1 being variable, and arg2 being variable name
+constant c; variable v; assign a;
+Select <a, v> pattern demo2(v, _"x")
+SemanticError
+5000
+4 - Simple test with pattern arg1 being variable, and arg2 being char string
+constant c; variable v; assign a;
+Select <a, v> pattern a(v, "z + y")
+
+5000
+5 - Simple test with pattern arg1 being variable, and arg2 being char string
+constant c; variable v; assign a;
+Select <a, v> pattern a(v, _"z + y")
+
+5000
+6 - Simple test with pattern arg1 being variable, and arg2 being char string
+constant c; variable v; assign a;
+Select <a, v> pattern a(v, _"z + y"_)
+15 z,23 test,18 print
+5000
+7 - Simple test with pattern arg1 being variable, and arg2 being char string
+constant c; variable v; assign a;
+Select <a, v> pattern a(v, "z + y"_)
+15 z
+5000
+8 - Simple test with pattern arg1 being variable, and arg2 being wildcard
+constant c; variable v; assign a;
+Select <a, v> pattern a(v, _)
+21 z,17 z,16 z,15 z,8 z,5 x,19 test,14 x,22 print,6 y,23 test,18 print,20 print,7 print,3 x,12 print,9 print,11 while
+5000
+9 - Simple test with pattern arg1 being wildcard, and arg2 being wildcard
+constant c; variable v; assign a;
+Select a pattern a(_, _)
+11,12,14,15,16,17,18,19,20,21,22,3,5,6,7,8,9,23
+5000
+10 - Simple test with pattern arg1 being wildcard, and arg2 being char string
+constant c; variable v; assign a;
+Select <a, v> pattern a(_, _"z + y"_)
+23 y,15 z,15 print,23 z,15 p,23 x,18 x,18 y,15 x,18 z,23 test,23 print,15 test,18 p,15 m,23 while,18 print,15 y,18 while,15 while,23 m,18 test,23 p,18 m
+5000
+11 - Simple test with pattern arg1 being char string, and arg2 being wildcard
+constant c; variable v; assign a;
+Select a pattern a("print", _)
+22,18,20,12,9,7
+5000
+12 - Simple test with pattern arg1 being char string, and arg2 being char string
+constant c; variable v; assign a;
+Select <a, v> pattern a("print", _"print * y"_)
+22 y,7 y,22 z,7 z,22 x,7 x,22 while,22 print,22 m,7 p,7 test,22 p,7 print,7 while,22 test,7 m
+5000
+13 - Simple test with pattern arg1 being char string, and arg2 being char string
+constant c; variable v; assign a;
+Select <a, v> pattern a("print", "print * y")
+7 y,7 x,7 test,7 p,7 print,7 z,7 while,7 m
+5000
+14 - Simple test with pattern arg1 being char string, and arg2 being wildcard
+constant c; variable v; assign a;
+Select <a, v> pattern a("print2", _)
+
+5000
+15 - Simple test with pattern arg1 being char string, and arg2 being wildcard
+constant c; variable v; assign a;
+Select <a, v> pattern a("x + y", _)
+
+5000
+
+
