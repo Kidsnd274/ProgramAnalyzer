@@ -7,6 +7,7 @@
 #include <unordered_set>
 #include <vector>
 #include <queue>
+#include <string>
 
 class CFGHead;
 
@@ -38,6 +39,9 @@ public:
     // graph traversal
     std::unordered_set<STMT_NUM> getReachableNodes(STMT_NUM stmt);
     void addToReachableQueue(CFGNode& node, std::queue<int>& q, std::unordered_set<int>& ans);
+
+    // debug methods
+    std::string returnAllEdgesInString();
 };
 
 bool operator== (CFGHead leftCFG, CFGHead rightCFG);

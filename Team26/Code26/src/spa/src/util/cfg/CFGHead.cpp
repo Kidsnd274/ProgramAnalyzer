@@ -135,6 +135,57 @@ void CFGHead::initializeFinalNode(CFGNode finalNode) {
     }
 }
 
+std::string CFGHead::returnAllEdgesInString() {
+    std::string result = "Normal Node Adjacency List:\n";
+    for (auto iter = adjList.begin(); iter != adjList.end(); ++iter) {
+        STMT_NUM key = iter->first;
+        result += std::to_string(key);
+        result += ": ";
+        for (CFGNode node:adjList.at(key)) {
+            switch (node.getNodeType()) {
+                case CFGNodeType::NormalNode:
+                    result += std::to_string(node.getStmtNumber());
+                    result += ", ";
+                    break;
+                case CFGNodeType::DummyNode:
+                    result += "D";
+                    result += std::to_string(node.getStmtNumber());
+                    result += ", ";
+                    break;
+                case CFGNodeType::NullNode:
+                    result += "Null";
+                    result += ", ";
+                    break;
+            }
+        }
+        result += "\n";
+    }
+    result += "Dummy Node Adjacency List:\n";
+    for (auto iter = dummyAdjList.begin(); iter != dummyAdjList.end(); ++iter) {
+        STMT_NUM key = iter->first;
+        result += std::to_string(key);
+        result += ": ";
+        CFGNode node = iter->second;
+        switch (node.getNodeType()) {
+            case CFGNodeType::NormalNode:
+                result += std::to_string(node.getStmtNumber());
+                result += ", ";
+                break;
+            case CFGNodeType::DummyNode:
+                result += "D";
+                result += std::to_string(node.getStmtNumber());
+                result += ", ";
+                break;
+            case CFGNodeType::NullNode:
+                result += "Null";
+                result += ", ";
+                break;
+        }
+        result += "\n";
+    }
+    return result;
+}
+
 bool operator== (CFGHead leftCFG, CFGHead rightCFG) {
     auto leftNodeMap = leftCFG.getNormalNodeMap();
     auto rightNodeMap = rightCFG.getNormalNodeMap();

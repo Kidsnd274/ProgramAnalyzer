@@ -251,7 +251,7 @@ TEST_CASE("CFG Generation Test - Advanced nested if/while statements") {
     PKBInterface pkbInterface = PKBInterface();
     auto cfgManager = std::make_shared<CFGManager>();
     Parser testParser(v, &pkbInterface, cfgManager);
-    testParser.parseSimple();
+    REQUIRE_NOTHROW(testParser.parseSimple());
     CFGHeadPtr createdCFG = cfgManager->getCurrentCFG();
 
     CFGHeadPtr correctCFG = CFGHead::createNewCFG();
@@ -277,6 +277,90 @@ TEST_CASE("CFG Generation Test - Advanced nested if/while statements") {
     correctCFG->connectNode(CFGNode::dummyNode(10), CFGNode::node(9));
     correctCFG->connectNode(CFGNode::node(9), CFGNode::dummyNode(9));
     correctCFG->initializeFinalNode(CFGNode::dummyNode(9));
+
+    REQUIRE(*createdCFG == *correctCFG);
+}
+
+TEST_CASE("CFG Generation test - Test while if while while loop") {
+    std::vector<SPToken> v = {SPToken("procedure", SPTokenType::ProcedureToken),
+                              SPToken("test", SPTokenType::NameToken),
+                              SPToken("{", SPTokenType::LCurlyToken),
+                              SPToken("read", SPTokenType::ReadToken),
+                              SPToken("x", SPTokenType::NameToken),
+                              SPToken(";", SPTokenType::SemiColonToken),
+                              SPToken("read", SPTokenType::ReadToken),
+                              SPToken("x", SPTokenType::NameToken),
+                              SPToken(";", SPTokenType::SemiColonToken),
+                              SPToken("read", SPTokenType::ReadToken),
+                              SPToken("x", SPTokenType::NameToken),
+                              SPToken(";", SPTokenType::SemiColonToken),
+                              SPToken("if", SPTokenType::IfToken),
+                              SPToken("(", SPTokenType::LParenToken),
+                              SPToken("x", SPTokenType::NameToken),
+                              SPToken(">", SPTokenType::RelationToken),
+                              SPToken("1", SPTokenType::ConstToken),
+                              SPToken(")", SPTokenType::RParenToken),
+                              SPToken("then", SPTokenType::ThenToken),
+                              SPToken("{", SPTokenType::LCurlyToken),
+                              SPToken("while", SPTokenType::WhileToken),
+                              SPToken("(", SPTokenType::LParenToken),
+                              SPToken("x", SPTokenType::NameToken),
+                              SPToken(">", SPTokenType::RelationToken),
+                              SPToken("1", SPTokenType::ConstToken),
+                              SPToken(")", SPTokenType::RParenToken),
+                              SPToken("{", SPTokenType::LCurlyToken),
+                              SPToken("read", SPTokenType::ReadToken),
+                              SPToken("x", SPTokenType::NameToken),
+                              SPToken(";", SPTokenType::SemiColonToken),
+                              SPToken("while", SPTokenType::WhileToken),
+                              SPToken("(", SPTokenType::LParenToken),
+                              SPToken("x", SPTokenType::NameToken),
+                              SPToken(">", SPTokenType::RelationToken),
+                              SPToken("1", SPTokenType::ConstToken),
+                              SPToken(")", SPTokenType::RParenToken),
+                              SPToken("{", SPTokenType::LCurlyToken),
+                              SPToken("read", SPTokenType::ReadToken),
+                              SPToken("x", SPTokenType::NameToken),
+                              SPToken(";", SPTokenType::SemiColonToken),
+                              SPToken("}", SPTokenType::RCurlyToken),
+                              SPToken("}", SPTokenType::RCurlyToken),
+                              SPToken("}", SPTokenType::RCurlyToken),
+                              SPToken("else", SPTokenType::ElseToken),
+                              SPToken("{", SPTokenType::LCurlyToken),
+                              SPToken("read", SPTokenType::ReadToken),
+                              SPToken("x", SPTokenType::NameToken),
+                              SPToken(";", SPTokenType::SemiColonToken),
+                              SPToken("}", SPTokenType::RCurlyToken),
+                              SPToken("}", SPTokenType::RCurlyToken),
+    };
+    PKBInterface pkbInterface = PKBInterface();
+    auto cfgManager = std::make_shared<CFGManager>();
+    Parser testParser(v, &pkbInterface, cfgManager);
+    REQUIRE_NOTHROW(testParser.parseSimple());
+    CFGHeadPtr createdCFG = cfgManager->getCurrentCFG();
+
+    CFGHeadPtr correctCFG = CFGHead::createNewCFG();
+    correctCFG->connectNode(CFGNode::node(1), CFGNode::node(2));
+    correctCFG->connectNode(CFGNode::node(2), CFGNode::node(3));
+    correctCFG->connectNode(CFGNode::node(3), CFGNode::node(4));
+    correctCFG->connectNode(CFGNode::node(4), CFGNode::node(5));
+    correctCFG->connectNode(CFGNode::node(5), CFGNode::node(6));
+    correctCFG->connectNode(CFGNode::node(6), CFGNode::node(7));
+    correctCFG->connectNode(CFGNode::node(7), CFGNode::node(8));
+    correctCFG->connectNode(CFGNode::node(8), CFGNode::node(9));
+    correctCFG->connectNode(CFGNode::node(9), CFGNode::node(8));
+    correctCFG->connectNode(CFGNode::node(8), CFGNode::dummyNode(8));
+    correctCFG->connectNode(CFGNode::dummyNode(8), CFGNode::node(6));
+    correctCFG->connectNode(CFGNode::node(6), CFGNode::dummyNode(6));
+    correctCFG->connectNode(CFGNode::dummyNode(6), CFGNode::dummyNode(5));
+    correctCFG->connectNode(CFGNode::node(5), CFGNode::node(10));
+    correctCFG->connectNode(CFGNode::node(10), CFGNode::dummyNode(5));
+    correctCFG->connectNode(CFGNode::dummyNode(5), CFGNode::node(1));
+    correctCFG->connectNode(CFGNode::node(1), CFGNode::dummyNode(1));
+    correctCFG->initializeFinalNode(CFGNode::dummyNode(1));
+
+    std::cout << createdCFG->returnAllEdgesInString() << endl;
+    std::cout << correctCFG->returnAllEdgesInString() << endl;
 
     REQUIRE(*createdCFG == *correctCFG);
 }
