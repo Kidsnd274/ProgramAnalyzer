@@ -81,7 +81,20 @@ jobs:
       - name: Archive Test Results Error
         uses: actions/upload-artifact@v3
         if: failure()
+        #needs: [job1, job2]
         with:
-          name: milestone1_test1
-          path: Team26\Tests26\failed_tests\
+          name: Failed logs and out.xml
+          path: |
+            Team26\Tests26\failed_tests.txt
+            Team26\Tests26\failed_tests\
           retention-days: 5
+
+      - name: Upload binary artifacts
+        uses: actions/upload-artifact@v3
+        if: always()
+        with:
+          name: binaries
+          path: |
+            Team26/Code26/build/src/autotester/Release/autotester.exe
+            Team26/Code26/build/src/unit_testing/Release/unit_testing.exe
+            Team26/Code26/build/src/integration_testing/Release/integration_testing.exe
