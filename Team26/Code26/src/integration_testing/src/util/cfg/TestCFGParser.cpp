@@ -474,4 +474,22 @@ TEST_CASE("Next test with 3 nesting levels") {
     Parser testParser(v, &pkbInterface, cfgManager);
 
     REQUIRE_NOTHROW(testParser.parseSimple());
+
+    CFGHeadPtr createdCFG = cfgManager->getCurrentCFG();
+
+    REQUIRE(createdCFG->isNext(1,2));
+    REQUIRE(createdCFG->isNext(2,11));
+    REQUIRE(createdCFG->isNext(2,3));
+    REQUIRE(createdCFG->isNext(3,4));
+    REQUIRE(createdCFG->isNext(4,5));
+    REQUIRE(createdCFG->isNext(4,9));
+    REQUIRE(createdCFG->isNext(5,6));
+    REQUIRE(createdCFG->isNext(5,7));
+    REQUIRE(createdCFG->isNext(6,2));
+    REQUIRE(createdCFG->isNext(7,8));
+    REQUIRE(createdCFG->isNext(7,2));
+    REQUIRE(createdCFG->isNext(8,7));
+    REQUIRE(createdCFG->isNext(9,10));
+    REQUIRE(createdCFG->isNext(9,2));
+    REQUIRE(createdCFG->isNext(10,9));
 }
