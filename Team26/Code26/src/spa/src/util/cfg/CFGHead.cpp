@@ -45,6 +45,8 @@ STMT_NUM CFGHead::findDummyNodeNext(CFGNode& dummy) {
     CFGNode dummyPointsTo = dummyAdjList.at(dummy.getStmtNumber());
     if(dummyPointsTo.isNullNode()) {
         return -1;
+    } else if(dummyPointsTo.isDummyNode()) {
+        return findDummyNodeNext(dummyPointsTo);
     } else {
         return dummyPointsTo.getStmtNumber();
     }
