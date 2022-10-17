@@ -7,9 +7,6 @@
 
 
 class RelationClauseEvaluator: public ClauseEvaluator{
-public:
-    const static std::unordered_map<std::string, ::RelationType> evaluatorRelationMap;
-
 private:
     RelationClause* relationClause;
     void evaluateCalls(QPS::ResultTable *resultTable);

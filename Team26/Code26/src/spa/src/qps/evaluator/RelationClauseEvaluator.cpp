@@ -1,20 +1,5 @@
 #include "RelationClauseEvaluator.h"
 
-const std::unordered_map<std::string, ::RelationType> RelationClauseEvaluator::evaluatorRelationMap = {
-        {"Follows", ::RelationType::FOLLOWS},    // Follows(stmtRef, stmtRef)
-        {"FollowStar", ::RelationType::FOLLOWS_T},  // Follows*(stmtRef, stmtRef)
-        {"Parent", ::RelationType::PARENT}, // Parent(stmtRef, stmtRef)
-        {"ParentStar", ::RelationType::PARENT_T},   // Parent*(stmtRef, stmtRef)
-        {"Uses", ::RelationType::USES_S},
-        {"Modifies", ::RelationType::MODIFIES_S},
-        {"Calls", ::RelationType::CALLS},
-        {"CallsStar", ::RelationType::CALLS_T},
-        {"Next", ::RelationType::NEXT},
-        {"NextStar", ::RelationType::NEXT_T},
-        {"Affects", ::RelationType::AFFECTS},
-        {"AffectsStar", ::RelationType::AFFECTS_T},
-};
-
 void RelationClauseEvaluator::evaluate(QPS::ResultTable *resultTable) {
     switch(this->relationClause->relationType) {
         case (::RelationType::CALLS_T): {

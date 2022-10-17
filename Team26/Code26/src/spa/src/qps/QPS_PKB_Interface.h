@@ -138,7 +138,7 @@ public:
      * @param containerLineNumber the statement line number of if/while.
      * @return the variable name.
      */
-    static std::string getConditionVarNameByStmtNum(std::string containerLineNumber);
+    static vector<std::string> getConditionVarNameByStmtNum(std::string containerLineNumber);
 
     static std::string getAttrName(std::string value, WithClause::WithClauseArgument candidate);
 };

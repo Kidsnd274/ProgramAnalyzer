@@ -19,8 +19,6 @@ using namespace QPS;
 typedef short PROC;
 
 class PKBInterface {
-private:
-    bool isCallAdded = false;
 public:
     PKB* pkb = new PKB();
 
@@ -34,7 +32,7 @@ public:
     virtual void addIfStatement(int statementNumber, int statementListNumber);
     virtual void addPrintStatement(int statementNumber, int statementListNumber);
     virtual void addCallStatement(int statementNumber, int statementListNumber, std::string calleeProcName);
-    virtual void addConditionNode(int statementNumber, shared_ptr<TNode> conditionNode);
+    virtual void addCondVar(int statementNumber, string varName);
 
     virtual void addModifies(int statementNumber, string varName);
     virtual void addModifies(std::string procedureName, std::string varName);
@@ -56,7 +54,7 @@ public:
 
 
     shared_ptr<AssignNode> getAssignTNode(const string& assignRef);
-    string getConditionVar(const string& containerRef);
+    vector<string> getConditionVar(const string& containerRef);
 
     virtual unordered_map<std::string, std::vector<std::string>> getAllCall();
     virtual unordered_map<std::string, std::vector<std::string>> getAllCallStar();
@@ -87,8 +85,6 @@ public:
     virtual std::string getCallProcName(std::string callLineNumber);
     virtual std::string getReadVarName(std::string readLineNumber);
     virtual std::string getPrintVarName(std::string printLineNumber);
-
-    virtual void addCallToUsesAndModifies();
 
     // For testing
     CFGHeadPtr getCfgOfProcedure(std::string procedureName);

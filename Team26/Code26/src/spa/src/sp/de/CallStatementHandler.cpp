@@ -42,6 +42,7 @@ void CallStatementHandler::dfs(int i, PKBInterface *pkb) {
 
         for(auto &var : modified) {
             pkb->addModifies(indexToName[i], var);
+            pkb->addModifies(callList[i][j].getStatementNumber(), var);
             for(auto p : parentStar) {
                 pkb->addModifies(p, var);
             }
@@ -49,6 +50,7 @@ void CallStatementHandler::dfs(int i, PKBInterface *pkb) {
 
         for(auto &var : used) {
             pkb->addUses(indexToName[i], var);
+            pkb->addUses(callList[i][j].getStatementNumber(), var);
             for(auto p : parentStar) {
                 pkb->addUses(p, var);
             }

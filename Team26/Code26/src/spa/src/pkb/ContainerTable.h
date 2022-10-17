@@ -8,15 +8,16 @@
 #include <string>
 #include <vector>
 #include <unordered_map>
+#include <string>
 #include "util/ast/TNode.h"
 
 class ContainerTable {
 private:
-    std::unordered_map<int, std::shared_ptr<TNode>> containerList;
+    std::unordered_map<int, std::vector<std::string>> condVars;
 public:
-    void insertCondition(int stmtLineNumber, std::shared_ptr<TNode> conditionNode);
-    std::shared_ptr<TNode> getConditionByStmtNumber(int stmtNumber);
-    std::string getVarName(std::shared_ptr<TNode> conditionPointer);
+
+    std::vector<std::string> getVarNames(int stmtNumber);
+    void addCondVar(int stmtNumber, std::string varName);
 };
 
 

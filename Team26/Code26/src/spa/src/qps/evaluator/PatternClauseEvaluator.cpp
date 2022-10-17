@@ -61,16 +61,18 @@ void PatternClauseEvaluator::evaluateContainer(QPS::ResultTable *resultTable) {
     vector<string> stmtNumbers = QPS_PKB_Interface::getAllEntity(&this->patternClause->argument1);
     unordered_set<vector<string>, StringVectorHash> result;
     for (auto s: stmtNumbers) {
-        string varName = QPS_PKB_Interface::getConditionVarNameByStmtNum(s);
-        if (this->patternClause->argument2.argumentType == Argument::ACTUAL_NAME) {
-            if (varName != this->patternClause->argument2.argumentName) {
-                continue;
+        std::vector<string> varNames = QPS_PKB_Interface::getConditionVarNameByStmtNum(s);
+        for (auto varName: varNames) {
+            if (this->patternClause->argument2.argumentType == Argument::ACTUAL_NAME) {
+                if (varName != this->patternClause->argument2.argumentName) {
+                    continue;
+                }
+                result.insert({s});
+            } else if (this->patternClause->argument2.argumentType == Argument::VAR_SYNONYM) {
+                result.insert({s, varName});
+            } else { //wildcard
+                result.insert({s});
             }
-            result.insert({s});
-        } else if (this->patternClause->argument2.argumentType == Argument::VAR_SYNONYM){
-            result.insert({s, varName});
-        } else { //wildcard
-            result.insert({s});
         }
     }
     vector<string> synonyms;
@@ -105,6 +107,8 @@ shared_ptr<TNode> PatternClauseEvaluator::getPatternNode(WildcardPosition pos) {
         }
     }
     shared_ptr<TNode> node = nullptr;
-    node = SourceProcessor::parseExpressionFromString(trimmedString);
+    if (trimmedString != "") {
+        node = SourceProcessor::parseExpressionFromString(trimmedString);
+    }
     return node;
 }
