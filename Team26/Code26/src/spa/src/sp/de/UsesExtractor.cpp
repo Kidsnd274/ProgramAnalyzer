@@ -10,10 +10,10 @@ void UsesExtractor::extractFromWhile(std::shared_ptr<WhileNode> ptr) {
 
 void UsesExtractor::extractFromStatementsWithCond(int stmtNumber, std::shared_ptr<TNode> cond) {
     pushToStack(stmtNumber);
-    extractFromExpressionTree(cond);
+    extractFromExpressionTree(cond, true);
 }
 
-void UsesExtractor::extractFromExpressionTree(std::shared_ptr<TNode> ptr) {
+void UsesExtractor::extractFromExpressionTree(std::shared_ptr<TNode> ptr, bool isCond) {
     std::unordered_set<std::string> varSet;
     std::queue<std::shared_ptr<TNode>> q;
     q.push(ptr);
@@ -31,6 +31,10 @@ void UsesExtractor::extractFromExpressionTree(std::shared_ptr<TNode> ptr) {
 
     std::vector<int> v = getAllItemsInStack();
     for(auto &var : varSet) {
+        if(isCond) {
+            //pkb->addCondVar(v[0], var);
+        }
+
         pkb->addUses(getProcedureName(), var);
         for(auto i : v) {
             pkb->addUses(i, var);
@@ -50,6 +54,6 @@ void UsesExtractor::extractFromPrint(std::shared_ptr<PrintNode> ptr) {
 
 void UsesExtractor::extractFromAssign(std::shared_ptr<AssignNode> ptr) {
     pushToStack(ptr->getStatementNumber());
-    extractFromExpressionTree(ptr->getExpression());
+    extractFromExpressionTree(ptr->getExpression(), false);
     popFromStack();
 }
