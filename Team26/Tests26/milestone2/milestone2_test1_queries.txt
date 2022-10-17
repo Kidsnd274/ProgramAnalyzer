@@ -748,7 +748,6 @@ assign a; variable v; while w;
 Select w such that Modifies (w, v) pattern a (v,  _"pointx"_)
 33, 8, 11, 14
 5000
-<<<<<<< HEAD
 149 - check call statement modifies 1
 variable v;
 Select v such that Modifies(18, v)
