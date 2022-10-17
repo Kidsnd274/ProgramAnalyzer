@@ -12,79 +12,53 @@ void StatementTable::insertStmt(Statement stmt) {
     this->statementList.push_back(stmt);
 }
 
-vector<Statement> StatementTable::getStatementList() {
+std::vector<Statement> StatementTable::getStatementList() {
     return this->statementList;
 }
 
-vector<string> StatementTable::getAllStmts() {
-    vector<string> result;
+std::vector<std::string> StatementTable::getAllStmts() {
+    std::vector<std::string> result;
     for (Statement stmt: this->statementList) {
         result.push_back(std::to_string(stmt.lineNumber));
     }
     return result;
 }
 
-vector<string> StatementTable::getAllReads() {
-    vector<string> result;
+std::vector<std::string> StatementTable::getAllStmtsByType(StatementType::StmtType type) {
+    std::vector<std::string> result;
     for (Statement stmt: this->statementList) {
-        if (stmt.type == StatementType::READ) {
+        if (stmt.type == type) {
             result.push_back(std::to_string(stmt.lineNumber));
         }
     }
     return result;
 }
 
-vector<string> StatementTable::getAllAssigns() {
-    vector<string> result;
-    for (Statement stmt: this->statementList) {
-        if (stmt.type == StatementType::ASSIGN) {
-            result.push_back(std::to_string(stmt.lineNumber));
-        }
-    }
-    return result;
+std::vector<std::string> StatementTable::getAllReads() {
+    return getAllStmtsByType(StatementType::READ);
 }
 
-vector<string> StatementTable::getAllWhiles() {
-    vector<string> result;
-    for (Statement stmt: this->statementList) {
-        if (stmt.type == StatementType::WHILE) {
-            result.push_back(std::to_string(stmt.lineNumber));
-        }
-    }
-    return result;
+std::vector<std::string> StatementTable::getAllAssigns() {
+    return getAllStmtsByType(StatementType::ASSIGN);
 }
 
-vector<string> StatementTable::getAllIfs() {
-    vector<string> result;
-    for (Statement stmt: this->statementList) {
-        if (stmt.type == StatementType::IF) {
-            result.push_back(std::to_string(stmt.lineNumber));
-        }
-    }
-    return result;
+std::vector<std::string> StatementTable::getAllWhiles() {
+    return getAllStmtsByType(StatementType::WHILE);
 }
 
-vector<string> StatementTable::getAllPrints() {
-    vector<string> result;
-    for (Statement stmt: this->statementList) {
-        if (stmt.type == StatementType::PRINT) {
-            result.push_back(std::to_string(stmt.lineNumber));
-        }
-    }
-    return result;
+std::vector<std::string> StatementTable::getAllIfs() {
+    return getAllStmtsByType(StatementType::IF);
 }
 
-vector<string> StatementTable::getAllCalls() {
-    vector<string> result;
-    for (Statement stmt: this->statementList) {
-        if (stmt.type == StatementType::CALL) {
-            result.push_back(std::to_string(stmt.lineNumber));
-        }
-    }
-    return result;
+std::vector<std::string> StatementTable::getAllPrints() {
+    return getAllStmtsByType(StatementType::PRINT);
 }
 
-vector<Statement> StatementTable::getAllCallStatements() {
+std::vector<std::string> StatementTable::getAllCalls() {
+    return getAllStmtsByType(StatementType::CALL);
+}
+
+std::vector<Statement> StatementTable::getAllCallStatements() {
     vector<Statement> result;
     for (Statement stmt: this->statementList) {
         if (stmt.type == StatementType::CALL) {

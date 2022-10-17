@@ -65,54 +65,39 @@ void PKBInterface::addConst(int value) {
     pkb->constantTable->insertConst(value);
 }
 
-void PKBInterface::addReadStatement(int statementNumber, int statementListNumber) {
+void PKBInterface::addStatement(StatementType::StmtType type, int statementNumber, int statementListNumber,
+                                std::shared_ptr<TNode> rootNode, std::string calleeProcName) {
     Statement stmt;
-    stmt.type = StatementType::READ;
-    stmt.lineNumber = statementNumber;
-    stmt.statementListNumber = statementListNumber;
-    pkb->statementTable->insertStmt(stmt);
-}
-
-void PKBInterface::addAssignStatement(int statementNumber, int statementListNumber, shared_ptr<TNode> rootNode) {
-    Statement stmt;
-    stmt.type = StatementType::ASSIGN;
+    stmt.type = type;
     stmt.lineNumber = statementNumber;
     stmt.statementListNumber = statementListNumber;
     stmt.rootNode = std::move(rootNode);
+    stmt.calleeProcName = calleeProcName;
     pkb->statementTable->insertStmt(stmt);
+}
+
+void PKBInterface::addReadStatement(int statementNumber, int statementListNumber) {
+    return addStatement(StatementType::READ, statementNumber, statementListNumber, nullptr, "");
+}
+
+void PKBInterface::addAssignStatement(int statementNumber, int statementListNumber, shared_ptr<TNode> rootNode) {
+    return addStatement(StatementType::ASSIGN, statementNumber, statementListNumber, rootNode, "");
 }
 
 void PKBInterface::addWhileStatement(int statementNumber, int statementListNumber) {
-    Statement stmt;
-    stmt.type = StatementType::WHILE;
-    stmt.lineNumber = statementNumber;
-    stmt.statementListNumber = statementListNumber;
-    pkb->statementTable->insertStmt(stmt);
+    return addStatement(StatementType::WHILE, statementNumber, statementListNumber, nullptr, "");
 }
 
 void PKBInterface::addIfStatement(int statementNumber, int statementListNumber) {
-    Statement stmt;
-    stmt.type = StatementType::IF;
-    stmt.lineNumber = statementNumber;
-    stmt.statementListNumber = statementListNumber;
-    pkb->statementTable->insertStmt(stmt);
+    return addStatement(StatementType::IF, statementNumber, statementListNumber, nullptr, "");
 }
 
 void PKBInterface::addPrintStatement(int statementNumber, int statementListNumber) {
-    Statement stmt;
-    stmt.type = StatementType::PRINT;
-    stmt.lineNumber = statementNumber;
-    stmt.statementListNumber = statementListNumber;
-    pkb->statementTable->insertStmt(stmt);
+    return addStatement(StatementType::PRINT, statementNumber, statementListNumber, nullptr, "");
 }
 
 void PKBInterface::addCallStatement(int statementNumber, int statementListNumber, std::string calleeProcName) {
-    Statement stmt;
-    stmt.type = StatementType::CALL;
-    stmt.lineNumber = statementNumber;
-    stmt.statementListNumber = statementListNumber;
-    stmt.calleeProcName = calleeProcName;
-    pkb->statementTable->insertStmt(stmt);
+    return addStatement(StatementType::CALL, statementNumber, statementListNumber, nullptr, calleeProcName);
 }
 
 void PKBInterface::addModifies(int statementNumber, string varName) {
@@ -155,11 +140,10 @@ void PKBInterface::addCallStar(std::string procedureName, std::string procedureC
     pkb->callStarTable->insertCallStar(procedureName, procedureCalled);
 }
 
-
-shared_ptr<AssignNode> PKBInterface::getAssignTNode(const string& assignRef) {
+std::shared_ptr<AssignNode> PKBInterface::getAssignTNode(const string& assignRef) {
     int assignStmtNo = stoi(assignRef);
     assert(pkb->modifiesTable->existStatement(assignStmtNo) == true);
-    string varName = (pkb->modifiesTable->getModifiesVar(assignStmtNo)).at(0);
+    std::string varName = (pkb->modifiesTable->getModifiesVar(assignStmtNo)).at(0);
     Statement assignStmt = pkb->statementTable->getStmtByLineNumber(assignStmtNo);
 //    assert(assignStmt.type == StatementType::ASSIGN);
     shared_ptr<TNode> tNode = assignStmt.rootNode;
@@ -216,47 +200,47 @@ std::unordered_set<string> PKBInterface::getCallStar(std::string procedure) {
     return result;
 }
 
-unordered_map<std::string, std::vector<std::string>> PKBInterface::getAllCall() {
+std::unordered_map<std::string, std::vector<std::string>> PKBInterface::getAllCall() {
     return pkb->callTable->getAllCalls();
 }
 
-unordered_map<std::string, std::vector<std::string>> PKBInterface::getAllCallStar() {
+std::unordered_map<std::string, std::vector<std::string>> PKBInterface::getAllCallStar() {
     return pkb->callStarTable->getAllCallStars();
 }
 
-unordered_map<int,int> PKBInterface::getAllFollow() {
+std::unordered_map<int,int> PKBInterface::getAllFollow() {
     return pkb->followsTable->getAllFollows();
 }
 
-unordered_map<int,int> PKBInterface::getAllFollowStar() {
+std::unordered_map<int,int> PKBInterface::getAllFollowStar() {
     return pkb->followsStarTable->getAllFollowStars();
 }
 
-unordered_map<int, vector<int>> PKBInterface::getAllNext() {
+std::unordered_map<int, vector<int>> PKBInterface::getAllNext() {
     return pkb->nextTable->getAllNext();
 }
 
-unordered_map<int, std::vector<std::string>> PKBInterface::getAllModifyByStmt() {
+std::unordered_map<int, std::vector<std::string>> PKBInterface::getAllModifyByStmt() {
     return pkb->modifiesTable->getAllModifiesByStmt();
 }
 
-unordered_map<std::string, std::vector<std::string>> PKBInterface::getAllModifyByProc() {
+std::unordered_map<std::string, std::vector<std::string>> PKBInterface::getAllModifyByProc() {
     return pkb->modifiesTable->getAllModifiesByProc();
 }
 
-unordered_map<int, std::vector<int>> PKBInterface::getAllParent() {
+std::unordered_map<int, std::vector<int>> PKBInterface::getAllParent() {
     return pkb->parentTable->getAllParents();
 }
 
-unordered_map<int, std::vector<int>> PKBInterface::getAllParentStar() {
+std::unordered_map<int, std::vector<int>> PKBInterface::getAllParentStar() {
     return pkb->parentStarTable->getAllParentStars();
 }
 
-unordered_map<int, std::vector<std::string>> PKBInterface::getAllUseByStmt() {
+std::unordered_map<int, std::vector<std::string>> PKBInterface::getAllUseByStmt() {
     return pkb->usesTable->getAllUsesByStmt();
 }
 
-unordered_map<std::string, std::vector<std::string>> PKBInterface::getAllUseByProc() {
+std::unordered_map<std::string, std::vector<std::string>> PKBInterface::getAllUseByProc() {
     return pkb->usesTable->getAllUsesByProc();
 }
 
