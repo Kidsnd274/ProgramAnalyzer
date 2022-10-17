@@ -78,23 +78,10 @@ jobs:
           cd Tests26
           python run_tests.py
 
-      - name: 'Upload Artifact'
+      - name: Archive Test Results Error
         uses: actions/upload-artifact@v3
+        if: failure()
         with:
           name: milestone1_test1
-          path: Team26\Tests26\failed_tests\milestone1_test1_out.xml
-          retention-days: 5
-
-      - name: 'Upload Artifact2'
-        uses: actions/upload-artifact@v3
-        with:
-          name: TEST_FOLLOWSSTAR
-          path: Team26\Tests26\failed_tests\TEST_FOLLOWSSTAR_out.xml
-          retention-days: 5
-
-      - name: 'Upload Artifact3'
-        uses: actions/upload-artifact@v3
-        with:
-          name: milestone2_test1
-          path: Team26\Tests26\failed_tests\milestone2_test1_out.xml
+          path: Team26\Tests26\failed_tests\
           retention-days: 5
