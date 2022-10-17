@@ -615,3 +615,115 @@ TEST_CASE("Next test with 4 nesting levels") {
     REQUIRE(createdCFG->isNext(10,2));
     REQUIRE(createdCFG->isNext(11,10));
 }
+
+TEST_CASE("Next test with while if while if loop") {
+    std::vector<SPToken> v = {SPToken("procedure", SPTokenType::ProcedureToken),
+                              SPToken("iloveprofsanka", SPTokenType::NameToken),
+                              SPToken("{", SPTokenType::LCurlyToken),
+                              SPToken("read", SPTokenType::ReadToken),
+                              SPToken("read", SPTokenType::ReadToken),
+                              SPToken(";", SPTokenType::SemiColonToken),
+                              SPToken("while", SPTokenType::WhileToken),
+                              SPToken("(", SPTokenType::LParenToken),
+                              SPToken("print", SPTokenType::PrintToken),
+                              SPToken(">=", SPTokenType::RelationToken),
+                              SPToken("0", SPTokenType::ConstToken),
+                              SPToken(")", SPTokenType::RParenToken),
+                              SPToken("{", SPTokenType::LCurlyToken),
+                              SPToken("print", SPTokenType::PrintToken),
+                              SPToken("procedure", SPTokenType::ProcedureToken),
+                              SPToken(";", SPTokenType::SemiColonToken),
+                              SPToken("if", SPTokenType::IfToken),
+                              SPToken("(", SPTokenType::LParenToken),
+                              SPToken("x", SPTokenType::NameToken),
+                              SPToken("<", SPTokenType::RelationToken),
+                              SPToken("50", SPTokenType::ConstToken),
+                              SPToken(")", SPTokenType::RParenToken),
+                              SPToken("then", SPTokenType::ThenToken),
+                              SPToken("{", SPTokenType::LCurlyToken),
+                              SPToken("while", SPTokenType::WhileToken),
+                              SPToken("(", SPTokenType::LParenToken),
+                              SPToken("(", SPTokenType::LParenToken),
+                              SPToken("y", SPTokenType::NameToken),
+                              SPToken(">", SPTokenType::RelationToken),
+                              SPToken("x", SPTokenType::NameToken),
+                              SPToken(")", SPTokenType::RParenToken),
+                              SPToken("&&", SPTokenType::CondToken),
+                              SPToken("(", SPTokenType::LParenToken),
+                              SPToken("z", SPTokenType::NameToken),
+                              SPToken("<", SPTokenType::RelationToken),
+                              SPToken("y", SPTokenType::NameToken),
+                              SPToken(")", SPTokenType::RParenToken),
+                              SPToken(")", SPTokenType::RParenToken),
+                              SPToken("{", SPTokenType::LCurlyToken),
+                              SPToken("if", SPTokenType::IfToken),
+                              SPToken("(", SPTokenType::LParenToken),
+                              SPToken("k", SPTokenType::NameToken),
+                              SPToken(">=", SPTokenType::RelationToken),
+                              SPToken("0", SPTokenType::ConstToken),
+                              SPToken(")", SPTokenType::RParenToken),
+                              SPToken("then", SPTokenType::ThenToken),
+                              SPToken("{", SPTokenType::LCurlyToken),
+                              SPToken("y", SPTokenType::NameToken),
+                              SPToken("=", SPTokenType::AssignToken),
+                              SPToken("call", SPTokenType::CallToken),
+                              SPToken("%", SPTokenType::FactorToken),
+                              SPToken("60", SPTokenType::ConstToken),
+                              SPToken(";", SPTokenType::SemiColonToken),
+                              SPToken("}", SPTokenType::RCurlyToken),
+                              SPToken("else", SPTokenType::ElseToken),
+                              SPToken("{", SPTokenType::LCurlyToken),
+                              SPToken("else", SPTokenType::ElseToken),
+                              SPToken("=", SPTokenType::AssignToken),
+                              SPToken("50", SPTokenType::ConstToken),
+                              SPToken(";", SPTokenType::SemiColonToken),
+                              SPToken("}", SPTokenType::RCurlyToken),
+                              SPToken("}", SPTokenType::RCurlyToken),
+                              SPToken("}", SPTokenType::RCurlyToken),
+                              SPToken("else", SPTokenType::ElseToken),
+                              SPToken("{", SPTokenType::LCurlyToken),
+                              SPToken("while", SPTokenType::WhileToken),
+                              SPToken("(", SPTokenType::LParenToken),
+                              SPToken("pencil", SPTokenType::NameToken),
+                              SPToken(">", SPTokenType::RelationToken),
+                              SPToken("7", SPTokenType::ConstToken),
+                              SPToken(")", SPTokenType::RParenToken),
+                              SPToken("{", SPTokenType::LCurlyToken),
+                              SPToken("print", SPTokenType::PrintToken),
+                              SPToken("if", SPTokenType::IfToken),
+                              SPToken(";", SPTokenType::SemiColonToken),
+                              SPToken("}", SPTokenType::RCurlyToken),
+                              SPToken("}", SPTokenType::RCurlyToken),
+                              SPToken("}", SPTokenType::RCurlyToken),
+                              SPToken("print", SPTokenType::PrintToken),
+                              SPToken("done", SPTokenType::NameToken),
+                              SPToken(";", SPTokenType::SemiColonToken),
+                              SPToken("}", SPTokenType::RCurlyToken)
+    };
+
+    PKBInterface pkbInterface = PKBInterface();
+    auto cfgManager = std::make_shared<CFGManager>();
+    Parser testParser(v, &pkbInterface, cfgManager);
+
+    REQUIRE_NOTHROW(testParser.parseSimple());
+
+    CFGHeadPtr createdCFG = cfgManager->getCurrentCFG();
+
+    REQUIRE(createdCFG->isNext(1,2));
+    REQUIRE(createdCFG->isNext(2,11));
+    REQUIRE(createdCFG->isNext(2,3));
+    REQUIRE(createdCFG->isNext(3,4));
+    REQUIRE(createdCFG->isNext(4,5));
+    REQUIRE(createdCFG->isNext(4,9));
+    REQUIRE(createdCFG->isNext(5,6));
+    REQUIRE(createdCFG->isNext(5,2));
+    REQUIRE(createdCFG->isNext(6,7));
+    REQUIRE(createdCFG->isNext(6,8));
+    REQUIRE(createdCFG->isNext(7,5));
+    REQUIRE(createdCFG->isNext(8,5));
+    REQUIRE_FALSE(createdCFG->isNext(7,2));
+    REQUIRE_FALSE(createdCFG->isNext(8,2));
+    REQUIRE(createdCFG->isNext(9,10));
+    REQUIRE(createdCFG->isNext(9,2));
+    REQUIRE(createdCFG->isNext(10,9));
+}
