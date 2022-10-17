@@ -19,16 +19,11 @@ void WithClauseEvaluator::evaluate(QPS::ResultTable *resultTable) {
             }
             return;
         }
+        if (!resultTable->getSynonymColRef().count(arg1.argument.argumentName)) {
+            return;
+        }
         auto iter = resultTable->getSynonymColRef().find(arg1.argument.argumentName);
-        if (iter == resultTable->getSynonymColRef().end()) {
-            return;
-        }
-        int col;
-        if (iter != resultTable->getSynonymColRef().end()) {
-            col = iter->second;
-        } else {
-            return;
-        }
+        int col = iter->second;
         for (int i = table.size() - 1; i >= 0; i--) {
             std::string attrName = QPS_PKB_Interface::getAttrName(table.at(i).at(col), arg1);
             if (attrName != arg2.argument.argumentName) {
@@ -36,26 +31,17 @@ void WithClauseEvaluator::evaluate(QPS::ResultTable *resultTable) {
             }
         }
     } else { // a.attribute = b.attribute
-        auto iter1 = resultTable->getSynonymColRef().find(arg1.argument.argumentName);
-        if (iter1 == resultTable->getSynonymColRef().end()) {
+        if (!resultTable->getSynonymColRef().count(arg1.argument.argumentName)) {
             return;
         }
-        int col1;
-        if (iter1 != resultTable->getSynonymColRef().end()) {
-            col1 = iter1->second;
-        } else {
+        auto iter1 = resultTable->getSynonymColRef().find(arg1.argument.argumentName);
+        int col1= iter1->second;
+
+        if (!resultTable->getSynonymColRef().count(arg2.argument.argumentName)) {
             return;
         }
         auto iter2 = resultTable->getSynonymColRef().find(arg2.argument.argumentName);
-        if (iter2 == resultTable->getSynonymColRef().end()) {
-            return;
-        }
-        int col2;
-        if (iter2 != resultTable->getSynonymColRef().end()) {
-            col2 = iter2->second;
-        } else {
-            return;
-        }
+        int col2 = iter2->second;
         for (int i = table.size() - 1; i >= 0; i--) {
             std::string attrName1 = QPS_PKB_Interface::getAttrName(table.at(i).at(col1), arg1);
             std::string attrName2 = QPS_PKB_Interface::getAttrName(table.at(i).at(col2), arg2);
