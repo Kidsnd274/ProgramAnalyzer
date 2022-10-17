@@ -167,14 +167,13 @@ shared_ptr<AssignNode> PKBInterface::getAssignTNode(const string& assignRef) {
     return AssignNode::createAssignNode(assignStmtNo, varName, tNode);
 }
 
-string PKBInterface::getConditionVar(const std::string &containerRef) {
+vector<string> PKBInterface::getConditionVar(const std::string &containerRef) {
     int containerStmtNo = stoi(containerRef);
-    std::shared_ptr<TNode> node = pkb->containerTable->getConditionByStmtNumber(containerStmtNo);
-    return pkb->containerTable->getVarName(node);
+    return pkb->containerTable->getVarNames(containerStmtNo);
 }
 
-void PKBInterface::addConditionNode(int statementNumber, shared_ptr<TNode> conditionNode) {
-    this->pkb->containerTable->insertCondition(statementNumber, conditionNode);
+void PKBInterface::addCondVar(int statementNumber, std::string varName) {
+    this->pkb->containerTable->addCondVar(statementNumber, varName);
 }
 
 std::unordered_set<std::string> PKBInterface::getAllVariablesModified(std::string procedureName) {

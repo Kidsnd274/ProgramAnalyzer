@@ -1,16 +1,17 @@
 #include "ContainerTable.h"
 
-void ContainerTable::insertCondition(int stmtLineNumber, std::shared_ptr<TNode> conditionNode) {
-    this->containerList.insert({stmtLineNumber, conditionNode});
-}
-
-std::shared_ptr<TNode> ContainerTable::getConditionByStmtNumber(int stmtNumber) {
-    if (this->containerList.find(stmtNumber) != this->containerList.end()) {
-        return this->containerList.find(stmtNumber)->second;
+void ContainerTable::addCondVar(int stmtNumber, std::string varName) {
+    if (this->condVars.find(stmtNumber) != this->condVars.end()) {
+        this->condVars.find(stmtNumber)->second.push_back(varName);
+    } else {
+        this->condVars[stmtNumber] = {varName};
     }
-    return nullptr;
 }
 
-std::string ContainerTable::getVarName(std::shared_ptr<TNode> conditionPointer) {
-    return conditionPointer->getLeftNode()->getValue();
+std::vector<std::string> ContainerTable::getVarNames(int stmtNumber) {
+    if (this->condVars.find(stmtNumber) != this->condVars.end()) {
+        return this->condVars.find(stmtNumber)->second;
+    } else {
+        return {};
+    }
 }

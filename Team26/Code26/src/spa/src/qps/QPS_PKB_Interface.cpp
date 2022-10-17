@@ -119,7 +119,7 @@ std::string QPS_PKB_Interface::getPrintVarName(std::string printLineNumber) {
     return pkbInterface->getPrintVarName(printLineNumber);
 }
 
-std::string QPS_PKB_Interface::getConditionVarNameByStmtNum(std::string containerLineNumber) {
+std::vector<std::string> QPS_PKB_Interface::getConditionVarNameByStmtNum(std::string containerLineNumber) {
     return pkbInterface->getConditionVar(containerLineNumber);
 }
 

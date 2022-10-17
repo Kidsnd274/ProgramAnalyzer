@@ -32,7 +32,7 @@ void UsesExtractor::extractFromExpressionTree(std::shared_ptr<TNode> ptr, bool i
     std::vector<int> v = getAllItemsInStack();
     for(auto &var : varSet) {
         if(isCond) {
-            //pkb->addCondVar(v[0], var);
+            pkb->addCondVar(v[0], var);
         }
 
         pkb->addUses(getProcedureName(), var);
