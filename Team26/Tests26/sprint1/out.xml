@@ -1,14 +1,14 @@
 <?xml-stylesheet type="text/xsl" href="analysis.xsl"?>
 <test_results>
 <info>
-<name>autotester</name><parsing_time_taken>2.123000</parsing_time_taken>
+<name>autotester</name><parsing_time_taken>2.040000</parsing_time_taken>
 </info>
 <queries>
 <query>
 <id ReturnTuple="1" Modifies="1" SuchThat="1" CondNum="3" RelNum="1" comment="select assignment statements that uses itself">37</id><querystr><![CDATA[assign a; read r; variable v; Select <r.varName, r.stmt#> such that Modifies(r, v)]]></querystr>
 <stuans>if 4,zy 16</stuans>
 <correct>2,3,10,12,17,20</correct>
-<time_taken>48.499000</time_taken>
+<time_taken>49.902000</time_taken>
 <failed>
 <missing>10,12,17,2,20,3</missing>
 <additional>if 4,zy 16</additional>
