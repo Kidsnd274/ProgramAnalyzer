@@ -22,8 +22,7 @@ void WithClauseEvaluator::evaluate(QPS::ResultTable *resultTable) {
         if (!resultTable->getSynonymColRef().count(arg1.argument.argumentName)) {
             return;
         }
-        auto iter = resultTable->getSynonymColRef().find(arg1.argument.argumentName);
-        int col = iter->second;
+        int col = resultTable->getSynonymColRef()[arg1.argument.argumentName];
         for (int i = table.size() - 1; i >= 0; i--) {
             std::string attrName = QPS_PKB_Interface::getAttrName(table.at(i).at(col), arg1);
             if (attrName != arg2.argument.argumentName) {
@@ -34,14 +33,12 @@ void WithClauseEvaluator::evaluate(QPS::ResultTable *resultTable) {
         if (!resultTable->getSynonymColRef().count(arg1.argument.argumentName)) {
             return;
         }
-        auto iter1 = resultTable->getSynonymColRef().find(arg1.argument.argumentName);
-        int col1= iter1->second;
+        int col1 = resultTable->getSynonymColRef()[arg1.argument.argumentName];
 
         if (!resultTable->getSynonymColRef().count(arg2.argument.argumentName)) {
             return;
         }
-        auto iter2 = resultTable->getSynonymColRef().find(arg2.argument.argumentName);
-        int col2 = iter2->second;
+        int col2 = resultTable->getSynonymColRef()[arg2.argument.argumentName];
         for (int i = table.size() - 1; i >= 0; i--) {
             std::string attrName1 = QPS_PKB_Interface::getAttrName(table.at(i).at(col1), arg1);
             std::string attrName2 = QPS_PKB_Interface::getAttrName(table.at(i).at(col2), arg2);
