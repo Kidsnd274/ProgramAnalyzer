@@ -22,10 +22,12 @@ class PKBInterface {
 public:
     PKB* pkb = new PKB();
 
-    void addProcedure(string name, int startingStmtNo, int endingStmtNo, std::shared_ptr<CFGHead> cfg);
-    void addVariable(string name);
+    void addProcedure(std::string name, int startingStmtNo, int endingStmtNo, std::shared_ptr<CFGHead> cfg);
+    void addVariable(std::string name);
     void addConst(int value);
 
+    virtual void addStatement(StatementType::StmtType type, int statementNumber, int statementListNumber,
+                              std::shared_ptr<TNode> rootNode, std::string calleeProcName);
     virtual void addReadStatement(int statementNumber, int statementListNumber);
     virtual void addAssignStatement(int statementNumber, int statementListNumber, std::shared_ptr<TNode> rootNode);
     virtual void addWhileStatement(int statementNumber, int statementListNumber);
@@ -52,9 +54,9 @@ public:
     virtual std::unordered_set<string> getCallStar(std::string procedure);
 
 
-    vector<string> getAllEntity(EntityType type);
+    std::vector<std::string> getAllEntity(EntityType type);
     bool existRelation(const RelationStruct& relation);
-    shared_ptr<AssignNode> getAssignTNode(const string& assignRef);
+    std::shared_ptr<AssignNode> getAssignTNode(const string& assignRef);
 
     virtual unordered_map<std::string, std::vector<std::string>> getAllCall();
     virtual unordered_map<std::string, std::vector<std::string>> getAllCallStar();
