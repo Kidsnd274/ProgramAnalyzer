@@ -141,6 +141,8 @@ public:
     static vector<std::string> getConditionVarNameByStmtNum(std::string containerLineNumber);
 
     static std::string getAttrName(std::string value, WithClause::WithClauseArgument candidate);
+
+    static std::string getAttrName(std::string value, Query::CandidateStruct candidate);
 };
 
 

@@ -1,5 +1,5 @@
 #include "QueryResultProjector.h"
-
+#include "QPS_PKB_Interface.h"
 
 void QueryResultProjector::projectResult(Query query, std::list<std::string> &results) {
     QPS::ResultTable* resultTable = query.resultTable;
@@ -42,14 +42,26 @@ std::string QueryResultProjector::getSelectTuples(Query query, std::list<std::st
         for (auto &candidate: query.getCandidateList()) {
             synonyms.push_back(candidate.argument.argumentName);
         }
-        query.resultTable->getSynonymsValues(synonyms, tupleValues);
-        for (auto row: tupleValues) {
+//        query.resultTable->getSynonymsValues(synonyms, tupleValues);
+//        for (auto row: tupleValues) {
+//            std::string rowString;
+//            std::for_each(row.begin(), row.end(), [&](const std::string &piece) { rowString += piece + " "; });
+//            std::string trimmedRowString = rowString.substr(0, rowString.length() - 1);
+//            resultString += trimmedRowString + ", ";
+//            rowStringSet.insert(trimmedRowString);
+//            results.push_back(trimmedRowString);
+//        }
+        for (auto row : query.resultTable->getTable()) {
             std::string rowString;
-            std::for_each(row.begin(), row.end(), [&](const std::string &piece) { rowString += piece + " "; });
+            for (auto &candidate : query.getCandidateList()) {
+                std::string value = row.at(query.resultTable->getSynonymColRef().find(candidate.argument.argumentName)->second);
+                rowString += QPS_PKB_Interface::getAttrName(value, candidate) + " ";
+            }
             std::string trimmedRowString = rowString.substr(0, rowString.length() - 1);
-            resultString += trimmedRowString + ", ";
-            rowStringSet.insert(trimmedRowString);
-            results.push_back(trimmedRowString);
+            if (rowStringSet.find(trimmedRowString) == rowStringSet.end()) {
+                rowStringSet.insert(trimmedRowString);
+                results.push_back(trimmedRowString);
+            }
         }
     }
     return resultString.substr(0, resultString.length() - 2);

@@ -45,7 +45,7 @@ void QueryEvaluator::evaluate(Query* query) {
     }
 
     // For select s.AttrName, change value to their corresponding AttrName
-    changeToAttrName(query, resultOfEvaluation);
+//    changeToAttrName(query, resultOfEvaluation);
 
     query->resultTable = resultOfEvaluation;
 }
