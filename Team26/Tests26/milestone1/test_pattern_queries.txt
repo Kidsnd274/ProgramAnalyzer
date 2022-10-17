@@ -1,82 +1,82 @@
 1 - Simple test with pattern arg1 being variable, and arg2 be variable name
 constant c; variable v; assign a;
-Select a, v such that Modifies(a, v) pattern a(v, _"x")
-6 y, 10 z
+Select <a, v> such that Modifies(a, v) pattern a(v, _"x")
+SyntaxError
 5000
 2 - Simple test with pattern arg1 being variable, and arg2 be variable name
 constant c; variable v; assign a;
-Select a, v such that Modifies(a, v) pattern a(v, _"x"_)
+Select <a, v> such that Modifies(a, v) pattern a(v, _"x"_)
 6 y, 10 z, 3 x, 7 z, 11 z
 5000
 3 - Simple test with pattern arg1 being variable, and arg2 be variable name
 constant c; variable v; assign a;
-Select a, v such that Modifies(a, v) pattern a(v, "x"_)
-3 x, 7 z, 11 z
+Select <a, v> such that Modifies(a, v) pattern a(v, "x"_)
+SyntaxError
 5000
 4 - Simple test with pattern arg1 being variable, and arg2 be variable name
 constant c; variable v; assign a;
-Select a, v such that Modifies(a, v) pattern a(v, "x")
+Select <a, v> such that Modifies(a, v) pattern a(v, "x")
 
 5000
 5 - Simple test with pattern arg1 being variable, and arg2 be constant
 constant c; variable v; assign a;
-Select a, v such that Modifies(a, v) pattern a(v, _"1")
-3 x
+Select <a, v> such that Modifies(a, v) pattern a(v, _"1")
+SyntaxError
 5000
 6 - Simple test with pattern arg1 being variable, and arg2 be constant
 constant c; variable v; assign a;
-Select a, v such that Modifies(a, v) pattern a(v, "1"_)
-6 y
+Select <a, v> such that Modifies(a, v) pattern a(v, "1"_)
+SyntaxError
 5000
 7 - Simple test with pattern arg1 being variable, and arg2 be constant
 constant c; variable v; assign a;
-Select a, v such that Modifies(a, v) pattern a(v, _"3"_)
+Select <a, v> such that Modifies(a, v) pattern a(v, _"3"_)
 5 x, 10 z, 9 x
 5000
 8 - Simple test with pattern arg1 being variable, and arg2 be constant
 constant c; variable v; assign a;
-Select a, v such that Modifies(a, v) pattern a(v, "3")
+Select <a, v> such that Modifies(a, v) pattern a(v, "3")
 9 x
 5000
 9 - Simple test with pattern arg1 being variable actual name, and arg2 be constant
 constant c; variable v; assign a;
-Select a, c such that Modifies(a, v) pattern a("v", "3")
+Select <a, c> such that Modifies(a, v) pattern a("v", "3")
 
 5000
 10 - Simple test with pattern arg1 being variable actual name, and arg2 be constant
 constant c; variable v; assign a;
-Select a, c such that Modifies(a, v) pattern a("x", "3")
+Select <a, c> such that Modifies(a, v) pattern a("x", "3")
 9 1, 9 3, 9 5
 5000
 11 - Simple test with pattern arg1 being variable actual name, and arg2 be constant
 constant c; variable v; assign a;
-Select a, c such that Modifies(a, v) pattern a("x", "3")
+Select <a, c> such that Modifies(a, v) pattern a("x", "3")
 9 1, 9 3, 9 5
 5000
 12 - Simple test with pattern arg1 being variable actual name, and arg2 be constant
 constant c; variable v; assign a;
-Select a, c such that Modifies(a, v) pattern a("x", _"3")
-9 1, 9 3, 9 5, 5 1, 5 3, 5 5
+Select <a, c> such that Modifies(a, v) pattern a("x", _"3")
+SyntaxError
 5000
 13 - Simple test with pattern arg1 being variable, and arg2 be constant
 constant c; variable v; assign a;
-Select a, c such that Modifies(a, v) pattern a("z", "3"_)
-10 1, 10 3, 10 5
+Select <a, c> such that Modifies(a, v) pattern a("z", "3"_)
+SyntaxError
 5000
 14 - Simple test with pattern arg1 being variable actual name, and arg2 be constant
 constant c; variable v; assign a;
-Select a, v such that Modifies(a, v) pattern a("x", _"3"_)
+Select <a, v> such that Modifies(a, v) pattern a("x", _"3"_)
 5 x, 9 x
 5000
 15 - Simple test with undeclared pattern variable
 constant c; variable v; assign a;
-Select a, v such that Modifies(a, v) pattern a1(v, _"3"_)
-SemanticError
+Select <a, v> such that Modifies(a, v) pattern a1(v, _"3"_)
+SyntaxError
 5000
 16 - Simple test with invalid pattern variable
 constant c; variable v; assign a;
-Select a, v such that Modifies(a, v) pattern c(v, _"3"_)
-SyntaxError
+Select <a, v> such that Modifies(a, v) pattern c(v, _"3"_)
+SemanticError
 5000
 
 

@@ -22,3 +22,6 @@ vector<string> ProcedureTable::getAllProcedures() {
     return result;
 }
 
+vector<Procedure> ProcedureTable::getProcList() {
+    return this->procList;
+}

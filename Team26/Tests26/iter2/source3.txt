@@ -1,0 +1,12 @@
+procedure p {				
+	x = 20;				
+	while (x == 1) {	
+		x = 10;			
+		call modx;		
+	}	
+}
+
+procedure modx {			
+	x = 1;				
+	y = x;					
+}

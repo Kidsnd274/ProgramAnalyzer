@@ -5,7 +5,7 @@ Select s such that Follows*(1, s)
 5000
 2 - select pair (s1, s2)
 stmt s1, s2;
-Select s1, s2 such that Follows*(s1, s2)
+Select <s1, s2> such that Follows*(s1, s2)
 1 2, 1 5, 1 6, 2 5, 2 6, 5 6, 7 8, 9 10,
 5000
 3 - comment
@@ -33,7 +33,6 @@ stmt s;
 Select s such that Follows*(s, _)
 1, 2, 5, 7, 9
 5000
-
 
 procedure bar {
 	read random; // 1

@@ -31,20 +31,7 @@ namespace QPS {
                                                                     { WHITESPACE, "^(\\s+)" },
                                                                     {DOT, "^(\\.)"},
                                                                     {HASHTAG, "^(\\#)"}};
-    std::vector<std::string> splitToLines(std::istream& stream) {
-        std::string line;
-        std::vector<std::string> splitResult;
 
-        while(std::getline(std::cin, line)){
-            if (line.empty()){
-                break;
-            }
-            splitResult.push_back(line);
-//            std::cout << line << std::endl;
-        }
-
-        return splitResult;
-    }
 
     Token createToken(TokenType t, std::string nameValue) {
         Token token{};
@@ -53,62 +40,39 @@ namespace QPS {
         return token;
     }
 
-    std::vector<Token> tokenize(std::string queryString, std::vector<Token> &tokens) {
+    bool tokenize(std::string queryString, std::vector<Token> &tokens) {
         std::vector<Token> tokenizedResult;
-//        std::cout << "=====query string ====" << std::endl;
-//        std::cout << queryString << std::endl;
-//        std::vector<std::string> splitString = splitToLines(stream);
-//        std::vector<std::string> splitString = {"variable v1, v2,  v3;",  "Select v3"}; // for test only.
         std::smatch match;
-        bool isMatched = true;
-        while (!queryString.empty() && isMatched) {
-            isMatched = false;
+        while (!queryString.empty()) {
             for (const std::pair<TokenType, std::string>& pair : matchingRules) {
-                if (std::regex_search(queryString, match, std::regex(pair.second))) {
-                    isMatched = true;
-                    Token t;
-                    if (pair.first == NAME) {
-                        t = createToken(NAME, match.str());
-                        tokenizedResult.push_back(t);
-                    } else if (pair.first == INTEGER) {
-                        t = createToken(INTEGER, match.str());
-                        tokenizedResult.push_back(t);
-                    } else if (pair.first == WHITESPACE){
-                    } else {
-//                        std::cout << tokenMap.at(pair.first) << std::endl;
-                        t = createToken(pair.first, match.str());
-                        tokenizedResult.push_back(t);
-                    }
-                    queryString = queryString.substr(match.str().size());
+                bool regex_match = std::regex_search(queryString, match, std::regex(pair.second));
+                // not matched token
+                if (!regex_match) {
+                    continue;
                 }
 
-            }
-            if (!isMatched) {
-                std::cout << "syntax error";
+                // ignore white space
+                if (pair.first == WHITESPACE) {
+                    queryString = queryString.substr(match.str().size());
+                    continue;
+                }
+
+                Token t;
+                if (pair.first == NAME) {
+                    t = createToken(NAME, match.str());
+                    tokenizedResult.push_back(t);
+                } else if (pair.first == INTEGER) {
+                    t = createToken(INTEGER, match.str());
+                    tokenizedResult.push_back(t);
+                } else {
+                    t = createToken(pair.first, match.str());
+                    tokenizedResult.push_back(t);
+                }
+                queryString = queryString.substr(match.str().size());
             }
         }
         std::copy(tokenizedResult.begin(), tokenizedResult.end(), std::back_inserter(tokens));
-
-//        std::cout << "finish tokenizing" << std::endl;
-        return tokenizedResult;
+        return true;
     }
 
-    bool isSuchThat(const Token& token) {
-        return token.nameValue == "Such";
-    }
 } // Tokenization
-//
-//
-//int main() {
-//    std::vector<QPS::Token> tokens;
-//    std::string queryString;
-//    std::cin >> queryString;
-//    QPS::tokenize(queryString, tokens);
-//    for (QPS::Token t : tokens) {
-//        std::string s = QPS::tokenMap.at(t.tokenType);
-//        std::cout << s + " " << std::endl;
-//    }
-//
-//    std::cout << "Start parsing query" << std::endl;
-//    QPS::parseToken(tokens);
-//}
