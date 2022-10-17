@@ -1,13 +1,15 @@
-#ifndef QUERYEVALUATOR_H
-#define QUERYEVALUATOR_H
+#ifndef SPA_QUERYEVALUATOR_H
+#define SPA_QUERYEVALUATOR_H
 
-#include "QueryStruct.h"
+#include "Query.h"
 
-namespace QPS {
-    class BasicQueryEvaluator {
-    public:
-        static void evaluateQuery(QueryStruct& query);
-    };
-}
+class QueryEvaluator {
+public:
+    static void evaluate(Query* query);
+    static void getAllEntity(Argument argument, QPS::ResultTable* resultTable);
+    static void changeToAttrName(Query* query, QPS::ResultTable* resultTable);
+    static std::string getAttrName(std::string value, Query::CandidateStruct candidate);
+};
 
-#endif // QUERYEVALUATOR_H
+
+#endif //SPA_QUERYEVALUATOR_H

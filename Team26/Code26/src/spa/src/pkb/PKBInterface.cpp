@@ -26,6 +26,8 @@
 #include "FollowsStarTable.h"
 #include "CallTable.h"
 #include "CallStarTable.h"
+#include "ContainerTable.h"
+#include "ProcedureNotFoundException.h"
 
 using namespace std;
 //using namespace StatementType;
@@ -37,6 +39,22 @@ void PKBInterface::addProcedure(std::string name, int startingStmtNo, int ending
     proc.endingStmtNo = endingStmtNo;
     proc.cfg = std::move(cfg);
     pkb->procedureTable->insertProc(proc);
+
+    // insert stmts into NextTable
+    for (int i = startingStmtNo; i <= endingStmtNo; i++) {
+//        EDGES edges = proc.cfg->getEdges(i);
+//        for (auto node : edges) {
+//            if (i == node.getStmtNumber()) {
+//                continue;
+//            }
+//            pkb->nextTable->insertNext(i, node.getStmtNumber());
+//        }
+        for (int j = startingStmtNo; j <= endingStmtNo; j++) {
+            if (proc.cfg->isNext(i, j)) {
+                pkb->nextTable->insertNext(i, j);
+            }
+        }
+    }
 }
 
 void PKBInterface::addVariable(string name) {
@@ -122,222 +140,24 @@ void PKBInterface::addCallStar(std::string procedureName, std::string procedureC
     pkb->callStarTable->insertCallStar(procedureName, procedureCalled);
 }
 
-std::vector<std::string> PKBInterface::getAllEntity(EntityType type) {
-    std::vector<std::string> result;
-    switch (type) {
-        case QPS::STATEMENT:
-            result = pkb->statementTable->getAllStmts();
-            break;
-        case QPS::READ:
-            result = pkb->statementTable->getAllReads();
-            break;
-        case QPS::PRINT:
-            result = pkb->statementTable->getAllPrints();
-            break;
-        case QPS::CALL:
-            result = pkb->statementTable->getAllCalls();
-            break;
-        case QPS::WHILE:
-            result = pkb->statementTable->getAllWhiles();
-            break;
-        case QPS::IF:
-            result = pkb->statementTable->getAllIfs();
-            break;
-        case QPS::ASSIGN:
-            result = pkb->statementTable->getAllAssigns();
-            break;
-        case QPS::VARIABLE:
-            result = pkb->varTable->getAllVariables();
-            break;
-        case QPS::CONSTANT:
-            result = pkb->constantTable->getAllConstants();
-            break;
-        case QPS::PROCEDURE:
-            result = pkb->procedureTable->getAllProcedures();
-            break;
-//        case QPS::INVALID_ENTITY_TYPE:
-//            break;
-        default:
-            break;
-    }
-    return result;
-}
-
-bool PKBInterface::existRelation(const RelationStruct& relation) {
-    RelationType typeOfRelation = relation.typeOfRelation;
-    ArgumentStruct arg1 = relation.arg1;
-    ArgumentStruct arg2 = relation.arg2;
-    bool isArg1Wildcard = arg1.typeOfArgument == QPS::WILDCARD;
-    bool isArg2Wildcard = arg2.typeOfArgument == QPS::WILDCARD;
-    bool result = false;
-    switch (typeOfRelation) {
-        case QPS::FOLLOWS:
-//            assert(arg1.typeOfArgument == QPS::STMT_SYNONYM);
-//            assert(arg2.typeOfArgument == QPS::STMT_SYNONYM);
-            if (arg1.typeOfArgument == WILDCARD && arg2.typeOfArgument == WILDCARD) {
-                result = true;
-                break;
-            }
-            if (arg1.typeOfArgument == WILDCARD) {
-                Statement stmt2 = pkb->statementTable->getStmtByLineNumber(stoi(arg2.nameOfArgument));
-                result = false;
-                for (Statement statement : pkb->statementTable->getStatementList()) {
-                    if (statement.statementListNumber == stmt2.statementListNumber &&
-                        pkb->followsTable->existFollows(statement.lineNumber, stmt2.lineNumber)) {
-                        result = true;
-                        break;
-                    }
-                }
-                break;
-            }
-            if (arg2.typeOfArgument == WILDCARD) {
-                Statement stmt1 = pkb->statementTable->getStmtByLineNumber(stoi(arg1.nameOfArgument));
-                result = false;
-                for (Statement statement : pkb->statementTable->getStatementList()) {
-                    if (statement.statementListNumber == stmt1.statementListNumber &&
-                        pkb->followsTable->existFollows(stmt1.lineNumber, statement.lineNumber)) {
-                        result = true;
-                        break;
-                    }
-                }
-                break;
-            }
-            result = pkb->followsTable->existFollows(stoi(arg1.nameOfArgument), stoi(arg2.nameOfArgument));
-            break;
-        case QPS::FOLLOWS_T: {
-//            assert(arg1.typeOfArgument == QPS::STMT_SYNONYM);
-//            assert(arg2.typeOfArgument == QPS::STMT_SYNONYM);
-//            result = pkb->followsStarTable->existFollowsStar(stoi(arg1.nameOfArgument), stoi(arg2.nameOfArgument));
-            if (arg1.typeOfArgument == WILDCARD && arg2.typeOfArgument == WILDCARD) {
-                result = true;
-                break;
-            }
-            if (arg1.typeOfArgument == WILDCARD) {
-                Statement stmt2 = pkb->statementTable->getStmtByLineNumber(stoi(arg2.nameOfArgument));
-                result = false;
-                for (Statement statement : pkb->statementTable->getStatementList()) {
-                    if (statement.statementListNumber == stmt2.statementListNumber && statement.lineNumber < stmt2.lineNumber) {
-                        result = true;
-                        break;
-                    }
-                }
-                break;
-            }
-            if (arg2.typeOfArgument == WILDCARD) {
-                Statement stmt1 = pkb->statementTable->getStmtByLineNumber(stoi(arg1.nameOfArgument));
-                result = false;
-                for (Statement statement : pkb->statementTable->getStatementList()) {
-                    if (statement.statementListNumber == stmt1.statementListNumber && stmt1.lineNumber < statement.lineNumber) {
-                        result = true;
-                        break;
-                    }
-                }
-                break;
-            }
-            Statement stmt1 = pkb->statementTable->getStmtByLineNumber(stoi(arg1.nameOfArgument));
-            Statement stmt2 = pkb->statementTable->getStmtByLineNumber(stoi(arg2.nameOfArgument));
-            if (stmt1.statementListNumber == stmt2.statementListNumber && stmt1.lineNumber < stmt2.lineNumber) {
-                result = true;
-            } else {
-                result = false;
-            }
-            break;
-        }
-        case QPS::PARENT:
-//            assert(arg1.typeOfArgument == QPS::STMT_SYNONYM);
-//            assert(arg2.typeOfArgument == QPS::STMT_SYNONYM);
-            if (isArg1Wildcard && isArg2Wildcard) {
-                result = pkb->parentTable->existParent(0, 0);
-                break;
-            }
-            if (isArg1Wildcard) {
-                result = pkb->parentTable->existParent(0, stoi(arg2.nameOfArgument));
-                break;
-            }
-            if (isArg2Wildcard) {
-                result = pkb->parentTable->existParent(stoi(arg1.nameOfArgument), 0);
-                break;
-            }
-            result = pkb->parentTable->existParent(stoi(arg1.nameOfArgument), stoi(arg2.nameOfArgument));
-            break;
-        case QPS::PARENT_T:
-//            assert(arg1.typeOfArgument == QPS::STMT_SYNONYM);
-//            assert(arg2.typeOfArgument == QPS::STMT_SYNONYM);
-//            result = pkb->parentStarTable->existParentStar(stoi(arg1.nameOfArgument), stoi(arg2.nameOfArgument));
-            if (isArg1Wildcard && isArg2Wildcard) {
-                result = pkb->parentStarTable->existParentStar(0, 0);
-                break;
-            }
-            if (isArg1Wildcard) {
-                result = pkb->parentStarTable->existParentStar(0, stoi(arg2.nameOfArgument));
-                break;
-            }
-            if (isArg2Wildcard) {
-                result = pkb->parentStarTable->existParentStar(stoi(arg1.nameOfArgument), 0);
-                break;
-            }
-            result = pkb->parentStarTable->existParentStar(stoi(arg1.nameOfArgument), stoi(arg2.nameOfArgument));
-            break;
-        case QPS::MODIFIES_S:
-//            assert(arg1.typeOfArgument == QPS::STMT_SYNONYM);
-//            assert(arg2.typeOfArgument == QPS::VAR_SYNONYM);
-            if (isArg1Wildcard) {
-                if (isArg2Wildcard) {
-                    result = pkb->modifiesTable->existModifies(0, std::string());
-                } else {
-                    result = pkb->modifiesTable->existModifies(0, arg2.nameOfArgument);
-                }
-            } else {
-                if (isArg2Wildcard) {
-                    result = pkb->modifiesTable->existModifies(stoi(arg1.nameOfArgument), std::string());
-                } else {
-                    result = pkb->modifiesTable->existModifies(stoi(arg1.nameOfArgument), arg2.nameOfArgument);
-                }
-            }
-            break;
-        case QPS::USES_S:
-//            assert(arg1.typeOfArgument == QPS::STMT_SYNONYM);
-//            assert(arg2.typeOfArgument == QPS::VAR_SYNONYM);
-            if (isArg1Wildcard) {
-                if (isArg2Wildcard) {
-                    result = pkb->usesTable->existUses(0, std::string());
-                } else {
-                    result = pkb->usesTable->existUses(0, arg2.nameOfArgument);
-                }
-            } else {
-                if (isArg2Wildcard) {
-                    result = pkb->usesTable->existUses(stoi(arg1.nameOfArgument), std::string());
-                } else {
-                    result = pkb->usesTable->existUses(stoi(arg1.nameOfArgument), arg2.nameOfArgument);
-                }
-            }
-            break;
-        case QPS::CALLS:
-            result = pkb->callTable->existCall(arg1.nameOfArgument, arg2.nameOfArgument);
-            break;
-        case QPS::CALLS_P:
-            result = pkb->callStarTable->existCallStar(arg1.nameOfArgument, arg2.nameOfArgument);
-            break;
-        default:
-            result = false;
-            break;
-        case USES_P:
-        case MODIFIES_P:
-        case INVALID_RELATION_TYPE:
-            break;
-    }
-    return result;
-}
-
 std::shared_ptr<AssignNode> PKBInterface::getAssignTNode(const string& assignRef) {
     int assignStmtNo = stoi(assignRef);
     assert(pkb->modifiesTable->existStatement(assignStmtNo) == true);
     std::string varName = (pkb->modifiesTable->getModifiesVar(assignStmtNo)).at(0);
     Statement assignStmt = pkb->statementTable->getStmtByLineNumber(assignStmtNo);
-    assert(assignStmt.type == StatementType::ASSIGN);
-    std::shared_ptr<TNode> tNode = assignStmt.rootNode;
+//    assert(assignStmt.type == StatementType::ASSIGN);
+    shared_ptr<TNode> tNode = assignStmt.rootNode;
 
     return AssignNode::createAssignNode(assignStmtNo, varName, tNode);
+}
+
+vector<string> PKBInterface::getConditionVar(const std::string &containerRef) {
+    int containerStmtNo = stoi(containerRef);
+    return pkb->containerTable->getVarNames(containerStmtNo);
+}
+
+void PKBInterface::addCondVar(int statementNumber, std::string varName) {
+    this->pkb->containerTable->addCondVar(statementNumber, varName);
 }
 
 std::unordered_set<std::string> PKBInterface::getAllVariablesModified(std::string procedureName) {
@@ -385,7 +205,7 @@ std::unordered_map<std::string, std::vector<std::string>> PKBInterface::getAllCa
 }
 
 std::unordered_map<std::string, std::vector<std::string>> PKBInterface::getAllCallStar() {
-    return pkb->callTable->getAllCalls();
+    return pkb->callStarTable->getAllCallStars();
 }
 
 std::unordered_map<int,int> PKBInterface::getAllFollow() {
@@ -394,6 +214,10 @@ std::unordered_map<int,int> PKBInterface::getAllFollow() {
 
 std::unordered_map<int,int> PKBInterface::getAllFollowStar() {
     return pkb->followsStarTable->getAllFollowStars();
+}
+
+std::unordered_map<int, vector<int>> PKBInterface::getAllNext() {
+    return pkb->nextTable->getAllNext();
 }
 
 std::unordered_map<int, std::vector<std::string>> PKBInterface::getAllModifyByStmt() {
@@ -438,6 +262,46 @@ std::vector<vector<Statement>> PKBInterface::getAllStmtLists() {
     return result;
 }
 
+vector<string> PKBInterface::getAllStmts() {
+    return pkb->statementTable->getAllStmts();
+}
+
+vector<string> PKBInterface::getAllReads() {
+    return pkb->statementTable->getAllReads();
+}
+
+vector<string> PKBInterface::getAllPrints() {
+    return pkb->statementTable->getAllPrints();
+}
+
+vector<string> PKBInterface::getAllCalls() {
+    return pkb->statementTable->getAllCalls();
+}
+
+vector<string> PKBInterface::getAllWhiles() {
+    return pkb->statementTable->getAllWhiles();
+}
+
+vector<string> PKBInterface::getAllIfs() {
+    return pkb->statementTable->getAllIfs();
+}
+
+vector<string> PKBInterface::getAllAssigns() {
+    return pkb->statementTable->getAllAssigns();
+}
+
+vector<string> PKBInterface::getAllVariables() {
+    return pkb->varTable->getAllVariables();
+}
+
+vector<string> PKBInterface::getAllConstants() {
+    return pkb->constantTable->getAllConstants();
+}
+
+vector<string> PKBInterface::getAllProcedures() {
+    return pkb->procedureTable->getAllProcedures();
+}
+
 std::string PKBInterface::getProcLineNumberByName(std::string procName) {
     for (Procedure p: pkb->procedureTable->getProcList()) {
         if (p.name == procName) {
@@ -463,4 +327,15 @@ std::string PKBInterface::getPrintVarName(std::string printLineNumber) {
     int printLine = std::stoi(printLineNumber);
     std::unordered_map<int, std::vector<std::string>> usesList = pkb->usesTable->getAllUsesByStmt();
     return usesList[printLine].front();
+}
+
+
+CFGHeadPtr PKBInterface::getCfgOfProcedure(std::string procedureName) {
+    for (Procedure currentProcedure:pkb->procedureTable->getProcList()) {
+        if (currentProcedure.name == procedureName) {
+            return currentProcedure.cfg;
+        }
+    }
+    throw ProcedureNotFoundException();
+    return nullptr;
 }

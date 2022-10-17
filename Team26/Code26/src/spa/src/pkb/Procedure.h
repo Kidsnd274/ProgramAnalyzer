@@ -7,7 +7,6 @@
 
 #include <stdio.h>
 #include <string>
-
 #include "util/cfg/CFGHead.h"
 
 using namespace std;

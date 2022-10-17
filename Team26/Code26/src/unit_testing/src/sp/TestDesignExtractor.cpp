@@ -834,27 +834,6 @@ TEST_CASE("Test call procedures with call statements") {
         auto *pkbInterface = new PKBInterfaceStubForDE();
         DesignExtractor designExtractor = DesignExtractor(pkbInterface);
 
-//        //procedure 1
-//        std::shared_ptr<ReadNode> statement1 = std::move(ReadNode::createReadNode(1, "x"));
-//        std::shared_ptr<CallNode> statement2 = std::move(CallNode::createCallNode(2, "next"));
-//        std::vector<std::shared_ptr<StatementNode>> stmtList1 = {statement1, statement2};
-//        std::shared_ptr<ProcedureNode> proc1 = std::move(ProcedureNode::createProcedureNode("testCalls", stmtList1));
-//
-//        //procedure 2
-//        std::shared_ptr<PrintNode> stmt1 = PrintNode::createPrintNode(3, "x");
-//        std::shared_ptr<TNode> stmt2expr = TNode::createTerm(4, "*", TNode::createVariableName(4, "y"), TNode::createConstantValue(4, "3"));
-//        std::shared_ptr<AssignNode> stmt2 = AssignNode::createAssignNode(4, "y", stmt2expr);
-//        std::shared_ptr<CallNode> stmt3 = CallNode::createCallNode(5, "last");
-//        std::shared_ptr<ProcedureNode> proc2 = ProcedureNode::createProcedureNode("next", {stmt1, stmt2, stmt3});
-//
-//        //procedure 3
-//        std::shared_ptr<TNode> expr = std::move(TNode::createVariableName(6, "var123"));
-//        std::shared_ptr<AssignNode> stmt = std::move(AssignNode::createAssignNode(6, "y", expr));
-//        std::vector<std::shared_ptr<StatementNode>> stmtList3 = {stmt};
-//        std::shared_ptr<ProcedureNode> proc3 = std::move(ProcedureNode::createProcedureNode("last", stmtList3));
-//
-//        std::vector<shared_ptr<ProcedureNode>> procedures = {proc1, proc2, proc3};
-        //designExtractor.extract(procedures);
         Lexer l(testcalls);
         Parser p(l.tokenize(), pkbInterface);
         p.parseSimple();
@@ -865,6 +844,41 @@ TEST_CASE("Test call procedures with call statements") {
         std::unordered_set<std::string> proc2Used = {"x", "y", "var123"};
         std::unordered_set<std::string> proc3Modified = {"y"};
         std::unordered_set<std::string> proc3Used = {"var123"};
+
+        std::unordered_set<std::string> call1Modified;
+        std::unordered_set<std::string> call2Modified;
+        std::unordered_set<std::string> call3Modified;
+        std::unordered_set<std::string> call1Used;
+        std::unordered_set<std::string> call2Used;
+        std::unordered_set<std::string> call3Used;
+
+        for (auto &[f,s] : pkbInterface->modifiesMapIntString) {
+            if(f ==  2) {
+                call1Modified.insert(s);
+            }
+
+            if(f ==  3) {
+                call2Modified.insert(s);
+            }
+
+            if(f ==  6) {
+                call3Modified.insert(s);
+            }
+        }
+
+        for (auto &[f,s] : pkbInterface->usesMapIntString) {
+            if(f ==  2) {
+                call1Used.insert(s);
+            }
+
+            if(f ==  3) {
+                call2Used.insert(s);
+            }
+
+            if(f ==  6) {
+                call3Used.insert(s);
+            }
+        }
 
         std::unordered_set<std::string> proc1Called = { "next", "next2" };
         std::unordered_set<std::string> proc2Called = { "last" };
@@ -888,5 +902,14 @@ TEST_CASE("Test call procedures with call statements") {
         REQUIRE(proc1CalledStar == pkbInterface->getCallStar("testCalls"));
         REQUIRE(proc2CalledStar == pkbInterface->getCallStar("next"));
         REQUIRE(proc3CalledStar == pkbInterface->getCallStar("last"));
+
+        REQUIRE(call1Modified == pkbInterface->getAllVariablesModified("next"));
+        REQUIRE(call2Modified == pkbInterface->getAllVariablesModified("next2"));
+        REQUIRE(call3Modified == pkbInterface->getAllVariablesModified("last"));
+
+        REQUIRE(call1Used == pkbInterface->getAllVariablesUsed("next"));
+        REQUIRE(call2Used == pkbInterface->getAllVariablesUsed("next2"));
+        REQUIRE(call3Used == pkbInterface->getAllVariablesUsed("last"));
+
     }
 }

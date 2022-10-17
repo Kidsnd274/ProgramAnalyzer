@@ -6,20 +6,15 @@
 #include <iostream>
 #include "QueryProcessorTypes.h"
 #include "Container.h"
-#include "QueryManager.h"
 #include "Tokenizer.h"
 
 namespace QPS {
-    std::pair<EntityType, bool> mapEntity(const Token& token);
+    std::pair<Entity::EntityType, bool> mapEntity(const Token& token);
     std::pair<RelationType, bool> mapRelation(std::vector<QPS::Token> &tokens, int pos);
-    std::pair<ArgumentStruct, bool> convertStringToARG (Token &token, Container &container);
-    std::pair<ArgumentStruct, bool> convertStringToEntARG (Token &token, Container &container);
-    std::pair<ArgumentStruct, Exception> convertStringToStmtRef (Token &token, Container &container);
+    std::pair<Argument, Exception> convertStringToARG (Token &token, Container &container);
     Exception parseToken(std::vector<Token> &tokens, Container &container);
-    std::pair<ArgumentStruct, Exception> convertStringToEntRef (Token &token, Container &container);
-    std::pair<ArgumentStruct, Exception> convertStringToStmtRefUM (Token &token, Container &container);
-    std::pair<ArgumentStruct, Exception> convertStringToStmtRefCalls (Token &token, Container &container);
-    std::pair<WithFieldType, Exception> convertStringToWithType (Token &token);
+    std::pair<Argument, Exception> convertStringToStmtRefCalls (Token &token, Container &container);
+    std::pair<AttributeType, Exception> convertStringToWithType (Token &token);
 }
 
 
