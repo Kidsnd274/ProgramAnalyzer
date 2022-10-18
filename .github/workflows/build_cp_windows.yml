@@ -28,8 +28,7 @@ jobs:
       fail-fast: false
 
     steps:
-      - uses: actions/checkout@v2
-      - uses: actions/setup-python@v4
+      - uses: actions/checkout@v3
         with:
           python-version: '3.9'
 
@@ -45,6 +44,11 @@ jobs:
           cmake --build . --target autotester --config Release
           cd ../..
 
+  unit_test:
+    runs-on: windows-latest
+    timeout-minutes: 5
+
+    steps:
       - name: Run Unit Tests
         shell: bash
         run: |
@@ -58,6 +62,11 @@ jobs:
           echo UNIT TESTING
           cat output.txt
 
+  integration_test:
+    runs-on: windows-latest
+    timeout-minutes: 5
+
+    steps:
       - name: Run Integration Tests
         shell: bash
         run: |
@@ -71,6 +80,11 @@ jobs:
           ./integration_testing.exe -d yes -o output.txt
           cat output.txt
 
+  autotester_tests:
+    timeout-minutes: 5
+
+    steps:
+      - uses: actions/setup-python@v4
       - name: Run autotester test cases
         shell: bash
         run: |
@@ -78,10 +92,14 @@ jobs:
           cd Tests26
           python run_tests.py
 
+  archive_results:
+    timeout-minutes: 1
+    if: failure()
+    needs: [build, autotester_tests]
+    steps:
       - name: Archive Test Results Error
         uses: actions/upload-artifact@v3
-        if: failure()
-        #needs: [job1, job2]
+
         with:
           name: Failed logs and out.xml
           path: |
@@ -89,9 +107,13 @@ jobs:
             Team26\Tests26\failed_tests\
           retention-days: 5
 
+  upload_binary:
+    timeout-minutes: 1
+    if: always()
+    needs: [build]
+    steps:
       - name: Upload binary artifacts
         uses: actions/upload-artifact@v3
-        if: always()
         with:
           name: binaries
           path: |
