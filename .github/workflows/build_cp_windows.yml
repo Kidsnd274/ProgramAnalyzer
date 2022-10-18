@@ -29,9 +29,6 @@ jobs:
 
     steps:
       - uses: actions/checkout@v2
-      - uses: actions/setup-python@v4
-        with:
-          python-version: '3.9'
 
       - name: Build Project
         shell: bash
@@ -72,6 +69,10 @@ jobs:
           cat output.txt
 
       - name: Run autotester test cases
+        uses: actions/setup-python@v4
+        with:
+          python-version: '3.9'
+        if: always()
         shell: bash
         run: |
           cd Team26
@@ -81,13 +82,12 @@ jobs:
       - name: Archive Test Results Error
         uses: actions/upload-artifact@v3
         if: failure()
-        #needs: [job1, job2]
         with:
           name: Failed logs and out.xml
           path: |
             Team26\Tests26\failed_tests.txt
             Team26\Tests26\failed_tests\
-          retention-days: 5
+          retention-days: 3
 
       - name: Upload binary artifacts
         uses: actions/upload-artifact@v3
@@ -98,3 +98,4 @@ jobs:
             Team26/Code26/build/src/autotester/Release/autotester.exe
             Team26/Code26/build/src/unit_testing/Release/unit_testing.exe
             Team26/Code26/build/src/integration_testing/Release/integration_testing.exe
+          retention-days: 3
