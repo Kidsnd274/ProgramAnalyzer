@@ -26,6 +26,9 @@ jobs:
 
     steps:
       - uses: actions/checkout@v3
+      - uses: actions/setup-python@v4
+        with:
+          python-version: '3.9'
 
       - name: Create Build Environment
         run: cmake -E make_directory ${{runner.workspace}}/build
@@ -59,9 +62,6 @@ jobs:
           cat output.txt
 
       - name: Run autotester test cases
-        uses: actions/setup-python@v4
-        with:
-          python-version: '3.9'
         if: always()
         shell: bash
         working-directory: ${{runner.workspace}}/22s1-cp-spa-team-26
