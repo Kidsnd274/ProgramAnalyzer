@@ -94,8 +94,8 @@ jobs:
 
   archive_results:
     timeout-minutes: 1
-    if: failure()
-    needs: [build, autotester_tests]
+#    if: failure()
+#    needs: [build, autotester_tests]
     steps:
       - name: Archive Test Results Error
         uses: actions/upload-artifact@v3
@@ -109,8 +109,8 @@ jobs:
 
   upload_binary:
     timeout-minutes: 1
-    if: always()
-    needs: [build]
+#    if: always()
+#    needs: [build]
     steps:
       - name: Upload binary artifacts
         uses: actions/upload-artifact@v3
