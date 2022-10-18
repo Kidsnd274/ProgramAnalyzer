@@ -73,7 +73,7 @@ jobs:
         uses: actions/upload-artifact@v3
         if: failure()
         with:
-          name: Failed logs and out.xml
+          name: results
           path: |
             ${{runner.workspace}}/22s1-cp-spa-team-26/Team26/Tests26/failed_tests.txt
             ${{runner.workspace}}/22s1-cp-spa-team-26/Team26/Tests26/failed_tests/
