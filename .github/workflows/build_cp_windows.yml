@@ -81,6 +81,7 @@ jobs:
           cat output.txt
 
   autotester_tests:
+    runs-on: windows-latest
     timeout-minutes: 5
 
     steps:
@@ -93,6 +94,7 @@ jobs:
           python run_tests.py
 
   archive_results:
+    runs-on: windows-latest
     timeout-minutes: 1
 #    if: failure()
 #    needs: [build, autotester_tests]
@@ -108,6 +110,7 @@ jobs:
           retention-days: 5
 
   upload_binary:
+    runs-on: windows-latest
     timeout-minutes: 1
 #    if: always()
 #    needs: [build]
