@@ -31,13 +31,14 @@ void WithClauseEvaluator::evaluate(QPS::ResultTable *resultTable) {
             }
         }
     } else { // a.attribute = b.attribute
-        auto iter1 = resultTable->getSynonymColRef().find(arg1.argument.argumentName);
-        if (iter1 == resultTable->getSynonymColRef().end()) {
+        auto map = resultTable->getSynonymColRef();
+        auto iter1 = map.find(arg1.argument.argumentName);
+        if (iter1 == map.end()) {
             return;
         }
         int col1 = iter1->second;
-        auto iter2 = resultTable->getSynonymColRef().find(arg2.argument.argumentName);
-        if (iter2 == resultTable->getSynonymColRef().end()) {
+        auto iter2 = map.find(arg2.argument.argumentName);
+        if (iter2 == map.end()) {
             return;
         }
         int col2 = iter2->second;
