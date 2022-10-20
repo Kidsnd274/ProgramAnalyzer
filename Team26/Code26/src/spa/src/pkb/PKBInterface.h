@@ -90,4 +90,7 @@ public:
 
     // For testing
     CFGHeadPtr getCfgOfProcedure(std::string procedureName);
+    bool isNextStarComputed(STMT_NUM stmt);
+    void addAllNextStarFrom(STMT_NUM toAddTo, STMT_NUM toAddFrom);
+    void addNextStar(STMT_NUM toAddTo, std::unordered_set<STMT_NUM>& toBeAdded);
 };
