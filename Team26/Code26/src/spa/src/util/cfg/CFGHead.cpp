@@ -72,7 +72,7 @@ bool CFGHead::hasNextStatement(STMT_NUM stmt) {
 
 std::unordered_set<STMT_NUM> CFGHead::getNextNodes(STMT_NUM stmt) {
     if (!isStatementInCFG(stmt)) {
-        return false;
+        return {};
     }
 
     std::unordered_set<STMT_NUM> ans;
