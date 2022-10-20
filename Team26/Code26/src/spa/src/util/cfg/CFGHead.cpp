@@ -70,6 +70,27 @@ bool CFGHead::hasNextStatement(STMT_NUM stmt) {
     return ans;
 }
 
+std::unordered_set<STMT_NUM> CFGHead::getNextNodes(STMT_NUM stmt) {
+    if (!isStatementInCFG(stmt)) {
+        return false;
+    }
+
+    std::unordered_set<STMT_NUM> ans;
+
+    for(auto &node : adjList[stmt]) {
+        if(node.isDummyNode()) {
+            int nextNode = findDummyNodeNext(node);
+            if(nextNode != -1) {
+                ans.insert(nextNode);
+            }
+        } else {
+            ans.insert(node.getStmtNumber());
+        }
+    }
+
+    return ans;
+}
+
 bool CFGHead::isStatementInCFG(STMT_NUM stmt1) {
     return adjList.find(stmt1) != adjList.end();
 }
