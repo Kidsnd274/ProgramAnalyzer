@@ -22,16 +22,19 @@ class PKBInterface {
 public:
     PKB* pkb = new PKB();
 
-    void addProcedure(string name, int startingStmtNo, int endingStmtNo, std::shared_ptr<CFGHead> cfg);
-    void addVariable(string name);
+    void addProcedure(std::string name, int startingStmtNo, int endingStmtNo, std::shared_ptr<CFGHead> cfg);
+    void addVariable(std::string name);
     void addConst(int value);
 
+    virtual void addStatement(StatementType::StmtType type, int statementNumber, int statementListNumber,
+                              std::shared_ptr<TNode> rootNode, std::string calleeProcName);
     virtual void addReadStatement(int statementNumber, int statementListNumber);
     virtual void addAssignStatement(int statementNumber, int statementListNumber, std::shared_ptr<TNode> rootNode);
     virtual void addWhileStatement(int statementNumber, int statementListNumber);
     virtual void addIfStatement(int statementNumber, int statementListNumber);
     virtual void addPrintStatement(int statementNumber, int statementListNumber);
-    virtual void addCallStatement(int statementNumber, int statementListNumber);
+    virtual void addCallStatement(int statementNumber, int statementListNumber, std::string calleeProcName);
+    virtual void addCondVar(int statementNumber, string varName);
 
     virtual void addModifies(int statementNumber, string varName);
     virtual void addModifies(std::string procedureName, std::string varName);
@@ -52,14 +55,14 @@ public:
     virtual std::unordered_set<string> getCallStar(std::string procedure);
 
 
-    vector<string> getAllEntity(EntityType type);
-    bool existRelation(const RelationStruct& relation);
     shared_ptr<AssignNode> getAssignTNode(const string& assignRef);
+    vector<string> getConditionVar(const string& containerRef);
 
     virtual unordered_map<std::string, std::vector<std::string>> getAllCall();
     virtual unordered_map<std::string, std::vector<std::string>> getAllCallStar();
     virtual unordered_map<int,int> getAllFollow();
     virtual unordered_map<int,int> getAllFollowStar();
+    virtual unordered_map<int, vector<int>> getAllNext();
     virtual unordered_map<int, std::vector<std::string>> getAllModifyByStmt();
     virtual unordered_map<std::string, std::vector<std::string>> getAllModifyByProc();
     virtual unordered_map<int, std::vector<int>> getAllParent();
@@ -67,4 +70,24 @@ public:
     virtual unordered_map<int, std::vector<std::string>> getAllUseByStmt();
     virtual unordered_map<std::string, std::vector<std::string>> getAllUseByProc();
     virtual std::vector<vector<Statement>> getAllStmtLists();
+
+    vector<string> getAllStmts();
+    vector<string> getAllReads();
+    vector<string> getAllPrints();
+    vector<string> getAllCalls();
+    vector<string> getAllWhiles();
+    vector<string> getAllIfs();
+    vector<string> getAllAssigns();
+    vector<string> getAllVariables();
+    vector<string> getAllConstants();
+    vector<string> getAllProcedures();
+
+
+    virtual std::string getProcLineNumberByName(std::string procName);
+    virtual std::string getCallProcName(std::string callLineNumber);
+    virtual std::string getReadVarName(std::string readLineNumber);
+    virtual std::string getPrintVarName(std::string printLineNumber);
+
+    // For testing
+    CFGHeadPtr getCfgOfProcedure(std::string procedureName);
 };

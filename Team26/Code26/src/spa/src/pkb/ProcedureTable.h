@@ -18,6 +18,7 @@ private:
 public:
     void insertProc(Procedure proc);
     vector<string> getAllProcedures();
+    vector<Procedure> getProcList();
 };
 
 #endif //SPA_PROCEDURETABLE_H

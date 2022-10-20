@@ -14,17 +14,19 @@ using namespace std;
 
 class StatementTable {
 private:
-    vector<Statement> statementList;
+    std::vector<Statement> statementList;
 public:
     void insertStmt(Statement stmt);
-    vector<Statement> getStatementList();
-    vector<string> getAllStmts();
-    vector<string> getAllReads();
-    vector<string> getAllAssigns();
-    vector<string> getAllWhiles();
-    vector<string> getAllIfs();
-    vector<string> getAllPrints();
-    vector<string> getAllCalls();
+    std::vector<Statement> getStatementList();
+    std::vector<std::string> getAllStmts();
+    std::vector<std::string> getAllStmtsByType(StatementType::StmtType type);
+    std::vector<std::string> getAllReads();
+    std::vector<std::string> getAllAssigns();
+    std::vector<std::string> getAllWhiles();
+    std::vector<std::string> getAllIfs();
+    std::vector<std::string> getAllPrints();
+    std::vector<std::string> getAllCalls();
+    std::vector<Statement> getAllCallStatements();
     Statement getStmtByLineNumber(int stmtNo);
 };
 

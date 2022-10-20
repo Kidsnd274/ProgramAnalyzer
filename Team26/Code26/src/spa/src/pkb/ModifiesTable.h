@@ -23,6 +23,7 @@ public:
     std::vector<std::string> getAllModifiedVarByProc(std::string procedureName);
     std::unordered_map<int, std::vector<std::string>> getAllModifiesByStmt();
     std::unordered_map<std::string, std::vector<std::string>> getAllModifiesByProc();
+
 };
 
 #endif //SPA_MODIFIESTABLE_H

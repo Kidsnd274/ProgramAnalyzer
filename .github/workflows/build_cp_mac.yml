@@ -22,7 +22,7 @@ jobs:
     runs-on: macos-latest
     timeout-minutes: 7
     strategy:
-      fail-fast: true
+      fail-fast: false
 
     steps:
       - uses: actions/checkout@v2

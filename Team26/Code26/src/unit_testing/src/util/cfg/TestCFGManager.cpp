@@ -169,3 +169,47 @@ TEST_CASE("Test Reachable in CFGManager") {
     REQUIRE(createdCFG->getReachableNodes(6) == set6);
     REQUIRE(createdCFG->getReachableNodes(7) == set7);
 }
+
+TEST_CASE("Test while if while while loop") {
+    CFGManager testManager;
+    testManager.createNewCFG();
+    testManager.addStandardNode(1);
+    testManager.addStandardNode(2);
+    testManager.addStandardNode(3);
+    testManager.addStandardNode(4);
+    testManager.addStandardNode(5);
+    testManager.addStandardNode(6);
+    testManager.addStandardNode(7);
+    testManager.addStandardNode(8);
+    testManager.addStandardNode(9);
+    testManager.finalizeWhileStatement(8);
+    testManager.finalizeWhileStatement(6);
+    testManager.finalizeIfPortionOfIfStatement(5);
+    testManager.addStandardNode(10);
+    testManager.finalizeElsePortionOfIfStatement(5);
+    testManager.finalizeWhileStatement(1);
+    testManager.finalizeFinalNode();
+    CFGHeadPtr createdCFG = testManager.getCurrentCFG();
+
+    CFGHeadPtr correctCFG = CFGHead::createNewCFG();
+    correctCFG->connectNode(CFGNode::node(1), CFGNode::node(2));
+    correctCFG->connectNode(CFGNode::node(2), CFGNode::node(3));
+    correctCFG->connectNode(CFGNode::node(3), CFGNode::node(4));
+    correctCFG->connectNode(CFGNode::node(4), CFGNode::node(5));
+    correctCFG->connectNode(CFGNode::node(5), CFGNode::node(6));
+    correctCFG->connectNode(CFGNode::node(6), CFGNode::node(7));
+    correctCFG->connectNode(CFGNode::node(7), CFGNode::node(8));
+    correctCFG->connectNode(CFGNode::node(8), CFGNode::node(9));
+    correctCFG->connectNode(CFGNode::node(9), CFGNode::node(8));
+    correctCFG->connectNode(CFGNode::node(8), CFGNode::dummyNode(8));
+    correctCFG->connectNode(CFGNode::dummyNode(8), CFGNode::node(6));
+    correctCFG->connectNode(CFGNode::node(6), CFGNode::dummyNode(6));
+    correctCFG->connectNode(CFGNode::dummyNode(6), CFGNode::dummyNode(5));
+    correctCFG->connectNode(CFGNode::node(5), CFGNode::node(10));
+    correctCFG->connectNode(CFGNode::node(10), CFGNode::dummyNode(5));
+    correctCFG->connectNode(CFGNode::dummyNode(5), CFGNode::node(1));
+    correctCFG->connectNode(CFGNode::node(1), CFGNode::dummyNode(1));
+    correctCFG->initializeFinalNode(CFGNode::dummyNode(1));
+
+    REQUIRE(*createdCFG == *correctCFG);
+}

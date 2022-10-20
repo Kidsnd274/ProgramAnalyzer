@@ -1,0 +1,28 @@
+procedure demo2 {
+    read x;
+    print y;
+    x = x + 1;
+    if(x < y) then {
+        x = z + y * 3;
+        y = 1 + x;
+        print = print * y;
+        z = x + 5;
+        print = z + m * print * y * p + x * 5;
+        while (print < 100) {
+            while = while + 7;
+            print = z * print * y + 1;
+        }
+    } else {
+        print p;
+        x = 3;
+        z = z + y + 3 + x;
+        z = 7 + x + z + y * 3 + x;
+        z = 7 + x * z + y;
+        print = 7 + x + (z + y) * 3 + x;
+        test = 7 + x + (8 + z + y) * 3 + x;
+        print = print + 3;
+    }
+    z = x + y;
+    print = print * y + 3;
+    test = 7 + x + (z + y + 8) * 3 + x;
+}
