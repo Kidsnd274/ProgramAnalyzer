@@ -33,12 +33,12 @@ CFGHeadPtr CFGHead::createNewCFG() {
     return std::make_shared<CFGHead>();
 }
 
-CFGMap CFGHead::getNormalNodeMap() {
-    return this->adjList;
+CFGMap *CFGHead::getAdjList() {
+    return &this->adjList;
 }
 
-CFGDummyMap CFGHead::getDummyNodeMap() {
-    return this->dummyAdjList;
+CFGDummyMap *CFGHead::getDummyAdjList() {
+    return &this->dummyAdjList;
 }
 
 STMT_NUM CFGHead::findDummyNodeNext(CFGNode& dummy) {
@@ -225,6 +225,14 @@ std::string CFGHead::returnAllEdgesInString() {
         result += "\n";
     }
     return result;
+}
+
+CFGMap CFGHead::getNormalNodeMap() {
+    return this->adjList;
+}
+
+CFGDummyMap CFGHead::getDummyNodeMap() {
+    return this->dummyAdjList;
 }
 
 bool operator== (CFGHead leftCFG, CFGHead rightCFG) {

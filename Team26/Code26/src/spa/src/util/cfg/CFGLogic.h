@@ -13,8 +13,8 @@ public:
     CFGLogic(CFGHeadPtr cfg, PKBInterface* pkbInterface) {
         this->cfg = cfg;
         this->pkbInterface = pkbInterface;
-        this->adjList = cfg->getNormalNodeMap();
-        this->dummyAdjList = cfg->getDummyNodeMap();
+        this->adjList = cfg->getAdjList();
+        this->dummyAdjList = cfg->getDummyAdjList();
     }
 
     ~CFGLogic() {

@@ -25,8 +25,8 @@ public:
     void connectNode(CFGNode node1, CFGNode node2);
     EDGES getEdges(STMT_NUM stmtNumber);
     CFGNode getDummyNodeEdge(STMT_NUM stmtNumber);
-    CFGMap getNormalNodeMap();
-    CFGDummyMap getDummyNodeMap();
+    CFGMap* getAdjList();
+    CFGDummyMap* getDummyAdjList();
     void initializeFinalNode(CFGNode finalNode);
     static CFGHeadPtr createNewCFG();
     static bool compareEdgesEquality(EDGES v1, EDGES v2);
@@ -44,6 +44,8 @@ public:
 
     // debug methods
     std::string returnAllEdgesInString();
+    CFGMap getNormalNodeMap();
+    CFGDummyMap getDummyNodeMap();
 };
 
 bool operator== (CFGHead leftCFG, CFGHead rightCFG);
