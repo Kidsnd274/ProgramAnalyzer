@@ -33,4 +33,9 @@ public:
     std::unordered_set<int> getParentStar(int statementNumber) override;
     std::unordered_set<string> getCall(std::string procedure) override;
     std::unordered_set<string> getCallStar(std::string procedure) override;
+
+    //Methods to test Next*
+    bool isNextStarComputed(STMT_NUM stmt) override;
+    void addAllNextStarFrom(STMT_NUM toAddTo, STMT_NUM toAddFrom) override;
+    void addNextStar(STMT_NUM toAddTo, std::unordered_set<STMT_NUM>& toBeAdded) override;
 };

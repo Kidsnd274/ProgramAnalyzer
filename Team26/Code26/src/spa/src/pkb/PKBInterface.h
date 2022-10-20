@@ -90,7 +90,8 @@ public:
 
     // For testing
     CFGHeadPtr getCfgOfProcedure(std::string procedureName);
-    bool isNextStarComputed(STMT_NUM stmt);
-    void addAllNextStarFrom(STMT_NUM toAddTo, STMT_NUM toAddFrom);
-    void addNextStar(STMT_NUM toAddTo, std::unordered_set<STMT_NUM>& toBeAdded);
+    virtual bool isNextStarComputed(STMT_NUM stmt);
+    virtual void addAllNextStarFrom(STMT_NUM toAddTo, STMT_NUM toAddFrom);
+    virtual void addNextStar(STMT_NUM toAddTo, std::unordered_set<STMT_NUM>& toBeAdded);
+    //TODO: remind ming si to remove the virtual signature
 };

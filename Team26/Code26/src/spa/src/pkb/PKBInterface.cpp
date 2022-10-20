@@ -339,3 +339,16 @@ CFGHeadPtr PKBInterface::getCfgOfProcedure(std::string procedureName) {
     throw ProcedureNotFoundException();
     return nullptr;
 }
+
+// Added in for testing, MingSi pls replace these methods.
+bool PKBInterface::isNextStarComputed(STMT_NUM stmt) {
+    return false;
+}
+
+void PKBInterface::addAllNextStarFrom(STMT_NUM toAddTo, STMT_NUM toAddFrom) {
+    return;
+}
+
+void PKBInterface::addNextStar(STMT_NUM toAddTo, std::unordered_set<STMT_NUM>& toBeAdded) {
+    return;
+}
