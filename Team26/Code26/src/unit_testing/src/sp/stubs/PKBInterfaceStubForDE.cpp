@@ -117,13 +117,21 @@ std::unordered_set<string> PKBInterfaceStubForDE::getCallStar(std::string proced
 }
 
 bool PKBInterfaceStubForDE::isNextStarComputed(STMT_NUM stmt) {
-    return false;
+    return nextStarCache.count(stmt);
 }
 
 void PKBInterfaceStubForDE::addAllNextStarFrom(STMT_NUM toAddTo, STMT_NUM toAddFrom) {
+    if(!nextStarCache.count(toAddTo)) {
+        std::unordered_set<STMT_NUM> temp;
+        nextStarCache[toAddTo] = temp;
+    }
+
+    nextStarCache[toAddTo].insert(nextStarCache[toAddFrom].begin(), nextStarCache[toAddFrom].end());
+
     return;
 }
 
 void PKBInterfaceStubForDE::addNextStar(STMT_NUM toAddTo, std::unordered_set<STMT_NUM>& toBeAdded) {
+    nextStarCache[toAddTo] = toBeAdded;
     return;
 }
