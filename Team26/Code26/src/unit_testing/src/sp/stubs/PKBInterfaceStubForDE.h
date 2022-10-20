@@ -12,6 +12,7 @@ public:
     std::unordered_multimap<std::string, std::string> callMapStringString;
     std::unordered_multimap<std::string, std::string> callStarMapStringString;
     std::unordered_map<int, int> statements;
+    std::unordered_map<STMT_NUM, std::unordered_set<STMT_NUM>> nextStarCache;
 
     void addFollows(int stmt1Number, int stmt2Number) override;
     void addParent(int parentStmtNumber, int stmtNumber) override;
