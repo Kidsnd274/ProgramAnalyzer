@@ -8,6 +8,7 @@ class CFGExtractor {
 public:
     virtual std::unordered_set<STMT_NUM> getStatementRelations(CFGHeadPtr cfg, PKBInterface* pkb, STMT_NUM stmt) = 0;
     virtual bool isTransitiveComputed(PKBInterface* pkb, STMT_NUM stmt) = 0;
+    virtual void addTransitive(PKBInterface* pkb, STMT_NUM toAddTo, STMT_NUM toAddFrom) = 0;
 };
 
 

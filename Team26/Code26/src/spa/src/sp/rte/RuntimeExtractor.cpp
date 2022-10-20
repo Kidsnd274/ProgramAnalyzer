@@ -9,6 +9,8 @@ void RuntimeExtractor::computeTransitive(CFGHeadPtr cfg, PKBInterface* pkb, STMT
 
     for(auto related : currSet) {
         computeTransitive(cfg, pkb, related, extractor);
-        extractor.addTransitive(stmt, related);
+        extractor.addTransitive(pkb, stmt, related);
     }
+
+    return;
 }
