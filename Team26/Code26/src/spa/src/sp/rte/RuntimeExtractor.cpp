@@ -14,3 +14,7 @@ void RuntimeExtractor::computeTransitive(CFGHeadPtr cfg, PKBInterface* pkb, STMT
 
     return;
 }
+
+void RuntimeExtractor::computeNextStar(CFGHeadPtr cfg, PKBInterface* pkb, STMT_NUM stmt) {
+    computeTransitive(cfg, pkb, stmt, nextExtractor);
+}
