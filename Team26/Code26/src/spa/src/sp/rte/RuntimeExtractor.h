@@ -11,8 +11,8 @@ public:
     RuntimeExtractor(PKBInterface* pkbInterface) {
         pkb = pkbInterface;
     }
-    void computeNextStar(CFGHeadPtr cfg, PKBInterface* pkb, STMT_NUM stmt);
-    void computeTransitive(CFGHeadPtr cfg, PKBInterface* pkb, STMT_NUM stmt, CFGExtractor& extractor);
+    void computeNextStar(CFGHeadPtr cfg, STMT_NUM stmt);
+    void computeTransitive(CFGHeadPtr cfg, PKBInterface* pkb, STMT_NUM stmt, CFGExtractor& extractor, std::unordered_set<STMT_NUM>& visited);
 };
 
 

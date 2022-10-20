@@ -132,6 +132,10 @@ void PKBInterfaceStubForDE::addAllNextStarFrom(STMT_NUM toAddTo, STMT_NUM toAddF
 }
 
 void PKBInterfaceStubForDE::addNextStar(STMT_NUM toAddTo, std::unordered_set<STMT_NUM>& toBeAdded) {
-    nextStarCache[toAddTo] = toBeAdded;
-    return;
+    if(!nextStarCache.count(toAddTo)) {
+        std::unordered_set<STMT_NUM> temp;
+        nextStarCache[toAddTo] = temp;
+    }
+
+    nextStarCache[toAddTo].insert(toBeAdded.begin(), toBeAdded.end());
 }
