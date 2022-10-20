@@ -6,10 +6,11 @@ void RuntimeExtractor::computeTransitive(CFGHeadPtr cfg, PKBInterface* pkb, STMT
     }
 
     std::unordered_set<STMT_NUM> currSet = extractor.getStatementRelations(cfg, pkb, stmt);
+    extractor.addToTransitive(pkb, stmt, currSet);
 
     for(auto related : currSet) {
         computeTransitive(cfg, pkb, related, extractor);
-        extractor.addTransitive(pkb, stmt, related);
+        extractor.addTransitiveFrom(pkb, stmt, related);
     }
 
     return;
