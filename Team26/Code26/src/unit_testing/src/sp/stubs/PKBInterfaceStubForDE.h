@@ -13,6 +13,7 @@ public:
     std::unordered_multimap<std::string, std::string> callStarMapStringString;
     std::unordered_map<int, int> statements;
     std::unordered_map<STMT_NUM, std::unordered_set<STMT_NUM>> nextStarCache;
+    std::unordered_set<STMT_NUM> nextStarDone;
 
     void addFollows(int stmt1Number, int stmt2Number) override;
     void addParent(int parentStmtNumber, int stmtNumber) override;
@@ -39,4 +40,5 @@ public:
     bool isNextStarComputed(STMT_NUM stmt) override;
     void addAllNextStarFrom(STMT_NUM toAddTo, STMT_NUM toAddFrom) override;
     void addNextStar(STMT_NUM toAddTo, std::unordered_set<STMT_NUM>& toBeAdded) override;
+    void markNextStarDone(STMT_NUM toMark) override;
 };

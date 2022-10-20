@@ -15,3 +15,7 @@ void NextExtractor::addTransitiveFrom(PKBInterface* pkb, STMT_NUM toAddTo, STMT_
 void NextExtractor::addToTransitive(PKBInterface* pkb, STMT_NUM toAddTo, std::unordered_set<STMT_NUM>& toBeAdded) {
     pkb->addNextStar(toAddTo, toBeAdded);
 }
+
+void NextExtractor::markTransitiveComputed(PKBInterface* pkb, STMT_NUM toMark) {
+    pkb->markNextStarDone(toMark);
+}

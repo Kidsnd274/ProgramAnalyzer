@@ -9,6 +9,7 @@ class NextExtractor : public CFGExtractor {
     bool isTransitiveComputed(PKBInterface* pkb, STMT_NUM stmt);
     void addTransitiveFrom(PKBInterface* pkb, STMT_NUM toAddTo, STMT_NUM toAddFrom);
     void addToTransitive(PKBInterface* pkb, STMT_NUM toAddTo, std::unordered_set<STMT_NUM>& toBeAdded);
+    void markTransitiveComputed(PKBInterface* pkb, STMT_NUM toMark);
 };
 
 

@@ -93,5 +93,6 @@ public:
     virtual bool isNextStarComputed(STMT_NUM stmt);
     virtual void addAllNextStarFrom(STMT_NUM toAddTo, STMT_NUM toAddFrom);
     virtual void addNextStar(STMT_NUM toAddTo, std::unordered_set<STMT_NUM>& toBeAdded);
+    virtual void markNextStarDone(STMT_NUM toAddTo);
     //TODO: remind ming si to remove the virtual signature
 };

@@ -352,3 +352,7 @@ void PKBInterface::addAllNextStarFrom(STMT_NUM toAddTo, STMT_NUM toAddFrom) {
 void PKBInterface::addNextStar(STMT_NUM toAddTo, std::unordered_set<STMT_NUM>& toBeAdded) {
     return;
 }
+
+void PKBInterface::markNextStarDone(STMT_NUM toAddTo) {
+    return;
+}
