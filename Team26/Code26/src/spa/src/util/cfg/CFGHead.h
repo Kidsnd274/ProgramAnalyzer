@@ -39,6 +39,7 @@ public:
     // graph traversal
     std::unordered_set<STMT_NUM> getReachableNodes(STMT_NUM stmt);
     void addToReachableQueue(CFGNode& node, std::queue<int>& q, std::unordered_set<int>& ans);
+    bool hasNextStatement(STMT_NUM stmt);
 
     // debug methods
     std::string returnAllEdgesInString();

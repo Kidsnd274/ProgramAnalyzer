@@ -52,6 +52,24 @@ STMT_NUM CFGHead::findDummyNodeNext(CFGNode& dummy) {
     }
 }
 
+bool CFGHead::hasNextStatement(STMT_NUM stmt) {
+    if (!isStatementInCFG(stmt)) {
+        return false;
+    }
+
+    bool ans = false;
+
+    for(auto &node : adjList[stmt]) {
+        if(node.isDummyNode()) {
+            ans = ans || findDummyNodeNext(node) != -1;
+        } else {
+            ans = true;
+        }
+    }
+
+    return ans;
+}
+
 bool CFGHead::isStatementInCFG(STMT_NUM stmt1) {
     return adjList.find(stmt1) != adjList.end();
 }
