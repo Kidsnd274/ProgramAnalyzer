@@ -2,9 +2,9 @@
 #include "CFGExtractor.h"
 
 bool CFGExtractor::toExclude(PKBInterface* pkb, STMT_NUM stmt, std::string varModified) {
-//    if(varModified == "") {
-//        return false;
-//    }
+    if(varModified == "") {
+        return false;
+    }
 
     // if statement is if or while we do not want to exclude it
 //    if(pkb->isStatementContainer(stmt)) {

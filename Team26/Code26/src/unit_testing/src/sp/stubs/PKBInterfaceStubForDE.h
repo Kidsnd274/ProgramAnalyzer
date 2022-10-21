@@ -1,5 +1,14 @@
 #include "pkb/PKBInterface.h"
 
+enum class StmtType {
+    IF,
+    WHILE,
+    PRINT,
+    CALL,
+    ASSIGN,
+    READ
+};
+
 class PKBInterfaceStubForDE : public PKBInterface {
 public:
     std::unordered_map<int, int> followsMap;
@@ -12,6 +21,7 @@ public:
     std::unordered_multimap<std::string, std::string> callMapStringString;
     std::unordered_multimap<std::string, std::string> callStarMapStringString;
     std::unordered_map<int, int> statements;
+    std::unordered_map<int, StmtType> statementTypeMap;
     std::unordered_map<STMT_NUM, unordered_set<STMT_NUM>> nextStarMap;
 
     void addFollows(int stmt1Number, int stmt2Number) override;
@@ -27,6 +37,7 @@ public:
     void addWhileStatement(int statementNumber, int stmtListNum) override;
     void addIfStatement(int statementNumber, int stmtListNum) override;
     void addPrintStatement(int statementNumber, int stmtListNum) override;
+    void addCallStatement(int statementNumber, int statementListNumber, std::string calleeProcName) override;
     void addCall(std::string procedureName, std::string procedureCalled) override;
     void addCallStar(std::string procedureName, std::string procedureCalled) override;
     std::unordered_set<std::string> getAllVariablesModified(std::string procedureName) override;
