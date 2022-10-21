@@ -1,7 +1,7 @@
 
 #include "AffectsExtractor.h"
 
-void computeAffects(CFGHeadPtr cfg, PKBInterface* pkb, STMT_NUM stmt) {
+void AffectsExtractor::computeAffects(CFGHeadPtr cfg, PKBInterface* pkb, STMT_NUM stmt) {
 //    if(pkb->hasAffects(stmt)) {
 //        return;
 //    }
