@@ -356,3 +356,11 @@ bool PKBInterface::isStatementContainer(STMT_NUM stmt) {
 bool PKBInterface::doesStatementModify(STMT_NUM stmt, std::string varModified) {
     return false;
 }
+
+bool PKBInterface::hasAffects(STMT_NUM stmt) {
+    return false;
+}
+
+std::string PKBInterface::getModifiedVariable(STMT_NUM stmt) {
+    return " ";
+}

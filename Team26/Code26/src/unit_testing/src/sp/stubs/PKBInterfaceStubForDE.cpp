@@ -147,3 +147,17 @@ bool PKBInterfaceStubForDE::doesStatementModify(STMT_NUM stmt, std::string varMo
 
     return false;
 }
+
+bool PKBInterfaceStubForDE::hasAffects(STMT_NUM stmt) {
+    return affectsMap.find(stmt) != affectsMap.end();
+}
+
+std::string PKBInterfaceStubForDE::getModifiedVariable(STMT_NUM stmt) {
+    for(auto &[f,s] : modifiesMapIntString) {
+        if(f == stmt) {
+            return s;
+        }
+    }
+
+    return " ";
+}

@@ -23,6 +23,7 @@ public:
     std::unordered_map<int, int> statements;
     std::unordered_map<int, StmtType> statementTypeMap;
     std::unordered_map<STMT_NUM, unordered_set<STMT_NUM>> nextStarMap;
+    std::unordered_map<STMT_NUM, unordered_set<STMT_NUM>> affectsMap;
 
     void addFollows(int stmt1Number, int stmt2Number) override;
     void addParent(int parentStmtNumber, int stmtNumber) override;
@@ -51,4 +52,6 @@ public:
     void addNextStar(STMT_NUM stmt, std::unordered_set<STMT_NUM> nextStarSet) override;
     bool isStatementContainer(STMT_NUM stmt) override;
     bool doesStatementModify(STMT_NUM stmt, std::string varModified) override;
+    bool hasAffects(STMT_NUM stmt) override;
+    std::string getModifiedVariable(STMT_NUM stmt) override;
 };
