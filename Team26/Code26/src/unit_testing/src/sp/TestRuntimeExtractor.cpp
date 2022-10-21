@@ -340,7 +340,7 @@ TEST_CASE("2 procedure affects test") {
                               SPToken("procedure", SPTokenType::ProcedureToken),
                               SPToken("Third", SPTokenType::NameToken),
                               SPToken("{", SPTokenType::LCurlyToken),
-                              SPToken("z", SPTokenType::NameToken),
+                              SPToken("i", SPTokenType::NameToken),
                               SPToken("=", SPTokenType::AssignToken),
                               SPToken("5", SPTokenType::ConstToken),
                               SPToken(";", SPTokenType::SemiColonToken),
@@ -358,4 +358,12 @@ TEST_CASE("2 procedure affects test") {
     auto cfgManager = std::make_shared<CFGManager>();
     Parser testParser(v, pkbInterface, cfgManager);
     REQUIRE_NOTHROW(testParser.parseSimple());
+
+    CFGHeadPtr createdCFG = pkbInterface->procedureToCFG["Second"];
+
+    RuntimeExtractor rte(pkbInterface);
+    std::unordered_set<STMT_NUM> stmt6 = {10};
+
+    rte.computeAffects(createdCFG, 6);
+    REQUIRE(pkbInterface->affectsMap[6] == stmt6);
 }

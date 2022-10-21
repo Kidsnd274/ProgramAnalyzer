@@ -22,7 +22,7 @@ class PKBInterface {
 public:
     PKB* pkb = new PKB();
 
-    void addProcedure(std::string name, int startingStmtNo, int endingStmtNo, std::shared_ptr<CFGHead> cfg);
+    virtual void addProcedure(std::string name, int startingStmtNo, int endingStmtNo, std::shared_ptr<CFGHead> cfg);
     void addVariable(std::string name);
     void addConst(int value);
 

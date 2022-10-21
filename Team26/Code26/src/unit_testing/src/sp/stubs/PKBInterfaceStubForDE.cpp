@@ -179,3 +179,7 @@ bool PKBInterfaceStubForDE::doesStatementUse(STMT_NUM stmt, std::string varUsed)
 void PKBInterfaceStubForDE::addAffects(STMT_NUM stmt, STMT_NUM affectedStmt) {
     affectsMap[stmt].insert(affectedStmt);
 }
+
+void PKBInterfaceStubForDE::addProcedure(std::string name, int startingStmtNo, int endingStmtNo, std::shared_ptr<CFGHead> cfg) {
+    procedureToCFG[name] = cfg;
+}

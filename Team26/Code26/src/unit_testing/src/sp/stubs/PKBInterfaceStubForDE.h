@@ -24,6 +24,7 @@ public:
     std::unordered_map<int, StmtType> statementTypeMap;
     std::unordered_map<STMT_NUM, unordered_set<STMT_NUM>> nextStarMap;
     std::unordered_map<STMT_NUM, unordered_set<STMT_NUM>> affectsMap;
+    std::unordered_map<std::string, CFGHeadPtr> procedureToCFG;
 
     void addFollows(int stmt1Number, int stmt2Number) override;
     void addParent(int parentStmtNumber, int stmtNumber) override;
@@ -57,4 +58,5 @@ public:
     bool isStatementAssign(STMT_NUM stmt) override;
     bool doesStatementUse(STMT_NUM stmt, std::string varUsed) override;
     void addAffects(STMT_NUM stmt, STMT_NUM affectedStmt) override;
+    void addProcedure(std::string name, int startingStmtNo, int endingStmtNo, std::shared_ptr<CFGHead> cfg) override;
 };
