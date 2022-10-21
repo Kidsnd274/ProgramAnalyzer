@@ -14,5 +14,5 @@ void NextExtractor::computeNextStar(CFGHeadPtr cfg, PKBInterface* pkb, STMT_NUM 
 //        return;
 //    }
 //
-//    pkb->addNextStar(stmt, cfg->getReachableNodes(stmt));
+//    pkb->addNextStar(stmt, getReachableNodes(std::move(cfg), pkb, stmt, ""));
 }
