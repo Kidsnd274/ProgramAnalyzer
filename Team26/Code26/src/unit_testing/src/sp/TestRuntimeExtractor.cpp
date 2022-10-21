@@ -362,12 +362,40 @@ TEST_CASE("2 procedure affects test") {
     CFGHeadPtr createdCFG = pkbInterface->procedureToCFG["Second"];
 
     RuntimeExtractor rte(pkbInterface);
-    std::unordered_set<STMT_NUM> stmt2 = {6};
+    std::unordered_set<STMT_NUM> stmt1 = {4, 8, 10, 12};
+    std::unordered_set<STMT_NUM> stmt2 = {10};
+    std::unordered_set<STMT_NUM> stmt4 = {4, 8, 10, 12};
     std::unordered_set<STMT_NUM> stmt6 = {10};
+    std::unordered_set<STMT_NUM> stmt8 = {10, 12};
+    std::unordered_set<STMT_NUM> stmt9 = {10};
+    std::unordered_set<STMT_NUM> stmt10 = {11, 12};
+    std::unordered_set<STMT_NUM> stmt11 = {12};
+    std::unordered_set<STMT_NUM> stmt12 = {};
+
+    rte.computeAffects(createdCFG, 1);
+    REQUIRE(pkbInterface->affectsMap[1] == stmt1);
 
     rte.computeAffects(createdCFG, 2);
     REQUIRE(pkbInterface->affectsMap[2] == stmt2);
 
+    rte.computeAffects(createdCFG, 4);
+    REQUIRE(pkbInterface->affectsMap[4] == stmt4);
+
     rte.computeAffects(createdCFG, 6);
     REQUIRE(pkbInterface->affectsMap[6] == stmt6);
+
+    rte.computeAffects(createdCFG, 8);
+    REQUIRE(pkbInterface->affectsMap[8] == stmt8);
+
+    rte.computeAffects(createdCFG, 9);
+    REQUIRE(pkbInterface->affectsMap[9] == stmt9);
+
+    rte.computeAffects(createdCFG, 10);
+    REQUIRE(pkbInterface->affectsMap[10] == stmt10);
+
+    rte.computeAffects(createdCFG, 11);
+    REQUIRE(pkbInterface->affectsMap[11] == stmt11);
+
+    rte.computeAffects(createdCFG, 12);
+    REQUIRE(pkbInterface->affectsMap[12] == stmt12);
 }
