@@ -12,3 +12,7 @@ void RuntimeExtractor::computeNextStar(CFGHeadPtr cfg, STMT_NUM stmt) {
 std::unordered_set<STMT_NUM> RuntimeExtractor::getNextNodes(CFGHeadPtr cfg, STMT_NUM stmt1) {
     return nextExtractor.getNextNodes(std::move(cfg), stmt1);
 }
+
+void RuntimeExtractor::computeAffects(CFGHeadPtr cfg, STMT_NUM stmt) {
+    affectsExtractor.computeAffects(std::move(cfg), pkbInterface, stmt);
+}
