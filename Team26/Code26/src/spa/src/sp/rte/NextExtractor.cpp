@@ -10,9 +10,9 @@ std::unordered_set<STMT_NUM> NextExtractor::getNextNodes(CFGHeadPtr cfg, STMT_NU
 }
 
 void NextExtractor::computeNextStar(CFGHeadPtr cfg, PKBInterface* pkb, STMT_NUM stmt) {
-//    if(pkb->hasNextStar(stmt)) {
-//        return;
-//    }
-//
-//    pkb->addNextStar(stmt, getReachableNodes(std::move(cfg), pkb, stmt, ""));
+    if(pkb->hasNextStar(stmt)) {
+        return;
+    }
+
+    pkb->addNextStar(stmt, getReachableNodes(std::move(cfg), pkb, stmt, ""));
 }

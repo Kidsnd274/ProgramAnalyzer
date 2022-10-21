@@ -115,3 +115,11 @@ std::unordered_set<string> PKBInterfaceStubForDE::getCallStar(std::string proced
     }
     return result;
 }
+
+bool PKBInterfaceStubForDE::hasNextStar(STMT_NUM stmt) {
+    return nextStarMap.find(stmt) != nextStarMap.end();
+}
+
+void PKBInterfaceStubForDE::addNextStar(STMT_NUM stmt, std::unordered_set<STMT_NUM> nextStarSet) {
+    nextStarMap[stmt] = nextStarSet;
+}

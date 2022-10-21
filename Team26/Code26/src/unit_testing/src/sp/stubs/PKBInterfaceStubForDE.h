@@ -12,6 +12,7 @@ public:
     std::unordered_multimap<std::string, std::string> callMapStringString;
     std::unordered_multimap<std::string, std::string> callStarMapStringString;
     std::unordered_map<int, int> statements;
+    std::unordered_map<STMT_NUM, unordered_set<STMT_NUM>> nextStarMap;
 
     void addFollows(int stmt1Number, int stmt2Number) override;
     void addParent(int parentStmtNumber, int stmtNumber) override;
@@ -33,4 +34,8 @@ public:
     std::unordered_set<int> getParentStar(int statementNumber) override;
     std::unordered_set<string> getCall(std::string procedure) override;
     std::unordered_set<string> getCallStar(std::string procedure) override;
+
+    //for testing Next*
+    bool hasNextStar(STMT_NUM stmt) override;
+    void addNextStar(STMT_NUM stmt, std::unordered_set<STMT_NUM> nextStarSet) override;
 };
