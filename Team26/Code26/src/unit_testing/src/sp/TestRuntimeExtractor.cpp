@@ -362,7 +362,11 @@ TEST_CASE("2 procedure affects test") {
     CFGHeadPtr createdCFG = pkbInterface->procedureToCFG["Second"];
 
     RuntimeExtractor rte(pkbInterface);
+    std::unordered_set<STMT_NUM> stmt2 = {6};
     std::unordered_set<STMT_NUM> stmt6 = {10};
+
+    rte.computeAffects(createdCFG, 2);
+    REQUIRE(pkbInterface->affectsMap[2] == stmt2);
 
     rte.computeAffects(createdCFG, 6);
     REQUIRE(pkbInterface->affectsMap[6] == stmt6);
