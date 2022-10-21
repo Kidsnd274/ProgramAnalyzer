@@ -9,13 +9,11 @@
 class RuntimeExtractor {
 private:
     PKBInterface* pkbInterface;
-    CFGHeadPtr cfg;
     NextExtractor nextExtractor;
 
 public:
-    RuntimeExtractor(PKBInterface* pkb, CFGHeadPtr cfgPtr) {
+    explicit RuntimeExtractor(PKBInterface* pkb) {
         pkbInterface = pkb;
-        cfg = cfgPtr;
     }
 
     ~RuntimeExtractor() {
