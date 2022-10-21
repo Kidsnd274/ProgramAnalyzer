@@ -350,5 +350,9 @@ void PKBInterface::addNextStar(STMT_NUM stmt, std::unordered_set<STMT_NUM> nextS
 }
 
 bool PKBInterface::isStatementContainer(STMT_NUM stmt) {
-    return;
+    return false;
+}
+
+bool PKBInterface::doesStatementModify(STMT_NUM stmt, std::string varModified) {
+    return false;
 }

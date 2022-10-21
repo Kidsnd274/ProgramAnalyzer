@@ -50,4 +50,5 @@ public:
     bool hasNextStar(STMT_NUM stmt) override;
     void addNextStar(STMT_NUM stmt, std::unordered_set<STMT_NUM> nextStarSet) override;
     bool isStatementContainer(STMT_NUM stmt) override;
+    bool doesStatementModify(STMT_NUM stmt, std::string varModified) override;
 };

@@ -93,4 +93,5 @@ public:
     virtual bool hasNextStar(STMT_NUM stmt);
     virtual void addNextStar(STMT_NUM stmt, std::unordered_set<STMT_NUM> nextStarSet);
     virtual bool isStatementContainer(STMT_NUM stmt);
+    virtual bool doesStatementModify(STMT_NUM stmt, std::string varModified);
 };

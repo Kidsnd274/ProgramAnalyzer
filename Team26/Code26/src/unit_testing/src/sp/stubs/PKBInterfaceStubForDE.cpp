@@ -137,3 +137,13 @@ void PKBInterfaceStubForDE::addNextStar(STMT_NUM stmt, std::unordered_set<STMT_N
 bool PKBInterfaceStubForDE::isStatementContainer(STMT_NUM stmt) {
     return statementTypeMap[stmt] == StmtType::IF || statementTypeMap[stmt] == StmtType::WHILE;
 }
+
+bool PKBInterfaceStubForDE::doesStatementModify(STMT_NUM stmt, std::string varModified) {
+    for(auto &[f,s] : modifiesMapIntString) {
+        if(f == stmt && s == varModified) {
+            return true;
+        }
+    }
+
+    return false;
+}
