@@ -33,7 +33,7 @@ std::unordered_set<STMT_NUM> CFGExtractor::getReachableNodes(CFGHeadPtr cfg, PKB
         STMT_NUM sm = q.front();
         q.pop();
 
-        if(toExclude(pkb, stmt, varModified)) {
+        if(toExclude(pkb, sm, varModified)) {
             continue;
         }
 
