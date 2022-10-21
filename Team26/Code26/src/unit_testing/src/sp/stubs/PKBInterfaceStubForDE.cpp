@@ -95,7 +95,7 @@ std::unordered_set<int> PKBInterfaceStubForDE::getParentStar(int statementNumber
     for (auto it = this->parentStarMapIntInt.begin(); it != this->parentStarMapIntInt.end();) {
         auto const& key = it->first;
         auto variablesForKey = this->parentStarMapIntInt.equal_range(key);
-        for (auto it2 = variablesForKey.first; it2 != variablesForKey.second; ++it) {
+        for (auto it2 = variablesForKey.first; it2 != variablesForKey.second; ++it2) {
             if (statementNumber == it->second) {
                 result.insert(key);
                 break;

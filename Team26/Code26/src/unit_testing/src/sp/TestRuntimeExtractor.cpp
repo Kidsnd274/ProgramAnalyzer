@@ -357,5 +357,5 @@ TEST_CASE("2 procedure affects test") {
     PKBInterfaceStubForDE *pkbInterface = new PKBInterfaceStubForDE();
     auto cfgManager = std::make_shared<CFGManager>();
     Parser testParser(v, pkbInterface, cfgManager);
-    //REQUIRE_NOTHROW(testParser.parseSimple());
+    REQUIRE_NOTHROW(testParser.parseSimple());
 }
