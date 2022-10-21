@@ -4,11 +4,13 @@
 
 #include "pkb/PKBInterface.h"
 #include "util/cfg/CFGHead.h"
+#include "NextExtractor.h"
 
 class RuntimeExtractor {
 private:
     PKBInterface* pkbInterface;
     CFGHeadPtr cfg;
+    NextExtractor nextExtractor;
 
 public:
     RuntimeExtractor(PKBInterface* pkb, CFGHeadPtr cfgPtr) {
@@ -19,6 +21,10 @@ public:
     ~RuntimeExtractor() {
         pkbInterface = nullptr;
     }
+
+    bool isNext(CFGHeadPtr cfg, STMT_NUM stmt1, STMT_NUM stmt2);
+    void computeNextStar(CFGHeadPtr cfg, STMT_NUM stmt);
+    std::unordered_set<STMT_NUM> getNextNodes(CFGHeadPtr cfg, STMT_NUM stmt1);
 };
 
 
