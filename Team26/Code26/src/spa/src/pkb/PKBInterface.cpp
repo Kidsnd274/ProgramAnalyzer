@@ -364,3 +364,15 @@ bool PKBInterface::hasAffects(STMT_NUM stmt) {
 std::string PKBInterface::getModifiedVariable(STMT_NUM stmt) {
     return " ";
 }
+
+bool PKBInterface::isStatementAssign(STMT_NUM stmt) {
+    return false;
+}
+
+bool PKBInterface::doesStatementUse(STMT_NUM stmt, std::string varUsed) {
+    return false;
+}
+
+void PKBInterface::addAffects(STMT_NUM stmt, STMT_NUM affectedStmt) {
+    return;
+}

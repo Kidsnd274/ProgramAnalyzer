@@ -96,4 +96,7 @@ public:
     virtual bool doesStatementModify(STMT_NUM stmt, std::string varModified);
     virtual bool hasAffects(STMT_NUM stmt);
     virtual std::string getModifiedVariable(STMT_NUM stmt);
+    virtual bool isStatementAssign(STMT_NUM stmt);
+    virtual bool doesStatementUse(STMT_NUM stmt, std::string varUsed);
+    virtual void addAffects(STMT_NUM stmt, STMT_NUM affectedStmt);
 };

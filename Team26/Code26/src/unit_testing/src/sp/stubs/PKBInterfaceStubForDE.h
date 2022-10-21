@@ -54,4 +54,7 @@ public:
     bool doesStatementModify(STMT_NUM stmt, std::string varModified) override;
     bool hasAffects(STMT_NUM stmt) override;
     std::string getModifiedVariable(STMT_NUM stmt) override;
+    bool isStatementAssign(STMT_NUM stmt) override;
+    bool doesStatementUse(STMT_NUM stmt, std::string varUsed) override;
+    void addAffects(STMT_NUM stmt, STMT_NUM affectedStmt) override;
 };

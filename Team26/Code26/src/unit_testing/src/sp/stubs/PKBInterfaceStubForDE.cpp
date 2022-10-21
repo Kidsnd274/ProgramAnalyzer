@@ -161,3 +161,21 @@ std::string PKBInterfaceStubForDE::getModifiedVariable(STMT_NUM stmt) {
 
     return " ";
 }
+
+bool PKBInterfaceStubForDE::isStatementAssign(STMT_NUM stmt) {
+    return statementTypeMap[stmt] == StmtType::ASSIGN;
+}
+
+bool PKBInterfaceStubForDE::doesStatementUse(STMT_NUM stmt, std::string varUsed) {
+    for(auto &[f,s] : usesMapIntString) {
+        if(f == stmt && s == varUsed) {
+            return true;
+        }
+    }
+
+    return false;
+}
+
+void PKBInterfaceStubForDE::addAffects(STMT_NUM stmt, STMT_NUM affectedStmt) {
+    affectsMap[stmt].insert(affectedStmt);
+}
