@@ -7,9 +7,9 @@ bool CFGExtractor::toExclude(PKBInterface* pkb, STMT_NUM stmt, std::string varMo
     }
 
     // if statement is if or while we do not want to exclude it
-//    if(pkb->isStatementContainer(stmt)) {
-//        return false;
-//    }
+    if(pkb->isStatementContainer(stmt)) {
+        return false;
+    }
 //
 //    return pkb->doesStatementModify(varModified);
     return false; //placeholder

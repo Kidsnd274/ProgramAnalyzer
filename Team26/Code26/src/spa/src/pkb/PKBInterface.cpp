@@ -348,3 +348,7 @@ bool PKBInterface::hasNextStar(STMT_NUM stmt) {
 void PKBInterface::addNextStar(STMT_NUM stmt, std::unordered_set<STMT_NUM> nextStarSet) {
     return;
 }
+
+bool PKBInterface::isStatementContainer(STMT_NUM stmt) {
+    return;
+}

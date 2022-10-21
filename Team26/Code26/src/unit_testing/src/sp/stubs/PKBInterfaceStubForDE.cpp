@@ -133,3 +133,7 @@ bool PKBInterfaceStubForDE::hasNextStar(STMT_NUM stmt) {
 void PKBInterfaceStubForDE::addNextStar(STMT_NUM stmt, std::unordered_set<STMT_NUM> nextStarSet) {
     nextStarMap[stmt] = nextStarSet;
 }
+
+bool PKBInterfaceStubForDE::isStatementContainer(STMT_NUM stmt) {
+    return statementTypeMap[stmt] == StmtType::IF || statementTypeMap[stmt] == StmtType::WHILE;
+}
