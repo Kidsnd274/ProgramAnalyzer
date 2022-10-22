@@ -15,3 +15,49 @@ void AffectsExtractor::computeAffects(CFGHeadPtr cfg, PKBInterface* pkb, STMT_NU
         }
     }
 }
+
+void AffectsExtractor::computeDDG(const std::string procName, CFGHeadPtr cfg, PKBInterface *pkb) {
+    //std::unordered_set<STMT_NUM> assignSet = pkb->getAllAssignFromProcedure(procName);
+//    for(auto stmt : assignSet) {
+//        if(!pkb->hasAffects(stmt)) {
+//            computeAffects(std::move(cfg), pkb, stmt);
+//        }
+//
+//        std::unordered_set<STMT_NUM> affectedSet = pkb->getAffects(stmt);
+//        addEdgesToDDG(procName, stmt, affectedSet);
+//    }
+}
+
+void AffectsExtractor::addEdgesToDDG(const std::string procName, STMT_NUM stmt, std::unordered_set<STMT_NUM>& affectedSet) {
+    for(auto affected : affectedSet) {
+        procToDDG[procName][stmt].push_back(affected);
+    }
+}
+
+void AffectsExtractor::computeAffectsStar(CFGHeadPtr cfg, PKBInterface *pkb, STMT_NUM stmt) {
+//    if(pkb->hasAffectsStar(stmt)) {
+//        return;
+//    }
+
+    //std::string procName = pkb->getProcedureNameOf(std::move(cfg));
+//    if(procToDDG.find(procName) != procToDDG.end()) {
+//        computeDDG(procName, std::move(cfg), pkb);
+//    }
+    //std::unordered_set<STMT_NUM> visited;
+    //dfs(procName, stmt);
+    //pkb->addAffectsStar(stmt, visited);
+}
+
+void AffectsExtractor::dfs(const std::string procName, STMT_NUM stmt, std::unordered_set<STMT_NUM>& visited) {
+    if(visited.find(stmt) != visited.end()) {
+        return;
+    }
+
+    visited.insert(stmt);
+
+    for (auto i : procToDDG[procName][stmt]) {
+        if(visited.find(i) == visited.end()) {
+            dfs(procName, i, visited);
+        }
+    }
+}
