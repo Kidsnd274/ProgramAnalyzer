@@ -1,6 +1,8 @@
 
 #include "AffectsExtractor.h"
 
+#include <utility>
+
 void AffectsExtractor::computeAffects(CFGHeadPtr cfg, PKBInterface* pkb, STMT_NUM stmt) {
     if(pkb->hasAffects(stmt)) {
         return;
@@ -16,11 +18,11 @@ void AffectsExtractor::computeAffects(CFGHeadPtr cfg, PKBInterface* pkb, STMT_NU
     }
 }
 
-void AffectsExtractor::computeDDG(std::string& procName, CFGHeadPtr cfg, PKBInterface *pkb) {
+void AffectsExtractor::computeDDG(std::string& procName, const CFGHeadPtr& cfg, PKBInterface *pkb) {
     std::unordered_set<STMT_NUM> assignSet = pkb->getAllAssignFromProcedure(procName);
     for(auto stmt : assignSet) {
         if(!pkb->hasAffects(stmt)) {
-            computeAffects(std::move(cfg), pkb, stmt);
+            computeAffects(cfg, pkb, stmt);
         }
 
         std::unordered_set<STMT_NUM> affectedSet = pkb->getAffects(stmt);
@@ -34,14 +36,14 @@ void AffectsExtractor::addEdgesToDDG(std::string& procName, STMT_NUM stmt, std::
     }
 }
 
-void AffectsExtractor::computeAffectsStar(CFGHeadPtr cfg, PKBInterface *pkb, STMT_NUM stmt) {
+void AffectsExtractor::computeAffectsStar(const CFGHeadPtr& cfg, PKBInterface *pkb, STMT_NUM stmt) {
     if(pkb->hasAffectsStar(stmt)) {
         return;
     }
 
-    std::string procName = pkb->getProcedureNameOf(std::move(cfg));
+    std::string procName = pkb->getProcedureNameOf(cfg);
     if(procToDDG.find(procName) != procToDDG.end()) {
-        computeDDG(procName, std::move(cfg), pkb);
+        computeDDG(procName, cfg, pkb);
     }
     std::unordered_set<STMT_NUM> visited;
     dfsOnNeighbours(procName, stmt, visited);

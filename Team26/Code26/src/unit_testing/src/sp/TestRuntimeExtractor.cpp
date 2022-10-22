@@ -255,125 +255,125 @@ TEST_CASE("Simple affects test") {
     REQUIRE(pkbInterface->affectsMap[10] == stmt10);
 }
 
-//TEST_CASE("Simple affects Star test") {
-//    std::vector<SPToken> v = {SPToken("procedure", SPTokenType::ProcedureToken),
-//                              SPToken("Second", SPTokenType::NameToken),
-//                              SPToken("{", SPTokenType::LCurlyToken),
-//                              SPToken("x", SPTokenType::NameToken),
-//                              SPToken("=", SPTokenType::AssignToken),
-//                              SPToken("0", SPTokenType::ConstToken),
-//                              SPToken(";", SPTokenType::SemiColonToken),
-//                              SPToken("i", SPTokenType::NameToken),
-//                              SPToken("=", SPTokenType::AssignToken),
-//                              SPToken("5", SPTokenType::ConstToken),
-//                              SPToken(";", SPTokenType::SemiColonToken),
-//                              SPToken("while", SPTokenType::WhileToken),
-//                              SPToken("(", SPTokenType::LParenToken),
-//                              SPToken("i", SPTokenType::NameToken),
-//                              SPToken("!=", SPTokenType::RelationToken),
-//                              SPToken("0", SPTokenType::ConstToken),
-//                              SPToken(")", SPTokenType::RParenToken),
-//                              SPToken("{", SPTokenType::LCurlyToken),
-//                              SPToken("x", SPTokenType::NameToken),
-//                              SPToken("=", SPTokenType::AssignToken),
-//                              SPToken("x", SPTokenType::NameToken),
-//                              SPToken("+", SPTokenType::OpToken),
-//                              SPToken("2", SPTokenType::ConstToken),
-//                              SPToken("*", SPTokenType::FactorToken),
-//                              SPToken("y", SPTokenType::NameToken),
-//                              SPToken(";", SPTokenType::SemiColonToken),
-//                              SPToken("i", SPTokenType::NameToken),
-//                              SPToken("=", SPTokenType::AssignToken),
-//                              SPToken("i", SPTokenType::NameToken),
-//                              SPToken("-", SPTokenType::OpToken),
-//                              SPToken("1", SPTokenType::ConstToken),
-//                              SPToken(";", SPTokenType::SemiColonToken),
-//                              SPToken("}", SPTokenType::RCurlyToken),
-//                              SPToken("if", SPTokenType::IfToken),
-//                              SPToken("(", SPTokenType::LParenToken),
-//                              SPToken("x", SPTokenType::NameToken),
-//                              SPToken("==", SPTokenType::RelationToken),
-//                              SPToken("1", SPTokenType::ConstToken),
-//                              SPToken(")", SPTokenType::RParenToken),
-//                              SPToken("then", SPTokenType::ThenToken),
-//                              SPToken("{", SPTokenType::LCurlyToken),
-//                              SPToken("x", SPTokenType::NameToken),
-//                              SPToken("=", SPTokenType::AssignToken),
-//                              SPToken("x", SPTokenType::NameToken),
-//                              SPToken("+", SPTokenType::OpToken),
-//                              SPToken("1", SPTokenType::ConstToken),
-//                              SPToken(";", SPTokenType::SemiColonToken),
-//                              SPToken("}", SPTokenType::RCurlyToken),
-//                              SPToken("else", SPTokenType::ElseToken),
-//                              SPToken("{", SPTokenType::LCurlyToken),
-//                              SPToken("z", SPTokenType::NameToken),
-//                              SPToken("=", SPTokenType::AssignToken),
-//                              SPToken("1", SPTokenType::ConstToken),
-//                              SPToken(";", SPTokenType::SemiColonToken),
-//                              SPToken("}", SPTokenType::RCurlyToken),
-//                              SPToken("z", SPTokenType::NameToken),
-//                              SPToken("=", SPTokenType::AssignToken),
-//                              SPToken("z", SPTokenType::NameToken),
-//                              SPToken("+", SPTokenType::OpToken),
-//                              SPToken("x", SPTokenType::NameToken),
-//                              SPToken("+", SPTokenType::OpToken),
-//                              SPToken("i", SPTokenType::NameToken),
-//                              SPToken(";", SPTokenType::SemiColonToken),
-//                              SPToken("y", SPTokenType::NameToken),
-//                              SPToken("=", SPTokenType::AssignToken),
-//                              SPToken("z", SPTokenType::NameToken),
-//                              SPToken("+", SPTokenType::OpToken),
-//                              SPToken("2", SPTokenType::ConstToken),
-//                              SPToken(";", SPTokenType::SemiColonToken),
-//                              SPToken("x", SPTokenType::NameToken),
-//                              SPToken("=", SPTokenType::AssignToken),
-//                              SPToken("x", SPTokenType::NameToken),
-//                              SPToken("*", SPTokenType::FactorToken),
-//                              SPToken("y", SPTokenType::NameToken),
-//                              SPToken("+", SPTokenType::OpToken),
-//                              SPToken("z", SPTokenType::NameToken),
-//                              SPToken(";", SPTokenType::SemiColonToken),
-//                              SPToken("}", SPTokenType::RCurlyToken),
-//    };
-//
-//    PKBInterfaceStubForDE *pkbInterface = new PKBInterfaceStubForDE();
-//    auto cfgManager = std::make_shared<CFGManager>();
-//    Parser testParser(v, pkbInterface, cfgManager);
-//    REQUIRE_NOTHROW(testParser.parseSimple());
-//
-//    CFGHeadPtr createdCFG = cfgManager->getCurrentCFG();
-//
-//    RuntimeExtractor rte(pkbInterface);
-//
-//    std::unordered_set<STMT_NUM> stmt1 = {4, 7, 9, 10, 11};
-//    std::unordered_set<STMT_NUM> stmt2 = {5, 9, 10, 11};
-//    std::unordered_set<STMT_NUM> stmt4 = {4, 7, 9, 10, 11};
-//    std::unordered_set<STMT_NUM> stmt5 = {5, 9, 10, 11};
-//    std::unordered_set<STMT_NUM> stmt7 = {9, 10, 11};
-//    std::unordered_set<STMT_NUM> stmt8 = {9, 10, 11};
-//    std::unordered_set<STMT_NUM> stmt9 = {10, 11};
-//    std::unordered_set<STMT_NUM> stmt10 = {11};
-//    std::unordered_set<STMT_NUM> stmt11 = {};
-//
-//    rte.computeAffectsStar(createdCFG, 1);
-//    rte.computeAffectsStar(createdCFG, 2);
-//    rte.computeAffectsStar(createdCFG, 4);
-//    rte.computeAffectsStar(createdCFG, 5);
-//    rte.computeAffectsStar(createdCFG, 7);
-//    rte.computeAffectsStar(createdCFG, 8);
-//    rte.computeAffectsStar(createdCFG, 9);
-//    rte.computeAffectsStar(createdCFG, 10);
-//    rte.computeAffectsStar(createdCFG, 11);
-//
-//    REQUIRE(pkbInterface->affectsStarMap[1] == stmt1);
-//    REQUIRE(pkbInterface->affectsStarMap[2] == stmt2);
-//    REQUIRE(pkbInterface->affectsStarMap[4] == stmt4);
-//    REQUIRE(pkbInterface->affectsStarMap[5] == stmt5);
-//    REQUIRE(pkbInterface->affectsStarMap[7] == stmt7);
-//    REQUIRE(pkbInterface->affectsStarMap[8] == stmt8);
-//    REQUIRE(pkbInterface->affectsStarMap[9] == stmt9);
-//    REQUIRE(pkbInterface->affectsStarMap[10] == stmt10);
-//}
+TEST_CASE("Simple affects Star test") {
+    std::vector<SPToken> v = {SPToken("procedure", SPTokenType::ProcedureToken),
+                              SPToken("Second", SPTokenType::NameToken),
+                              SPToken("{", SPTokenType::LCurlyToken),
+                              SPToken("x", SPTokenType::NameToken),
+                              SPToken("=", SPTokenType::AssignToken),
+                              SPToken("0", SPTokenType::ConstToken),
+                              SPToken(";", SPTokenType::SemiColonToken),
+                              SPToken("i", SPTokenType::NameToken),
+                              SPToken("=", SPTokenType::AssignToken),
+                              SPToken("5", SPTokenType::ConstToken),
+                              SPToken(";", SPTokenType::SemiColonToken),
+                              SPToken("while", SPTokenType::WhileToken),
+                              SPToken("(", SPTokenType::LParenToken),
+                              SPToken("i", SPTokenType::NameToken),
+                              SPToken("!=", SPTokenType::RelationToken),
+                              SPToken("0", SPTokenType::ConstToken),
+                              SPToken(")", SPTokenType::RParenToken),
+                              SPToken("{", SPTokenType::LCurlyToken),
+                              SPToken("x", SPTokenType::NameToken),
+                              SPToken("=", SPTokenType::AssignToken),
+                              SPToken("x", SPTokenType::NameToken),
+                              SPToken("+", SPTokenType::OpToken),
+                              SPToken("2", SPTokenType::ConstToken),
+                              SPToken("*", SPTokenType::FactorToken),
+                              SPToken("y", SPTokenType::NameToken),
+                              SPToken(";", SPTokenType::SemiColonToken),
+                              SPToken("i", SPTokenType::NameToken),
+                              SPToken("=", SPTokenType::AssignToken),
+                              SPToken("i", SPTokenType::NameToken),
+                              SPToken("-", SPTokenType::OpToken),
+                              SPToken("1", SPTokenType::ConstToken),
+                              SPToken(";", SPTokenType::SemiColonToken),
+                              SPToken("}", SPTokenType::RCurlyToken),
+                              SPToken("if", SPTokenType::IfToken),
+                              SPToken("(", SPTokenType::LParenToken),
+                              SPToken("x", SPTokenType::NameToken),
+                              SPToken("==", SPTokenType::RelationToken),
+                              SPToken("1", SPTokenType::ConstToken),
+                              SPToken(")", SPTokenType::RParenToken),
+                              SPToken("then", SPTokenType::ThenToken),
+                              SPToken("{", SPTokenType::LCurlyToken),
+                              SPToken("x", SPTokenType::NameToken),
+                              SPToken("=", SPTokenType::AssignToken),
+                              SPToken("x", SPTokenType::NameToken),
+                              SPToken("+", SPTokenType::OpToken),
+                              SPToken("1", SPTokenType::ConstToken),
+                              SPToken(";", SPTokenType::SemiColonToken),
+                              SPToken("}", SPTokenType::RCurlyToken),
+                              SPToken("else", SPTokenType::ElseToken),
+                              SPToken("{", SPTokenType::LCurlyToken),
+                              SPToken("z", SPTokenType::NameToken),
+                              SPToken("=", SPTokenType::AssignToken),
+                              SPToken("1", SPTokenType::ConstToken),
+                              SPToken(";", SPTokenType::SemiColonToken),
+                              SPToken("}", SPTokenType::RCurlyToken),
+                              SPToken("z", SPTokenType::NameToken),
+                              SPToken("=", SPTokenType::AssignToken),
+                              SPToken("z", SPTokenType::NameToken),
+                              SPToken("+", SPTokenType::OpToken),
+                              SPToken("x", SPTokenType::NameToken),
+                              SPToken("+", SPTokenType::OpToken),
+                              SPToken("i", SPTokenType::NameToken),
+                              SPToken(";", SPTokenType::SemiColonToken),
+                              SPToken("y", SPTokenType::NameToken),
+                              SPToken("=", SPTokenType::AssignToken),
+                              SPToken("z", SPTokenType::NameToken),
+                              SPToken("+", SPTokenType::OpToken),
+                              SPToken("2", SPTokenType::ConstToken),
+                              SPToken(";", SPTokenType::SemiColonToken),
+                              SPToken("x", SPTokenType::NameToken),
+                              SPToken("=", SPTokenType::AssignToken),
+                              SPToken("x", SPTokenType::NameToken),
+                              SPToken("*", SPTokenType::FactorToken),
+                              SPToken("y", SPTokenType::NameToken),
+                              SPToken("+", SPTokenType::OpToken),
+                              SPToken("z", SPTokenType::NameToken),
+                              SPToken(";", SPTokenType::SemiColonToken),
+                              SPToken("}", SPTokenType::RCurlyToken),
+    };
+
+    PKBInterfaceStubForDE *pkbInterface = new PKBInterfaceStubForDE();
+    auto cfgManager = std::make_shared<CFGManager>();
+    Parser testParser(v, pkbInterface, cfgManager);
+    REQUIRE_NOTHROW(testParser.parseSimple());
+
+    CFGHeadPtr createdCFG = cfgManager->getCurrentCFG();
+
+    RuntimeExtractor rte(pkbInterface);
+
+    std::unordered_set<STMT_NUM> stmt1 = {4, 7, 9, 10, 11};
+    std::unordered_set<STMT_NUM> stmt2 = {5, 9, 10, 11};
+    std::unordered_set<STMT_NUM> stmt4 = {4, 7, 9, 10, 11};
+    std::unordered_set<STMT_NUM> stmt5 = {5, 9, 10, 11};
+    std::unordered_set<STMT_NUM> stmt7 = {9, 10, 11};
+    std::unordered_set<STMT_NUM> stmt8 = {9, 10, 11};
+    std::unordered_set<STMT_NUM> stmt9 = {10, 11};
+    std::unordered_set<STMT_NUM> stmt10 = {11};
+    std::unordered_set<STMT_NUM> stmt11 = {};
+
+    rte.computeAffectsStar(createdCFG, 1);
+    rte.computeAffectsStar(createdCFG, 2);
+    rte.computeAffectsStar(createdCFG, 4);
+    rte.computeAffectsStar(createdCFG, 5);
+    rte.computeAffectsStar(createdCFG, 7);
+    rte.computeAffectsStar(createdCFG, 8);
+    rte.computeAffectsStar(createdCFG, 9);
+    rte.computeAffectsStar(createdCFG, 10);
+    rte.computeAffectsStar(createdCFG, 11);
+
+    REQUIRE(pkbInterface->affectsStarMap[1] == stmt1);
+    REQUIRE(pkbInterface->affectsStarMap[2] == stmt2);
+    REQUIRE(pkbInterface->affectsStarMap[4] == stmt4);
+    REQUIRE(pkbInterface->affectsStarMap[5] == stmt5);
+    REQUIRE(pkbInterface->affectsStarMap[7] == stmt7);
+    REQUIRE(pkbInterface->affectsStarMap[8] == stmt8);
+    REQUIRE(pkbInterface->affectsStarMap[9] == stmt9);
+    REQUIRE(pkbInterface->affectsStarMap[10] == stmt10);
+}
 
 TEST_CASE("2 procedure affects test") {
     std::vector<SPToken> v = {SPToken("procedure", SPTokenType::ProcedureToken),
