@@ -8,7 +8,7 @@ on:
       - automated-testing-branch
   pull_request:
     branches:
-      - master
+      - "**"
 
 #on:
 #  schedule:
