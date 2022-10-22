@@ -345,7 +345,7 @@ bool PKBInterface::hasNextStar(STMT_NUM stmt) {
     return false;
 }
 
-void PKBInterface::addNextStar(STMT_NUM stmt, std::unordered_set<STMT_NUM>& nextStarSet) {
+void PKBInterface::addNextStar(STMT_NUM stmt, std::unordered_set<STMT_NUM> nextStarSet) {
     return;
 }
 
@@ -385,7 +385,7 @@ bool PKBInterface::hasAffectsStar(STMT_NUM stmt) {
     return false;
 }
 
-void PKBInterface::addAffectsStar(STMT_NUM stmt, std::unordered_set<STMT_NUM>& affectsStarSet) {
+void PKBInterface::addAffectsStar(STMT_NUM stmt, std::unordered_set<STMT_NUM> affectsStarSet) {
     return;
 }
 

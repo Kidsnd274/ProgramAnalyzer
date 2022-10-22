@@ -130,7 +130,7 @@ bool PKBInterfaceStubForDE::hasNextStar(STMT_NUM stmt) {
     return nextStarMap.find(stmt) != nextStarMap.end();
 }
 
-void PKBInterfaceStubForDE::addNextStar(STMT_NUM stmt, std::unordered_set<STMT_NUM>& nextStarSet) {
+void PKBInterfaceStubForDE::addNextStar(STMT_NUM stmt, std::unordered_set<STMT_NUM> nextStarSet) {
     nextStarMap[stmt] = nextStarSet;
 }
 
@@ -198,7 +198,7 @@ bool PKBInterfaceStubForDE::hasAffectsStar(STMT_NUM stmt) {
     return affectsStarMap.find(stmt) != affectsStarMap.end();
 }
 
-void PKBInterfaceStubForDE::addAffectsStar(STMT_NUM stmt, std::unordered_set<STMT_NUM> &affectsStarSet) {
+void PKBInterfaceStubForDE::addAffectsStar(STMT_NUM stmt, std::unordered_set<STMT_NUM> affectsStarSet) {
     affectsStarMap[stmt] = affectsStarSet;
 }
 

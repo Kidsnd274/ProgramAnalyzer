@@ -91,7 +91,7 @@ public:
     // For testing
     CFGHeadPtr getCfgOfProcedure(std::string procedureName);
     virtual bool hasNextStar(STMT_NUM stmt);
-    virtual void addNextStar(STMT_NUM stmt, std::unordered_set<STMT_NUM>& nextStarSet);
+    virtual void addNextStar(STMT_NUM stmt, std::unordered_set<STMT_NUM> nextStarSet);
     virtual bool isStatementContainer(STMT_NUM stmt);
     virtual bool doesStatementModify(STMT_NUM stmt, std::string varModified);
     virtual bool hasAffects(STMT_NUM stmt);
@@ -102,6 +102,6 @@ public:
     virtual std::unordered_set<STMT_NUM> getAffects(STMT_NUM stmt);
     virtual std::string getProcedureNameOf(CFGHeadPtr cfg);
     virtual bool hasAffectsStar(STMT_NUM stmt);
-    virtual void addAffectsStar(STMT_NUM stmt, std::unordered_set<STMT_NUM>& affectsStarSet);
+    virtual void addAffectsStar(STMT_NUM stmt, std::unordered_set<STMT_NUM> affectsStarSet);
     virtual std::unordered_set<STMT_NUM> getAllAssignFromProcedure(std::string procName);
 };
