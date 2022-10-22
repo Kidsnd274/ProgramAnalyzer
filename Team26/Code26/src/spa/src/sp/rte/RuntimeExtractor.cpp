@@ -16,3 +16,7 @@ std::unordered_set<STMT_NUM> RuntimeExtractor::getNextNodes(CFGHeadPtr cfg, STMT
 void RuntimeExtractor::computeAffects(CFGHeadPtr cfg, STMT_NUM stmt) {
     affectsExtractor.computeAffects(std::move(cfg), pkbInterface, stmt);
 }
+
+void RuntimeExtractor::computeAffectsStar(CFGHeadPtr cfg, STMT_NUM stmt) {
+    affectsExtractor.computeAffectsStar(std::move(cfg), pkbInterface, stmt);
+}
