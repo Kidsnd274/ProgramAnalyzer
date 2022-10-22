@@ -375,7 +375,7 @@ TEST_CASE("Simple affects Star test") {
     REQUIRE(pkbInterface->affectsStarMap[10] == stmt10);
 }
 
-TEST_CASE("2 procedure affects test") {
+TEST_CASE("2 procedure affects/affects* test") {
     std::vector<SPToken> v = {SPToken("procedure", SPTokenType::ProcedureToken),
                               SPToken("Second", SPTokenType::NameToken),
                               SPToken("{", SPTokenType::LCurlyToken),
@@ -480,44 +480,78 @@ TEST_CASE("2 procedure affects test") {
     REQUIRE_NOTHROW(testParser.parseSimple());
 
     CFGHeadPtr createdCFG = pkbInterface->procedureToCFG["Second"];
-
     RuntimeExtractor rte(pkbInterface);
-    std::unordered_set<STMT_NUM> stmt1 = {4, 8, 10, 12};
-    std::unordered_set<STMT_NUM> stmt2 = {10};
-    std::unordered_set<STMT_NUM> stmt4 = {4, 8, 10, 12};
-    std::unordered_set<STMT_NUM> stmt6 = {10};
-    std::unordered_set<STMT_NUM> stmt8 = {10, 12};
-    std::unordered_set<STMT_NUM> stmt9 = {10};
-    std::unordered_set<STMT_NUM> stmt10 = {11, 12};
-    std::unordered_set<STMT_NUM> stmt11 = {12};
-    std::unordered_set<STMT_NUM> stmt12 = {};
 
-    rte.computeAffects(createdCFG, 1);
-    REQUIRE(pkbInterface->affectsMap[1] == stmt1);
+    SECTION("Affects test") {
+        std::unordered_set<STMT_NUM> stmt1 = {4, 8, 10, 12};
+        std::unordered_set<STMT_NUM> stmt2 = {10};
+        std::unordered_set<STMT_NUM> stmt4 = {4, 8, 10, 12};
+        std::unordered_set<STMT_NUM> stmt6 = {10};
+        std::unordered_set<STMT_NUM> stmt8 = {10, 12};
+        std::unordered_set<STMT_NUM> stmt9 = {10};
+        std::unordered_set<STMT_NUM> stmt10 = {11, 12};
+        std::unordered_set<STMT_NUM> stmt11 = {12};
+        std::unordered_set<STMT_NUM> stmt12 = {};
 
-    rte.computeAffects(createdCFG, 2);
-    REQUIRE(pkbInterface->affectsMap[2] == stmt2);
+        rte.computeAffects(createdCFG, 1);
+        REQUIRE(pkbInterface->affectsMap[1] == stmt1);
 
-    rte.computeAffects(createdCFG, 4);
-    REQUIRE(pkbInterface->affectsMap[4] == stmt4);
+        rte.computeAffects(createdCFG, 2);
+        REQUIRE(pkbInterface->affectsMap[2] == stmt2);
 
-    rte.computeAffects(createdCFG, 6);
-    REQUIRE(pkbInterface->affectsMap[6] == stmt6);
+        rte.computeAffects(createdCFG, 4);
+        REQUIRE(pkbInterface->affectsMap[4] == stmt4);
 
-    rte.computeAffects(createdCFG, 8);
-    REQUIRE(pkbInterface->affectsMap[8] == stmt8);
+        rte.computeAffects(createdCFG, 6);
+        REQUIRE(pkbInterface->affectsMap[6] == stmt6);
 
-    rte.computeAffects(createdCFG, 9);
-    REQUIRE(pkbInterface->affectsMap[9] == stmt9);
+        rte.computeAffects(createdCFG, 8);
+        REQUIRE(pkbInterface->affectsMap[8] == stmt8);
 
-    rte.computeAffects(createdCFG, 10);
-    REQUIRE(pkbInterface->affectsMap[10] == stmt10);
+        rte.computeAffects(createdCFG, 9);
+        REQUIRE(pkbInterface->affectsMap[9] == stmt9);
 
-    rte.computeAffects(createdCFG, 11);
-    REQUIRE(pkbInterface->affectsMap[11] == stmt11);
+        rte.computeAffects(createdCFG, 10);
+        REQUIRE(pkbInterface->affectsMap[10] == stmt10);
 
-    rte.computeAffects(createdCFG, 12);
-    REQUIRE(pkbInterface->affectsMap[12] == stmt12);
+        rte.computeAffects(createdCFG, 11);
+        REQUIRE(pkbInterface->affectsMap[11] == stmt11);
+
+        rte.computeAffects(createdCFG, 12);
+        REQUIRE(pkbInterface->affectsMap[12] == stmt12);
+    }
+
+    SECTION("Affects* tests") {
+        std::unordered_set<STMT_NUM> stmt1 = {4, 8, 10, 11, 12};
+        std::unordered_set<STMT_NUM> stmt2 = {10, 11, 12};
+        std::unordered_set<STMT_NUM> stmt4 = {4, 8, 10, 11, 12};
+        std::unordered_set<STMT_NUM> stmt6 = {10, 11, 12};
+        std::unordered_set<STMT_NUM> stmt8 = {10, 11, 12};
+        std::unordered_set<STMT_NUM> stmt9 = {10, 11, 12};
+        std::unordered_set<STMT_NUM> stmt10 = {11, 12};
+        std::unordered_set<STMT_NUM> stmt11 = {12};
+        std::unordered_set<STMT_NUM> stmt12 = {};
+
+        rte.computeAffectsStar(createdCFG, 1);
+        rte.computeAffectsStar(createdCFG, 2);
+        rte.computeAffectsStar(createdCFG, 4);
+        rte.computeAffectsStar(createdCFG, 6);
+        rte.computeAffectsStar(createdCFG, 8);
+        rte.computeAffectsStar(createdCFG, 9);
+        rte.computeAffectsStar(createdCFG, 10);
+        rte.computeAffectsStar(createdCFG, 11);
+        rte.computeAffectsStar(createdCFG, 12);
+
+        REQUIRE(pkbInterface->affectsStarMap[1] == stmt1);
+        REQUIRE(pkbInterface->affectsStarMap[2] == stmt2);
+        REQUIRE(pkbInterface->affectsStarMap[4] == stmt4);
+        REQUIRE(pkbInterface->affectsStarMap[6] == stmt6);
+        REQUIRE(pkbInterface->affectsStarMap[8] == stmt8);
+        REQUIRE(pkbInterface->affectsStarMap[9] == stmt9);
+        REQUIRE(pkbInterface->affectsStarMap[10] == stmt10);
+        REQUIRE(pkbInterface->affectsStarMap[11] == stmt11);
+        REQUIRE(pkbInterface->affectsStarMap[12] == stmt12);
+    }
 }
 
 TEST_CASE("if-if and while-while loop") {
@@ -653,8 +687,50 @@ TEST_CASE("if-if and while-while loop") {
                               SPToken(";", SPTokenType::SemiColonToken),
                               SPToken("}", SPTokenType::RCurlyToken)
     };
+
     PKBInterfaceStubForDE *pkbInterface = new PKBInterfaceStubForDE();
     auto cfgManager = std::make_shared<CFGManager>();
     Parser testParser(v, pkbInterface, cfgManager);
     REQUIRE_NOTHROW(testParser.parseSimple());
+
+    CFGHeadPtr createdCFG = pkbInterface->procedureToCFG["one"];
+    RuntimeExtractor rte(pkbInterface);
+
+    SECTION("Affects test") {
+        std::unordered_set<STMT_NUM> stmt1 = {4, 6, 8, 11};
+        std::unordered_set<STMT_NUM> stmt2 = {4, 6, 10, 11, 14, 18};
+        std::unordered_set<STMT_NUM> stmt4 = {10, 14, 19};
+        std::unordered_set<STMT_NUM> stmt6 = {14, 18};
+        std::unordered_set<STMT_NUM> stmt8 = {};
+        std::unordered_set<STMT_NUM> stmt10 = {};
+        std::unordered_set<STMT_NUM> stmt11 = {14, 19};
+        std::unordered_set<STMT_NUM> stmt12 = {16};
+        std::unordered_set<STMT_NUM> stmt14 = {};
+        std::unordered_set<STMT_NUM> stmt16 = {};
+        std::unordered_set<STMT_NUM> stmt18 = {19, 14};
+        std::unordered_set<STMT_NUM> stmt19 = {14};
+
+        rte.computeAffectsStar(createdCFG, 1);
+        rte.computeAffectsStar(createdCFG, 2);
+        rte.computeAffectsStar(createdCFG, 4);
+        rte.computeAffectsStar(createdCFG, 6);
+        rte.computeAffectsStar(createdCFG, 8);
+        rte.computeAffectsStar(createdCFG, 10);
+        rte.computeAffectsStar(createdCFG, 11);
+        rte.computeAffectsStar(createdCFG, 12);
+        rte.computeAffectsStar(createdCFG, 14);
+        rte.computeAffectsStar(createdCFG, 18);
+        rte.computeAffectsStar(createdCFG, 19);
+        REQUIRE(pkbInterface->affectsMap[1] == stmt1);
+        REQUIRE(pkbInterface->affectsMap[2] == stmt2);
+        REQUIRE(pkbInterface->affectsMap[4] == stmt4);
+        REQUIRE(pkbInterface->affectsMap[6] == stmt6);
+        REQUIRE(pkbInterface->affectsMap[8] == stmt8);
+        REQUIRE(pkbInterface->affectsMap[10] == stmt10);
+        REQUIRE(pkbInterface->affectsMap[11] == stmt11);
+        REQUIRE(pkbInterface->affectsMap[12] == stmt12);
+        REQUIRE(pkbInterface->affectsMap[14] == stmt14);
+        REQUIRE(pkbInterface->affectsMap[18] == stmt18);
+        REQUIRE(pkbInterface->affectsMap[19] == stmt19);
+    }
 }
