@@ -20,3 +20,8 @@ void RuntimeExtractor::computeAffects(CFGHeadPtr cfg, STMT_NUM stmt) {
 void RuntimeExtractor::computeAffectsStar(CFGHeadPtr cfg, STMT_NUM stmt) {
     affectsExtractor.computeAffectsStar(std::move(cfg), pkbInterface, stmt);
 }
+
+void RuntimeExtractor::clearCache() {
+    //pkbInterface->clearCache();
+    affectsExtractor.clearCache();
+}

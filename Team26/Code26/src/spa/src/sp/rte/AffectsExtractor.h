@@ -16,6 +16,7 @@ private:
 public:
     void computeAffects(CFGHeadPtr cfg, PKBInterface* pkb, STMT_NUM stmt);
     void computeAffectsStar(const CFGHeadPtr& cfg, PKBInterface* pkb, STMT_NUM stmt);
+    void clearCache();
 };
 
 

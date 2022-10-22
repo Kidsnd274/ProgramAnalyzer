@@ -68,3 +68,7 @@ void AffectsExtractor::dfsOnNeighbours(std::string& procName, STMT_NUM stmt, std
         }
     }
 }
+
+void AffectsExtractor::clearCache() {
+    procToDDG.clear();
+}
