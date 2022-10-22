@@ -23,7 +23,7 @@ TEST_CASE("Test that == operator works") {
     SECTION("Negative 2") {
         CFGNode node1 = CFGNode::node(1);
         CFGNode node2 = CFGNode::dummyNode(1);
-        REQUIRE(node1 != node2);
+        REQUIRE(node1 != node2); // test gh actions
     }
 }
 
