@@ -339,3 +339,60 @@ CFGHeadPtr PKBInterface::getCfgOfProcedure(std::string procedureName) {
     throw ProcedureNotFoundException();
     return nullptr;
 }
+
+//For testing
+bool PKBInterface::hasNextStar(STMT_NUM stmt) {
+    return false;
+}
+
+void PKBInterface::addNextStar(STMT_NUM stmt, std::unordered_set<STMT_NUM> nextStarSet) {
+    return;
+}
+
+bool PKBInterface::isStatementContainer(STMT_NUM stmt) {
+    return false;
+}
+
+bool PKBInterface::doesStatementModify(STMT_NUM stmt, std::string varModified) {
+    return false;
+}
+
+bool PKBInterface::hasAffects(STMT_NUM stmt) {
+    return false;
+}
+
+std::string PKBInterface::getModifiedVariable(STMT_NUM stmt) {
+    return " ";
+}
+
+bool PKBInterface::isStatementAssign(STMT_NUM stmt) {
+    return false;
+}
+
+bool PKBInterface::doesStatementUse(STMT_NUM stmt, std::string varUsed) {
+    return false;
+}
+
+void PKBInterface::addAffects(STMT_NUM stmt, STMT_NUM affectedStmt) {
+    return;
+}
+
+std::string PKBInterface::getProcedureNameOf(CFGHeadPtr cfg) {
+    return "";
+}
+
+bool PKBInterface::hasAffectsStar(STMT_NUM stmt) {
+    return false;
+}
+
+void PKBInterface::addAffectsStar(STMT_NUM stmt, std::unordered_set<STMT_NUM> affectsStarSet) {
+    return;
+}
+
+std::unordered_set<STMT_NUM> PKBInterface::getAllAssignFromProcedure(std::string procName) {
+    return {};
+}
+
+std::unordered_set<STMT_NUM> PKBInterface::getAffects(STMT_NUM stmt) {
+    return {};
+}
