@@ -42,7 +42,8 @@ void AffectsExtractor::computeAffectsStar(const CFGHeadPtr& cfg, PKBInterface *p
     }
 
     std::string procName = pkb->getProcedureNameOf(cfg);
-    if(procToDDG.find(procName) != procToDDG.end()) {
+
+    if(procToDDG.find(procName) == procToDDG.end()) {
         computeDDG(procName, cfg, pkb);
     }
     std::unordered_set<STMT_NUM> visited;
