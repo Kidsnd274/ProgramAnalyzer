@@ -8,7 +8,7 @@ on:
       - automated-testing-branch
   pull_request:
     branches:
-      - master
+      - "**"
 
 # If you are doing triggering your workflow from pushes or merging more than twice a day on average,
 # please execute your workflow on a schedule instead.
@@ -25,7 +25,7 @@ jobs:
     runs-on: windows-latest
     timeout-minutes: 7
     strategy:
-      fail-fast: false
+      fail-fast: true
 
     steps:
       - uses: actions/checkout@v3
