@@ -130,7 +130,7 @@ bool PKBInterfaceStubForDE::hasNextStar(STMT_NUM stmt) {
     return nextStarMap.find(stmt) != nextStarMap.end();
 }
 
-void PKBInterfaceStubForDE::addNextStar(STMT_NUM stmt, std::unordered_set<STMT_NUM> nextStarSet) {
+void PKBInterfaceStubForDE::addNextStar(STMT_NUM stmt, std::unordered_set<STMT_NUM>& nextStarSet) {
     nextStarMap[stmt] = nextStarSet;
 }
 
@@ -182,4 +182,38 @@ void PKBInterfaceStubForDE::addAffects(STMT_NUM stmt, STMT_NUM affectedStmt) {
 
 void PKBInterfaceStubForDE::addProcedure(std::string name, int startingStmtNo, int endingStmtNo, std::shared_ptr<CFGHead> cfg) {
     procedureToCFG[name] = cfg;
+    procToStmtNums[name] = {startingStmtNo, endingStmtNo};
+}
+
+std::string PKBInterfaceStubForDE::getProcedureNameOf(CFGHeadPtr cfg) {
+    for(auto &[f, c] : procedureToCFG) {
+        if(c == cfg) {
+            return f;
+        }
+    }
+    return "";
+}
+
+bool PKBInterfaceStubForDE::hasAffectsStar(STMT_NUM stmt) {
+    return affectsStarMap.find(stmt) != affectsStarMap.end();
+}
+
+void PKBInterfaceStubForDE::addAffectsStar(STMT_NUM stmt, std::unordered_set<STMT_NUM> &affectsStarSet) {
+    affectsStarMap[stmt] = affectsStarSet;
+}
+
+std::unordered_set<STMT_NUM> PKBInterfaceStubForDE::getAllAssignFromProcedure(std::string procName) {
+    pair<STMT_NUM, STMT_NUM> toFrom = procToStmtNums[procName];
+    std::unordered_set<STMT_NUM> ans;
+    for(int i = toFrom.first; i <= toFrom.second; ++i) {
+        if(statementTypeMap[i] == StmtType::ASSIGN) {
+            ans.insert(i);
+        }
+    }
+
+    return ans;
+}
+
+std::unordered_set<STMT_NUM> PKBInterfaceStubForDE::getAffects(STMT_NUM stmt) {
+    return affectsMap[stmt];
 }

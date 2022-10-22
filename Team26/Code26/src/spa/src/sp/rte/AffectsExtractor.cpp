@@ -17,15 +17,15 @@ void AffectsExtractor::computeAffects(CFGHeadPtr cfg, PKBInterface* pkb, STMT_NU
 }
 
 void AffectsExtractor::computeDDG(std::string& procName, CFGHeadPtr cfg, PKBInterface *pkb) {
-    //std::unordered_set<STMT_NUM> assignSet = pkb->getAllAssignFromProcedure(procName);
-//    for(auto stmt : assignSet) {
-//        if(!pkb->hasAffects(stmt)) {
-//            computeAffects(std::move(cfg), pkb, stmt);
-//        }
-//
-//        std::unordered_set<STMT_NUM> affectedSet = pkb->getAffects(stmt);
-//        addEdgesToDDG(procName, stmt, affectedSet);
-//    }
+    std::unordered_set<STMT_NUM> assignSet = pkb->getAllAssignFromProcedure(procName);
+    for(auto stmt : assignSet) {
+        if(!pkb->hasAffects(stmt)) {
+            computeAffects(std::move(cfg), pkb, stmt);
+        }
+
+        std::unordered_set<STMT_NUM> affectedSet = pkb->getAffects(stmt);
+        addEdgesToDDG(procName, stmt, affectedSet);
+    }
 }
 
 void AffectsExtractor::addEdgesToDDG(std::string& procName, STMT_NUM stmt, std::unordered_set<STMT_NUM>& affectedSet) {
@@ -35,17 +35,17 @@ void AffectsExtractor::addEdgesToDDG(std::string& procName, STMT_NUM stmt, std::
 }
 
 void AffectsExtractor::computeAffectsStar(CFGHeadPtr cfg, PKBInterface *pkb, STMT_NUM stmt) {
-//    if(pkb->hasAffectsStar(stmt)) {
-//        return;
-//    }
+    if(pkb->hasAffectsStar(stmt)) {
+        return;
+    }
 
-    //std::string procName = pkb->getProcedureNameOf(std::move(cfg));
-//    if(procToDDG.find(procName) != procToDDG.end()) {
-//        computeDDG(procName, std::move(cfg), pkb);
-//    }
-    //std::unordered_set<STMT_NUM> visited;
-    //dfsOnNeighbours(procName, stmt, visited);
-    //pkb->addAffectsStar(stmt, visited);
+    std::string procName = pkb->getProcedureNameOf(std::move(cfg));
+    if(procToDDG.find(procName) != procToDDG.end()) {
+        computeDDG(procName, std::move(cfg), pkb);
+    }
+    std::unordered_set<STMT_NUM> visited;
+    dfsOnNeighbours(procName, stmt, visited);
+    pkb->addAffectsStar(stmt, visited);
 }
 
 void AffectsExtractor::dfs(std::string& procName, STMT_NUM stmt, std::unordered_set<STMT_NUM>& visited) {

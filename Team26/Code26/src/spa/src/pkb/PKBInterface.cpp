@@ -345,7 +345,7 @@ bool PKBInterface::hasNextStar(STMT_NUM stmt) {
     return false;
 }
 
-void PKBInterface::addNextStar(STMT_NUM stmt, std::unordered_set<STMT_NUM> nextStarSet) {
+void PKBInterface::addNextStar(STMT_NUM stmt, std::unordered_set<STMT_NUM>& nextStarSet) {
     return;
 }
 
@@ -375,4 +375,24 @@ bool PKBInterface::doesStatementUse(STMT_NUM stmt, std::string varUsed) {
 
 void PKBInterface::addAffects(STMT_NUM stmt, STMT_NUM affectedStmt) {
     return;
+}
+
+std::string PKBInterface::getProcedureNameOf(CFGHeadPtr cfg) {
+    return "";
+}
+
+bool PKBInterface::hasAffectsStar(STMT_NUM stmt) {
+    return false;
+}
+
+void PKBInterface::addAffectsStar(STMT_NUM stmt, std::unordered_set<STMT_NUM>& affectsStarSet) {
+    return;
+}
+
+std::unordered_set<STMT_NUM> PKBInterface::getAllAssignFromProcedure(std::string procName) {
+    return {};
+}
+
+std::unordered_set<STMT_NUM> PKBInterface::getAffects(STMT_NUM stmt) {
+    return {};
 }
