@@ -418,3 +418,9 @@ CFGHeadPtr PKBInterface::getCFGHeadPtrByProc(STMT_NUM stmt) {
 Procedure* PKBInterface::getProcByStmt(STMT_NUM stmt) {
     return pkb->procedureTable->getProcByStmt(stmt);
 }
+
+void PKBInterface::clear() {
+    pkb->nextStarTable->clear();
+    pkb->affectTable->clear();
+    pkb->affectStarTable->clear();
+}

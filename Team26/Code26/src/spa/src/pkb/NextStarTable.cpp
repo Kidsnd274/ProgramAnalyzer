@@ -16,3 +16,7 @@ bool NextStarTable::existNextStar(STMT_NUM stmt) {
 std::unordered_set<STMT_NUM> NextStarTable::getNextStar(STMT_NUM stmt) {
     return this->nextStarList[stmt];
 }
+
+void NextStarTable::clear() {
+    this->nextStarList.clear();
+}

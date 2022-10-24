@@ -14,6 +14,7 @@ public:
     std::unordered_map<int, std::unordered_set<int>>& getAllAffect();
     bool existAffect(int stmt);
     std::unordered_set<int> getAffectedSet(int stmt);
+    void clear();
 };
 
 

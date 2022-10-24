@@ -20,3 +20,7 @@ bool AffectTable::existAffect(int stmt) {
 std::unordered_set<int> AffectTable::getAffectedSet(int stmt) {
     return this->affectList[stmt];
 }
+
+void AffectTable::clear() {
+    this->affectList.clear();
+}

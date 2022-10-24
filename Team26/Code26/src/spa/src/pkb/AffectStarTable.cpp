@@ -12,3 +12,7 @@ std::unordered_map<int, std::unordered_set<int>>& AffectStarTable::getAllAffectS
 bool AffectStarTable::existAffectStar(int stmt) {
     return this->affectStarList.find(stmt) != this->affectStarList.end();
 }
+
+void AffectStarTable::clear() {
+    this->affectStarList.clear();
+}

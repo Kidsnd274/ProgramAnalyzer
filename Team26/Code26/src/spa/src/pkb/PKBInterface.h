@@ -108,4 +108,9 @@ public:
     virtual std::unordered_set<STMT_NUM> getNextStar(STMT_NUM stmt);
     virtual CFGHeadPtr getCFGHeadPtrByProc(STMT_NUM stmt);
     virtual Procedure* getProcByStmt(STMT_NUM stmt);
+
+    /**
+     * Clear NextStar, Affect and AffectStar Tables.
+     */
+    virtual void clear();
 };
