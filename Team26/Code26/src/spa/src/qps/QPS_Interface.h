@@ -1,17 +1,21 @@
-#ifndef SPA_QPS_PKB_INTERFACE_H
-#define SPA_QPS_PKB_INTERFACE_H
+#ifndef SPA_QPS_INTERFACE_H
+#define SPA_QPS_INTERFACE_H
 
 #include "pkb/PKBInterface.h"
 #include "pkb/Statement.h"
+#include "sp/rte/RuntimeExtractor.h"
 #include "type/Argument.h"
 #include "Query.h"
 
-class QPS_PKB_Interface {
+class QPS_Interface {
 public:
     static PKBInterface* pkbInterface;
+    static RuntimeExtractor* runtimeExtractor;
 
 public:
     static void setPKBInterface(PKBInterface* myPKBInterface);
+
+    static void createRuntimeExtractor();
 
     /**
      * Call PKB interface to get the AST TNode of a certain assign statement.
@@ -143,7 +147,23 @@ public:
     static std::string getAttrName(std::string value, WithClause::WithClauseArgument candidate);
 
     static std::string getAttrName(std::string value, Query::CandidateStruct candidate);
+
+    /**
+     * Call PKB interface to get the CFGHead of the procedure by passing in
+     * one statement in this procedure.
+     * @param stmt the given statement.
+     * @return a shared_ptr of CFGHead.
+     */
+    static CFGHeadPtr getCFGHeadPtrByProc(STMT_NUM stmt);
+
+    /**
+     * Call PKB interface to get the Procedure by passing in one statement
+     * in this procedure.
+     * @param stmt the given statement.
+     * @return a Procedure.
+     */
+    static Procedure* getProcByStmt(STMT_NUM stmt);
 };
 
 
-#endif //SPA_QPS_PKB_INTERFACE_H
+#endif //SPA_QPS_INTERFACE_H

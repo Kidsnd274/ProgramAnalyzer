@@ -12,12 +12,12 @@ void PatternClauseEvaluator::evaluate(ResultTable* resultTable) {
         synonyms.push_back(patternClause->argument2.argumentName);
     }
     //insert rows into table
-    vector<string> allAssigns = QPS_PKB_Interface::getAllAssigns();
+    vector<string> allAssigns = QPS_Interface::getAllAssigns();
     WildcardPosition pos = getWildcardPosition();
     std::shared_ptr<TNode> patternNode = getPatternNode(pos);
     bool useActualName = this->patternClause->argument2.argumentType == Argument::ACTUAL_NAME;
     for (auto assign: allAssigns) {
-        std::shared_ptr<AssignNode> assignNode = QPS_PKB_Interface::getAssignTNode(assign);
+        std::shared_ptr<AssignNode> assignNode = QPS_Interface::getAssignTNode(assign);
         if (useActualName && this->patternClause->argument2.argumentName != assignNode->getVariableName()) {
             continue;
         }
@@ -58,10 +58,10 @@ WildcardPosition PatternClauseEvaluator::getWildcardPosition() {
 }
 
 void PatternClauseEvaluator::evaluateContainer(QPS::ResultTable *resultTable) {
-    vector<string> stmtNumbers = QPS_PKB_Interface::getAllEntity(&this->patternClause->argument1);
+    vector<string> stmtNumbers = QPS_Interface::getAllEntity(&this->patternClause->argument1);
     unordered_set<vector<string>, StringVectorHash> result;
     for (auto s: stmtNumbers) {
-        std::vector<string> varNames = QPS_PKB_Interface::getConditionVarNameByStmtNum(s);
+        std::vector<string> varNames = QPS_Interface::getConditionVarNameByStmtNum(s);
         for (auto varName: varNames) {
             if (this->patternClause->argument2.argumentType == Argument::ACTUAL_NAME) {
                 if (varName != this->patternClause->argument2.argumentName) {
