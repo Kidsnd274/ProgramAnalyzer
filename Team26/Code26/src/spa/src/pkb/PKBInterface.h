@@ -88,7 +88,7 @@ public:
     virtual std::string getReadVarName(std::string readLineNumber);
     virtual std::string getPrintVarName(std::string printLineNumber);
 
-    // For testing
+
     CFGHeadPtr getCfgOfProcedure(std::string procedureName);
     virtual bool hasNextStar(STMT_NUM stmt);
     virtual void addNextStar(STMT_NUM stmt, std::unordered_set<STMT_NUM> nextStarSet);

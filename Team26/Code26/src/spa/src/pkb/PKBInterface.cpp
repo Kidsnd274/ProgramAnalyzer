@@ -28,6 +28,9 @@
 #include "CallStarTable.h"
 #include "ContainerTable.h"
 #include "ProcedureNotFoundException.h"
+#include "NextStarTable.h"
+#include "AffectTable.h"
+#include "AffectStarTable.h"
 
 using namespace std;
 //using namespace StatementType;
@@ -340,59 +343,65 @@ CFGHeadPtr PKBInterface::getCfgOfProcedure(std::string procedureName) {
     return nullptr;
 }
 
-//For testing
 bool PKBInterface::hasNextStar(STMT_NUM stmt) {
-    return false;
+    return pkb->nextStarTable->existNextStar(stmt);
 }
 
 void PKBInterface::addNextStar(STMT_NUM stmt, std::unordered_set<STMT_NUM> nextStarSet) {
-    return;
+    pkb->nextStarTable->insertNextStar(stmt, nextStarSet);
 }
 
 bool PKBInterface::isStatementContainer(STMT_NUM stmt) {
-    return false;
+    Statement statement = pkb->statementTable->getStmtByLineNumber(stmt);
+    StatementType::StmtType type = statement.type;
+    return (type == StatementType::IF) || (type == StatementType::WHILE);
 }
 
 bool PKBInterface::doesStatementModify(STMT_NUM stmt, std::string varModified) {
-    return false;
+    return pkb->modifiesTable->doesStatementModify(stmt, varModified);
 }
 
 bool PKBInterface::hasAffects(STMT_NUM stmt) {
-    return false;
+    pkb->affectTable->existAffect(stmt);
 }
 
 std::string PKBInterface::getModifiedVariable(STMT_NUM stmt) {
-    return " ";
+    return pkb->modifiesTable->getFirstModifiedVar(stmt);
 }
 
 bool PKBInterface::isStatementAssign(STMT_NUM stmt) {
-    return false;
+    Statement statement = pkb->statementTable->getStmtByLineNumber(stmt);
+    StatementType::StmtType type = statement.type;
+    return type == StatementType::ASSIGN;
 }
 
 bool PKBInterface::doesStatementUse(STMT_NUM stmt, std::string varUsed) {
-    return false;
+    return pkb->usesTable->doesStatementUse(stmt, varUsed);
 }
 
 void PKBInterface::addAffects(STMT_NUM stmt, STMT_NUM affectedStmt) {
-    return;
+    pkb->affectTable->insertAffect(stmt, affectedStmt);
 }
 
 std::string PKBInterface::getProcedureNameOf(CFGHeadPtr cfg) {
-    return "";
+    return pkb->procedureTable->getProcedureNameOf(cfg);
 }
 
 bool PKBInterface::hasAffectsStar(STMT_NUM stmt) {
-    return false;
+    return pkb->affectStarTable->existAffectStar(stmt);
 }
 
 void PKBInterface::addAffectsStar(STMT_NUM stmt, std::unordered_set<STMT_NUM> affectsStarSet) {
-    return;
+    pkb->affectStarTable->insertAffectStar(stmt, affectsStarSet);
 }
 
 std::unordered_set<STMT_NUM> PKBInterface::getAllAssignFromProcedure(std::string procName) {
-    return {};
+    Procedure proc = pkb->procedureTable->getProcedureByName(procName);
+    int startStmt = proc.startingStmtNo;
+    int endStmt = proc.endingStmtNo;
+    return pkb->statementTable->getAllAssignFromProcedure(startStmt, endStmt);
 }
 
 std::unordered_set<STMT_NUM> PKBInterface::getAffects(STMT_NUM stmt) {
-    return {};
+    return pkb->affectTable->getAffectedSet(stmt);
 }

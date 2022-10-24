@@ -19,6 +19,8 @@ public:
     void insertProc(Procedure proc);
     vector<string> getAllProcedures();
     vector<Procedure> getProcList();
+    std::string getProcedureNameOf(CFGHeadPtr cfg);
+    Procedure getProcedureByName(std::string name);
 };
 
 #endif //SPA_PROCEDURETABLE_H

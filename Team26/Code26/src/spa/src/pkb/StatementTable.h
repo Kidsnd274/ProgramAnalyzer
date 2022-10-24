@@ -28,6 +28,7 @@ public:
     std::vector<std::string> getAllCalls();
     std::vector<Statement> getAllCallStatements();
     Statement getStmtByLineNumber(int stmtNo);
+    std::unordered_set<int> getAllAssignFromProcedure(int startStmt, int endStmt);
 };
 
 #endif //SPA_STATEMENTTABLE_H

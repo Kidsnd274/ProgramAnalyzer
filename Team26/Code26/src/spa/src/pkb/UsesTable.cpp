@@ -55,3 +55,13 @@ std::unordered_map<int, std::vector<std::string>> UsesTable::getAllUsesByStmt() 
 std::unordered_map<std::string, std::vector<std::string>> UsesTable::getAllUsesByProc() {
     return this->usesProcList;
 }
+
+bool UsesTable::doesStatementUse(int stmt, std::string varUsed) {
+    unordered_map<int,std::vector<std::string>> list = this->usesList;
+    if (list.find(stmt) == list.end()) {
+        return false;
+    } else {
+        std::vector<std::string> vars = list[stmt];
+        return std::find(vars.begin(), vars.end(), varUsed) != vars.end();
+    }
+}

@@ -25,3 +25,24 @@ vector<string> ProcedureTable::getAllProcedures() {
 vector<Procedure> ProcedureTable::getProcList() {
     return this->procList;
 }
+
+std::string ProcedureTable::getProcedureNameOf(CFGHeadPtr cfg) {
+    std::string result = "";
+    for (Procedure proc: this->procList) {
+        if (proc.cfg == cfg)  {
+            result = proc.name;
+            break;
+        }
+    }
+    return result;
+}
+
+Procedure ProcedureTable::getProcedureByName(std::string name) {
+    Procedure result;
+    for (Procedure proc: this->procList) {
+        if (proc.name == name)  {
+            return proc;
+        }
+    }
+    return result;
+}

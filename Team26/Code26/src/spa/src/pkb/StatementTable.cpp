@@ -4,6 +4,7 @@
 #include <stdio.h>
 #include <string>
 #include <vector>
+#include <unordered_set>
 #include "StatementTable.h"
 
 using namespace std;
@@ -74,6 +75,18 @@ Statement StatementTable::getStmtByLineNumber(int stmtNo) {
         if (stmt.lineNumber == stmtNo) {
             result = stmt;
             break;
+        }
+    }
+    return result;
+}
+
+std::unordered_set<int> StatementTable::getAllAssignFromProcedure(int startStmt, int endStmt) {
+    std::unordered_set<int> result;
+    for (Statement stmt: this->statementList) {
+        int lineNumber = stmt.lineNumber;
+        StatementType::StmtType type = stmt.type;
+        if ((lineNumber >= startStmt) && (lineNumber <= endStmt) && (type == StatementType::ASSIGN)) {
+            result.insert(lineNumber);
         }
     }
     return result;

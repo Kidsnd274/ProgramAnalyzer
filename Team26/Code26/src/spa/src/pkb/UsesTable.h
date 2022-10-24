@@ -23,6 +23,7 @@ public:
     vector<string> getAllVarUsedByProc(string procedureName);
     std::unordered_map<int, std::vector<std::string>> getAllUsesByStmt();
     std::unordered_map<std::string, std::vector<std::string>> getAllUsesByProc();
+    bool doesStatementUse(int stmt, std::string varUsed);
 };
 
 #endif //SPA_USESTABLE_H
