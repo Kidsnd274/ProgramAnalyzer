@@ -5,6 +5,7 @@
 #include <string>
 #include "Procedure.h"
 #include "ProcedureTable.h"
+#include "ProcedureNotFoundException.h"
 
 using namespace std;
 
@@ -45,4 +46,13 @@ Procedure ProcedureTable::getProcedureByName(std::string name) {
         }
     }
     return result;
+}
+
+Procedure* ProcedureTable::getProcByStmt(int stmt) {
+    for (Procedure proc: this->procList) {
+        if ((stmt >= proc.startingStmtNo) && (stmt <= proc.endingStmtNo))  {
+            return &proc;
+        }
+    }
+    throw ProcedureNotFoundException();
 }

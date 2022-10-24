@@ -104,4 +104,8 @@ public:
     virtual bool hasAffectsStar(STMT_NUM stmt);
     virtual void addAffectsStar(STMT_NUM stmt, std::unordered_set<STMT_NUM> affectsStarSet);
     virtual std::unordered_set<STMT_NUM> getAllAssignFromProcedure(std::string procName);
+
+    virtual std::unordered_set<STMT_NUM> getNextStar(STMT_NUM stmt);
+    virtual CFGHeadPtr getCFGHeadPtrByProc(STMT_NUM stmt);
+    virtual Procedure* getProcByStmt(STMT_NUM stmt);
 };

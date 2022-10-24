@@ -12,3 +12,7 @@ std::unordered_map<STMT_NUM, std::unordered_set<STMT_NUM>>& NextStarTable::getAl
 bool NextStarTable::existNextStar(STMT_NUM stmt) {
     return this->nextStarList.find(stmt) != this->nextStarList.end();
 }
+
+std::unordered_set<STMT_NUM> NextStarTable::getNextStar(STMT_NUM stmt) {
+    return this->nextStarList[stmt];
+}

@@ -21,6 +21,7 @@ public:
     vector<Procedure> getProcList();
     std::string getProcedureNameOf(CFGHeadPtr cfg);
     Procedure getProcedureByName(std::string name);
+    Procedure* getProcByStmt(int stmt);
 };
 
 #endif //SPA_PROCEDURETABLE_H

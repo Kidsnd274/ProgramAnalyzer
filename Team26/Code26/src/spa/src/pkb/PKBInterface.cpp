@@ -405,3 +405,16 @@ std::unordered_set<STMT_NUM> PKBInterface::getAllAssignFromProcedure(std::string
 std::unordered_set<STMT_NUM> PKBInterface::getAffects(STMT_NUM stmt) {
     return pkb->affectTable->getAffectedSet(stmt);
 }
+
+std::unordered_set<STMT_NUM> PKBInterface::getNextStar(STMT_NUM stmt) {
+    return pkb->nextStarTable->getNextStar(stmt);
+}
+
+CFGHeadPtr PKBInterface::getCFGHeadPtrByProc(STMT_NUM stmt) {
+    Procedure* proc = pkb->procedureTable->getProcByStmt(stmt);
+    return (*proc).cfg;
+}
+
+Procedure* PKBInterface::getProcByStmt(STMT_NUM stmt) {
+    return pkb->procedureTable->getProcByStmt(stmt);
+}
