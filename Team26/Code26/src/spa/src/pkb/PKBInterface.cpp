@@ -362,7 +362,7 @@ bool PKBInterface::doesStatementModify(STMT_NUM stmt, std::string varModified) {
 }
 
 bool PKBInterface::hasAffects(STMT_NUM stmt) {
-    pkb->affectTable->existAffect(stmt);
+    return pkb->affectTable->existAffect(stmt);
 }
 
 std::string PKBInterface::getModifiedVariable(STMT_NUM stmt) {

@@ -3,6 +3,7 @@
 
 #include <unordered_map>
 #include <unordered_set>
+#include "util/cfg/CFGHead.h"
 
 class AffectTable {
 private:

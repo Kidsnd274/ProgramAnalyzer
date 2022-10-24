@@ -3,15 +3,16 @@
 
 #include <unordered_map>
 #include <unordered_set>
+#include "util/cfg/CFGHead.h"
 
 class NextStarTable {
 private:
-    std::unordered_map<int, std::unordered_set<int>> nextStarList;
+    std::unordered_map<STMT_NUM, std::unordered_set<STMT_NUM>> nextStarList;
 
 public:
-    void insertNextStar(int stmt, std::unordered_set<int> nextStarSet);
-    std::unordered_map<int, std::unordered_set<int>>& getAllNextStar();
-    bool existNextStar(int stmt);
+    void insertNextStar(STMT_NUM stmt, std::unordered_set<STMT_NUM> nextStarSet);
+    std::unordered_map<STMT_NUM, std::unordered_set<STMT_NUM>>& getAllNextStar();
+    bool existNextStar(STMT_NUM stmt);
 };
 
 
