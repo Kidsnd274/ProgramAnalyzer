@@ -60,9 +60,9 @@ public:
         this->argument2 = relationClause.argument2;
     }
 
-    Argument getFirstArgument();
+    Argument getFirstArgument() override;
 
-    Argument getSecondArgument();
+    Argument getSecondArgument() override;
 
     void setFirstArgument(const Argument& argument);
 

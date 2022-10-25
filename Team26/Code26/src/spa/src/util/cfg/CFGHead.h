@@ -2,6 +2,7 @@
 #define SPA_CFGHEAD_H
 
 #include "CFGNode.h"
+#include "CFGNotInitializedException.h"
 #include <algorithm>
 #include <unordered_map>
 #include <unordered_set>
@@ -21,6 +22,8 @@ class CFGHead {
 private:
     CFGMap adjList;
     CFGDummyMap dummyAdjList;
+    bool initialized = false;
+    STMT_NUM firstNodeStmtNum = -1;
 public:
     void connectNode(CFGNode node1, CFGNode node2);
     EDGES getEdges(STMT_NUM stmtNumber);
@@ -35,6 +38,7 @@ public:
     bool isNext(STMT_NUM stmt1, STMT_NUM stmt2);
     bool isStatementInCFG(STMT_NUM stmt1);
     STMT_NUM findDummyNodeNext(CFGNode& dummy);
+    STMT_NUM isFirstStatementInCFG(STMT_NUM stmt);
 
     // graph traversal
     std::unordered_set<STMT_NUM> getReachableNodes(STMT_NUM stmt);

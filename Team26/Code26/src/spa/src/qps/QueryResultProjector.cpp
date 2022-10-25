@@ -1,5 +1,5 @@
 #include "QueryResultProjector.h"
-#include "QPS_PKB_Interface.h"
+#include "QPS_Interface.h"
 
 void QueryResultProjector::projectResult(Query query, std::list<std::string> &results) {
     QPS::ResultTable* resultTable = query.resultTable;
@@ -55,7 +55,7 @@ std::string QueryResultProjector::getSelectTuples(Query query, std::list<std::st
             std::string rowString;
             for (auto &candidate : query.getCandidateList()) {
                 std::string value = row.at(query.resultTable->getSynonymColRef().find(candidate.argument.argumentName)->second);
-                rowString += QPS_PKB_Interface::getAttrName(value, candidate) + " ";
+                rowString += QPS_Interface::getAttrName(value, candidate) + " ";
             }
             std::string trimmedRowString = rowString.substr(0, rowString.length() - 1);
             if (rowStringSet.find(trimmedRowString) == rowStringSet.end()) {

@@ -15,3 +15,7 @@ void VarTable::insertVar(string var) {
 vector<string> VarTable::getAllVariables() {
     return this->varList;
 }
+
+void VarTable::clear() {
+    this->varList.clear();
+}

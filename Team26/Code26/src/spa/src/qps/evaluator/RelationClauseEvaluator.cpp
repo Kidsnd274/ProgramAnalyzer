@@ -120,12 +120,12 @@ void RelationClauseEvaluator::evaluateModify(QPS::ResultTable *resultTable) {
     resultTable->replace(&r2);
 }
 void RelationClauseEvaluator::evaluateCalls(QPS::ResultTable *resultTable) {
-    filterRelations(QPS_PKB_Interface::getAllCallRelations(), resultTable);
+    filterRelations(QPS_Interface::getAllCallRelations(), resultTable);
 }
 
 
 void RelationClauseEvaluator::evaluateCallsT(QPS::ResultTable *resultTable) {
-    filterRelations(QPS_PKB_Interface::getAllCallTRelations(), resultTable);
+    filterRelations(QPS_Interface::getAllCallTRelations(), resultTable);
 };
 void RelationClauseEvaluator::evaluateAffects(QPS::ResultTable *resultTable) {
 
@@ -134,7 +134,7 @@ void RelationClauseEvaluator::evaluateAffectsT(QPS::ResultTable *resultTable) {
 
 };
 void RelationClauseEvaluator::evaluateFollows(QPS::ResultTable *resultTable) {
-    filterRelations(QPS_PKB_Interface::getAllFollowsRelations(), resultTable);
+    filterRelations(QPS_Interface::getAllFollowsRelations(), resultTable);
 };
 
 bool isStatementTypeMatched(StatementType::StmtType stmtType, Argument::ArgumentType argumentType) {
@@ -184,7 +184,7 @@ std::vector<std::vector<Statement>>& filterStmtList(const std::vector<std::vecto
 }
 
 void RelationClauseEvaluator::evaluateFollowsT(QPS::ResultTable *resultTable) {
-    std::vector<std::vector<Statement>> stmtList = QPS_PKB_Interface::getAllStmtLists();
+    std::vector<std::vector<Statement>> stmtList = QPS_Interface::getAllStmtLists();
     Argument arg1 = this->relationClause->getFirstArgument();
     Argument arg2 = this->relationClause->getSecondArgument();
 
@@ -235,35 +235,182 @@ void RelationClauseEvaluator::evaluateFollowsT(QPS::ResultTable *resultTable) {
 };
 
 void RelationClauseEvaluator::evaluateModifiesS(QPS::ResultTable *resultTable) {
-    filterRelations(QPS_PKB_Interface::getAllModifiesRelations(), resultTable);
+    filterRelations(QPS_Interface::getAllModifiesRelations(), resultTable);
 };
 
 void RelationClauseEvaluator::evaluateModifiesP(QPS::ResultTable *resultTable) {
-    filterRelations(QPS_PKB_Interface::getAllModifiesProcRelations(), resultTable);
+    filterRelations(QPS_Interface::getAllModifiesProcRelations(), resultTable);
 };
 
 void RelationClauseEvaluator::evaluateNext(QPS::ResultTable *resultTable) {
-    filterRelations(QPS_PKB_Interface::getAllNextRelations(), resultTable);
+    Argument arg1 = this->relationClause->getFirstArgument();
+    Argument arg2 = this->relationClause->getSecondArgument();
+    if (arg1.argumentType == Argument::ACTUAL_NAME) {
+        int stmt1 = stoi(arg1.argumentName);
+        CFGHeadPtr cfgHeadPtr = QPS_Interface::getCFGHeadPtrByProc(stmt1);
+        // ACTUAL_NAME, ACTUAL_NAME
+        if (arg2.argumentType == Argument::ACTUAL_NAME) {
+            int stmt2 = stoi(arg2.argumentName);
+            if (QPS_Interface::runtimeExtractor->isNext(cfgHeadPtr, stmt1, stmt2) == true) {
+                resultTable->setTrueTable();
+            } else {
+                resultTable->setFalseTable();
+            }
+            return;
+        }
+        // ACTUAL_NAME, WILDCARD
+        if (arg2.argumentType == Argument::WILDCARD) {
+            if (QPS_Interface::runtimeExtractor->getNextNodes(cfgHeadPtr, stmt1).empty()) {
+                resultTable->setFalseTable();
+            } else {
+                resultTable->setTrueTable();
+            }
+            return;
+        }
+        // ACTUAL_NAME, SYNONYM
+        std::vector<std::string> synonyms = {arg2.argumentName};
+        unordered_set<vector<std::string>, QPS::StringVectorHash> lines;
+        for (auto stmt2 : QPS_Interface::runtimeExtractor->getNextNodes(cfgHeadPtr, stmt1)) {
+            vector<std::string> currLine;
+            currLine.push_back(to_string(stmt2));
+            lines.insert(currLine);
+        }
+        resultTable = new ResultTable(synonyms, lines);
+        return;
+    }
+    if (arg1.argumentType == Argument::WILDCARD) {
+        // WILDCARD, WILDCARD
+        if (arg2.argumentType == Argument::WILDCARD) {
+            resultTable->setTrueTable();
+            return;
+        }
+        // WILDCARD, ACTUAL_NAME
+        if (arg2.argumentType == Argument::ACTUAL_NAME) {
+            int stmt2 = stoi(arg2.argumentName);
+            Procedure* proc = QPS_Interface::getProcByStmt(stmt2);
+            CFGHeadPtr  cfgHeadPtr = QPS_Interface::getCFGHeadPtrByProc(stmt2);
+            for (int i = proc->startingStmtNo; i <= proc->endingStmtNo; i++) {
+                if (QPS_Interface::runtimeExtractor->isNext(cfgHeadPtr, i, stmt2)) {
+                    resultTable->setTrueTable();
+                    return;
+                }
+            }
+            resultTable->setFalseTable();
+            return;
+        }
+        // WILDCARD, SYNONYM
+        vector<Procedure> procList = QPS_Interface::getProcList();
+        std::vector<std::string> synonyms = {arg2.argumentName};
+        unordered_set<vector<std::string>, QPS::StringVectorHash> lines;
+        for (auto proc : procList) {
+            for (int i = proc.startingStmtNo; i <= proc.endingStmtNo; i++) {
+                for (auto stmt2 : QPS_Interface::runtimeExtractor->getNextNodes(proc.cfg, i)) {
+                    lines.insert(vector<string> {to_string(stmt2)});
+                }
+            }
+        }
+        resultTable = new ResultTable(synonyms, lines);
+        return;
+    }
+    // SYNONYM, WILDCARD
+    vector<Procedure> procList = QPS_Interface::getProcList();
+    std::vector<std::string> synonyms = {arg1.argumentName};
+    unordered_set<vector<std::string>, QPS::StringVectorHash> lines;
+    if (arg2.argumentType == Argument::WILDCARD) {
+        for (auto proc : procList) {
+            for (int i = proc.startingStmtNo; i <= proc.endingStmtNo; i++) {
+                if (!QPS_Interface::runtimeExtractor->getNextNodes(proc.cfg, i).empty()) {
+                    lines.insert(vector<string> {to_string(i)});
+                }
+            }
+        }
+        resultTable = new ResultTable(synonyms, lines);
+        return;
+    }
+    // SYNONYM, ACTUAL_NAME
+    if (arg2.argumentType == Argument::ACTUAL_NAME) {
+        int stmt2 = stoi(arg2.argumentName);
+        for (auto proc : procList) {
+            for (int i = proc.startingStmtNo; i <= proc.endingStmtNo; i++) {
+                if (QPS_Interface::runtimeExtractor->isNext(proc.cfg, i, stmt2)) {
+                    lines.insert(vector<string> {to_string(i)});
+                }
+            }
+        }
+        resultTable = new ResultTable(synonyms, lines);
+        return;
+    }
+    // SYNONYM, SYNONYM
+    synonyms.push_back(arg2.argumentName);
+    for (auto proc : procList) {
+        for (int i = proc.startingStmtNo; i <= proc.endingStmtNo; i++) {
+            for (auto stmt2 : QPS_Interface::runtimeExtractor->getNextNodes(proc.cfg, i)) {
+                lines.insert(vector<string> {to_string(i), to_string(stmt2)});
+            }
+        }
+    }
+    resultTable = new ResultTable(synonyms, lines);
 };
 
 void RelationClauseEvaluator::evaluateNextT(QPS::ResultTable *resultTable) {
+    Argument arg1 = this->relationClause->getFirstArgument();
+    Argument arg2 = this->relationClause->getSecondArgument();
+    if (arg1.argumentType == Argument::ACTUAL_NAME) {
+        int stmt1 = stoi(arg1.argumentName);
+        CFGHeadPtr cfgHeadPtr = QPS_Interface::getCFGHeadPtrByProc(stmt1);
+        if (!QPS_Interface::hasNextStar(stmt1)) {
+            QPS_Interface::runtimeExtractor->computeNextStar(cfgHeadPtr, stmt1);
+        }
+        unordered_set<STMT_NUM> nextStarSet = QPS_Interface::getNextStar(stmt1);
+        // ACTUAL_NAME, ACTUAL_NAME
+        if (arg2.argumentType == Argument::ACTUAL_NAME) {
+            int stmt2 = stoi(arg2.argumentName);
+            if (nextStarSet.find(stmt2) != nextStarSet.end()) {
+                resultTable->setTrueTable();
+            } else {
+                resultTable->setFalseTable();
+            }
+            return;
+        }
+        // ACTUAL_NAME, WILDCARD
+        if (arg2.argumentType == Argument::WILDCARD) {
+            if (nextStarSet.empty()) {
+                resultTable->setFalseTable();
+            } else {
+                resultTable->setTrueTable();
+            }
+            return;
+        }
+        // ACTUAL_NAME, SYNONYM
+        std::vector<std::string> synonyms = {arg2.argumentName};
+        unordered_set<vector<std::string>, QPS::StringVectorHash> lines;
+        for (auto stmt2 : nextStarSet) {
+            lines.insert(vector<string> {to_string(stmt2)});
+        }
+        resultTable = new ResultTable(synonyms, lines);
+        return;
+    }
+    if (arg1.argumentType == Argument::WILDCARD) {
+
+    }
+    // SYNONYM, WILDCARD
 
 };
 
 void RelationClauseEvaluator::evaluateParent(QPS::ResultTable *resultTable) {
-    filterRelations(QPS_PKB_Interface::getAllParentRelations(), resultTable);
+    filterRelations(QPS_Interface::getAllParentRelations(), resultTable);
 };
 
 void RelationClauseEvaluator::evaluateParentT(QPS::ResultTable *resultTable) {
-    filterRelations(QPS_PKB_Interface::getAllParentTRelations(), resultTable);
+    filterRelations(QPS_Interface::getAllParentTRelations(), resultTable);
 };
 
 void RelationClauseEvaluator::evaluateUsesP(QPS::ResultTable *resultTable) {
-    filterRelations(QPS_PKB_Interface::getAllUsesProcRelations(), resultTable);
+    filterRelations(QPS_Interface::getAllUsesProcRelations(), resultTable);
 };
 
 void RelationClauseEvaluator::evaluateUsesS(QPS::ResultTable *resultTable) {
-    filterRelations(QPS_PKB_Interface::getAllUsesRelations(), resultTable);
+    filterRelations(QPS_Interface::getAllUsesRelations(), resultTable);
 };
 
 bool RelationClauseEvaluator::existInStringVector(string s, vector<string> v) {
@@ -403,7 +550,7 @@ void RelationClauseEvaluator::filterRelations(std::unordered_map<int, int> map, 
     resultTable->replace(filterTable(&result));
 }
 
-ResultTable *RelationClauseEvaluator::filterTable(unordered_set<vector<std::string>, QPS::StringVectorHash> *result) {
+ResultTable* RelationClauseEvaluator::filterTable(unordered_set<vector<std::string>, QPS::StringVectorHash> *result) {
     Argument arg1 = relationClause->getFirstArgument();
     Argument arg2 = relationClause->getSecondArgument();
     std::vector<std::string> a1;
@@ -414,11 +561,11 @@ ResultTable *RelationClauseEvaluator::filterTable(unordered_set<vector<std::stri
     vector<string> synonyms;
     if (isArg1Synonym) {
         synonyms.push_back(arg1.argumentName);
-        a1 = QPS_PKB_Interface::getAllEntity(&arg1);
+        a1 = QPS_Interface::getAllEntity(&arg1);
     }
     if (isArg2Synonym && std::find(synonyms.begin(), synonyms.end(), arg2.argumentName) == synonyms.end()) {
         synonyms.push_back(arg2.argumentName);
-        a2 = QPS_PKB_Interface::getAllEntity(&arg2);
+        a2 = QPS_Interface::getAllEntity(&arg2);
         isArg2Pushed = true;
     }
     unordered_set<vector<std::string>, QPS::StringVectorHash> filteredResult;

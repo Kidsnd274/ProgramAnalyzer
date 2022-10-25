@@ -18,6 +18,7 @@ public:
     bool existCall(std::string procedureName, std::string procedureCalled);
     std::vector<std::string> getProcsCalled(std::string procedureName);
     std::unordered_map<std::string, std::vector<std::string>> getAllCalls();
+    void clear();
 };
 
 #endif //SPA_CALLTABLE_H

@@ -1,8 +1,10 @@
 #ifndef SPA_WITHCLAUSEEVALUATOR_H
 #define SPA_WITHCLAUSEEVALUATOR_H
 
+#include <vector>
 #include "ClauseEvaluator.h"
 #include "../type/WithClause.h"
+
 class WithClauseEvaluator : public ClauseEvaluator{
 private:
     WithClause* withClause;
