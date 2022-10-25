@@ -30,6 +30,7 @@ public:
     std::vector<Statement> getAllCallStatements();
     Statement getStmtByLineNumber(int stmtNo);
     std::unordered_set<int> getAllAssignFromProcedure(int startStmt, int endStmt);
+    void clear();
 };
 
 #endif //SPA_STATEMENTTABLE_H

@@ -91,3 +91,7 @@ std::unordered_set<int> StatementTable::getAllAssignFromProcedure(int startStmt,
     }
     return result;
 }
+
+void StatementTable::clear() {
+    this->statementList.clear();
+}

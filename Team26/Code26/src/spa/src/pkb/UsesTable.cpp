@@ -65,3 +65,8 @@ bool UsesTable::doesStatementUse(int stmt, std::string varUsed) {
         return std::find(vars.begin(), vars.end(), varUsed) != vars.end();
     }
 }
+
+void UsesTable::clear() {
+    this->usesList.clear();
+    this->usesProcList.clear();
+}

@@ -81,3 +81,8 @@ bool ModifiesTable::doesStatementModify(int stmt, std::string varModified) {
         return std::find(vars.begin(), vars.end(), varModified) != vars.end();
     }
 }
+
+void ModifiesTable::clear() {
+    this->modifiesList.clear();
+    this->modifiesProcList.clear();
+}

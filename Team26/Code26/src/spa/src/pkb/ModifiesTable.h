@@ -25,7 +25,7 @@ public:
     std::unordered_map<int, std::vector<std::string>> getAllModifiesByStmt();
     std::unordered_map<std::string, std::vector<std::string>> getAllModifiesByProc();
     bool doesStatementModify(int stmt, std::string varModified);
-
+    void clear();
 };
 
 #endif //SPA_MODIFIESTABLE_H

@@ -56,3 +56,7 @@ Procedure* ProcedureTable::getProcByStmt(int stmt) {
     }
     throw ProcedureNotFoundException();
 }
+
+void ProcedureTable::clear() {
+    this->procList.clear();
+}
