@@ -28,6 +28,9 @@
 #include "CallStarTable.h"
 #include "ContainerTable.h"
 #include "ProcedureNotFoundException.h"
+#include "NextStarTable.h"
+#include "AffectTable.h"
+#include "AffectStarTable.h"
 
 using namespace std;
 //using namespace StatementType;
@@ -220,6 +223,18 @@ std::unordered_map<int, vector<int>> PKBInterface::getAllNext() {
     return pkb->nextTable->getAllNext();
 }
 
+std::unordered_map<STMT_NUM, std::unordered_set<STMT_NUM>> PKBInterface::getAllNextStar() {
+    return pkb->nextStarTable->getAllNextStar();
+}
+
+unordered_map<int, std::unordered_set<int>> PKBInterface::getAllAffects() {
+    return pkb->affectTable->getAllAffect();
+}
+
+unordered_map<int, std::unordered_set<int>> PKBInterface::getAllAffectsStar() {
+    return pkb->affectStarTable->getAllAffectStar();
+}
+
 std::unordered_map<int, std::vector<std::string>> PKBInterface::getAllModifyByStmt() {
     return pkb->modifiesTable->getAllModifiesByStmt();
 }
@@ -340,59 +355,102 @@ CFGHeadPtr PKBInterface::getCfgOfProcedure(std::string procedureName) {
     return nullptr;
 }
 
-//For testing
 bool PKBInterface::hasNextStar(STMT_NUM stmt) {
-    return false;
+    return pkb->nextStarTable->existNextStar(stmt);
 }
 
 void PKBInterface::addNextStar(STMT_NUM stmt, std::unordered_set<STMT_NUM> nextStarSet) {
-    return;
+    pkb->nextStarTable->insertNextStar(stmt, nextStarSet);
 }
 
 bool PKBInterface::isStatementContainer(STMT_NUM stmt) {
-    return false;
+    Statement statement = pkb->statementTable->getStmtByLineNumber(stmt);
+    StatementType::StmtType type = statement.type;
+    return (type == StatementType::IF) || (type == StatementType::WHILE);
 }
 
 bool PKBInterface::doesStatementModify(STMT_NUM stmt, std::string varModified) {
-    return false;
+    return pkb->modifiesTable->doesStatementModify(stmt, varModified);
 }
 
 bool PKBInterface::hasAffects(STMT_NUM stmt) {
-    return false;
+    return pkb->affectTable->existAffect(stmt);
 }
 
 std::string PKBInterface::getModifiedVariable(STMT_NUM stmt) {
-    return " ";
+    return pkb->modifiesTable->getFirstModifiedVar(stmt);
 }
 
 bool PKBInterface::isStatementAssign(STMT_NUM stmt) {
-    return false;
+    Statement statement = pkb->statementTable->getStmtByLineNumber(stmt);
+    StatementType::StmtType type = statement.type;
+    return type == StatementType::ASSIGN;
 }
 
 bool PKBInterface::doesStatementUse(STMT_NUM stmt, std::string varUsed) {
-    return false;
+    return pkb->usesTable->doesStatementUse(stmt, varUsed);
 }
 
 void PKBInterface::addAffects(STMT_NUM stmt, STMT_NUM affectedStmt) {
-    return;
+    pkb->affectTable->insertAffect(stmt, affectedStmt);
 }
 
 std::string PKBInterface::getProcedureNameOf(CFGHeadPtr cfg) {
-    return "";
+    return pkb->procedureTable->getProcedureNameOf(cfg);
 }
 
 bool PKBInterface::hasAffectsStar(STMT_NUM stmt) {
-    return false;
+    return pkb->affectStarTable->existAffectStar(stmt);
 }
 
 void PKBInterface::addAffectsStar(STMT_NUM stmt, std::unordered_set<STMT_NUM> affectsStarSet) {
-    return;
+    pkb->affectStarTable->insertAffectStar(stmt, affectsStarSet);
 }
 
 std::unordered_set<STMT_NUM> PKBInterface::getAllAssignFromProcedure(std::string procName) {
-    return {};
+    Procedure proc = pkb->procedureTable->getProcedureByName(procName);
+    int startStmt = proc.startingStmtNo;
+    int endStmt = proc.endingStmtNo;
+    return pkb->statementTable->getAllAssignFromProcedure(startStmt, endStmt);
 }
 
 std::unordered_set<STMT_NUM> PKBInterface::getAffects(STMT_NUM stmt) {
-    return {};
+    return pkb->affectTable->getAffectedSet(stmt);
 }
+
+std::unordered_set<STMT_NUM> PKBInterface::getNextStar(STMT_NUM stmt) {
+    return pkb->nextStarTable->getNextStar(stmt);
+}
+
+CFGHeadPtr PKBInterface::getCFGHeadPtrByProc(STMT_NUM stmt) {
+    Procedure* proc = pkb->procedureTable->getProcByStmt(stmt);
+    return (*proc).cfg;
+}
+
+Procedure* PKBInterface::getProcByStmt(STMT_NUM stmt) {
+    return pkb->procedureTable->getProcByStmt(stmt);
+}
+
+void PKBInterface::clear() {
+    pkb->nextStarTable->clear();
+    pkb->affectTable->clear();
+    pkb->affectStarTable->clear();
+    pkb->callStarTable->clear();
+    pkb->callTable->clear();
+    pkb->constantTable->clear();
+    pkb->containerTable->clear();
+    pkb->followsTable->clear();
+    pkb->followsStarTable->clear();
+    pkb->modifiesTable->clear();
+    pkb->nextTable->clear();
+    pkb->parentStarTable->clear();
+    pkb->parentTable->clear();
+    pkb->procedureTable->clear();
+    pkb->statementTable->clear();
+    pkb->usesTable->clear();
+    pkb->varTable->clear();
+}
+
+
+
+
