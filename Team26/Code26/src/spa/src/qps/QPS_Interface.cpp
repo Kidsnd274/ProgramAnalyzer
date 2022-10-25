@@ -1,6 +1,7 @@
 #include "QPS_Interface.h"
 
 PKBInterface* QPS_Interface::pkbInterface = nullptr;
+RuntimeExtractor* QPS_Interface::runtimeExtractor = nullptr;
 
 void QPS_Interface::setPKBInterface(PKBInterface *myPKBInterface) {
     QPS_Interface::pkbInterface = myPKBInterface;
