@@ -163,6 +163,12 @@ public:
      * @return a Procedure.
      */
     static Procedure* getProcByStmt(STMT_NUM stmt);
+
+    /**
+     * Call PKB interface to get the list of all procedures.
+     * @return a vector of all the procedures.
+     */
+    static std::vector<Procedure> getProcList();
 };
 
 
