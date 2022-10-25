@@ -1,5 +1,7 @@
 #include "Parent.h"
 
+// S1 (Major): DRY - class structure is the same as ParentStar.cpp -> perhaps generalise them into one single class
+
 const std::unordered_set<Argument::ArgumentType> Parent::stmtSet {
         Argument::STMT_SYNONYM,
         Argument::IF_SYNONYM,

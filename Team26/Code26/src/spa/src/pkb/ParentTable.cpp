@@ -13,6 +13,7 @@ void ParentTable::insertParent(int parentStmtLineNumber, int childStmtLineNumber
     }
 }
 
+// S8 (Major): POLA Violation - PKB should not know what wildcard is
 bool ParentTable::existParent(int parentStmtLineNumber, int childStmtLineNumber) {
     unordered_map<int,vector<int>> list = this->parentList;
     bool isParentWildcard = parentStmtLineNumber == 0;

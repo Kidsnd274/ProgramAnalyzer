@@ -234,14 +234,18 @@ void RelationClauseEvaluator::evaluateFollowsT(QPS::ResultTable *resultTable) {
     }
 };
 
+
+// S1 (Major): DRY - Similar code structure to other evaluate-relationship methods
 void RelationClauseEvaluator::evaluateModifiesS(QPS::ResultTable *resultTable) {
     filterRelations(QPS_PKB_Interface::getAllModifiesRelations(), resultTable);
 };
 
+// S1 (Major): DRY - Similar code structure to other evaluate-relationship methods
 void RelationClauseEvaluator::evaluateModifiesP(QPS::ResultTable *resultTable) {
     filterRelations(QPS_PKB_Interface::getAllModifiesProcRelations(), resultTable);
 };
 
+// S1 (Major): DRY - Similar code structure to other evaluate-relationship methods
 void RelationClauseEvaluator::evaluateNext(QPS::ResultTable *resultTable) {
     filterRelations(QPS_PKB_Interface::getAllNextRelations(), resultTable);
 };
@@ -250,18 +254,24 @@ void RelationClauseEvaluator::evaluateNextT(QPS::ResultTable *resultTable) {
 
 };
 
+// S1 (Major): DRY - Similar code structure to other evaluate-relationship methods
 void RelationClauseEvaluator::evaluateParent(QPS::ResultTable *resultTable) {
     filterRelations(QPS_PKB_Interface::getAllParentRelations(), resultTable);
 };
 
+// S1 (Major): DRY - Similar code structure to other evaluate-relationship methods
 void RelationClauseEvaluator::evaluateParentT(QPS::ResultTable *resultTable) {
     filterRelations(QPS_PKB_Interface::getAllParentTRelations(), resultTable);
 };
 
+
+// S1 (Major): DRY - Similar code structure to other evaluate-relationship methods
 void RelationClauseEvaluator::evaluateUsesP(QPS::ResultTable *resultTable) {
     filterRelations(QPS_PKB_Interface::getAllUsesProcRelations(), resultTable);
 };
 
+
+// S1 (Major): DRY - Similar code structure to other evaluate-relationship methods
 void RelationClauseEvaluator::evaluateUsesS(QPS::ResultTable *resultTable) {
     filterRelations(QPS_PKB_Interface::getAllUsesRelations(), resultTable);
 };
@@ -273,6 +283,7 @@ bool RelationClauseEvaluator::existInStringVector(string s, vector<string> v) {
 bool RelationClauseEvaluator::existInIntVector(int s, vector<int> v) {
     return std::find(v.begin(), v.end(), s) != v.end();
 }
+
 
 void RelationClauseEvaluator::filterRelations(unordered_map<std::string, vector<std::string>> map,
                                               QPS::ResultTable *resultTable) {

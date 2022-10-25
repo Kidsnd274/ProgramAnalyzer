@@ -10,60 +10,75 @@ std::shared_ptr<AssignNode> getAssignTNode(std::string assignRef) {
     return QPS_PKB_Interface::pkbInterface->getAssignTNode(assignRef);
 }
 
+
+// S1 (Major): DRY - code structure is similar to other get-all-relationship methods
 std::unordered_map<int, int> QPS_PKB_Interface::getAllFollowsRelations() {
     return QPS_PKB_Interface::pkbInterface->getAllFollow();
 }
 
+// S1 (Major): DRY - code structure is similar to other get-all-relationship methods
 std::unordered_map<int, vector<int>> QPS_PKB_Interface::getAllParentRelations() {
     return QPS_PKB_Interface::pkbInterface->getAllParent();
 }
 
+// S1 (Major): DRY - code structure is similar to other get-all-relationship methods
 std::unordered_map<int, vector<int>> QPS_PKB_Interface::getAllParentTRelations() {
     return QPS_PKB_Interface::pkbInterface->getAllParentStar();
 }
 
+// S1 (Major): DRY - code structure is similar to other get-all-relationship methods
 std::unordered_map<std::string, std::vector<std::string>> QPS_PKB_Interface::getAllCallRelations() {
     return QPS_PKB_Interface::pkbInterface->getAllCall();
 }
 
+// S1 (Major): DRY - code structure is similar to other get-all-relationship methods
 std::unordered_map<std::string, std::vector<std::string>> QPS_PKB_Interface::getAllCallTRelations() {
         return QPS_PKB_Interface::pkbInterface->getAllCallStar();
 }
 
+// S1 (Major): DRY - code structure is similar to other get-all-relationship methods
 std::unordered_map<int, std::vector<std::string>> QPS_PKB_Interface::getAllUsesRelations() {
     return QPS_PKB_Interface::pkbInterface->getAllUseByStmt();
 }
 
+// S1 (Major): DRY - code structure is similar to other get-all-relationship methods
 std::unordered_map<std::string, std::vector<std::string>> QPS_PKB_Interface::getAllUsesProcRelations() {
     return QPS_PKB_Interface::pkbInterface->getAllUseByProc();
 }
 
+// S1 (Major): DRY - code structure is similar to other get-all-relationship methods
 std::unordered_map<int, std::vector<std::string>> QPS_PKB_Interface::getAllModifiesRelations() {
     return QPS_PKB_Interface::pkbInterface->getAllModifyByStmt();
 }
 
+// S1 (Major): DRY - code structure is similar to other get-all-relationship methods
 std::unordered_map<std::string, std::vector<std::string>> QPS_PKB_Interface::getAllModifiesProcRelations() {
     return QPS_PKB_Interface::pkbInterface->getAllModifyByProc();
 }
 
+// S1 (Major): DRY - code structure is similar to other get-all-relationship methods
 std::vector<pair<int, int>> QPS_PKB_Interface::getAllAffectsRelations() {
 //    return QPS_PKB_Interface::pkbInterface->getAllAffects();
     return {};
 }
 
+// S1 (Major): DRY - code structure is similar to other get-all-relationship methods
 std::vector<pair<int, int>> QPS_PKB_Interface::getAllAffectsProcRelations() {
 //    return QPS_PKB_Interface::pkbInterface->getAllAffectsProc();
     return {};
 }
 
+// S1 (Major): DRY - code structure is similar to other get-all-relationship methods
 std::unordered_map<int, std::vector<int>> QPS_PKB_Interface::getAllNextRelations() {
     return QPS_PKB_Interface::pkbInterface->getAllNext();
 }
 
+// S1 (Major): DRY - code structure is similar to other get-all-relationship methods
 std::vector<pair<int, int>> QPS_PKB_Interface::getAllNextProcRelations() {
 //    return QPS_PKB_Interface::pkbInterface->getAllNextProc();
     return {};
 }
+
 std::vector<std::string> QPS_PKB_Interface::getAllAssigns() {
     return QPS_PKB_Interface::pkbInterface->getAllAssigns();
 }

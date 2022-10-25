@@ -1,5 +1,6 @@
 #include "CallsStar.h"
 
+// S1 (Major): DRY - class structure is the same as Calls.cpp -> perhaps generalise them into one single class
 
 const std::unordered_set<Argument::ArgumentType> secondARGs = {
         Argument::PROCEDURE_SYNONYM,

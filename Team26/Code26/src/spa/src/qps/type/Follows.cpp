@@ -1,5 +1,8 @@
 #include "Follows.h"
 
+
+// S1 (Major): DRY - class structure is the same as FollowsStar.cpp -> perhaps generalise them into one single class
+
 const std::unordered_set<Argument::ArgumentType> Follows::stmtSet {
     Argument::STMT_SYNONYM,
     Argument::IF_SYNONYM,

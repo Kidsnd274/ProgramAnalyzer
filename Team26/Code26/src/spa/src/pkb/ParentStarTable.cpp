@@ -18,6 +18,7 @@ void ParentStarTable::insertParentStar(int frontStmtLineNumber, int backStmtLine
     }
 }
 
+// S8 (Major): POLA Violation - PKB should not know what wildcard is
 bool ParentStarTable::existParentStar(int frontStmtLineNumber, int backStmtLineNumber) {
     unordered_map<int,vector<int>> list = this->parentStarList;
     bool isParentWildcard = frontStmtLineNumber == 0;

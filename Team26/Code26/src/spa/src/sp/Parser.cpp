@@ -197,6 +197,7 @@ std::shared_ptr<WhileNode> Parser::parseWhile(int stmtListNum) {
     return WhileNode::createWhileNode(currStatement, cond, statementList);
 }
 
+// S1 (Major): DRY - code structure is similar to parsePrint method -> perhaps could combine into 1 method but unsure if it will mess up currStatement = statementCount++ part
 std::shared_ptr<ReadNode> Parser::parseRead(int stmtListNum) {
     tokenStack->checkAndUseNextToken(SPTokenType::ReadToken); //consume Read SPToken.
     int currStatement = statementCount++;
@@ -210,6 +211,7 @@ std::shared_ptr<ReadNode> Parser::parseRead(int stmtListNum) {
     return ReadNode::createReadNode(currStatement, varName);
 }
 
+// S1 (Major): DRY - code structure is similar to parseRead method -> perhaps could combine into 1 method but unsure if it will mess up currStatement = statementCount++ part
 std::shared_ptr<PrintNode> Parser::parsePrint(int stmtListNum) {
     tokenStack->checkAndUseNextToken(SPTokenType::PrintToken); //consume Print SPToken.
     int currStatement = statementCount++;

@@ -16,6 +16,7 @@ vector<Statement> StatementTable::getStatementList() {
     return this->statementList;
 }
 
+// S1 (Major): DRY - Similar code structure to other getAll methods
 vector<string> StatementTable::getAllStmts() {
     vector<string> result;
     for (Statement stmt: this->statementList) {
@@ -24,6 +25,7 @@ vector<string> StatementTable::getAllStmts() {
     return result;
 }
 
+// S1 (Major): DRY - Similar code structure to other getAll methods
 vector<string> StatementTable::getAllReads() {
     vector<string> result;
     for (Statement stmt: this->statementList) {
@@ -34,6 +36,7 @@ vector<string> StatementTable::getAllReads() {
     return result;
 }
 
+// S1 (Major): DRY - Similar code structure to other getAll methods
 vector<string> StatementTable::getAllAssigns() {
     vector<string> result;
     for (Statement stmt: this->statementList) {
@@ -44,6 +47,7 @@ vector<string> StatementTable::getAllAssigns() {
     return result;
 }
 
+// S1 (Major): DRY - Similar code structure to other getAll methods
 vector<string> StatementTable::getAllWhiles() {
     vector<string> result;
     for (Statement stmt: this->statementList) {
@@ -54,6 +58,7 @@ vector<string> StatementTable::getAllWhiles() {
     return result;
 }
 
+// S1 (Major): DRY - Similar code structure to other getAll methods
 vector<string> StatementTable::getAllIfs() {
     vector<string> result;
     for (Statement stmt: this->statementList) {
@@ -64,6 +69,7 @@ vector<string> StatementTable::getAllIfs() {
     return result;
 }
 
+// S1 (Major): DRY - Similar code structure to other getAll methods
 vector<string> StatementTable::getAllPrints() {
     vector<string> result;
     for (Statement stmt: this->statementList) {
@@ -74,6 +80,7 @@ vector<string> StatementTable::getAllPrints() {
     return result;
 }
 
+// S1 (Major): DRY - Similar code structure to other getAll methods
 vector<string> StatementTable::getAllCalls() {
     vector<string> result;
     for (Statement stmt: this->statementList) {
@@ -84,6 +91,7 @@ vector<string> StatementTable::getAllCalls() {
     return result;
 }
 
+// S1 (Major): DRY - Similar code structure to other getAll methods
 vector<Statement> StatementTable::getAllCallStatements() {
     vector<Statement> result;
     for (Statement stmt: this->statementList) {
