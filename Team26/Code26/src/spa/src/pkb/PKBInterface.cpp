@@ -223,6 +223,18 @@ std::unordered_map<int, vector<int>> PKBInterface::getAllNext() {
     return pkb->nextTable->getAllNext();
 }
 
+std::unordered_map<STMT_NUM, std::unordered_set<STMT_NUM>> PKBInterface::getAllNextStar() {
+    return pkb->nextStarTable->getAllNextStar();
+}
+
+unordered_map<int, std::unordered_set<int>> PKBInterface::getAllAffects() {
+    return pkb->affectTable->getAllAffect();
+}
+
+unordered_map<int, std::unordered_set<int>> PKBInterface::getAllAffectsStar() {
+    return pkb->affectStarTable->getAllAffectStar();
+}
+
 std::unordered_map<int, std::vector<std::string>> PKBInterface::getAllModifyByStmt() {
     return pkb->modifiesTable->getAllModifiesByStmt();
 }
@@ -424,3 +436,7 @@ void PKBInterface::clear() {
     pkb->affectTable->clear();
     pkb->affectStarTable->clear();
 }
+
+
+
+
