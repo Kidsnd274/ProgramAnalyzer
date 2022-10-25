@@ -9,6 +9,9 @@ void QueryEvaluator::evaluate(Query* query) {
     ResultTable* resultOfEvaluation = new ResultTable();
     ClauseAssigner* clauseAssigner = new ClauseAssigner();
 
+    // Group the clauses
+    query->clauseList = QueryEvaluator::groupClauses(query->clauseList);
+
     // Evaluate the clauses
     for (auto iter = query->clauseList->begin(); iter != query->clauseList->end(); iter++) {
         ResultTable* resultTable = new ResultTable();
