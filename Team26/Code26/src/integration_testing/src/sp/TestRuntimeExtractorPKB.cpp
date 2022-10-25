@@ -362,7 +362,6 @@ TEST_CASE("Simple affects Star test") {
     REQUIRE_NOTHROW(testParser.parseSimple());
 
     CFGHeadPtr createdCFG = cfgManager->getCurrentCFG();
-
     RuntimeExtractor rte(pkbInterface);
 
     std::unordered_set<STMT_NUM> stmt1 = {4, 7, 9, 10, 11};
@@ -733,6 +732,7 @@ TEST_CASE("if-if and while-while loop") {
     CFGHeadPtr createdCFG = pkbInterface->getCfgOfProcedure("one");
     RuntimeExtractor rte(pkbInterface);
 
+
     SECTION("Affects test") {
         std::unordered_set<STMT_NUM> stmt1 = {4, 6, 11};
         std::unordered_set<STMT_NUM> stmt2 = {4, 6, 11, 14};
@@ -786,7 +786,7 @@ TEST_CASE("if-if and while-while loop") {
         REQUIRE(pkbInterface->getAffects(19) == stmt19);
     }
 
-        SECTION("Affects* Test") {
+    SECTION("Affects* Test") {
         std::unordered_set<STMT_NUM> stmt1 = {4, 6, 10, 11, 14, 19};
         std::unordered_set<STMT_NUM> stmt2 = {4, 6, 10, 11, 14, 19};
         std::unordered_set<STMT_NUM> stmt4 = {10, 14, 19};
@@ -825,8 +825,8 @@ TEST_CASE("if-if and while-while loop") {
         REQUIRE(affectsStarMap[14] == stmt14);
         REQUIRE(affectsStarMap[18] == stmt18);
         REQUIRE(affectsStarMap[19] == stmt19);
-
     }
+
     pkbInterface->clear();
     delete pkbInterface;
     pkbInterface = nullptr;
