@@ -181,3 +181,11 @@ Procedure* QPS_Interface::getProcByStmt(STMT_NUM stmt) {
 std::vector<Procedure> QPS_Interface::getProcList() {
 //    return QPS_Interface::pkbInterface->getProcList();
 }
+
+bool QPS_Interface::hasNextStar(STMT_NUM stmt) {
+    return QPS_Interface::pkbInterface->hasNextStar(stmt);
+}
+
+std::unordered_set<STMT_NUM> QPS_Interface::getNextStar(STMT_NUM stmt) {
+//    return QPS_Interface::pkbInterface->getNextStar();
+}

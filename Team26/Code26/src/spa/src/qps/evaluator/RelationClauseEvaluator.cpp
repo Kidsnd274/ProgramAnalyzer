@@ -353,6 +353,47 @@ void RelationClauseEvaluator::evaluateNext(QPS::ResultTable *resultTable) {
 };
 
 void RelationClauseEvaluator::evaluateNextT(QPS::ResultTable *resultTable) {
+    Argument arg1 = this->relationClause->getFirstArgument();
+    Argument arg2 = this->relationClause->getSecondArgument();
+    if (arg1.argumentType == Argument::ACTUAL_NAME) {
+        int stmt1 = stoi(arg1.argumentName);
+        CFGHeadPtr cfgHeadPtr = QPS_Interface::getCFGHeadPtrByProc(stmt1);
+        if (!QPS_Interface::hasNextStar(stmt1)) {
+            QPS_Interface::runtimeExtractor->computeNextStar(cfgHeadPtr, stmt1);
+        }
+        unordered_set<STMT_NUM> nextStarSet = QPS_Interface::getNextStar(stmt1);
+        // ACTUAL_NAME, ACTUAL_NAME
+        if (arg2.argumentType == Argument::ACTUAL_NAME) {
+            int stmt2 = stoi(arg2.argumentName);
+            if (nextStarSet.find(stmt2) != nextStarSet.end()) {
+                resultTable->setTrueTable();
+            } else {
+                resultTable->setFalseTable();
+            }
+            return;
+        }
+        // ACTUAL_NAME, WILDCARD
+        if (arg2.argumentType == Argument::WILDCARD) {
+            if (nextStarSet.empty()) {
+                resultTable->setFalseTable();
+            } else {
+                resultTable->setTrueTable();
+            }
+            return;
+        }
+        // ACTUAL_NAME, SYNONYM
+        std::vector<std::string> synonyms = {arg2.argumentName};
+        unordered_set<vector<std::string>, QPS::StringVectorHash> lines;
+        for (auto stmt2 : nextStarSet) {
+            lines.insert(vector<string> {to_string(stmt2)});
+        }
+        resultTable = new ResultTable(synonyms, lines);
+        return;
+    }
+    if (arg1.argumentType == Argument::WILDCARD) {
+
+    }
+    // SYNONYM, WILDCARD
 
 };
 
@@ -509,7 +550,7 @@ void RelationClauseEvaluator::filterRelations(std::unordered_map<int, int> map, 
     resultTable->replace(filterTable(&result));
 }
 
-ResultTable *RelationClauseEvaluator::filterTable(unordered_set<vector<std::string>, QPS::StringVectorHash> *result) {
+ResultTable* RelationClauseEvaluator::filterTable(unordered_set<vector<std::string>, QPS::StringVectorHash> *result) {
     Argument arg1 = relationClause->getFirstArgument();
     Argument arg2 = relationClause->getSecondArgument();
     std::vector<std::string> a1;

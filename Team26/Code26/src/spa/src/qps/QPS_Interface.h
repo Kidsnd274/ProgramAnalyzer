@@ -169,6 +169,22 @@ public:
      * @return a vector of all the procedures.
      */
     static std::vector<Procedure> getProcList();
+
+    /**
+     * Check whether PKB nextStarList has the entry stmt.
+     * If not, evaluator will call runtimeExtractor to calculate the
+     * nextStar of stmt, and PKB will cache the result.
+     * @param stmt the given statement to check.
+     * @return a bool indicating whether PKB nextStarList has the entry.
+     */
+    static bool hasNextStar(STMT_NUM stmt);
+
+    /**
+     * Call PKB interface to get all the nextStar of a given stmt.
+     * @param stmt the given stmt.
+     * @return a vector of stmt2 that satisfies next*(stmt, stmt2).
+     */
+    static std::unordered_set<STMT_NUM> getNextStar(STMT_NUM stmt);
 };
 
 
