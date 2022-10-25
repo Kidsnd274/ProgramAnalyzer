@@ -185,3 +185,11 @@ bool WithClause::isValid() {
     }
     return true;
 }
+
+Argument WithClause::getFirstArgument() {
+    return this->arg1.argument;
+}
+
+Argument WithClause::getSecondArgument() {
+    return this->arg2.argument;
+}

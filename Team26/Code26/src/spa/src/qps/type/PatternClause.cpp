@@ -43,3 +43,11 @@ bool PatternClause::isValid() {
     }
     return false;
 }
+
+Argument PatternClause::getFirstArgument() {
+    return this->argument1;
+}
+
+Argument PatternClause::getSecondArgument() {
+    return this->argument2;
+}
