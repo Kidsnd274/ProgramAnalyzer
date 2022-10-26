@@ -18,7 +18,6 @@ public:
 
     std::vector<std::string> getVarNames(int stmtNumber);
     void addCondVar(int stmtNumber, std::string varName);
-    void clear();
 };
 
 

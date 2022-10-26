@@ -18,7 +18,6 @@ public:
     void insertParent(int parentStmtLineNumber, int childStmtListNumber);
     bool existParent(int parentStmtLineNumber, int childStmtListNumber);
     unordered_map<int, vector<int>> getAllParents();
-    void clear();
 };
 
 #endif //SPA_PARENTTABLE_H

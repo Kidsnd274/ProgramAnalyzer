@@ -10,13 +10,11 @@
 #include "util/cfg/CFGManager.h"
 #include "de/DesignExtractor.h"
 
-typedef int STMT_LIST_NUM;
-
 class Parser {
 private:
     TokenStack* tokenStack;
     int statementCount;
-    STMT_LIST_NUM statementListNumber;
+    int statementListNumber;
     PKBInterface* pkbInterface;
     DesignExtractorInterface* de;
     std::shared_ptr<CFGManager> cfgManager;
@@ -67,13 +65,13 @@ public:
 
     //Methods that return shared_ptr to StatementNode
     std::vector<std::shared_ptr<StatementNode>> parseStatementList();
-    std::shared_ptr<StatementNode> parseStatement(STMT_LIST_NUM stmtListNum);
-    std::shared_ptr<IfNode> parseIf(STMT_LIST_NUM stmtListNum);
-    std::shared_ptr<WhileNode> parseWhile(STMT_LIST_NUM stmtListNum);
-    std::shared_ptr<AssignNode> parseAssign(STMT_LIST_NUM stmtListNum);
-    std::shared_ptr<ReadNode> parseRead(STMT_LIST_NUM stmtListNum);
-    std::shared_ptr<PrintNode> parsePrint(STMT_LIST_NUM stmtListNum);
-    std::shared_ptr<CallNode> parseCall(STMT_LIST_NUM stmtListNum);
+    std::shared_ptr<StatementNode> parseStatement(int stmtListNum);
+    std::shared_ptr<IfNode> parseIf(int stmtListNum);
+    std::shared_ptr<WhileNode> parseWhile(int stmtListNum);
+    std::shared_ptr<AssignNode> parseAssign(int stmtListNum);
+    std::shared_ptr<ReadNode> parseRead(int stmtListNum);
+    std::shared_ptr<PrintNode> parsePrint(int stmtListNum);
+    std::shared_ptr<CallNode> parseCall(int stmtListNum);
 
     //Methods that return shared_ptr to TNode
     std::shared_ptr<TNode> parseCond();

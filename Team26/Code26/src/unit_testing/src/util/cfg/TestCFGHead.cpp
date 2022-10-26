@@ -160,12 +160,3 @@ TEST_CASE("Test Reachable") {
     REQUIRE(cfgTest->getReachableNodes(5) == set5);
     REQUIRE(cfgTest->getReachableNodes(6) == set6);
 }
-
-TEST_CASE("Test single statement") {
-    SECTION("Normal node last") {
-        CFGHeadPtr cfgTest = CFGHead::createNewCFG();
-        cfgTest->initializeFinalNode(CFGNode::node(1));
-
-        REQUIRE(cfgTest->getEdges(1).empty());
-    }
-}

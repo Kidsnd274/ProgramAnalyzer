@@ -20,7 +20,7 @@ void Parser::parseSimple() {
 }
 
 std::shared_ptr<ProcedureNode> Parser::parseProcedure() {
-    STMT_NUM currStatement = statementCount;
+    int currStatement = statementCount;
     std::string name = tokenStack->checkAndReturnNextToken(SPTokenType::NameToken);
     tokenStack->checkAndUseNextToken(SPTokenType::LCurlyToken);
     de->addProcedure(name);
@@ -34,8 +34,8 @@ std::shared_ptr<ProcedureNode> Parser::parseProcedure() {
 
 
 std::vector<std::shared_ptr<StatementNode>> Parser::parseStatementList() {
-    STMT_LIST_NUM oldStatementCount = statementCount;
-    STMT_LIST_NUM currStatementListNumber = statementListNumber++;
+    int oldStatementCount = statementCount;
+    int currStatementListNumber = statementListNumber++;
     std::vector<std::shared_ptr<StatementNode>> stmtList;
 
     while(tokenStack->hasNextToken() && tokenStack->isNextTokenNotOfType(SPTokenType::RCurlyToken)) {
@@ -50,7 +50,7 @@ std::vector<std::shared_ptr<StatementNode>> Parser::parseStatementList() {
     return stmtList;
 }
 
-std::shared_ptr<StatementNode> Parser::parseStatement(STMT_LIST_NUM stmtListNum) {
+std::shared_ptr<StatementNode> Parser::parseStatement(int stmtListNum) {
     if(!tokenStack->isNextTokenNonTerminal()) {
         throw SyntaxErrorException();
     }
@@ -90,8 +90,8 @@ std::shared_ptr<StatementNode> Parser::parseStatement(STMT_LIST_NUM stmtListNum)
     return stmt;
 }
 
-std::shared_ptr<AssignNode> Parser::parseAssign(STMT_LIST_NUM stmtListNum) {
-    STMT_NUM currStatement = statementCount++;
+std::shared_ptr<AssignNode> Parser::parseAssign(int stmtListNum) {
+    int currStatement = statementCount++;
 
     // consume non-terminal token
     string varAssigned = tokenStack->checkAndReturnNextToken(SPTokenType::NameToken);
@@ -105,9 +105,9 @@ std::shared_ptr<AssignNode> Parser::parseAssign(STMT_LIST_NUM stmtListNum) {
     return AssignNode::createAssignNode(currStatement, varAssigned, expr);
 }
 
-std::shared_ptr<IfNode> Parser::parseIf(STMT_LIST_NUM stmtListNum) {
+std::shared_ptr<IfNode> Parser::parseIf(int stmtListNum) {
     tokenStack->checkAndUseNextToken(SPTokenType::IfToken); //consume If SPToken.
-    STMT_NUM currStatement = statementCount++;
+    int currStatement = statementCount++;
     cfgManager->addStandardNode(currStatement);
 
     tokenStack->checkAndUseNextToken(SPTokenType::LParenToken);
@@ -179,9 +179,9 @@ std::shared_ptr<TNode> Parser::parseRelFactor() {
     }
 }
 
-std::shared_ptr<WhileNode> Parser::parseWhile(STMT_LIST_NUM stmtListNum) {
+std::shared_ptr<WhileNode> Parser::parseWhile(int stmtListNum) {
     tokenStack->checkAndUseNextToken(SPTokenType::WhileToken); //consume While SPToken.
-    STMT_NUM currStatement = statementCount++;
+    int currStatement = statementCount++;
     cfgManager->addStandardNode(currStatement);
 
     tokenStack->checkAndUseNextToken(SPTokenType::LParenToken);
@@ -197,9 +197,9 @@ std::shared_ptr<WhileNode> Parser::parseWhile(STMT_LIST_NUM stmtListNum) {
     return WhileNode::createWhileNode(currStatement, cond, statementList);
 }
 
-std::shared_ptr<ReadNode> Parser::parseRead(STMT_LIST_NUM stmtListNum) {
+std::shared_ptr<ReadNode> Parser::parseRead(int stmtListNum) {
     tokenStack->checkAndUseNextToken(SPTokenType::ReadToken); //consume Read SPToken.
-    STMT_NUM currStatement = statementCount++;
+    int currStatement = statementCount++;
     string varName = tokenStack->checkAndReturnNextToken(SPTokenType::NameToken);
     pkbInterface->addVariable(varName);
     tokenStack->checkAndUseNextToken(SPTokenType::SemiColonToken);
@@ -210,9 +210,9 @@ std::shared_ptr<ReadNode> Parser::parseRead(STMT_LIST_NUM stmtListNum) {
     return ReadNode::createReadNode(currStatement, varName);
 }
 
-std::shared_ptr<PrintNode> Parser::parsePrint(STMT_LIST_NUM stmtListNum) {
+std::shared_ptr<PrintNode> Parser::parsePrint(int stmtListNum) {
     tokenStack->checkAndUseNextToken(SPTokenType::PrintToken); //consume Print SPToken.
-    STMT_NUM currStatement = statementCount++;
+    int currStatement = statementCount++;
     string varName = tokenStack->checkAndReturnNextToken(SPTokenType::NameToken);
     pkbInterface->addVariable(varName);
     tokenStack->checkAndUseNextToken(SPTokenType::SemiColonToken);
@@ -224,9 +224,9 @@ std::shared_ptr<PrintNode> Parser::parsePrint(STMT_LIST_NUM stmtListNum) {
 }
 
 
-std::shared_ptr<CallNode> Parser::parseCall(STMT_LIST_NUM stmtListNum) {
+std::shared_ptr<CallNode> Parser::parseCall(int stmtListNum) {
     tokenStack->checkAndUseNextToken(SPTokenType::CallToken); //consume Call SPToken.
-    STMT_NUM currStatement = statementCount++;
+    int currStatement = statementCount++;
     string varName = tokenStack->checkAndReturnNextToken(SPTokenType::NameToken);
     tokenStack->checkAndUseNextToken(SPTokenType::SemiColonToken);
 

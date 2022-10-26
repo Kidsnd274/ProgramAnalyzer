@@ -8,7 +8,6 @@
 #include <stdio.h>
 #include <string>
 #include <vector>
-#include <unordered_set>
 #include "Statement.h"
 
 using namespace std;
@@ -29,8 +28,6 @@ public:
     std::vector<std::string> getAllCalls();
     std::vector<Statement> getAllCallStatements();
     Statement getStmtByLineNumber(int stmtNo);
-    std::unordered_set<int> getAllAssignFromProcedure(int startStmt, int endStmt);
-    void clear();
 };
 
 #endif //SPA_STATEMENTTABLE_H

@@ -21,7 +21,6 @@ public:
     bool existParentStar(int parentStmtLineNumber, int childStmtLineNumber);
     unordered_set<int> getAllParentStar(int childStmtLineNumber);
     unordered_map<int, vector<int>> getAllParentStars();
-    void clear();
 };
 
 #endif //SPA_PARENTSTARTABLE_H
