@@ -99,3 +99,21 @@ jobs:
             Team26/Code26/build/src/unit_testing/Release/unit_testing.exe
             Team26/Code26/build/src/integration_testing/Release/integration_testing.exe
           retention-days: 3
+
+      - name: Setup OpenCppCoverage and add to PATH
+        id: setup_opencppcoverage
+        run: |
+          choco install OpenCppCoverage -y
+          echo "C:\Program Files\OpenCppCoverage" >> $env:GITHUB_PATH
+
+      - name: Generate Report
+        id: generate_test_report
+        shell: cmd
+        run: OpenCppCoverage.exe --sources HelloCov --export_type cobertura:HelloCov.xml -- "vstest.console.exe" Debug\HelloTest.dll
+
+      - name: Upload Report to Codecov
+        uses: codecov/codecov-action@v2
+        with:
+          files: ./HelloCov.xml
+          fail_ci_if_error: true
+          functionalities: fix
