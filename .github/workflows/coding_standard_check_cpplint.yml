@@ -1,11 +1,14 @@
 name: Coding Standard Check - cpplint
 on: [push, pull_request]
+
 jobs:
   cpplint:
     runs-on: ubuntu-latest
     steps:
-      - continue-on-error: true # Allow coding standard check to fail for now
       - uses: actions/checkout@v3
       - uses: actions/setup-python@v4
       - run: pip install cpplint
-      - run: cpplint --recursive ./Team26/Code26/src
+
+      - name: Run cpplint check
+        continue-on-error: true # Allow coding standard check to fail for now
+        run: cpplint --recursive ./Team26/Code26/src
