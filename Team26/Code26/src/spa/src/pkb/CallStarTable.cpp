@@ -35,3 +35,7 @@ std::vector<std::string> CallStarTable::getProcsStarCalled(std::string procedure
 std::unordered_map<std::string, std::vector<std::string>> CallStarTable::getAllCallStars() {
     return this->callStarList;
 }
+
+void CallStarTable::clear() {
+    this->callStarList.clear();
+}

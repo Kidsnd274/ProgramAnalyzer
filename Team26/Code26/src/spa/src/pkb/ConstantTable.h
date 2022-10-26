@@ -17,6 +17,7 @@ private:
 public:
     void insertConst(int constant);
     vector<string> getAllConstants();
+    void clear();
 };
 
 #endif //SPA_CONSTANTTABLE_H
