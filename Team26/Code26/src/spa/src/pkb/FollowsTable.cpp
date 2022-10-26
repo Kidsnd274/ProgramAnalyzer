@@ -25,7 +25,3 @@ bool FollowsTable::existFollows(int frontStmtLineNumber, int backStmtLineNumber)
 std::unordered_map<int, int> FollowsTable::getAllFollows() {
     return this->followsList;
 }
-
-void FollowsTable::clear() {
-    this->followsList.clear();
-}

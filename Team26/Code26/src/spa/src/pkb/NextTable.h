@@ -12,7 +12,6 @@ private:
 public:
     void insertNext(int frontStmtLineNumber, int backStmtLineNumber);
     std::unordered_map<int, std::vector<int>>& getAllNext();
-    void clear();
 };
 
 

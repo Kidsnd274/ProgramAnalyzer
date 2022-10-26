@@ -15,7 +15,3 @@ std::vector<std::string> ContainerTable::getVarNames(int stmtNumber) {
         return {};
     }
 }
-
-void ContainerTable::clear() {
-    this->condVars.clear();
-}

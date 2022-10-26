@@ -63,7 +63,3 @@ unordered_set<int> ParentStarTable::getAllParentStar(int childStmtLineNumber) {
 unordered_map<int, vector<int>> ParentStarTable::getAllParentStars() {
     return this->parentStarList;
 }
-
-void ParentStarTable::clear() {
-    this->parentStarList.clear();
-}

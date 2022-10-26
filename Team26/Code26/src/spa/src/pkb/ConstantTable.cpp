@@ -20,6 +20,3 @@ vector<string> ConstantTable::getAllConstants() {
     return result;
 }
 
-void ConstantTable::clear() {
-    this->constList.clear();
-}

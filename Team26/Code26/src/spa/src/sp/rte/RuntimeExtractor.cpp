@@ -17,11 +17,11 @@ void RuntimeExtractor::computeAffects(CFGHeadPtr cfg, STMT_NUM stmt) {
     affectsExtractor.computeAffects(std::move(cfg), pkbInterface, stmt);
 }
 
-void RuntimeExtractor::computeAffectsStar(const CFGHeadPtr& cfg, STMT_NUM stmt) {
-    affectsExtractor.computeAffectsStar(cfg, pkbInterface, stmt);
+void RuntimeExtractor::computeAffectsStar(CFGHeadPtr cfg, STMT_NUM stmt) {
+    affectsExtractor.computeAffectsStar(std::move(cfg), pkbInterface, stmt);
 }
 
 void RuntimeExtractor::clearCache() {
-    pkbInterface->clear();
+    //pkbInterface->clearCache();
     affectsExtractor.clearCache();
 }

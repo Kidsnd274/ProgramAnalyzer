@@ -17,7 +17,6 @@ private:
 public:
     void insertVar(string var);
     vector<string> getAllVariables();
-    void clear();
 };
 
 #endif //SPA_VARTABLE_H

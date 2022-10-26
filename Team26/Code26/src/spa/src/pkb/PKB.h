@@ -24,9 +24,6 @@ class FollowsStarTable;
 class CallTable;
 class CallStarTable;
 class NextTable;
-class NextStarTable;
-class AffectTable;
-class AffectStarTable;
 class ContainerTable;
 
 class PKB {
@@ -47,7 +44,4 @@ public:
 	static int setProcToAST(PROC p, TNode* r);
 	static TNode* getRootAST (PROC p);
     static NextTable* nextTable;
-    static NextStarTable* nextStarTable;
-    static AffectTable* affectTable;
-    static AffectStarTable* affectStarTable;
 };

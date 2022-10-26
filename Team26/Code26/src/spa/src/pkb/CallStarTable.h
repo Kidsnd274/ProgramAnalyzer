@@ -18,7 +18,6 @@ public:
     bool existCallStar(std::string procedureName, std::string procedureCalled);
     std::vector<std::string> getProcsStarCalled(std::string procedureName);
     std::unordered_map<std::string, std::vector<std::string>> getAllCallStars();
-    void clear();
 };
 
 #endif //SPA_CALLSTARTABLE_H

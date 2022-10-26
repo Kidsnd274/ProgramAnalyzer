@@ -14,9 +14,6 @@
 #include "CallTable.h"
 #include "CallStarTable.h"
 #include "ContainerTable.h"
-#include "NextStarTable.h"
-#include "AffectTable.h"
-#include "AffectStarTable.h"
 
 using namespace std;
 //using namespace StatementType;
@@ -31,9 +28,6 @@ CallTable* PKB::callTable = new CallTable();
 CallStarTable* PKB::callStarTable = new CallStarTable();
 ContainerTable* PKB::containerTable = new ContainerTable();
 NextTable* PKB::nextTable = new NextTable();
-NextStarTable* PKB::nextStarTable = new NextStarTable();
-AffectTable* PKB::affectTable = new AffectTable();
-AffectStarTable* PKB::affectStarTable = new AffectStarTable();
 
 int PKB::setProcToAST(PROC p, TNode* r) {
 	return 0;
