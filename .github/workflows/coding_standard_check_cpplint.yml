@@ -3,6 +3,7 @@ on: [push, pull_request]
 jobs:
   cpplint:
     runs-on: ubuntu-latest
+    continue-on-error: true # Allow coding standard check to fail for now
     steps:
       - uses: actions/checkout@v3
       - uses: actions/setup-python@v4
