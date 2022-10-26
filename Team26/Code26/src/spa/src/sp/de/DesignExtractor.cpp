@@ -1,4 +1,3 @@
-//Test
 #include "DesignExtractor.h"
 
 bool DesignExtractor::doesProcedureAlreadyExist(std::string name) {
