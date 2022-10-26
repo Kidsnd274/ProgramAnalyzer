@@ -1,4 +1,4 @@
-name: CI for Cmake Project - Windows
+name: Build, Unit, Integration & System Tests - Windows
 
 on:
   push:
