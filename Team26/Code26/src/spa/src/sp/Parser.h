@@ -1,6 +1,7 @@
 #pragma once
 
 #include <memory>
+#include <string>
 #include <utility>
 #include <vector>
 #include "SyntaxErrorException.h"
@@ -59,11 +60,11 @@ public:
     void parseSimple();
     std::shared_ptr<ProcedureNode> parseProcedure();
 
-    //Methods related to pkb
+    // Methods related to pkb
     void addVariableToPkbIfExist(std::string var);
     void addConstToPkbIfExist(std::string cons);
 
-    //Methods that return shared_ptr to StatementNode
+    // Methods that return shared_ptr to StatementNode
     std::vector<std::shared_ptr<StatementNode>> parseStatementList();
     std::shared_ptr<StatementNode> parseStatement(int stmtListNum);
     std::shared_ptr<IfNode> parseIf(int stmtListNum);
@@ -73,7 +74,7 @@ public:
     std::shared_ptr<PrintNode> parsePrint(int stmtListNum);
     std::shared_ptr<CallNode> parseCall(int stmtListNum);
 
-    //Methods that return shared_ptr to TNode
+    // Methods that return shared_ptr to TNode
     std::shared_ptr<TNode> parseCond();
     std::shared_ptr<TNode> parseRelFactor();
     std::shared_ptr<TNode> parseRel();
@@ -81,11 +82,11 @@ public:
     std::shared_ptr<TNode> parseTerm();
     std::shared_ptr<TNode> parseFactor();
 
-    //Methods that validates and returns the value of a token
+    // Methods that validates and returns the value of a token
     std::string parseName();
     std::string parseConst();
 
-    //Methods that validates a token
+    // Methods that validates a token
     void parseLCurly();
     void parseRCurly();
     void parseLParen();

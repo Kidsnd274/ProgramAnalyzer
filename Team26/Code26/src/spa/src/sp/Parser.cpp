@@ -6,14 +6,14 @@
 void Parser::parseSimple() {
     int numOfProcedures = 0;
     std::vector<std::shared_ptr<ProcedureNode>> procedures;
-    while(tokenStack->hasNextToken()) {
+    while (tokenStack->hasNextToken()) {
         tokenStack->checkAndUseNextToken(SPTokenType::ProcedureToken);
         std::shared_ptr<ProcedureNode> pn = parseProcedure();
         procedures.push_back(pn);
         numOfProcedures++;
     }
 
-    if(!numOfProcedures){
+    if (!numOfProcedures) {
         throw SyntaxErrorException();
     }
     de->extract(procedures);
@@ -38,12 +38,12 @@ std::vector<std::shared_ptr<StatementNode>> Parser::parseStatementList() {
     int currStatementListNumber = statementListNumber++;
     std::vector<std::shared_ptr<StatementNode>> stmtList;
 
-    while(tokenStack->hasNextToken() && tokenStack->isNextTokenNotOfType(SPTokenType::RCurlyToken)) {
+    while (tokenStack->hasNextToken() && tokenStack->isNextTokenNotOfType(SPTokenType::RCurlyToken)) {
         std::shared_ptr<StatementNode> stmt = parseStatement(currStatementListNumber);
         stmtList.push_back(stmt);
     }
 
-    if(oldStatementCount == statementCount){
+    if (oldStatementCount == statementCount) {
         throw SyntaxErrorException();
     }
 
@@ -51,19 +51,19 @@ std::vector<std::shared_ptr<StatementNode>> Parser::parseStatementList() {
 }
 
 std::shared_ptr<StatementNode> Parser::parseStatement(int stmtListNum) {
-    if(!tokenStack->isNextTokenNonTerminal()) {
+    if (!tokenStack->isNextTokenNonTerminal()) {
         throw SyntaxErrorException();
     }
 
     SPTokenType t = tokenStack->peekNextTokenType();
     std::shared_ptr<StatementNode> stmt(nullptr);
 
-    if(tokenStack->isNextTokenAssign() && tokenStack->isNextTokenNonTerminal()) {
+    if (tokenStack->isNextTokenAssign() && tokenStack->isNextTokenNonTerminal()) {
         stmt = std::move(parseAssign(stmtListNum));
         return stmt;
     }
 
-    switch(t) {
+    switch (t) {
         case SPTokenType::NameToken:
             stmt = std::move(parseAssign(stmtListNum));
             break;
@@ -106,7 +106,7 @@ std::shared_ptr<AssignNode> Parser::parseAssign(int stmtListNum) {
 }
 
 std::shared_ptr<IfNode> Parser::parseIf(int stmtListNum) {
-    tokenStack->checkAndUseNextToken(SPTokenType::IfToken); //consume If SPToken.
+    tokenStack->checkAndUseNextToken(SPTokenType::IfToken);  // consume If SPToken.
     int currStatement = statementCount++;
     cfgManager->addStandardNode(currStatement);
 
@@ -124,14 +124,14 @@ std::shared_ptr<IfNode> Parser::parseIf(int stmtListNum) {
     tokenStack->checkAndUseNextToken(SPTokenType::LCurlyToken);
     std::vector<std::shared_ptr<StatementNode>> elseStatementList = parseStatementList();
     tokenStack->checkAndUseNextToken(SPTokenType::RCurlyToken);
-    cfgManager->finalizeElsePortionOfIfStatement(currStatement); // Connects last else stmt to DummyNode
+    cfgManager->finalizeElsePortionOfIfStatement(currStatement);  // Connects last else stmt to DummyNode
 
     pkbInterface->addIfStatement(currStatement, stmtListNum);
     return IfNode::createIfNode(currStatement, cond, ifStatementList, elseStatementList);
 }
 
 std::shared_ptr<TNode> Parser::parseCond() {
-    if(tokenStack->isNextTokenOfType(SPTokenType::CondToken) && tokenStack->isNextTokenStringEquals("!")) {
+    if (tokenStack->isNextTokenOfType(SPTokenType::CondToken) && tokenStack->isNextTokenStringEquals("!")) {
         tokenStack->checkAndUseNextToken(SPTokenType::CondToken);
         tokenStack->checkAndUseNextToken(SPTokenType::LParenToken);
         std::shared_ptr<TNode> cond = std::move(parseCond());
@@ -164,7 +164,7 @@ std::shared_ptr<TNode> Parser::parseRel() {
 }
 
 std::shared_ptr<TNode> Parser::parseRelFactor() {
-    if(tokenStack->isNextTokenNonTerminal()) {
+    if (tokenStack->isNextTokenNonTerminal()) {
         std::string name = tokenStack->checkAndReturnNextToken(SPTokenType::NameToken);
         pkbInterface->addVariable(name);
 
@@ -180,7 +180,7 @@ std::shared_ptr<TNode> Parser::parseRelFactor() {
 }
 
 std::shared_ptr<WhileNode> Parser::parseWhile(int stmtListNum) {
-    tokenStack->checkAndUseNextToken(SPTokenType::WhileToken); //consume While SPToken.
+    tokenStack->checkAndUseNextToken(SPTokenType::WhileToken);  // consume While SPToken.
     int currStatement = statementCount++;
     cfgManager->addStandardNode(currStatement);
 
@@ -198,7 +198,7 @@ std::shared_ptr<WhileNode> Parser::parseWhile(int stmtListNum) {
 }
 
 std::shared_ptr<ReadNode> Parser::parseRead(int stmtListNum) {
-    tokenStack->checkAndUseNextToken(SPTokenType::ReadToken); //consume Read SPToken.
+    tokenStack->checkAndUseNextToken(SPTokenType::ReadToken);  // consume Read SPToken.
     int currStatement = statementCount++;
     string varName = tokenStack->checkAndReturnNextToken(SPTokenType::NameToken);
     pkbInterface->addVariable(varName);
@@ -211,7 +211,7 @@ std::shared_ptr<ReadNode> Parser::parseRead(int stmtListNum) {
 }
 
 std::shared_ptr<PrintNode> Parser::parsePrint(int stmtListNum) {
-    tokenStack->checkAndUseNextToken(SPTokenType::PrintToken); //consume Print SPToken.
+    tokenStack->checkAndUseNextToken(SPTokenType::PrintToken);  // consume Print SPToken.
     int currStatement = statementCount++;
     string varName = tokenStack->checkAndReturnNextToken(SPTokenType::NameToken);
     pkbInterface->addVariable(varName);
@@ -225,7 +225,7 @@ std::shared_ptr<PrintNode> Parser::parsePrint(int stmtListNum) {
 
 
 std::shared_ptr<CallNode> Parser::parseCall(int stmtListNum) {
-    tokenStack->checkAndUseNextToken(SPTokenType::CallToken); //consume Call SPToken.
+    tokenStack->checkAndUseNextToken(SPTokenType::CallToken);  // consume Call SPToken.
     int currStatement = statementCount++;
     string varName = tokenStack->checkAndReturnNextToken(SPTokenType::NameToken);
     tokenStack->checkAndUseNextToken(SPTokenType::SemiColonToken);
@@ -241,7 +241,7 @@ std::shared_ptr<CallNode> Parser::parseCall(int stmtListNum) {
 std::shared_ptr<TNode> Parser::parseExpression() {
     std::shared_ptr<TNode> base = std::move(parseTerm());
 
-    while(tokenStack->isNextTokenOfType(SPTokenType::OpToken)) {
+    while (tokenStack->isNextTokenOfType(SPTokenType::OpToken)) {
         std::string operand = tokenStack->peekNextTokenString();
         tokenStack->checkAndUseNextToken(SPTokenType::OpToken);
         std::shared_ptr<TNode> term2 = std::move(parseTerm());
@@ -254,7 +254,7 @@ std::shared_ptr<TNode> Parser::parseExpression() {
 std::shared_ptr<TNode> Parser::parseTerm() {
     std::shared_ptr<TNode> base = std::move(parseFactor());
 
-    while(tokenStack->isNextTokenOfType(SPTokenType::FactorToken)) {
+    while (tokenStack->isNextTokenOfType(SPTokenType::FactorToken)) {
         std::string operand = tokenStack->peekNextTokenString();
         tokenStack->checkAndUseNextToken(SPTokenType::FactorToken);
         std::shared_ptr<TNode> factor2 = std::move(parseFactor());
@@ -266,7 +266,7 @@ std::shared_ptr<TNode> Parser::parseTerm() {
 }
 
 std::shared_ptr<TNode> Parser::parseFactor() {
-    if(tokenStack->isNextTokenNonTerminal()) {
+    if (tokenStack->isNextTokenNonTerminal()) {
         std::string name = tokenStack->checkAndReturnNextToken(SPTokenType::NameToken);
         addVariableToPkbIfExist(name);
 
@@ -294,13 +294,13 @@ std::shared_ptr<TNode> Parser::parseExpressionFromString(std::string exprString)
 }
 
 void Parser::addVariableToPkbIfExist(std::string var) {
-    if (pkbInterface) { // TODO: Write Integration tests for Parser and PKB, unsure if this works
+    if (pkbInterface) {  // TODO: Write Integration tests for Parser and PKB, unsure if this works
         pkbInterface->addVariable(var);
     }
 }
 
 void Parser::addConstToPkbIfExist(std::string cons) {
-    if (pkbInterface) { // TODO: Write Integration tests for Parser and PKB, unsure if this works
+    if (pkbInterface) {  // TODO: Write Integration tests for Parser and PKB, unsure if this works
         pkbInterface->addConst(std::stoi(cons));
     }
 }
