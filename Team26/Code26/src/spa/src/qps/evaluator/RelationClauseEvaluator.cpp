@@ -127,11 +127,209 @@ void RelationClauseEvaluator::evaluateCalls(QPS::ResultTable *resultTable) {
 void RelationClauseEvaluator::evaluateCallsT(QPS::ResultTable *resultTable) {
     filterRelations(QPS_Interface::getAllCallTRelations(), resultTable);
 };
-void RelationClauseEvaluator::evaluateAffects(QPS::ResultTable *resultTable) {
-
-};
 void RelationClauseEvaluator::evaluateAffectsT(QPS::ResultTable *resultTable) {
-
+    Argument assignArgument = {"", Argument::ASSIGN_SYNONYM};
+    std::vector<std::string> assigns = QPS_Interface::getAllEntity(&assignArgument);
+    Argument arg1 = this->relationClause->getFirstArgument();
+    Argument arg2 = this->relationClause->getSecondArgument();
+    if (arg1.argumentType == Argument::ACTUAL_NAME) {
+        int stmt1 = stoi(arg1.argumentName);
+        unordered_set<STMT_NUM> s1 = QPS_Interface::getAffectsStar(stmt1);
+        // ACTUAL_NAME, ACTUAL_NAME
+        if (arg2.argumentType == Argument::ACTUAL_NAME) {
+            int stmt2 = stoi(arg2.argumentName);
+            if (find(s1.begin(), s1.end(), stmt2) != s1.end()) {
+                resultTable->setTrueTable();
+            } else {
+                resultTable->setFalseTable();
+            }
+            return;
+        }
+        // ACTUAL_NAME, WILDCARD
+        if (arg2.argumentType == Argument::WILDCARD) {
+            if (s1.size() > 0) {
+                resultTable->setFalseTable();
+            } else {
+                resultTable->setTrueTable();
+            }
+            return;
+        }
+        // ACTUAL_NAME, SYNONYM
+        std::vector<std::string> synonyms = {arg2.argumentName};
+        unordered_set<vector<std::string>, QPS::StringVectorHash> lines;
+        for (auto stmt2 : s1) {
+            vector<std::string> currLine;
+            currLine.push_back(to_string(stmt2));
+            lines.insert(currLine);
+        }
+        resultTable = new ResultTable(synonyms, lines);
+        return;
+    }
+    if (arg1.argumentType == Argument::WILDCARD && arg2.argumentType == Argument::WILDCARD) {
+        for (auto a: assigns) {
+            unordered_set<STMT_NUM> affects = QPS_Interface::getAffectsStar(stoi(a));
+            if (affects.size() > 0) {
+                resultTable->setTrueTable();
+                return;
+            }
+        }
+        resultTable->setFalseTable();
+        return;
+    }
+    if (arg1.argumentType == Argument::WILDCARD && arg2.argumentType == Argument::ACTUAL_NAME) {
+        for (auto a: assigns) {
+            unordered_set<STMT_NUM> affects = QPS_Interface::getAffectsStar(stoi(a));
+            if (find(affects.begin(), affects.end(), stoi(arg2.argumentName)) != affects.end()) {
+                resultTable->setTrueTable();
+                return;
+            }
+        }
+        resultTable->setFalseTable();
+        return;
+    }
+    std::vector<std::string> synonyms = {};
+    unordered_set<vector<std::string>, QPS::StringVectorHash> lines;
+    if (Argument::isSynonym(arg1.argumentType) && arg2.argumentType == Argument::ACTUAL_NAME) {
+        synonyms.push_back(arg1.argumentName);
+        for (auto a: assigns) {
+            unordered_set<STMT_NUM> affects = QPS_Interface::getAffectsStar(stoi(a));
+            if (find(affects.begin(), affects.end(), stoi(arg2.argumentName)) != affects.end()) {
+                lines.insert({a});
+            }
+        }
+    }
+    if (Argument::isSynonym(arg1.argumentType) && arg2.argumentType == Argument::WILDCARD) {
+        synonyms.push_back(arg1.argumentName);
+        for (auto a: assigns) {
+            unordered_set<STMT_NUM> affects = QPS_Interface::getAffectsStar(stoi(a));
+            if (affects.size() > 0) {
+                lines.insert({a});
+            }
+        }
+    }
+    if (arg1.argumentType == Argument::WILDCARD && Argument::isSynonym(arg2.argumentType)) {
+        synonyms.push_back(arg2.argumentName);
+        for (auto a: assigns) {
+            unordered_set<STMT_NUM> affects = QPS_Interface::getAffectsStar(stoi(a));
+            for (auto second: affects) {
+                lines.insert({to_string(second)});
+            }
+        }
+    }
+    if (Argument::isSynonym(arg1.argumentType) && Argument::isSynonym(arg2.argumentType)) {
+        synonyms.push_back(arg1.argumentName);
+        synonyms.push_back(arg2.argumentName);
+        for (auto a: assigns) {
+            unordered_set<STMT_NUM> affects = QPS_Interface::getAffectsStar(stoi(a));
+            for (auto second: affects) {
+                lines.insert({a, to_string(second)});
+            }
+        }
+    }
+    resultTable = new ResultTable(synonyms, lines);
+    return;
+};
+void RelationClauseEvaluator::evaluateAffects(QPS::ResultTable *resultTable) {
+    Argument assignArgument = {"", Argument::ASSIGN_SYNONYM};
+    std::vector<std::string> assigns = QPS_Interface::getAllEntity(&assignArgument);
+    Argument arg1 = this->relationClause->getFirstArgument();
+    Argument arg2 = this->relationClause->getSecondArgument();
+    if (arg1.argumentType == Argument::ACTUAL_NAME) {
+        int stmt1 = stoi(arg1.argumentName);
+        unordered_set<STMT_NUM> s1 = QPS_Interface::getAffects(stmt1);
+        // ACTUAL_NAME, ACTUAL_NAME
+        if (arg2.argumentType == Argument::ACTUAL_NAME) {
+            int stmt2 = stoi(arg2.argumentName);
+            if (find(s1.begin(), s1.end(), stmt2) != s1.end()) {
+                resultTable->setTrueTable();
+            } else {
+                resultTable->setFalseTable();
+            }
+            return;
+        }
+        // ACTUAL_NAME, WILDCARD
+        if (arg2.argumentType == Argument::WILDCARD) {
+            if (s1.size() > 0) {
+                resultTable->setFalseTable();
+            } else {
+                resultTable->setTrueTable();
+            }
+            return;
+        }
+        // ACTUAL_NAME, SYNONYM
+        std::vector<std::string> synonyms = {arg2.argumentName};
+        unordered_set<vector<std::string>, QPS::StringVectorHash> lines;
+        for (auto stmt2 : s1) {
+            vector<std::string> currLine;
+            currLine.push_back(to_string(stmt2));
+            lines.insert(currLine);
+        }
+        resultTable = new ResultTable(synonyms, lines);
+        return;
+    }
+    if (arg1.argumentType == Argument::WILDCARD && arg2.argumentType == Argument::WILDCARD) {
+        for (auto a: assigns) {
+            unordered_set<STMT_NUM> affects = QPS_Interface::getAffects(stoi(a));
+            if (affects.size() > 0) {
+                resultTable->setTrueTable();
+                return;
+            }
+        }
+        resultTable->setFalseTable();
+        return;
+    }
+    if (arg1.argumentType == Argument::WILDCARD && arg2.argumentType == Argument::ACTUAL_NAME) {
+        for (auto a: assigns) {
+            unordered_set<STMT_NUM> affects = QPS_Interface::getAffects(stoi(a));
+            if (find(affects.begin(), affects.end(), stoi(arg2.argumentName)) != affects.end()) {
+                resultTable->setTrueTable();
+                return;
+            }
+        }
+        resultTable->setFalseTable();
+        return;
+    }
+    std::vector<std::string> synonyms = {};
+    unordered_set<vector<std::string>, QPS::StringVectorHash> lines;
+    if (Argument::isSynonym(arg1.argumentType) && arg2.argumentType == Argument::ACTUAL_NAME) {
+        synonyms.push_back(arg1.argumentName);
+        for (auto a: assigns) {
+            unordered_set<STMT_NUM> affects = QPS_Interface::getAffects(stoi(a));
+            if (find(affects.begin(), affects.end(), stoi(arg2.argumentName)) != affects.end()) {
+                lines.insert({a});
+            }
+        }
+    }
+    if (Argument::isSynonym(arg1.argumentType) && arg2.argumentType == Argument::WILDCARD) {
+        synonyms.push_back(arg1.argumentName);
+        for (auto a: assigns) {
+            unordered_set<STMT_NUM> affects = QPS_Interface::getAffects(stoi(a));
+            if (affects.size() > 0) {
+                lines.insert({a});
+            }
+        }
+    }
+    if (arg1.argumentType == Argument::WILDCARD && Argument::isSynonym(arg2.argumentType)) {
+        synonyms.push_back(arg2.argumentName);
+        for (auto a: assigns) {
+            unordered_set<STMT_NUM> affects = QPS_Interface::getAffects(stoi(a));
+            for (auto second: affects) {
+                lines.insert({to_string(second)});
+            }
+        }
+    }
+    if (Argument::isSynonym(arg1.argumentType) && Argument::isSynonym(arg2.argumentType)) {
+        synonyms.push_back(arg1.argumentName);
+        synonyms.push_back(arg2.argumentName);
+        for (auto a: assigns) {
+            unordered_set<STMT_NUM> affects = QPS_Interface::getAffects(stoi(a));
+            for (auto second: affects) {
+                lines.insert({a, to_string(second)});
+            }
+        }
+    }
+    resultTable = new ResultTable(synonyms, lines);
+    return;
 };
 void RelationClauseEvaluator::evaluateFollows(QPS::ResultTable *resultTable) {
     filterRelations(QPS_Interface::getAllFollowsRelations(), resultTable);
