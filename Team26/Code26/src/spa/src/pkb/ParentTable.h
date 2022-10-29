@@ -1,7 +1,3 @@
-//
-// Created by QMS on 13/9/2022.
-//
-
 #ifndef SPA_PARENTTABLE_H
 
 #include <stdio.h>
@@ -9,15 +5,14 @@
 #include <vector>
 #include <unordered_map>
 
-using namespace std;
-
 class ParentTable {
 private:
-    unordered_map<int, vector<int>> parentList;
+    std::unordered_map<int, std::vector<int>> parentList;
 public:
     void insertParent(int parentStmtLineNumber, int childStmtListNumber);
     bool existParent(int parentStmtLineNumber, int childStmtListNumber);
-    unordered_map<int, vector<int>> getAllParents();
+    std::unordered_map<int, std::vector<int>> getAllParents();
+    void clear();
 };
 
 #endif //SPA_PARENTTABLE_H

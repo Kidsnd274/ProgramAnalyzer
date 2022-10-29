@@ -56,6 +56,10 @@ std::vector<std::string> ModifiesTable::getModifiesVar(int stmtLineNumber) {
     return this->modifiesList[stmtLineNumber];
 }
 
+std::string ModifiesTable::getFirstModifiedVar(int stmtLineNumber) {
+    return this->modifiesList[stmtLineNumber].front();
+}
+
 std::vector<std::string> ModifiesTable::getAllModifiedVarByProc(std::string procedureName) {
     return this->modifiesProcList[procedureName];
 }
@@ -66,4 +70,19 @@ std::unordered_map<int, std::vector<std::string>> ModifiesTable::getAllModifiesB
 
 std::unordered_map<std::string, std::vector<std::string>> ModifiesTable::getAllModifiesByProc() {
     return this->modifiesProcList;
+}
+
+bool ModifiesTable::doesStatementModify(int stmt, std::string varModified) {
+    unordered_map<int,std::vector<std::string>> list = this->modifiesList;
+    if (list.find(stmt) == list.end()) {
+        return false;
+    } else {
+        std::vector<std::string> vars = list[stmt];
+        return std::find(vars.begin(), vars.end(), varModified) != vars.end();
+    }
+}
+
+void ModifiesTable::clear() {
+    this->modifiesList.clear();
+    this->modifiesProcList.clear();
 }
