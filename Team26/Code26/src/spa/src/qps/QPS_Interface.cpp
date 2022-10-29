@@ -188,7 +188,11 @@ bool QPS_Interface::hasNextStar(STMT_NUM stmt) {
 }
 
 std::unordered_set<STMT_NUM> QPS_Interface::getNextStar(STMT_NUM stmt) {
-//    return QPS_Interface::pkbInterface->getNextStar();
+    if (!QPS_Interface::hasNextStar(stmt)) {
+        CFGHeadPtr cfgHeadPtr = QPS_Interface::getCFGHeadPtrByProc(stmt);
+        QPS_Interface::runtimeExtractor->computeNextStar(cfgHeadPtr, stmt);
+    }
+    return QPS_Interface::pkbInterface->getNextStar(stmt);
 }
 
 std::unordered_set<STMT_NUM> QPS_Interface::getAffects(STMT_NUM stmt) {
