@@ -12,7 +12,7 @@ void ModifiesExtractor::extractFromModifiesStatements(std::string varModified, i
     pkb->addModifies(stmtNumber, varModified);
     pkb->addModifies(getProcedureName(), varModified);
     std::vector<int> v = getAllItemsInStack();
-    for(auto i : v) {
+    for (auto i : v) {
         pkb->addModifies(i, varModified);
     }
 }

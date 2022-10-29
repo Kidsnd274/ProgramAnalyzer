@@ -1,7 +1,7 @@
 #include "DesignExtractor.h"
 
 bool DesignExtractor::doesProcedureAlreadyExist(std::string name) {
-    if(nameToIndex.find(name) != nameToIndex.end()) {
+    if (nameToIndex.find(name) != nameToIndex.end()) {
         return true;
     } else {
         return false;
@@ -9,7 +9,7 @@ bool DesignExtractor::doesProcedureAlreadyExist(std::string name) {
 }
 
 void DesignExtractor::addProcedure(std::string name) {
-    if(doesProcedureAlreadyExist(name)) {
+    if (doesProcedureAlreadyExist(name)) {
         throw SemanticErrorException("Duplicate procedure name: " + name);
     }
 
@@ -21,7 +21,7 @@ void DesignExtractor::addProcedure(std::string name) {
 }
 
 void DesignExtractor::addCallStatement(CallStruct &c) {
-    if(callList.size() > 0 && indexToName[callList.size()-1] == c.getProcedureCalled()) {
+    if (callList.size() > 0 && indexToName[callList.size()-1] == c.getProcedureCalled()) {
         throw SemanticErrorException("Recursive call to procedure " + c.getProcedureCalled());
     }
 
@@ -29,8 +29,8 @@ void DesignExtractor::addCallStatement(CallStruct &c) {
 }
 
 void DesignExtractor::extract(std::vector<std::shared_ptr<ProcedureNode>> procedures) {
-    for(auto p : procedures) {
-        for (auto &e: extractorList) {
+    for (auto p : procedures) {
+        for (auto &e : extractorList) {
             traverse(p, e);
         }
     }
@@ -55,12 +55,12 @@ void DesignExtractor::traverse(std::shared_ptr<StatementNode> ptr, std::shared_p
         e->extractFromIf(t);
 
         std::vector<std::shared_ptr<StatementNode>> stmtList = t->getIfStatementList();
-        for(int i = 0; i < stmtList.size(); ++i) {
+        for (int i = 0; i < stmtList.size(); ++i) {
             traverse(stmtList[i], e);
         }
 
         stmtList = t->getElseStatementList();
-        for(int i = 0; i < stmtList.size(); ++i) {
+        for (int i = 0; i < stmtList.size(); ++i) {
             traverse(stmtList[i], e);
         }
 
@@ -70,7 +70,7 @@ void DesignExtractor::traverse(std::shared_ptr<StatementNode> ptr, std::shared_p
         e->extractFromWhile(t);
 
         std::vector<std::shared_ptr<StatementNode>> stmtList = t->getStatementList();
-        for(int i = 0; i < stmtList.size(); ++i) {
+        for (int i = 0; i < stmtList.size(); ++i) {
             traverse(stmtList[i], e);
         }
 

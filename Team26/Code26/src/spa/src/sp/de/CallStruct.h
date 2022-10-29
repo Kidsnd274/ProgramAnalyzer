@@ -2,7 +2,6 @@
 #ifndef SPA_CALLSTRUCT_H
 #define SPA_CALLSTRUCT_H
 
-
 class CallStruct {
 private:
     int stmtNumber;
@@ -22,6 +21,5 @@ public:
         return procedureCalled;
     }
 };
-
 
 #endif //SPA_CALLSTRUCT_H

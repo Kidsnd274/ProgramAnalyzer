@@ -1,8 +1,13 @@
+#include <memory>
+#include <stack>
+#include <string>
+#include <unordered_map>
+#include <vector>
 #include "DesignExtractorInterface.h"
 #include "pkb/PKBInterface.h"
-#include <unordered_map>
 #include "CallStatementHandler.h"
 #include "sp/SemanticErrorException.h"
+
 class DesignExtractor : public DesignExtractorInterface {
 private:
     PKBInterface* pkbInterface;

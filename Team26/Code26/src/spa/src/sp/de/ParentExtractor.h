@@ -1,4 +1,7 @@
+#include <memory>
+#include <vector>
 #include "Extractor.h"
+
 class ParentExtractor : public Extractor {
 public:
     ParentExtractor(PKBInterface *pkb) : Extractor(pkb){}
