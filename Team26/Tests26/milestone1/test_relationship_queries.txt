@@ -16,7 +16,7 @@ none
 4 - Simple test with Modifies
 constant c; variable v; assign a;
 Select <a, v> such that Modifies(a, k)
-SyntaxError
+SemanticError
 5000
 5 - Simple test with Uses
 constant c; variable v; assign a;
@@ -36,5 +36,5 @@ none
 8 - Simple test with Uses
 constant c; variable v; assign a;
 Select <a, v> such that Uses(a, k)
-SyntaxError
+SemanticError
 5000
