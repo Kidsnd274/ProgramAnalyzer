@@ -878,9 +878,3 @@ ResultTable* RelationClauseEvaluator::filterTable(unordered_set<vector<std::stri
     ResultTable* r = new ResultTable(synonyms, filteredResult);
     return r;
 }
-
-
-
-
-
-

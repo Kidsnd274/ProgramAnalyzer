@@ -10,7 +10,7 @@ void QueryEvaluator::evaluate(Query* query) {
     ClauseAssigner* clauseAssigner = new ClauseAssigner();
 
     // Group the clauses
-    query->clauseList = QueryEvaluator::groupClauses(query->clauseList);
+//    query->clauseList = QueryEvaluator::groupClauses(query->clauseList);
 
     // Add synonyms to the map
     unordered_map<string, int> synonymCount = countSynonym(query);
