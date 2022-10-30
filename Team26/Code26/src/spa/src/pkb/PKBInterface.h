@@ -103,6 +103,7 @@ public:
     virtual bool doesStatementUse(STMT_NUM stmt, std::string varUsed);
     virtual void addAffects(STMT_NUM stmt, STMT_NUM affectedStmt);
     virtual std::unordered_set<STMT_NUM> getAffects(STMT_NUM stmt);
+    virtual std::unordered_set<STMT_NUM> getAffectsStar(STMT_NUM stmt);
     virtual std::string getProcedureNameOf(CFGHeadPtr cfg);
     virtual bool hasAffectsStar(STMT_NUM stmt);
     virtual void addAffectsStar(STMT_NUM stmt, std::unordered_set<STMT_NUM> affectsStarSet);
@@ -111,6 +112,7 @@ public:
     virtual std::unordered_set<STMT_NUM> getNextStar(STMT_NUM stmt);
     virtual CFGHeadPtr getCFGHeadPtrByProc(STMT_NUM stmt);
     virtual Procedure* getProcByStmt(STMT_NUM stmt);
+    virtual std::vector<Procedure> getProcList();
 
     /**
      * Clear NextStar, Affect and AffectStar Tables.
