@@ -177,8 +177,7 @@ CFGHeadPtr QPS_Interface::getCFGHeadPtrByProc(STMT_NUM stmt) {
 }
 
 Procedure* QPS_Interface::getProcByStmt(STMT_NUM stmt) {
-//    return QPS_Interface::pkbInterface->getProcByStmt(stmt);
-    return nullptr;
+    return QPS_Interface::pkbInterface->getProcByStmt(stmt);
 }
 
 std::vector<Procedure> QPS_Interface::getProcList() {
