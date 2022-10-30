@@ -1,0 +1,70 @@
+1 - Select assign statements
+assign a;
+Select a
+1, 2, 4, 6 ,8 , 10, 11, 12, 14, 16, 18, 19
+5000
+2 - statement 1 Affects
+assign a;
+Select a such that Affects(1, a)
+4, 6, 11
+5000
+3 - statement 2 Affects
+assign a;
+Select a such that Affects(2, a)
+4, 6, 11, 14
+5000
+4 - statement 4 Affects
+assign a;
+Select a such that Affects(4, a)
+10. 14. 19
+5000
+5 - statement 6 Affects
+assign a;
+Select a such that Affects(6, a)
+14
+5000
+6 - statement 8 Affects
+assign a;
+Select a such that Affects(8, a)
+none
+5000
+7 - statement 10 Affects
+assign a;
+Select a such that Affects(10, a)
+none
+5000
+8 - statement 11 Affects
+assign a;
+Select a such that Affects(11, a)
+14, 19
+5000
+9 - statement 12 Affects
+assign a;
+Select a such that Affects(12, a)
+16
+5000
+10 - statement 14 Affects
+assign a;
+Select a such that Affects(14, a)
+none
+5000
+11 - statement 16 Affects
+assign a;
+Select a such that Affects(16, a)
+none
+5000
+12 - statement 18 Affects
+assign a;
+Select a such that Affects(18, a)
+14, 19
+5000
+13 - statement 19 Affects
+assign a;
+Select a such that Affects(19, a)
+14
+5000
+14 - select non assign statement (not sure if this should be syntax/semantic error or false)
+assign a;
+Select BOOLEAN such that Affects(3, a)
+false
+5000
