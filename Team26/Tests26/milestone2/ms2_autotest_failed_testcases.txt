@@ -1,0 +1,25 @@
+2 - Simple test with pattern arg1 being variable, and arg2 be variable name
+read r;
+Select r such that Calls* (r, "xxx")
+SemanticError
+5000
+2 - Simple test with pattern arg1 being variable, and arg2 be variable name
+print pr;
+Select pr such that Calls* (pr, "xxx")
+SemanticError
+5000
+2 - Simple test with pattern arg1 being variable, and arg2 be variable name
+read r;
+Select r such that Calls* (_, r)
+SemanticError
+5000
+2 - Simple test with pattern arg1 being variable, and arg2 be variable name
+print pr;
+Select r such that Calls* (_, pr)
+SemanticError
+5000
+2 - Simple test with pattern arg1 being variable, and arg2 be variable name
+print pr;
+Select a such that Follows (29, pr)
+SemanticError
+5000

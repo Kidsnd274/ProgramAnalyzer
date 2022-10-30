@@ -4,8 +4,10 @@
 #include <iostream>
 #include <string>
 #include <vector>
+#include <cassert>
 #include <memory>
 #include <unordered_set>
+#include <utility>
 
 #include "qps/QueryProcessorTypes.h"
 #include "PKB.h"
@@ -13,6 +15,13 @@
 #include "util/ast/AssignNode.h"
 #include "util/ast/TNode.h"
 #include "util/cfg/CFGHead.h"
+#include "ProcedureTable.h"
+#include "StatementTable.h"
+#include "ModifiesTable.h"
+#include "ParentStarTable.h"
+#include "ContainerTable.h"
+#include "ProcedureNotFoundException.h"
+#include "NextStarTable.h"
 
 using namespace std;
 using namespace QPS;
