@@ -38,7 +38,7 @@ void QueryEvaluator::getAllEntity(Argument argument, QPS::ResultTable *resultTab
 }
 
 int QueryEvaluator::calcHeuristic(Clause &clause) {
-
+    return 0;
 }
 
 int QueryEvaluator::numOfSynonyms(Clause &clause) {
