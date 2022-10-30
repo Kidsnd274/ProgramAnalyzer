@@ -22,6 +22,11 @@ void QueryEvaluator::evaluate(Query* query) {
         resultOfEvaluation = ResultTable::mergeTable(resultOfEvaluation, resultTable);
         removeSynonym(**iter, &synonymCount, resultOfEvaluation);
     }
+    for (auto synonym: query->getSynonymMap()) {
+        if (!resultOfEvaluation->isSynonymPresent(synonym.second.argumentName)) {
+            getAllEntity(synonym.second, resultOfEvaluation);
+        }
+    }
 
     query->resultTable = resultOfEvaluation;
 }
