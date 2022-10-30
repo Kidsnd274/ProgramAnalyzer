@@ -1,7 +1,7 @@
 1 - Select assign statements
 assign a;
 Select a
-1, 2, 4, 6 ,8 , 10, 11, 12, 14, 16, 18, 19
+1, 2, 4, 6 ,8 , 10, 11, 12, 14, 16, 18, 19, 20, 21
 5000
 2 - statement 1 Affects
 assign a;
