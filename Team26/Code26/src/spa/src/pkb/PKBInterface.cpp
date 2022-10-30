@@ -7,22 +7,6 @@ void PKBInterface::addProcedure(std::string name, int startingStmtNo, int ending
     proc.endingStmtNo = endingStmtNo;
     proc.cfg = std::move(cfg);
     pkb->procedureTable->insertProc(proc);
-
-    // insert stmts into NextTable
-    for (int i = startingStmtNo; i <= endingStmtNo; i++) {
-//        EDGES edges = proc.cfg->getEdges(i);
-//        for (auto node : edges) {
-//            if (i == node.getStmtNumber()) {
-//                continue;
-//            }
-//            pkb->nextTable->insertNext(i, node.getStmtNumber());
-//        }
-        for (int j = startingStmtNo; j <= endingStmtNo; j++) {
-            if (proc.cfg->isNext(i, j)) {
-                pkb->nextTable->insertNext(i, j);
-            }
-        }
-    }
 }
 
 void PKBInterface::addVariable(string name) {

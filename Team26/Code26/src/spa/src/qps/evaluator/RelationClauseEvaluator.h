@@ -3,7 +3,7 @@
 
 #include "ClauseEvaluator.h"
 #include "../type/RelationClause.h"
-#include "../QPS_PKB_Interface.h"
+#include "../QPS_Interface.h"
 
 
 class RelationClauseEvaluator: public ClauseEvaluator{

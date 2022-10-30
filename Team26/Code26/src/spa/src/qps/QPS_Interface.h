@@ -1,17 +1,21 @@
-#ifndef SPA_QPS_PKB_INTERFACE_H
-#define SPA_QPS_PKB_INTERFACE_H
+#ifndef SPA_QPS_INTERFACE_H
+#define SPA_QPS_INTERFACE_H
 
 #include "pkb/PKBInterface.h"
 #include "pkb/Statement.h"
+#include "sp/rte/RuntimeExtractor.h"
 #include "type/Argument.h"
 #include "Query.h"
 
-class QPS_PKB_Interface {
+class QPS_Interface {
 public:
     static PKBInterface* pkbInterface;
+    static RuntimeExtractor* runtimeExtractor;
 
 public:
     static void setPKBInterface(PKBInterface* myPKBInterface);
+
+    static void createRuntimeExtractor();
 
     /**
      * Call PKB interface to get the AST TNode of a certain assign statement.
@@ -86,7 +90,7 @@ public:
      * Call PKB interface to get all procedure affects relations in AffectsTable.
      * @return a vector containing all the procedure affects relations.
      */
-    static std::vector<pair<int, int>> getAllAffectsProcRelations();
+    static std::vector<pair<int, int>> getAllAffectsTRelations();
 
     /**
      * Call PKB interface to get all next relations in NextTable.
@@ -98,7 +102,7 @@ public:
      * Call PKB interface to get all procedure xt relations in NextTable.
      * @return a vector containing all the procedure next relations.
      */
-    static std::vector<pair<int, int>> getAllNextProcRelations();
+    static std::vector<pair<int, int>> getAllNextTRelations();
 
     /**
      * Call PKB interface to get all assignments in StatementTable.
@@ -143,7 +147,47 @@ public:
     static std::string getAttrName(std::string value, WithClause::WithClauseArgument candidate);
 
     static std::string getAttrName(std::string value, Query::CandidateStruct candidate);
+
+    /**
+     * Call PKB interface to get the CFGHead of the procedure by passing in
+     * one statement in this procedure.
+     * @param stmt the given statement.
+     * @return a shared_ptr of CFGHead.
+     */
+    static CFGHeadPtr getCFGHeadPtrByProc(STMT_NUM stmt);
+
+    /**
+     * Call PKB interface to get the Procedure by passing in one statement
+     * in this procedure.
+     * @param stmt the given statement.
+     * @return a Procedure.
+     */
+    static Procedure* getProcByStmt(STMT_NUM stmt);
+
+    /**
+     * Call PKB interface to get the list of all procedures.
+     * @return a vector of all the procedures.
+     */
+    static std::vector<Procedure> getProcList();
+
+    /**
+     * Check whether PKB nextStarList has the entry stmt.
+     * If not, evaluator will call runtimeExtractor to calculate the
+     * nextStar of stmt, and PKB will cache the result.
+     * @param stmt the given statement to check.
+     * @return a bool indicating whether PKB nextStarList has the entry.
+     */
+    static bool hasNextStar(STMT_NUM stmt);
+
+    /**
+     * Call PKB interface to get all the nextStar of a given stmt.
+     * @param stmt the given stmt.
+     * @return a vector of stmt2 that satisfies next*(stmt, stmt2).
+     */
+    static std::unordered_set<STMT_NUM> getNextStar(STMT_NUM stmt);
+    static std::unordered_set<STMT_NUM> getAffects(STMT_NUM stmt);
+    static std::unordered_set<STMT_NUM> getAffectsStar(STMT_NUM stmt);
 };
 
 
-#endif //SPA_QPS_PKB_INTERFACE_H
+#endif //SPA_QPS_INTERFACE_H

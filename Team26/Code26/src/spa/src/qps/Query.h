@@ -58,6 +58,8 @@ public:
     std::vector<CandidateStruct>& getCandidateList();
 
     bool isBooleanQuery();
+
+    std::unordered_set<std::string> getCandidates();
 };
 
 

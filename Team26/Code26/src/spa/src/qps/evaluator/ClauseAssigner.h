@@ -5,7 +5,7 @@
 #include "WithClauseEvaluator.h"
 #include "../ResultTable.h"
 #include "../type/Clause.h"
-#include "../QPS_PKB_Interface.h"
+#include "../QPS_Interface.h"
 
 
 enum ClauseType {

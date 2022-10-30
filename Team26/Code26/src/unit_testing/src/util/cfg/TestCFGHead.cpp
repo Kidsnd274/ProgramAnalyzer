@@ -1,4 +1,5 @@
 #include "util/cfg/CFGHead.h"
+#include "util/cfg/CFGNotInitializedException.h"
 #include "util/cfg/StatementNumberNotFoundException.h"
 #include "catch.hpp"
 
@@ -167,5 +168,27 @@ TEST_CASE("Test single statement") {
         cfgTest->initializeFinalNode(CFGNode::node(1));
 
         REQUIRE(cfgTest->getEdges(1).empty());
+    }
+}
+
+TEST_CASE("Test isFirstStatementInCFG") {
+    SECTION("Empty CFG") {
+        CFGHeadPtr cfgTest = CFGHead::createNewCFG();
+        REQUIRE_THROWS_AS(cfgTest->isFirstStatementInCFG(-1), CFGNotInitializedException);
+    }
+
+    SECTION("Only one node") {
+        CFGHeadPtr cfgTest = CFGHead::createNewCFG();
+        cfgTest->initializeFinalNode(CFGNode::node(1));
+
+        REQUIRE(cfgTest->isFirstStatementInCFG(1));
+    }
+
+    SECTION("Multiple nodes") {
+        CFGHeadPtr cfgTest = CFGHead::createNewCFG();
+        cfgTest->connectNode(CFGNode::node(3), CFGNode::node(4));
+        cfgTest->initializeFinalNode(CFGNode::node(4));
+
+        REQUIRE(cfgTest->isFirstStatementInCFG(3));
     }
 }

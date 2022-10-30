@@ -5,6 +5,11 @@
 
 void CFGHead::connectNode(CFGNode node1, CFGNode node2)  {
     STMT_NUM stmtNum = node1.getStmtNumber();
+    if (!this->initialized) {
+        this->firstNodeStmtNum = stmtNum;
+        initialized = true;
+    }
+
     if (node1.isDummyNode()) {
         dummyAdjList.insert({stmtNum, node2});
     } else {
@@ -50,6 +55,13 @@ STMT_NUM CFGHead::findDummyNodeNext(CFGNode& dummy) {
     } else {
         return dummyPointsTo.getStmtNumber();
     }
+}
+
+STMT_NUM CFGHead::isFirstStatementInCFG(STMT_NUM stmt) {
+    if (!this->initialized || firstNodeStmtNum == -1) {
+        throw CFGNotInitializedException();
+    }
+    return (stmt == firstNodeStmtNum);
 }
 
 bool CFGHead::isStatementInCFG(STMT_NUM stmt1) {
@@ -145,6 +157,11 @@ bool CFGHead::compareEdgesEquality(EDGES v1, EDGES v2) {
 }
 
 void CFGHead::initializeFinalNode(CFGNode finalNode) {
+    if (!this->initialized) {
+        this->firstNodeStmtNum = finalNode.getStmtNumber();
+        initialized = true;
+    }
+
     switch (finalNode.getNodeType()) {
         case CFGNodeType::DummyNode:
             dummyAdjList.insert({finalNode.getStmtNumber(), {-1, CFGNodeType::NullNode}});
