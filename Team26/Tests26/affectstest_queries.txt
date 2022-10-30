@@ -66,7 +66,7 @@ Select a such that Affects(19, a)
 14 - select non assign statement (not sure if this should be syntax/semantic error or false)
 assign a;
 Select BOOLEAN such that Affects(3, a)
-false
+FALSE
 5000
 15 - statement 1 Affects*
 assign a;
