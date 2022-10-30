@@ -172,18 +172,16 @@ std::string QPS_Interface::getAttrName(std::string value, Query::CandidateStruct
 }
 
 CFGHeadPtr QPS_Interface::getCFGHeadPtrByProc(STMT_NUM stmt) {
-//    return QPS_Interface::pkbInterface->getCFGHEADPtrByProc(stmt);
+    return QPS_Interface::pkbInterface->getCFGHeadPtrByProc(stmt);
     return nullptr;
 }
 
 Procedure* QPS_Interface::getProcByStmt(STMT_NUM stmt) {
-//    return QPS_Interface::pkbInterface->getProcByStmt(stmt);
-    return nullptr;
+    return QPS_Interface::pkbInterface->getProcByStmt(stmt);
 }
 
 std::vector<Procedure> QPS_Interface::getProcList() {
-//    return QPS_Interface::pkbInterface->getProcList();
-    return {};
+    return QPS_Interface::pkbInterface->getProcList();
 }
 
 bool QPS_Interface::hasNextStar(STMT_NUM stmt) {
@@ -213,6 +211,5 @@ std::unordered_set<STMT_NUM> QPS_Interface::getAffectsStar(STMT_NUM stmt) {
         CFGHeadPtr cfgHeadPtr = QPS_Interface::getCFGHeadPtrByProc(stmt);
         runtimeExtractor->computeAffectsStar(cfgHeadPtr, stmt);
     }
-//    return QPS_Interface::pkbInterface->getAffectsStar(stmt);
-    return {};
+    return QPS_Interface::pkbInterface->getAffectsStar(stmt);
 }
