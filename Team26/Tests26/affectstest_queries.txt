@@ -128,3 +128,14 @@ assign a;
 Select a such that Affects*(19, a)
 14
 5000
+27 - Affects* time test
+assign a;
+Select BOOLEAN such that Affects*(1, 4)
+TRUE
+5000
+28 - Affects time test
+assign a;
+Select BOOLEAN such that Affects(1, 4)
+TRUE
+5000
+
