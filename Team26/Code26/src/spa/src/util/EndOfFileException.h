@@ -4,8 +4,8 @@
 
 class EndOfFileException : std::exception {
 public:
-    char * what ();
+    char * what();
 };
 
 
-#endif //SPA_ENDOFFILEEXCEPTION_H
+#endif  // SPA_ENDOFFILEEXCEPTION_H
