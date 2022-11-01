@@ -1,7 +1,5 @@
 #include "CFGNode.h"
 
-#include <utility>
-
 int CFGNode::getStmtNumber() const {
     return statementNumber;
 }

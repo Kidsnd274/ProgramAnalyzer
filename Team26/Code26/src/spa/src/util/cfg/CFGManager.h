@@ -8,7 +8,7 @@ private:
     CFGHeadPtr currentCFG = CFGHead::createNewCFG();
     CFGNode parentNode = {-1, CFGNodeType::NullNode};
 public:
-    void createNewCFG(); // Also resets CFG
+    void createNewCFG();  // Also resets CFG
     CFGHeadPtr getCurrentCFG();
     void addStandardNode(STMT_NUM stmtNum);
     void addDummyNode(STMT_NUM stmtNum);
@@ -19,4 +19,4 @@ public:
     void finalizeFinalNode();
 };
 
-#endif //SPA_CFGMANAGER_H
+#endif  // SPA_CFGMANAGER_H
