@@ -15,8 +15,8 @@ class TestCase:
         self.name = name
         self.source_file = folder / (name + "_source.txt")
         self.queries_file = folder / (name + "_queries.txt")
-        self.out_file_failed = testdir / "failed_tests" / (name + "_out.xml")
-        self.log_file_failed = testdir / "failed_tests" / (name + ".log")
+        self.out_file_failed = (name + "_out.xml")
+        self.log_file_failed = (name + ".log")
 
 
 print(testdir)
@@ -59,9 +59,16 @@ def move_file(curr_file, new_location):
 def move_failed_files(testcase, out_file_also):
     if not ((testdir / "failed_tests").exists and (testdir / "failed_tests").is_dir()):
         pathlib.Path.mkdir(testdir / "failed_tests")
-    move_file(logfile, testcase.log_file_failed)
+    move_file(logfile, testdir / "failed_tests" / testcase.log_file_failed)
     if out_file_also:
-        move_file(outxml, testcase.out_file_failed)
+        move_file(outxml, testdir / "failed_tests" / testcase.out_file_failed)
+
+
+def move_passed_files(testcase):
+    if not ((testdir / "passed_tests").exists and (testdir / "passed_tests").is_dir()):
+        pathlib.Path.mkdir(testdir / "passed_tests")
+    move_file(logfile, testdir / "passed_tests" / testcase.log_file_failed)
+    move_file(outxml, testdir / "passed_tests" / testcase.out_file_failed)
 
 
 def if_passed(result):
@@ -98,6 +105,7 @@ def run_multiple_tests(selected_tests, milestone_name):
             move_failed_files(testcase, True)
             print(" X Failed testcase.")
         else:
+            move_passed_files(testcase)
             print(" PASSED")
 
 
