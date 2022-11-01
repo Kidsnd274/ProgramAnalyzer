@@ -5,7 +5,6 @@
 class PrintNode : public StatementNode {
 private:
     std::string variableName;
-    
 public:
     PrintNode(int statementNumber, std::string variableName) : StatementNode(statementNumber, statementType::PRINT) {
         this->variableName = variableName;

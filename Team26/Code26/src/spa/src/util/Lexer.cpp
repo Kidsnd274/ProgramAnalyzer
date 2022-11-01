@@ -27,11 +27,11 @@ void Lexer::splitWord(std::vector<SPToken> &res, std::string &toParse) {
             SPToken token = TokenTypeExtractor::createNonTerminal(toParse.substr(i, j - i));
             res.push_back(token);
             i = j;
-        } else if ((c == '<' || c == '>' || c == '=' || c == '!') && (i + 1 < toParse.size() && toParse[i+1] == '=')){
+        } else if ((c == '<' || c == '>' || c == '=' || c == '!') && (i + 1 < toParse.size() && toParse[i+1] == '=')) {
             SPToken token = TokenTypeExtractor::createTerminal(toParse.substr(i, 2));
             res.push_back(token);
             i = i + 2;
-        } else if ((c == '|' || c == '&') && (i + 1 < toParse.size() && toParse[i+1] == c)){
+        } else if ((c == '|' || c == '&') && (i + 1 < toParse.size() && toParse[i+1] == c)) {
             SPToken token = TokenTypeExtractor::createTerminal(toParse.substr(i, 2));
             res.push_back(token);
             i = i + 2;

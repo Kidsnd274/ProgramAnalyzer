@@ -3,6 +3,7 @@
 #include "StatementNode.h"
 
 class CallNode : public StatementNode {
+private:
     std::string procedureName;
 
 public:

@@ -75,7 +75,7 @@ bool TokenStack::isCondTokenAfterRparen() {
             parenStack.pop();
         } else if (tokenStack[j].getTokenType() == SPTokenType::RParenToken) {
             parenStack.push('r');
-        } else if ( tokenStack[j].getTokenType() == SPTokenType::LParenToken) {
+        } else if (tokenStack[j].getTokenType() == SPTokenType::LParenToken) {
             parenStack.push('l');
         }
         j++;
