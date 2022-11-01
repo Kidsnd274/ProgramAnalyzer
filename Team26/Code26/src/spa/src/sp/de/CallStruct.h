@@ -22,4 +22,4 @@ public:
     }
 };
 
-#endif //SPA_CALLSTRUCT_H
+#endif  // SPA_CALLSTRUCT_H

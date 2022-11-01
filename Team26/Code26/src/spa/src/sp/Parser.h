@@ -22,7 +22,7 @@ private:
     DesignExtractorInterface* de;
     std::shared_ptr<CFGManager> cfgManager;
 
-    Parser(std::vector<SPToken> ts) {
+    explicit Parser(std::vector<SPToken> ts) {
         tokenStack = new TokenStack(std::move(ts));
         this->statementCount = 1;
         this->statementListNumber = 1;

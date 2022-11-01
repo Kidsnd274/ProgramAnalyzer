@@ -5,7 +5,7 @@
 
 class ModifiesExtractor : public Extractor {
 public:
-    ModifiesExtractor(PKBInterface *pkb) : Extractor(pkb){}
+    explicit ModifiesExtractor(PKBInterface *pkb) : Extractor(pkb) {}
 
     void extractFromProcedure(std::shared_ptr<ProcedureNode> ptr) override{};
     void extractFromIf(std::shared_ptr<IfNode> ptr) override;

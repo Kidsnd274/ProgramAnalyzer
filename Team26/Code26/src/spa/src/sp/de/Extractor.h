@@ -18,9 +18,10 @@ class Extractor {
 private:
     std::stack<int> callStack;
     std::string procName;
+
 public:
     PKBInterface* pkb;
-    Extractor(PKBInterface *pkb) {
+    explicit Extractor(PKBInterface *pkb) {
         this->pkb = pkb;
     }
     virtual ~Extractor() = default;
@@ -54,7 +55,7 @@ public:
             ans.push_back(t);
             temp.push(t);
         }
-        while(!temp.empty()) {
+        while (!temp.empty()) {
             pushToStack(temp.top());
             temp.pop();
         }

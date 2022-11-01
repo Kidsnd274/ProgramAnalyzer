@@ -1,7 +1,10 @@
-
 #ifndef SPA_AFFECTSEXTRACTOR_H
 #define SPA_AFFECTSEXTRACTOR_H
 
+#include <unordered_map>
+#include <unordered_set>
+#include <string>
+#include <vector>
 #include "CFGExtractor.h"
 
 typedef std::unordered_map<STMT_NUM, std::vector<STMT_NUM>> DDG;
@@ -19,5 +22,4 @@ public:
     void clearCache();
 };
 
-
-#endif //SPA_AFFECTSEXTRACTOR_H
+#endif  // SPA_AFFECTSEXTRACTOR_H

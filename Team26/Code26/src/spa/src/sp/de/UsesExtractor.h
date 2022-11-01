@@ -7,7 +7,7 @@
 
 class UsesExtractor : public Extractor {
 public:
-    UsesExtractor(PKBInterface *pkb) : Extractor(pkb) {}
+    explicit UsesExtractor(PKBInterface *pkb) : Extractor(pkb) {}
 
     void extractFromProcedure(std::shared_ptr<ProcedureNode> ptr) override{};
     void extractFromIf(std::shared_ptr<IfNode> ptr) override;
@@ -18,4 +18,3 @@ public:
     void extractFromExpressionTree(std::shared_ptr<TNode> ptr, bool isCond);
     void extractFromStatementsWithCond(int stmtNumber, std::shared_ptr<TNode> cond);
 };
-

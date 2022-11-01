@@ -84,5 +84,4 @@ void DesignExtractor::traverse(std::shared_ptr<StatementNode> ptr, std::shared_p
     } else {
         e->extractFromCall(std::static_pointer_cast<CallNode>(ptr));
     }
-
 }

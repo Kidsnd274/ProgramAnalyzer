@@ -30,4 +30,4 @@ public:
 };
 
 
-#endif //SPA_CALLSTATEMENTHANDLER_H
+#endif  // SPA_CALLSTATEMENTHANDLER_H

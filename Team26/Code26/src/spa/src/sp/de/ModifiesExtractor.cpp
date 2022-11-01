@@ -19,7 +19,8 @@ void ModifiesExtractor::extractFromModifiesStatements(std::string varModified, i
 
 void ModifiesExtractor::extractFromIf(std::shared_ptr<IfNode> ptr) {
     pushToStack(ptr->getStatementNumber());
-};
+}
+
 void ModifiesExtractor::extractFromWhile(std::shared_ptr<WhileNode> ptr) {
     pushToStack(ptr->getStatementNumber());
-};
+}

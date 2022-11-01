@@ -12,7 +12,7 @@ private:
     PKBInterface* pkbInterface;
 
 public:
-    SourceProcessor(PKBInterface* pkbInterface) {
+    explicit SourceProcessor(PKBInterface* pkbInterface) {
         this->pkbInterface = pkbInterface;
     }
 

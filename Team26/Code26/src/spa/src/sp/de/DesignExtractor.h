@@ -2,6 +2,7 @@
 #include <stack>
 #include <string>
 #include <unordered_map>
+#include <utility>
 #include <vector>
 #include "DesignExtractorInterface.h"
 #include "pkb/PKBInterface.h"
@@ -16,7 +17,7 @@ private:
     std::unordered_map<std::string, std::pair<int, int>> nameToIndex;
     std::unordered_map<int, std::string> indexToName;
 public:
-    DesignExtractor(PKBInterface* pkb) {
+    explicit DesignExtractor(PKBInterface* pkb) {
         std::shared_ptr<FollowsExtractor> followsExtractor = make_shared<FollowsExtractor>(pkb);
         std::shared_ptr<ParentExtractor> parentExtractor = make_shared<ParentExtractor>(pkb);
         std::shared_ptr<ModifiesExtractor> modifiesExtractor = make_shared<ModifiesExtractor>(pkb);

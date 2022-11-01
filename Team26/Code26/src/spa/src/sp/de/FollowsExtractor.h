@@ -4,7 +4,7 @@
 
 class FollowsExtractor : public Extractor {
 public:
-    FollowsExtractor(PKBInterface *pkb) : Extractor(pkb) {}
+    explicit FollowsExtractor(PKBInterface *pkb) : Extractor(pkb) {}
 
     void extractFromProcedure(std::shared_ptr<ProcedureNode> ptr) override;
     void extractFromIf(std::shared_ptr<IfNode> ptr) override;
