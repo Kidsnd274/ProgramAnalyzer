@@ -3,6 +3,7 @@
 #include "StatementNode.h"
 
 class PrintNode : public StatementNode {
+private:
     std::string variableName;
     
 public:
@@ -11,6 +12,5 @@ public:
     }
 
     std::string getVariableName();
-
     static std::shared_ptr<PrintNode> createPrintNode(int statementNumber, std::string variableName);
 };

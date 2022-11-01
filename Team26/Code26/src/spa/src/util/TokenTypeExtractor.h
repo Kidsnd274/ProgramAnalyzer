@@ -1,6 +1,8 @@
-#pragma  once
+#pragma once
 #ifndef SPA_TOKENTYPEEXTRACTOR_H
 #define SPA_TOKENTYPEEXTRACTOR_H
+
+#include <string>
 #include <unordered_map>
 #include "SPToken.h"
 #include "sp/SyntaxErrorException.h"

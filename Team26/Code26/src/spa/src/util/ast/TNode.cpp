@@ -29,11 +29,11 @@ std::string TNode::getValue() {
 }
 
 bool TNode::isSameTree(const std::shared_ptr<TNode> &t1, const std::shared_ptr<TNode> &t2) {
-    if(t1 == nullptr) {
+    if (t1 == nullptr) {
         return t2 == nullptr;
     }
 
-    if(t2 == nullptr) return false;
+    if (t2 == nullptr) return false;
 
     bool sameNodeType = t1->getNodeType() == t2->getNodeType();
     bool sameValue = t1->getValue() == t2->getValue();
@@ -66,7 +66,7 @@ bool TNode::matchSubTree(const std::shared_ptr<TNode> &t1, const std::shared_ptr
         case WildcardPosition::BOTH:
             return matchSubTree(t1->getLeftNode(), t2, WildcardPosition::BOTH) || matchSubTree(t1->getRightNode(), t2, WildcardPosition::BOTH);
         default:
-            return false; //Should not reach here
+            return false;  // Should not reach here
     }
 }
 
