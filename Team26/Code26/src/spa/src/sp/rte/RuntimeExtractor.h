@@ -29,7 +29,7 @@ public:
 
     //Affects relationships
     void computeAffects(CFGHeadPtr cfg, STMT_NUM stmt);
-    void computeAffectsStar(CFGHeadPtr cfg, STMT_NUM stmt);
+    void computeAffectsStar(const CFGHeadPtr& cfg, STMT_NUM stmt);
 
     void clearCache();
 };

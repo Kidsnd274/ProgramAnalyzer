@@ -9,43 +9,24 @@ void QueryEvaluator::evaluate(Query* query) {
     ResultTable* resultOfEvaluation = new ResultTable();
     ClauseAssigner* clauseAssigner = new ClauseAssigner();
 
-    // Relation clause and Pattern clause
+    // Group the clauses
+//    query->clauseList = QueryEvaluator::groupClauses(query->clauseList);
+
+    // Add synonyms to the map
+    unordered_map<string, int> synonymCount = countSynonym(query);
+
+    // Evaluate the clauses
     for (auto iter = query->clauseList->begin(); iter != query->clauseList->end(); iter++) {
-        if (typeid(**iter).name() == typeid(WithClause).name()) {
-            continue;
-        }
         ResultTable* resultTable = new ResultTable();
         clauseAssigner->assignClause(resultTable, *iter);
         resultOfEvaluation = ResultTable::mergeTable(resultOfEvaluation, resultTable);
-//        resultOfEvaluation->mergeTable(*resultTable);
+        removeSynonym(**iter, &synonymCount, resultOfEvaluation);
     }
-
-//    for (auto candidate: query->getCandidateList()) {
-//        if (candidate.argument.argumentType == Argument::BOOLEAN_ARG) {
-//            continue;
-//        }
-//        if (!resultOfEvaluation->isSynonymPresent(candidate.argument.argumentName)) {
-//            getAllEntity(candidate.argument, resultOfEvaluation);
-//        }
-//    }
-
-    // Merge with synonyms to be selected
     for (auto synonym: query->getSynonymMap()) {
         if (!resultOfEvaluation->isSynonymPresent(synonym.second.argumentName)) {
             getAllEntity(synonym.second, resultOfEvaluation);
         }
     }
-
-    // With clause
-    for (auto iter = query->clauseList->begin(); iter != query->clauseList->end(); iter++) {
-        if (typeid(**iter) != typeid(WithClause)) {
-            continue;
-        }
-        clauseAssigner->assignClause(resultOfEvaluation, *iter);
-    }
-
-    // For select s.AttrName, change value to their corresponding AttrName
-//    changeToAttrName(query, resultOfEvaluation);
 
     query->resultTable = resultOfEvaluation;
 }
@@ -53,7 +34,7 @@ void QueryEvaluator::evaluate(Query* query) {
 void QueryEvaluator::getAllEntity(Argument argument, QPS::ResultTable *resultTable) {
     vector<string> synonym = {argument.argumentName};
     unordered_set<vector<string>, StringVectorHash> results;
-    vector<string> entities = QPS_PKB_Interface::getAllEntity(&argument);
+    vector<string> entities = QPS_Interface::getAllEntity(&argument);
     for (auto e: entities) {
         results.insert({e});
     }
@@ -61,27 +42,142 @@ void QueryEvaluator::getAllEntity(Argument argument, QPS::ResultTable *resultTab
     resultTable->mergeTable(*entityTable);
 }
 
-//void QueryEvaluator::changeToAttrName(Query *query, QPS::ResultTable *resultTable) {
-//    std::vector<pair<int, Query::CandidateStruct>> colsToChange;
-//    for (auto candidate : query->getCandidateList()) {
-//        if (candidate.attributeType != INAPPLICABLE) {
-//            colsToChange.push_back(
-//                    make_pair(
-//                            resultTable->getSynonymColRef().find(candidate.argument.argumentName)->second,
-//                            candidate
-//                    )
-//            );
-//        }
-//    }
-//    std::vector<std::vector<std::string>> attrNameResultTable = resultTable->getTable();
-//    for (int i = 0; i < attrNameResultTable.size(); i++) {
-//        std::vector<std::string> row = attrNameResultTable.at(i);
-//        for (auto col : colsToChange) {
-//            int colNum = col.first;
-//            string temp = getAttrName(row.at(colNum), col.second);
-//            row[colNum] = getAttrName(row.at(colNum), col.second);
-//        }
-//        attrNameResultTable[i] = row;
-//    }
-//    resultTable->setTable(attrNameResultTable);
-//}
+int QueryEvaluator::calcHeuristic(Clause &clause) {
+    return 0;
+}
+
+int QueryEvaluator::numOfSynonyms(Clause &clause) {
+    int num = 0;
+    if (Argument::isSynonym(clause.getFirstArgument().argumentType)) {
+        num += 1;
+    }
+    if (Argument::isSynonym(clause.getSecondArgument().argumentType)) {
+        num += 1;
+    }
+    return num;
+}
+
+std::vector<Clause*>* QueryEvaluator::groupClauses(std::vector<Clause*>* clauseList) {
+    std::vector<Clause*>* resultList;
+    // Iterate through clauseList to build the synonymClausesMap
+    std::unordered_map<std::string, std::unordered_set<int>> synonymClausesMap;
+    for (int i = 0; i < clauseList->size(); i++) {
+        Clause* clause = clauseList->at(i);
+        int numOfSynonyms = 0;
+        Argument arg1 = clause->getFirstArgument();
+        Argument arg2 = clause->getSecondArgument();
+        if (Argument::isSynonym(arg1.argumentType)) {
+            numOfSynonyms += 1;
+            auto iter = synonymClausesMap.find(arg1.argumentName);
+            if (iter != synonymClausesMap.end()) {
+                iter->second.insert(i);
+            } else {
+                synonymClausesMap.insert(make_pair(arg1.argumentName, unordered_set<int> {i}));
+            }
+        }
+        if (Argument::isSynonym(arg2.argumentType)) {
+            numOfSynonyms += 1;
+            auto iter = synonymClausesMap.find(arg2.argumentName);
+            if (iter != synonymClausesMap.end()) {
+                iter->second.insert(i);
+            } else {
+                synonymClausesMap.insert(make_pair(arg2.argumentName, unordered_set<int> {i}));
+            }
+        }
+        if (numOfSynonyms == 0) { // Clauses without synonym will be put into group 1 directly.
+            resultList->push_back(clause);
+        }
+    }
+
+    // Merge adjacent clauses in each synonym's clauseSet
+    UnionFindDisjointSet* ufds = new UnionFindDisjointSet(clauseList->size());
+    ufds->initialize();
+    int lastClauseIndex = -1;
+    for (auto pair : synonymClausesMap) {
+        for (auto clauseIndex : pair.second) {
+            if (lastClauseIndex != -1) {
+                ufds->merge(lastClauseIndex, clauseIndex);
+            }
+            lastClauseIndex = clauseIndex;
+        }
+    }
+
+    // Iterate through clauseList and put clauses into corresponding group list.
+    int numOfGroups = ufds->getNumberOfGroups();
+    unordered_map<int, std::vector<int>> groups;
+    for (int i = 0; i < clauseList->size(); i++) {
+        int groupNumber = ufds->find(i);
+        auto iter = groups.find(groupNumber);
+        if (iter != groups.end()) {
+            iter->second.push_back(i);
+        } else {
+            groups.insert(make_pair(groupNumber, i));
+        }
+    }
+
+    // TODO: sort clauses within same group by heuristic.
+
+    // Merge the group lists into one clauseList
+    for (auto pair : groups) {
+        for (auto clauseIndex : pair.second) {
+            resultList->push_back(clauseList->at(clauseIndex));
+        }
+    }
+
+    return resultList;
+}
+
+std::unordered_map<std::string, int>
+QueryEvaluator::countSynonym(Query* query) {
+    std::vector<Clause *> *clauseList = query->clauseList;
+    std::unordered_set<std::string> candidates = query->getCandidates();
+    unordered_map<string, int> synonymCount = {};
+    for (auto clause: *clauseList) {
+        Argument arg1 = clause->getFirstArgument();
+        Argument arg2 = clause->getSecondArgument();
+        if (Argument::isSynonym(arg1.argumentType)) {
+            if (synonymCount.count(arg1.argumentName) == 0) {
+                synonymCount[arg1.argumentName] = 1;
+            } else {
+                synonymCount[arg1.argumentName] += 1;
+            }
+        }
+        if (Argument::isSynonym(arg2.argumentType)) {
+            if (synonymCount.count(arg2.argumentName) == 0) {
+                synonymCount[arg2.argumentName] = 1;
+            } else {
+                synonymCount[arg2.argumentName] += 1;
+            }
+        }
+    }
+    for (auto candidate: candidates) {
+        if (synonymCount.count(candidate) == 0) {
+            synonymCount[candidate] = 1;
+        } else {
+            synonymCount[candidate] += 1;
+        }
+    }
+    return synonymCount;
+}
+
+void QueryEvaluator::removeSynonym(Clause &clause, std::unordered_map<std::string, int> *synonymCount,
+                                   QPS::ResultTable *resultTable) {
+    Argument arg1 = clause.getFirstArgument();
+    Argument arg2 = clause.getSecondArgument();
+    if (Argument::isSynonym(arg1.argumentType)) {
+        if (synonymCount->count(arg1.argumentName) != 0) {
+            (*synonymCount)[arg1.argumentName] -= 1;
+        }
+        if (synonymCount->count(arg1.argumentName) == 0) {
+            resultTable->deleteColFromTable(arg1.argumentName);
+        }
+    }
+    if (Argument::isSynonym(arg2.argumentType)) {
+        if (synonymCount->count(arg2.argumentName) != 0) {
+            (*synonymCount)[arg2.argumentName] -= 1;
+        }
+        if (synonymCount->count(arg2.argumentName) == 0) {
+            resultTable->deleteColFromTable(arg2.argumentName);
+        }
+    }
+}

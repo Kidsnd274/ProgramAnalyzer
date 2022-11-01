@@ -12,3 +12,7 @@ void NextTable::insertNext(int frontStmtLineNumber, int backStmtLineNumber) {
 std::unordered_map<int, std::vector<int>>& NextTable::getAllNext() {
     return this->nextList;
 }
+
+void NextTable::clear() {
+    this->nextList.clear();
+}

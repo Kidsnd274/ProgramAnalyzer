@@ -51,6 +51,9 @@ public:
     }
 
     bool isValid() override;
+
+    Argument getFirstArgument() override;
+    Argument getSecondArgument() override;
 };
 
 #endif //SPA_WITHCLAUSE_H

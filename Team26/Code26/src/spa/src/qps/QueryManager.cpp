@@ -73,7 +73,7 @@ std::string exceptionToStringQPS(Exception e) {
 }
 
 void QueryManager::handleQuery(PKBInterface *pkb, std::string queryString, std::list<std::string> &results) {
-    QPS_PKB_Interface::setPKBInterface(pkb);
+    QPS_Interface::setPKBInterface(pkb);
     std::vector<QPS::Token> tokens; // Initialize a vector of SPToken to store the tokens.
     QPS::tokenize(std::move(queryString), tokens); // Call tokenizer to read in PQL and tokenize it into tokens.
 

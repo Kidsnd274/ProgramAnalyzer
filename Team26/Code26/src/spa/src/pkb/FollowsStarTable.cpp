@@ -11,3 +11,7 @@ void FollowsStarTable::insertFollowsStar(int frontStmtLineNumber, int backStmtLi
 unordered_map<int, int> FollowsStarTable::getAllFollowStars() {
     return this->followsStarList;
 }
+
+void FollowsStarTable::clear() {
+    this->followsStarList.clear();
+}
