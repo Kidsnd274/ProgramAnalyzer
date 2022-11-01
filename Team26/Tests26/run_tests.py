@@ -120,7 +120,9 @@ run_multiple_tests(tests)
 
 print("-----------------------SPRINT 3 / DEMO 2-----------------------")
 demo2 = testdir / "demo2"
-tests = [TestCase("test_calls", demo2)]
+tests = [TestCase("test_calls", demo2),
+         # TestCase("test_pattern2", demo2), # Test case broken
+         ]
 
 run_multiple_tests(tests)
 
