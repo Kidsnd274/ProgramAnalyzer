@@ -1,0 +1,30 @@
+procedure procedure1 {
+    read x;
+    print x;
+    call procedure2;
+    while (y > 2) {
+        x = x + 1;
+    }
+}
+
+procedure procedure2 {
+    x = y + 2;
+    y = x + 2;
+    while (x > 1) {
+        read x;
+        print y;
+    }
+    if (y > 2) then {
+        g = y;
+    } else {
+        g = g + 2;
+    }
+}
+
+procedure procedure3 {
+    call procedure4;
+}
+
+procedure procedure4 {
+    x = x + 1;
+}
