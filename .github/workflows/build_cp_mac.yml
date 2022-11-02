@@ -69,14 +69,15 @@ jobs:
           cd Team26/Tests26
           python ./run_tests.py
 
-      - name: Archive Test Results Error
+      - name: Archive Test Results
         uses: actions/upload-artifact@v3
-        if: failure()
+        if: always()
         with:
           name: results
           path: |
             ${{runner.workspace}}/22s1-cp-spa-team-26/Team26/Tests26/failed_tests.txt
             ${{runner.workspace}}/22s1-cp-spa-team-26/Team26/Tests26/failed_tests/
+            ${{runner.workspace}}/22s1-cp-spa-team-26/Team26/Tests26/passed_tests/
           retention-days: 3
 
       - name: Upload binary artifacts
