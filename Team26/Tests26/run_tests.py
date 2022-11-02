@@ -143,7 +143,7 @@ run_multiple_tests(tests)
 
 print("-----------------------SPRINT 5 / MILESTONE 3-----------------------")
 milestone3 = testdir / "milestone3"
-tests = [TestCase("milestone3_test_sam", milestone3)]
+tests = [TestCase("milestone3_test1", milestone3)]
 
 run_multiple_tests(tests)
 
