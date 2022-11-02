@@ -828,3 +828,218 @@ print pr;
 Select pr such that Calls* (_, pr)
 SemanticError
 5000
+163 - Next test 1
+stmt s;
+Select s such that Next (1, s)
+2, 4
+5000
+164 - Next test 2
+stmt s;
+Select s such that Next (2, s)
+3
+5000
+165 - Next test 3
+stmt s;
+Select s such that Next (3, s)
+1
+5000
+166 - Next test 4
+stmt s;
+Select s such that Next (4, s)
+5
+5000
+167 - Next test 5
+stmt s;
+Select s such that Next (5, s)
+6, 7
+5000
+168 - Next test 6
+stmt s;
+Select s such that Next (6, s)
+none
+5000
+169 - Next test 7
+stmt s;
+Select s such that Next (7, s)
+8
+5000
+170 - Next test 8
+stmt s;
+Select s such that Next (8, s)
+9
+5000
+171 - Next test 9
+stmt s;
+Select s such that Next (9, s)
+10, 19
+5000
+172 - Next test 10
+stmt s;
+Select s such that Next (10, s)
+11
+5000
+173 - Next test 11
+stmt s;
+Select s such that Next (11, s)
+12, 20
+5000
+174 - Next test 12
+stmt s;
+Select s such that Next (12, s)
+13
+5000
+175 - Next test 13
+stmt s;
+Select s such that Next (13, s)
+14
+5000
+176 - Next test 14
+stmt s;
+Select s such that Next (14, s)
+15, 20
+5000
+177 - Next test 15
+stmt s;
+Select s such that Next (15, s)
+16
+5000
+178 - Next test 16
+stmt s;
+Select s such that Next (16, s)
+17
+5000
+179 - Next test 17
+stmt s;
+Select s such that Next (17, s)
+18
+5000
+180 - Next test 18
+stmt s;
+Select s such that Next (18, s)
+14
+5000
+181 - Next test 19
+stmt s;
+Select s such that Next (19, s)
+20
+5000
+182 - Next test 20
+stmt s;
+Select s such that Next (20, s)
+21, 8
+5000
+183 - Next test 21
+stmt s;
+Select s such that Next (21, s)
+22
+5000
+184 - Next test 22
+stmt s;
+Select s such that Next (22, s)
+20
+5000
+185 - Next test 23
+stmt s;
+Select s such that Next (23, s)
+24
+5000
+186 - Next test 24
+stmt s;
+Select s such that Next (24, s)
+none
+5000
+187 - Next test 25
+stmt s;
+Select s such that Next (25, s)
+26
+5000
+188 - Next test 26
+stmt s;
+Select s such that Next (26, s)
+27
+5000
+189 - Next test 27
+stmt s;
+Select s such that Next (27, s)
+28
+5000
+190 - Next test 28
+stmt s;
+Select s such that Next (28, s)
+none
+5000
+191 - Next test 29
+stmt s;
+Select s such that Next (29, s)
+30
+5000
+192 - Next test 30
+stmt s;
+Select s such that Next (30, s)
+31
+5000
+193 - Next test 31
+stmt s;
+Select s such that Next (31, s)
+32
+5000
+194 - Next test 32
+stmt s;
+Select s such that Next (32, s)
+33
+5000
+195 - Next test 33
+stmt s;
+Select s such that Next (33, s)
+34, 38
+5000
+196 - Next test 34
+stmt s;
+Select s such that Next (34, s)
+35
+5000
+197 - Next test 35
+stmt s;
+Select s such that Next (35, s)
+36
+5000
+198 - Next test 36
+stmt s;
+Select s such that Next (36, s)
+37
+5000
+199 - Next test 37
+stmt s;
+Select s such that Next (37, s)
+33
+5000
+200 - Next test 38
+stmt s;
+Select s such that Next (38, s)
+39, 40
+5000
+201 - Next test 39
+stmt s;
+Select s such that Next (39, s)
+42
+5000
+202 - Next test 40
+stmt s;
+Select s such that Next (40, s)
+41
+5000
+203 - Next test 41
+stmt s;
+Select s such that Next (41, s)
+42
+5000
+204 - Next test 42
+stmt s;
+Select s such that Next (42, s)
+43
+5000
+205 - Next test 43
+stmt s;
+Select s such that Next (43, s)
+none
+5000
