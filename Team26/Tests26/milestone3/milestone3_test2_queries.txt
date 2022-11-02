@@ -808,3 +808,23 @@ stmt s;
 Select a such that Follows* (s, 38)
 SemanticError
 5000
+159 - ms2 semantic error test case 1
+read r;
+Select r such that Calls* (r, "xxx")
+SemanticError
+5000
+160 - ms2 semantic error test case 2
+print pr;
+Select pr such that Calls* (pr, "xxx")
+SemanticError
+5000
+161 - ms2 semantic error test case 3
+read r;
+Select r such that Calls* (_, r)
+SemanticError
+5000
+162 - ms2 semantic error test case 4
+print pr;
+Select pr such that Calls* (_, pr)
+SemanticError
+5000
