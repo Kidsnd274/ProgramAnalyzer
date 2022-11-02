@@ -793,3 +793,18 @@ assign a; variable v; stmt s;
 Select s pattern s (v,  _"pointx"_)
 SemanticError
 5000
+156 - ms1 semantic error test case 1
+print pr;
+Select a such that Follows (29, pr)
+SemanticError
+5000
+157- ms1 semantic error test case 2
+while w; stmt s;
+Select x such that Uses (s,  "x")
+SemanticError
+5000
+158 - ms1 semantic error test case 3
+stmt s;
+Select a such that Follows* (s, 38)
+SemanticError
+5000
