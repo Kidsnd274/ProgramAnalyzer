@@ -35,3 +35,7 @@ std::vector<std::string> CallTable::getProcsCalled(std::string procedureName) {
 std::unordered_map<std::string, std::vector<std::string>> CallTable::getAllCalls() {
     return this->callList;
 }
+
+void CallTable::clear() {
+    this->callList.clear();
+}

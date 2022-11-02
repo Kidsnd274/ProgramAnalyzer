@@ -1,4 +1,5 @@
 #include <memory>
+#include <utility>
 #include <vector>
 #include "StatementNode.h"
 #include "TNode.h"
@@ -13,7 +14,7 @@ public:
             std::vector<std::shared_ptr<StatementNode>> statementList) : StatementNode(statementNumber, statementType::WHILE) {
         this->conditionalExpression = std::move(conditionalExpression);
         this->statementList = std::move(statementList);
-    };
+    }
 
     std::shared_ptr<TNode> getConditionalExpression();
     std::vector<std::shared_ptr<StatementNode>> getStatementList();

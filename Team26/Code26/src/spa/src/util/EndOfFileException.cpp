@@ -1,5 +1,5 @@
 #include "EndOfFileException.h"
 
 char *EndOfFileException::what() {
-    return (char*) "No more tokens left!";
+    return const_cast<char*>("No more tokens left!");
 }

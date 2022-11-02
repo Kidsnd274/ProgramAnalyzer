@@ -4,15 +4,15 @@
 #include <utility>
 
 void AffectsExtractor::computeAffects(CFGHeadPtr cfg, PKBInterface* pkb, STMT_NUM stmt) {
-    if(pkb->hasAffects(stmt)) {
+    if (pkb->hasAffects(stmt)) {
         return;
     }
 
     string varModified = pkb->getModifiedVariable(stmt);
     std::unordered_set<STMT_NUM> affectedSet = getReachableNodes(std::move(cfg), pkb, stmt, varModified);
 
-    for(auto i : affectedSet) {
-        if(pkb->isStatementAssign(i) && pkb->doesStatementUse(i, varModified)) {
+    for (auto i : affectedSet) {
+        if (pkb->isStatementAssign(i) && pkb->doesStatementUse(i, varModified)) {
             pkb->addAffects(stmt, i);
         }
     }
@@ -20,8 +20,8 @@ void AffectsExtractor::computeAffects(CFGHeadPtr cfg, PKBInterface* pkb, STMT_NU
 
 void AffectsExtractor::computeDDG(std::string& procName, const CFGHeadPtr& cfg, PKBInterface *pkb) {
     std::unordered_set<STMT_NUM> assignSet = pkb->getAllAssignFromProcedure(procName);
-    for(auto stmt : assignSet) {
-        if(!pkb->hasAffects(stmt)) {
+    for (auto stmt : assignSet) {
+        if (!pkb->hasAffects(stmt)) {
             computeAffects(cfg, pkb, stmt);
         }
 
@@ -31,19 +31,19 @@ void AffectsExtractor::computeDDG(std::string& procName, const CFGHeadPtr& cfg, 
 }
 
 void AffectsExtractor::addEdgesToDDG(std::string& procName, STMT_NUM stmt, std::unordered_set<STMT_NUM>& affectedSet) {
-    for(auto affected : affectedSet) {
+    for (auto affected : affectedSet) {
         procToDDG[procName][stmt].push_back(affected);
     }
 }
 
 void AffectsExtractor::computeAffectsStar(const CFGHeadPtr& cfg, PKBInterface *pkb, STMT_NUM stmt) {
-    if(pkb->hasAffectsStar(stmt)) {
+    if (pkb->hasAffectsStar(stmt)) {
         return;
     }
 
     std::string procName = pkb->getProcedureNameOf(cfg);
 
-    if(procToDDG.find(procName) == procToDDG.end()) {
+    if (procToDDG.find(procName) == procToDDG.end()) {
         computeDDG(procName, cfg, pkb);
     }
     std::unordered_set<STMT_NUM> visited;
@@ -52,7 +52,7 @@ void AffectsExtractor::computeAffectsStar(const CFGHeadPtr& cfg, PKBInterface *p
 }
 
 void AffectsExtractor::dfs(std::string& procName, STMT_NUM stmt, std::unordered_set<STMT_NUM>& visited) {
-    if(visited.find(stmt) != visited.end()) {
+    if (visited.find(stmt) != visited.end()) {
         return;
     }
 
@@ -63,7 +63,7 @@ void AffectsExtractor::dfs(std::string& procName, STMT_NUM stmt, std::unordered_
 
 void AffectsExtractor::dfsOnNeighbours(std::string& procName, STMT_NUM stmt, std::unordered_set<STMT_NUM>& visited) {
     for (auto i : procToDDG[procName][stmt]) {
-        if(visited.find(i) == visited.end()) {
+        if (visited.find(i) == visited.end()) {
             dfs(procName, i, visited);
         }
     }

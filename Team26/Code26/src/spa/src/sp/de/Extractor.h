@@ -1,5 +1,8 @@
 #ifndef SPA_SP_DE_EXTRACTOR_H
 #define SPA_SP_DE_EXTRACTOR_H
+
+#include <memory>
+#include <vector>
 #include <stack>
 #include <string>
 #include "util/ast/IfNode.h"
@@ -10,13 +13,15 @@
 #include "util/ast/CallNode.h"
 #include "util/ast/ProcedureNode.h"
 #include "pkb/PKBInterface.h"
+
 class Extractor {
 private:
     std::stack<int> callStack;
     std::string procName;
+
 public:
     PKBInterface* pkb;
-    Extractor(PKBInterface *pkb) {
+    explicit Extractor(PKBInterface *pkb) {
         this->pkb = pkb;
     }
     virtual ~Extractor() = default;
@@ -45,12 +50,12 @@ public:
     std::vector<int> getAllItemsInStack() {
         std::stack<int> temp;
         vector<int> ans;
-        while(!callStack.empty()) {
+        while (!callStack.empty()) {
             int t = popFromStack();
             ans.push_back(t);
             temp.push(t);
         }
-        while(!temp.empty()) {
+        while (!temp.empty()) {
             pushToStack(temp.top());
             temp.pop();
         }
@@ -64,7 +69,7 @@ public:
     virtual void extractFromPrint(std::shared_ptr<PrintNode> ptr) = 0;
     virtual void extractFromAssign(std::shared_ptr<AssignNode> ptr) = 0;
 
-    //Does nothing for Milestone 1
+    // Does nothing for Milestone 1
     void extractFromCall(std::shared_ptr<CallNode> ptr) {}
 };
 #endif

@@ -29,6 +29,9 @@ public:
     }
 
     bool isValid() override;
+
+    Argument getFirstArgument() override;
+    Argument getSecondArgument() override;
 };
 
 

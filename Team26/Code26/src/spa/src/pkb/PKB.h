@@ -1,47 +1,69 @@
 #pragma once
 
-#include<stdio.h>
+#include <stdio.h>
 #include <iostream>
 #include <string>
 #include <vector>
-#include "StatementTable.h"
-#include "UsesTable.h"
-#include "ModifiesTable.h"
+#include "util/ast/TNode.h"
 #include "ProcedureTable.h"
+#include "VarTable.h"
+#include "ConstantTable.h"
+#include "StatementTable.h"
+#include "ModifiesTable.h"
+#include "UsesTable.h"
+#include "ParentTable.h"
+#include "ParentStarTable.h"
+#include "FollowsTable.h"
+#include "FollowsStarTable.h"
+#include "CallTable.h"
+#include "CallStarTable.h"
+#include "ContainerTable.h"
 #include "NextTable.h"
+#include "NextStarTable.h"
+#include "AffectTable.h"
+#include "AffectStarTable.h"
 
 using namespace std;
 typedef short PROC;
 
-class TNode;
-
-class VarTable;  // no need to #include "VarTable.h" as all I need is pointer
-class ConstantTable;
-class ParentTable;
-class ParentStarTable;
-class FollowsTable;
-class FollowsStarTable;
-class CallTable;
-class CallStarTable;
-class NextTable;
-class ContainerTable;
-
 class PKB {
 public:
-    ProcedureTable* procedureTable = new ProcedureTable();
-	static VarTable* varTable;
-    static ConstantTable* constantTable;
-    StatementTable* statementTable = new StatementTable();
-    ModifiesTable* modifiesTable = new ModifiesTable();
-    UsesTable* usesTable = new UsesTable();
-    static ParentTable* parentTable;
-    static ParentStarTable* parentStarTable;
-    static FollowsTable* followsTable;
-    static FollowsStarTable* followsStarTable;
-    static CallTable* callTable;
-    static CallStarTable* callStarTable;
-    static ContainerTable* containerTable;
-	static int setProcToAST(PROC p, TNode* r);
-	static TNode* getRootAST (PROC p);
-    static NextTable* nextTable;
+    ProcedureTable* procedureTable;
+    VarTable* varTable;
+    ConstantTable* constantTable;
+    StatementTable* statementTable;
+    ModifiesTable* modifiesTable;
+    UsesTable* usesTable;
+    ParentTable* parentTable;
+    ParentStarTable* parentStarTable;
+    FollowsTable* followsTable;
+    FollowsStarTable* followsStarTable;
+    CallTable* callTable;
+    CallStarTable* callStarTable;
+    ContainerTable* containerTable;
+    NextTable* nextTable;
+    NextStarTable* nextStarTable;
+    AffectTable* affectTable;
+    AffectStarTable* affectStarTable;
+    PKB() {
+        procedureTable = new ProcedureTable();
+        varTable = new VarTable();
+        constantTable = new ConstantTable();
+        statementTable = new StatementTable();
+        modifiesTable = new ModifiesTable();
+        usesTable = new UsesTable();
+        parentTable = new ParentTable();
+        parentStarTable = new ParentStarTable();
+        followsTable = new FollowsTable;
+        followsStarTable = new FollowsStarTable();
+        callTable = new CallTable();
+        callStarTable = new CallStarTable();
+        containerTable = new ContainerTable();
+        nextTable = new NextTable();
+        nextStarTable = new NextStarTable();
+        affectTable = new AffectTable();
+        affectStarTable = new AffectStarTable();
+    }
+    int setProcToAST(PROC p, TNode* r);
+    TNode* getRootAST (PROC p);
 };

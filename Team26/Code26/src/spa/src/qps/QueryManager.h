@@ -5,7 +5,7 @@
 #include <vector>
 #include <string>
 #include "pkb/PKBInterface.h"
-#include "QPS_PKB_Interface.h"
+#include "QPS_Interface.h"
 #include "Tokenizer.h"
 #include "QueryProcessorTypes.h"
 #include "QueryPreprocessor.h"

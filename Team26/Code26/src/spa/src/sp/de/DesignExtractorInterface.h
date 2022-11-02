@@ -6,6 +6,10 @@
 #include "ParentExtractor.h"
 #include "ModifiesExtractor.h"
 #include "UsesExtractor.h"
+#include <memory>
+#include <string>
+#include <vector>
+
 class DesignExtractorInterface {
 public:
     virtual ~DesignExtractorInterface() = default;

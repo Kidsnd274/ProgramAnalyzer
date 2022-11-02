@@ -1,4 +1,4 @@
-name: CI for Cmake Project - MacOS
+name: Build, Unit, Integration & System Tests - MacOS
 
 on:
   push:
@@ -22,10 +22,10 @@ jobs:
     runs-on: macos-latest
     timeout-minutes: 7
     strategy:
-      fail-fast: false
+      fail-fast: true
 
     steps:
-      - uses: actions/checkout@v2
+      - uses: actions/checkout@v3
       - uses: actions/setup-python@v4
         with:
           python-version: '3.9'
@@ -62,8 +62,31 @@ jobs:
           cat output.txt
 
       - name: Run autotester test cases
+        if: always()
         shell: bash
         working-directory: ${{runner.workspace}}/22s1-cp-spa-team-26
         run: |
           cd Team26/Tests26
           python ./run_tests.py
+
+      - name: Archive Test Results
+        uses: actions/upload-artifact@v3
+        if: always()
+        with:
+          name: results
+          path: |
+            ${{runner.workspace}}/22s1-cp-spa-team-26/Team26/Tests26/failed_tests.txt
+            ${{runner.workspace}}/22s1-cp-spa-team-26/Team26/Tests26/failed_tests/
+            ${{runner.workspace}}/22s1-cp-spa-team-26/Team26/Tests26/passed_tests/
+          retention-days: 3
+
+      - name: Upload binary artifacts
+        uses: actions/upload-artifact@v3
+        if: always()
+        with:
+          name: binaries
+          path: |
+            ${{runner.workspace}}/build/src/integration_testing/integration_testing
+            ${{runner.workspace}}/build/src/unit_testing/unit_testing
+            ${{runner.workspace}}/build/src/autotester/autotester
+          retention-days: 3

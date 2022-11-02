@@ -6,6 +6,9 @@
 class Clause {
 public:
     virtual bool isValid();
+
+    virtual Argument getFirstArgument();
+    virtual Argument getSecondArgument();
 };
 
 

@@ -1,7 +1,8 @@
-
 #ifndef SPA_RUNTIMEEXTRACTOR_H
 #define SPA_RUNTIMEEXTRACTOR_H
 
+#include <unordered_set>
+#include <utility>
 #include "pkb/PKBInterface.h"
 #include "util/cfg/CFGHead.h"
 #include "NextExtractor.h"
@@ -22,17 +23,16 @@ public:
         pkbInterface = nullptr;
     }
 
-    //Next relationships
+    // Next relationships
     bool isNext(CFGHeadPtr cfg, STMT_NUM stmt1, STMT_NUM stmt2);
     void computeNextStar(CFGHeadPtr cfg, STMT_NUM stmt);
     std::unordered_set<STMT_NUM> getNextNodes(CFGHeadPtr cfg, STMT_NUM stmt1);
 
-    //Affects relationships
+    // Affects relationships
     void computeAffects(CFGHeadPtr cfg, STMT_NUM stmt);
-    void computeAffectsStar(CFGHeadPtr cfg, STMT_NUM stmt);
+    void computeAffectsStar(const CFGHeadPtr& cfg, STMT_NUM stmt);
 
     void clearCache();
 };
 
-
-#endif //SPA_RUNTIMEEXTRACTOR_H
+#endif  // SPA_RUNTIMEEXTRACTOR_H

@@ -18,7 +18,7 @@ void ParentExtractor::extractFromStatementsWithStatementList(int stmtNum, std::v
     for (auto &stmt : stmtList) {
         pkb->addParent(v.front(), stmt->getStatementNumber());
         for (auto p : v) {
-            pkb->addParentStar(p, stmt->getStatementNumber()); //<- let qps handle O(n^2)
+            pkb->addParentStar(p, stmt->getStatementNumber());  // <- let qps handle O(n^2)
         }
     }
 }

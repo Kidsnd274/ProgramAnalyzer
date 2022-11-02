@@ -1,4 +1,3 @@
-
 #include "RuntimeExtractor.h"
 
 bool RuntimeExtractor::isNext(CFGHeadPtr cfg, STMT_NUM stmt1, STMT_NUM stmt2) {
@@ -17,11 +16,11 @@ void RuntimeExtractor::computeAffects(CFGHeadPtr cfg, STMT_NUM stmt) {
     affectsExtractor.computeAffects(std::move(cfg), pkbInterface, stmt);
 }
 
-void RuntimeExtractor::computeAffectsStar(CFGHeadPtr cfg, STMT_NUM stmt) {
-    affectsExtractor.computeAffectsStar(std::move(cfg), pkbInterface, stmt);
+void RuntimeExtractor::computeAffectsStar(const CFGHeadPtr& cfg, STMT_NUM stmt) {
+    affectsExtractor.computeAffectsStar(cfg, pkbInterface, stmt);
 }
 
 void RuntimeExtractor::clearCache() {
-    //pkbInterface->clearCache();
+    pkbInterface->clear();
     affectsExtractor.clearCache();
 }

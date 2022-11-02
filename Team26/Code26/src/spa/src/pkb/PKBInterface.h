@@ -4,8 +4,10 @@
 #include <iostream>
 #include <string>
 #include <vector>
+#include <cassert>
 #include <memory>
 #include <unordered_set>
+#include <utility>
 
 #include "qps/QueryProcessorTypes.h"
 #include "PKB.h"
@@ -13,6 +15,13 @@
 #include "util/ast/AssignNode.h"
 #include "util/ast/TNode.h"
 #include "util/cfg/CFGHead.h"
+#include "ProcedureTable.h"
+#include "StatementTable.h"
+#include "ModifiesTable.h"
+#include "ParentStarTable.h"
+#include "ContainerTable.h"
+#include "ProcedureNotFoundException.h"
+#include "NextStarTable.h"
 
 using namespace std;
 using namespace QPS;
@@ -63,6 +72,9 @@ public:
     virtual unordered_map<int,int> getAllFollow();
     virtual unordered_map<int,int> getAllFollowStar();
     virtual unordered_map<int, vector<int>> getAllNext();
+    virtual std::unordered_map<STMT_NUM, std::unordered_set<STMT_NUM>> getAllNextStar();
+    virtual unordered_map<int, std::unordered_set<int>> getAllAffects();
+    virtual unordered_map<int, std::unordered_set<int>> getAllAffectsStar();
     virtual unordered_map<int, std::vector<std::string>> getAllModifyByStmt();
     virtual unordered_map<std::string, std::vector<std::string>> getAllModifyByProc();
     virtual unordered_map<int, std::vector<int>> getAllParent();
@@ -88,7 +100,7 @@ public:
     virtual std::string getReadVarName(std::string readLineNumber);
     virtual std::string getPrintVarName(std::string printLineNumber);
 
-    // For testing
+
     CFGHeadPtr getCfgOfProcedure(std::string procedureName);
     virtual bool hasNextStar(STMT_NUM stmt);
     virtual void addNextStar(STMT_NUM stmt, std::unordered_set<STMT_NUM> nextStarSet);
@@ -100,8 +112,19 @@ public:
     virtual bool doesStatementUse(STMT_NUM stmt, std::string varUsed);
     virtual void addAffects(STMT_NUM stmt, STMT_NUM affectedStmt);
     virtual std::unordered_set<STMT_NUM> getAffects(STMT_NUM stmt);
+    virtual std::unordered_set<STMT_NUM> getAffectsStar(STMT_NUM stmt);
     virtual std::string getProcedureNameOf(CFGHeadPtr cfg);
     virtual bool hasAffectsStar(STMT_NUM stmt);
     virtual void addAffectsStar(STMT_NUM stmt, std::unordered_set<STMT_NUM> affectsStarSet);
     virtual std::unordered_set<STMT_NUM> getAllAssignFromProcedure(std::string procName);
+
+    virtual std::unordered_set<STMT_NUM> getNextStar(STMT_NUM stmt);
+    virtual CFGHeadPtr getCFGHeadPtrByProc(STMT_NUM stmt);
+    virtual Procedure* getProcByStmt(STMT_NUM stmt);
+    virtual std::vector<Procedure> getProcList();
+
+    /**
+     * Clear NextStar, Affect and AffectStar Tables.
+     */
+    virtual void clear();
 };

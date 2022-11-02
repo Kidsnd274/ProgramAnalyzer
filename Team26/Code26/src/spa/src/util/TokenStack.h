@@ -1,6 +1,8 @@
 #pragma  once
+#include <utility>
 #include <vector>
 #include <stack>
+#include <string>
 #include "SPToken.h"
 #include "EndOfFileException.h"
 #include "sp/SyntaxErrorException.h"
@@ -11,9 +13,9 @@ private:
     int tokenPointer;
 
 public:
-    TokenStack(std::vector<SPToken> ts) {
+    explicit TokenStack(std::vector<SPToken> ts) {
         tokenPointer = 0;
-        tokenStack = ts;
+        tokenStack = std::move(ts);
     }
     SPToken getNext();
     bool hasNextToken();
