@@ -1308,3 +1308,53 @@ assign a;
 Select a such that Affects(21, a)
 none
 5000
+259 - Affects test 29
+assign a;
+Select a such that Affects(29, a)
+34,40,41
+5000
+260 - Affects test 30
+assign a;
+Select a such that Affects(30, a)
+35,40,42
+5000
+261 - Affects test 31
+assign a;
+Select a such that Affects(31, a)
+36,41,42
+5000
+262 - Affects test 34
+assign a;
+Select a such that Affects(34, a)
+34,40,41
+5000
+263 - Affects test 35
+assign a;
+Select a such that Affects(35, a)
+35,40,42
+5000
+264 - Affects test 36
+assign a;
+Select a such that Affects(36, a)
+36,41,42
+5000
+265 - Affects test 39
+assign a;
+Select a such that Affects(39, a)
+none
+5000
+266 - Affects test 40
+assign a;
+Select a such that Affects(40, a)
+42
+5000
+267 - Affects test 41
+assign a;
+Select a such that Affects(41, a)
+42
+5000
+268 - Affects test 42
+assign a;
+Select a such that Affects(42, a)
+none
+5000
