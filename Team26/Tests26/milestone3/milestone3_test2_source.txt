@@ -1,4 +1,4 @@
-procedure milestone2test1 {
+procedure milestone3test2 {
   while (((((2)) < 5) && (var1234 >= y)) || (!(zy<=5))) {
     zy = (zy / 4 + 780 % 11 - x * (x + z));
     var1234 = ((var1234 / 7 % 0) -((0 * k/z))) + zy % var1234 * 12;

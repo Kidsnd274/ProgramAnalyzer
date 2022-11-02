@@ -183,14 +183,14 @@ assign a; variable v;
 Select a such that Uses (a, v) pattern a(v,_)
 2, 3, 10, 12, 17, 21, 34, 35, 36, 40, 41
 5000
-38 - check modifies for procedure milestone2test1
+38 - check modifies for procedure milestone3test2
 variable v;
-Select v such that Modifies("milestone2test1", v)
+Select v such that Modifies("milestone3test2", v)
 var1234, zy, if, else, while, d, pointx, pointy, print, cenX, cenY, normSq, count
 5000
-39 - check uses for procedure milestone2test1
+39 - check uses for procedure milestone3test2
 variable v;
-Select v such that Uses("milestone2test1", v)
+Select v such that Uses("milestone3test2", v)
 if, z, procedure, var1234, xy, p, k, kkk, true, zy, q, w, e, else, while, y, x, d, call, pointx, pointy, print, cenX, cenY, normSq, count
 5000
 39 - check modifies for procedure computeCentroid
@@ -228,29 +228,29 @@ call c;
 Select c
 18,32,37,43
 5000
-46 - select parents of call statement in milestone2test1
+46 - select parents of call statement in milestone3test2
 stmt s;
 Select s such that Parent*(s, 18)
 5,8,9,11,14
 5000
-47 - select Calls milestone2test1 and computeCentroid
+47 - select Calls milestone3test2 and computeCentroid
 read r;
-Select r such that Calls("milestone2test1", "computeCentroid")
+Select r such that Calls("milestone3test2", "computeCentroid")
 4, 16, 23, 24
 5000
-48 - select Calls milestone2test1 and readPoint
+48 - select Calls milestone3test2 and readPoint
 read r;
-Select r such that Calls("milestone2test1", "readPoint")
+Select r such that Calls("milestone3test2", "readPoint")
 none
 5000
-49 - select Calls milestone2test1 and printResults
+49 - select Calls milestone3test2 and printResults
 read r;
-Select r such that Calls("milestone2test1", "printResults")
+Select r such that Calls("milestone3test2", "printResults")
 none
 5000
-50 - select Calls milestone2test1 and milestone2test1
+50 - select Calls milestone3test2 and milestone3test2
 read r;
-Select r such that Calls("milestone2test1", "milestone2test1")
+Select r such that Calls("milestone3test2", "milestone3test2")
 none
 5000
 51 - select Calls computeCentroid and computeCentroid
@@ -268,9 +268,9 @@ read r;
 Select r such that Calls("computeCentroid", "printResults")
 4, 16, 23, 24
 5000
-54 - select Calls computeCentroid and milestone2test1
+54 - select Calls computeCentroid and milestone3test2
 read r;
-Select r such that Calls("computeCentroid", "milestone2test1")
+Select r such that Calls("computeCentroid", "milestone3test2")
 none
 5000
 55 - select Calls readPoint and computeCentroid
@@ -288,9 +288,9 @@ read r;
 Select r such that Calls("readPoint", "printResults")
 none
 5000
-58 - select Calls readPoint and milestone2test1
+58 - select Calls readPoint and milestone3test2
 read r;
-Select r such that Calls("readPoint", "milestone2test1")
+Select r such that Calls("readPoint", "milestone3test2")
 none
 5000
 59 - select Calls printResults and computeCentroid
@@ -308,29 +308,29 @@ read r;
 Select r such that Calls("printResults", "printResults")
 none
 5000
-62 - select Calls printResults and milestone2test1
+62 - select Calls printResults and milestone3test2
 read r;
-Select r such that Calls("printResults", "milestone2test1")
+Select r such that Calls("printResults", "milestone3test2")
 none
 5000
-63 - select Calls* milestone2test1 and computeCentroid
+63 - select Calls* milestone3test2 and computeCentroid
 read r;
-Select r such that Calls*("milestone2test1", "computeCentroid")
+Select r such that Calls*("milestone3test2", "computeCentroid")
 4, 16, 23, 24
 5000
-64 - select Calls* milestone2test1 and readPoint
+64 - select Calls* milestone3test2 and readPoint
 read r;
-Select r such that Calls*("milestone2test1", "readPoint")
+Select r such that Calls*("milestone3test2", "readPoint")
 4, 16, 23, 24
 5000
-65 - select Calls* milestone2test1 and printResults
+65 - select Calls* milestone3test2 and printResults
 read r;
-Select r such that Calls*("milestone2test1", "printResults")
+Select r such that Calls*("milestone3test2", "printResults")
 4, 16, 23, 24
 5000
-66 - select Calls* milestone2test1 and milestone2test1
+66 - select Calls* milestone3test2 and milestone3test2
 read r;
-Select r such that Calls*("milestone2test1", "milestone2test1")
+Select r such that Calls*("milestone3test2", "milestone3test2")
 none
 5000
 67 - select Calls* computeCentroid and computeCentroid
@@ -348,9 +348,9 @@ read r;
 Select r such that Calls*("computeCentroid", "printResults")
 4, 16, 23, 24
 5000
-70 - select Calls* computeCentroid and milestone2test1
+70 - select Calls* computeCentroid and milestone3test2
 read r;
-Select r such that Calls*("computeCentroid", "milestone2test1")
+Select r such that Calls*("computeCentroid", "milestone3test2")
 none
 5000
 71 - select Calls* readPoint and computeCentroid
@@ -368,9 +368,9 @@ read r;
 Select r such that Calls*("readPoint", "printResults")
 none
 5000
-74 - select Calls* readPoint and milestone2test1
+74 - select Calls* readPoint and milestone3test2
 read r;
-Select r such that Calls*("readPoint", "milestone2test1")
+Select r such that Calls*("readPoint", "milestone3test2")
 none
 5000
 75 - select Calls* printResults and computeCentroid
@@ -388,15 +388,15 @@ read r;
 Select r such that Calls*("printResults", "printResults")
 none
 5000
-78 - select Calls* printResults and milestone2test1
+78 - select Calls* printResults and milestone3test2
 read r;
-Select r such that Calls*("printResults", "milestone2test1")
+Select r such that Calls*("printResults", "milestone3test2")
 none
 5000
 79 - select Calls procedures
 procedure p1, p2;
 Select <p1,p2> such that Calls(p1,p2)
-milestone2test1 computeCentroid, computeCentroid printResults, computeCentroid readPoint
+milestone3test2 computeCentroid, computeCentroid printResults, computeCentroid readPoint
 5000
 80 - select Called procedures
 procedure p1, p2;
@@ -406,11 +406,11 @@ printResults, computeCentroid, readPoint
 81 - select Calling procedures
 procedure p1, p2;
 Select p1 such that Calls(p1,p2)
-milestone2test1, computeCentroid
+milestone3test2, computeCentroid
 5000
-82 - select all Called procedures of milestone2test1
+82 - select all Called procedures of milestone3test2
 procedure p1, p2;
-Select p2 such that Calls("milestone2test1",p2)
+Select p2 such that Calls("milestone3test2",p2)
 computeCentroid
 5000
 83 - select all Called procedures of computeCentroid
@@ -441,87 +441,87 @@ computeCentroid
 88 - select all procedures that calls computeCentroid
 procedure p1, p2;
 Select p1 such that Calls(p1,"computeCentroid")
-milestone2test1
+milestone3test2
 5000
-89 - select all procedures that calls milestone2test1
+89 - select all procedures that calls milestone3test2
 procedure p1, p2;
-Select p1 such that Calls(p1,"milestone2test1")
+Select p1 such that Calls(p1,"milestone3test2")
 none
 5000
 90 - select all procedures that modifies variable var1234
 procedure p1;
 Select p1 such that Modifies(p1, "var1234")
-milestone2test1
+milestone3test2
 5000
 91 - select all procedures that modifies variable pointx
 procedure p1;
 Select p1 such that Modifies(p1, "pointx")
-milestone2test1, computeCentroid, readPoint
+milestone3test2, computeCentroid, readPoint
 5000
 92 - select all procedures that modifies variable pointy
 procedure p1;
 Select p1 such that Modifies(p1, "pointy")
-milestone2test1, computeCentroid, readPoint
+milestone3test2, computeCentroid, readPoint
 5000
 93 - select all procedures that modifies variable count
 procedure p1;
 Select p1 such that Modifies(p1, "count")
-milestone2test1, computeCentroid
+milestone3test2, computeCentroid
 5000
 94 - select all procedures that modifies variable cenX
 procedure p1;
 Select p1 such that Modifies(p1, "cenX")
-milestone2test1, computeCentroid
+milestone3test2, computeCentroid
 5000
 95 - select all procedures that modifies variable cenY
 procedure p1;
 Select p1 such that Modifies(p1, "cenY")
-milestone2test1, computeCentroid
+milestone3test2, computeCentroid
 5000
 96 - select all procedures that modifies variable print
 procedure p1;
 Select p1 such that Modifies(p1, "print")
-milestone2test1, computeCentroid
+milestone3test2, computeCentroid
 5000
 97 - select procedures and variable pairs that modifies the procedure modifies
 procedure p1; variable v;
 Select <p1, v> such that Modifies(p1, v)
-milestone2test1 var1234, milestone2test1 zy,milestone2test1 if,milestone2test1 else,milestone2test1 while,milestone2test1 d,milestone2test1 pointx, milestone2test1 pointy,milestone2test1 print,milestone2test1 cenX,milestone2test1 cenY,milestone2test1 normSq,milestone2test1 count,computeCentroid pointx, computeCentroid pointy,computeCentroid print,computeCentroid cenX,computeCentroid cenY,computeCentroid normSq,computeCentroid count,readPoint pointx, readPoint pointy
+milestone3test2 var1234, milestone3test2 zy,milestone3test2 if,milestone3test2 else,milestone3test2 while,milestone3test2 d,milestone3test2 pointx, milestone3test2 pointy,milestone3test2 print,milestone3test2 cenX,milestone3test2 cenY,milestone3test2 normSq,milestone3test2 count,computeCentroid pointx, computeCentroid pointy,computeCentroid print,computeCentroid cenX,computeCentroid cenY,computeCentroid normSq,computeCentroid count,readPoint pointx, readPoint pointy
 5000
 98 - select all procedures that uses variable var1234
 procedure p1;
 Select p1 such that Uses(p1, "var1234")
-milestone2test1
+milestone3test2
 5000
 99 - select all procedures that uses variable pointx
 procedure p1;
 Select p1 such that Uses(p1, "pointx")
-milestone2test1, computeCentroid
+milestone3test2, computeCentroid
 5000
 100 - select all procedures that uses variable pointy
 procedure p1;
 Select p1 such that Uses(p1, "pointy")
-milestone2test1, computeCentroid
+milestone3test2, computeCentroid
 5000
 101 - select all procedures that uses variable count
 procedure p1;
 Select p1 such that Uses(p1, "count")
-milestone2test1, computeCentroid
+milestone3test2, computeCentroid
 5000
 102 - select all procedures that uses variable cenX
 procedure p1;
 Select p1 such that Uses(p1, "cenX")
-milestone2test1, computeCentroid, printResults
+milestone3test2, computeCentroid, printResults
 5000
 103 - select all procedures that uses variable cenY
 procedure p1;
 Select p1 such that Uses(p1, "cenY")
-milestone2test1, computeCentroid, printResults
+milestone3test2, computeCentroid, printResults
 5000
 104 - select all procedures that uses variable print
 procedure p1;
 Select p1 such that Uses(p1, "print")
-milestone2test1, computeCentroid, printResults
+milestone3test2, computeCentroid, printResults
 5000
 105 - Simple test with pattern arg1 being variable, and arg2 be expression that does not exist
 assign a;
@@ -571,12 +571,12 @@ zy, var1234, if, else, while, d, count, cenX, cenY, print, normSq
 113 - Call with wildcard
 procedure p;
 Select p such that Calls(_,_)
-milestone2test1, computeCentroid, readPoint, printResults
+milestone3test2, computeCentroid, readPoint, printResults
 5000
 114 - Call with wildcard as second argument
 procedure p;
 Select p such that Calls(p,_)
-milestone2test1, computeCentroid
+milestone3test2, computeCentroid
 5000
 115 - Call with wildcard as first argument
 procedure p;
@@ -591,12 +591,12 @@ none
 117 - Call* with wildcard
 procedure p;
 Select p such that Calls*(_,_)
-milestone2test1, computeCentroid, readPoint, printResults
+milestone3test2, computeCentroid, readPoint, printResults
 5000
 118 - Call* with wildcard as second argument
 procedure p;
 Select p such that Calls*(p,_)
-milestone2test1, computeCentroid
+milestone3test2, computeCentroid
 5000
 119 - Call* with wildcard as first argument
 procedure p;
@@ -616,7 +616,7 @@ zy, var1234, else, while, d, count, cenX, cenY
 122 - Uses with pattern 2
 procedure p; assign a;
 Select p such that Uses(p, "cenX") pattern a(_,_)
-milestone2test1, computeCentroid, printResults
+milestone3test2, computeCentroid, printResults
 5000
 123 - Follows with pattern
 assign a; variable v; stmt s;
