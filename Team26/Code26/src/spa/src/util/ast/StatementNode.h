@@ -14,6 +14,7 @@ class StatementNode {
 private:
     int statementNumber;
     statementType stmtType;
+
 public:
     StatementNode(int statementNumber, statementType stmtType) {
         this->statementNumber = statementNumber;
