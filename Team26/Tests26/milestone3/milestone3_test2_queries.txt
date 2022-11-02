@@ -1153,3 +1153,108 @@ stmt s;
 Select s such that Next*(22, s)
 8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,20
 5000
+228 - Next* test 23
+stmt s;
+Select s such that Next*(23, s)
+24
+5000
+229 - Next* test 24
+stmt s;
+Select s such that Next*(24, s)
+none
+5000
+230 - Next* test 25
+stmt s;
+Select s such that Next*(25, s)
+26,27,28
+5000
+231 - Next* test 26
+stmt s;
+Select s such that Next*(26, s)
+27,28
+5000
+232 - Next* test 27
+stmt s;
+Select s such that Next*(27, s)
+28
+5000
+233 - Next* test 28
+stmt s;
+Select s such that Next*(28, s)
+none
+5000
+234 - Next* test 29
+stmt s;
+Select s such that Next*(29, s)
+30, 31 ,32, 33, 34, 35, 36, 37, 38, 39, 40, 41, 42, 43
+5000
+235 - Next* test 30
+stmt s;
+Select s such that Next*(30, s)
+31 ,32, 33, 34, 35, 36, 37, 38, 39, 40, 41, 42, 43
+5000
+236 - Next* test 31
+stmt s;
+Select s such that Next*(31, s)
+32, 33, 34, 35, 36, 37, 38, 39, 40, 41, 42, 43
+5000
+237 - Next* test 32
+stmt s;
+Select s such that Next*(32, s)
+33, 34, 35, 36, 37, 38, 39, 40, 41, 42, 43
+5000
+238 - Next* test 33
+stmt s;
+Select s such that Next*(33, s)
+33, 34, 35, 36, 37, 38, 39, 40, 41, 42, 43
+5000
+239 - Next* test 34
+stmt s;
+Select s such that Next*(34, s)
+33, 34, 35, 36, 37, 38, 39, 40, 41, 42, 43
+5000
+240 - Next* test 35
+stmt s;
+Select s such that Next*(35, s)
+33, 34, 35, 36, 37, 38, 39, 40, 41, 42, 43
+5000
+241 - Next* test 36
+stmt s;
+Select s such that Next*(36, s)
+33, 34, 35, 36, 37, 38, 39, 40, 41, 42, 43
+5000
+242 - Next* test 37
+stmt s;
+Select s such that Next*(37, s)
+33, 34, 35, 36, 37, 38, 39, 40, 41, 42, 43
+5000
+243 - Next* test 38
+stmt s;
+Select s such that Next*(38, s)
+39, 40, 41, 42, 43
+5000
+244 - Next* test 39
+stmt s;
+Select s such that Next*(39, s)
+42, 43
+5000
+245 - Next* test 40
+stmt s;
+Select s such that Next*(40, s)
+41, 42, 43
+5000
+246 - Next* test 41
+stmt s;
+Select s such that Next*(41, s)
+42, 43
+5000
+247 - Next* test 42
+stmt s;
+Select s such that Next*(42, s)
+43
+5000
+247 - Next* test 43
+stmt s;
+Select s such that Next*(43, s)
+none
+5000
