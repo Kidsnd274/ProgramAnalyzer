@@ -92,7 +92,7 @@ def run_test(testcase):
 failed_tests = []
 
 
-def run_multiple_tests(selected_tests, milestone_name):
+def run_multiple_tests(selected_tests):
     for testcase in selected_tests:
         print("Running testcase " + testcase.name + "...", end="")
         completed_process = run_test(testcase)
@@ -114,7 +114,7 @@ print("-----------------------SPRINT 1-----------------------")
 sprint1 = testdir / "sprint1"
 tests = [TestCase("test_sprint1", sprint1)]
 
-run_multiple_tests(tests, "Sprint 1")
+run_multiple_tests(tests)
 
 print("-----------------------MILESTONE 1 / SPRINT 2-----------------------")
 milestone1 = testdir / "milestone1"
@@ -123,24 +123,29 @@ tests = [TestCase("milestone1_test1", milestone1),
          TestCase("test_pattern", milestone1),
          TestCase("test_relationship", milestone1)]
 
-run_multiple_tests(tests, "Milestone 1")
+run_multiple_tests(tests)
 
 
 print("-----------------------SPRINT 3 / DEMO 2-----------------------")
 demo2 = testdir / "demo2"
-tests = [TestCase("test_calls", demo2)]
+tests = [TestCase("test_calls", demo2),
+         # TestCase("test_pattern2", demo2), # Test case broken
+         ]
 
-run_multiple_tests(tests, "Demo 2")
+run_multiple_tests(tests)
 
 
 print("-----------------------SPRINT 4 / MILESTONE 2-----------------------")
 milestone2 = testdir / "milestone2"
 tests = [TestCase("milestone2_test1", milestone2)]
 
-run_multiple_tests(tests, "Milestone 2")
+run_multiple_tests(tests)
 
+print("-----------------------SPRINT 5 / MILESTONE 3-----------------------")
+milestone3 = testdir / "milestone3"
+tests = [TestCase("milestone3_test_sam", milestone3)]
 
-
+run_multiple_tests(tests)
 
 print("")
 if failed_tests:
