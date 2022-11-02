@@ -206,7 +206,7 @@ std::shared_ptr<StatementNode> Parser::parseReadAndPrint(SPTokenType type, STMT_
 
     cfgManager->addStandardNode(currStatement);
 
-    if(type == SPTokenType::ReadToken) {
+    if (type == SPTokenType::ReadToken) {
         pkbInterface->addReadStatement(currStatement, stmtListNum);
         return ReadNode::createReadNode(currStatement, varName);
     } else {
