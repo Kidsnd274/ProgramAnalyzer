@@ -283,3 +283,33 @@ assign a;
 Select BOOLEAN such that Affects(19, 20)
 FALSE
 5000
+56 - statement 1 Affects* 4
+assign a;
+Select BOOLEAN such that Affects*(1, 4)
+TRUE
+5000
+57 - statement 1 Affects* 6
+assign a;
+Select BOOLEAN such that Affects*(1, 6)
+TRUE
+5000
+58 - statement 1 Affects* 11
+assign a;
+Select BOOLEAN such that Affects*(1, 11)
+TRUE
+5000
+59 - statement 1 Affects* 14
+assign a;
+Select BOOLEAN such that Affects*(1, 14)
+TRUE
+5000
+60 - statement 1 Affects* 19
+assign a;
+Select BOOLEAN such that Affects*(1, 19)
+TRUE
+5000
+61 - statement 1 does not Affects* 2
+assign a;
+Select BOOLEAN such that Affects*(1, 2)
+FALSE
+5000
