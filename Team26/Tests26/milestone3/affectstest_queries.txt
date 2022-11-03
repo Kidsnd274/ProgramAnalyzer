@@ -160,46 +160,126 @@ FALSE
 5000
 33 - statement 2 Affects 4
 assign a;
-Select a such that Affects(2, 4)
+Select BOOLEAN such that Affects(2, 4)
 TRUE
 5000
 34 - statement 2 Affects 6
 assign a;
-Select a such that Affects(2, 6)
+Select BOOLEAN such that Affects(2, 6)
 TRUE
 5000
 35 - statement 2 Affects 11
 assign a;
-Select a such that Affects(2, 11)
+Select BOOLEAN such that Affects(2, 11)
 TRUE
 5000
 36 - statement 2 Affects 14
 assign a;
-Select a such that Affects(2, 14)
+Select BOOLEAN such that Affects(2, 14)
 TRUE
 5000
 36 - statement 2 does not Affects 8
 assign a;
-Select a such that Affects(2, 8)
+Select BOOLEAN such that Affects(2, 8)
 FALSE
 5000
 37 - statement 4 Affects 10
 assign a;
-Select a such that Affects(4, 10)
+Select BOOLEAN such that Affects(4, 10)
 TRUE
 5000
 38 - statement 4 Affects 14
 assign a;
-Select a such that Affects(4, 14)
+Select BOOLEAN such that Affects(4, 14)
 TRUE
 5000
 39 - statement 4 Affects 19
 assign a;
-Select a such that Affects(4, 19)
+Select BOOLEAN such that Affects(4, 19)
 TRUE
 5000
 40 - statement 4 does not Affects 8
 assign a;
-Select a such that Affects(4, 8)
+Select BOOLEAN such that Affects(4, 8)
+FALSE
+5000
+41 - statement 6 Affects 14
+assign a;
+Select BOOLEAN such that Affects(6, 14)
+TRUE
+5000
+42 - statement 6 does not Affects 8
+assign a;
+Select BOOLEAN such that Affects(6, 8)
+FALSE
+5000
+43 - statement 8 does not Affects 14
+assign a;
+Select BOOLEAN such that Affects(8, 14)
+FALSE
+5000
+44 - statement 10 does not Affects 14
+assign a;
+Select BOOLEAN such that Affects(10, 14)
+FALSE
+5000
+45 - statement 11 Affects 14
+assign a;
+Select BOOLEAN such that Affects(11, 14)
+TRUE
+5000
+46 - statement 11 Affects 19
+assign a;
+Select BOOLEAN such that Affects(11, 19)
+TRUE
+5000
+47 - statement 11 does not Affects 12
+assign a;
+Select BOOLEAN such that Affects(11, 12)
+FALSE
+5000
+48 - statement 12 Affects 16
+assign a;
+Select BOOLEAN such that Affects(12, 16)
+TRUE
+5000
+49 - statement 12 does not Affects 14
+assign a;
+Select BOOLEAN such that Affects(12, 14)
+FALSE
+5000
+50 - statement 14 does not Affects 16
+assign a;
+Select BOOLEAN such that Affects(14, 16)
+FALSE
+5000
+51 - statement 16 does not Affects 18
+assign a;
+Select BOOLEAN such that Affects(16, 18)
+FALSE
+5000
+52 - statement 18 Affects 14
+assign a;
+Select BOOLEAN such that Affects(18, 14)
+TRUE
+5000
+53 - statement 18 Affects 19
+assign a;
+Select BOOLEAN such that Affects(18, 19)
+TRUE
+5000
+54 - statement 18 does not Affects 20
+assign a;
+Select BOOLEAN such that Affects(18, 20)
+FALSE
+5000
+55 - statement 19 Affects 14
+assign a;
+Select BOOLEAN such that Affects(19, 14)
+TRUE
+5000
+55 - statement 19 Affects 20
+assign a;
+Select BOOLEAN such that Affects(19, 20)
 FALSE
 5000
