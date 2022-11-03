@@ -1358,3 +1358,103 @@ assign a;
 Select a such that Affects(42, a)
 none
 5000
+269 - Affects* test 2
+assign a;
+Select a such that Affects*(2, a)
+3
+5000
+270 - Affects* test 3
+assign a;
+Select a such that Affects*(3, a)
+none
+5000
+271 - Affects* test 6
+assign a;
+Select a such that Affects*(6, a)
+none
+5000
+272 - Affects* test 7
+assign a;
+Select a such that Affects*(7, a)
+none
+5000
+273 - Affects* test 10
+assign a;
+Select a such that Affects*(10, a)
+none
+5000
+274 - Affects* test 12
+assign a;
+Select a such that Affects*(12, a)
+21
+5000
+275 - Affects* test 15
+assign a;
+Select a such that Affects*(15, a)
+none
+5000
+276 - Affects* test 17
+assign a;
+Select a such that Affects*(17, a)
+none
+5000
+277 - Affects* test 19
+assign a;
+Select a such that Affects*(19, a)
+none
+5000
+278 - Affects* test 21
+assign a;
+Select a such that Affects*(21, a)
+none
+5000
+279 - Affects* test 29
+assign a;
+Select a such that Affects*(29, a)
+34,40,41,42
+5000
+280 - Affects* test 30
+assign a;
+Select a such that Affects*(30, a)
+35,40,42
+5000
+281 - Affects* test 31
+assign a;
+Select a such that Affects*(31, a)
+36,41,42
+5000
+282 - Affects* test 34
+assign a;
+Select a such that Affects*(34, a)
+34,40,41,42
+5000
+283 - Affects* test 35
+assign a;
+Select a such that Affects*(35, a)
+35,40,42
+5000
+284 - Affects* test 36
+assign a;
+Select a such that Affects*(36, a)
+36,41,42
+5000
+285 - Affects* test 39
+assign a;
+Select a such that Affects*(39, a)
+none
+5000
+286 - Affects* test 40
+assign a;
+Select a such that Affects*(40, a)
+42
+5000
+287 - Affects* test 41
+assign a;
+Select a such that Affects*(41, a)
+42
+5000
+288 - Affects* test 42
+assign a;
+Select a such that Affects*(42, a)
+none
+5000
