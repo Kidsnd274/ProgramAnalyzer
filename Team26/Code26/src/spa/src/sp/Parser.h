@@ -72,8 +72,8 @@ public:
     std::shared_ptr<IfNode> parseIf(STMT_LIST_NUM stmtListNum);
     std::shared_ptr<WhileNode> parseWhile(STMT_LIST_NUM stmtListNum);
     std::shared_ptr<AssignNode> parseAssign(STMT_LIST_NUM stmtListNum);
-    std::shared_ptr<ReadNode> parseRead(STMT_LIST_NUM stmtListNum);
-    std::shared_ptr<PrintNode> parsePrint(STMT_LIST_NUM stmtListNum);
+    std::shared_ptr<StatementNode> parseRead(STMT_LIST_NUM stmtListNum);
+    std::shared_ptr<StatementNode> parsePrint(STMT_LIST_NUM stmtListNum);
     std::shared_ptr<CallNode> parseCall(STMT_LIST_NUM stmtListNum);
 
     // Methods that return shared_ptr to TNode
@@ -83,6 +83,7 @@ public:
     std::shared_ptr<TNode> parseExpression();
     std::shared_ptr<TNode> parseTerm();
     std::shared_ptr<TNode> parseFactor();
+    std::shared_ptr<StatementNode> parseReadAndPrint(SPTokenType type, STMT_LIST_NUM stmtListNum);
 
     // Methods that validates and returns the value of a token
     std::string parseName();

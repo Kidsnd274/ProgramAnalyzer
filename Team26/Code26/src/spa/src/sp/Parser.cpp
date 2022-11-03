@@ -197,30 +197,30 @@ std::shared_ptr<WhileNode> Parser::parseWhile(STMT_LIST_NUM stmtListNum) {
     return WhileNode::createWhileNode(currStatement, cond, statementList);
 }
 
-std::shared_ptr<ReadNode> Parser::parseRead(STMT_LIST_NUM stmtListNum) {
-    tokenStack->checkAndUseNextToken(SPTokenType::ReadToken);  // consume Read SPToken.
+std::shared_ptr<StatementNode> Parser::parseReadAndPrint(SPTokenType type, STMT_LIST_NUM stmtListNum) {
+    tokenStack->checkAndUseNextToken(type);  // consume token
     STMT_NUM currStatement = statementCount++;
     string varName = tokenStack->checkAndReturnNextToken(SPTokenType::NameToken);
     pkbInterface->addVariable(varName);
     tokenStack->checkAndUseNextToken(SPTokenType::SemiColonToken);
 
     cfgManager->addStandardNode(currStatement);
-    pkbInterface->addReadStatement(currStatement, stmtListNum);
 
-    return ReadNode::createReadNode(currStatement, varName);
+    if (type == SPTokenType::ReadToken) {
+        pkbInterface->addReadStatement(currStatement, stmtListNum);
+        return ReadNode::createReadNode(currStatement, varName);
+    } else {
+        pkbInterface->addPrintStatement(currStatement, stmtListNum);
+        return PrintNode::createPrintNode(currStatement, varName);
+    }
 }
 
-std::shared_ptr<PrintNode> Parser::parsePrint(STMT_LIST_NUM stmtListNum) {
-    tokenStack->checkAndUseNextToken(SPTokenType::PrintToken);  // consume Print SPToken.
-    STMT_NUM currStatement = statementCount++;
-    string varName = tokenStack->checkAndReturnNextToken(SPTokenType::NameToken);
-    pkbInterface->addVariable(varName);
-    tokenStack->checkAndUseNextToken(SPTokenType::SemiColonToken);
+std::shared_ptr<StatementNode> Parser::parseRead(STMT_LIST_NUM stmtListNum) {
+    return parseReadAndPrint(SPTokenType::ReadToken, stmtListNum);
+}
 
-    cfgManager->addStandardNode(currStatement);
-    pkbInterface->addPrintStatement(currStatement, stmtListNum);
-
-    return PrintNode::createPrintNode(currStatement, varName);
+std::shared_ptr<StatementNode> Parser::parsePrint(STMT_LIST_NUM stmtListNum) {
+    return parseReadAndPrint(SPTokenType::PrintToken, stmtListNum);
 }
 
 

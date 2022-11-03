@@ -122,18 +122,40 @@ TEST_CASE("Simple Next* test") {
             {10, stmt10},
             {11, stmt11},
     };
-
+    REQUIRE_FALSE(pkbInterface->hasNextStar(1));
     rte.computeNextStar(createdCFG, 1);
+    REQUIRE_FALSE(pkbInterface->hasNextStar(2));
     rte.computeNextStar(createdCFG, 2);
+    REQUIRE_FALSE(pkbInterface->hasNextStar(3));
     rte.computeNextStar(createdCFG, 3);
+    REQUIRE_FALSE(pkbInterface->hasNextStar(4));
     rte.computeNextStar(createdCFG, 4);
+    REQUIRE_FALSE(pkbInterface->hasNextStar(5));
     rte.computeNextStar(createdCFG, 5);
+    REQUIRE_FALSE(pkbInterface->hasNextStar(6));
     rte.computeNextStar(createdCFG, 6);
+    REQUIRE_FALSE(pkbInterface->hasNextStar(7));
     rte.computeNextStar(createdCFG, 7);
+    REQUIRE_FALSE(pkbInterface->hasNextStar(8));
     rte.computeNextStar(createdCFG, 8);
+    REQUIRE_FALSE(pkbInterface->hasNextStar(9));
     rte.computeNextStar(createdCFG, 9);
+    REQUIRE_FALSE(pkbInterface->hasNextStar(10));
     rte.computeNextStar(createdCFG, 10);
+    REQUIRE_FALSE(pkbInterface->hasNextStar(11));
     rte.computeNextStar(createdCFG, 11);
+
+    REQUIRE(pkbInterface->hasNextStar(1));
+    REQUIRE(pkbInterface->hasNextStar(2));
+    REQUIRE(pkbInterface->hasNextStar(3));
+    REQUIRE(pkbInterface->hasNextStar(4));
+    REQUIRE(pkbInterface->hasNextStar(5));
+    REQUIRE(pkbInterface->hasNextStar(6));
+    REQUIRE(pkbInterface->hasNextStar(7));
+    REQUIRE(pkbInterface->hasNextStar(8));
+    REQUIRE(pkbInterface->hasNextStar(9));
+    REQUIRE(pkbInterface->hasNextStar(10));
+    REQUIRE(pkbInterface->hasNextStar(11));
 
     REQUIRE(pkbInterface->nextStarMap == correctMap);
 }
@@ -236,14 +258,31 @@ TEST_CASE("Simple affects test") {
     std::unordered_set<STMT_NUM> stmt9 = {10, 11};
     std::unordered_set<STMT_NUM> stmt10 = {11};
 
+    REQUIRE_FALSE(pkbInterface->hasAffects(1));
     rte.computeAffects(createdCFG, 1);
+    REQUIRE_FALSE(pkbInterface->hasAffects(2));
     rte.computeAffects(createdCFG, 2);
+    REQUIRE_FALSE(pkbInterface->hasAffects(4));
     rte.computeAffects(createdCFG, 4);
+    REQUIRE_FALSE(pkbInterface->hasAffects(5));
     rte.computeAffects(createdCFG, 5);
+    REQUIRE_FALSE(pkbInterface->hasAffects(7));
     rte.computeAffects(createdCFG, 7);
+    REQUIRE_FALSE(pkbInterface->hasAffects(8));
     rte.computeAffects(createdCFG, 8);
+    REQUIRE_FALSE(pkbInterface->hasAffects(9));
     rte.computeAffects(createdCFG, 9);
+    REQUIRE_FALSE(pkbInterface->hasAffects(10));
     rte.computeAffects(createdCFG, 10);
+
+    REQUIRE(pkbInterface->hasAffects(1));
+    REQUIRE(pkbInterface->hasAffects(2));
+    REQUIRE(pkbInterface->hasAffects(4));
+    REQUIRE(pkbInterface->hasAffects(5));
+    REQUIRE(pkbInterface->hasAffects(7));
+    REQUIRE(pkbInterface->hasAffects(8));
+    REQUIRE(pkbInterface->hasAffects(9));
+    REQUIRE(pkbInterface->hasAffects(10));
 
     REQUIRE(pkbInterface->affectsMap[1] == stmt1);
     REQUIRE(pkbInterface->affectsMap[2] == stmt2);
@@ -355,15 +394,53 @@ TEST_CASE("Simple affects Star test") {
     std::unordered_set<STMT_NUM> stmt10 = {11};
     std::unordered_set<STMT_NUM> stmt11 = {};
 
+    REQUIRE_FALSE(pkbInterface->hasAffectsStar(1));
+    REQUIRE_FALSE(pkbInterface->hasAffects(1));
     rte.computeAffectsStar(createdCFG, 1);
+    REQUIRE_FALSE(pkbInterface->hasAffectsStar(2));
+    REQUIRE(pkbInterface->hasAffects(2));
     rte.computeAffectsStar(createdCFG, 2);
+    REQUIRE_FALSE(pkbInterface->hasAffectsStar(4));
+    REQUIRE(pkbInterface->hasAffects(4));
     rte.computeAffectsStar(createdCFG, 4);
+    REQUIRE_FALSE(pkbInterface->hasAffectsStar(5));
+    REQUIRE(pkbInterface->hasAffects(5));
     rte.computeAffectsStar(createdCFG, 5);
+    REQUIRE_FALSE(pkbInterface->hasAffectsStar(7));
+    REQUIRE(pkbInterface->hasAffects(7));
     rte.computeAffectsStar(createdCFG, 7);
+    REQUIRE_FALSE(pkbInterface->hasAffectsStar(8));
+    REQUIRE(pkbInterface->hasAffects(8));
     rte.computeAffectsStar(createdCFG, 8);
+    REQUIRE_FALSE(pkbInterface->hasAffectsStar(9));
+    REQUIRE(pkbInterface->hasAffects(9));
     rte.computeAffectsStar(createdCFG, 9);
+    REQUIRE_FALSE(pkbInterface->hasAffectsStar(10));
+    REQUIRE(pkbInterface->hasAffects(10));
     rte.computeAffectsStar(createdCFG, 10);
+    REQUIRE_FALSE(pkbInterface->hasAffectsStar(11));
+    REQUIRE(pkbInterface->hasAffects(11));
     rte.computeAffectsStar(createdCFG, 11);
+
+    REQUIRE(pkbInterface->hasAffects(1));
+    REQUIRE(pkbInterface->hasAffects(2));
+    REQUIRE(pkbInterface->hasAffects(4));
+    REQUIRE(pkbInterface->hasAffects(5));
+    REQUIRE(pkbInterface->hasAffects(7));
+    REQUIRE(pkbInterface->hasAffects(8));
+    REQUIRE(pkbInterface->hasAffects(9));
+    REQUIRE(pkbInterface->hasAffects(10));
+    REQUIRE(pkbInterface->hasAffects(11));
+
+    REQUIRE(pkbInterface->hasAffectsStar(1));
+    REQUIRE(pkbInterface->hasAffectsStar(2));
+    REQUIRE(pkbInterface->hasAffectsStar(4));
+    REQUIRE(pkbInterface->hasAffectsStar(5));
+    REQUIRE(pkbInterface->hasAffectsStar(7));
+    REQUIRE(pkbInterface->hasAffectsStar(8));
+    REQUIRE(pkbInterface->hasAffectsStar(9));
+    REQUIRE(pkbInterface->hasAffectsStar(10));
+    REQUIRE(pkbInterface->hasAffectsStar(11));
 
     REQUIRE(pkbInterface->affectsStarMap[1] == stmt1);
     REQUIRE(pkbInterface->affectsStarMap[2] == stmt2);
