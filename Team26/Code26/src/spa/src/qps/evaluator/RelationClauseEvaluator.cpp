@@ -498,7 +498,11 @@ void RelationClauseEvaluator::evaluateNext(QPS::ResultTable *resultTable) {
         // ACTUAL_NAME, SYNONYM
         std::vector<std::string> synonyms = {arg2.argumentName};
         unordered_set<vector<std::string>, QPS::StringVectorHash> lines;
+        std::vector<std::string> actualNames = QPS_Interface::getAllEntity(&arg2);
         for (auto stmt2 : QPS_Interface::runtimeExtractor->getNextNodes(cfgHeadPtr, stmt1)) {
+            if (std::find(actualNames.begin(), actualNames.end(), to_string(stmt2)) == actualNames.end()) {
+                continue;
+            }
             vector<std::string> currLine;
             currLine.push_back(to_string(stmt2));
             lines.insert(currLine);
@@ -536,10 +540,14 @@ void RelationClauseEvaluator::evaluateNext(QPS::ResultTable *resultTable) {
         vector<Procedure> procList = QPS_Interface::getProcList();
         std::vector<std::string> synonyms = {arg2.argumentName};
         unordered_set<vector<std::string>, QPS::StringVectorHash> lines;
+        std::vector<std::string> actualNames = QPS_Interface::getAllEntity(&arg2);
         for (auto proc : procList) {
             CFGHeadPtr cfgHeadPtr = QPS_Interface::getCFGHeadPtrByProc(proc.startingStmtNo);
             // next(_, s2) is always true unless s2 is the first statement in the procedure
             for (int stmt2 = proc.startingStmtNo; stmt2 <= proc.endingStmtNo; stmt2++) {
+                if (std::find(actualNames.begin(), actualNames.end(), to_string(stmt2)) == actualNames.end()) {
+                    continue;
+                }
                 if (!cfgHeadPtr->isFirstStatementInCFG(stmt2)) {
                     lines.insert(vector<string> {to_string(stmt2)});
                 }
@@ -552,9 +560,13 @@ void RelationClauseEvaluator::evaluateNext(QPS::ResultTable *resultTable) {
     vector<Procedure> procList = QPS_Interface::getProcList();
     std::vector<std::string> synonyms = {arg1.argumentName};
     unordered_set<vector<std::string>, QPS::StringVectorHash> lines;
+    std::vector<std::string> actualNames = QPS_Interface::getAllEntity(&arg1);
     if (arg2.argumentType == Argument::WILDCARD) {
         for (auto proc : procList) {
             for (int i = proc.startingStmtNo; i <= proc.endingStmtNo; i++) {
+                if (std::find(actualNames.begin(), actualNames.end(), to_string(i)) == actualNames.end()) {
+                    continue;
+                }
                 if (!QPS_Interface::runtimeExtractor->getNextNodes(proc.cfg, i).empty()) {
                     lines.insert(vector<string> {to_string(i)});
                 }
@@ -568,6 +580,9 @@ void RelationClauseEvaluator::evaluateNext(QPS::ResultTable *resultTable) {
         int stmt2 = stoi(arg2.argumentName);
         for (auto proc : procList) {
             for (int i = proc.startingStmtNo; i <= proc.endingStmtNo; i++) {
+                if (std::find(actualNames.begin(), actualNames.end(), to_string(i)) == actualNames.end()) {
+                    continue;
+                }
                 if (QPS_Interface::runtimeExtractor->isNext(proc.cfg, i, stmt2)) {
                     lines.insert(vector<string> {to_string(i)});
                 }
@@ -578,9 +593,16 @@ void RelationClauseEvaluator::evaluateNext(QPS::ResultTable *resultTable) {
     }
     // SYNONYM, SYNONYM
     synonyms.push_back(arg2.argumentName);
+    std::vector<std::string> actualNames2 = QPS_Interface::getAllEntity(&arg2);
     for (auto proc : procList) {
         for (int i = proc.startingStmtNo; i <= proc.endingStmtNo; i++) {
+            if (std::find(actualNames.begin(), actualNames.end(), to_string(i)) == actualNames.end()) {
+                continue;
+            }
             for (auto stmt2 : QPS_Interface::runtimeExtractor->getNextNodes(proc.cfg, i)) {
+                if (std::find(actualNames2.begin(), actualNames2.end(), to_string(stmt2)) != actualNames2.end()) {
+                    continue;
+                }
                 lines.insert(vector<string> {to_string(i), to_string(stmt2)});
             }
         }
