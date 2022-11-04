@@ -96,7 +96,6 @@ std::vector<Clause*>* QueryEvaluator::groupClauses(std::vector<Clause*>* clauseL
         int lastClauseIndex = -1;
         for (auto clauseIndex : pair.second) {
             if (lastClauseIndex != -1) {
-                std::cout << to_string(lastClauseIndex) << " "<< to_string(clauseIndex) << std::endl;
                 ufds->merge(lastClauseIndex, clauseIndex);
             }
             lastClauseIndex = clauseIndex;
