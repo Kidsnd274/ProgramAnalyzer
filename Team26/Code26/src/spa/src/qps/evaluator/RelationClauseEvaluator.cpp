@@ -473,7 +473,7 @@ void RelationClauseEvaluator::evaluateNext(QPS::ResultTable *resultTable) {
             currLine.push_back(to_string(stmt2));
             lines.insert(currLine);
         }
-        resultTable = new ResultTable(synonyms, lines);
+        resultTable->replace(new ResultTable(synonyms, lines));
         return;
     }
     if (arg1.argumentType == Argument::WILDCARD) {

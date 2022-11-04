@@ -1,22 +1,22 @@
 <?xml-stylesheet type="text/xsl" href="analysis.xsl"?>
 <test_results>
 <info>
-<name>autotester</name><parsing_time_taken>1.840000</parsing_time_taken>
+<name>autotester</name><parsing_time_taken>1.844000</parsing_time_taken>
 </info>
 <queries>
 <query>
 <id ReturnTuple="1" Next="1" SuchThat="1" CondNum="3" RelNum="1" comment="select assignment statements that uses itself">37</id><querystr><![CDATA[stmt s1; Select s1 such that Next(1, s1)]]></querystr>
-<stuans>22,1,21,24,12,23,20,14,18,17,16,10,2,15,13,19,3,11,9,6,4,8,5,7</stuans>
+<stuans>2</stuans>
 <correct>10,11</correct>
-<time_taken>15.441000</time_taken>
+<time_taken>14.313000</time_taken>
 <failed>
-<missing></missing>
-<additional>1,12,13,14,15,16,17,18,19,2,20,21,22,23,24,3,4,5,6,7,8,9</additional>
+<missing>10,11</missing>
+<additional>2</additional>
 <summary>
 <expected>2</expected>
-<matched>2</matched>
-<missing>0</missing>
-<additional>22</additional>
+<matched>0</matched>
+<missing>2</missing>
+<additional>1</additional>
 </summary>
 </failed>
 </query>
