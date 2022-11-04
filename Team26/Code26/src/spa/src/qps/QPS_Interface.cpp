@@ -118,9 +118,11 @@ std::unordered_set<std::string> QPS_Interface::getAllEntity(Argument *argument) 
             break;
         default:
             return {};
-        copy(result.begin(), result.end(), inserter(resultSet, resultSet.end()));
-        return resultSet;
     }
+    for (auto i: result) {
+        resultSet.insert(i);
+    }
+    return resultSet;
 }
 
 std::string QPS_Interface::getProcLineNumberByName(std::string procName) {
