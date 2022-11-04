@@ -10,7 +10,7 @@ void QueryEvaluator::evaluate(Query* query) {
     ClauseAssigner* clauseAssigner = new ClauseAssigner();
 
     // Group the clauses
-//    query->clauseList = QueryEvaluator::groupClauses(query->clauseList);
+    query->clauseList = QueryEvaluator::groupClauses(query->clauseList);
 
     // Add synonyms to the map
     unordered_map<string, int> synonymCount = countSynonym(query);
@@ -58,7 +58,7 @@ int QueryEvaluator::numOfSynonyms(Clause &clause) {
 }
 
 std::vector<Clause*>* QueryEvaluator::groupClauses(std::vector<Clause*>* clauseList) {
-    std::vector<Clause*>* resultList;
+    std::vector<Clause*>* resultList = new vector<Clause*>;
     // Iterate through clauseList to build the synonymClausesMap
     std::unordered_map<std::string, std::unordered_set<int>> synonymClausesMap;
     for (int i = 0; i < clauseList->size(); i++) {
@@ -111,7 +111,7 @@ std::vector<Clause*>* QueryEvaluator::groupClauses(std::vector<Clause*>* clauseL
         if (iter != groups.end()) {
             iter->second.push_back(i);
         } else {
-            groups.insert(make_pair(groupNumber, i));
+            groups.insert(make_pair(groupNumber, vector<int> {i}));
         }
     }
 
@@ -120,7 +120,8 @@ std::vector<Clause*>* QueryEvaluator::groupClauses(std::vector<Clause*>* clauseL
     // Merge the group lists into one clauseList
     for (auto pair : groups) {
         for (auto clauseIndex : pair.second) {
-            resultList->push_back(clauseList->at(clauseIndex));
+            Clause* clause = clauseList->at(clauseIndex);
+            resultList->push_back(clause);
         }
     }
 
