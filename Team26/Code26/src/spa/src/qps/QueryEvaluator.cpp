@@ -28,7 +28,7 @@ void QueryEvaluator::evaluate(Query* query) {
         }
     }
 
-    query->resultTable = resultOfEvaluation;
+    query->resultTable->replace(resultOfEvaluation);
 }
 
 void QueryEvaluator::getAllEntity(Argument argument, QPS::ResultTable *resultTable) {
