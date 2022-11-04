@@ -532,7 +532,12 @@ void RelationClauseEvaluator::evaluateNext(QPS::ResultTable *resultTable) {
             if (!cfgHeadPtr->isFirstStatementInCFG(stmt2)) {
                 resultTable->setTrueTable();
             } else {
-                resultTable->setFalseTable();
+                unordered_set<string> whiles = QPS_Interface::getAllEntity(new Argument("", Argument::WHILE_SYNONYM));
+                if (whiles.find(to_string(stmt2)) != whiles.end()) {
+                    resultTable->setTrueTable();
+                } else {
+                    resultTable->setFalseTable();
+                }
             }
             return;
         }
@@ -550,6 +555,11 @@ void RelationClauseEvaluator::evaluateNext(QPS::ResultTable *resultTable) {
                 }
                 if (!cfgHeadPtr->isFirstStatementInCFG(stmt2)) {
                     lines.insert(vector<string> {to_string(stmt2)});
+                } else {
+                    unordered_set<string> whiles = QPS_Interface::getAllEntity(new Argument("", Argument::WHILE_SYNONYM));
+                    if (whiles.find(to_string(stmt2)) != whiles.end()) {
+                        lines.insert(vector<string> {to_string(stmt2)});
+                    }
                 }
             }
         }
@@ -670,7 +680,12 @@ void RelationClauseEvaluator::evaluateNextT(QPS::ResultTable *resultTable) {
             if (!cfgHeadPtr->isFirstStatementInCFG(stmt2)) {
                 resultTable->setTrueTable();
             } else {
-                resultTable->setFalseTable();
+                unordered_set<string> whiles = QPS_Interface::getAllEntity(new Argument("", Argument::WHILE_SYNONYM));
+                if (whiles.find(to_string(stmt2)) != whiles.end()) {
+                    resultTable->setTrueTable();
+                } else {
+                    resultTable->setFalseTable();
+                }
             }
             return;
         }
@@ -688,6 +703,11 @@ void RelationClauseEvaluator::evaluateNextT(QPS::ResultTable *resultTable) {
                 }
                 if (!cfgHeadPtr->isFirstStatementInCFG(stmt2)) {
                     lines.insert(vector<string> {to_string(stmt2)});
+                } else {
+                    unordered_set<string> whiles = QPS_Interface::getAllEntity(new Argument("", Argument::WHILE_SYNONYM));
+                    if (whiles.find(to_string(stmt2)) != whiles.end()) {
+                        lines.insert(vector<string> {to_string(stmt2)});
+                    }
                 }
             }
         }
