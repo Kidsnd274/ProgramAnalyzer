@@ -61,6 +61,8 @@ private:
     bool existInStringVector(std::string s, std::vector<std::string> v);
     bool existInIntVector(int s, std::vector<int> v);
 
+    bool validateAffectsParameter(QPS::ResultTable* resultTable);
+
     QPS::ResultTable* filterTable(std::unordered_set<std::vector<std::string>, QPS::StringVectorHash> *result);
 public:
     void evaluate(QPS::ResultTable* resultTable);
