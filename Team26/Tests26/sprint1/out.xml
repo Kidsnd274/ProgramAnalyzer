@@ -1,8 +1,8 @@
 <?xml-stylesheet type="text/xsl" href="analysis.xsl"?>
 <test_results>
 <info>
-<name>autotester</name><parsing_time_taken>0.766000</parsing_time_taken>
+<name>autotester</name><parsing_time_taken>25.104000</parsing_time_taken>
 </info>
 <queries>
 <query>
-<id ReturnTuple="1" Next="1" SuchThat="1" CondNum="3" RelNum="1" comment="next* 2">1</id><querystr><![CDATA[stmt s1, s2; Select <s1, s2> such that Next(s1, s2)]]></querystr>
+<id ReturnTuple="1" Affects="1" Calls="1" Follows="1" Modifies="1" Nextstar="1" Parentstar="1" UnnamedVar="5" Uses="1" Pattern="1" SuchThat="1" With="2" CondNum="17" RelNum="7" comment="Var does not exist">3</id><querystr><![CDATA[stmt s, s1,s2; call ca; constant c; read r; print pn; stmt n, n1,n2; if ifs, ifs1; while w; variable v,v1,v2; assign a,a1; procedure p,p1,p2,p3; Select <ifs, r, a, ca, ifs1, pn, v1, n1, p, c> pattern a("doesnotexist",_) and ifs ( v, _, _ ) and w ( _, _) such that Parent*(ifs1,r) and Next*(ca, n2) and Affects(a,a1) and Modifies(s2, v1) and Follows(n,n1) and Uses(s,v2) and Calls(p,p1) with p2.procName = p3.procName with c.value = 1]]></querystr>

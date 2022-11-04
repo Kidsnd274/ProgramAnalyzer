@@ -19,8 +19,13 @@ void QueryEvaluator::evaluate(Query* query) {
     for (auto iter = query->clauseList->begin(); iter != query->clauseList->end(); iter++) {
         ResultTable* resultTable = new ResultTable();
         clauseAssigner->assignClause(resultTable, *iter);
+        if (resultTable->isFalseTable() || resultTable->isEmptyTable()) {
+            query->resultTable->setFalseTable();
+            return;
+        }
         resultOfEvaluation = ResultTable::mergeTable(resultOfEvaluation, resultTable);
         removeSynonym(**iter, &synonymCount, resultOfEvaluation);
+
     }
     for (auto synonym: query->getCandidateList()) {
         if (!resultOfEvaluation->isSynonymPresent(synonym.argument.argumentName)) {
@@ -63,11 +68,16 @@ std::vector<Clause*>* QueryEvaluator::groupClauses(std::vector<Clause*>* clauseL
     std::unordered_map<std::string, std::unordered_set<int>> synonymClausesMap;
     for (int i = 0; i < clauseList->size(); i++) {
         Clause* clause = clauseList->at(i);
-        int numOfSynonyms = 0;
+
         Argument arg1 = clause->getFirstArgument();
         Argument arg2 = clause->getSecondArgument();
-        if (Argument::isSynonym(arg1.argumentType)) {
-            numOfSynonyms += 1;
+        bool isSynonym1 = Argument::isSynonym(arg1.argumentType);
+        bool isSynonym2 = Argument::isSynonym(arg2.argumentType);
+        int numOfSynonyms = (isSynonym1 ? 1 : 0) + (isSynonym2 ? 1 : 0);
+        if (numOfSynonyms < 2) { // Clauses with less than 2 synonyms will be put into group 1 directly.
+            resultList->push_back(clause);
+        }
+        if (isSynonym1) {
             auto iter = synonymClausesMap.find(arg1.argumentName);
             if (iter != synonymClausesMap.end()) {
                 iter->second.insert(i);
@@ -75,17 +85,13 @@ std::vector<Clause*>* QueryEvaluator::groupClauses(std::vector<Clause*>* clauseL
                 synonymClausesMap.insert(make_pair(arg1.argumentName, unordered_set<int> {i}));
             }
         }
-        if (Argument::isSynonym(arg2.argumentType)) {
-            numOfSynonyms += 1;
+        if (isSynonym2) {
             auto iter = synonymClausesMap.find(arg2.argumentName);
             if (iter != synonymClausesMap.end()) {
                 iter->second.insert(i);
             } else {
                 synonymClausesMap.insert(make_pair(arg2.argumentName, unordered_set<int> {i}));
             }
-        }
-        if (numOfSynonyms == 0) { // Clauses without synonym will be put into group 1 directly.
-            resultList->push_back(clause);
         }
     }
 
