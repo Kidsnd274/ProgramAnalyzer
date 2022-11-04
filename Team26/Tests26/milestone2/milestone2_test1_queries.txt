@@ -793,3 +793,8 @@ assign a; variable v; stmt s;
 Select s pattern s (v,  _"pointx"_)
 SemanticError
 5000
+155 - modifies with pattern
+assign a; variable v1, v2; stmt s1, s2, s3;
+Select <s1, s2, v2> such that Uses (s3, v2) and Modifies (s3, “x”) and Follows (s1, s2) and Parent (s3, s1) and Uses (s2, v1)
+SemanticError
+5000
