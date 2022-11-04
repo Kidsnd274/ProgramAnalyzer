@@ -669,7 +669,9 @@ void RelationClauseEvaluator::evaluateNextT(QPS::ResultTable *resultTable) {
     if (arg2.argumentType == Argument::NUMBER) {
         int stmt2 = stoi(arg2.argumentName);
         Procedure* proc = QPS_Interface::getProcByStmt(stmt2);
-        for (int stmt1 = proc->startingStmtNo; stmt1 <= proc->endingStmtNo; stmt1++) {
+        int startingStmtNo = proc->startingStmtNo;
+        int endingStmtNo = proc->endingStmtNo;
+        for (int stmt1 = startingStmtNo; stmt1 <= endingStmtNo; stmt1++) {
             unordered_set<STMT_NUM> nextStarSet = QPS_Interface::getNextStar(stmt1);
             if (nextStarSet.find(stmt2) != nextStarSet.end()) {
                 lines.insert(vector<string> {to_string(stmt1)});
