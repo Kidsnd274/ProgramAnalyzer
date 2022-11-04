@@ -171,6 +171,9 @@ void QueryEvaluator::removeSynonym(Clause &clause, std::unordered_map<std::strin
             (*synonymCount)[arg1.argumentName] -= 1;
         }
         if (synonymCount->find(arg1.argumentName)->second == 0) {
+            if (resultTable->getColNum() == 1 && !resultTable->isEmptyTable()) {
+                resultTable->setTrueTable();
+            }
             resultTable->deleteColFromTable(arg1.argumentName);
         }
     }

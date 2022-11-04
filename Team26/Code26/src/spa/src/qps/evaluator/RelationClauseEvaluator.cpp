@@ -143,7 +143,7 @@ void RelationClauseEvaluator::evaluateAffectsT(QPS::ResultTable *resultTable) {
         // ACTUAL_NAME, ACTUAL_NAME
         if (arg2.argumentType == Argument::NUMBER) {
             int stmt2 = stoi(arg2.argumentName);
-            if (find(s1.begin(), s1.end(), stmt2) != s1.end()) {
+            if (s1.find(stmt2) != s1.end()) {
                 resultTable->setTrueTable();
             } else {
                 resultTable->setFalseTable();
@@ -185,7 +185,7 @@ void RelationClauseEvaluator::evaluateAffectsT(QPS::ResultTable *resultTable) {
     if (arg1.argumentType == Argument::WILDCARD && arg2.argumentType == Argument::NUMBER) {
         for (auto a: assigns) {
             unordered_set<STMT_NUM> affects = QPS_Interface::getAffectsStar(stoi(a));
-            if (find(affects.begin(), affects.end(), stoi(arg2.argumentName)) != affects.end()) {
+            if (affects.find(stoi(arg2.argumentName)) != affects.end()) {
                 resultTable->setTrueTable();
                 return;
             }
@@ -199,7 +199,7 @@ void RelationClauseEvaluator::evaluateAffectsT(QPS::ResultTable *resultTable) {
         synonyms.push_back(arg1.argumentName);
         for (auto a: assigns) {
             unordered_set<STMT_NUM> affects = QPS_Interface::getAffectsStar(stoi(a));
-            if (find(affects.begin(), affects.end(), stoi(arg2.argumentName)) != affects.end()) {
+            if (affects.find(stoi(arg2.argumentName)) != affects.end()) {
                 lines.insert({a});
             }
         }
@@ -260,7 +260,7 @@ void RelationClauseEvaluator::evaluateAffects(QPS::ResultTable *resultTable) {
         // ACTUAL_NAME, ACTUAL_NAME
         if (arg2.argumentType == Argument::NUMBER) {
             int stmt2 = stoi(arg2.argumentName);
-            if (find(s1.begin(), s1.end(), stmt2) != s1.end()) {
+            if (s1.find(stmt2) != s1.end()) {
                 resultTable->setTrueTable();
             } else {
                 resultTable->setFalseTable();
@@ -302,7 +302,7 @@ void RelationClauseEvaluator::evaluateAffects(QPS::ResultTable *resultTable) {
     if (arg1.argumentType == Argument::WILDCARD && arg2.argumentType == Argument::NUMBER) {
         for (auto a: assigns) {
             unordered_set<STMT_NUM> affects = QPS_Interface::getAffects(stoi(a));
-            if (find(affects.begin(), affects.end(), stoi(arg2.argumentName)) != affects.end()) {
+            if (affects.find(stoi(a)) != affects.end()) {
                 resultTable->setTrueTable();
                 return;
             }
@@ -316,7 +316,7 @@ void RelationClauseEvaluator::evaluateAffects(QPS::ResultTable *resultTable) {
         synonyms.push_back(arg1.argumentName);
         for (auto a: assigns) {
             unordered_set<STMT_NUM> affects = QPS_Interface::getAffects(stoi(a));
-            if (find(affects.begin(), affects.end(), stoi(arg2.argumentName)) != affects.end()) {
+            if (affects.find(stoi(arg2.argumentName)) != affects.end()) {
                 lines.insert({a});
             }
         }
