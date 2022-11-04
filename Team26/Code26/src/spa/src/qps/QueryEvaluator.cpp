@@ -102,7 +102,6 @@ std::vector<Clause*>* QueryEvaluator::groupClauses(std::vector<Clause*>* clauseL
         int lastClauseIndex = -1;
         for (auto clauseIndex : pair.second) {
             if (lastClauseIndex != -1) {
-                std::cout << to_string(lastClauseIndex) << " "<< to_string(clauseIndex) << std::endl;
                 ufds->merge(lastClauseIndex, clauseIndex);
             }
             lastClauseIndex = clauseIndex;
@@ -188,6 +187,9 @@ void QueryEvaluator::removeSynonym(Clause &clause, std::unordered_map<std::strin
             (*synonymCount)[arg2.argumentName] -= 1;
         }
         if (synonymCount->find(arg2.argumentName)->second == 0) {
+            if (resultTable->getColNum() == 1 && !resultTable->isEmptyTable()) {
+                resultTable->setTrueTable();
+            }
             resultTable->deleteColFromTable(arg2.argumentName);
         }
     }

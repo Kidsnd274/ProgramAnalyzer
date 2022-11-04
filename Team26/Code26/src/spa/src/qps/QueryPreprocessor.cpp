@@ -293,6 +293,7 @@ namespace QPS {
         WithClause::WithClauseArgument arg1, arg2;
         Argument argument1, argument2;
         std::pair<int, Exception> result;
+        bool is_integer = false;
         if (pos + 2 < tokens.size() && tokens[pos].tokenType == DOUBLE_QUOTE && tokens[pos+2].tokenType == DOUBLE_QUOTE
             && (tokens[pos + 1].tokenType == NAME)) {
             argument1 = Argument(tokens[pos + 1].nameValue, Argument::ACTUAL_NAME);
@@ -302,10 +303,19 @@ namespace QPS {
             argument1 = Argument(tokens[pos].nameValue, Argument::NUMBER);
             arg1 = {argument1, INAPPLICABLE};
             pos++;
+            is_integer = true;
+        } else if (pos + 1 < tokens.size() && tokens[pos].tokenType == MINUS && tokens[pos + 1].tokenType == INTEGER ){
+            argument1 = Argument("-" + tokens[pos+1].nameValue, Argument::NUMBER);
+            arg1 = {argument1, INAPPLICABLE};
+            pos+=2;
+            is_integer = true;
         } else {
             result = parseWithObject(tokens, pos, container, argument1, arg1);
             if (result.second == VALID) {
                 pos = result.first;
+                if (arg1.attributeType == WITH_CONST_VALUE || arg1.attributeType == STMT_LINE_NUMBER) {
+                    is_integer = true;
+                }
             } else {
                 return {pos, result.second};
             }
@@ -317,9 +327,11 @@ namespace QPS {
         }
         pos++;
 
-        //p.procName = "xxx"
         if (pos + 2 < tokens.size() && tokens[pos].tokenType == DOUBLE_QUOTE && tokens[pos+2].tokenType == DOUBLE_QUOTE
             && (tokens[pos + 1].tokenType == NAME)) {
+            if (is_integer) {
+                return {pos, UNPAIRED_WITH_TYPE};
+            }
             switch (arg1.argument.argumentType) {
                 case Argument::READ_SYNONYM:
                 case Argument::PRINT_SYNONYM:
@@ -348,6 +360,9 @@ namespace QPS {
             }
             pos += 3;
         } else if (pos < tokens.size() && tokens[pos].tokenType == INTEGER) {
+            if (!is_integer) {
+                return {pos, UNPAIRED_WITH_TYPE};
+            }
             switch (arg1.argument.argumentType) {
                 case Argument::READ_SYNONYM:
                 case Argument::PRINT_SYNONYM:
@@ -375,12 +390,51 @@ namespace QPS {
 
             }
             pos++;
+        } else if (pos + 1 < tokens.size() && tokens[pos].tokenType == MINUS && tokens[pos + 1].tokenType == INTEGER)  {
+            switch (arg1.argument.argumentType) {
+                if (!is_integer) {
+                    return {pos, UNPAIRED_WITH_TYPE};
+                }
+                case Argument::READ_SYNONYM:
+                case Argument::PRINT_SYNONYM:
+                case Argument::CALL_SYNONYM:
+                case Argument::WHILE_SYNONYM:
+                case Argument::IF_SYNONYM:
+                case Argument::NUMBER:
+                case Argument::STMT_SYNONYM:
+                case Argument::ASSIGN_SYNONYM:
+                case Argument::CONST_SYNONYM:{
+                    argument2 = Argument("-"+tokens[pos+1].nameValue, Argument::NUMBER);
+                    arg2 = {argument2, INAPPLICABLE};
+                    break;
+                }
+                case Argument::ACTUAL_NAME:
+                case Argument::WILDCARD:
+                case Argument::EXPRESSION:
+                case Argument::PROCEDURE_ACTUAL_NAME:
+                case Argument::BOOLEAN_ARG:
+                case Argument::VAR_SYNONYM:
+                case Argument::PROCEDURE_SYNONYM:
+                case Argument::INVALID_ARGUMENT_TYPE: {
+                    return {pos, INVALID_WITH_SYNTAX};
+                }
+
+            }
+            pos+=2;
         } else if (pos < tokens.size() && tokens[pos].tokenType == NAME) {
             result = parseWithObject(tokens, pos, container, argument2, arg2);
+            bool is_integer_second = false;
+            if (arg2.attributeType == WITH_CONST_VALUE || arg2.attributeType == STMT_LINE_NUMBER) {
+                is_integer_second = true;
+            }
             if (result.second == VALID) {
                 pos = result.first;
             } else {
                 return {pos, result.second};
+            }
+
+            if ((is_integer && !is_integer_second) || (!is_integer && is_integer_second)) {
+                return {pos, UNPAIRED_WITH_TYPE};
             }
 
         } else {
