@@ -529,7 +529,7 @@ void RelationClauseEvaluator::evaluateNext(QPS::ResultTable *resultTable) {
                 }
             }
         }
-        resultTable = new ResultTable(synonyms, lines);
+        resultTable->replace(new ResultTable(synonyms, lines));
         return;
     }
     // SYNONYM, WILDCARD
@@ -544,7 +544,7 @@ void RelationClauseEvaluator::evaluateNext(QPS::ResultTable *resultTable) {
                 }
             }
         }
-        resultTable = new ResultTable(synonyms, lines);
+        resultTable->replace(new ResultTable(synonyms, lines));
         return;
     }
     // SYNONYM, ACTUAL_NAME
@@ -557,7 +557,7 @@ void RelationClauseEvaluator::evaluateNext(QPS::ResultTable *resultTable) {
                 }
             }
         }
-        resultTable = new ResultTable(synonyms, lines);
+        resultTable->replace(new ResultTable(synonyms, lines));
         return;
     }
     // SYNONYM, SYNONYM
@@ -569,7 +569,7 @@ void RelationClauseEvaluator::evaluateNext(QPS::ResultTable *resultTable) {
             }
         }
     }
-    resultTable = new ResultTable(synonyms, lines);
+    resultTable->replace(new ResultTable(synonyms, lines));
 };
 
 void RelationClauseEvaluator::evaluateNextT(QPS::ResultTable *resultTable) {
@@ -603,7 +603,7 @@ void RelationClauseEvaluator::evaluateNextT(QPS::ResultTable *resultTable) {
         for (auto stmt2 : nextStarSet) {
             lines.insert(vector<string> {to_string(stmt2)});
         }
-        resultTable = new ResultTable(synonyms, lines);
+        resultTable->replace(new ResultTable(synonyms, lines));
         return;
     }
     if (arg1.argumentType == Argument::WILDCARD) {
@@ -645,7 +645,7 @@ void RelationClauseEvaluator::evaluateNextT(QPS::ResultTable *resultTable) {
                 }
             }
         }
-        resultTable = new ResultTable(synonyms, lines);
+        resultTable->replace(new ResultTable(synonyms, lines));
         return;
     }
 
@@ -662,7 +662,7 @@ void RelationClauseEvaluator::evaluateNextT(QPS::ResultTable *resultTable) {
                 }
             }
         }
-        resultTable = new ResultTable(synonyms, lines);
+        resultTable->replace(new ResultTable(synonyms, lines));
         return;
     }
     // SYNONYM, ACTUAL_NAME
@@ -675,7 +675,7 @@ void RelationClauseEvaluator::evaluateNextT(QPS::ResultTable *resultTable) {
                 lines.insert(vector<string> {to_string(stmt1)});
             }
         }
-        resultTable = new ResultTable(synonyms, lines);
+        resultTable->replace(new ResultTable(synonyms, lines));
         return;
     }
     // SYNONYM, SYNONYM
@@ -688,7 +688,7 @@ void RelationClauseEvaluator::evaluateNextT(QPS::ResultTable *resultTable) {
             }
         }
     }
-    resultTable = new ResultTable(synonyms, lines);
+    resultTable->replace(new ResultTable(synonyms, lines));
 };
 
 void RelationClauseEvaluator::evaluateParent(QPS::ResultTable *resultTable) {
