@@ -27,7 +27,6 @@ void QueryEvaluator::evaluate(Query* query) {
             getAllEntity(synonym.second, resultOfEvaluation);
         }
     }
-
     query->resultTable = resultOfEvaluation;
 }
 

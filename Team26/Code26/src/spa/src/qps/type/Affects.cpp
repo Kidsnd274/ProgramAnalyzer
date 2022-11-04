@@ -3,6 +3,7 @@
 
 const std::unordered_set<Argument::ArgumentType> secondARGs = {
         Argument::STMT_SYNONYM,
+        Argument::ASSIGN_SYNONYM,
         Argument::NUMBER,
         Argument::WILDCARD,
 };
@@ -21,6 +22,10 @@ const std::unordered_map<
         },
         {
                 Argument::STMT_SYNONYM,
+                secondARGs
+        },
+        {
+                Argument::ASSIGN_SYNONYM,
                 secondARGs
         },
 };
