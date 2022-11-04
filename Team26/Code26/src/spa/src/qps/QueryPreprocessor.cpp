@@ -95,6 +95,7 @@ namespace QPS {
                 container.setStatus(START_PARSE_PATTERN_CLAUSE);
             } else if (curr.tokenType == QPS::NAME && ((curr.nameValue == "with"
                             && (container.getStatus() == FINISH_PARSE_SELECT
+                                || container.getStatus() == FINISH_PARSE_WITH_CLAUSE
                                 || container.getStatus() == FINISH_PARSE_PATTERN_CLAUSE
                                 || container.getStatus() == FINISH_PARSE_SUCH_CLAUSE))
                                 || (tokenPos + 2 < tokens.size() && tokens[tokenPos+1].tokenType == NAME && tokens[tokenPos+2].tokenType == DOT)) ) {
@@ -715,6 +716,15 @@ namespace QPS {
                 WithClause::WithClauseArgument arg;
                 Argument argument;
                 std::pair<int, Exception> result = parseWithObject(tokens, pos, container, argument, arg);
+                auto iter1 = WithClause::withClauseValidationTableArg1
+                        .find(arg.argument.argumentType);
+                if (iter1 == WithClause::withClauseValidationTableArg1.end()) {
+                    return {pos, INVALID_SELECT};
+                }
+                auto iter3 = iter1->second.find(arg.attributeType);
+                if (iter3 == iter1->second.end()) {
+                    return {pos, INVALID_SELECT};
+                }
                 if (result.second == VALID) {
                     pos = result.first;
                     Query::CandidateStruct candidateStruct = {argument, arg.attributeType};
