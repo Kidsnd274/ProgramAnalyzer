@@ -473,11 +473,11 @@ void RelationClauseEvaluator::evaluateModifiesP(QPS::ResultTable *resultTable) {
 void RelationClauseEvaluator::evaluateNext(QPS::ResultTable *resultTable) {
     Argument arg1 = this->relationClause->getFirstArgument();
     Argument arg2 = this->relationClause->getSecondArgument();
-    if (arg1.argumentType == Argument::ACTUAL_NAME) {
+    if (arg1.argumentType == Argument::NUMBER) {
         int stmt1 = stoi(arg1.argumentName);
         CFGHeadPtr cfgHeadPtr = QPS_Interface::getCFGHeadPtrByProc(stmt1);
         // ACTUAL_NAME, ACTUAL_NAME
-        if (arg2.argumentType == Argument::ACTUAL_NAME) {
+        if (arg2.argumentType == Argument::NUMBER) {
             int stmt2 = stoi(arg2.argumentName);
             if (QPS_Interface::runtimeExtractor->isNext(cfgHeadPtr, stmt1, stmt2) == true) {
                 resultTable->setTrueTable();
@@ -503,7 +503,7 @@ void RelationClauseEvaluator::evaluateNext(QPS::ResultTable *resultTable) {
             currLine.push_back(to_string(stmt2));
             lines.insert(currLine);
         }
-        resultTable = new ResultTable(synonyms, lines);
+        resultTable->replace(new ResultTable(synonyms, lines));
         return;
     }
     if (arg1.argumentType == Argument::WILDCARD) {
@@ -521,7 +521,7 @@ void RelationClauseEvaluator::evaluateNext(QPS::ResultTable *resultTable) {
             return;
         }
         // WILDCARD, ACTUAL_NAME
-        if (arg2.argumentType == Argument::ACTUAL_NAME) {
+        if (arg2.argumentType == Argument::NUMBER) {
             int stmt2 = stoi(arg2.argumentName);
             CFGHeadPtr cfgHeadPtr = QPS_Interface::getCFGHeadPtrByProc(stmt2);
             // next(_, s2) is always true unless s2 is the first statement in the procedure
@@ -564,7 +564,7 @@ void RelationClauseEvaluator::evaluateNext(QPS::ResultTable *resultTable) {
         return;
     }
     // SYNONYM, ACTUAL_NAME
-    if (arg2.argumentType == Argument::ACTUAL_NAME) {
+    if (arg2.argumentType == Argument::NUMBER) {
         int stmt2 = stoi(arg2.argumentName);
         for (auto proc : procList) {
             for (int i = proc.startingStmtNo; i <= proc.endingStmtNo; i++) {
@@ -591,11 +591,11 @@ void RelationClauseEvaluator::evaluateNext(QPS::ResultTable *resultTable) {
 void RelationClauseEvaluator::evaluateNextT(QPS::ResultTable *resultTable) {
     Argument arg1 = this->relationClause->getFirstArgument();
     Argument arg2 = this->relationClause->getSecondArgument();
-    if (arg1.argumentType == Argument::ACTUAL_NAME) {
+    if (arg1.argumentType == Argument::NUMBER) {
         int stmt1 = stoi(arg1.argumentName);
         unordered_set<STMT_NUM> nextStarSet = QPS_Interface::getNextStar(stmt1);
         // ACTUAL_NAME, ACTUAL_NAME
-        if (arg2.argumentType == Argument::ACTUAL_NAME) {
+        if (arg2.argumentType == Argument::NUMBER) {
             int stmt2 = stoi(arg2.argumentName);
             if (nextStarSet.find(stmt2) != nextStarSet.end()) {
                 resultTable->setTrueTable();
@@ -637,7 +637,7 @@ void RelationClauseEvaluator::evaluateNextT(QPS::ResultTable *resultTable) {
             return;
         }
         // WILDCARD, ACTUAL_NAME
-        if (arg2.argumentType == Argument::ACTUAL_NAME) {
+        if (arg2.argumentType == Argument::NUMBER) {
             int stmt2 = stoi(arg2.argumentName);
             CFGHeadPtr cfgHeadPtr = QPS_Interface::getCFGHeadPtrByProc(stmt2);
             // next*(_, s2) is always true unless s2 is the first statement in the procedure
@@ -682,7 +682,7 @@ void RelationClauseEvaluator::evaluateNextT(QPS::ResultTable *resultTable) {
         return;
     }
     // SYNONYM, ACTUAL_NAME
-    if (arg2.argumentType == Argument::ACTUAL_NAME) {
+    if (arg2.argumentType == Argument::NUMBER) {
         int stmt2 = stoi(arg2.argumentName);
         Procedure* proc = QPS_Interface::getProcByStmt(stmt2);
         for (int stmt1 = proc->startingStmtNo; stmt1 <= proc->endingStmtNo; stmt1++) {
