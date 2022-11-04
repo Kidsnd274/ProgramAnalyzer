@@ -170,7 +170,7 @@ void QueryEvaluator::removeSynonym(Clause &clause, std::unordered_map<std::strin
         if (synonymCount->count(arg1.argumentName) != 0) {
             (*synonymCount)[arg1.argumentName] -= 1;
         }
-        if (synonymCount->count(arg1.argumentName) == 0) {
+        if (synonymCount->find(arg1.argumentName)->second == 0) {
             resultTable->deleteColFromTable(arg1.argumentName);
         }
     }
@@ -178,7 +178,7 @@ void QueryEvaluator::removeSynonym(Clause &clause, std::unordered_map<std::strin
         if (synonymCount->count(arg2.argumentName) != 0) {
             (*synonymCount)[arg2.argumentName] -= 1;
         }
-        if (synonymCount->count(arg2.argumentName) == 0) {
+        if (synonymCount->find(arg2.argumentName)->second == 0) {
             resultTable->deleteColFromTable(arg2.argumentName);
         }
     }
