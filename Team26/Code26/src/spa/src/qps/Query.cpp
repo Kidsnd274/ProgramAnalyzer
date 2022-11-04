@@ -20,7 +20,11 @@ void Query::addClause(Clause* clause) {
 void Query::validate() {
     for (auto clause : *this->clauseList) {
         if (!clause->isValid()) {
-            this->setStatus(SEMANTIC_ERROR);
+            if (typeid(*clause) == typeid(WithClause)) {
+                this->setStatus(SYNTAX_ERROR);
+            } else {
+                this->setStatus(SEMANTIC_ERROR);
+            }
         }
     }
 }
