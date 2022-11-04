@@ -1,8 +1,8 @@
 <?xml-stylesheet type="text/xsl" href="analysis.xsl"?>
 <test_results>
 <info>
-<name>autotester</name><parsing_time_taken>29.777000</parsing_time_taken>
+<name>autotester</name><parsing_time_taken>0.766000</parsing_time_taken>
 </info>
 <queries>
 <query>
-<id ReturnTuple="1" Nextstar="1" SuchThat="1" CondNum="3" RelNum="1" comment="next* 2">1</id><querystr><![CDATA[stmt n1,n2; stmt a1, a2; assign a3, a4, a5, a6, a7, a8, a9, a10; Select <a1.stmt#, a6.stmt#> such that Next*(a2, 151)]]></querystr>
+<id ReturnTuple="1" Next="1" SuchThat="1" CondNum="3" RelNum="1" comment="next* 2">1</id><querystr><![CDATA[stmt s1, s2; Select <s1, s2> such that Next(s1, s2)]]></querystr>
