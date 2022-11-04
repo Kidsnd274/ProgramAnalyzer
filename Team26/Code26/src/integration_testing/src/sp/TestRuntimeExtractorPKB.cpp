@@ -138,7 +138,6 @@ TEST_CASE("Simple Next* test") {
 
     REQUIRE(pkbInterface->getAllNextStar() == correctMap);
 
-    pkbInterface->clear();
     delete pkbInterface;
     pkbInterface = nullptr;
 }
@@ -270,7 +269,6 @@ TEST_CASE("Simple affects test") {
     REQUIRE(pkbInterface->getAffects(9) == stmt9);
     REQUIRE(pkbInterface->getAffects(10) == stmt10);
 
-    pkbInterface->clear();
     delete pkbInterface;
     pkbInterface = nullptr;
 }
@@ -395,7 +393,6 @@ TEST_CASE("Simple affects Star test") {
     REQUIRE(affectsStarMap[9] == stmt9);
     REQUIRE(affectsStarMap[10] == stmt10);
 
-    pkbInterface->clear();
     delete pkbInterface;
     pkbInterface = nullptr;
 }
@@ -585,7 +582,6 @@ TEST_CASE("2 procedure affects/affects* test") {
 
     }
 
-    pkbInterface->clear();
     delete pkbInterface;
     pkbInterface = nullptr;
 }
@@ -827,7 +823,6 @@ TEST_CASE("if-if and while-while loop") {
         REQUIRE(affectsStarMap[19] == stmt19);
     }
 
-    pkbInterface->clear();
     delete pkbInterface;
     pkbInterface = nullptr;
 }

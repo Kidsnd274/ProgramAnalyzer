@@ -90,7 +90,7 @@ public:
      * Call PKB interface to get all procedure affects relations in AffectsTable.
      * @return a vector containing all the procedure affects relations.
      */
-    static std::vector<pair<int, int>> getAllAffectsProcRelations();
+    static std::vector<pair<int, int>> getAllAffectsTRelations();
 
     /**
      * Call PKB interface to get all next relations in NextTable.
@@ -102,7 +102,7 @@ public:
      * Call PKB interface to get all procedure xt relations in NextTable.
      * @return a vector containing all the procedure next relations.
      */
-    static std::vector<pair<int, int>> getAllNextProcRelations();
+    static std::vector<pair<int, int>> getAllNextTRelations();
 
     /**
      * Call PKB interface to get all assignments in StatementTable.
@@ -185,6 +185,8 @@ public:
      * @return a vector of stmt2 that satisfies next*(stmt, stmt2).
      */
     static std::unordered_set<STMT_NUM> getNextStar(STMT_NUM stmt);
+    static std::unordered_set<STMT_NUM> getAffects(STMT_NUM stmt);
+    static std::unordered_set<STMT_NUM> getAffectsStar(STMT_NUM stmt);
 };
 
 

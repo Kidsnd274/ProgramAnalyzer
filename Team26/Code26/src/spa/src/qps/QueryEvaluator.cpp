@@ -10,13 +10,22 @@ void QueryEvaluator::evaluate(Query* query) {
     ClauseAssigner* clauseAssigner = new ClauseAssigner();
 
     // Group the clauses
-    query->clauseList = QueryEvaluator::groupClauses(query->clauseList);
+//    query->clauseList = QueryEvaluator::groupClauses(query->clauseList);
+
+    // Add synonyms to the map
+    unordered_map<string, int> synonymCount = countSynonym(query);
 
     // Evaluate the clauses
     for (auto iter = query->clauseList->begin(); iter != query->clauseList->end(); iter++) {
         ResultTable* resultTable = new ResultTable();
         clauseAssigner->assignClause(resultTable, *iter);
         resultOfEvaluation = ResultTable::mergeTable(resultOfEvaluation, resultTable);
+        removeSynonym(**iter, &synonymCount, resultOfEvaluation);
+    }
+    for (auto synonym: query->getSynonymMap()) {
+        if (!resultOfEvaluation->isSynonymPresent(synonym.second.argumentName)) {
+            getAllEntity(synonym.second, resultOfEvaluation);
+        }
     }
 
     query->resultTable = resultOfEvaluation;
@@ -34,7 +43,7 @@ void QueryEvaluator::getAllEntity(Argument argument, QPS::ResultTable *resultTab
 }
 
 int QueryEvaluator::calcHeuristic(Clause &clause) {
-
+    return 0;
 }
 
 int QueryEvaluator::numOfSynonyms(Clause &clause) {
@@ -116,4 +125,59 @@ std::vector<Clause*>* QueryEvaluator::groupClauses(std::vector<Clause*>* clauseL
     }
 
     return resultList;
+}
+
+std::unordered_map<std::string, int>
+QueryEvaluator::countSynonym(Query* query) {
+    std::vector<Clause *> *clauseList = query->clauseList;
+    std::unordered_set<std::string> candidates = query->getCandidates();
+    unordered_map<string, int> synonymCount = {};
+    for (auto clause: *clauseList) {
+        Argument arg1 = clause->getFirstArgument();
+        Argument arg2 = clause->getSecondArgument();
+        if (Argument::isSynonym(arg1.argumentType)) {
+            if (synonymCount.count(arg1.argumentName) == 0) {
+                synonymCount[arg1.argumentName] = 1;
+            } else {
+                synonymCount[arg1.argumentName] += 1;
+            }
+        }
+        if (Argument::isSynonym(arg2.argumentType)) {
+            if (synonymCount.count(arg2.argumentName) == 0) {
+                synonymCount[arg2.argumentName] = 1;
+            } else {
+                synonymCount[arg2.argumentName] += 1;
+            }
+        }
+    }
+    for (auto candidate: candidates) {
+        if (synonymCount.count(candidate) == 0) {
+            synonymCount[candidate] = 1;
+        } else {
+            synonymCount[candidate] += 1;
+        }
+    }
+    return synonymCount;
+}
+
+void QueryEvaluator::removeSynonym(Clause &clause, std::unordered_map<std::string, int> *synonymCount,
+                                   QPS::ResultTable *resultTable) {
+    Argument arg1 = clause.getFirstArgument();
+    Argument arg2 = clause.getSecondArgument();
+    if (Argument::isSynonym(arg1.argumentType)) {
+        if (synonymCount->count(arg1.argumentName) != 0) {
+            (*synonymCount)[arg1.argumentName] -= 1;
+        }
+        if (synonymCount->count(arg1.argumentName) == 0) {
+            resultTable->deleteColFromTable(arg1.argumentName);
+        }
+    }
+    if (Argument::isSynonym(arg2.argumentType)) {
+        if (synonymCount->count(arg2.argumentName) != 0) {
+            (*synonymCount)[arg2.argumentName] -= 1;
+        }
+        if (synonymCount->count(arg2.argumentName) == 0) {
+            resultTable->deleteColFromTable(arg2.argumentName);
+        }
+    }
 }

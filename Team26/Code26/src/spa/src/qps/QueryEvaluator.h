@@ -14,6 +14,9 @@ public:
     static std::vector<Clause*>* groupClauses(std::vector<Clause*>* clauseList);
     static int calcHeuristic(Clause& clause);
     static int numOfSynonyms(Clause& clause);
+    static std::unordered_map<std::string, int> countSynonym(Query* query);
+    static void removeSynonym(Clause& clause, std::unordered_map<std::string, int>* synonymCount,
+                              QPS::ResultTable* resultTable);
 };
 
 class UnionFindDisjointSet {

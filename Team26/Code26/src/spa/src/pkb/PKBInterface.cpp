@@ -1,39 +1,4 @@
-//
-// Created by QMS on 4/9/2022.
-//
-
-#include<stdio.h>
-#include <iostream>
-#include <string>
-#include <utility>
-#include <vector>
-#include <cassert>
-#include <memory>
-
-#include "PKB.h"
-#include "util/ast/TNode.h"
-#include "util/cfg/CFGHead.h"
-#include "VarTable.h"
-#include "ConstantTable.h"
-#include "ProcedureTable.h"
-#include "StatementTable.h"
 #include "PKBInterface.h"
-#include "ModifiesTable.h"
-#include "UsesTable.h"
-#include "ParentTable.h"
-#include "ParentStarTable.h"
-#include "FollowsTable.h"
-#include "FollowsStarTable.h"
-#include "CallTable.h"
-#include "CallStarTable.h"
-#include "ContainerTable.h"
-#include "ProcedureNotFoundException.h"
-#include "NextStarTable.h"
-#include "AffectTable.h"
-#include "AffectStarTable.h"
-
-using namespace std;
-//using namespace StatementType;
 
 void PKBInterface::addProcedure(std::string name, int startingStmtNo, int endingStmtNo, std::shared_ptr<CFGHead> cfg) {
     Procedure proc;
@@ -402,6 +367,10 @@ std::unordered_set<STMT_NUM> PKBInterface::getAffects(STMT_NUM stmt) {
     return pkb->affectTable->getAffectedSet(stmt);
 }
 
+std::unordered_set<STMT_NUM> PKBInterface::getAffectsStar(STMT_NUM stmt) {
+    return pkb->affectStarTable->getAffectedStarSet(stmt);
+}
+
 std::unordered_set<STMT_NUM> PKBInterface::getNextStar(STMT_NUM stmt) {
     return pkb->nextStarTable->getNextStar(stmt);
 }
@@ -415,24 +384,28 @@ Procedure* PKBInterface::getProcByStmt(STMT_NUM stmt) {
     return pkb->procedureTable->getProcByStmt(stmt);
 }
 
+std::vector<Procedure> PKBInterface::getProcList() {
+    return pkb->procedureTable->getProcList();
+}
+
 void PKBInterface::clear() {
     pkb->nextStarTable->clear();
     pkb->affectTable->clear();
     pkb->affectStarTable->clear();
-    pkb->callStarTable->clear();
-    pkb->callTable->clear();
-    pkb->constantTable->clear();
-    pkb->containerTable->clear();
-    pkb->followsTable->clear();
-    pkb->followsStarTable->clear();
-    pkb->modifiesTable->clear();
-    pkb->nextTable->clear();
-    pkb->parentStarTable->clear();
-    pkb->parentTable->clear();
-    pkb->procedureTable->clear();
-    pkb->statementTable->clear();
-    pkb->usesTable->clear();
-    pkb->varTable->clear();
+//    pkb->callStarTable->clear();
+//    pkb->callTable->clear();
+//    pkb->constantTable->clear();
+//    pkb->containerTable->clear();
+//    pkb->followsTable->clear();
+//    pkb->followsStarTable->clear();
+//    pkb->modifiesTable->clear();
+//    pkb->nextTable->clear();
+//    pkb->parentStarTable->clear();
+//    pkb->parentTable->clear();
+//    pkb->procedureTable->clear();
+//    pkb->statementTable->clear();
+//    pkb->usesTable->clear();
+//    pkb->varTable->clear();
 }
 
 

@@ -57,7 +57,7 @@ std::vector<pair<int, int>> QPS_Interface::getAllAffectsRelations() {
     return {};
 }
 
-std::vector<pair<int, int>> QPS_Interface::getAllAffectsProcRelations() {
+std::vector<pair<int, int>> QPS_Interface::getAllAffectsTRelations() {
 //    return QPS_Interface::pkbInterface->getAllAffectsProc();
     return {};
 }
@@ -66,7 +66,7 @@ std::unordered_map<int, std::vector<int>> QPS_Interface::getAllNextRelations() {
     return QPS_Interface::pkbInterface->getAllNext();
 }
 
-std::vector<pair<int, int>> QPS_Interface::getAllNextProcRelations() {
+std::vector<pair<int, int>> QPS_Interface::getAllNextTRelations() {
 //    return QPS_Interface::pkbInterface->getAllNextProc();
     return {};
 }
@@ -172,15 +172,16 @@ std::string QPS_Interface::getAttrName(std::string value, Query::CandidateStruct
 }
 
 CFGHeadPtr QPS_Interface::getCFGHeadPtrByProc(STMT_NUM stmt) {
-//    return QPS_Interface::pkbInterface->getCFGHEADPtrByProc(stmt);
+    return QPS_Interface::pkbInterface->getCFGHeadPtrByProc(stmt);
+    return nullptr;
 }
 
 Procedure* QPS_Interface::getProcByStmt(STMT_NUM stmt) {
-//    return QPS_Interface::pkbInterface->getProcByStmt(stmt);
+    return QPS_Interface::pkbInterface->getProcByStmt(stmt);
 }
 
 std::vector<Procedure> QPS_Interface::getProcList() {
-//    return QPS_Interface::pkbInterface->getProcList();
+    return QPS_Interface::pkbInterface->getProcList();
 }
 
 bool QPS_Interface::hasNextStar(STMT_NUM stmt) {
@@ -188,5 +189,27 @@ bool QPS_Interface::hasNextStar(STMT_NUM stmt) {
 }
 
 std::unordered_set<STMT_NUM> QPS_Interface::getNextStar(STMT_NUM stmt) {
-//    return QPS_Interface::pkbInterface->getNextStar();
+    if (!QPS_Interface::hasNextStar(stmt)) {
+        CFGHeadPtr cfgHeadPtr = QPS_Interface::getCFGHeadPtrByProc(stmt);
+        QPS_Interface::runtimeExtractor->computeNextStar(cfgHeadPtr, stmt);
+    }
+    return QPS_Interface::pkbInterface->getNextStar(stmt);
+}
+
+std::unordered_set<STMT_NUM> QPS_Interface::getAffects(STMT_NUM stmt) {
+    bool hasAffects = QPS_Interface::pkbInterface->hasAffects(stmt);
+    if (!hasAffects) {
+        CFGHeadPtr cfgHeadPtr = QPS_Interface::getCFGHeadPtrByProc(stmt);
+        runtimeExtractor->computeAffects(cfgHeadPtr, stmt);
+    }
+    return QPS_Interface::pkbInterface->getAffects(stmt);
+}
+
+std::unordered_set<STMT_NUM> QPS_Interface::getAffectsStar(STMT_NUM stmt) {
+    bool hasAffectsStar = QPS_Interface::pkbInterface->hasAffectsStar(stmt);
+    if (!hasAffectsStar) {
+        CFGHeadPtr cfgHeadPtr = QPS_Interface::getCFGHeadPtrByProc(stmt);
+        runtimeExtractor->computeAffectsStar(cfgHeadPtr, stmt);
+    }
+    return QPS_Interface::pkbInterface->getAffectsStar(stmt);
 }
