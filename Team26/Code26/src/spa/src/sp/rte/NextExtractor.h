@@ -1,7 +1,9 @@
-
 #ifndef SPA_NEXTEXTRACTOR_H
 #define SPA_NEXTEXTRACTOR_H
 
+#include <unordered_set>
+#include <utility>
+#include <string>
 #include "CFGExtractor.h"
 
 class NextExtractor : public CFGExtractor{
@@ -11,5 +13,4 @@ public:
     void computeNextStar(CFGHeadPtr cfg, PKBInterface* pkb, STMT_NUM stmt);
 };
 
-
-#endif //SPA_NEXTEXTRACTOR_H
+#endif  // SPA_NEXTEXTRACTOR_H

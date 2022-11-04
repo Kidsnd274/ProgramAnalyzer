@@ -1,7 +1,10 @@
+#include <memory>
+#include <vector>
 #include "Extractor.h"
+
 class ParentExtractor : public Extractor {
 public:
-    ParentExtractor(PKBInterface *pkb) : Extractor(pkb){}
+    explicit ParentExtractor(PKBInterface *pkb) : Extractor(pkb) {}
 
     void extractFromProcedure(std::shared_ptr<ProcedureNode> ptr) override{};
     void extractFromIf(std::shared_ptr<IfNode> ptr) override;
@@ -11,4 +14,3 @@ public:
     void extractFromAssign(std::shared_ptr<AssignNode> ptr) override {};
     void extractFromStatementsWithStatementList(int stmtNum, std::vector<std::shared_ptr<StatementNode>> &stmtList);
 };
-

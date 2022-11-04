@@ -1,0 +1,55 @@
+1 - select all statements
+stmt s;
+Select s
+1,2,3,4,5,6,7,8,9,10,11,12,13,14,15
+5000
+2 - select all read statements
+read r;
+Select r
+1,9
+5000
+3 - select all print statements
+print stuff;
+Select stuff
+2,10
+5000
+4 - select all assign statements
+assign a;
+Select a
+5,6,7,12,13,15
+5000
+5 - select all procedures
+procedure p1;
+Select p1
+procedure1, procedure2, procedure3, procedure4
+5000
+6 - simple calls test
+procedure p1, p2;
+Select p1 such that Calls(p1,p2)
+procedure1, procedure3
+5000
+7 - simple calls test 2
+procedure p1, p2;
+Select p2 such that Calls(p1,p2)
+procedure2, procedure4
+5000
+8 - select all variables
+variable v;
+Select v
+x,y,g
+5000
+9 - select all constants
+constant c;
+Select c
+1,2
+5000
+10 - select all whiles
+while w;
+Select w
+4,8
+5000
+11 - select all ifs
+if i;
+Select i
+11
+5000

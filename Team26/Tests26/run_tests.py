@@ -15,8 +15,8 @@ class TestCase:
         self.name = name
         self.source_file = folder / (name + "_source.txt")
         self.queries_file = folder / (name + "_queries.txt")
-        self.out_file_failed = testdir / "failed_tests" / (name + "_out.xml")
-        self.log_file_failed = testdir / "failed_tests" / (name + ".log")
+        self.out_file_failed = (name + "_out.xml")
+        self.log_file_failed = (name + ".log")
 
 
 print(testdir)
@@ -59,9 +59,16 @@ def move_file(curr_file, new_location):
 def move_failed_files(testcase, out_file_also):
     if not ((testdir / "failed_tests").exists and (testdir / "failed_tests").is_dir()):
         pathlib.Path.mkdir(testdir / "failed_tests")
-    move_file(logfile, testcase.log_file_failed)
+    move_file(logfile, testdir / "failed_tests" / testcase.log_file_failed)
     if out_file_also:
-        move_file(outxml, testcase.out_file_failed)
+        move_file(outxml, testdir / "failed_tests" / testcase.out_file_failed)
+
+
+def move_passed_files(testcase):
+    if not ((testdir / "passed_tests").exists and (testdir / "passed_tests").is_dir()):
+        pathlib.Path.mkdir(testdir / "passed_tests")
+    move_file(logfile, testdir / "passed_tests" / testcase.log_file_failed)
+    move_file(outxml, testdir / "passed_tests" / testcase.out_file_failed)
 
 
 def if_passed(result):
@@ -85,7 +92,7 @@ def run_test(testcase):
 failed_tests = []
 
 
-def run_multiple_tests(selected_tests, milestone_name):
+def run_multiple_tests(selected_tests):
     for testcase in selected_tests:
         print("Running testcase " + testcase.name + "...", end="")
         completed_process = run_test(testcase)
@@ -98,6 +105,7 @@ def run_multiple_tests(selected_tests, milestone_name):
             move_failed_files(testcase, True)
             print(" X Failed testcase.")
         else:
+            move_passed_files(testcase)
             print(" PASSED")
 
 
@@ -106,7 +114,7 @@ print("-----------------------SPRINT 1-----------------------")
 sprint1 = testdir / "sprint1"
 tests = [TestCase("test_sprint1", sprint1)]
 
-run_multiple_tests(tests, "Sprint 1")
+run_multiple_tests(tests)
 
 print("-----------------------MILESTONE 1 / SPRINT 2-----------------------")
 milestone1 = testdir / "milestone1"
@@ -115,24 +123,31 @@ tests = [TestCase("milestone1_test1", milestone1),
          TestCase("test_pattern", milestone1),
          TestCase("test_relationship", milestone1)]
 
-run_multiple_tests(tests, "Milestone 1")
+run_multiple_tests(tests)
 
 
 print("-----------------------SPRINT 3 / DEMO 2-----------------------")
 demo2 = testdir / "demo2"
-tests = [TestCase("test_calls", demo2)]
+tests = [TestCase("test_calls", demo2),
+         # TestCase("test_pattern2", demo2), # Test case broken
+         ]
 
-run_multiple_tests(tests, "Demo 2")
+run_multiple_tests(tests)
 
 
 print("-----------------------SPRINT 4 / MILESTONE 2-----------------------")
 milestone2 = testdir / "milestone2"
 tests = [TestCase("milestone2_test1", milestone2)]
 
-run_multiple_tests(tests, "Milestone 2")
+run_multiple_tests(tests)
 
+print("-----------------------SPRINT 5 / MILESTONE 3-----------------------")
+milestone3 = testdir / "milestone3"
+tests = [TestCase("milestone3_test1", milestone3),
+         TestCase("milestone3_test2", milestone3),
+         TestCase("affectstest", milestone3)]
 
-
+run_multiple_tests(tests)
 
 print("")
 if failed_tests:

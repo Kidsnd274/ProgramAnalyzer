@@ -1,0 +1,39 @@
+procedure one {
+  x = 1;
+  y=1;
+
+  if(x>y) then {
+    k = x + y;
+
+    if(x>y) then {
+      y = x + y;
+      call two;
+      x = x + 1;
+    } else {
+      call three;
+      x = k + y;
+    }
+  } else {
+    k = x + y;
+  }
+  z=1;
+
+  while(x>z) {
+    x = k + y;
+
+    while(x>z) {
+      x = z;
+      call three;
+      k = y + 3;
+    }
+    y=k;
+  }
+}
+
+procedure two {
+  x = 15;
+}
+
+procedure three {
+  y = 30;
+}

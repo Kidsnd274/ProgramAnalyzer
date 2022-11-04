@@ -33,4 +33,4 @@ public:
 bool operator== (CFGNode leftNode, CFGNode rightNode);
 bool operator!= (CFGNode leftNode, CFGNode rightNode);
 bool operator< (CFGNode leftNode, CFGNode rightNode);
-#endif //SPA_CFGNODE_H
+#endif  // SPA_CFGNODE_H

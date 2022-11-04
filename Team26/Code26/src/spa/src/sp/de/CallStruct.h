@@ -2,7 +2,6 @@
 #ifndef SPA_CALLSTRUCT_H
 #define SPA_CALLSTRUCT_H
 
-
 class CallStruct {
 private:
     int stmtNumber;
@@ -23,5 +22,4 @@ public:
     }
 };
 
-
-#endif //SPA_CALLSTRUCT_H
+#endif  // SPA_CALLSTRUCT_H
