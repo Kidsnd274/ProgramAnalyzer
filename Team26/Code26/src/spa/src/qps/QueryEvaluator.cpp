@@ -181,4 +181,5 @@ void QueryEvaluator::removeSynonym(Clause &clause, std::unordered_map<std::strin
             resultTable->deleteColFromTable(arg2.argumentName);
         }
     }
+    resultTable->deleteDuplicateRows({});
 }
