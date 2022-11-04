@@ -3,5 +3,5 @@
 #include <exception>
 class SyntaxErrorException : std::exception {
 public:
-    char * what ();
+    char * what();
 };

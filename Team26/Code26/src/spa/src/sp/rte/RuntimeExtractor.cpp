@@ -1,4 +1,3 @@
-
 #include "RuntimeExtractor.h"
 
 bool RuntimeExtractor::isNext(CFGHeadPtr cfg, STMT_NUM stmt1, STMT_NUM stmt2) {

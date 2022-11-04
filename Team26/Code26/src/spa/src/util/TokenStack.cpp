@@ -1,8 +1,8 @@
 #include "TokenStack.h"
 
 std::string TokenStack::checkAndReturnNextToken(SPTokenType tokenType) {
-    if(tokenType == SPTokenType::NameToken) {
-        if(!peekNext().isNonTerminal()) {
+    if (tokenType == SPTokenType::NameToken) {
+        if (!peekNext().isNonTerminal()) {
             throw SyntaxErrorException();
         }
     }
@@ -25,6 +25,7 @@ bool TokenStack::isNextTokenStringEquals(std::string s) {
 bool TokenStack::isNextTokenNonTerminal() {
     return peekNext().isNonTerminal();
 }
+
 // Similar to function below, but added in for expressivity of function name
 bool TokenStack::isNextTokenNotOfType(SPTokenType tokenType) {
     return peekNextTokenType() != tokenType;
@@ -35,7 +36,7 @@ bool TokenStack::isNextTokenOfType(SPTokenType tokenType) {
 }
 
 bool TokenStack::checkAndUseNextToken(SPTokenType tokenType) {
-    if(getNext().getTokenType() != tokenType) {
+    if (getNext().getTokenType() != tokenType) {
         throw SyntaxErrorException();
     }
 
@@ -43,7 +44,7 @@ bool TokenStack::checkAndUseNextToken(SPTokenType tokenType) {
 }
 
 SPToken TokenStack::getNext() {
-    if(!hasNextToken()) {
+    if (!hasNextToken()) {
         throw EndOfFileException();
     }
 
@@ -54,7 +55,7 @@ bool TokenStack::hasNextToken() {
     return tokenPointer < tokenStack.size();
 }
 SPToken TokenStack::peekNext() {
-    if(!hasNextToken()) {
+    if (!hasNextToken()) {
         throw EndOfFileException();
     }
 
@@ -69,12 +70,12 @@ bool TokenStack::isCondTokenAfterRparen() {
     int j = tokenPointer + 1;
     std::stack<char> parenStack;
     parenStack.push('l');
-    while(j < tokenStack.size() && !parenStack.empty()) {
-        if(tokenStack[j].getTokenType() == SPTokenType::RParenToken && parenStack.top() == 'l') {
+    while (j < tokenStack.size() && !parenStack.empty()) {
+        if (tokenStack[j].getTokenType() == SPTokenType::RParenToken && parenStack.top() == 'l') {
             parenStack.pop();
-        } else if(tokenStack[j].getTokenType() == SPTokenType::RParenToken) {
+        } else if (tokenStack[j].getTokenType() == SPTokenType::RParenToken) {
             parenStack.push('r');
-        } else if( tokenStack[j].getTokenType() == SPTokenType::LParenToken) {
+        } else if (tokenStack[j].getTokenType() == SPTokenType::LParenToken) {
             parenStack.push('l');
         }
         j++;

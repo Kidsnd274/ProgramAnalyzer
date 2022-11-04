@@ -13,8 +13,8 @@ void CFGHead::connectNode(CFGNode node1, CFGNode node2)  {
     if (node1.isDummyNode()) {
         dummyAdjList.insert({stmtNum, node2});
     } else {
-        if (adjList.find(stmtNum) == adjList.end()) { // If key doesn't exist
-            adjList[stmtNum] = EDGES(); // Initialize key with null vector
+        if (adjList.find(stmtNum) == adjList.end()) {  // If key doesn't exist
+            adjList[stmtNum] = EDGES();  // Initialize key with null vector
         }
         adjList[stmtNum].push_back(node2);
     }
@@ -48,9 +48,9 @@ CFGDummyMap CFGHead::getDummyNodeMap() {
 
 STMT_NUM CFGHead::findDummyNodeNext(CFGNode& dummy) {
     CFGNode dummyPointsTo = dummyAdjList.at(dummy.getStmtNumber());
-    if(dummyPointsTo.isNullNode()) {
+    if (dummyPointsTo.isNullNode()) {
         return -1;
-    } else if(dummyPointsTo.isDummyNode()) {
+    } else if (dummyPointsTo.isDummyNode()) {
         return findDummyNodeNext(dummyPointsTo);
     } else {
         return dummyPointsTo.getStmtNumber();
@@ -75,10 +75,10 @@ std::unordered_set<STMT_NUM> CFGHead::getNextNodes(STMT_NUM stmt) {
 
     std::unordered_set<STMT_NUM> ans;
 
-    for(auto &node : adjList[stmt]) {
-        if(node.isDummyNode()) {
+    for (auto &node : adjList[stmt]) {
+        if (node.isDummyNode()) {
             int nextNode = findDummyNodeNext(node);
-            if(nextNode != -1) {
+            if (nextNode != -1) {
                 ans.insert(nextNode);
             }
         } else {
@@ -90,13 +90,13 @@ std::unordered_set<STMT_NUM> CFGHead::getNextNodes(STMT_NUM stmt) {
 }
 
 bool CFGHead::isNext(STMT_NUM stmt1, STMT_NUM stmt2) {
-    if(!isStatementInCFG(stmt1) || !isStatementInCFG(stmt2)) {
+    if (!isStatementInCFG(stmt1) || !isStatementInCFG(stmt2)) {
         return false;
     }
 
     bool ans = false;
-    for(auto &node : adjList[stmt1]) {
-        if(node.isDummyNode()) {
+    for (auto &node : adjList[stmt1]) {
+        if (node.isDummyNode()) {
             ans = ans || (findDummyNodeNext(node) == stmt2);
         } else {
             ans = ans || (node.getStmtNumber() == stmt2);
@@ -118,28 +118,28 @@ void CFGHead::addToReachableQueue(CFGNode& node, std::queue<int>& q, std::unorde
 }
 
 std::unordered_set<STMT_NUM> CFGHead::getReachableNodes(STMT_NUM stmt) {
-    if(!isStatementInCFG(stmt)) {
+    if (!isStatementInCFG(stmt)) {
         return {};
     }
 
     std::unordered_set<int> ans;
     std::queue<int> q;
 
-    for(auto &node : adjList[stmt]) {
+    for (auto &node : adjList[stmt]) {
         addToReachableQueue(node, q, ans);
     }
 
-    while(!q.empty()) {
+    while (!q.empty()) {
         STMT_NUM sm = q.front();
         q.pop();
 
-        if(ans.find(sm) != ans.end()) {
+        if (ans.find(sm) != ans.end()) {
             continue;
         }
 
         ans.insert(sm);
 
-        for(auto &node : adjList[sm]) {
+        for (auto &node : adjList[sm]) {
             addToReachableQueue(node, q, ans);
         }
     }
@@ -181,7 +181,7 @@ std::string CFGHead::returnAllEdgesInString() {
         STMT_NUM key = iter->first;
         result += std::to_string(key);
         result += ": ";
-        for (CFGNode node:adjList.at(key)) {
+        for (CFGNode node : adjList.at(key)) {
             switch (node.getNodeType()) {
                 case CFGNodeType::NormalNode:
                     result += std::to_string(node.getStmtNumber());
@@ -237,7 +237,7 @@ bool operator== (CFGHead leftCFG, CFGHead rightCFG) {
         if (verifiedNodes.find(key) != verifiedNodes.end()) {
             continue;
         }
-        if (rightNodeMap.find(key) == rightNodeMap.end()) { // If key not found in right map
+        if (rightNodeMap.find(key) == rightNodeMap.end()) {  // If key not found in right map
             return false;
         }
         // Key found, comparing edges
@@ -256,7 +256,7 @@ bool operator== (CFGHead leftCFG, CFGHead rightCFG) {
         if (verifiedNodes.find(key) != verifiedNodes.end()) {
             continue;
         }
-        if (leftNodeMap.find(key) == leftNodeMap.end()) { // If key not found in left map
+        if (leftNodeMap.find(key) == leftNodeMap.end()) {  // If key not found in left map
             return false;
         }
         // Key found comparing edges

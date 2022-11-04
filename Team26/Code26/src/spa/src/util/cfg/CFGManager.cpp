@@ -19,7 +19,7 @@ void CFGManager::addStandardNode(STMT_NUM stmtNum) {
 
 void CFGManager::addDummyNode(STMT_NUM stmtNum) {
     CFGNode newNode = CFGNode::dummyNode(stmtNum);
-    if (!parentNode.isNullNode()) { // DummyNode stmt number should refer to the if stmt number
+    if (!parentNode.isNullNode()) {  // DummyNode stmt number should refer to the if stmt number
         currentCFG->connectNode(parentNode, newNode);
     }
     parentNode = newNode;

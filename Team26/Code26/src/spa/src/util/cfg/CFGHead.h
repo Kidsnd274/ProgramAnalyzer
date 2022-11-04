@@ -1,14 +1,15 @@
 #ifndef SPA_CFGHEAD_H
 #define SPA_CFGHEAD_H
 
-#include "CFGNode.h"
-#include "CFGNotInitializedException.h"
 #include <algorithm>
+#include <memory>
+#include <queue>
+#include <string>
 #include <unordered_map>
 #include <unordered_set>
 #include <vector>
-#include <queue>
-#include <string>
+#include "CFGNode.h"
+#include "CFGNotInitializedException.h"
 
 class CFGHead;
 
@@ -24,6 +25,7 @@ private:
     CFGDummyMap dummyAdjList;
     bool initialized = false;
     STMT_NUM firstNodeStmtNum = -1;
+
 public:
     void connectNode(CFGNode node1, CFGNode node2);
     EDGES getEdges(STMT_NUM stmtNumber);
@@ -52,4 +54,4 @@ public:
 bool operator== (CFGHead leftCFG, CFGHead rightCFG);
 bool operator!= (CFGHead leftCFG, CFGHead rightCFG);
 
-#endif //SPA_CFGHEAD_H
+#endif  // SPA_CFGHEAD_H

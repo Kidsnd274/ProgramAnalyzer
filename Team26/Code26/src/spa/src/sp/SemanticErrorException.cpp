@@ -1,5 +1,5 @@
 #include "SemanticErrorException.h"
 
 char *SemanticErrorException::what() {
-    return (char*) errorMsg.data();
+    return reinterpret_cast<char*>(errorMsg.data());
 }
