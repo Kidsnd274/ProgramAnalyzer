@@ -48,7 +48,7 @@ namespace QPS {
             return this->type == TRUE;
         }
         ResultTable(){
-            type = NORMAL;
+            type = TRUE;
             isInitialized = false;
             colNum = 0;
             rowNum = 1;
@@ -125,6 +125,8 @@ namespace QPS {
         void emptyTable();
         void replace(ResultTable* otherTable);
         void setTable(std::vector<std::vector<std::string>>& newTable);
+        int getColNum();
+        bool isEmptyTable();
     };
 
     void suspendExecution(const std::string& errorMsg);

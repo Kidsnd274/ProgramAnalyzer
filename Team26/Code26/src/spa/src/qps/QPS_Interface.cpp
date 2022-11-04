@@ -82,31 +82,47 @@ std::shared_ptr<AssignNode> QPS_Interface::getAssignTNode(std::string assignRef)
     return pkbInterface->getAssignTNode(assignRef);
 }
 
-std::vector<std::string> QPS_Interface::getAllEntity(Argument *argument) {
+std::unordered_set<std::string> QPS_Interface::getAllEntity(Argument *argument) {
+    std::vector<std::string> result;
+    std::unordered_set<std::string> resultSet;
     switch (argument->argumentType) {
         case Argument::STMT_SYNONYM:
-            return pkbInterface->getAllStmts();
+            result = pkbInterface->getAllStmts();
+            break;
         case Argument::READ_SYNONYM:
-            return pkbInterface->getAllReads();
+            result = pkbInterface->getAllReads();
+            break;
         case Argument::PRINT_SYNONYM:
-            return pkbInterface->getAllPrints();
+            result = pkbInterface->getAllPrints();
+            break;
         case Argument::CALL_SYNONYM:
-            return pkbInterface->getAllCalls();
+            result = pkbInterface->getAllCalls();
+            break;
         case Argument::WHILE_SYNONYM:
-            return pkbInterface->getAllWhiles();
+            result = pkbInterface->getAllWhiles();
+            break;
         case Argument::IF_SYNONYM:
-            return pkbInterface->getAllIfs();
+            result = pkbInterface->getAllIfs();
+            break;
         case Argument::ASSIGN_SYNONYM:
-            return pkbInterface->getAllAssigns();
+            result = pkbInterface->getAllAssigns();
+            break;
         case Argument::VAR_SYNONYM:
-            return pkbInterface->getAllVariables();
+            result = pkbInterface->getAllVariables();
+            break;
         case Argument::CONST_SYNONYM:
-            return pkbInterface->getAllConstants();
+            result = pkbInterface->getAllConstants();
+            break;
         case Argument::PROCEDURE_SYNONYM:
-            return pkbInterface->getAllProcedures();
+            result = pkbInterface->getAllProcedures();
+            break;
         default:
             return {};
     }
+    for (auto i: result) {
+        resultSet.insert(i);
+    }
+    return resultSet;
 }
 
 std::string QPS_Interface::getProcLineNumberByName(std::string procName) {

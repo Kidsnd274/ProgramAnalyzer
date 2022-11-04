@@ -122,7 +122,7 @@ public:
      * @param argument
      * @return
      */
-    static std::vector<std::string> getAllEntity(Argument* argument);
+    static std::unordered_set<std::string> getAllEntity(Argument* argument);
 
     /**
      * Call PKB interface to get the line number of a certain procedure.

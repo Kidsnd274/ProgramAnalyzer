@@ -34,7 +34,7 @@ void QueryEvaluator::evaluate(Query* query) {
 void QueryEvaluator::getAllEntity(Argument argument, QPS::ResultTable *resultTable) {
     vector<string> synonym = {argument.argumentName};
     unordered_set<vector<string>, StringVectorHash> results;
-    vector<string> entities = QPS_Interface::getAllEntity(&argument);
+    unordered_set<string> entities = QPS_Interface::getAllEntity(&argument);
     for (auto e: entities) {
         results.insert({e});
     }
@@ -170,6 +170,9 @@ void QueryEvaluator::removeSynonym(Clause &clause, std::unordered_map<std::strin
             (*synonymCount)[arg1.argumentName] -= 1;
         }
         if (synonymCount->find(arg1.argumentName)->second == 0) {
+            if (resultTable->getColNum() == 1 && !resultTable->isEmptyTable()) {
+                resultTable->setTrueTable();
+            }
             resultTable->deleteColFromTable(arg1.argumentName);
         }
     }
