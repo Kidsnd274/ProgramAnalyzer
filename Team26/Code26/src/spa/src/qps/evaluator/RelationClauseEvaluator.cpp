@@ -224,11 +224,19 @@ void RelationClauseEvaluator::evaluateAffectsT(QPS::ResultTable *resultTable) {
     }
     if (Argument::isSynonym(arg1.argumentType) && Argument::isSynonym(arg2.argumentType)) {
         synonyms.push_back(arg1.argumentName);
-        synonyms.push_back(arg2.argumentName);
+        if (arg1.argumentName != arg2.argumentName) {
+            synonyms.push_back(arg2.argumentName);
+        }
         for (auto a: assigns) {
             unordered_set<STMT_NUM> affects = QPS_Interface::getAffectsStar(stoi(a));
             for (auto second: affects) {
-                lines.insert({a, to_string(second)});
+                if (arg1.argumentName == arg2.argumentName) {
+                    if (a == to_string(second)) {
+                        lines.insert({a});
+                    }
+                } else {
+                    lines.insert({a, to_string(second)});
+                }
             }
         }
     }
@@ -333,11 +341,19 @@ void RelationClauseEvaluator::evaluateAffects(QPS::ResultTable *resultTable) {
     }
     if (Argument::isSynonym(arg1.argumentType) && Argument::isSynonym(arg2.argumentType)) {
         synonyms.push_back(arg1.argumentName);
-        synonyms.push_back(arg2.argumentName);
+        if (arg1.argumentName != arg2.argumentName) {
+            synonyms.push_back(arg2.argumentName);
+        }
         for (auto a: assigns) {
             unordered_set<STMT_NUM> affects = QPS_Interface::getAffects(stoi(a));
             for (auto second: affects) {
-                lines.insert({a, to_string(second)});
+                if (arg1.argumentName == arg2.argumentName) {
+                    if (a == to_string(second)) {
+                        lines.insert({a});
+                    }
+                } else {
+                    lines.insert({a, to_string(second)});
+                }
             }
         }
     }
