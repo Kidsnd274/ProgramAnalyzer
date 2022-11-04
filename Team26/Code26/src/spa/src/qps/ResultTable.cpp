@@ -112,10 +112,18 @@ namespace QPS {
         resultTable->synonymColRef = t1->synonymColRef;
         resultTable->table = t1->table;
         resultTable->isInitialized = t1->isInitialized;
+        resultTable->type = t1->type;
         resultTable->mergeTable(*t2);
         return resultTable;
     }
 
+    int ResultTable::getColNum() {
+        return this->synonymColRef.size();
+    }
+
+    bool ResultTable::isEmptyTable() {
+        return this->table.size() == 0;
+    }
     void ResultTable::emptyTable() {
         this->table = {};
     }
