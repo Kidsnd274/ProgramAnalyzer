@@ -1948,3 +1948,53 @@ stmt s; read r;
 Select s such that Follows* (s, r)
 1,15,23
 5000
+386 - ms2 51
+read r; stmt s;
+Select r such that Follows* (r, s)
+4,16,23
+5000
+387 - ms2 52
+assign a; read r;
+Select a such that Follows* (r, a)
+17
+5000
+388 - ms2 53
+ifs if; read r;
+Select r such that Follows* (r, if)
+none
+5000
+389 - ms2 54
+while w; read r;
+Select r such that Follows* (r, w)
+none
+5000
+390 - ms2 55
+assign a; read r;
+Select r such that Follows* (a, r)
+16
+5000
+391 - ms2 56
+print pr;
+Select pr such that Follows* (26, pr)
+27,28
+5000
+392 - ms2 57
+print pr;
+Select pr such that Follows* (39, pr)
+none
+5000
+393 - ms2 58
+print pr;
+Select pr such that Follows* (31, pr)
+none
+5000
+394 - ms2 59
+read r; print pr;
+Select pr such that Follows* (r, pr)
+none
+5000
+395 - ms2 60
+assign a; print pr;
+Select pr such that Follows* (pr, a)
+none
+5000
