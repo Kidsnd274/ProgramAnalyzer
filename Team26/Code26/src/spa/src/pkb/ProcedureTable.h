@@ -7,18 +7,18 @@
 
 #include <stdio.h>
 #include <string>
-#include <vector>
+#include <unordered_set>
 #include "Procedure.h"
 
 using namespace std;
 
 class ProcedureTable {
 private:
-    vector<Procedure> procList;
+    unordered_set<Procedure> procList;
 public:
     void insertProc(Procedure proc);
-    vector<string> getAllProcedures();
-    vector<Procedure> getProcList();
+    unordered_set<string> getAllProcedures();
+    unordered_set<Procedure> getProcList();
     std::string getProcedureNameOf(CFGHeadPtr cfg);
     Procedure getProcedureByName(std::string name);
     Procedure* getProcByStmt(int stmt);

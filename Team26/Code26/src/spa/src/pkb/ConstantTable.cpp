@@ -3,19 +3,19 @@
 //
 #include <stdio.h>
 #include <string>
-#include <vector>
+#include <unordered_set>
 #include "ConstantTable.h"
 
 using namespace std;
 
 void ConstantTable::insertConst(int constant) {
-    this->constList.push_back(constant);
+    this->constList.insert(constant);
 }
 
-vector<string> ConstantTable::getAllConstants() {
-    vector<string> result;
+unordered_set<string> ConstantTable::getAllConstants() {
+    unordered_set<string> result;
     for (int c: this->constList) {
-        result.push_back(std::to_string(c));
+        result.insert(std::to_string(c));
     }
     return result;
 }

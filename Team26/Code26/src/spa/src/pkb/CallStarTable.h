@@ -12,12 +12,12 @@
 
 class CallStarTable {
 private:
-    std::unordered_map<std::string, std::vector<std::string>> callStarList;
+    std::unordered_map<std::string, std::unordered_set<std::string>> callStarList;
 public:
     void insertCallStar(std::string procedureName, std::string procedureCalled);
     bool existCallStar(std::string procedureName, std::string procedureCalled);
-    std::vector<std::string> getProcsStarCalled(std::string procedureName);
-    std::unordered_map<std::string, std::vector<std::string>> getAllCallStars();
+    std::unordered_set<std::string> getProcsStarCalled(std::string procedureName);
+    std::unordered_map<std::string, std::unordered_set<std::string>> getAllCallStars();
     void clear();
 };
 

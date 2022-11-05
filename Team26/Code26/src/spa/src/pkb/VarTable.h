@@ -7,16 +7,17 @@
 
 //#pragma once
 #include <string>
+#include <unordered_set>
 
 using namespace std;
 
 class VarTable {
 private:
-    vector<string> varList;
+    unordered_set<string> varList;
 
 public:
     void insertVar(string var);
-    vector<string> getAllVariables();
+    unordered_set<string> getAllVariables();
     void clear();
 };
 

@@ -7,16 +7,16 @@
 
 #include <stdio.h>
 #include <string>
-#include <vector>
+#include <unordered_set>
 
 using namespace std;
 
 class ConstantTable {
 private:
-    vector<int> constList;
+    unordered_set<int> constList;
 public:
     void insertConst(int constant);
-    vector<string> getAllConstants();
+    unordered_set<string> getAllConstants();
     void clear();
 };
 

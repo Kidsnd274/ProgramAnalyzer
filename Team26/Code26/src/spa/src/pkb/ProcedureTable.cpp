@@ -12,18 +12,18 @@ using namespace std;
 class ProcedureTable;
 
 void ProcedureTable::insertProc(Procedure proc) {
-    this->procList.push_back(proc);
+    this->procList.insert(proc);
 }
 
-vector<string> ProcedureTable::getAllProcedures() {
-    vector<string> result;
+unordered_set<string> ProcedureTable::getAllProcedures() {
+    unordered_set<string> result;
     for (Procedure proc: this->procList) {
-        result.push_back(proc.name);
+        result.insert(proc.name);
     }
     return result;
 }
 
-vector<Procedure> ProcedureTable::getProcList() {
+unordered_set<Procedure> ProcedureTable::getProcList() {
     return this->procList;
 }
 

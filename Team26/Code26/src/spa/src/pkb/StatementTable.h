@@ -7,7 +7,7 @@
 
 #include <stdio.h>
 #include <string>
-#include <vector>
+#include <unordered_set>
 #include <unordered_set>
 #include "Statement.h"
 
@@ -15,19 +15,19 @@ using namespace std;
 
 class StatementTable {
 private:
-    std::vector<Statement> statementList;
+    std::unordered_set<Statement> statementList;
 public:
     void insertStmt(Statement stmt);
-    std::vector<Statement> getStatementList();
-    std::vector<std::string> getAllStmts();
-    std::vector<std::string> getAllStmtsByType(StatementType::StmtType type);
-    std::vector<std::string> getAllReads();
-    std::vector<std::string> getAllAssigns();
-    std::vector<std::string> getAllWhiles();
-    std::vector<std::string> getAllIfs();
-    std::vector<std::string> getAllPrints();
-    std::vector<std::string> getAllCalls();
-    std::vector<Statement> getAllCallStatements();
+    std::unordered_set<Statement> getStatementList();
+    std::unordered_set<std::string> getAllStmts();
+    std::unordered_set<std::string> getAllStmtsByType(StatementType::StmtType type);
+    std::unordered_set<std::string> getAllReads();
+    std::unordered_set<std::string> getAllAssigns();
+    std::unordered_set<std::string> getAllWhiles();
+    std::unordered_set<std::string> getAllIfs();
+    std::unordered_set<std::string> getAllPrints();
+    std::unordered_set<std::string> getAllCalls();
+    std::unordered_set<Statement> getAllCallStatements();
     Statement getStmtByLineNumber(int stmtNo);
     std::unordered_set<int> getAllAssignFromProcedure(int startStmt, int endStmt);
     void clear();

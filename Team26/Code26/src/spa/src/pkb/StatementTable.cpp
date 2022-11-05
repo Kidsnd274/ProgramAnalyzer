@@ -3,67 +3,67 @@
 //
 #include <stdio.h>
 #include <string>
-#include <vector>
+#include <unordered_set>
 #include <unordered_set>
 #include "StatementTable.h"
 
 using namespace std;
 
 void StatementTable::insertStmt(Statement stmt) {
-    this->statementList.push_back(stmt);
+    this->statementList.insert(stmt);
 }
 
-std::vector<Statement> StatementTable::getStatementList() {
+std::unordered_set<Statement> StatementTable::getStatementList() {
     return this->statementList;
 }
 
-std::vector<std::string> StatementTable::getAllStmts() {
-    std::vector<std::string> result;
+std::unordered_set<std::string> StatementTable::getAllStmts() {
+    std::unordered_set<std::string> result;
     for (Statement stmt: this->statementList) {
-        result.push_back(std::to_string(stmt.lineNumber));
+        result.insert(std::to_string(stmt.lineNumber));
     }
     return result;
 }
 
-std::vector<std::string> StatementTable::getAllStmtsByType(StatementType::StmtType type) {
-    std::vector<std::string> result;
+std::unordered_set<std::string> StatementTable::getAllStmtsByType(StatementType::StmtType type) {
+    std::unordered_set<std::string> result;
     for (Statement stmt: this->statementList) {
         if (stmt.type == type) {
-            result.push_back(std::to_string(stmt.lineNumber));
+            result.insert(std::to_string(stmt.lineNumber));
         }
     }
     return result;
 }
 
-std::vector<std::string> StatementTable::getAllReads() {
+std::unordered_set<std::string> StatementTable::getAllReads() {
     return getAllStmtsByType(StatementType::READ);
 }
 
-std::vector<std::string> StatementTable::getAllAssigns() {
+std::unordered_set<std::string> StatementTable::getAllAssigns() {
     return getAllStmtsByType(StatementType::ASSIGN);
 }
 
-std::vector<std::string> StatementTable::getAllWhiles() {
+std::unordered_set<std::string> StatementTable::getAllWhiles() {
     return getAllStmtsByType(StatementType::WHILE);
 }
 
-std::vector<std::string> StatementTable::getAllIfs() {
+std::unordered_set<std::string> StatementTable::getAllIfs() {
     return getAllStmtsByType(StatementType::IF);
 }
 
-std::vector<std::string> StatementTable::getAllPrints() {
+std::unordered_set<std::string> StatementTable::getAllPrints() {
     return getAllStmtsByType(StatementType::PRINT);
 }
 
-std::vector<std::string> StatementTable::getAllCalls() {
+std::unordered_set<std::string> StatementTable::getAllCalls() {
     return getAllStmtsByType(StatementType::CALL);
 }
 
-std::vector<Statement> StatementTable::getAllCallStatements() {
-    vector<Statement> result;
+std::unordered_set<Statement> StatementTable::getAllCallStatements() {
+    unordered_set<Statement> result;
     for (Statement stmt: this->statementList) {
         if (stmt.type == StatementType::CALL) {
-            result.push_back(stmt);
+            result.insert(stmt);
         }
     }
     return result;

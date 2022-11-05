@@ -3,25 +3,25 @@
 //
 #include <stdio.h>
 #include <string>
-#include <vector>
+#include <unordered_set>
 #include <algorithm>
 #include "UsesTable.h"
 
 using namespace std;
 
 void UsesTable::insertUses(int stmtLineNumber, string varName) {
-    std::pair<int,vector<string>> uses (stmtLineNumber, {varName});
+    std::pair<int,unordered_set<string>> uses (stmtLineNumber, {varName});
     if (this->usesList.find(stmtLineNumber) != this->usesList.end()) {
-        this->usesList.find(stmtLineNumber)->second.push_back(varName);
+        this->usesList.find(stmtLineNumber)->second.insert(varName);
     } else {
         this->usesList.insert(uses);
     }
 }
 
 void UsesTable::insertProcUses(std::string procedureName, std::string varName) {
-    std::pair<std::string,vector<string>> uses (procedureName, {varName});
+    std::pair<std::string,unordered_set<string>> uses (procedureName, {varName});
     if (this->usesProcList.find(procedureName) != this->usesProcList.end()) {
-        this->usesProcList.find(procedureName)->second.push_back(varName);
+        this->usesProcList.find(procedureName)->second.insert(varName);
     } else {
         this->usesProcList.insert(uses);
     }
@@ -35,7 +35,7 @@ bool UsesTable::existUses(int stmtLineNumber, string varName) {
             }
         }
     }
-    unordered_map<int,vector<string>> list = this->usesList;
+    unordered_map<int,unordered_set<string>> list = this->usesList;
     if (list.find(stmtLineNumber) != list.end() &&
         (varName == std::string() ||
          std::find(list[stmtLineNumber].begin(), list[stmtLineNumber].end(), varName) != list[stmtLineNumber].end())) {
@@ -44,24 +44,24 @@ bool UsesTable::existUses(int stmtLineNumber, string varName) {
     return false;
 }
 
-vector<string> UsesTable::getAllVarUsedByProc(string procedureName) {
+unordered_set<string> UsesTable::getAllVarUsedByProc(string procedureName) {
     return this->usesProcList[procedureName];
 }
 
-std::unordered_map<int, std::vector<std::string>> UsesTable::getAllUsesByStmt() {
+std::unordered_map<int, std::unordered_set<std::string>> UsesTable::getAllUsesByStmt() {
     return this->usesList;
 }
 
-std::unordered_map<std::string, std::vector<std::string>> UsesTable::getAllUsesByProc() {
+std::unordered_map<std::string, std::unordered_set<std::string>> UsesTable::getAllUsesByProc() {
     return this->usesProcList;
 }
 
 bool UsesTable::doesStatementUse(int stmt, std::string varUsed) {
-    unordered_map<int,std::vector<std::string>> list = this->usesList;
+    unordered_map<int,std::unordered_set<std::string>> list = this->usesList;
     if (list.find(stmt) == list.end()) {
         return false;
     } else {
-        std::vector<std::string> vars = list[stmt];
+        std::unordered_set<std::string> vars = list[stmt];
         return std::find(vars.begin(), vars.end(), varUsed) != vars.end();
     }
 }

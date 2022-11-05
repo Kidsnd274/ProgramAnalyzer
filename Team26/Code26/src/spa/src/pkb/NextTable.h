@@ -3,15 +3,15 @@
 
 #include <unordered_map>
 #include <unordered_set>
-#include <vector>
+#include <unordered_set>
 
 class NextTable {
 private:
-    std::unordered_map<int, std::vector<int>> nextList;
+    std::unordered_map<int, std::unordered_set<int>> nextList;
 
 public:
     void insertNext(int frontStmtLineNumber, int backStmtLineNumber);
-    std::unordered_map<int, std::vector<int>>& getAllNext();
+    std::unordered_map<int, std::unordered_set<int>>& getAllNext();
     void clear();
 };
 

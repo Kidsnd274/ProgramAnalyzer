@@ -3,7 +3,7 @@
 //
 #include <stdio.h>
 #include <string>
-#include <vector>
+#include <unordered_set>
 #include <algorithm>
 #include "ModifiesTable.h"
 
@@ -11,18 +11,18 @@ using namespace std;
 
 void ModifiesTable::insertModifies(int stmtLineNumber, string varName) {
     if (this->modifiesList.find(stmtLineNumber) != this->modifiesList.end()) {
-        this->modifiesList.find(stmtLineNumber)->second.push_back(varName);
+        this->modifiesList.find(stmtLineNumber)->second.insert(varName);
     } else {
-        std::pair<int,std::vector<std::string>> modifies (stmtLineNumber, {varName});
+        std::pair<int,std::unordered_set<std::string>> modifies (stmtLineNumber, {varName});
         this->modifiesList.insert(modifies);
     }
 }
 
 void ModifiesTable::insertProcModifies(std::string procedureName, std::string varName) {
     if (this->modifiesProcList.find(procedureName) != this->modifiesProcList.end()) {
-        this->modifiesProcList.find(procedureName)->second.push_back(varName);
+        this->modifiesProcList.find(procedureName)->second.insert(varName);
     } else {
-        std::pair<std::string,std::vector<std::string>> modifies (procedureName, {varName});
+        std::pair<std::string,std::unordered_set<std::string>> modifies (procedureName, {varName});
         this->modifiesProcList.insert(modifies);
     }
 }
@@ -30,55 +30,55 @@ void ModifiesTable::insertProcModifies(std::string procedureName, std::string va
 bool ModifiesTable::existModifies(int stmtLineNumber, string varName) {
     if (stmtLineNumber == 0) {
         for (auto & stmt: this->modifiesList) {
-            if (varName == std::string() || (std::find(stmt.second.begin(), stmt.second.end(), varName) != stmt.second.end())) {
+            if (varName == std::string() || stmt.second.find(varName) != stmt.second.end()) {
                 return true;
             }
         }
     }
-    unordered_map<int,std::vector<std::string>> list = this->modifiesList;
+    unordered_map<int,std::unordered_set<std::string>> list = this->modifiesList;
     if (list.find(stmtLineNumber) != list.end() &&
         (varName == std::string() ||
-         std::find(list[stmtLineNumber].begin(), list[stmtLineNumber].end(), varName) != list[stmtLineNumber].end())) {
+        list[stmtLineNumber].find(varName) != list[stmtLineNumber].end())) {
         return true;
     }
     return false;
 }
 
 bool ModifiesTable::existStatement(int stmtLineNumber) {
-    unordered_map<int,std::vector<std::string>> list = this->modifiesList;
+    unordered_map<int,std::unordered_set<std::string>> list = this->modifiesList;
     if (list.find(stmtLineNumber) != list.end()) {
         return true;
     }
     return false;
 }
 
-std::vector<std::string> ModifiesTable::getModifiesVar(int stmtLineNumber) {
+std::unordered_set<std::string> ModifiesTable::getModifiesVar(int stmtLineNumber) {
     return this->modifiesList[stmtLineNumber];
 }
 
 std::string ModifiesTable::getFirstModifiedVar(int stmtLineNumber) {
-    return this->modifiesList[stmtLineNumber].front();
+    return *begin(this->modifiesList[stmtLineNumber]);
 }
 
-std::vector<std::string> ModifiesTable::getAllModifiedVarByProc(std::string procedureName) {
+std::unordered_set<std::string> ModifiesTable::getAllModifiedVarByProc(std::string procedureName) {
     return this->modifiesProcList[procedureName];
 }
 
-std::unordered_map<int, std::vector<std::string>> ModifiesTable::getAllModifiesByStmt() {
+std::unordered_map<int, std::unordered_set<std::string>> ModifiesTable::getAllModifiesByStmt() {
     return this->modifiesList;
 }
 
-std::unordered_map<std::string, std::vector<std::string>> ModifiesTable::getAllModifiesByProc() {
+std::unordered_map<std::string, std::unordered_set<std::string>> ModifiesTable::getAllModifiesByProc() {
     return this->modifiesProcList;
 }
 
 bool ModifiesTable::doesStatementModify(int stmt, std::string varModified) {
-    unordered_map<int,std::vector<std::string>> list = this->modifiesList;
+    unordered_map<int,std::unordered_set<std::string>> list = this->modifiesList;
     if (list.find(stmt) == list.end()) {
         return false;
     } else {
-        std::vector<std::string> vars = list[stmt];
-        return std::find(vars.begin(), vars.end(), varModified) != vars.end();
+        std::unordered_set<std::string> vars = list[stmt];
+        return vars.find(varModified) != vars.end();
     }
 }
 

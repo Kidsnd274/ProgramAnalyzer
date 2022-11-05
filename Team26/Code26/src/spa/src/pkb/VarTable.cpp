@@ -3,16 +3,16 @@
 //
 #include <stdio.h>
 #include <string>
-#include <vector>
+#include <unordered_set>
 #include "VarTable.h"
 
 using namespace std;
 
 void VarTable::insertVar(string var) {
-    this->varList.push_back(var);
+    this->varList.insert(var);
 }
 
-vector<string> VarTable::getAllVariables() {
+unordered_set<string> VarTable::getAllVariables() {
     return this->varList;
 }
 

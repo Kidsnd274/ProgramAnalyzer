@@ -6,17 +6,17 @@
 #define SPA_CONTAINERTABLE_H
 #include <stdio.h>
 #include <string>
-#include <vector>
+#include <unordered_set>
 #include <unordered_map>
 #include <string>
 #include "util/ast/TNode.h"
 
 class ContainerTable {
 private:
-    std::unordered_map<int, std::vector<std::string>> condVars;
+    std::unordered_map<int, std::unordered_set<std::string>> condVars;
 public:
 
-    std::vector<std::string> getVarNames(int stmtNumber);
+    std::unordered_set<std::string> getVarNames(int stmtNumber);
     void addCondVar(int stmtNumber, std::string varName);
     void clear();
 };
