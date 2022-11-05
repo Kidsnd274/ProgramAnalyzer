@@ -1261,12 +1261,12 @@ none
 249 - Affects test 2
 assign a;
 Select a such that Affects(2, a)
-3
+2,3
 5000
 250 - Affects test 3
 assign a;
 Select a such that Affects(3, a)
-none
+3
 5000
 251 - Affects test 6
 assign a;
@@ -1281,12 +1281,12 @@ none
 253 - Affects test 10
 assign a;
 Select a such that Affects(10, a)
-none
+10
 5000
 254 - Affects test 12
 assign a;
 Select a such that Affects(12, a)
-21
+12,21
 5000
 255 - Affects test 15
 assign a;
@@ -1296,7 +1296,7 @@ none
 256 - Affects test 17
 assign a;
 Select a such that Affects(17, a)
-none
+17
 5000
 257 - Affects test 19
 assign a;
@@ -1306,7 +1306,7 @@ none
 258 - Affects test 21
 assign a;
 Select a such that Affects(21, a)
-none
+12,21
 5000
 259 - Affects test 29
 assign a;
@@ -1361,12 +1361,12 @@ none
 269 - Affects* test 2
 assign a;
 Select a such that Affects*(2, a)
-3
+2,3
 5000
 270 - Affects* test 3
 assign a;
 Select a such that Affects*(3, a)
-none
+3
 5000
 271 - Affects* test 6
 assign a;
@@ -1381,12 +1381,12 @@ none
 273 - Affects* test 10
 assign a;
 Select a such that Affects*(10, a)
-none
+10
 5000
 274 - Affects* test 12
 assign a;
 Select a such that Affects*(12, a)
-21
+12,21
 5000
 275 - Affects* test 15
 assign a;
@@ -1396,7 +1396,7 @@ none
 276 - Affects* test 17
 assign a;
 Select a such that Affects*(17, a)
-none
+17
 5000
 277 - Affects* test 19
 assign a;
@@ -1406,7 +1406,7 @@ none
 278 - Affects* test 21
 assign a;
 Select a such that Affects*(21, a)
-none
+12,21
 5000
 279 - Affects* test 29
 assign a;
