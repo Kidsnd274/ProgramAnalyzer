@@ -1898,3 +1898,53 @@ stmt s;
 Select s such that Follows* (_, s)
 3,4,5,8,11,13,14,16,17,18,20,22,24,26,27,28,30,31,32,33,35,36,37,38,41,42,43
 5000
+376 - ms2 41
+assign a;
+Select a such that Follows* (_, a)
+3,17,30,31,35,36,41,42
+5000
+377 - ms2 42
+assign a;
+Select a such that Follows* (a, _)
+2,7,10,12,15,17,21,29,30,31,34,35,36,40,42
+5000
+378 - ms2 43
+if ifs;
+Select ifs such that Follows* (_, ifs)
+5,38
+5000
+379 - ms2 44
+if ifs;
+Select ifs such that Follows* (ifs, _)
+9,38
+5000
+380 - ms2 45
+while w;
+Select w such that Follows* (_, w)
+8,11,14,20,33
+5000
+381 - ms2 46
+while w;
+Select w such that Follows* (w, _)
+1,33
+5000
+382 - ms2 47
+while w; assign a;
+Select a such that Follows* (w, a)
+42
+5000
+383 - ms2 48
+stmt n2, n3;
+Select n3 such that Follows* (n2, n3)
+4,5,3,8,20,11,13,14,16,17,18,22,24,26,27,28,30,31,32,33,38,42,43,35,36,37,41
+5000
+384 - ms2 49
+read r;
+Select r such that Follows* (29, r)
+none
+5000
+385 - ms2 50
+stmt s; read r;
+Select s such that Follows* (s, r)
+1,15,23
+5000
