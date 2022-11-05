@@ -1478,3 +1478,44 @@ stmt s;
 Select s such that Affects*(s, 40)
 29,30,34,35
 5000
+293 - Wildcard Affects 1
+stmt s;
+Select BOOLEAN such that Affects(_, _)
+TRUE
+5000
+294 - Wildcard Affects 2
+stmt s;
+Select BOOLEAN such that Affects(_, s)
+TRUE
+5000
+294 - Wildcard Affects 3
+stmt s;
+Select BOOLEAN such that Affects(s, _)
+TRUE
+5000
+295 - Affects with with clause 1
+assign a, a1;
+Select BOOLEAN such that Affects(a, a1) with a.stmt# = 5
+FALSE
+5000
+296 - Wildcard Affects* 1
+stmt s;
+Select BOOLEAN such that Affects*(_, _)
+TRUE
+5000
+297 - Wildcard Affects* 2
+stmt s;
+Select BOOLEAN such that Affects*(_, s)
+TRUE
+5000
+298 - Wildcard Affects* 3
+stmt s;
+Select BOOLEAN such that Affects*(s, _)
+TRUE
+5000
+299 - Affects* with with clause 1
+assign a, a1;
+Select BOOLEAN such that Affects*(a, a1) with a.stmt# = 5
+FALSE
+5000
+
