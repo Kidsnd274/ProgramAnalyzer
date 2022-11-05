@@ -1458,3 +1458,13 @@ assign a;
 Select a such that Affects*(42, a)
 none
 5000
+289 - Affects use statement synonym 1
+stmt s;
+Select s such that Affects(35, s)
+35,40,42
+5000
+290 - Affects use statement synonym 2
+stmt s;
+Select s such that Affects(s, 40)
+29,30,34,35
+5000
