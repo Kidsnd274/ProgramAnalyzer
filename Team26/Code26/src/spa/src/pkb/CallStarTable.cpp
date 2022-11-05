@@ -3,7 +3,7 @@
 //
 #include <stdio.h>
 #include <string>
-#include <vector>
+#include <utility>
 #include <unordered_set>
 #include <algorithm>
 #include "CallStarTable.h"
@@ -14,13 +14,13 @@ void CallStarTable::insertCallStar(std::string procedureName, std::string proced
     if (this->callStarList.find(procedureName) != this->callStarList.end()) {
         this->callStarList.find(procedureName)->second.insert(procedureCalled);
     } else {
-        std::pair<std::string,std::unordered_set<std::string>> callStar (procedureName, {procedureCalled});
+        std::pair<std::string, std::unordered_set<std::string>> callStar (procedureName, {procedureCalled});
         this->callStarList.insert(callStar);
     }
 }
 
 bool CallStarTable::existCallStar(std::string procedureName, std::string procedureCalled) {
-    unordered_map<std::string ,std::unordered_set<std::string>> list = this->callStarList;
+    unordered_map<std::string, std::unordered_set<std::string>> list = this->callStarList;
     if (list.find(procedureName) != list.end() &&
          list[procedureName].find(procedureCalled) != list[procedureName].end()) {
         return true;
