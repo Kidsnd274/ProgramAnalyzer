@@ -1458,3 +1458,593 @@ assign a;
 Select a such that Affects*(42, a)
 none
 5000
+289 - Affects use statement synonym 1
+stmt s;
+Select s such that Affects(35, s)
+35,40,42
+5000
+290 - Affects use statement synonym 2
+stmt s;
+Select s such that Affects(s, 40)
+29,30,34,35
+5000
+291 - Affects* use statement synonym 1
+stmt s;
+Select s such that Affects*(35, s)
+35,40,42
+5000
+292 - Affects* use statement synonym 2
+stmt s;
+Select s such that Affects*(s, 40)
+29,30,34,35
+5000
+293 - Wildcard Affects 1
+stmt s;
+Select BOOLEAN such that Affects(_, _)
+TRUE
+5000
+294 - Wildcard Affects 2
+stmt s;
+Select BOOLEAN such that Affects(_, s)
+TRUE
+5000
+294 - Wildcard Affects 3
+stmt s;
+Select BOOLEAN such that Affects(s, _)
+TRUE
+5000
+295 - Affects with with clause 1
+assign a, a1;
+Select BOOLEAN such that Affects(a, a1) with a.stmt# = 5
+FALSE
+5000
+296 - Wildcard Affects* 1
+stmt s;
+Select BOOLEAN such that Affects*(_, _)
+TRUE
+5000
+297 - Wildcard Affects* 2
+stmt s;
+Select BOOLEAN such that Affects*(_, s)
+TRUE
+5000
+298 - Wildcard Affects* 3
+stmt s;
+Select BOOLEAN such that Affects*(s, _)
+TRUE
+5000
+299 - Affects* with with clause 1
+assign a, a1;
+Select BOOLEAN such that Affects*(a, a1) with a.stmt# = 5
+FALSE
+5000
+300 - Affects with with clause 2
+assign a, a1; constant c;
+Select a such that Affects(a, a1) with c.value = a.stmt#
+2, 3, 10, 12, 17
+5000
+301 - Affects* with with clause 2
+assign a, a1; constant c;
+Select a such that Affects*(a, a1) with c.value = a.stmt#
+2, 3, 10, 12, 17
+5000
+302 - Affects with attribute 1
+assign a, a1;
+Select a.stmt# such that Affects(a1, a)
+2, 3, 10, 12, 21, 17, 34, 40, 41, 42, 35, 36
+5000
+303 - Affects* with attribute 1
+assign a, a1;
+Select a.stmt# such that Affects*(a1, a)
+2, 3, 10, 12, 21, 17, 34, 40, 41, 42, 35, 36
+5000
+304 - Affects with attribute and with clause 1
+procedure p, p1;
+Select p.procName such that Affects(_,12) with p1.procName = "milestone3test2"
+computeCentroid, milestone3test2, printResults, readPoint
+5000
+305 - Affects with attribute and with clause 2
+assign a, a1; constant c;
+Select c.value such that Affects(a, a1) with c.value = a1.stmt#
+2, 3, 10, 12, 17
+5000
+306 - Affects* with attribute and with clause 1
+procedure p, p1;
+Select p.procName such that Affects*(_,12) with p1.procName = "milestone3test2"
+computeCentroid, milestone3test2, printResults, readPoint
+5000
+307 - Affects* with attribute and with clause 2
+assign a, a1; constant c;
+Select c.value such that Affects*(a, a1) with c.value = a1.stmt#
+2, 3, 10, 12, 17
+5000
+308 - Tuple Affects* 1
+assign a, a1;
+Select <a, a1> such that Affects*(_, a) and Affects*(a, a1)
+2 2,2 3,3 3,10 10,12 12,12 21,17 17,21 12,21 21,34 34,34 40,34 41,34 42,35 35,35 40,35 42,36 36,36 41,36 42,40 42,41 42
+5000
+309 - Tuple Affects* 2
+assign a, a1;
+Select <a, a1> such that Affects*(_, a1) and Affects*(a, a1)
+2 2,2 3,3 3,10 10,12 12,12 21,17 17,21 12,21 21,29 34,29 40,29 41,29 42,30 35,30 40,30 42,31 36,31 41,31 42,34 34,34 40,34 41,34 42,35 35,35 40,35 42,36 36,36 41,36 42,40 42,41 42
+5000
+310 - Tuple Affects* 3
+assign a, a1;
+Select <a, a1> such that Affects*(a, a1) and Affects*(10, 12)
+none
+5000
+311 - Tuple Affects* 4
+assign a, a1;
+Select<a.stmt#, a1> such that Affects*(_, a1) and Affects*(a, a1)
+2 2,2 3,3 3,10 10,12 12,12 21,17 17,21 12,21 21,29 34,29 40,29 41,29 42,30 35,30 40,30 42,31 36,31 41,31 42,34 34,34 40,34 41,34 42,35 35,35 40,35 42,36 36,36 41,36 42,40 42,41 42
+5000
+312 - Tuple Affects* 5
+assign a, a1, a2;
+Select<a, a1, a2> such that Affects*(a, a1) and Affects*(a1, a2)
+2 2 2,2 2 3,2 3 3,3 3 3,10 10 10,12 12 12,12 12 21,12 21 12,12 21 21,17 17 17,21 12 12,21 12 21,21 21 12,21 21 21,29 34 34,29 34 40,29 34 41,29 34 42,29 40 42,29 41 42,30 35 35,30 35 40,30 35 42,30 40 42,31 36 36,31 36 41,31 36 42,31 41 42,34 34 34,34 34 40,34 34 41,34 34 42,34 40 42,34 41 42,35 35 35,35 35 40,35 35 42,35 40 42,36 36 36,36 36 41,36 36 42,36 41 42
+5000
+313 - Next with Wildcard 1
+stmt s;
+Select s such that Next(_, _)
+1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27,28,29,30,31,32,33,34,35,36,37,38,39,40,41,42,43
+5000
+314 - Next with Wildcard 2
+stmt s;
+Select s such that Next(s, _)
+1,2,3,4,5,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,25,26,27,29,30,31,32,33,34,35,36,37,38,39,40,41,42
+5000
+315 - Next with Wildcard 3
+stmt s;
+Select s such that Next(_, _) and Next(_,s)
+1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,24,26,27,28,30,31,32,33,34,35,36,37,38,39,40,41,42,43
+5000
+316 - Next with Wildcard 4
+stmt s, s1;
+Select s such that Next(s1, _) such that Next(_, s1)
+1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27,28,29,30,31,32,33,34,35,36,37,38,39,40,41,42,43
+5000
+317 - Next* with Wildcard 1
+stmt s;
+Select s such that Next*(_, _)
+1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27,28,29,30,31,32,33,34,35,36,37,38,39,40,41,42,43
+5000
+318 - Next* with Wildcard 2
+stmt s;
+Select s such that Next*(s, _)
+1,2,3,4,5,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,25,26,27,29,30,31,32,33,34,35,36,37,38,39,40,41,42
+5000
+319 - Next* with Wildcard 3
+stmt s;
+Select s such that Next*(_, _) and Next*(_,s)
+1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,24,26,27,28,30,31,32,33,34,35,36,37,38,39,40,41,42,43
+5000
+320 - Next* with Wildcard 4
+stmt s, s1;
+Select s such that Next*(s1, _) such that Next*(_, s1)
+1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27,28,29,30,31,32,33,34,35,36,37,38,39,40,41,42,43
+5000
+321 - Tuple Next 1
+assign a, a1;
+Select <a, a1> such that Next(a1, a) and Next(_, a1)
+3 2,31 30,35 34,36 35,42 39,41 40,42 41
+5000
+322 - Tuple Next 2
+stmt s, s1; assign a;
+Select<a.stmt#, s.stmt#> such that Next(a, s) and Next(s, s1)
+3 1,2 3,7 8,10 11,12 13,15 16,17 18,19 20,21 22,29 30,30 31,31 32,34 35,35 36,36 37,40 41,39 42,41 42
+5000
+323 - Tuple Next 3
+stmt s, s1;
+Select <s, s1> such that Next(s, s1) and Next(s1, 18)
+16 17
+5000
+324 - Tuple Next* 1
+assign a, a1;
+Select <a, a1> such that Next*(a1, a) and Next*(_, a1)
+2 2,3 2,6 2,7 2,10 2,12 2,15 2,17 2,19 2,21 2,2 3,3 3,6 3,7 3,10 3,12 3,15 3,17 3,19 3,21 3,10 7,12 7,15 7,17 7,19 7,21 7,10 10,12 10,15 10,17 10,19 10,21 10,10 12,12 12,15 12,17 12,19 12,21 12,10 15,12 15,15 15,17 15,19 15,21 15,10 17,12 17,15 17,17 17,19 17,21 17,10 19,12 19,15 19,17 19,19 19,21 19,10 21,12 21,15 21,17 21,19 21,21 21,31 30,34 30,35 30,36 30,39 30,40 30,41 30,42 30,34 31,35 31,36 31,39 31,40 31,41 31,42 31,34 34,35 34,36 34,39 34,40 34,41 34,42 34,34 35,35 35,36 35,39 35,40 35,41 35,42 35,34 36,35 36,36 36,39 36,40 36,41 36,42 36,42 39,41 40,42 40,42 41
+5000
+325 - Tuple Next* 2
+stmt s, s1; assign a;
+Select<a.stmt#, s.stmt#> such that Next*(a, s) and Next*(s, s1)
+2 1,3 1,2 2,3 2,2 3,3 3,2 4,3 4,2 5,3 5,2 7,3 7,2 8,3 8,7 8,10 8,12 8,15 8,17 8,19 8,21 8,2 9,3 9,7 9,10 9,12 9,15 9,17 9,19 9,21 9,2 10,3 10,7 10,10 10,12 10,15 10,17 10,19 10,21 10,2 11,3 11,7 11,10 11,12 11,15 11,17 11,19 11,21 11,2 12,3 12,7 12,10 12,12 12,15 12,17 12,19 12,21 12,2 13,3 13,7 13,10 13,12 13,15 13,17 13,19 13,21 13,2 14,3 14,7 14,10 14,12 14,15 14,17 14,19 14,21 14,2 15,3 15,7 15,10 15,12 15,15 15,17 15,19 15,21 15,2 16,3 16,7 16,10 16,12 16,15 16,17 16,19 16,21 16,2 17,3 17,7 17,10 17,12 17,15 17,17 17,19 17,21 17,2 18,3 18,7 18,10 18,12 18,15 18,17 18,19 18,21 18,2 19,3 19,7 19,10 19,12 19,15 19,17 19,19 19,21 19,2 20,3 20,7 20,10 20,12 20,15 20,17 20,19 20,21 20,2 21,3 21,7 21,10 21,12 21,15 21,17 21,19 21,21 21,2 22,3 22,7 22,10 22,12 22,15 22,17 22,19 22,21 22,29 30,29 31,30 31,29 32,30 32,31 32,29 33,30 33,31 33,34 33,35 33,36 33,29 34,30 34,31 34,34 34,35 34,36 34,29 35,30 35,31 35,34 35,35 35,36 35,29 36,30 36,31 36,34 36,35 36,36 36,29 37,30 37,31 37,34 37,35 37,36 37,29 38,30 38,31 38,34 38,35 38,36 38,29 39,30 39,31 39,34 39,35 39,36 39,29 40,30 40,31 40,34 40,35 40,36 40,29 41,30 41,31 41,34 41,35 41,36 41,40 41,29 42,30 42,31 42,34 42,35 42,36 42,39 42,40 42,41 42
+5000
+326 - Tuple Next* 3
+stmt s, s1;
+Select <s, s1> such that Next*(s, s1) and Next*(s1, 18)
+1 1,1 2,1 3,1 4,1 5,1 7,1 8,1 9,1 10,1 11,1 12,1 13,1 14,1 15,1 16,1 17,1 18,1 19,1 20,1 21,1 22,2 1,2 2,2 3,2 4,2 5,2 7,2 8,2 9,2 10,2 11,2 12,2 13,2 14,2 15,2 16,2 17,2 18,2 19,2 20,2 21,2 22,3 1,3 2,3 3,3 4,3 5,3 7,3 8,3 9,3 10,3 11,3 12,3 13,3 14,3 15,3 16,3 17,3 18,3 19,3 20,3 21,3 22,4 5,4 7,4 8,4 9,4 10,4 11,4 12,4 13,4 14,4 15,4 16,4 17,4 18,4 19,4 20,4 21,4 22,5 7,5 8,5 9,5 10,5 11,5 12,5 13,5 14,5 15,5 16,5 17,5 18,5 19,5 20,5 21,5 22,7 8,7 9,7 10,7 11,7 12,7 13,7 14,7 15,7 16,7 17,7 18,7 19,7 20,7 21,7 22,8 8,8 9,8 10,8 11,8 12,8 13,8 14,8 15,8 16,8 17,8 18,8 19,8 20,8 21,8 22,9 8,9 9,9 10,9 11,9 12,9 13,9 14,9 15,9 16,9 17,9 18,9 19,9 20,9 21,9 22,10 8,10 9,10 10,10 11,10 12,10 13,10 14,10 15,10 16,10 17,10 18,10 19,10 20,10 21,10 22,11 8,11 9,11 10,11 11,11 12,11 13,11 14,11 15,11 16,11 17,11 18,11 19,11 20,11 21,11 22,12 8,12 9,12 10,12 11,12 12,12 13,12 14,12 15,12 16,12 17,12 18,12 19,12 20,12 21,12 22,13 8,13 9,13 10,13 11,13 12,13 13,13 14,13 15,13 16,13 17,13 18,13 19,13 20,13 21,13 22,14 8,14 9,14 10,14 11,14 12,14 13,14 14,14 15,14 16,14 17,14 18,14 19,14 20,14 21,14 22,15 8,15 9,15 10,15 11,15 12,15 13,15 14,15 15,15 16,15 17,15 18,15 19,15 20,15 21,15 22,16 8,16 9,16 10,16 11,16 12,16 13,16 14,16 15,16 16,16 17,16 18,16 19,16 20,16 21,16 22,17 8,17 9,17 10,17 11,17 12,17 13,17 14,17 15,17 16,17 17,17 18,17 19,17 20,17 21,17 22,18 8,18 9,18 10,18 11,18 12,18 13,18 14,18 15,18 16,18 17,18 18,18 19,18 20,18 21,18 22,19 8,19 9,19 10,19 11,19 12,19 13,19 14,19 15,19 16,19 17,19 18,19 19,19 20,19 21,19 22,20 8,20 9,20 10,20 11,20 12,20 13,20 14,20 15,20 16,20 17,20 18,20 19,20 20,20 21,20 22,21 8,21 9,21 10,21 11,21 12,21 13,21 14,21 15,21 16,21 17,21 18,21 19,21 20,21 21,21 22,22 8,22 9,22 10,22 11,22 12,22 13,22 14,22 15,22 16,22 17,22 18,22 19,22 20,22 21,22 22
+5000
+327 - Tuple Next and Next* 1
+assign a, a1;
+Select <a, a1> such that Next(a1, a) and Next*(_, a1)
+3 2,31 30,35 34,36 35,42 39,41 40,42 41
+5000
+328 - Tuple Next and Next* 2
+stmt s, s1; assign a;
+Select<a.stmt#, s.stmt#> such that Next(a, s) and Next*(s, s1)
+3 1,2 3,7 8,10 11,12 13,15 16,17 18,19 20,21 22,29 30,30 31,31 32,34 35,35 36,36 37,40 41,39 42,41 42
+5000
+329 - Tuple Next and Next* 3
+stmt s, s1;
+Select <s, s1> such that Next(s, s1) and Next*(s1, 18)
+1 2,1 4,2 3,3 1,4 5,5 7,7 8,8 9,9 10,9 19,10 11,11 12,11 20,12 13,13 14,14 11,14 15,15 16,16 17,17 18,18 14,19 20,20 8,20 21,21 22,22 20
+5000
+330 - Tuple Calls 1
+procedure p, p1;
+Select <p, p1> such that Calls(_,_)
+computeCentroid computeCentroid,computeCentroid milestone3test2,computeCentroid printResults,computeCentroid readPoint,milestone3test2 computeCentroid,milestone3test2 milestone3test2,milestone3test2 printResults,milestone3test2 readPoint,printResults computeCentroid,printResults milestone3test2,printResults printResults,printResults readPoint,readPoint computeCentroid,readPoint milestone3test2,readPoint printResults,readPoint readPoint
+5000
+331 - Tuple Calls* 1
+procedure p, p1;
+Select <p, p1> such that Calls*(_,_)
+computeCentroid computeCentroid,computeCentroid milestone3test2,computeCentroid printResults,computeCentroid readPoint,milestone3test2 computeCentroid,milestone3test2 milestone3test2,milestone3test2 printResults,milestone3test2 readPoint,printResults computeCentroid,printResults milestone3test2,printResults printResults,printResults readPoint,readPoint computeCentroid,readPoint milestone3test2,readPoint printResults,readPoint readPoint
+5000
+332 -Tuple Calls* 2
+procedure p, p1;
+Select <p, pq> such that Calls*(_,_) and Calls*(_,_)
+none
+5000
+333 - Tuple Calls* 3
+procedure p, p1;
+Select <p, p1> such that Calls*(p1,_) and Calls*(_,p)
+computeCentroid computeCentroid,printResults computeCentroid,readPoint computeCentroid,computeCentroid milestone3test2,printResults milestone3test2,readPoint milestone3test2
+5000
+334 - Tuple Calls* 4
+procedure p, p1;
+Select <p, p1> such that Calls*(p, "computeCentroid") and Calls*(p, "readPoint")
+milestone3test2 computeCentroid,milestone3test2 milestone3test2,milestone3test2 printResults,milestone3test2 readPoint
+5000
+335 - Tuple Calls* SemanticError
+procedure p, p1;
+Select <p, p2> such that Calls*(p, "computeCentroid") and Calls*(p, "readPoint")
+SemanticError
+5000
+336 - ms2 1
+stmt s;
+Select s such that Follows (15, s)
+16
+5000
+337 - ms2 2
+stmt s;
+Select s such that Follows (s, 29)
+none
+5000
+338 - ms2 3
+assign a;
+Select a such that Follows (a, 19)
+none
+5000
+339 - ms2 4
+if ifs;
+Select ifs such that Follows (6, ifs)
+none
+5000
+340 - ms2 5
+if ifs;
+Select ifs such that Follows (ifs, 196)
+none
+5000
+341 - ms2 6
+while w;
+Select w such that Follows (w, 42)
+none
+5000
+342 - ms2 7
+call c;
+Select c such that Follows (11, c)
+none
+5000
+343 - ms2 8
+call c;
+Select c such that Follows (c, 78)
+none
+5000
+344 - ms2 9
+stmt s;
+Select s such that Follows (_, s)
+3,4,5,8,11,13,14,16,17,18,20,22,24,26,27,28,30,31,32,33,35,36,37,38,41,42,43
+5000
+345 - ms2 10
+stmt s;
+Select s such that Follows (s, _)
+1,2,4,7,9,10,12,13,15,16,17,21,23,25,26,27,29,30,31,32,33,34,35,36,38,40,42
+5000
+346 - ms2 11
+assign a;
+Select a such that Follows (_, a)
+3,17,30,31,35,36,41,42
+5000
+347 - ms2 12
+assign a;
+Select a such that Follows (a, _)
+2,7,10,12,15,17,21,29,30,31,34,35,36,40,42
+5000
+348 - ms2 13
+if ifs;
+Select ifs such that Follows (_, ifs)
+5,38
+5000
+349 - ms2 14
+if ifs;
+Select ifs such that Follows (ifs, _)
+9,38
+5000
+350 - ms2 15
+while w;
+Select w such that Follows (_, w)
+8,11,14,20,33
+5000
+351 - ms2 16
+while w;
+Select w such that Follows (w, _)
+1,33
+5000
+352 - ms2 17
+call c;
+Select c such that Follows (_, c)
+18,32,37,43
+5000
+353 - ms2 18
+call c;
+Select c such that Follows (c, _)
+32
+5000
+354 - ms2 19
+call c;
+Select c such that Follows* (_, c)
+18,32,37,43
+5000
+355 - ms2 20
+call c;
+Select c such that Follows* (c, _)
+32
+5000
+356 - ms2 21
+stmt s1; stmt s2;
+Select s1 such that Follows (1, 2)
+none
+5000
+357 - ms2 22
+stmt s1; stmt s2;
+Select s1 such that Follows (_, _)
+1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27,28,29,30,31,32,33,34,35,36,37,38,39,40,41,42,43
+5000
+358 - ms2 23
+stmt s1; stmt s2;
+Select s1 such that Follows (200000, s1)
+none
+5000
+359 - ms2 24
+print pr;
+Select pr such that Follows (36, pr)
+none
+5000
+360 - ms2 25
+print pr;
+Select pr such that Follows (31, pr)
+none
+5000
+361 - ms2 26
+read r;
+Select r such that Follows (28, r)
+none
+5000
+362 - ms2 27
+stmt s;
+Select s such that Follows* (23, s)
+24
+5000
+363 - ms2 28
+stmt s;
+Select s such that Follows* (s, 116)
+none
+5000
+364 - ms2 29
+assign a;
+Select a such that Follows* (32, a)
+42
+5000
+365 - ms2 30
+assign a;
+Select a such that Follows* (17, a)
+none
+5000
+366 - ms2 31
+assign a;
+Select a such that Follows* (a, 11)
+10
+5000
+367 - ms2 32
+if ifs;
+Select ifs such that Follows* (17, ifs)
+none
+5000
+368 - ms2 33
+if ifs;
+Select ifs such that Follows* (ifs, 16)
+none
+5000
+369 - ms2 34
+while w;
+Select w such that Follows* (5, w)
+none
+5000
+370 - ms2 35
+while w;
+Select w such that Follows* (14, w)
+none
+5000
+371 - ms2 36
+while w;
+Select w such that Follows* (w, 119)
+none
+5000
+372 - ms2 37
+call c;
+Select c such that Follows* (34, c)
+37
+5000
+373 - ms2 38
+call c;
+Select c such that Follows* (c, 219)
+none
+5000
+374 - ms2 39
+stmt s;
+Select s such that Follows* (s, _)
+1,2,4,7,9,10,12,13,15,16,17,21,23,25,26,27,29,30,31,32,33,34,35,36,38,40,42
+5000
+375 - ms2 40
+stmt s;
+Select s such that Follows* (_, s)
+3,4,5,8,11,13,14,16,17,18,20,22,24,26,27,28,30,31,32,33,35,36,37,38,41,42,43
+5000
+376 - ms2 41
+assign a;
+Select a such that Follows* (_, a)
+3,17,30,31,35,36,41,42
+5000
+377 - ms2 42
+assign a;
+Select a such that Follows* (a, _)
+2,7,10,12,15,17,21,29,30,31,34,35,36,40,42
+5000
+378 - ms2 43
+if ifs;
+Select ifs such that Follows* (_, ifs)
+5,38
+5000
+379 - ms2 44
+if ifs;
+Select ifs such that Follows* (ifs, _)
+9,38
+5000
+380 - ms2 45
+while w;
+Select w such that Follows* (_, w)
+8,11,14,20,33
+5000
+381 - ms2 46
+while w;
+Select w such that Follows* (w, _)
+1,33
+5000
+382 - ms2 47
+while w; assign a;
+Select a such that Follows* (w, a)
+42
+5000
+383 - ms2 48
+stmt n2, n3;
+Select n3 such that Follows* (n2, n3)
+4,5,3,8,20,11,13,14,16,17,18,22,24,26,27,28,30,31,32,33,38,42,43,35,36,37,41
+5000
+384 - ms2 49
+read r;
+Select r such that Follows* (29, r)
+none
+5000
+385 - ms2 50
+stmt s; read r;
+Select s such that Follows* (s, r)
+1,15,23
+5000
+386 - ms2 51
+read r; stmt s;
+Select r such that Follows* (r, s)
+4,16,23
+5000
+387 - ms2 52
+assign a; read r;
+Select a such that Follows* (r, a)
+17
+5000
+388 - ms2 53
+ifs if; read r;
+Select r such that Follows* (r, if)
+none
+5000
+389 - ms2 54
+while w; read r;
+Select r such that Follows* (r, w)
+none
+5000
+390 - ms2 55
+assign a; read r;
+Select r such that Follows* (a, r)
+16
+5000
+391 - ms2 56
+print pr;
+Select pr such that Follows* (26, pr)
+27,28
+5000
+392 - ms2 57
+print pr;
+Select pr such that Follows* (39, pr)
+none
+5000
+393 - ms2 58
+print pr;
+Select pr such that Follows* (31, pr)
+none
+5000
+394 - ms2 59
+read r; print pr;
+Select pr such that Follows* (r, pr)
+none
+5000
+395 - ms2 60
+assign a; print pr;
+Select pr such that Follows* (pr, a)
+none
+5000
+396 - ms2 61
+ifs if; print pr;
+Select pr such that Follows* (pr, if)
+none
+5000
+397 - ms2 62
+while w; print pr;
+Select pr such that Follows* (pr, w)
+13
+5000
+398 - ms2 63
+assign a; print pr;
+Select pr such that Follows* (a, pr)
+13,22
+5000
+399 - ms2 64
+stmt s;
+Select s such that Parent (s, 83)
+none
+5000
+400 - ms2 65
+stmt s;
+Select s such that Parent (13, s)
+none
+5000
+401 - ms2 66
+assign a;
+Select a such that Parent (8, a)
+none
+5000
+402 - ms2 67
+while w;
+Select w such that Parent (w, 18)
+14
+5000
+403 - ms2 68
+while w;
+Select w such that Parent (15, w)
+none
+5000
+404 - ms2 69
+if ifs;
+Select ifs such that Parent (ifs, 24)
+none
+5000
+405 - ms2 70
+if ifs;
+Select ifs such that Parent (13, ifs)
+none
+5000
