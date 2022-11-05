@@ -1,6 +1,7 @@
 #ifndef SPA_QUERY_H
 #define SPA_QUERY_H
 
+#include <typeinfo>
 #include <vector>
 #include <unordered_map>
 #include <unordered_set>
