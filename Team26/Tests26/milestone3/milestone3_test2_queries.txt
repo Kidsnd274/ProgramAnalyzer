@@ -1538,3 +1538,23 @@ assign a, a1;
 Select a.stmt# such that Affects*(a1, a)
 2, 3, 10, 12, 21, 17, 34, 40, 41, 42, 35, 36
 5000
+304 - Affects with attribute and with clause 1
+procedure p, p1;
+Select p.procName such that Affects(_,12) with p1.procName = "milestone3test2"
+computeCentroid, milestone3test2, printResults, readPoint
+5000
+305 - Affects with attribute and with clause 2
+assign a, a1; constant c;
+Select c.value such that Affects(a, a1) with c.value =a1.stmt#
+2, 3, 10, 12, 17
+5000
+306 - Affects* with attribute and with clause 1
+procedure p, p1;
+Select p.procName such that Affects*(_,12) with p1.procName = "milestone3test2"
+computeCentroid, milestone3test2, printResults, readPoint
+5000
+307 - Affects* with attribute and with clause 2
+assign a, a1; constant c;
+Select c.value such that Affects*(a, a1) with c.value =a1.stmt#
+2, 3, 10, 12, 17
+5000
