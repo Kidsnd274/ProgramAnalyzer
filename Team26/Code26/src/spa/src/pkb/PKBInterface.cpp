@@ -392,20 +392,6 @@ void PKBInterface::clear() {
     pkb->nextStarTable->clear();
     pkb->affectTable->clear();
     pkb->affectStarTable->clear();
-//    pkb->callStarTable->clear();
-//    pkb->callTable->clear();
-//    pkb->constantTable->clear();
-//    pkb->containerTable->clear();
-//    pkb->followsTable->clear();
-//    pkb->followsStarTable->clear();
-//    pkb->modifiesTable->clear();
-//    pkb->nextTable->clear();
-//    pkb->parentStarTable->clear();
-//    pkb->parentTable->clear();
-//    pkb->procedureTable->clear();
-//    pkb->statementTable->clear();
-//    pkb->usesTable->clear();
-//    pkb->varTable->clear();
 }
 
 
