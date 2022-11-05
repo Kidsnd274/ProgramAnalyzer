@@ -10,26 +10,26 @@
 using namespace std;
 
 void StatementTable::insertStmt(Statement stmt) {
-    this->statementList.insert(stmt);
+    this->statementList.insert(&stmt);
 }
 
-std::unordered_set<Statement> StatementTable::getStatementList() {
+std::unordered_set<Statement*> StatementTable::getStatementList() {
     return this->statementList;
 }
 
 std::unordered_set<std::string> StatementTable::getAllStmts() {
     std::unordered_set<std::string> result;
-    for (Statement stmt: this->statementList) {
-        result.insert(std::to_string(stmt.lineNumber));
+    for (auto &stmt: this->statementList) {
+        result.insert(std::to_string(stmt->lineNumber));
     }
     return result;
 }
 
 std::unordered_set<std::string> StatementTable::getAllStmtsByType(StatementType::StmtType type) {
     std::unordered_set<std::string> result;
-    for (Statement stmt: this->statementList) {
-        if (stmt.type == type) {
-            result.insert(std::to_string(stmt.lineNumber));
+    for (auto &stmt: this->statementList) {
+        if (stmt->type == type) {
+            result.insert(std::to_string(stmt->lineNumber));
         }
     }
     return result;
@@ -59,20 +59,20 @@ std::unordered_set<std::string> StatementTable::getAllCalls() {
     return getAllStmtsByType(StatementType::CALL);
 }
 
-std::unordered_set<Statement> StatementTable::getAllCallStatements() {
-    unordered_set<Statement> result;
-    for (Statement stmt: this->statementList) {
-        if (stmt.type == StatementType::CALL) {
+std::unordered_set<Statement*> StatementTable::getAllCallStatements() {
+    unordered_set<Statement*> result;
+    for (auto &stmt: this->statementList) {
+        if (stmt->type == StatementType::CALL) {
             result.insert(stmt);
         }
     }
     return result;
 }
 
-Statement StatementTable::getStmtByLineNumber(int stmtNo) {
-    Statement result;
-    for (Statement stmt: this->statementList) {
-        if (stmt.lineNumber == stmtNo) {
+Statement* StatementTable::getStmtByLineNumber(int stmtNo) {
+    Statement* result;
+    for (auto &stmt: this->statementList) {
+        if (stmt->lineNumber == stmtNo) {
             result = stmt;
             break;
         }
@@ -82,9 +82,9 @@ Statement StatementTable::getStmtByLineNumber(int stmtNo) {
 
 std::unordered_set<int> StatementTable::getAllAssignFromProcedure(int startStmt, int endStmt) {
     std::unordered_set<int> result;
-    for (Statement stmt: this->statementList) {
-        int lineNumber = stmt.lineNumber;
-        StatementType::StmtType type = stmt.type;
+    for (auto &stmt: this->statementList) {
+        int lineNumber = stmt->lineNumber;
+        StatementType::StmtType type = stmt->type;
         if ((lineNumber >= startStmt) && (lineNumber <= endStmt) && (type == StatementType::ASSIGN)) {
             result.insert(lineNumber);
         }

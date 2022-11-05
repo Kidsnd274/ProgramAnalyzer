@@ -38,7 +38,7 @@ bool UsesTable::existUses(int stmtLineNumber, string varName) {
     unordered_map<int,unordered_set<string>> list = this->usesList;
     if (list.find(stmtLineNumber) != list.end() &&
         (varName == std::string() ||
-         std::find(list[stmtLineNumber].begin(), list[stmtLineNumber].end(), varName) != list[stmtLineNumber].end())) {
+         list[stmtLineNumber].find(varName) != list[stmtLineNumber].end())) {
         return true;
     }
     return false;

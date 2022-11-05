@@ -3,7 +3,7 @@
 #include <stdio.h>
 #include <iostream>
 #include <string>
-#include <vector>
+#include <unordered_set>
 #include <cassert>
 #include <memory>
 #include <unordered_set>
@@ -65,34 +65,34 @@ public:
 
 
     shared_ptr<AssignNode> getAssignTNode(const string& assignRef);
-    vector<string> getConditionVar(const string& containerRef);
+    unordered_set<string> getConditionVar(const string& containerRef);
 
-    virtual unordered_map<std::string, std::vector<std::string>> getAllCall();
-    virtual unordered_map<std::string, std::vector<std::string>> getAllCallStar();
+    virtual unordered_map<std::string, std::unordered_set<std::string>> getAllCall();
+    virtual unordered_map<std::string, std::unordered_set<std::string>> getAllCallStar();
     virtual unordered_map<int,int> getAllFollow();
     virtual unordered_map<int,int> getAllFollowStar();
-    virtual unordered_map<int, vector<int>> getAllNext();
+    virtual unordered_map<int, unordered_set<int>> getAllNext();
     virtual std::unordered_map<STMT_NUM, std::unordered_set<STMT_NUM>> getAllNextStar();
     virtual unordered_map<int, std::unordered_set<int>> getAllAffects();
     virtual unordered_map<int, std::unordered_set<int>> getAllAffectsStar();
-    virtual unordered_map<int, std::vector<std::string>> getAllModifyByStmt();
-    virtual unordered_map<std::string, std::vector<std::string>> getAllModifyByProc();
-    virtual unordered_map<int, std::vector<int>> getAllParent();
-    virtual unordered_map<int, std::vector<int>> getAllParentStar();
-    virtual unordered_map<int, std::vector<std::string>> getAllUseByStmt();
-    virtual unordered_map<std::string, std::vector<std::string>> getAllUseByProc();
-    virtual std::vector<vector<Statement>> getAllStmtLists();
+    virtual unordered_map<int, std::unordered_set<std::string>> getAllModifyByStmt();
+    virtual unordered_map<std::string, std::unordered_set<std::string>> getAllModifyByProc();
+    virtual unordered_map<int, std::unordered_set<int>> getAllParent();
+    virtual unordered_map<int, std::unordered_set<int>> getAllParentStar();
+    virtual unordered_map<int, std::unordered_set<std::string>> getAllUseByStmt();
+    virtual unordered_map<std::string, std::unordered_set<std::string>> getAllUseByProc();
+    virtual std::unordered_set<unordered_set<Statement*>*> getAllStmtLists();
 
-    vector<string> getAllStmts();
-    vector<string> getAllReads();
-    vector<string> getAllPrints();
-    vector<string> getAllCalls();
-    vector<string> getAllWhiles();
-    vector<string> getAllIfs();
-    vector<string> getAllAssigns();
-    vector<string> getAllVariables();
-    vector<string> getAllConstants();
-    vector<string> getAllProcedures();
+    unordered_set<string> getAllStmts();
+    unordered_set<string> getAllReads();
+    unordered_set<string> getAllPrints();
+    unordered_set<string> getAllCalls();
+    unordered_set<string> getAllWhiles();
+    unordered_set<string> getAllIfs();
+    unordered_set<string> getAllAssigns();
+    unordered_set<string> getAllVariables();
+    unordered_set<string> getAllConstants();
+    unordered_set<string> getAllProcedures();
 
 
     virtual std::string getProcLineNumberByName(std::string procName);
@@ -121,7 +121,7 @@ public:
     virtual std::unordered_set<STMT_NUM> getNextStar(STMT_NUM stmt);
     virtual CFGHeadPtr getCFGHeadPtrByProc(STMT_NUM stmt);
     virtual Procedure* getProcByStmt(STMT_NUM stmt);
-    virtual std::vector<Procedure> getProcList();
+    virtual std::unordered_set<Procedure*> getProcList();
 
     /**
      * Clear NextStar, Affect and AffectStar Tables.

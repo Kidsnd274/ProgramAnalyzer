@@ -14,13 +14,13 @@ using namespace std;
 
 class ProcedureTable {
 private:
-    unordered_set<Procedure> procList;
+    unordered_set<Procedure*> procList;
 public:
     void insertProc(Procedure proc);
     unordered_set<string> getAllProcedures();
-    unordered_set<Procedure> getProcList();
+    unordered_set<Procedure*> getProcList();
     std::string getProcedureNameOf(CFGHeadPtr cfg);
-    Procedure getProcedureByName(std::string name);
+    Procedure* getProcedureByName(std::string name);
     Procedure* getProcByStmt(int stmt);
     void clear();
 };

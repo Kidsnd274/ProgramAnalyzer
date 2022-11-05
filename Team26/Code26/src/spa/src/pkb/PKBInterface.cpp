@@ -1,4 +1,5 @@
 #include "PKBInterface.h"
+#include <utility>
 
 void PKBInterface::addProcedure(std::string name, int startingStmtNo, int endingStmtNo, std::shared_ptr<CFGHead> cfg) {
     Procedure proc;
@@ -95,15 +96,15 @@ void PKBInterface::addCallStar(std::string procedureName, std::string procedureC
 std::shared_ptr<AssignNode> PKBInterface::getAssignTNode(const string& assignRef) {
     int assignStmtNo = stoi(assignRef);
     assert(pkb->modifiesTable->existStatement(assignStmtNo) == true);
-    std::string varName = (pkb->modifiesTable->getModifiesVar(assignStmtNo)).at(0);
-    Statement assignStmt = pkb->statementTable->getStmtByLineNumber(assignStmtNo);
+    std::string varName = pkb->modifiesTable->getFirstModifiedVar(assignStmtNo);
+    Statement* assignStmt = pkb->statementTable->getStmtByLineNumber(assignStmtNo);
 //    assert(assignStmt.type == StatementType::ASSIGN);
-    shared_ptr<TNode> tNode = assignStmt.rootNode;
+    shared_ptr<TNode> tNode = assignStmt->rootNode;
 
     return AssignNode::createAssignNode(assignStmtNo, varName, tNode);
 }
 
-vector<string> PKBInterface::getConditionVar(const std::string &containerRef) {
+unordered_set<string> PKBInterface::getConditionVar(const std::string &containerRef) {
     int containerStmtNo = stoi(containerRef);
     return pkb->containerTable->getVarNames(containerStmtNo);
 }
@@ -113,21 +114,13 @@ void PKBInterface::addCondVar(int statementNumber, std::string varName) {
 }
 
 std::unordered_set<std::string> PKBInterface::getAllVariablesModified(std::string procedureName) {
-    std::vector<std::string> varsModified = pkb->modifiesTable->getAllModifiedVarByProc(procedureName);
-    std::unordered_set<string> result;
-    for (std::string var: varsModified) {
-        result.insert(var);
-    }
-    return result;
+    std::unordered_set<std::string> varsModified = pkb->modifiesTable->getAllModifiedVarByProc(procedureName);
+    return varsModified;
 }
 
 std::unordered_set<std::string> PKBInterface::getAllVariablesUsed(std::string procedureName) {
-    std::vector<std::string> varsUsed = pkb->usesTable->getAllVarUsedByProc(procedureName);
-    std::unordered_set<string> result;
-    for (std::string var: varsUsed) {
-        result.insert(var);
-    }
-    return result;
+    std::unordered_set<std::string> varsUsed = pkb->usesTable->getAllVarUsedByProc(procedureName);
+    return varsUsed;
 }
 
 std::unordered_set<int> PKBInterface::getParentStar(int statementNumber) {
@@ -135,28 +128,20 @@ std::unordered_set<int> PKBInterface::getParentStar(int statementNumber) {
 }
 
 std::unordered_set<string> PKBInterface::getCall(std::string procedure) {
-    std::vector<std::string> procsCalled = pkb->callTable->getProcsCalled(procedure);
-    std::unordered_set<string> result;
-    for (std::string proc: procsCalled) {
-        result.insert(proc);
-    }
-    return result;
+    std::unordered_set<std::string> procsCalled = pkb->callTable->getProcsCalled(procedure);
+    return procsCalled;
 }
 
 std::unordered_set<string> PKBInterface::getCallStar(std::string procedure) {
-    std::vector<std::string> procsStarCalled = pkb->callStarTable->getProcsStarCalled(procedure);
-    std::unordered_set<string> result;
-    for (std::string proc: procsStarCalled) {
-        result.insert(proc);
-    }
-    return result;
+    std::unordered_set<std::string> procsStarCalled = pkb->callStarTable->getProcsStarCalled(procedure);
+    return procsStarCalled;
 }
 
-std::unordered_map<std::string, std::vector<std::string>> PKBInterface::getAllCall() {
+std::unordered_map<std::string, std::unordered_set<std::string>> PKBInterface::getAllCall() {
     return pkb->callTable->getAllCalls();
 }
 
-std::unordered_map<std::string, std::vector<std::string>> PKBInterface::getAllCallStar() {
+std::unordered_map<std::string, std::unordered_set<std::string>> PKBInterface::getAllCallStar() {
     return pkb->callStarTable->getAllCallStars();
 }
 
@@ -168,7 +153,7 @@ std::unordered_map<int,int> PKBInterface::getAllFollowStar() {
     return pkb->followsStarTable->getAllFollowStars();
 }
 
-std::unordered_map<int, vector<int>> PKBInterface::getAllNext() {
+std::unordered_map<int, unordered_set<int>> PKBInterface::getAllNext() {
     return pkb->nextTable->getAllNext();
 }
 
@@ -184,92 +169,92 @@ unordered_map<int, std::unordered_set<int>> PKBInterface::getAllAffectsStar() {
     return pkb->affectStarTable->getAllAffectStar();
 }
 
-std::unordered_map<int, std::vector<std::string>> PKBInterface::getAllModifyByStmt() {
+std::unordered_map<int, std::unordered_set<std::string>> PKBInterface::getAllModifyByStmt() {
     return pkb->modifiesTable->getAllModifiesByStmt();
 }
 
-std::unordered_map<std::string, std::vector<std::string>> PKBInterface::getAllModifyByProc() {
+std::unordered_map<std::string, std::unordered_set<std::string>> PKBInterface::getAllModifyByProc() {
     return pkb->modifiesTable->getAllModifiesByProc();
 }
 
-std::unordered_map<int, std::vector<int>> PKBInterface::getAllParent() {
+std::unordered_map<int, std::unordered_set<int>> PKBInterface::getAllParent() {
     return pkb->parentTable->getAllParents();
 }
 
-std::unordered_map<int, std::vector<int>> PKBInterface::getAllParentStar() {
+std::unordered_map<int, std::unordered_set<int>> PKBInterface::getAllParentStar() {
     return pkb->parentStarTable->getAllParentStars();
 }
 
-std::unordered_map<int, std::vector<std::string>> PKBInterface::getAllUseByStmt() {
+std::unordered_map<int, std::unordered_set<std::string>> PKBInterface::getAllUseByStmt() {
     return pkb->usesTable->getAllUsesByStmt();
 }
 
-std::unordered_map<std::string, std::vector<std::string>> PKBInterface::getAllUseByProc() {
+std::unordered_map<std::string, std::unordered_set<std::string>> PKBInterface::getAllUseByProc() {
     return pkb->usesTable->getAllUsesByProc();
 }
 
-std::vector<vector<Statement>> PKBInterface::getAllStmtLists() {
-    std::unordered_map<int, vector<Statement>> map;
-    for (Statement stmt: pkb->statementTable->getStatementList()) {
-        int listNumber = stmt.statementListNumber;
+std::unordered_set<unordered_set<Statement*>*> PKBInterface::getAllStmtLists() {
+    std::unordered_map<int, unordered_set<Statement*>> map;
+    for (auto stmt: pkb->statementTable->getStatementList()) {
+        int listNumber = stmt->statementListNumber;
         if (map.find(listNumber) != map.end()) {
-            map[listNumber].push_back(stmt);
+            map[listNumber].insert(stmt);
         } else {
-            std::pair<int, vector<Statement>> stmtList (listNumber, {stmt});
+            std::pair<int, unordered_set<Statement*>> stmtList (listNumber, {stmt});
             map.insert(stmtList);
         }
     }
-    std::vector<vector<Statement>> result;
+    std::unordered_set<unordered_set<Statement*>*> result;
     for (auto it = map.begin(); it != map.end(); it++) {
-        result.push_back(it->second);
+        result.insert(&(it->second));
     }
     return result;
 }
 
-vector<string> PKBInterface::getAllStmts() {
+unordered_set<string> PKBInterface::getAllStmts() {
     return pkb->statementTable->getAllStmts();
 }
 
-vector<string> PKBInterface::getAllReads() {
+unordered_set<string> PKBInterface::getAllReads() {
     return pkb->statementTable->getAllReads();
 }
 
-vector<string> PKBInterface::getAllPrints() {
+unordered_set<string> PKBInterface::getAllPrints() {
     return pkb->statementTable->getAllPrints();
 }
 
-vector<string> PKBInterface::getAllCalls() {
+unordered_set<string> PKBInterface::getAllCalls() {
     return pkb->statementTable->getAllCalls();
 }
 
-vector<string> PKBInterface::getAllWhiles() {
+unordered_set<string> PKBInterface::getAllWhiles() {
     return pkb->statementTable->getAllWhiles();
 }
 
-vector<string> PKBInterface::getAllIfs() {
+unordered_set<string> PKBInterface::getAllIfs() {
     return pkb->statementTable->getAllIfs();
 }
 
-vector<string> PKBInterface::getAllAssigns() {
+unordered_set<string> PKBInterface::getAllAssigns() {
     return pkb->statementTable->getAllAssigns();
 }
 
-vector<string> PKBInterface::getAllVariables() {
+unordered_set<string> PKBInterface::getAllVariables() {
     return pkb->varTable->getAllVariables();
 }
 
-vector<string> PKBInterface::getAllConstants() {
+unordered_set<string> PKBInterface::getAllConstants() {
     return pkb->constantTable->getAllConstants();
 }
 
-vector<string> PKBInterface::getAllProcedures() {
+unordered_set<string> PKBInterface::getAllProcedures() {
     return pkb->procedureTable->getAllProcedures();
 }
 
 std::string PKBInterface::getProcLineNumberByName(std::string procName) {
-    for (Procedure p: pkb->procedureTable->getProcList()) {
-        if (p.name == procName) {
-            return std::to_string(p.startingStmtNo);
+    for (Procedure* p: pkb->procedureTable->getProcList()) {
+        if (p->name == procName) {
+            return std::to_string(p->startingStmtNo);
         }
     }
     return "";
@@ -277,27 +262,27 @@ std::string PKBInterface::getProcLineNumberByName(std::string procName) {
 
 std::string PKBInterface::getCallProcName(std::string callLineNumber) {
     int callLine = std::stoi(callLineNumber);
-    Statement callStmt = pkb->statementTable->getStmtByLineNumber(callLine);
-    return callStmt.calleeProcName;
+    Statement* callStmt = pkb->statementTable->getStmtByLineNumber(callLine);
+    return callStmt->calleeProcName;
 }
 
 std::string PKBInterface::getReadVarName(std::string readLineNumber) {
     int readLine = std::stoi(readLineNumber);
-    std::unordered_map<int, std::vector<std::string>> modifiesList = pkb->modifiesTable->getAllModifiesByStmt();
-    return modifiesList[readLine].front();
+    std::unordered_map<int, std::unordered_set<std::string>> modifiesList = pkb->modifiesTable->getAllModifiesByStmt();
+    return *begin(modifiesList[readLine]);
 }
 
 std::string PKBInterface::getPrintVarName(std::string printLineNumber) {
     int printLine = std::stoi(printLineNumber);
-    std::unordered_map<int, std::vector<std::string>> usesList = pkb->usesTable->getAllUsesByStmt();
-    return usesList[printLine].front();
+    std::unordered_map<int, std::unordered_set<std::string>> usesList = pkb->usesTable->getAllUsesByStmt();
+    return *begin(usesList[printLine]);
 }
 
 
 CFGHeadPtr PKBInterface::getCfgOfProcedure(std::string procedureName) {
-    for (Procedure currentProcedure:pkb->procedureTable->getProcList()) {
-        if (currentProcedure.name == procedureName) {
-            return currentProcedure.cfg;
+    for (Procedure* currentProcedure:pkb->procedureTable->getProcList()) {
+        if (currentProcedure->name == procedureName) {
+            return currentProcedure->cfg;
         }
     }
     throw ProcedureNotFoundException();
@@ -313,8 +298,8 @@ void PKBInterface::addNextStar(STMT_NUM stmt, std::unordered_set<STMT_NUM> nextS
 }
 
 bool PKBInterface::isStatementContainer(STMT_NUM stmt) {
-    Statement statement = pkb->statementTable->getStmtByLineNumber(stmt);
-    StatementType::StmtType type = statement.type;
+    Statement* statement = pkb->statementTable->getStmtByLineNumber(stmt);
+    StatementType::StmtType type = statement->type;
     return (type == StatementType::IF) || (type == StatementType::WHILE);
 }
 
@@ -331,8 +316,8 @@ std::string PKBInterface::getModifiedVariable(STMT_NUM stmt) {
 }
 
 bool PKBInterface::isStatementAssign(STMT_NUM stmt) {
-    Statement statement = pkb->statementTable->getStmtByLineNumber(stmt);
-    StatementType::StmtType type = statement.type;
+    Statement* statement = pkb->statementTable->getStmtByLineNumber(stmt);
+    StatementType::StmtType type = statement->type;
     return type == StatementType::ASSIGN;
 }
 
@@ -357,9 +342,9 @@ void PKBInterface::addAffectsStar(STMT_NUM stmt, std::unordered_set<STMT_NUM> af
 }
 
 std::unordered_set<STMT_NUM> PKBInterface::getAllAssignFromProcedure(std::string procName) {
-    Procedure proc = pkb->procedureTable->getProcedureByName(procName);
-    int startStmt = proc.startingStmtNo;
-    int endStmt = proc.endingStmtNo;
+    Procedure* proc = pkb->procedureTable->getProcedureByName(procName);
+    int startStmt = proc->startingStmtNo;
+    int endStmt = proc->endingStmtNo;
     return pkb->statementTable->getAllAssignFromProcedure(startStmt, endStmt);
 }
 
@@ -384,7 +369,7 @@ Procedure* PKBInterface::getProcByStmt(STMT_NUM stmt) {
     return pkb->procedureTable->getProcByStmt(stmt);
 }
 
-std::vector<Procedure> PKBInterface::getProcList() {
+std::unordered_set<Procedure*> PKBInterface::getProcList() {
     return pkb->procedureTable->getProcList();
 }
 
