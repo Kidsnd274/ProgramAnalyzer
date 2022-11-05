@@ -1848,3 +1848,53 @@ assign a;
 Select a such that Follows* (17, a)
 none
 5000
+366 - ms2 31
+assign a;
+Select a such that Follows* (a, 11)
+10
+5000
+367 - ms2 32
+if ifs;
+Select ifs such that Follows* (17, ifs)
+none
+5000
+368 - ms2 33
+if ifs;
+Select ifs such that Follows* (ifs, 16)
+none
+5000
+369 - ms2 34
+while w;
+Select w such that Follows* (5, w)
+none
+5000
+370 - ms2 35
+while w;
+Select w such that Follows* (14, w)
+none
+5000
+371 - ms2 36
+while w;
+Select w such that Follows* (w, 119)
+none
+5000
+372 - ms2 37
+call c;
+Select c such that Follows* (34, c)
+37
+5000
+373 - ms2 38
+call c;
+Select c such that Follows* (c, 219)
+none
+5000
+374 - ms2 39
+stmt s;
+Select s such that Follows* (s, _)
+1,2,4,7,9,10,12,13,15,16,17,21,23,25,26,27,29,30,31,32,33,34,35,36,38,40,42
+5000
+375 - ms2 40
+stmt s;
+Select s such that Follows* (_, s)
+3,4,5,8,11,13,14,16,17,18,20,22,24,26,27,28,30,31,32,33,35,36,37,38,41,42,43
+5000
