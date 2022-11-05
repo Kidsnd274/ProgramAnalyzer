@@ -1798,3 +1798,53 @@ call c;
 Select c such that Follows* (c, _)
 32
 5000
+356 - ms2 21
+stmt s1; stmt s2;
+Select s1 such that Follows (1, 2)
+none
+5000
+357 - ms2 22
+stmt s1; stmt s2;
+Select s1 such that Follows (_, _)
+1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27,28,29,30,31,32,33,34,35,36,37,38,39,40,41,42,43
+5000
+358 - ms2 23
+stmt s1; stmt s2;
+Select s1 such that Follows (200000, s1)
+none
+5000
+359 - ms2 24
+print pr;
+Select pr such that Follows (36, pr)
+none
+5000
+360 - ms2 25
+print pr;
+Select pr such that Follows (31, pr)
+none
+5000
+361 - ms2 26
+read r;
+Select r such that Follows (28, r)
+none
+5000
+362 - ms2 27
+stmt s;
+Select s such that Follows* (23, s)
+24
+5000
+363 - ms2 28
+stmt s;
+Select s such that Follows* (s, 116)
+none
+5000
+364 - ms2 29
+assign a;
+Select a such that Follows* (32, a)
+42
+5000
+365 - ms2 30
+assign a;
+Select a such that Follows* (17, a)
+none
+5000
