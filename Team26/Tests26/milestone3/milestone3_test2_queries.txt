@@ -1998,3 +1998,53 @@ assign a; print pr;
 Select pr such that Follows* (pr, a)
 none
 5000
+396 - ms2 61
+ifs if; print pr;
+Select pr such that Follows* (pr, if)
+none
+5000
+397 - ms2 62
+while w; print pr;
+Select pr such that Follows* (pr, w)
+13
+5000
+398 - ms2 63
+assign a; print pr;
+Select pr such that Follows* (a, pr)
+13,22
+5000
+399 - ms2 64
+stmt s;
+Select s such that Parent (s, 83)
+none
+5000
+400 - ms2 65
+stmt s;
+Select s such that Parent (13, s)
+none
+5000
+401 - ms2 66
+assign a;
+Select a such that Parent (8, a)
+none
+5000
+402 - ms2 67
+while w;
+Select w such that Parent (w, 18)
+14
+5000
+403 - ms2 68
+while w;
+Select w such that Parent (15, w)
+none
+5000
+404 - ms2 69
+if ifs;
+Select ifs such that Parent (ifs, 24)
+none
+5000
+405 - ms2 70
+if ifs;
+Select ifs such that Parent (13, ifs)
+none
+5000
