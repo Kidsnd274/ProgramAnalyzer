@@ -1668,3 +1668,33 @@ stmt s, s1;
 Select <s, s1> such that Next(s, s1) and Next*(s1, 18)
 1 2,1 4,2 3,3 1,4 5,5 7,7 8,8 9,9 10,9 19,10 11,11 12,11 20,12 13,13 14,14 11,14 15,15 16,16 17,17 18,18 14,19 20,20 8,20 21,21 22,22 20
 5000
+330 - Tuple Calls 1
+procedure p, p1;
+Select <p, p1> such that Calls(_,_)
+computeCentroid computeCentroid,computeCentroid milestone3test2,computeCentroid printResults,computeCentroid readPoint,milestone3test2 computeCentroid,milestone3test2 milestone3test2,milestone3test2 printResults,milestone3test2 readPoint,printResults computeCentroid,printResults milestone3test2,printResults printResults,printResults readPoint,readPoint computeCentroid,readPoint milestone3test2,readPoint printResults,readPoint readPoint
+5000
+331 - Tuple Calls* 1
+procedure p, p1;
+Select <p, p1> such that Calls*(_,_)
+computeCentroid computeCentroid,computeCentroid milestone3test2,computeCentroid printResults,computeCentroid readPoint,milestone3test2 computeCentroid,milestone3test2 milestone3test2,milestone3test2 printResults,milestone3test2 readPoint,printResults computeCentroid,printResults milestone3test2,printResults printResults,printResults readPoint,readPoint computeCentroid,readPoint milestone3test2,readPoint printResults,readPoint readPoint
+5000
+332 -Tuple Calls* 2
+procedure p, p1;
+Select <p, pq> such that Calls*(_,_) and Calls*(_,_)
+none
+5000
+333 - Tuple Calls* 3
+procedure p, p1;
+Select <p, p1> such that Calls*(p1,_) and Calls*(_,p)
+computeCentroid computeCentroid,printResults computeCentroid,readPoint computeCentroid,computeCentroid milestone3test2,printResults milestone3test2,readPoint milestone3test2
+5000
+334 - Tuple Calls* 4
+procedure p, p1;
+Select <p, p1> such that Calls*(p, "computeCentroid") and Calls*(p, "readPoint")
+milestone3test2 computeCentroid,milestone3test2 milestone3test2,milestone3test2 printResults,milestone3test2 readPoint
+5000
+335 - Tuple Calls* SemanticError
+procedure p, p1;
+Select <p, p2> such that Calls*(p, "computeCentroid") and Calls*(p, "readPoint")
+SemanticError
+5000
