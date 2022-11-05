@@ -1518,4 +1518,23 @@ assign a, a1;
 Select BOOLEAN such that Affects*(a, a1) with a.stmt# = 5
 FALSE
 5000
-
+300 - Affects with with clause 2
+assign a, a1; constant c;
+Select a such that Affects(a, a1) with c.value = a.stmt#
+2, 3, 10, 12, 17
+5000
+301 - Affects* with with clause 2
+assign a, a1; constant c;
+Select a such that Affects*(a, a1) with c.value = a.stmt#
+2, 3, 10, 12, 17
+5000
+302 - Affects with attribute 1
+assign a, a1;
+Select a.stmt# such that Affects(a1, a)
+2, 3, 10, 12, 21, 17, 34, 40, 41, 42, 35, 36
+5000
+303 - Affects* with attribute 1
+assign a, a1;
+Select a.stmt# such that Affects*(a1, a)
+2, 3, 10, 12, 21, 17, 34, 40, 41, 42, 35, 36
+5000
