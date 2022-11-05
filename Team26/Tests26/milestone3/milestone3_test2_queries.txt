@@ -1698,3 +1698,103 @@ procedure p, p1;
 Select <p, p2> such that Calls*(p, "computeCentroid") and Calls*(p, "readPoint")
 SemanticError
 5000
+336 - ms2 1
+stmt s;
+Select s such that Follows (15, s)
+16
+5000
+337 - ms2 2
+stmt s;
+Select s such that Follows (s, 29)
+none
+5000
+338 - ms2 3
+assign a;
+Select a such that Follows (a, 19)
+none
+5000
+339 - ms2 4
+if ifs;
+Select ifs such that Follows (6, ifs)
+none
+5000
+340 - ms2 5
+if ifs;
+Select ifs such that Follows (ifs, 196)
+none
+5000
+341 - ms2 6
+while w;
+Select w such that Follows (w, 42)
+none
+5000
+342 - ms2 7
+call c;
+Select c such that Follows (11, c)
+none
+5000
+343 - ms2 8
+call c;
+Select c such that Follows (c, 78)
+none
+5000
+344 - ms2 9
+stmt s;
+Select s such that Follows (_, s)
+3,4,5,8,11,13,14,16,17,18,20,22,24,26,27,28,30,31,32,33,35,36,37,38,41,42,43
+5000
+345 - ms2 10
+stmt s;
+Select s such that Follows (s, _)
+1,2,4,7,9,10,12,13,15,16,17,21,23,25,26,27,29,30,31,32,33,34,35,36,38,40,42
+5000
+346 - ms2 11
+assign a;
+Select a such that Follows (_, a)
+3,17,30,31,35,36,41,42
+5000
+347 - ms2 12
+assign a;
+Select a such that Follows (a, _)
+2,7,10,12,15,17,21,29,30,31,34,35,36,40,42
+5000
+348 - ms2 13
+if ifs;
+Select ifs such that Follows (_, ifs)
+5,38
+5000
+349 - ms2 14
+if ifs;
+Select ifs such that Follows (ifs, _)
+9,38
+5000
+350 - ms2 15
+while w;
+Select w such that Follows (_, w)
+8,11,14,20,33
+5000
+351 - ms2 16
+while w;
+Select w such that Follows (w, _)
+1,33
+5000
+352 - ms2 17
+call c;
+Select c such that Follows (_, c)
+18,32,37,43
+5000
+353 - ms2 18
+call c;
+Select c such that Follows (c, _)
+32
+5000
+354 - ms2 19
+call c;
+Select c such that Follows* (_, c)
+18,32,37,43
+5000
+355 - ms2 20
+call c;
+Select c such that Follows* (c, _)
+32
+5000
