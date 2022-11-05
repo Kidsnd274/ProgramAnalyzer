@@ -1681,7 +1681,7 @@ computeCentroid computeCentroid,computeCentroid milestone3test2,computeCentroid 
 332 -Tuple Calls* 2
 procedure p, p1;
 Select <p, p1> such that Calls*(_,_) and Calls*(_,_)
-none
+computeCentroid computeCentroid,computeCentroid milestone3test2,computeCentroid printResults,computeCentroid readPoint,milestone3test2 computeCentroid,milestone3test2 milestone3test2,milestone3test2 printResults,milestone3test2 readPoint,printResults computeCentroid,printResults milestone3test2,printResults printResults,printResults readPoint,readPoint computeCentroid,readPoint milestone3test2,readPoint printResults,readPoint readPoint
 5000
 333 - Tuple Calls* 3
 procedure p, p1;
