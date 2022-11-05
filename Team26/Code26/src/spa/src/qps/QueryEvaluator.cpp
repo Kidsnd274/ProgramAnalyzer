@@ -27,7 +27,7 @@ void QueryEvaluator::evaluate(Query* query) {
         removeSynonym(**iter, &synonymCount, resultOfEvaluation);
 
     }
-    for (auto synonym: query->getCandidateList()) {
+    for (auto synonym : query->getCandidateList()) {
         if (!resultOfEvaluation->isSynonymPresent(synonym.argument.argumentName)) {
             getAllEntity(synonym.argument, resultOfEvaluation);
         }
@@ -74,7 +74,7 @@ std::vector<Clause*>* QueryEvaluator::groupClauses(std::vector<Clause*>* clauseL
         bool isSynonym1 = Argument::isSynonym(arg1.argumentType);
         bool isSynonym2 = Argument::isSynonym(arg2.argumentType);
         int numOfSynonyms = (isSynonym1 ? 1 : 0) + (isSynonym2 ? 1 : 0);
-        if (numOfSynonyms < 2) { // Clauses with less than 2 synonyms will be put into group 1 directly.
+        if (numOfSynonyms < 2) {  // Clauses with less than 2 synonyms will be put into group 1 directly.
             resultList->push_back(clause);
         }
         if (isSynonym1) {
@@ -82,7 +82,7 @@ std::vector<Clause*>* QueryEvaluator::groupClauses(std::vector<Clause*>* clauseL
             if (iter != synonymClausesMap.end()) {
                 iter->second.insert(i);
             } else {
-                synonymClausesMap.insert(make_pair(arg1.argumentName, unordered_set<int> {i}));
+                synonymClausesMap.insert(std::make_pair(arg1.argumentName, unordered_set<int> {i}));
             }
         }
         if (isSynonym2) {
@@ -90,7 +90,7 @@ std::vector<Clause*>* QueryEvaluator::groupClauses(std::vector<Clause*>* clauseL
             if (iter != synonymClausesMap.end()) {
                 iter->second.insert(i);
             } else {
-                synonymClausesMap.insert(make_pair(arg2.argumentName, unordered_set<int> {i}));
+                synonymClausesMap.insert(std::make_pair(arg2.argumentName, unordered_set<int> {i}));
             }
         }
     }

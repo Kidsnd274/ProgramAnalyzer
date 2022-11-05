@@ -305,7 +305,7 @@ namespace QPS {
             arg1 = {argument1, INAPPLICABLE};
             pos++;
             is_integer = true;
-        } else if (pos + 1 < tokens.size() && tokens[pos].tokenType == MINUS && tokens[pos + 1].tokenType == INTEGER ){
+        } else if (pos + 1 < tokens.size() && tokens[pos].tokenType == MINUS && tokens[pos + 1].tokenType == INTEGER) {
             argument1 = Argument("-" + tokens[pos+1].nameValue, Argument::NUMBER);
             arg1 = {argument1, INAPPLICABLE};
             pos+=2;
@@ -404,7 +404,7 @@ namespace QPS {
                 case Argument::NUMBER:
                 case Argument::STMT_SYNONYM:
                 case Argument::ASSIGN_SYNONYM:
-                case Argument::CONST_SYNONYM:{
+                case Argument::CONST_SYNONYM: {
                     argument2 = Argument("-"+tokens[pos+1].nameValue, Argument::NUMBER);
                     arg2 = {argument2, INAPPLICABLE};
                     break;

@@ -119,7 +119,7 @@ std::unordered_set<std::string> QPS_Interface::getAllEntity(Argument *argument) 
         default:
             return {};
     }
-    for (auto i: result) {
+    for (auto i : result) {
         resultSet.insert(i);
     }
     return resultSet;
