@@ -189,7 +189,6 @@ std::string QPS_Interface::getAttrName(std::string value, Query::CandidateStruct
 
 CFGHeadPtr QPS_Interface::getCFGHeadPtrByProc(STMT_NUM stmt) {
     return QPS_Interface::pkbInterface->getCFGHeadPtrByProc(stmt);
-    return nullptr;
 }
 
 Procedure* QPS_Interface::getProcByStmt(STMT_NUM stmt) {
