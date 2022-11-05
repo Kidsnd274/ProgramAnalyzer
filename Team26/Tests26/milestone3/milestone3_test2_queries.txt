@@ -1680,7 +1680,7 @@ computeCentroid computeCentroid,computeCentroid milestone3test2,computeCentroid 
 5000
 332 -Tuple Calls* 2
 procedure p, p1;
-Select <p, pq> such that Calls*(_,_) and Calls*(_,_)
+Select <p, p1> such that Calls*(_,_) and Calls*(_,_)
 none
 5000
 333 - Tuple Calls* 3
@@ -1961,7 +1961,7 @@ Select a such that Follows* (r, a)
 388 - ms2 53
 ifs if; read r;
 Select r such that Follows* (r, if)
-none
+SyntaxError
 5000
 389 - ms2 54
 while w; read r;
@@ -1999,8 +1999,8 @@ Select pr such that Follows* (pr, a)
 none
 5000
 396 - ms2 61
-ifs if; print pr;
-Select pr such that Follows* (pr, if)
+if ifs; print pr;
+Select pr such that Follows* (pr, ifs)
 none
 5000
 397 - ms2 62
