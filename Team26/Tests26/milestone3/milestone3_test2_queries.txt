@@ -1545,7 +1545,7 @@ computeCentroid, milestone3test2, printResults, readPoint
 5000
 305 - Affects with attribute and with clause 2
 assign a, a1; constant c;
-Select c.value such that Affects(a, a1) with c.value =a1.stmt#
+Select c.value such that Affects(a, a1) with c.value = a1.stmt#
 2, 3, 10, 12, 17
 5000
 306 - Affects* with attribute and with clause 1
@@ -1555,6 +1555,6 @@ computeCentroid, milestone3test2, printResults, readPoint
 5000
 307 - Affects* with attribute and with clause 2
 assign a, a1; constant c;
-Select c.value such that Affects*(a, a1) with c.value =a1.stmt#
+Select c.value such that Affects*(a, a1) with c.value = a1.stmt#
 2, 3, 10, 12, 17
 5000
