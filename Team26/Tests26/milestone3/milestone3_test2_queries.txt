@@ -1468,3 +1468,13 @@ stmt s;
 Select s such that Affects(s, 40)
 29,30,34,35
 5000
+291 - Affects* use statement synonym 1
+stmt s;
+Select s such that Affects*(35, s)
+35,40,42
+5000
+292 - Affects* use statement synonym 2
+stmt s;
+Select s such that Affects*(s, 40)
+29,30,34,35
+5000
