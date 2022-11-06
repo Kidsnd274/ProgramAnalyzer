@@ -17,6 +17,8 @@ public:
 
     static void createRuntimeExtractor();
 
+    static void clearRuntimeExtractor();
+
     /**
      * Call PKB interface to get the AST TNode of a certain assign statement.
      *

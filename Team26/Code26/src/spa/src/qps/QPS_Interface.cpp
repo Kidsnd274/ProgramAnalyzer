@@ -12,6 +12,10 @@ void QPS_Interface::createRuntimeExtractor() {
     QPS_Interface::runtimeExtractor = new RuntimeExtractor(QPS_Interface::pkbInterface);
 }
 
+void QPS_Interface::clearRuntimeExtractor() {
+    QPS_Interface::runtimeExtractor->clearCache();
+}
+
 std::shared_ptr<AssignNode> getAssignTNode(std::string assignRef) {
     return QPS_Interface::pkbInterface->getAssignTNode(assignRef);
 }

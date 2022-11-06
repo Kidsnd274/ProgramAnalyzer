@@ -118,7 +118,7 @@ void QueryManager::handleQuery(PKBInterface *pkb, std::string queryString, std::
     }
     query.validate();
     QueryEvaluator::evaluate(&query); // Call QueryEvaluator to evaluate the query. Store the result in query.resultTable.
-
+    QPS_Interface::clearRuntimeExtractor();
     QueryResultProjector* queryResultProjector = new QueryResultProjector();
     queryResultProjector->getSelectTuples(query, results); // Call queryResultProjector to format and print out the query result.
 }
