@@ -126,7 +126,7 @@ std::shared_ptr<IfNode> Parser::parseIf(STMT_LIST_NUM stmtListNum) {
     tokenStack->checkAndUseNextToken(SPTokenType::RCurlyToken);
     cfgManager->finalizeElsePortionOfIfStatement(currStatement);  // Connects last else stmt to DummyNode
 
-    pkbInterface->addIfStatement(currStatement, stmtListNum);
+    pkbInterface->addStatement(StatementType::IF, currStatement, stmtListNum);
     return IfNode::createIfNode(currStatement, cond, ifStatementList, elseStatementList);
 }
 
@@ -192,7 +192,7 @@ std::shared_ptr<WhileNode> Parser::parseWhile(STMT_LIST_NUM stmtListNum) {
     tokenStack->checkAndUseNextToken(SPTokenType::RCurlyToken);
 
     cfgManager->finalizeWhileStatement(currStatement);
-    pkbInterface->addWhileStatement(currStatement, stmtListNum);
+    pkbInterface->addStatement(StatementType::WHILE, currStatement, stmtListNum);
 
     return WhileNode::createWhileNode(currStatement, cond, statementList);
 }
@@ -207,10 +207,10 @@ std::shared_ptr<StatementNode> Parser::parseReadAndPrint(SPTokenType type, STMT_
     cfgManager->addStandardNode(currStatement);
 
     if (type == SPTokenType::ReadToken) {
-        pkbInterface->addReadStatement(currStatement, stmtListNum);
+        pkbInterface->addStatement(StatementType::READ, currStatement, stmtListNum);
         return ReadNode::createReadNode(currStatement, varName);
     } else {
-        pkbInterface->addPrintStatement(currStatement, stmtListNum);
+        pkbInterface->addStatement(StatementType::PRINT, currStatement, stmtListNum);
         return PrintNode::createPrintNode(currStatement, varName);
     }
 }

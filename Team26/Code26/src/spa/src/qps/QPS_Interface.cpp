@@ -91,29 +91,30 @@ std::shared_ptr<AssignNode> QPS_Interface::getAssignTNode(std::string assignRef)
 }
 
 std::unordered_set<std::string> QPS_Interface::getAllEntity(Argument *argument) {
-    switch (argument->argumentType) {
-        case Argument::STMT_SYNONYM:
-            return pkbInterface->getAllStmts();
-        case Argument::READ_SYNONYM:
-            return pkbInterface->getAllReads();
-        case Argument::PRINT_SYNONYM:
-            return pkbInterface->getAllPrints();
-        case Argument::CALL_SYNONYM:
-            return pkbInterface->getAllCalls();
-        case Argument::WHILE_SYNONYM:
-            return pkbInterface->getAllWhiles();
-        case Argument::IF_SYNONYM:
-            return pkbInterface->getAllIfs();
-        case Argument::ASSIGN_SYNONYM:
-            return pkbInterface->getAllAssigns();
-        case Argument::VAR_SYNONYM:
-            return pkbInterface->getAllVariables();
-        case Argument::CONST_SYNONYM:
-            return pkbInterface->getAllConstants();
-        case Argument::PROCEDURE_SYNONYM:
-            return pkbInterface->getAllProcedures();
-        default:
-            return {};
+    return pkbInterface->getAllEntity(argument->argumentType);
+//    switch (argument->argumentType) {
+//        case Argument::STMT_SYNONYM:
+//            return pkbInterface->getAllStmts();
+//        case Argument::READ_SYNONYM:
+//            return pkbInterface->getAllReads();
+//        case Argument::PRINT_SYNONYM:
+//            return pkbInterface->getAllPrints();
+//        case Argument::CALL_SYNONYM:
+//            return pkbInterface->getAllCalls();
+//        case Argument::WHILE_SYNONYM:
+//            return pkbInterface->getAllWhiles();
+//        case Argument::IF_SYNONYM:
+//            return pkbInterface->getAllIfs();
+//        case Argument::ASSIGN_SYNONYM:
+//            return pkbInterface->getAllAssigns();
+//        case Argument::VAR_SYNONYM:
+//            return pkbInterface->getAllVariables();
+//        case Argument::CONST_SYNONYM:
+//            return pkbInterface->getAllConstants();
+//        case Argument::PROCEDURE_SYNONYM:
+//            return pkbInterface->getAllProcedures();
+//        default:
+//            return {};
     }
 }
 

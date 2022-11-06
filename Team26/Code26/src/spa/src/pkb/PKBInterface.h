@@ -9,6 +9,7 @@
 #include <unordered_set>
 #include <utility>
 #include "qps/QueryProcessorTypes.h"
+#include "qps/type/Argument.h"
 #include "PKB.h"
 #include "Statement.h"
 #include "util/ast/AssignNode.h"
@@ -32,13 +33,14 @@ public:
     void addVariable(std::string name);
     void addConst(int value);
 
-    virtual void addStatement(StatementType::StmtType type, int statementNumber, int statementListNumber,
-                              std::shared_ptr<TNode> rootNode, std::string calleeProcName);
-    virtual void addReadStatement(int statementNumber, int statementListNumber);
+    /**
+     * Add IF, WHILE, PRINT, READ statement to statement table.
+     * @param type type of the statement
+     * @param statementNumber line number of the statement
+     * @param statementListNumber number of list which the statement belongs to
+     */
+    virtual void addStatement(StatementType::StmtType type, int statementNumber, int statementListNumber);
     virtual void addAssignStatement(int statementNumber, int statementListNumber, std::shared_ptr<TNode> rootNode);
-    virtual void addWhileStatement(int statementNumber, int statementListNumber);
-    virtual void addIfStatement(int statementNumber, int statementListNumber);
-    virtual void addPrintStatement(int statementNumber, int statementListNumber);
     virtual void addCallStatement(int statementNumber, int statementListNumber, std::string calleeProcName);
     virtual void addCondVar(int statementNumber, std::string varName);
 
@@ -80,16 +82,23 @@ public:
     virtual std::unordered_map<std::string, std::unordered_set<std::string>> getAllUseByProc();
     virtual std::unordered_set<std::unordered_set<Statement*>*> getAllStmtLists();
 
-    std::unordered_set<std::string> getAllStmts();
-    std::unordered_set<std::string> getAllReads();
-    std::unordered_set<std::string> getAllPrints();
-    std::unordered_set<std::string> getAllCalls();
-    std::unordered_set<std::string> getAllWhiles();
-    std::unordered_set<std::string> getAllIfs();
-    std::unordered_set<std::string> getAllAssigns();
-    std::unordered_set<std::string> getAllVariables();
-    std::unordered_set<std::string> getAllConstants();
-    std::unordered_set<std::string> getAllProcedures();
+//    std::unordered_set<std::string> getAllStmts();
+//    std::unordered_set<std::string> getAllReads();
+//    std::unordered_set<std::string> getAllPrints();
+//    std::unordered_set<std::string> getAllCalls();
+//    std::unordered_set<std::string> getAllWhiles();
+//    std::unordered_set<std::string> getAllIfs();
+//    std::unordered_set<std::string> getAllAssigns();
+//    std::unordered_set<std::string> getAllVariables();
+//    std::unordered_set<std::string> getAllConstants();
+//    std::unordered_set<std::string> getAllProcedures();
+    /**
+     * Get all entities of given type.
+     * @param type type of entity
+     * @teturn an unordered_set of statement line number, if/while/assign/call/read/print statement line number,
+     * variable name, procedure name or constant (as string).
+     */
+    std::unordered_set<std::string> getAllEntity(Argument::ArgumentType type);
 
 
     virtual std::string getProcLineNumberByName(std::string procName);
