@@ -11,8 +11,8 @@ protected:
             > modifiesValidationTable;
 
 public:
-    Modifies(Argument arg1, Argument arg2) : RelationClause(arg1, arg2) {
-        relationType = MODIFIES_S;
+    Modifies(Argument arg1, Argument arg2, RelationType relationType) : RelationClause(arg1, arg2, relationType) {
+        this->relationType = relationType;
     }
 
     bool isValid() override;

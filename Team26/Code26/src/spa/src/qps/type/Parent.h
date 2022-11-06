@@ -12,8 +12,8 @@ protected:
             > parentValidationTable;
 
 public:
-    Parent(Argument arg1, Argument arg2) : RelationClause(arg1, arg2) {
-        this->relationType = PARENT;
+    Parent(Argument arg1, Argument arg2, RelationType relationType) : RelationClause(arg1, arg2, relationType) {
+        this->relationType = relationType;
     }
 
     virtual bool isValid() override;
