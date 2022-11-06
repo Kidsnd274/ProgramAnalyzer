@@ -16,7 +16,7 @@ void QueryEvaluator::evaluate(Query* query) {
     ClauseAssigner* clauseAssigner = new ClauseAssigner();
 
     // Add synonyms to the map
-    unordered_map<string, int> synonymCount = countSynonym(query);
+    std::unordered_map<std::string, int> synonymCount = countSynonym(query);
 
     ClauseStruct* clauseStruct = new ClauseStruct[query->clauseList->size()];
 
@@ -37,7 +37,7 @@ void QueryEvaluator::evaluate(Query* query) {
 
     // Group the clauses
     QueryEvaluator::groupClauses(query->clauseList->size(), clauseStruct);
-    sort(clauseStruct, clauseStruct + query->clauseList->size(), lessThan);
+    std::sort(clauseStruct, clauseStruct + query->clauseList->size(), lessThan);
 
     // Merge the result tables
     ResultTable* resultOfEvaluation = new ResultTable();
@@ -70,9 +70,9 @@ void QueryEvaluator::evaluate(Query* query) {
 }
 
 void QueryEvaluator::getAllEntity(Argument argument, QPS::ResultTable *resultTable) {
-    vector<string> synonym = {argument.argumentName};
-    unordered_set<vector<string>, StringVectorHash> results;
-    unordered_set<string> entities = QPS_Interface::getAllEntity(&argument);
+    std::vector<std::string> synonym = {argument.argumentName};
+    std::unordered_set<std::vector<std::string>, StringVectorHash> results;
+    std::unordered_set<std::string> entities = QPS_Interface::getAllEntity(&argument);
     for (auto e: entities) {
         results.insert({e});
     }
@@ -95,7 +95,7 @@ void QueryEvaluator::groupClauses(int n, ClauseStruct* clauseStruct) {
             if (iter != synonymClausesMap.end()) {
                 iter->second.insert(i);
             } else {
-                synonymClausesMap.insert(std::make_pair(arg1.argumentName, unordered_set<int> {i}));
+                synonymClausesMap.insert(std::make_pair(arg1.argumentName, std::unordered_set<int> {i}));
             }
         }
         if (Argument::isSynonym(arg2.argumentType)) {
@@ -104,7 +104,7 @@ void QueryEvaluator::groupClauses(int n, ClauseStruct* clauseStruct) {
             if (iter != synonymClausesMap.end()) {
                 iter->second.insert(i);
             } else {
-                synonymClausesMap.insert(std::make_pair(arg2.argumentName, unordered_set<int> {i}));
+                synonymClausesMap.insert(std::make_pair(arg2.argumentName, std::unordered_set<int> {i}));
             }
         }
         if (numOfSynonyms == 0) { // clause with no synonym will be put into group 0 directly.
@@ -135,7 +135,7 @@ std::unordered_map<std::string, int>
 QueryEvaluator::countSynonym(Query* query) {
     std::vector<Clause *> *clauseList = query->clauseList;
     std::unordered_set<std::string> candidates = query->getCandidates();
-    unordered_map<string, int> synonymCount = {};
+    std::unordered_map<std::string, int> synonymCount = {};
     for (auto clause: *clauseList) {
         Argument arg1 = clause->getFirstArgument();
         Argument arg2 = clause->getSecondArgument();

@@ -3,6 +3,7 @@
 
 #include <unordered_map>
 #include <unordered_set>
+#include <utility>
 #include "util/cfg/CFGHead.h"
 
 class AffectStarTable {
@@ -18,4 +19,4 @@ public:
 };
 
 
-#endif //SPA_AFFECTSTARTABLE_H
+#endif  // SPA_AFFECTSTARTABLE_H

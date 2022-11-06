@@ -1,25 +1,22 @@
-//
-// Created by QMS on 13/9/2022.
-//
-
 #ifndef SPA_FOLLOWSSTARTABLE_H
 #define SPA_FOLLOWSSTARTABLE_H
 
-#include <stdio.h>
+#include <algorithm>
 #include <string>
 #include <vector>
 #include <unordered_map>
-
-using namespace std;
+#include <utility>
+#include "util/Common.h"
 
 class FollowsStarTable {
 private:
-    unordered_map<int, int> followsStarList;
+    std::unordered_map<STMT_NUM, STMT_NUM> followsStarList;
+
 public:
-    void insertFollowsStar(int frontStmtLineNumber, int backStmtLineNumber);
-    bool existFollowsStar(int frontStmtLineNumber, int backStmtLineNumber);
-    unordered_map<int, int> getAllFollowStars();
+    void insertFollowsStar(STMT_NUM frontStmtLineNumber, STMT_NUM backStmtLineNumber);
+    bool existFollowsStar(STMT_NUM frontStmtLineNumber, STMT_NUM backStmtLineNumber);
+    std::unordered_map<STMT_NUM, STMT_NUM> getAllFollowStars();
     void clear();
 };
 
-#endif //SPA_FOLLOWSSTARTABLE_H
+#endif  // SPA_FOLLOWSSTARTABLE_H

@@ -24,11 +24,11 @@ std::unordered_map<int, int> QPS_Interface::getAllFollowsRelations() {
     return QPS_Interface::pkbInterface->getAllFollow();
 }
 
-std::unordered_map<int, vector<int>> QPS_Interface::getAllParentRelations() {
+std::unordered_map<int, std::vector<int>> QPS_Interface::getAllParentRelations() {
     return QPS_Interface::pkbInterface->getAllParent();
 }
 
-std::unordered_map<int, vector<int>> QPS_Interface::getAllParentTRelations() {
+std::unordered_map<int, std::vector<int>> QPS_Interface::getAllParentTRelations() {
     return QPS_Interface::pkbInterface->getAllParentStar();
 }
 
@@ -56,12 +56,12 @@ std::unordered_map<std::string, std::vector<std::string>> QPS_Interface::getAllM
     return QPS_Interface::pkbInterface->getAllModifyByProc();
 }
 
-std::vector<pair<int, int>> QPS_Interface::getAllAffectsRelations() {
+std::vector<std::pair<int, int>> QPS_Interface::getAllAffectsRelations() {
 //    return QPS_Interface::pkbInterface->getAllAffects();
     return {};
 }
 
-std::vector<pair<int, int>> QPS_Interface::getAllAffectsTRelations() {
+std::vector<std::pair<int, int>> QPS_Interface::getAllAffectsTRelations() {
 //    return QPS_Interface::pkbInterface->getAllAffectsProc();
     return {};
 }
@@ -70,7 +70,7 @@ std::unordered_map<int, std::vector<int>> QPS_Interface::getAllNextRelations() {
     return QPS_Interface::pkbInterface->getAllNext();
 }
 
-std::vector<pair<int, int>> QPS_Interface::getAllNextTRelations() {
+std::vector<std::pair<int, int>> QPS_Interface::getAllNextTRelations() {
 //    return QPS_Interface::pkbInterface->getAllNextProc();
     return {};
 }
@@ -152,7 +152,7 @@ std::vector<std::string> QPS_Interface::getConditionVarNameByStmtNum(std::string
 std::string QPS_Interface::getAttrName(std::string value, WithClause::WithClauseArgument candidate) {
     if (candidate.attributeType == AttributeType::STMT_LINE_NUMBER
         && candidate.argument.argumentType == Argument::PROCEDURE_SYNONYM) {
-        string temp = QPS_Interface::getProcLineNumberByName(value);
+        std::string temp = QPS_Interface::getProcLineNumberByName(value);
         return QPS_Interface::getProcLineNumberByName(value);
     }
     if (candidate.attributeType == AttributeType::PROC_NAME
@@ -173,7 +173,7 @@ std::string QPS_Interface::getAttrName(std::string value, WithClause::WithClause
 std::string QPS_Interface::getAttrName(std::string value, Query::CandidateStruct candidate) {
     if (candidate.attributeType == AttributeType::STMT_LINE_NUMBER
         && candidate.argument.argumentType == Argument::PROCEDURE_SYNONYM) {
-        string temp = QPS_Interface::getProcLineNumberByName(value);
+        std::string temp = QPS_Interface::getProcLineNumberByName(value);
         return QPS_Interface::getProcLineNumberByName(value);
     }
     if (candidate.attributeType == AttributeType::PROC_NAME
