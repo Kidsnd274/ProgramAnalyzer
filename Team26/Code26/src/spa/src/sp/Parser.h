@@ -5,12 +5,13 @@
 #include <utility>
 #include <vector>
 #include "SyntaxErrorException.h"
+#include "de/DesignExtractor.h"
+#include "pkb/PKB.h"
 #include "util/Common.h"
 #include "util/Lexer.h"
 #include "util/TokenStack.h"
 #include "util/ast/TNode.h"
 #include "util/cfg/CFGManager.h"
-#include "de/DesignExtractor.h"
 
 class Parser {
 private:

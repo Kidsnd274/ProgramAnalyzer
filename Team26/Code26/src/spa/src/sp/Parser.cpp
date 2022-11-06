@@ -1,8 +1,5 @@
 #include "Parser.h"
 
-#include <utility>
-#include "pkb/PKB.h"
-
 void Parser::parseSimple() {
     int numOfProcedures = 0;
     std::vector<std::shared_ptr<ProcedureNode>> procedures;
