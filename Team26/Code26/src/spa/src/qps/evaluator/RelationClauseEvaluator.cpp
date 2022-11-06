@@ -84,7 +84,7 @@ bool isStatementTypeMatched(StatementType::StmtType stmtType, Argument::Argument
     return false;
 }
 
-std::vector<std::vector<Statement>>& filterStmtList(const std::unordered_set<std::unordered_set<Statement*>*>& stmtList, Argument& arg) {
+std::vector<std::vector<Statement>>& filterStmtList(std::unordered_set<std::unordered_set<Statement*>*> stmtList, Argument& arg) {
     std::vector<std::vector<Statement>>* resultStmtList = new std::vector<std::vector<Statement>>();
     for (auto iter : stmtList) {
         std::vector<Statement> lineResult;

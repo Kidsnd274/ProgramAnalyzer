@@ -8,7 +8,7 @@ void ProcedureTable::insertProc(Procedure proc) {
 
 std::unordered_set<std::string> ProcedureTable::getAllProcedures() {
     std::unordered_set<std::string> result;
-    for (auto &proc: this->procList) {
+    for (auto proc: this->procList) {
         result.insert(proc->name);
     }
     return result;

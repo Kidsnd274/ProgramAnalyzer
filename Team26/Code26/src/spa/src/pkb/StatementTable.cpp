@@ -10,7 +10,7 @@ std::unordered_set<Statement*> StatementTable::getStatementList() {
 
 std::unordered_set<std::string> StatementTable::getAllStmts() {
     std::unordered_set<std::string> result;
-    for (auto &stmt: this->statementList) {
+    for (auto stmt: this->statementList) {
         result.insert(std::to_string(stmt->lineNumber));
     }
     return result;
@@ -18,7 +18,7 @@ std::unordered_set<std::string> StatementTable::getAllStmts() {
 
 std::unordered_set<std::string> StatementTable::getAllStmtsByType(StatementType::StmtType type) {
     std::unordered_set<std::string> result;
-    for (auto &stmt: this->statementList) {
+    for (auto stmt: this->statementList) {
         if (stmt->type == type) {
             result.insert(std::to_string(stmt->lineNumber));
         }

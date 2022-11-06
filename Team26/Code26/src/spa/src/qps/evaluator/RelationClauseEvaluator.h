@@ -32,7 +32,7 @@ private:
      * @param map map retrieved from PKB.
      * @param resultTable the result table used to store the result.
      */
-    void filterRelations(std::unordered_map<string, std::unordered_set<std::string>> map, QPS::ResultTable *resultTable);
+    void filterRelations(std::unordered_map<std::string, std::unordered_set<std::string>> map, QPS::ResultTable *resultTable);
 
     /**
      * Used by Parent and Parent_T to filter out relationships.
