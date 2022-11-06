@@ -8,6 +8,15 @@ bool lessThan(ClauseStruct& s1, ClauseStruct& s2) {
     return s1.groupNumber < s2.groupNumber;
 }
 
+bool haveCommonSynonyms(ResultTable* r1, ResultTable* r2) {
+    for (auto syn : r1->getSynonymColRef()) {
+        if (r2->isSynonymPresent(syn.first)) {
+            return true;
+        }
+    }
+    return false;
+}
+
 void QueryEvaluator::evaluate(Query* query) {
     if (query->getStatus() != VALID_QUERY) {
         return;
@@ -42,22 +51,15 @@ void QueryEvaluator::evaluate(Query* query) {
     // Merge the result tables
     ResultTable* resultOfEvaluation = new ResultTable();
     for (int i = 0; i < query->clauseList->size(); i++) {
-        auto start = std::chrono::steady_clock::now();
-        resultOfEvaluation = ResultTable::mergeTable(resultOfEvaluation, clauseStruct[i].resultTable);
-        auto stop = std::chrono::steady_clock::now();
-        auto duration = duration_cast<std::chrono::milliseconds>(stop - start);
-        std::cout << "Time taken by mergeTable: "
-             << duration.count() << " milliseconds" << std::endl;
-
-        start = std::chrono::steady_clock::now();
-        std::cout << "drop column before: " << resultOfEvaluation->getTable().size() << std::endl;
-        removeSynonym(*clauseStruct[i].clause, &synonymCount, resultOfEvaluation);
-        std::cout << "drop column after: " << resultOfEvaluation->getTable().size() << std::endl;
-        stop = std::chrono::steady_clock::now();
-        duration = duration_cast<std::chrono::milliseconds>(stop - start);
-        std::cout << "Time taken by dropColumn: "
-             << duration.count() << " milliseconds" << std::endl;
+         if (haveCommonSynonyms(clauseStruct[i].resultTable, resultOfEvaluation)) {
+            resultOfEvaluation = ResultTable::mergeTable(resultOfEvaluation, clauseStruct[i].resultTable);
+            removeSynonym(*clauseStruct[i].clause, &synonymCount, resultOfEvaluation);
+        } else {
+            removeSynonym(*clauseStruct[i].clause, &synonymCount, clauseStruct[i].resultTable);
+            resultOfEvaluation = ResultTable::mergeTable(resultOfEvaluation, clauseStruct[i].resultTable);
+        }
     }
+    delete[] clauseStruct;
 
     // For candidates not in result table, get all entities and merge.
     for (auto synonym : query->getCandidateList()) {
