@@ -4,7 +4,7 @@ void AffectTable::insertAffect(int stmt, int affectedStmt) {
     if (this->affectList.find(stmt) != this->affectList.end()) {
         this->affectList.find(stmt)->second.insert(affectedStmt);
     } else {
-        std::pair<int, std::unordered_set<int>> affect (stmt, {affectedStmt});
+        std::pair<int, std::unordered_set<int>> affect(stmt, {affectedStmt});
         this->affectList.insert(affect);
     }
 }

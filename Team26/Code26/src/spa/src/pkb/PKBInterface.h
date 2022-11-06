@@ -1,14 +1,13 @@
 #pragma once
 
-#include <stdio.h>
 #include <iostream>
 #include <string>
 #include <vector>
 #include <cassert>
 #include <memory>
+#include <unordered_map>
 #include <unordered_set>
 #include <utility>
-
 #include "qps/QueryProcessorTypes.h"
 #include "PKB.h"
 #include "Statement.h"
@@ -23,9 +22,7 @@
 #include "ProcedureNotFoundException.h"
 #include "NextStarTable.h"
 
-using namespace std;
 using namespace QPS;
-typedef short PROC;
 
 class PKBInterface {
 public:
@@ -43,11 +40,11 @@ public:
     virtual void addIfStatement(int statementNumber, int statementListNumber);
     virtual void addPrintStatement(int statementNumber, int statementListNumber);
     virtual void addCallStatement(int statementNumber, int statementListNumber, std::string calleeProcName);
-    virtual void addCondVar(int statementNumber, string varName);
+    virtual void addCondVar(int statementNumber, std::string varName);
 
-    virtual void addModifies(int statementNumber, string varName);
+    virtual void addModifies(int statementNumber, std::string varName);
     virtual void addModifies(std::string procedureName, std::string varName);
-    virtual void addUses(int statementNumber, string varName);
+    virtual void addUses(int statementNumber, std::string varName);
     virtual void addUses(std::string procedureName, std::string varName);
     virtual void addParent(int parentStatementNumber, int childStatementNumber);
     virtual void addParentStar(int parentStatementNumber, int childStatementNumber);
@@ -60,39 +57,39 @@ public:
     virtual std::unordered_set<std::string> getAllVariablesModified(std::string procedureName);
     virtual std::unordered_set<std::string> getAllVariablesUsed(std::string procedureName);
     virtual std::unordered_set<int> getParentStar(int statementNumber);
-    virtual std::unordered_set<string> getCall(std::string procedure);
-    virtual std::unordered_set<string> getCallStar(std::string procedure);
+    virtual std::unordered_set<std::string> getCall(std::string procedure);
+    virtual std::unordered_set<std::string> getCallStar(std::string procedure);
 
 
-    shared_ptr<AssignNode> getAssignTNode(const string& assignRef);
-    vector<string> getConditionVar(const string& containerRef);
+    std::shared_ptr<AssignNode> getAssignTNode(const std::string& assignRef);
+    std::vector<std::string> getConditionVar(const std::string& containerRef);
 
-    virtual unordered_map<std::string, std::vector<std::string>> getAllCall();
-    virtual unordered_map<std::string, std::vector<std::string>> getAllCallStar();
-    virtual unordered_map<int,int> getAllFollow();
-    virtual unordered_map<int,int> getAllFollowStar();
-    virtual unordered_map<int, vector<int>> getAllNext();
+    virtual std::unordered_map<std::string, std::vector<std::string>> getAllCall();
+    virtual std::unordered_map<std::string, std::vector<std::string>> getAllCallStar();
+    virtual std::unordered_map<int, int> getAllFollow();
+    virtual std::unordered_map<int, int> getAllFollowStar();
+    virtual std::unordered_map<int, std::vector<int>> getAllNext();
     virtual std::unordered_map<STMT_NUM, std::unordered_set<STMT_NUM>> getAllNextStar();
-    virtual unordered_map<int, std::unordered_set<int>> getAllAffects();
-    virtual unordered_map<int, std::unordered_set<int>> getAllAffectsStar();
-    virtual unordered_map<int, std::vector<std::string>> getAllModifyByStmt();
-    virtual unordered_map<std::string, std::vector<std::string>> getAllModifyByProc();
-    virtual unordered_map<int, std::vector<int>> getAllParent();
-    virtual unordered_map<int, std::vector<int>> getAllParentStar();
-    virtual unordered_map<int, std::vector<std::string>> getAllUseByStmt();
-    virtual unordered_map<std::string, std::vector<std::string>> getAllUseByProc();
-    virtual std::vector<vector<Statement>> getAllStmtLists();
+    virtual std::unordered_map<int, std::unordered_set<int>> getAllAffects();
+    virtual std::unordered_map<int, std::unordered_set<int>> getAllAffectsStar();
+    virtual std::unordered_map<int, std::vector<std::string>> getAllModifyByStmt();
+    virtual std::unordered_map<std::string, std::vector<std::string>> getAllModifyByProc();
+    virtual std::unordered_map<int, std::vector<int>> getAllParent();
+    virtual std::unordered_map<int, std::vector<int>> getAllParentStar();
+    virtual std::unordered_map<int, std::vector<std::string>> getAllUseByStmt();
+    virtual std::unordered_map<std::string, std::vector<std::string>> getAllUseByProc();
+    virtual std::vector<std::vector<Statement>> getAllStmtLists();
 
-    vector<string> getAllStmts();
-    vector<string> getAllReads();
-    vector<string> getAllPrints();
-    vector<string> getAllCalls();
-    vector<string> getAllWhiles();
-    vector<string> getAllIfs();
-    vector<string> getAllAssigns();
-    vector<string> getAllVariables();
-    vector<string> getAllConstants();
-    vector<string> getAllProcedures();
+    std::vector<std::string> getAllStmts();
+    std::vector<std::string> getAllReads();
+    std::vector<std::string> getAllPrints();
+    std::vector<std::string> getAllCalls();
+    std::vector<std::string> getAllWhiles();
+    std::vector<std::string> getAllIfs();
+    std::vector<std::string> getAllAssigns();
+    std::vector<std::string> getAllVariables();
+    std::vector<std::string> getAllConstants();
+    std::vector<std::string> getAllProcedures();
 
 
     virtual std::string getProcLineNumberByName(std::string procName);

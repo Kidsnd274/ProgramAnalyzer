@@ -1,14 +1,11 @@
-
 #include "AffectsExtractor.h"
-
-#include <utility>
 
 void AffectsExtractor::computeAffects(CFGHeadPtr cfg, PKBInterface* pkb, STMT_NUM stmt) {
     if (pkb->hasAffects(stmt)) {
         return;
     }
 
-    string varModified = pkb->getModifiedVariable(stmt);
+    std::string varModified = pkb->getModifiedVariable(stmt);
     std::unordered_set<STMT_NUM> affectedSet = getReachableNodes(std::move(cfg), pkb, stmt, varModified);
 
     for (auto i : affectedSet) {

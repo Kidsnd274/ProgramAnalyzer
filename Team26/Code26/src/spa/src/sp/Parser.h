@@ -5,13 +5,12 @@
 #include <utility>
 #include <vector>
 #include "SyntaxErrorException.h"
+#include "util/Common.h"
 #include "util/Lexer.h"
 #include "util/TokenStack.h"
 #include "util/ast/TNode.h"
 #include "util/cfg/CFGManager.h"
 #include "de/DesignExtractor.h"
-
-typedef int STMT_LIST_NUM;
 
 class Parser {
 private:

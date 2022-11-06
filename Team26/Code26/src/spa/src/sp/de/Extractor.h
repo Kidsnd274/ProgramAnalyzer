@@ -49,7 +49,7 @@ public:
 
     std::vector<int> getAllItemsInStack() {
         std::stack<int> temp;
-        vector<int> ans;
+        std::vector<int> ans;
         while (!callStack.empty()) {
             int t = popFromStack();
             ans.push_back(t);
