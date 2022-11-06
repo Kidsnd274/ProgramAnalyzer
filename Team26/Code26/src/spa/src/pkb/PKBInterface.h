@@ -11,6 +11,7 @@
 #include "qps/QueryProcessorTypes.h"
 #include "qps/type/Argument.h"
 #include "qps/type/RelationClause.h"
+#include "qps/type/Entity.h"
 #include "PKB.h"
 #include "Statement.h"
 #include "util/ast/AssignNode.h"
@@ -31,8 +32,7 @@ public:
     PKB* pkb = new PKB();
 
     virtual void addProcedure(std::string name, int startingStmtNo, int endingStmtNo, std::shared_ptr<CFGHead> cfg);
-    void addVariable(std::string name);
-    void addConst(int value);
+    void addItem(Entity::EntityType type, std::string name, int value);
 
     /**
      * Add IF, WHILE, PRINT, READ statement to statement table.
@@ -48,15 +48,6 @@ public:
     virtual void addRelation(RelationType type, int statementNumber, std::string varName);
     virtual void addRelation(RelationType type, std::string procedureName, std::string name);
     virtual void addRelation(RelationType type, int firstStatementNumber, int SecondStatementNumber);
-    virtual void addModifies(int statementNumber, std::string varName);
-    virtual void addModifies(std::string procedureName, std::string varName);
-    virtual void addUses(int statementNumber, std::string varName);
-    virtual void addUses(std::string procedureName, std::string varName);
-    virtual void addParent(int parentStatementNumber, int childStatementNumber);
-    virtual void addParentStar(int parentStatementNumber, int childStatementNumber);
-    virtual void addFollows(int frontStatementNumber, int backStatementNumber);
-    virtual void addCall(std::string procedureName, std::string procedureCalled);
-    virtual void addCallStar(std::string procedureName, std::string procedureCalled);
 
 
     virtual std::unordered_set<std::string> getAllVariablesModified(std::string procedureName);
@@ -72,7 +63,6 @@ public:
     virtual std::unordered_map<std::string, std::unordered_set<std::string>> getAllCall();
     virtual std::unordered_map<std::string, std::unordered_set<std::string>> getAllCallStar();
     virtual std::unordered_map<int, int> getAllFollow();
-    virtual std::unordered_map<int, int> getAllFollowStar();
     virtual std::unordered_map<int, std::unordered_set<int>> getAllNext();
     virtual std::unordered_map<STMT_NUM, std::unordered_set<STMT_NUM>> getAllNextStar();
     virtual std::unordered_map<int, std::unordered_set<int>> getAllAffects();

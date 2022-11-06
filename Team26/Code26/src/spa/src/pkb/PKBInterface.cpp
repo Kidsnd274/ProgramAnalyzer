@@ -10,12 +10,14 @@ void PKBInterface::addProcedure(std::string name, int startingStmtNo, int ending
     pkb->procedureTable->insertProc(proc);
 }
 
-void PKBInterface::addVariable(std::string name) {
-    pkb->varTable->insertVar(name);
-}
-
-void PKBInterface::addConst(int value) {
-    pkb->constantTable->insertConst(value);
+void PKBInterface::addItem(Entity::EntityType type, std::string name, int value) {
+    switch (type) {
+        case Entity::VARIABLE:
+            pkb->varTable->insertVar(name);
+        case Entity::CONSTANT:
+            pkb->constantTable->insertConst(value);
+        default:;
+    }
 }
 
 void PKBInterface::addStatement(StatementType::StmtType type, int statementNumber, int statementListNumber) {
@@ -50,6 +52,7 @@ void PKBInterface::addRelation(RelationType type, int statementNumber, std::stri
             pkb->modifiesTable->insertModifies(statementNumber, varName);
         case RelationType::USES_S:
             pkb->usesTable->insertUses(statementNumber, varName);
+        default:;
     }
 }
 
@@ -63,6 +66,7 @@ void PKBInterface::addRelation(RelationType type, std::string procedureName, std
             pkb->callTable->insertCall(procedureName, name);
         case RelationType::CALLS_T:
             pkb->callStarTable->insertCallStar(procedureName, name);
+        default:;
     }
 }
 void PKBInterface::addRelation(RelationType type, int firstStatementNumber, int secondStatementNumber) {
@@ -73,43 +77,8 @@ void PKBInterface::addRelation(RelationType type, int firstStatementNumber, int 
             pkb->parentStarTable->insertParentStar(firstStatementNumber, secondStatementNumber);
         case RelationType::FOLLOWS:
             pkb->followsTable->insertFollows(firstStatementNumber, secondStatementNumber);
+        default:;
     }
-}
-
-void PKBInterface::addModifies(int statementNumber, std::string varName) {
-    pkb->modifiesTable->insertModifies(statementNumber, std::move(varName));
-}
-
-void PKBInterface::addModifies(std::string procedureName, std::string varName) {
-    pkb->modifiesTable->insertProcModifies(procedureName, varName);
-}
-
-void PKBInterface::addUses(int statementNumber, std::string varName) {
-    pkb->usesTable->insertUses(statementNumber, std::move(varName));
-}
-
-void PKBInterface::addUses(std::string procedureName, std::string varName) {
-    pkb->usesTable->insertProcUses(procedureName, varName);
-}
-
-void PKBInterface::addParent(int parentStatementNumber, int childStatementNumber) {
-    pkb->parentTable->insertParent(parentStatementNumber, childStatementNumber);
-}
-
-void PKBInterface::addParentStar(int parentStatementNumber, int childStatementNumber) {
-    pkb->parentStarTable->insertParentStar(parentStatementNumber, childStatementNumber);
-}
-
-void PKBInterface::addFollows(int frontStatementNumber, int backStatementNumber) {
-    pkb->followsTable->insertFollows(frontStatementNumber, backStatementNumber);
-}
-
-void PKBInterface::addCall(std::string procedureName, std::string procedureCalled) {
-    pkb->callTable->insertCall(procedureName, procedureCalled);
-}
-
-void PKBInterface::addCallStar(std::string procedureName, std::string procedureCalled) {
-    pkb->callStarTable->insertCallStar(procedureName, procedureCalled);
 }
 
 std::shared_ptr<AssignNode> PKBInterface::getAssignTNode(const std::string& assignRef) {
