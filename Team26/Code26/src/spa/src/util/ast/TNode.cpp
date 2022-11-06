@@ -33,7 +33,9 @@ bool TNode::isSameTree(const std::shared_ptr<TNode> &t1, const std::shared_ptr<T
         return t2 == nullptr;
     }
 
-    if (t2 == nullptr) return false;
+    if (t2 == nullptr) {
+        return false;
+    }
 
     if (t1->getNodeType() != t2->getNodeType() || t1->getValue() != t2->getValue()) {
         return false;
