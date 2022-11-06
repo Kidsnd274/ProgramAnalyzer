@@ -500,7 +500,7 @@ namespace QPS {
         if (pos < tokens.size() && tokens[pos].tokenType == NAME) {
             Argument::ArgumentType argumentType = container.getSynonymType(tokens[pos].nameValue);
             if (argumentType == Argument::INVALID_ARGUMENT_TYPE) {
-                return {pos, UNDECLARED_ENTITY_WITH};
+                return {pos, UNDECLARED_ENTITY_PATTERN};
             } else if (argumentType == Argument::ASSIGN_SYNONYM || argumentType == Argument::IF_SYNONYM || argumentType == Argument::WHILE_SYNONYM) {
                 pattern_syn = tokens[pos].nameValue;
                 typeOfPattern = argumentType;
@@ -547,8 +547,13 @@ namespace QPS {
         }
 
         if (tokens[pos].tokenType == NAME) {
-            arg = {tokens[pos].nameValue, Argument::VAR_SYNONYM};
-            pos++;
+            Argument::ArgumentType argumentType = container.getSynonymType(tokens[pos].nameValue);
+            if (argumentType == Argument::VAR_SYNONYM) {
+                arg = {tokens[pos].nameValue, Argument::VAR_SYNONYM};
+                pos++;
+            } else {
+                return {pos, INVALID_PATTERN_TYPE};
+            }
         } else if (pos + 2 < tokens.size() && tokens[pos].tokenType == DOUBLE_QUOTE && tokens[pos+2].tokenType == DOUBLE_QUOTE
                    && tokens[pos + 1].tokenType == NAME) {
             arg = {tokens[pos + 1].nameValue, Argument::ACTUAL_NAME};
@@ -575,8 +580,13 @@ namespace QPS {
         }
 
         if (tokens[pos].tokenType == NAME) {
-            arg = {tokens[pos].nameValue, Argument::VAR_SYNONYM};
-            pos++;
+            Argument::ArgumentType argumentType = container.getSynonymType(tokens[pos].nameValue);
+            if (argumentType == Argument::VAR_SYNONYM) {
+                arg = {tokens[pos].nameValue, Argument::VAR_SYNONYM};
+                pos++;
+            } else {
+                return {pos, INVALID_PATTERN_TYPE};
+            }
         } else if (pos + 2 < tokens.size() && tokens[pos].tokenType == DOUBLE_QUOTE && tokens[pos+2].tokenType == DOUBLE_QUOTE
                    && tokens[pos + 1].tokenType == NAME) {
             arg = {tokens[pos + 1].nameValue, Argument::ACTUAL_NAME};
@@ -974,8 +984,6 @@ namespace QPS {
         }
     }
 
-
-
     std::pair<Argument, Exception> convertStringToARG (Token &token, Container &container) {
         if (token.tokenType == INTEGER) {
             return {{token.nameValue, Argument::NUMBER}, VALID};
@@ -989,8 +997,6 @@ namespace QPS {
             return {{"", Argument::INVALID_ARGUMENT_TYPE}, INVALID_RELATION_SYNTAX};
         }
     }
-
-
 
     std::pair<AttributeType, Exception> convertStringToWithType (Token &token) {
         if (token.tokenType != NAME) {
