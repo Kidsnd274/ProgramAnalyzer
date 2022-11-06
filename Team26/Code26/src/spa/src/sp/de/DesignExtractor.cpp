@@ -81,7 +81,5 @@ void DesignExtractor::traverse(std::shared_ptr<StatementNode> ptr, std::shared_p
         e->extractFromRead(std::static_pointer_cast<ReadNode>(ptr));
     } else if (ptr->getStatementType() == statementType::PRINT) {
         e->extractFromPrint(std::static_pointer_cast<PrintNode>(ptr));
-    } else {
-        e->extractFromCall(std::static_pointer_cast<CallNode>(ptr));
     }
 }

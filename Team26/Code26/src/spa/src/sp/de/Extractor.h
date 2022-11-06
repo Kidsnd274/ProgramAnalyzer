@@ -62,14 +62,11 @@ public:
         return ans;
     }
 
-    virtual void extractFromProcedure(std::shared_ptr<ProcedureNode> ptr) = 0;
-    virtual void extractFromIf(std::shared_ptr<IfNode> ptr) = 0;
-    virtual void extractFromWhile(std::shared_ptr<WhileNode> ptr) = 0;
-    virtual void extractFromRead(std::shared_ptr<ReadNode> ptr) = 0;
-    virtual void extractFromPrint(std::shared_ptr<PrintNode> ptr) = 0;
-    virtual void extractFromAssign(std::shared_ptr<AssignNode> ptr) = 0;
-
-    // Does nothing for Milestone 1
-    void extractFromCall(std::shared_ptr<CallNode> ptr) {}
+    virtual void extractFromProcedure(std::shared_ptr<ProcedureNode> ptr) {}
+    virtual void extractFromIf(std::shared_ptr<IfNode> ptr) {}
+    virtual void extractFromWhile(std::shared_ptr<WhileNode> ptr) {}
+    virtual void extractFromRead(std::shared_ptr<ReadNode> ptr) {}
+    virtual void extractFromPrint(std::shared_ptr<PrintNode> ptr) {}
+    virtual void extractFromAssign(std::shared_ptr<AssignNode> ptr) {}
 };
 #endif

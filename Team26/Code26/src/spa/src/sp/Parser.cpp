@@ -163,22 +163,6 @@ std::shared_ptr<TNode> Parser::parseRel() {
     return TNode::createRelationalExpression(statementCount, relToken, relFactor, relFactor2);
 }
 
-std::shared_ptr<TNode> Parser::parseRelFactor() {
-    if (tokenStack->isNextTokenNonTerminal()) {
-        std::string name = tokenStack->checkAndReturnNextToken(SPTokenType::NameToken);
-        pkbInterface->addVariable(name);
-
-        return TNode::createVariableName(statementCount, name);
-    } else if (tokenStack->isNextTokenOfType(SPTokenType::ConstToken)) {
-        std::string constant = tokenStack->checkAndReturnNextToken(SPTokenType::ConstToken);
-        pkbInterface->addConst(std::stoi(constant));
-
-        return TNode::createConstantValue(statementCount, constant);
-    } else {
-        return parseExpression();
-    }
-}
-
 std::shared_ptr<WhileNode> Parser::parseWhile(STMT_LIST_NUM stmtListNum) {
     tokenStack->checkAndUseNextToken(SPTokenType::WhileToken);  // consume While SPToken.
     STMT_NUM currStatement = statementCount++;
@@ -294,13 +278,13 @@ std::shared_ptr<TNode> Parser::parseExpressionFromString(std::string exprString)
 }
 
 void Parser::addVariableToPkbIfExist(std::string var) {
-    if (pkbInterface) {  // TODO: Write Integration tests for Parser and PKB, unsure if this works
+    if (pkbInterface) {
         pkbInterface->addVariable(var);
     }
 }
 
 void Parser::addConstToPkbIfExist(std::string cons) {
-    if (pkbInterface) {  // TODO: Write Integration tests for Parser and PKB, unsure if this works
+    if (pkbInterface) {
         pkbInterface->addConst(std::stoi(cons));
     }
 }

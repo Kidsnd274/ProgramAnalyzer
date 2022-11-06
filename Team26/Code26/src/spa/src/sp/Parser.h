@@ -78,30 +78,11 @@ public:
 
     // Methods that return shared_ptr to TNode
     std::shared_ptr<TNode> parseCond();
-    std::shared_ptr<TNode> parseRelFactor();
     std::shared_ptr<TNode> parseRel();
     std::shared_ptr<TNode> parseExpression();
     std::shared_ptr<TNode> parseTerm();
     std::shared_ptr<TNode> parseFactor();
     std::shared_ptr<StatementNode> parseReadAndPrint(SPTokenType type, STMT_LIST_NUM stmtListNum);
-
-    // Methods that validates and returns the value of a token
-    std::string parseName();
-    std::string parseConst();
-
-    // Methods that validates a token
-    void parseLCurly();
-    void parseRCurly();
-    void parseLParen();
-    void parseRParen();
-    void parseAssignToken();
-    void parseSemiColon();
-    void parseThen();
-    void parseElse();
-    void parseCondToken();
-    void parseRelationToken();
-    void parseOp();
-    void parseFactorToken();
 
     // Methods for QPS
     static std::shared_ptr<TNode> parseExpressionFromString(std::string exprString);

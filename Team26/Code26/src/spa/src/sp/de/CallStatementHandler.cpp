@@ -66,5 +66,4 @@ void CallStatementHandler::dfs(int i, PKBInterface *pkb) {
     }
 
     nameToIndex[indexToName[i]].second = 2;
-    return;
 }
