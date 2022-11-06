@@ -1,5 +1,4 @@
 #include "Tokenizer.h"
-#include "qps/QueryPreprocessor.h"
 
 namespace QPS {
     std::vector<std::pair<TokenType, std::string>> matchingRules = {{ WHITESPACE, "^(\\s+)" },
@@ -33,57 +32,71 @@ namespace QPS {
     }
 
     bool tokenize(std::string queryString, std::vector<Token> &tokens) {
-        auto start = std::chrono::steady_clock::now();
-        auto stop = std::chrono::steady_clock::now();
-        auto duration = duration_cast<std::chrono::milliseconds>(stop - start);
-
-        std::cout << "Time taken by start token: "
-             << duration.count() << " milliseconds" << std::endl;
         std::vector<Token> tokenizedResult;
         std::smatch match;
         while (!queryString.empty()) {
-            for (const std::pair<TokenType, std::string>& pair : matchingRules) {
 
-                bool regex_match = std::regex_search(queryString, match, std::regex(pair.second));
-
-                if (!regex_match) {
-                    continue;
-                }
-
-                // ignore white space
-                if (pair.first == WHITESPACE) {
-                    queryString = queryString.substr(match.str().size());
-                    continue;
-                }
-
-                Token t;
-                if (pair.first == NAME) {
-                    t = createToken(NAME, match.str());
-                    tokenizedResult.push_back(t);
-                } else if (pair.first == INTEGER) {
-                    t = createToken(INTEGER, match.str());
-                    tokenizedResult.push_back(t);
-                } else {
-                    t = createToken(pair.first, match.str());
-                    tokenizedResult.push_back(t);
-                }
-                stop = std::chrono::steady_clock::now();
-                duration = duration_cast<std::chrono::milliseconds>(stop - start);
-
-//                std::cout << "Time taken by before string: "
-//                          << duration.count() << " milliseconds" << std::endl;
-
-
+            bool regex_match = std::regex_search(queryString, match, std::regex(matchingRules[0].second));
+            if (regex_match) {
                 queryString.erase(0, match.str().size());
+                continue;
+            }
+            regex_match = std::regex_search(queryString, match, std::regex(matchingRules[1].second));
+            Token t;
+            if (regex_match) {
+                t = createToken(NAME, match.str());
+                queryString.erase(0, match.str().size());
+                tokenizedResult.push_back(t);
+                continue;
+            }
+            regex_match = std::regex_search(queryString, match, std::regex(matchingRules[2].second));
+            if (regex_match) {
+                t = createToken(INTEGER, match.str());
+                queryString.erase(0, match.str().size());
+                tokenizedResult.push_back(t);
+                continue;
+            }
+
+
+            if (queryString[0] == ';') {
+                t = createToken(SEMICOLON, ";");
+            } else if (queryString[0] == ',') {
+                t = createToken(COMMA, ",");
+            } else if (queryString[0] == '(') {
+                t = createToken(LPAREN, "(");
+            } else if (queryString[0] == ')') {
+                t = createToken(RPAREN, ")");
+            } else if (queryString[0] == '*') {
+                t = createToken(STAR, "*");
+            } else if (queryString[0] == '_') {
+                t = createToken(UNDERSCORE, "_");
+            } else if (queryString[0] == '\"') {
+                t = createToken(DOUBLE_QUOTE, "\"");
+            } else if (queryString[0] == '.') {
+                t = createToken(DOT, ".");
+            } else if (queryString[0] == '#') {
+                t = createToken(HASHTAG, "#");
+            } else if (queryString[0] == '=') {
+                t = createToken(SINGLE_EQ, "=");
+            } else if (queryString[0] == '>') {
+                t = createToken(GT, ">");
+            } else if (queryString[0] == '<') {
+                t = createToken(LT, "<");
+            } else if (queryString[0] == '+') {
+                t = createToken(PLUS, "+");
+            } else if (queryString[0] == '-') {
+                t = createToken(MINUS, "-");
+            } else if (queryString[0] == '/') {
+                t = createToken(DIVIDE, "/");
+            } else if (queryString[0] == '%') {
+                t = createToken(MODULE, "%");
+            } else {
 
             }
+            tokenizedResult.push_back(t);
+            queryString.erase(0, 1);
         }
         std::copy(tokenizedResult.begin(), tokenizedResult.end(), std::back_inserter(tokens));
-        stop = std::chrono::steady_clock::now();
-        duration = duration_cast<std::chrono::milliseconds>(stop - start);
-
-        std::cout << "Time taken by finish token: "
-                  << duration.count() << " milliseconds" << std::endl;
         return true;
     }
 

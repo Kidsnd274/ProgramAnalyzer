@@ -77,18 +77,13 @@ void QueryManager::handleQuery(PKBInterface *pkb, std::string queryString, std::
     QPS_Interface::setPKBInterface(pkb);
     QPS_Interface::createRuntimeExtractor();
     auto start = std::chrono::steady_clock::now();
+
+    std::vector<QPS::Token> tokens; // Initialize a vector of SPToken to store the tokens.
+    QPS::tokenize(std::move(queryString), tokens); // Call tokenizer to read in PQL and tokenize it into tokens.
     auto stop = std::chrono::steady_clock::now();
     auto duration = duration_cast<std::chrono::milliseconds>(stop - start);
 
     cout << "Time taken by initializing: "
-         << duration.count() << " milliseconds" << endl;
-    std::vector<QPS::Token> tokens; // Initialize a vector of SPToken to store the tokens.
-    QPS::tokenize(std::move(queryString), tokens); // Call tokenizer to read in PQL and tokenize it into tokens.
-
-    stop = std::chrono::steady_clock::now();
-   duration = duration_cast<std::chrono::milliseconds>(stop - start);
-
-    cout << "Time taken by tokenizing: "
          << duration.count() << " milliseconds" << endl;
 
     QPS::Container* container = new QPS::Container(tokens); // Initialize a container to store the result of tokenization.

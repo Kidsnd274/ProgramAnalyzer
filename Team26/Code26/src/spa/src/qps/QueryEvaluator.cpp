@@ -63,7 +63,6 @@ void QueryEvaluator::evaluate(Query* query) {
     cout << "Time taken by evaluating: "
          << duration.count() << " milliseconds" << endl;
 
-    while(true) {}
 }
 
 void QueryEvaluator::getAllEntity(Argument argument, QPS::ResultTable *resultTable) {
