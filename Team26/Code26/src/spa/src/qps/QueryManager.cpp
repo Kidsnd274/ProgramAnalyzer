@@ -83,8 +83,8 @@ void QueryManager::handleQuery(PKBInterface *pkb, std::string queryString, std::
     auto stop = std::chrono::steady_clock::now();
     auto duration = duration_cast<std::chrono::milliseconds>(stop - start);
 
-    cout << "Time taken by initializing: "
-         << duration.count() << " milliseconds" << endl;
+    std::cout << "Time taken by initializing: "
+         << duration.count() << " milliseconds" << std::endl;
 
     QPS::Container* container = new QPS::Container(tokens); // Initialize a container to store the result of tokenization.
     Exception parsingException = QPS::parseToken(tokens, *container); // Call QPS parser to parse the tokens into Query Structure. Store the result in container.queryStruct.
@@ -127,20 +127,20 @@ void QueryManager::handleQuery(PKBInterface *pkb, std::string queryString, std::
     stop = std::chrono::steady_clock::now();
     duration = duration_cast<std::chrono::milliseconds>(stop - start);
 
-    cout << "Time taken by parsing: "
-         << duration.count() << " milliseconds" << endl;
+    std::cout << "Time taken by parsing: "
+         << duration.count() << " milliseconds" << std::endl;
     query.validate();
     stop = std::chrono::steady_clock::now();
     duration = duration_cast<std::chrono::milliseconds>(stop - start);
 
-    cout << "Time taken by validating: "
-         << duration.count() << " milliseconds" << endl;
+    std::cout << "Time taken by validating: "
+         << duration.count() << " milliseconds" << std::endl;
     QueryEvaluator::evaluate(&query); // Call QueryEvaluator to evaluate the query. Store the result in query.resultTable.
     stop = std::chrono::steady_clock::now();
     duration = duration_cast<std::chrono::milliseconds>(stop - start);
 
-    cout << "Time taken by evaluating: "
-         << duration.count() << " milliseconds" << endl;
+    std::cout << "Time taken by evaluating: "
+         << duration.count() << " milliseconds" << std::endl;
     QPS_Interface::clearRuntimeExtractor();
     QueryResultProjector* queryResultProjector = new QueryResultProjector();
     queryResultProjector->getSelectTuples(query, results); // Call queryResultProjector to format and print out the query result.
