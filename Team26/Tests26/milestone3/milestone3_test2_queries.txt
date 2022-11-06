@@ -2518,4 +2518,54 @@ procedure p;
 Select p such that Modifies (p, "pointy")
 computeCentroid,milestone3test2,readPoint
 5000
+500 - Modifies 21
+stmt s;
+Select s such that Modifies (s, _)
+1,2,3,4,5,6,7,8,9,10,11,12,14,15,16,17,18,19,20,21,23,24,29,30,31,32,33,34,35,36,37,38,39,40,41,42
+5000
+501 - Modifies 22
+assign a;
+Select a such that Modifies (a, _)
+2,3,6,7,10,12,15,17,19,21,29,30,31,34,35,36,39,40,41,42
+5000
+502 - Modifies 23
+while w;
+Select w such that Modifies (w, _)
+1,8,11,14,20,33
+5000
+503 - Modifies 24
+if ifs;
+Select ifs such that Modifies (ifs, _)
+5,9,38
+5000
+504 - Modifies 25
+call c;
+Select c such that Modifies (c, _)
+18,32,37
+5000
+505 - Modifies 26
+procedure p;
+Select p such that Modifies (p, _)
+computeCentroid,milestone3test2,readPoint
+5000
+506 - Modifies 27
+stmt n;
+Select n such that Modifies (n, "x")
+none
+5000
+507 - Modifies 28
+stmt s; stmt n;
+Select n such that Modifies (n, "y")
+none
+5000
+508 - Calls 1
+procedure p;
+Select p such that Calls (p, "non")
+none
+5000
+509 - Calls 2
+procedure p;
+Select p such that Calls ("computeCentroid", p)
+printResults,readPoint
+5000
 
