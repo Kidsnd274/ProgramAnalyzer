@@ -574,6 +574,7 @@ namespace QPS {
         if (!is_semantic_correct) {
             return {pos, INVALID_PATTERN_TYPE};
         }
+        return {pos, VALID};
     }
 
     std::pair<int, Exception> parsePatternWHILE (std::vector<QPS::Token> &tokens,int pos,Container &container, Argument& arg) {
@@ -611,6 +612,7 @@ namespace QPS {
         if (!is_semantic_correct) {
             return {pos, INVALID_PATTERN_TYPE};
         }
+        return {pos, VALID};
     }
 
     std::pair<int, Exception> parsePattern (std::vector<QPS::Token> &tokens,int pos,Container &container) {
