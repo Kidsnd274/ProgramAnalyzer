@@ -6,11 +6,19 @@ void QueryEvaluator::evaluate(Query* query) {
         return;
     }
 
+    auto start = chrono::steady_clock::now();
+
     ResultTable* resultOfEvaluation = new ResultTable();
     ClauseAssigner* clauseAssigner = new ClauseAssigner();
 
     // Group the clauses
     query->clauseList = QueryEvaluator::groupClauses(query->clauseList);
+
+    auto stop = chrono::steady_clock::now();
+    auto duration = duration_cast<std::chrono::milliseconds>(stop - start);
+
+    cout << "Time taken by grouping: "
+         << duration.count() << " milliseconds" << endl;
 
     // Add synonyms to the map
     unordered_map<string, int> synonymCount = countSynonym(query);
@@ -27,13 +35,35 @@ void QueryEvaluator::evaluate(Query* query) {
         removeSynonym(**iter, &synonymCount, resultOfEvaluation);
 
     }
+
+    stop = chrono::steady_clock::now();
+    duration = duration_cast<std::chrono::milliseconds>(stop - start);
+
+    cout << "Time taken by merging: "
+         << duration.count() << " milliseconds" << endl;
+
     for (auto synonym : query->getCandidateList()) {
         if (!resultOfEvaluation->isSynonymPresent(synonym.argument.argumentName)) {
             getAllEntity(synonym.argument, resultOfEvaluation);
         }
     }
 
+    stop = chrono::steady_clock::now();
+    duration = duration_cast<std::chrono::milliseconds>(stop - start);
+
+    cout << "Time taken by resulting: "
+         << duration.count() << " milliseconds" << endl;
+
+
     query->resultTable->replace(resultOfEvaluation);
+
+    stop = chrono::steady_clock::now();
+    duration = duration_cast<std::chrono::milliseconds>(stop - start);
+
+    cout << "Time taken by evaluating: "
+         << duration.count() << " milliseconds" << endl;
+
+    while(true) {}
 }
 
 void QueryEvaluator::getAllEntity(Argument argument, QPS::ResultTable *resultTable) {
