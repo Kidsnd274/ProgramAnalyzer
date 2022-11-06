@@ -56,6 +56,7 @@ namespace QPS {
             }
             if (addedRows.find(addedRow) == addedRows.end()) {
                 newTable.push_back(newRow);
+                addedRows.insert(addedRow);
             }
         }
         colNum = newSynonymColRef.size();
