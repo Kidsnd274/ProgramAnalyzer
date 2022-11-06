@@ -129,21 +129,32 @@ void QueryManager::handleQuery(PKBInterface *pkb, std::string queryString, std::
 
     std::cout << "Time taken by parsing: "
          << duration.count() << " milliseconds" << std::endl;
+
+    start = std::chrono::steady_clock::now();
     query.validate();
     stop = std::chrono::steady_clock::now();
     duration = duration_cast<std::chrono::milliseconds>(stop - start);
-
     std::cout << "Time taken by validating: "
          << duration.count() << " milliseconds" << std::endl;
+
+    start = std::chrono::steady_clock::now();
     QueryEvaluator::evaluate(&query); // Call QueryEvaluator to evaluate the query. Store the result in query.resultTable.
     stop = std::chrono::steady_clock::now();
     duration = duration_cast<std::chrono::milliseconds>(stop - start);
 
     std::cout << "Time taken by evaluating: "
          << duration.count() << " milliseconds" << std::endl;
+
+
     QPS_Interface::clearRuntimeExtractor();
+
+    start = std::chrono::steady_clock::now();
     QueryResultProjector* queryResultProjector = new QueryResultProjector();
     queryResultProjector->getSelectTuples(query, results); // Call queryResultProjector to format and print out the query result.
+    stop = std::chrono::steady_clock::now();
+    duration = duration_cast<std::chrono::milliseconds>(stop - start);
+    std::cout << "Time taken by projector: "
+              << duration.count() << " milliseconds" << std::endl;
 }
 
 

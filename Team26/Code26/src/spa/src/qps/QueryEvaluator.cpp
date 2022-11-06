@@ -46,17 +46,17 @@ void QueryEvaluator::evaluate(Query* query) {
         resultOfEvaluation = ResultTable::mergeTable(resultOfEvaluation, clauseStruct[i].resultTable);
         auto stop = std::chrono::steady_clock::now();
         auto duration = duration_cast<std::chrono::milliseconds>(stop - start);
-        cout << "Time taken by mergeTable: "
-             << duration.count() << " milliseconds" << endl;
+        std::cout << "Time taken by mergeTable: "
+             << duration.count() << " milliseconds" << std::endl;
 
-//        start = std::chrono::steady_clock::now();
-//        std::cout << "drop column before: " << resultOfEvaluation->getTable().size() << std::endl;
-//        removeSynonym(*clauseStruct[i].clause, &synonymCount, resultOfEvaluation);
-//        std::cout << "drop column after: " << resultOfEvaluation->getTable().size() << std::endl;
-//        stop = std::chrono::steady_clock::now();
-//        duration = duration_cast<std::chrono::milliseconds>(stop - start);
-//        cout << "Time taken by dropColumn: "
-//             << duration.count() << " milliseconds" << endl;
+        start = std::chrono::steady_clock::now();
+        std::cout << "drop column before: " << resultOfEvaluation->getTable().size() << std::endl;
+        removeSynonym(*clauseStruct[i].clause, &synonymCount, resultOfEvaluation);
+        std::cout << "drop column after: " << resultOfEvaluation->getTable().size() << std::endl;
+        stop = std::chrono::steady_clock::now();
+        duration = duration_cast<std::chrono::milliseconds>(stop - start);
+        std::cout << "Time taken by dropColumn: "
+             << duration.count() << " milliseconds" << std::endl;
     }
 
     // For candidates not in result table, get all entities and merge.
