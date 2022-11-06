@@ -40,26 +40,28 @@ private:
      * @param map map retrieved from PKB.
      * @param resultTable the result table used to store the result.
      */
-    void filterRelations(std::unordered_map<std::string, std::vector<std::string>> map, QPS::ResultTable *resultTable);
+    void filterRelations(unordered_map<string, unordered_set<std::string>> map, QPS::ResultTable *resultTable);
 
     /**
      * Used by Parent and Parent_T to filter out relationships.
      * @param map map retrieved from PKB.
      * @param resultTable the result table used to store the result.
      */
-    void filterRelations(std::unordered_map<int, std::vector<int>> map, QPS::ResultTable *resultTable);
+    void filterRelations(std::unordered_map<int, std::unordered_set<int>> map, QPS::ResultTable *resultTable);
 
     /**
      * Used by Modifies and Uses to filter out relationships.
      * @param map map retrieved from PKB.
      * @param resultTable the result table used to store the result.
      */
-    void filterRelations(std::unordered_map<int, std::vector<std::string>> map, QPS::ResultTable *resultTable);
+    void filterRelations(std::unordered_map<int, std::unordered_set<std::string>> map, QPS::ResultTable *resultTable);
 
     void filterRelations(std::unordered_map<int, int> map, QPS::ResultTable* resultTable);
 
     bool existInStringVector(std::string s, std::vector<std::string> v);
+    bool existInStringUnorderedSet(std::string s, std::unordered_set<std::string> set);
     bool existInIntVector(int s, std::vector<int> v);
+    bool existInIntUnorderedSet(int s, std::unordered_set<int> set);
 
     QPS::ResultTable* filterTable(std::unordered_set<std::vector<std::string>, QPS::StringVectorHash> *result);
 public:

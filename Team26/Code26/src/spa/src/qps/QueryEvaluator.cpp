@@ -34,7 +34,7 @@ void QueryEvaluator::evaluate(Query* query) {
 void QueryEvaluator::getAllEntity(Argument argument, QPS::ResultTable *resultTable) {
     std::vector<std::string> synonym = {argument.argumentName};
     std::unordered_set<std::vector<std::string>, StringVectorHash> results;
-    std::vector<std::string> entities = QPS_Interface::getAllEntity(&argument);
+    std::unordered_set<std::string> entities = QPS_Interface::getAllEntity(&argument);
     for (auto e: entities) {
         results.insert({e});
     }
