@@ -52,7 +52,7 @@ std::unordered_set<std::string> StatementTable::getAllStmtsByType(StatementType:
 
 std::unordered_set<Statement*> StatementTable::getAllCallStatements() {
     std::unordered_set<Statement*> result;
-    for (auto &stmt: this->statementList) {
+    for (auto stmt: this->statementList) {
         if (stmt->type == StatementType::CALL) {
             result.insert(stmt);
         }
@@ -62,7 +62,7 @@ std::unordered_set<Statement*> StatementTable::getAllCallStatements() {
 
 Statement* StatementTable::getStmtByLineNumber(int stmtNo) {
     Statement* result;
-    for (auto &stmt: this->statementList) {
+    for (auto stmt: this->statementList) {
         if (stmt->lineNumber == stmtNo) {
             result = stmt;
             break;
@@ -73,7 +73,7 @@ Statement* StatementTable::getStmtByLineNumber(int stmtNo) {
 
 std::unordered_set<int> StatementTable::getAllAssignFromProcedure(int startStmt, int endStmt) {
     std::unordered_set<int> result;
-    for (auto &stmt: this->statementList) {
+    for (auto stmt: this->statementList) {
         int lineNumber = stmt->lineNumber;
         StatementType::StmtType type = stmt->type;
         if ((lineNumber >= startStmt) && (lineNumber <= endStmt) && (type == StatementType::ASSIGN)) {

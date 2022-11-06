@@ -4,7 +4,7 @@ void ModifiesTable::insertModifies(int stmtLineNumber, std::string varName) {
     if (this->modifiesList.find(stmtLineNumber) != this->modifiesList.end()) {
         this->modifiesList.find(stmtLineNumber)->second.insert(varName);
     } else {
-        std::pair<int,std::unordered_set<std::string>> modifies (stmtLineNumber, {varName});
+        std::pair<int, std::unordered_set<std::string>> modifies (stmtLineNumber, {varName});
         this->modifiesList.insert(modifies);
     }
 }
@@ -13,7 +13,7 @@ void ModifiesTable::insertProcModifies(std::string procedureName, std::string va
     if (this->modifiesProcList.find(procedureName) != this->modifiesProcList.end()) {
         this->modifiesProcList.find(procedureName)->second.insert(varName);
     } else {
-        std::pair<std::string,std::unordered_set<std::string>> modifies (procedureName, {varName});
+        std::pair<std::string, std::unordered_set<std::string>> modifies (procedureName, {varName});
         this->modifiesProcList.insert(modifies);
     }
 }

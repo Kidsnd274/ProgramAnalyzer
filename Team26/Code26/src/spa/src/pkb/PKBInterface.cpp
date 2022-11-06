@@ -321,7 +321,7 @@ std::string PKBInterface::getPrintVarName(std::string printLineNumber) {
 
 
 CFGHeadPtr PKBInterface::getCfgOfProcedure(std::string procedureName) {
-    for (Procedure* currentProcedure:pkb->procedureTable->getProcList()) {
+    for (Procedure* currentProcedure : pkb->procedureTable->getProcList()) {
         if (currentProcedure->name == procedureName) {
             return currentProcedure->cfg;
         }
