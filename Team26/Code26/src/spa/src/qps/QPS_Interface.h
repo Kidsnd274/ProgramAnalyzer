@@ -1,6 +1,7 @@
 #ifndef SPA_QPS_INTERFACE_H
 #define SPA_QPS_INTERFACE_H
 
+#include <unordered_map>
 #include "pkb/PKBInterface.h"
 #include "pkb/Statement.h"
 #include "sp/rte/RuntimeExtractor.h"
@@ -35,50 +36,50 @@ public:
      * Call PKB interface to get all parent relations in ParentTable.
      * @return a vector containing all the parent relations.
      */
-    static std::unordered_map<int, vector<int>> getAllParentRelations();
+    static std::unordered_map<int, std::unordered_set<int>> getAllParentRelations();
 
     /**
      * Call PKB interface to get all parent* relations in ParentTable.
      * @return a vector containing all the parent* relations.
      */
-    static std::unordered_map<int, vector<int>> getAllParentTRelations();
+    static std::unordered_map<int, std::unordered_set<int>> getAllParentTRelations();
 
 
     /**
      * Call PKB interface to get all call relations in CallsTable.
      * @return a vector containing all the calls relations.
      */
-    static std::unordered_map<std::string, std::vector<std::string>> getAllCallRelations();
+    static std::unordered_map<std::string, std::unordered_set<std::string>> getAllCallRelations();
 
     /**
      * Call PKB interface to get all procedure calls relations in CallsTable.
      * @return a vector containing all the procedure calls relations.
      */
-    static std::unordered_map<std::string, std::vector<std::string>> getAllCallTRelations();
+    static std::unordered_map<std::string, std::unordered_set<std::string>> getAllCallTRelations();
 
     /**
      * Call PKB interface to get all modifies relations in ModifiesTable.
      * @return a vector containing all the modifies relations.
      */
-    static std::unordered_map<int, std::vector<std::string>> getAllModifiesRelations();
+    static std::unordered_map<int, std::unordered_set<std::string>> getAllModifiesRelations();
 
     /**
      * Call PKB interface to get all procedure modifies relations in ModifiesTable.
      * @return a vector containing all the procedure modifies relations.
      */
-    static std::unordered_map<std::string, std::vector<std::string>> getAllModifiesProcRelations();
+    static std::unordered_map<std::string, std::unordered_set<std::string>> getAllModifiesProcRelations();
 
     /**
      * Call PKB interface to get all uses relations in UsesTable.
      * @return a vector containing all the uses relations.
      */
-    static std::unordered_map<int, std::vector<std::string>> getAllUsesRelations();
+    static std::unordered_map<int, std::unordered_set<std::string>> getAllUsesRelations();
 
     /**
      * Call PKB interface to get all procedure uses relations in UsesTable.
      * @return a vector containing all the procedure uses relations.
      */
-    static std::unordered_map<std::string, std::vector<std::string>> getAllUsesProcRelations();
+    static std::unordered_map<std::string, std::unordered_set<std::string>> getAllUsesProcRelations();
 
     /**
      * Call PKB interface to get all affects relations in AffectsTable.
@@ -96,7 +97,7 @@ public:
      * Call PKB interface to get all next relations in NextTable.
      * @return a vector containing all the next relations.
      */
-    static std::unordered_map<int, std::vector<int>> getAllNextRelations();
+    static std::unordered_map<int, unordered_set<int>> getAllNextRelations();
 
     /**
      * Call PKB interface to get all procedure xt relations in NextTable.
@@ -108,21 +109,21 @@ public:
      * Call PKB interface to get all assignments in StatementTable.
      * @return a vector containing the line number of all the assignments.
      */
-    static std::vector<std::string> getAllAssigns();
+    static std::unordered_set<string> getAllAssigns();
 
 
     /**
      * Call PKB interface to get all statement lists.
      * @return a vector of statement list.
      */
-    static std::vector<std::vector<Statement>> getAllStmtLists();
+    static std::unordered_set<unordered_set<Statement*>*> getAllStmtLists();
 
     /**
      * Call PKB interface to get all entities of a certain type.
      * @param argument
      * @return
      */
-    static std::vector<std::string> getAllEntity(Argument* argument);
+    static std::unordered_set<std::string> getAllEntity(Argument* argument);
 
     /**
      * Call PKB interface to get the line number of a certain procedure.
@@ -142,7 +143,7 @@ public:
      * @param containerLineNumber the statement line number of if/while.
      * @return the variable name.
      */
-    static vector<std::string> getConditionVarNameByStmtNum(std::string containerLineNumber);
+    static std::unordered_set<std::string> getConditionVarNameByStmtNum(std::string containerLineNumber);
 
     static std::string getAttrName(std::string value, WithClause::WithClauseArgument candidate);
 
@@ -168,7 +169,7 @@ public:
      * Call PKB interface to get the list of all procedures.
      * @return a vector of all the procedures.
      */
-    static std::vector<Procedure> getProcList();
+    static std::unordered_set<Procedure*> getProcList();
 
     /**
      * Check whether PKB nextStarList has the entry stmt.

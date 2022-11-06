@@ -20,35 +20,35 @@ std::unordered_map<int, int> QPS_Interface::getAllFollowsRelations() {
     return QPS_Interface::pkbInterface->getAllFollow();
 }
 
-std::unordered_map<int, vector<int>> QPS_Interface::getAllParentRelations() {
+std::unordered_map<int, std::unordered_set<int>> QPS_Interface::getAllParentRelations() {
     return QPS_Interface::pkbInterface->getAllParent();
 }
 
-std::unordered_map<int, vector<int>> QPS_Interface::getAllParentTRelations() {
+std::unordered_map<int, std::unordered_set<int>> QPS_Interface::getAllParentTRelations() {
     return QPS_Interface::pkbInterface->getAllParentStar();
 }
 
-std::unordered_map<std::string, std::vector<std::string>> QPS_Interface::getAllCallRelations() {
+std::unordered_map<std::string, std::unordered_set<std::string>> QPS_Interface::getAllCallRelations() {
     return QPS_Interface::pkbInterface->getAllCall();
 }
 
-std::unordered_map<std::string, std::vector<std::string>> QPS_Interface::getAllCallTRelations() {
-        return QPS_Interface::pkbInterface->getAllCallStar();
+std::unordered_map<std::string, std::unordered_set<std::string>> QPS_Interface::getAllCallTRelations() {
+    return QPS_Interface::pkbInterface->getAllCallStar();
 }
 
-std::unordered_map<int, std::vector<std::string>> QPS_Interface::getAllUsesRelations() {
+std::unordered_map<int, std::unordered_set<std::string>> QPS_Interface::getAllUsesRelations() {
     return QPS_Interface::pkbInterface->getAllUseByStmt();
 }
 
-std::unordered_map<std::string, std::vector<std::string>> QPS_Interface::getAllUsesProcRelations() {
+std::unordered_map<std::string, std::unordered_set<std::string>> QPS_Interface::getAllUsesProcRelations() {
     return QPS_Interface::pkbInterface->getAllUseByProc();
 }
 
-std::unordered_map<int, std::vector<std::string>> QPS_Interface::getAllModifiesRelations() {
+std::unordered_map<int, std::unordered_set<std::string>> QPS_Interface::getAllModifiesRelations() {
     return QPS_Interface::pkbInterface->getAllModifyByStmt();
 }
 
-std::unordered_map<std::string, std::vector<std::string>> QPS_Interface::getAllModifiesProcRelations() {
+std::unordered_map<std::string, std::unordered_set<std::string>> QPS_Interface::getAllModifiesProcRelations() {
     return QPS_Interface::pkbInterface->getAllModifyByProc();
 }
 
@@ -62,7 +62,7 @@ std::vector<pair<int, int>> QPS_Interface::getAllAffectsTRelations() {
     return {};
 }
 
-std::unordered_map<int, std::vector<int>> QPS_Interface::getAllNextRelations() {
+std::unordered_map<int, unordered_set<int>> QPS_Interface::getAllNextRelations() {
     return QPS_Interface::pkbInterface->getAllNext();
 }
 
@@ -70,11 +70,11 @@ std::vector<pair<int, int>> QPS_Interface::getAllNextTRelations() {
 //    return QPS_Interface::pkbInterface->getAllNextProc();
     return {};
 }
-std::vector<std::string> QPS_Interface::getAllAssigns() {
+std::unordered_set<string> QPS_Interface::getAllAssigns() {
     return QPS_Interface::pkbInterface->getAllAssigns();
 }
 
-std::vector<std::vector<Statement>> QPS_Interface::getAllStmtLists() {
+std::unordered_set<unordered_set<Statement*>*> QPS_Interface::getAllStmtLists() {
     return QPS_Interface::pkbInterface->getAllStmtLists();
 }
 
@@ -82,7 +82,7 @@ std::shared_ptr<AssignNode> QPS_Interface::getAssignTNode(std::string assignRef)
     return pkbInterface->getAssignTNode(assignRef);
 }
 
-std::vector<std::string> QPS_Interface::getAllEntity(Argument *argument) {
+std::unordered_set<std::string> QPS_Interface::getAllEntity(Argument *argument) {
     switch (argument->argumentType) {
         case Argument::STMT_SYNONYM:
             return pkbInterface->getAllStmts();
@@ -125,7 +125,7 @@ std::string QPS_Interface::getPrintVarName(std::string printLineNumber) {
     return pkbInterface->getPrintVarName(printLineNumber);
 }
 
-std::vector<std::string> QPS_Interface::getConditionVarNameByStmtNum(std::string containerLineNumber) {
+std::unordered_set<std::string> QPS_Interface::getConditionVarNameByStmtNum(std::string containerLineNumber) {
     return pkbInterface->getConditionVar(containerLineNumber);
 }
 
@@ -180,7 +180,7 @@ Procedure* QPS_Interface::getProcByStmt(STMT_NUM stmt) {
     return QPS_Interface::pkbInterface->getProcByStmt(stmt);
 }
 
-std::vector<Procedure> QPS_Interface::getProcList() {
+std::unordered_set<Procedure*> QPS_Interface::getProcList() {
     return QPS_Interface::pkbInterface->getProcList();
 }
 
