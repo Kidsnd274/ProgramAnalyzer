@@ -302,7 +302,7 @@ void RelationClauseEvaluator::evaluateAffects(QPS::ResultTable *resultTable) {
     if (arg1.argumentType == Argument::WILDCARD && arg2.argumentType == Argument::NUMBER) {
         for (auto a: assigns) {
             unordered_set<STMT_NUM> affects = QPS_Interface::getAffects(stoi(a));
-            if (affects.find(stoi(a)) != affects.end()) {
+            if (affects.find(stoi(arg2.argumentName)) != affects.end()) {
                 resultTable->setTrueTable();
                 return;
             }
