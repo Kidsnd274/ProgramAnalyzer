@@ -34,6 +34,13 @@ namespace QPS {
         std::vector <std::vector<std::string> > table;
 
     public:
+        ~ResultTable() {
+            this->synonymColRef.clear();
+            std::unordered_map<std::string, int>().swap(this->synonymColRef);
+            this->table.clear();
+            std::vector<std::vector<std::string>>().swap(this->table);
+        }
+
         void setFalseTable() {
             this->type = FALSE;
             this->emptyTable();

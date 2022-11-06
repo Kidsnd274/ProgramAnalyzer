@@ -36,6 +36,12 @@ public:
         this->status = VALID_QUERY;
     }
 
+    ~Query() {
+        this->synonymMap->clear();
+        this->candidateList->clear();
+        this->clauseList->clear();
+    }
+
     void addSynonym(Argument& synonym);
 
     void addCandidate(ArgAttrStruct& candidate);
