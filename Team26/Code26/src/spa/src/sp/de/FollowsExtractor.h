@@ -3,6 +3,8 @@
 #include "Extractor.h"
 
 class FollowsExtractor : public Extractor {
+private:
+    void addToPkb(std::vector<std::shared_ptr<StatementNode>> stmtList);
 public:
     explicit FollowsExtractor(PKBInterface *pkb) : Extractor(pkb) {}
 
