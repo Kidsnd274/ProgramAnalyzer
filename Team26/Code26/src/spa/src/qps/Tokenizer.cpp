@@ -58,6 +58,7 @@ namespace QPS {
             }
 
 
+
             if (queryString[0] == ';') {
                 t = createToken(SEMICOLON, ";");
             } else if (queryString[0] == ',') {
@@ -70,8 +71,6 @@ namespace QPS {
                 t = createToken(STAR, "*");
             } else if (queryString[0] == '_') {
                 t = createToken(UNDERSCORE, "_");
-            } else if (queryString[0] == '\"') {
-                t = createToken(DOUBLE_QUOTE, "\"");
             } else if (queryString[0] == '.') {
                 t = createToken(DOT, ".");
             } else if (queryString[0] == '#') {
@@ -90,11 +89,30 @@ namespace QPS {
                 t = createToken(DIVIDE, "/");
             } else if (queryString[0] == '%') {
                 t = createToken(MODULE, "%");
-            } else {
-
+            } else if (queryString[0] == '\"') {
+                t = createToken(DOUBLE_QUOTE, "\"");
+                tokenizedResult.push_back(t);
+                queryString.erase(0, 1);
+                int pos_next_qoute = 0;
+                bool empty_expression = true;
+                while (queryString[pos_next_qoute] != '\"') {
+                    if (queryString[pos_next_qoute] != ' ') {
+                        empty_expression = false;
+                    }
+                    pos_next_qoute ++;
+                }
+                std::string expression = queryString.substr(0, pos_next_qoute);
+                if (!empty_expression) {
+                    t = createToken(NAME, expression);
+                }
+                queryString.erase(0, pos_next_qoute);
+                tokenizedResult.push_back(t);
+                t = createToken(DOUBLE_QUOTE, "\"");
             }
             tokenizedResult.push_back(t);
             queryString.erase(0, 1);
+
+
         }
         std::copy(tokenizedResult.begin(), tokenizedResult.end(), std::back_inserter(tokens));
         return true;

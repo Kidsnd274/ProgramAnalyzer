@@ -106,6 +106,7 @@ void QueryManager::handleQuery(PKBInterface *pkb, std::string queryString, std::
         case INVALID_WITH_FIELD:
         case INVALID_WITH_TYPE_EXCEPTION:
         case INVALID_PATTERN_CONTENT:
+        case INVALID_CALL_SYNTAX:
         case INVALID_RELATION: {
             query.setStatus(SYNTAX_ERROR);
             break;

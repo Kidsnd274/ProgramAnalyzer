@@ -18,6 +18,7 @@ namespace QPS {
     std::pair<int, Exception> parsePatternLeft (std::vector<QPS::Token> &tokens,int pos,Container &container, std::pair<Argument, bool> &ARG1);
     std::pair<int, Exception> parsePatternIF (std::vector<QPS::Token> &tokens,int pos,Container &container, Argument& arg);
     std::pair<int, Exception> parsePatternWHILE (std::vector<QPS::Token> &tokens,int pos,Container &container, Argument& arg);
+    bool validateActualName(std::string s);
 
     Exception parseToken(std::vector<QPS::Token> &tokens, Container& container) {
         int tokenPos = 0;
@@ -289,6 +290,9 @@ namespace QPS {
         bool is_integer = false;
         if (pos + 2 < tokens.size() && tokens[pos].tokenType == DOUBLE_QUOTE && tokens[pos+2].tokenType == DOUBLE_QUOTE
             && (tokens[pos + 1].tokenType == NAME)) {
+            if (!validateActualName(tokens[pos+1].nameValue)) {
+                return {pos, INVALID_WITH_SYNTAX};
+            }
             argument1 = Argument(tokens[pos + 1].nameValue, Argument::ACTUAL_NAME);
             arg1 = {argument1, INAPPLICABLE};
             pos+=3;
@@ -324,6 +328,9 @@ namespace QPS {
             && (tokens[pos + 1].tokenType == NAME)) {
             if (is_integer) {
                 return {pos, UNPAIRED_WITH_TYPE};
+            }
+            if (!validateActualName(tokens[pos+1].nameValue)) {
+                return {pos, INVALID_WITH_SYNTAX};
             }
             switch (arg1.argument.argumentType) {
                 case Argument::READ_SYNONYM:
@@ -523,6 +530,9 @@ namespace QPS {
                 actualName += tokens[pos].nameValue;
                 pos++;
             }
+            if (!validateActualName(actualName)) {
+                return {pos, INVALID_PATTERN_SYNTAX};
+            }
             ARG1 = {{actualName, Argument::ACTUAL_NAME}, true};
             pos++;
         } else {
@@ -549,6 +559,9 @@ namespace QPS {
             pos++;
         } else if (pos + 2 < tokens.size() && tokens[pos].tokenType == DOUBLE_QUOTE && tokens[pos+2].tokenType == DOUBLE_QUOTE
                    && tokens[pos + 1].tokenType == NAME) {
+            if (!validateActualName(tokens[pos + 1].nameValue)) {
+                return {pos, INVALID_PATTERN_SYNTAX};
+            }
             arg = {tokens[pos + 1].nameValue, Argument::ACTUAL_NAME};
             pos += 3;
         } else if(tokens[pos].tokenType == UNDERSCORE) {
@@ -587,6 +600,9 @@ namespace QPS {
             pos++;
         } else if (pos + 2 < tokens.size() && tokens[pos].tokenType == DOUBLE_QUOTE && tokens[pos+2].tokenType == DOUBLE_QUOTE
                    && tokens[pos + 1].tokenType == NAME) {
+            if (!validateActualName(tokens[pos + 1].nameValue)) {
+                return {pos, INVALID_PATTERN_SYNTAX};
+            }
             arg = {tokens[pos + 1].nameValue, Argument::ACTUAL_NAME};
             pos += 3;
         } else if(tokens[pos].tokenType == UNDERSCORE) {
@@ -850,6 +866,9 @@ namespace QPS {
             pos++;
         } else if (pos + 2 < tokens.size() && tokens[pos].tokenType == DOUBLE_QUOTE && tokens[pos+2].tokenType == DOUBLE_QUOTE
                    && tokens[pos + 1].tokenType == NAME) {
+            if (!validateActualName(tokens[pos + 1].nameValue)) {
+                return {pos, INVALID_CALL_SYNTAX};
+            }
             std::string actual_name = tokens[pos + 1].nameValue;
             ARG1 = {{actual_name, Argument::PROCEDURE_ACTUAL_NAME}, VALID};
             pos += 3;
@@ -923,6 +942,9 @@ namespace QPS {
             pos++;
         } else if (pos + 2 < tokens.size() && tokens[pos].tokenType == DOUBLE_QUOTE && tokens[pos+2].tokenType == DOUBLE_QUOTE
                    && tokens[pos + 1].tokenType == NAME) {
+            if (!validateActualName(tokens[pos + 1].nameValue)) {
+                return {pos, INVALID_RELATION_SYNTAX};
+            }
             std::string actual_name = tokens[pos + 1].nameValue;
             ARG1 = {{actual_name, Argument::PROCEDURE_ACTUAL_NAME}, VALID};
             pos += 3;
@@ -940,6 +962,9 @@ namespace QPS {
 
         if (pos + 2 < tokens.size() && tokens[pos].tokenType == DOUBLE_QUOTE && tokens[pos+2].tokenType == DOUBLE_QUOTE
             && tokens[pos + 1].tokenType == NAME) {
+            if (!validateActualName(tokens[pos + 1].nameValue)) {
+                return {pos, INVALID_RELATION_SYNTAX};
+            }
             std::string actual_name = tokens[pos + 1].nameValue;
             ARG2 = {{actual_name, Argument::ACTUAL_NAME}, VALID};
             pos += 3;
@@ -1063,6 +1088,15 @@ namespace QPS {
         }
     }
 
+    bool validateActualName(std::string s) {
+        for (int i = 0; i < s.length(); i++) {
+            int asc_code = int(s[i]);
+            if ((asc_code < 48 || (asc_code > 57 && asc_code<65) || (asc_code > 90 && asc_code <97) || asc_code > 122) && s[i] != ' ') {
+                return false;
+            }
+        }
+        return true;
+    }
 
 
 }
