@@ -3,6 +3,7 @@
 
 #include <unordered_map>
 #include <unordered_set>
+#include <utility>
 #include "util/cfg/CFGHead.h"
 
 class NextStarTable {
@@ -17,5 +18,4 @@ public:
     void clear();
 };
 
-
-#endif //SPA_NEXTSTARTABLE_H
+#endif  // SPA_NEXTSTARTABLE_H

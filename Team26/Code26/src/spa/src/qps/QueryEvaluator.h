@@ -3,6 +3,12 @@
 
 #include "Query.h"
 
+struct ClauseStruct {
+    Clause* clause;
+    QPS::ResultTable* resultTable;
+    int groupNumber;
+};
+
 class QueryEvaluator {
 public:
     static void evaluate(Query* query);
@@ -11,7 +17,7 @@ public:
     static std::string getAttrName(std::string value, Query::CandidateStruct candidate);
 
     // For optimization
-    static std::vector<Clause*>* groupClauses(std::vector<Clause*>* clauseList);
+    static void groupClauses(int n, ClauseStruct* clauseStruct);
     static int calcHeuristic(Clause& clause);
     static int numOfSynonyms(Clause& clause);
     static std::unordered_map<std::string, int> countSynonym(Query* query);

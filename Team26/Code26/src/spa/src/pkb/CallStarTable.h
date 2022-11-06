@@ -1,14 +1,11 @@
-//
-// Created by QMS on 13/9/2022.
-//
-
 #ifndef SPA_CALLSTARTABLE_H
 #define SPA_CALLSTARTABLE_H
 
-#include <stdio.h>
+#include <algorithm>
 #include <string>
 #include <vector>
 #include <unordered_map>
+#include <utility>
 
 class CallStarTable {
 private:
@@ -21,4 +18,4 @@ public:
     void clear();
 };
 
-#endif //SPA_CALLSTARTABLE_H
+#endif  // SPA_CALLSTARTABLE_H

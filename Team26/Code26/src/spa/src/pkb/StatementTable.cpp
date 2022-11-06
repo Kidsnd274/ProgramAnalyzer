@@ -1,13 +1,4 @@
-//
-// Created by QMS on 30/8/2022.
-//
-#include <stdio.h>
-#include <string>
-#include <vector>
-#include <unordered_set>
 #include "StatementTable.h"
-
-using namespace std;
 
 void StatementTable::insertStmt(Statement stmt) {
     this->statementList.push_back(stmt);
@@ -19,7 +10,7 @@ std::vector<Statement> StatementTable::getStatementList() {
 
 std::vector<std::string> StatementTable::getAllStmts() {
     std::vector<std::string> result;
-    for (Statement stmt: this->statementList) {
+    for (Statement stmt : this->statementList) {
         result.push_back(std::to_string(stmt.lineNumber));
     }
     return result;
@@ -27,7 +18,7 @@ std::vector<std::string> StatementTable::getAllStmts() {
 
 std::vector<std::string> StatementTable::getAllStmtsByType(StatementType::StmtType type) {
     std::vector<std::string> result;
-    for (Statement stmt: this->statementList) {
+    for (Statement stmt : this->statementList) {
         if (stmt.type == type) {
             result.push_back(std::to_string(stmt.lineNumber));
         }
@@ -60,8 +51,8 @@ std::vector<std::string> StatementTable::getAllCalls() {
 }
 
 std::vector<Statement> StatementTable::getAllCallStatements() {
-    vector<Statement> result;
-    for (Statement stmt: this->statementList) {
+    std::vector<Statement> result;
+    for (Statement stmt : this->statementList) {
         if (stmt.type == StatementType::CALL) {
             result.push_back(stmt);
         }
@@ -71,7 +62,7 @@ std::vector<Statement> StatementTable::getAllCallStatements() {
 
 Statement StatementTable::getStmtByLineNumber(int stmtNo) {
     Statement result;
-    for (Statement stmt: this->statementList) {
+    for (Statement stmt : this->statementList) {
         if (stmt.lineNumber == stmtNo) {
             result = stmt;
             break;
@@ -82,7 +73,7 @@ Statement StatementTable::getStmtByLineNumber(int stmtNo) {
 
 std::unordered_set<int> StatementTable::getAllAssignFromProcedure(int startStmt, int endStmt) {
     std::unordered_set<int> result;
-    for (Statement stmt: this->statementList) {
+    for (Statement stmt : this->statementList) {
         int lineNumber = stmt.lineNumber;
         StatementType::StmtType type = stmt.type;
         if ((lineNumber >= startStmt) && (lineNumber <= endStmt) && (type == StatementType::ASSIGN)) {

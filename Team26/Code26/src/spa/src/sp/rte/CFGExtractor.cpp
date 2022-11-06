@@ -1,4 +1,3 @@
-
 #include "CFGExtractor.h"
 
 bool CFGExtractor::toExclude(PKBInterface* pkb, STMT_NUM stmt, std::string varModified) {

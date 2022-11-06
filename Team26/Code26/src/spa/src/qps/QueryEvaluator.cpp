@@ -1,74 +1,65 @@
 #include "QueryEvaluator.h"
 #include "evaluator/ClauseAssigner.h"
 
+bool lessThan(ClauseStruct& s1, ClauseStruct& s2) {
+    if (s1.groupNumber == s2.groupNumber) {
+        return s1.resultTable->getTable().size() < s2.resultTable->getTable().size();
+    }
+    return s1.groupNumber < s2.groupNumber;
+}
+
 void QueryEvaluator::evaluate(Query* query) {
     if (query->getStatus() != VALID_QUERY) {
         return;
     }
 
-    auto start = chrono::steady_clock::now();
-
-    ResultTable* resultOfEvaluation = new ResultTable();
     ClauseAssigner* clauseAssigner = new ClauseAssigner();
 
-    // Group the clauses
-    query->clauseList = QueryEvaluator::groupClauses(query->clauseList);
-
-    auto stop = chrono::steady_clock::now();
-    auto duration = duration_cast<std::chrono::milliseconds>(stop - start);
-
-    cout << "Time taken by grouping: "
-         << duration.count() << " milliseconds" << endl;
-
     // Add synonyms to the map
-    unordered_map<string, int> synonymCount = countSynonym(query);
+    std::unordered_map<std::string, int> synonymCount = countSynonym(query);
+
+    ClauseStruct* clauseStruct = new ClauseStruct[query->clauseList->size()];
 
     // Evaluate the clauses
-    for (auto iter = query->clauseList->begin(); iter != query->clauseList->end(); iter++) {
+    for (int i = 0; i < query->clauseList->size(); i++) {
         ResultTable* resultTable = new ResultTable();
-        clauseAssigner->assignClause(resultTable, *iter);
+        clauseAssigner->assignClause(resultTable, query->clauseList->at(i));
         if (resultTable->isFalseTable() || resultTable->isEmptyTable()) {
             query->resultTable->setFalseTable();
             return;
         }
-        resultOfEvaluation = ResultTable::mergeTable(resultOfEvaluation, resultTable);
-        removeSynonym(**iter, &synonymCount, resultOfEvaluation);
-
+        clauseStruct[i] = {
+                query->clauseList->at(i),
+                resultTable,
+                0
+        };
     }
 
-    stop = chrono::steady_clock::now();
-    duration = duration_cast<std::chrono::milliseconds>(stop - start);
+    // Group the clauses
+    QueryEvaluator::groupClauses(query->clauseList->size(), clauseStruct);
+    std::sort(clauseStruct, clauseStruct + query->clauseList->size(), lessThan);
 
-    cout << "Time taken by merging: "
-         << duration.count() << " milliseconds" << endl;
+    // Merge the result tables
+    ResultTable* resultOfEvaluation = new ResultTable();
+    for (int i = 0; i < query->clauseList->size(); i++) {
+        resultOfEvaluation = ResultTable::mergeTable(resultOfEvaluation, clauseStruct[i].resultTable);
+        removeSynonym(*clauseStruct[i].clause, &synonymCount, resultOfEvaluation);
+    }
 
+    // For candidates not in result table, get all entities and merge.
     for (auto synonym : query->getCandidateList()) {
         if (!resultOfEvaluation->isSynonymPresent(synonym.argument.argumentName)) {
             getAllEntity(synonym.argument, resultOfEvaluation);
         }
     }
 
-    stop = chrono::steady_clock::now();
-    duration = duration_cast<std::chrono::milliseconds>(stop - start);
-
-    cout << "Time taken by resulting: "
-         << duration.count() << " milliseconds" << endl;
-
-
     query->resultTable->replace(resultOfEvaluation);
-
-    stop = chrono::steady_clock::now();
-    duration = duration_cast<std::chrono::milliseconds>(stop - start);
-
-    cout << "Time taken by evaluating: "
-         << duration.count() << " milliseconds" << endl;
-
 }
 
 void QueryEvaluator::getAllEntity(Argument argument, QPS::ResultTable *resultTable) {
-    vector<string> synonym = {argument.argumentName};
-    unordered_set<vector<string>, StringVectorHash> results;
-    unordered_set<string> entities = QPS_Interface::getAllEntity(&argument);
+    std::vector<std::string> synonym = {argument.argumentName};
+    std::unordered_set<std::vector<std::string>, StringVectorHash> results;
+    std::unordered_set<std::string> entities = QPS_Interface::getAllEntity(&argument);
     for (auto e: entities) {
         results.insert({e});
     }
@@ -76,56 +67,40 @@ void QueryEvaluator::getAllEntity(Argument argument, QPS::ResultTable *resultTab
     resultTable->mergeTable(*entityTable);
 }
 
-int QueryEvaluator::calcHeuristic(Clause &clause) {
-    return 0;
-}
-
-int QueryEvaluator::numOfSynonyms(Clause &clause) {
-    int num = 0;
-    if (Argument::isSynonym(clause.getFirstArgument().argumentType)) {
-        num += 1;
-    }
-    if (Argument::isSynonym(clause.getSecondArgument().argumentType)) {
-        num += 1;
-    }
-    return num;
-}
-
-std::vector<Clause*>* QueryEvaluator::groupClauses(std::vector<Clause*>* clauseList) {
-    std::vector<Clause*>* resultList = new vector<Clause*>;
+void QueryEvaluator::groupClauses(int n, ClauseStruct* clauseStruct) {
     // Iterate through clauseList to build the synonymClausesMap
     std::unordered_map<std::string, std::unordered_set<int>> synonymClausesMap;
-    for (int i = 0; i < clauseList->size(); i++) {
-        Clause* clause = clauseList->at(i);
+    for (int i = 0; i < n; i++) {
+        Clause* clause = clauseStruct[i].clause;
 
         Argument arg1 = clause->getFirstArgument();
         Argument arg2 = clause->getSecondArgument();
-        bool isSynonym1 = Argument::isSynonym(arg1.argumentType);
-        bool isSynonym2 = Argument::isSynonym(arg2.argumentType);
-        int numOfSynonyms = (isSynonym1 ? 1 : 0) + (isSynonym2 ? 1 : 0);
-        if (numOfSynonyms < 2) {  // Clauses with less than 2 synonyms will be put into group 1 directly.
-            resultList->push_back(clause);
-        }
-        if (isSynonym1) {
+        int numOfSynonyms = 0;
+        if (Argument::isSynonym(arg1.argumentType)) {
+            numOfSynonyms += 1;
             auto iter = synonymClausesMap.find(arg1.argumentName);
             if (iter != synonymClausesMap.end()) {
                 iter->second.insert(i);
             } else {
-                synonymClausesMap.insert(std::make_pair(arg1.argumentName, unordered_set<int> {i}));
+                synonymClausesMap.insert(std::make_pair(arg1.argumentName, std::unordered_set<int> {i}));
             }
         }
-        if (isSynonym2) {
+        if (Argument::isSynonym(arg2.argumentType)) {
+            numOfSynonyms += 1;
             auto iter = synonymClausesMap.find(arg2.argumentName);
             if (iter != synonymClausesMap.end()) {
                 iter->second.insert(i);
             } else {
-                synonymClausesMap.insert(std::make_pair(arg2.argumentName, unordered_set<int> {i}));
+                synonymClausesMap.insert(std::make_pair(arg2.argumentName, std::unordered_set<int> {i}));
             }
+        }
+        if (numOfSynonyms == 0) { // clause with no synonym will be put into group 0 directly.
+            clauseStruct[i].groupNumber = 0;
         }
     }
 
     // Merge adjacent clauses in each synonym's clauseSet
-    UnionFindDisjointSet* ufds = new UnionFindDisjointSet(clauseList->size());
+    UnionFindDisjointSet* ufds = new UnionFindDisjointSet(n);
     ufds->initialize();
     for (auto pair : synonymClausesMap) {
         int lastClauseIndex = -1;
@@ -137,37 +112,17 @@ std::vector<Clause*>* QueryEvaluator::groupClauses(std::vector<Clause*>* clauseL
         }
     }
 
-    // Iterate through clauseList and put clauses into corresponding group list.
-    int numOfGroups = ufds->getNumberOfGroups();
-    unordered_map<int, std::vector<int>> groups;
-    for (int i = 0; i < clauseList->size(); i++) {
-        int groupNumber = ufds->find(i);
-        auto iter = groups.find(groupNumber);
-        if (iter != groups.end()) {
-            iter->second.push_back(i);
-        } else {
-            groups.insert(make_pair(groupNumber, vector<int> {i}));
-        }
+    // Assign group number to each clause.
+    for (int i = 0; i < n; i++) {
+        clauseStruct->groupNumber = ufds->find(i);
     }
-
-    // TODO: sort clauses within same group by heuristic.
-
-    // Merge the group lists into one clauseList
-    for (auto pair : groups) {
-        for (auto clauseIndex : pair.second) {
-            Clause* clause = clauseList->at(clauseIndex);
-            resultList->push_back(clause);
-        }
-    }
-
-    return resultList;
 }
 
 std::unordered_map<std::string, int>
 QueryEvaluator::countSynonym(Query* query) {
     std::vector<Clause *> *clauseList = query->clauseList;
     std::unordered_set<std::string> candidates = query->getCandidates();
-    unordered_map<string, int> synonymCount = {};
+    std::unordered_map<std::string, int> synonymCount = {};
     for (auto clause: *clauseList) {
         Argument arg1 = clause->getFirstArgument();
         Argument arg2 = clause->getSecondArgument();

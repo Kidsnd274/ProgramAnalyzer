@@ -1,6 +1,5 @@
 #pragma once
 
-#include <stdio.h>
 #include <iostream>
 #include <string>
 #include <vector>
@@ -23,8 +22,7 @@
 #include "AffectTable.h"
 #include "AffectStarTable.h"
 
-using namespace std;
-typedef short PROC;
+typedef int PROC;
 
 class PKB {
 public:
@@ -65,5 +63,5 @@ public:
         affectStarTable = new AffectStarTable();
     }
     int setProcToAST(PROC p, TNode* r);
-    TNode* getRootAST (PROC p);
+    TNode* getRootAST(PROC p);
 };

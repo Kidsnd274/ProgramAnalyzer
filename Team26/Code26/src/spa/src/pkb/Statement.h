@@ -1,16 +1,10 @@
-//
-// Created by QMS on 4/9/2022.
-//
-
 #ifndef SPA_STATEMENT_H
 #define SPA_STATEMENT_H
 
-#include <stdio.h>
 #include <string>
 #include <memory>
+#include "util/Common.h"
 #include "util/ast/TNode.h"
-
-using namespace std;
 
 namespace StatementType {
     enum StmtType {
@@ -26,10 +20,10 @@ namespace StatementType {
 class Statement {
 public:
     StatementType::StmtType type;
-    int lineNumber;
-    int statementListNumber;
-    shared_ptr<TNode> rootNode;
-    string calleeProcName;
+    STMT_NUM lineNumber;
+    STMT_NUM statementListNumber;
+    std::shared_ptr<TNode> rootNode;
+    std::string calleeProcName;
 };
 
-#endif //SPA_STATEMENT_H
+#endif  // SPA_STATEMENT_H

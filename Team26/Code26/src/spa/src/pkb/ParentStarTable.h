@@ -1,27 +1,24 @@
-//
-// Created by QMS on 13/9/2022.
-//
-
 #ifndef SPA_PARENTSTARTABLE_H
 #define SPA_PARENTSTARTABLE_H
 
-#include <stdio.h>
+#include <algorithm>
 #include <string>
 #include <vector>
 #include <unordered_map>
 #include <unordered_set>
-
-using namespace std;
+#include <utility>
+#include "util/Common.h"
 
 class ParentStarTable {
 private:
-    unordered_map<int, vector<int>> parentStarList;
+    std::unordered_map<STMT_NUM, std::vector<STMT_NUM>> parentStarList;
+
 public:
-    void insertParentStar(int parentStmtLineNumber, int childStmtLineNumber);
-    bool existParentStar(int parentStmtLineNumber, int childStmtLineNumber);
-    unordered_set<int> getAllParentStar(int childStmtLineNumber);
-    unordered_map<int, vector<int>> getAllParentStars();
+    void insertParentStar(STMT_NUM parentStmtLineNumber, STMT_NUM childStmtLineNumber);
+    bool existParentStar(STMT_NUM parentStmtLineNumber, STMT_NUM childStmtLineNumber);
+    std::unordered_set<STMT_NUM> getAllParentStar(STMT_NUM childStmtLineNumber);
+    std::unordered_map<STMT_NUM, std::vector<STMT_NUM>> getAllParentStars();
     void clear();
 };
 
-#endif //SPA_PARENTSTARTABLE_H
+#endif  // SPA_PARENTSTARTABLE_H
