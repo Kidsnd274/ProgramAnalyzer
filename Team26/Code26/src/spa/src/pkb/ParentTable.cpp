@@ -1,9 +1,7 @@
-#include <vector>
-#include <algorithm>
 #include "ParentTable.h"
 
 void ParentTable::insertParent(int parentStmtLineNumber, int childStmtLineNumber) {
-    std::pair<int,std::vector<int>> parent (parentStmtLineNumber, {childStmtLineNumber});
+    std::pair<int, std::vector<int>> parent(parentStmtLineNumber, {childStmtLineNumber});
     if (this->parentList.find(parentStmtLineNumber) != parentList.end()) {
         this->parentList[parentStmtLineNumber].push_back(childStmtLineNumber);
     } else {
@@ -12,14 +10,14 @@ void ParentTable::insertParent(int parentStmtLineNumber, int childStmtLineNumber
 }
 
 bool ParentTable::existParent(int parentStmtLineNumber, int childStmtLineNumber) {
-    std::unordered_map<int,std::vector<int>> list = this->parentList;
+    std::unordered_map<int, std::vector<int>> list = this->parentList;
     bool isParentWildcard = parentStmtLineNumber == 0;
     bool isChildWildcard = childStmtLineNumber == 0;
     if (isParentWildcard && isChildWildcard) {
         return list.size() != 0;
     }
     if (isParentWildcard) {
-        for (auto &p: list) {
+        for (auto &p : list) {
             if (std::find(p.second.begin(), p.second.end(), childStmtLineNumber) != p.second.end()) {
                 return true;
             }
@@ -31,7 +29,7 @@ bool ParentTable::existParent(int parentStmtLineNumber, int childStmtLineNumber)
             return list[parentStmtLineNumber].size() != 0;
         }
     }
-    //Both not wildcard
+    // Both not wildcard
     if (list.find(parentStmtLineNumber) != list.end()) {
         std::vector<int> children = list[parentStmtLineNumber];
         if (std::find(children.begin(), children.end(), childStmtLineNumber) != children.end()) {

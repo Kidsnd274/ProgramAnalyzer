@@ -22,10 +22,10 @@ public:
     std::unordered_multimap<std::string, std::string> callStarMapStringString;
     std::unordered_map<int, int> statements;
     std::unordered_map<int, StmtType> statementTypeMap;
-    std::unordered_map<STMT_NUM, unordered_set<STMT_NUM>> nextStarMap;
-    std::unordered_map<STMT_NUM, unordered_set<STMT_NUM>> affectsMap;
+    std::unordered_map<STMT_NUM, std::unordered_set<STMT_NUM>> nextStarMap;
+    std::unordered_map<STMT_NUM, std::unordered_set<STMT_NUM>> affectsMap;
     std::unordered_map<std::string, CFGHeadPtr> procedureToCFG;
-    std::unordered_map<STMT_NUM, unordered_set<STMT_NUM>> affectsStarMap;
+    std::unordered_map<STMT_NUM, std::unordered_set<STMT_NUM>> affectsStarMap;
     std::unordered_map<std::string, std::pair<STMT_NUM, STMT_NUM>> procToStmtNums;
 
     void addFollows(int stmt1Number, int stmt2Number) override;
@@ -47,8 +47,8 @@ public:
     std::unordered_set<std::string> getAllVariablesModified(std::string procedureName) override;
     std::unordered_set<std::string> getAllVariablesUsed(std::string procedureName) override;
     std::unordered_set<int> getParentStar(int statementNumber) override;
-    std::unordered_set<string> getCall(std::string procedure) override;
-    std::unordered_set<string> getCallStar(std::string procedure) override;
+    std::unordered_set<std::string> getCall(std::string procedure) override;
+    std::unordered_set<std::string> getCallStar(std::string procedure) override;
 
     //for testing Next*
     bool hasNextStar(STMT_NUM stmt) override;

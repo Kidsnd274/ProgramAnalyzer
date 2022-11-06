@@ -3,6 +3,7 @@
 
 #include <unordered_map>
 #include <unordered_set>
+#include <utility>
 #include <vector>
 
 class NextTable {
@@ -16,4 +17,4 @@ public:
 };
 
 
-#endif //SPA_NEXTTABLE_H
+#endif  // SPA_NEXTTABLE_H

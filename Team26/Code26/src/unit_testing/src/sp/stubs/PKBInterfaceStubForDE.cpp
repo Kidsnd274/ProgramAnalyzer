@@ -106,7 +106,7 @@ std::unordered_set<int> PKBInterfaceStubForDE::getParentStar(int statementNumber
     return result;
 }
 
-std::unordered_set<string> PKBInterfaceStubForDE::getCall(std::string procedure) {
+std::unordered_set<std::string> PKBInterfaceStubForDE::getCall(std::string procedure) {
     std::unordered_set<std::string> result;
     auto variables = this->callMapStringString.equal_range(procedure);
 
@@ -116,7 +116,7 @@ std::unordered_set<string> PKBInterfaceStubForDE::getCall(std::string procedure)
     return result;
 }
 
-std::unordered_set<string> PKBInterfaceStubForDE::getCallStar(std::string procedure) {
+std::unordered_set<std::string> PKBInterfaceStubForDE::getCallStar(std::string procedure) {
     std::unordered_set<std::string> result;
     auto variables = this->callStarMapStringString.equal_range(procedure);
 
@@ -203,7 +203,7 @@ void PKBInterfaceStubForDE::addAffectsStar(STMT_NUM stmt, std::unordered_set<STM
 }
 
 std::unordered_set<STMT_NUM> PKBInterfaceStubForDE::getAllAssignFromProcedure(std::string procName) {
-    pair<STMT_NUM, STMT_NUM> toFrom = procToStmtNums[procName];
+    std::pair<STMT_NUM, STMT_NUM> toFrom = procToStmtNums[procName];
     std::unordered_set<STMT_NUM> ans;
     for(int i = toFrom.first; i <= toFrom.second; ++i) {
         if(statementTypeMap[i] == StmtType::ASSIGN) {

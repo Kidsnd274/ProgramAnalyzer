@@ -1,23 +1,17 @@
-//
-// Created by QMS on 30/8/2022.
-//
-
 #ifndef SPA_VARTABLE_H
 #define SPA_VARTABLE_H
 
-//#pragma once
 #include <string>
-
-using namespace std;
+#include <vector>
 
 class VarTable {
 private:
-    vector<string> varList;
+    std::vector<std::string> varList;
 
 public:
-    void insertVar(string var);
-    vector<string> getAllVariables();
+    void insertVar(std::string var);
+    std::vector<std::string> getAllVariables();
     void clear();
 };
 
-#endif //SPA_VARTABLE_H
+#endif  // SPA_VARTABLE_H
