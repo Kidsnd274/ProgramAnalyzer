@@ -43,6 +43,8 @@ namespace QPS {
     public:
         Container() = default;
 
+        ~Container() = default;
+
         explicit Container(std::vector<QPS::Token> &tokens) : queryStruct(Query()) {
             this->tokens = tokens;
             this->status = INITIALIZED;
