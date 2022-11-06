@@ -51,7 +51,6 @@ public:
     virtual void addParent(int parentStatementNumber, int childStatementNumber);
     virtual void addParentStar(int parentStatementNumber, int childStatementNumber);
     virtual void addFollows(int frontStatementNumber, int backStatementNumber);
-    virtual void addFollowsStar(int frontStatementNumber, int backStatementNumber);
     virtual void addCall(std::string procedureName, std::string procedureCalled);
     virtual void addCallStar(std::string procedureName, std::string procedureCalled);
 
@@ -82,16 +81,6 @@ public:
     virtual std::unordered_map<std::string, std::unordered_set<std::string>> getAllUseByProc();
     virtual std::unordered_set<std::unordered_set<Statement*>*> getAllStmtLists();
 
-//    std::unordered_set<std::string> getAllStmts();
-//    std::unordered_set<std::string> getAllReads();
-//    std::unordered_set<std::string> getAllPrints();
-//    std::unordered_set<std::string> getAllCalls();
-//    std::unordered_set<std::string> getAllWhiles();
-//    std::unordered_set<std::string> getAllIfs();
-//    std::unordered_set<std::string> getAllAssigns();
-//    std::unordered_set<std::string> getAllVariables();
-//    std::unordered_set<std::string> getAllConstants();
-//    std::unordered_set<std::string> getAllProcedures();
     /**
      * Get all entities of given type.
      * @param type type of entity

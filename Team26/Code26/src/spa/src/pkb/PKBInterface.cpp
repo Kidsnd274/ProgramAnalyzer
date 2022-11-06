@@ -225,46 +225,6 @@ std::unordered_set<std::unordered_set<Statement*>*> PKBInterface::getAllStmtList
     return result;
 }
 
-//std::unordered_set<std::string> PKBInterface::getAllStmts() {
-//    return pkb->statementTable->getAllStmts();
-//}
-//
-//std::unordered_set<std::string> PKBInterface::getAllReads() {
-//    return pkb->statementTable->getAllReads();
-//}
-//
-//std::unordered_set<std::string> PKBInterface::getAllPrints() {
-//    return pkb->statementTable->getAllPrints();
-//}
-//
-//std::unordered_set<std::string> PKBInterface::getAllCalls() {
-//    return pkb->statementTable->getAllCalls();
-//}
-//
-//std::unordered_set<std::string> PKBInterface::getAllWhiles() {
-//    return pkb->statementTable->getAllWhiles();
-//}
-//
-//std::unordered_set<std::string> PKBInterface::getAllIfs() {
-//    return pkb->statementTable->getAllIfs();
-//}
-//
-//std::unordered_set<std::string> PKBInterface::getAllAssigns() {
-//    return pkb->statementTable->getAllAssigns();
-//}
-//
-//std::unordered_set<std::string> PKBInterface::getAllVariables() {
-//    return pkb->varTable->getAllVariables();
-//}
-//
-//std::unordered_set<std::string> PKBInterface::getAllConstants() {
-//    return pkb->constantTable->getAllConstants();
-//}
-//
-//std::unordered_set<std::string> PKBInterface::getAllProcedures() {
-//    return pkb->procedureTable->getAllProcedures();
-//}
-
 std::unordered_set<std::string> PKBInterface::getAllEntity(Argument::ArgumentType type) {
     switch (type) {
         case Argument::STMT_SYNONYM:

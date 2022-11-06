@@ -26,40 +26,6 @@ std::unordered_set<std::string> StatementTable::getAllStmtsByType(StatementType:
     return result;
 }
 
-//std::unordered_set<std::string> StatementTable::getAllReads() {
-//    return getAllStmtsByType(StatementType::READ);
-//}
-//
-//std::unordered_set<std::string> StatementTable::getAllAssigns() {
-//    return getAllStmtsByType(StatementType::ASSIGN);
-//}
-//
-//std::unordered_set<std::string> StatementTable::getAllWhiles() {
-//    return getAllStmtsByType(StatementType::WHILE);
-//}
-//
-//std::unordered_set<std::string> StatementTable::getAllIfs() {
-//    return getAllStmtsByType(StatementType::IF);
-//}
-//
-//std::unordered_set<std::string> StatementTable::getAllPrints() {
-//    return getAllStmtsByType(StatementType::PRINT);
-//}
-//
-//std::unordered_set<std::string> StatementTable::getAllCalls() {
-//    return getAllStmtsByType(StatementType::CALL);
-//}
-
-std::unordered_set<Statement*> StatementTable::getAllCallStatements() {
-    std::unordered_set<Statement*> result;
-    for (auto stmt: this->statementList) {
-        if (stmt->type == StatementType::CALL) {
-            result.insert(stmt);
-        }
-    }
-    return result;
-}
-
 Statement* StatementTable::getStmtByLineNumber(int stmtNo) {
     Statement* result;
     for (auto stmt: this->statementList) {
