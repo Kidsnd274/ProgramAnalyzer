@@ -31,21 +31,36 @@ namespace QPS {
     }
 
 
-    bool ResultTable::deleteColFromTable(const std::string &sName) {
-        if (!isSynonymPresent(sName)) {
-            return false;
-        }
-        int pos = synonymColRef.at(sName);
-        synonymColRef.erase(sName);
-        for (auto& synonym: synonymColRef) {
-            if (synonym.second > pos) {
-                synonym.second --;
+    bool ResultTable::deleteColFromTable(const std::vector<std::string> &sNames) {
+        std::vector <std::vector<std::string>> newTable;
+        std::vector <int> positions;
+        std::unordered_set<std::string> addedRows;
+        for (auto s: sNames) {
+            if (synonymColRef.find(s) != synonymColRef.end()) {
+                synonymColRef.erase(s);
             }
         }
-        for (auto& entry: table) {
-            entry.erase(entry.begin() + pos);
+        int colPos = 0;
+        std::unordered_map<std::string, int> newSynonymColRef;
+        for (auto synonym: synonymColRef) {
+            positions.push_back(synonym.second);
+            newSynonymColRef[synonym.first] = colPos;
+            colPos++;
         }
-        colNum--;
+        for (auto& entry: table) {
+            std::vector<std::string> newRow;
+            std::string addedRow;
+            for (auto pos: positions) {
+                newRow.push_back(entry[pos]);
+                addedRow = addedRow + "|" + entry[pos];
+            }
+            if (addedRows.find(addedRow) == addedRows.end()) {
+                newTable.push_back(newRow);
+            }
+        }
+        colNum = newSynonymColRef.size();
+        this->synonymColRef = newSynonymColRef;
+        this->table = newTable;
         return true;
     }
 
