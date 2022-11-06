@@ -1,10 +1,12 @@
 #ifndef SPA_QUERY_H
 #define SPA_QUERY_H
 
+#include <string>
 #include <typeinfo>
-#include <vector>
 #include <unordered_map>
 #include <unordered_set>
+#include <utility>
+#include <vector>
 #include "ResultTable.h"
 #include "type/Clause.h"
 #include "type/WithClause.h"
