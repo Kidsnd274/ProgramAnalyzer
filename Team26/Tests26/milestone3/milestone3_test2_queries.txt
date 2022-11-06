@@ -2048,3 +2048,53 @@ if ifs;
 Select ifs such that Parent (13, ifs)
 none
 5000
+406 - ms2 71
+call c;
+Select c such that Parent (23, c)
+none
+5000
+407 - ms2 72
+stmt s;
+Select s such that Parent (_, s)
+2,3,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,34,35,36,37,39,40,41
+5000
+408 - ms2 73
+stmt s;
+Select s such that Parent (_, s)
+2,3,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,34,35,36,37,39,40,41
+5000
+409 - ms2 74
+while w;
+Select w such that Parent (_, w)
+8,11,14,20
+5000
+410 - ms2 75
+while w;
+Select w such that Parent (_, w)
+8,11,14,20
+5000
+411 - ms2 76
+if ifs;
+Select ifs such that Parent (_, ifs)
+9
+5000
+412 - ms2 77
+if ifs;
+Select ifs such that Parent (_, ifs)
+9
+5000
+413 - ms2 78
+assign a;
+Select a such that Parent (_, a)
+2,3,6,7,10,12,15,17,19,21,34,35,36,39,40,41
+5000
+414 - ms2 79
+call c;
+Select c such that Parent (_, c)
+18,37
+5000
+415 - ms2 80
+while w; call c;
+Select w such that Parent (w, c)
+14,33
+5000
