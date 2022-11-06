@@ -20,16 +20,9 @@ std::shared_ptr<AssignNode> getAssignTNode(std::string assignRef) {
     return QPS_Interface::pkbInterface->getAssignTNode(assignRef);
 }
 
+
 std::unordered_map<int, int> QPS_Interface::getAllFollowsRelations() {
     return QPS_Interface::pkbInterface->getAllFollow();
-}
-
-std::unordered_map<int, std::vector<int>> QPS_Interface::getAllParentRelations() {
-    return QPS_Interface::pkbInterface->getAllParent();
-}
-
-std::unordered_map<int, std::vector<int>> QPS_Interface::getAllParentTRelations() {
-    return QPS_Interface::pkbInterface->getAllParentStar();
 }
 
 std::unordered_map<std::string, std::vector<std::string>> QPS_Interface::getAllCallRelations() {
@@ -56,24 +49,7 @@ std::unordered_map<std::string, std::vector<std::string>> QPS_Interface::getAllM
     return QPS_Interface::pkbInterface->getAllModifyByProc();
 }
 
-std::vector<std::pair<int, int>> QPS_Interface::getAllAffectsRelations() {
-//    return QPS_Interface::pkbInterface->getAllAffects();
-    return {};
-}
 
-std::vector<std::pair<int, int>> QPS_Interface::getAllAffectsTRelations() {
-//    return QPS_Interface::pkbInterface->getAllAffectsProc();
-    return {};
-}
-
-std::unordered_map<int, std::vector<int>> QPS_Interface::getAllNextRelations() {
-    return QPS_Interface::pkbInterface->getAllNext();
-}
-
-std::vector<std::pair<int, int>> QPS_Interface::getAllNextTRelations() {
-//    return QPS_Interface::pkbInterface->getAllNextProc();
-    return {};
-}
 std::vector<std::string> QPS_Interface::getAllAssigns() {
     return QPS_Interface::pkbInterface->getAllAssigns();
 }
@@ -232,3 +208,15 @@ std::unordered_set<STMT_NUM> QPS_Interface::getAffectsStar(STMT_NUM stmt) {
     }
     return QPS_Interface::pkbInterface->getAffectsStar(stmt);
 }
+
+std::unordered_map<int, std::vector<int>> QPS_Interface::getAllParentRelations(RelationType relationType) {
+    if (relationType == PARENT) {
+        return QPS_Interface::pkbInterface->getAllParent();
+    } else if (relationType == PARENT_T) {
+        return QPS_Interface::pkbInterface->getAllParentStar();
+    } else {
+        return {};
+    }
+}
+
+

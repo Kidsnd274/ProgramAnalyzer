@@ -206,14 +206,6 @@ namespace QPS {
                 result = parseRelationStmtEnt(tokens, tokenPos,MODIFIES_S, container);
                 break;
             }
-            case USES_P: {
-                result = parseRelationStmtEnt(tokens, tokenPos,USES_P, container);
-                break;
-            }
-            case MODIFIES_P:{
-                result = parseRelationStmtEnt(tokens, tokenPos,MODIFIES_P, container);
-                break;
-            }
             case CALLS:{
                 result = parseRelationCalls(tokens, tokenPos,CALLS, container);
                 break;
