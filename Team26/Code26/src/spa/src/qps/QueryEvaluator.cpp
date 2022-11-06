@@ -155,6 +155,7 @@ void QueryEvaluator::removeSynonym(Clause &clause, std::unordered_map<std::strin
                                    QPS::ResultTable *resultTable) {
     Argument arg1 = clause.getFirstArgument();
     Argument arg2 = clause.getSecondArgument();
+    std::vector<std::string> sToDelete;
     if (Argument::isSynonym(arg1.argumentType)) {
         if (synonymCount->count(arg1.argumentName) != 0) {
             (*synonymCount)[arg1.argumentName] -= 1;
@@ -163,7 +164,7 @@ void QueryEvaluator::removeSynonym(Clause &clause, std::unordered_map<std::strin
             if (resultTable->getColNum() == 1 && !resultTable->isEmptyTable()) {
                 resultTable->setTrueTable();
             }
-            resultTable->deleteColFromTable(arg1.argumentName);
+            sToDelete.push_back(arg1.argumentName);
         }
     }
     if (Argument::isSynonym(arg2.argumentType)) {
@@ -174,8 +175,9 @@ void QueryEvaluator::removeSynonym(Clause &clause, std::unordered_map<std::strin
             if (resultTable->getColNum() == 1 && !resultTable->isEmptyTable()) {
                 resultTable->setTrueTable();
             }
-            resultTable->deleteColFromTable(arg2.argumentName);
+            sToDelete.push_back(arg2.argumentName);
         }
     }
-    resultTable->deleteDuplicateRows({});
+    resultTable->deleteColFromTable(sToDelete);
+//    resultTable->deleteDuplicateRows({});
 }
