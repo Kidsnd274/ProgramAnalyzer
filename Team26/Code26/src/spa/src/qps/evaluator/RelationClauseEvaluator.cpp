@@ -3,11 +3,11 @@
 void RelationClauseEvaluator::evaluate(QPS::ResultTable *resultTable) {
     switch(this->relationClause->relationType) {
         case (::RelationType::CALLS_T): {
-            evaluateCallsT(resultTable);
+            filterRelations(QPS_Interface::getAllCallTRelations(), resultTable);
             break;
         }
         case (::RelationType::CALLS): {
-            evaluateCalls(resultTable);
+            filterRelations(QPS_Interface::getAllCallRelations(), resultTable);
             break;
         }
         case (::RelationType::AFFECTS): {
@@ -19,7 +19,7 @@ void RelationClauseEvaluator::evaluate(QPS::ResultTable *resultTable) {
             break;
         }
         case (::RelationType::FOLLOWS): {
-            evaluateFollows(resultTable);
+            filterRelations(QPS_Interface::getAllFollowsRelations(), resultTable);
             break;
         }
         case (::RelationType::FOLLOWS_T): {
@@ -39,11 +39,11 @@ void RelationClauseEvaluator::evaluate(QPS::ResultTable *resultTable) {
             break;
         }
         case (::RelationType::PARENT): {
-            evaluateParent(resultTable);
+            filterRelations(QPS_Interface::getAllParentRelations(), resultTable);
             break;
         }
         case (::RelationType::PARENT_T): {
-            evaluateParentT(resultTable);
+            filterRelations(QPS_Interface::getAllParentTRelations(), resultTable);
             break;
         }
         case (::RelationType::USES_S): {
@@ -56,194 +56,55 @@ void RelationClauseEvaluator::evaluate(QPS::ResultTable *resultTable) {
 
 }
 
-void RelationClauseEvaluator::evaluateUse(QPS::ResultTable *resultTable) {
-    //Uses_P only
-    if (relationClause->getFirstArgument().argumentType == Argument::PROCEDURE_ACTUAL_NAME
-    || relationClause->getFirstArgument().argumentType == Argument::PROCEDURE_SYNONYM) {
-        evaluateUsesP(resultTable);
-        return;
-    }
-    //Uses_S only
-    if (relationClause->getFirstArgument().argumentType != Argument::WILDCARD) {
-        evaluateUsesS(resultTable);
-        return;
-    }
-    //argument 1 is wildcard, can be both Uses_P and Uses_S
-    QPS::ResultTable r1 = QPS::ResultTable();
-    QPS::ResultTable r2 = QPS::ResultTable();
-    evaluateUsesS(&r1);
-    //if argument 2 is synonym, then merge both tables
-    if (Argument::isSynonym(relationClause->getSecondArgument().argumentType)) {
-        evaluateUsesP(&r2);
-        ResultTable* resultTable1 = QPS::ResultTable::mergeTable(&r1, &r2);
-        resultTable->replace(resultTable1);
-        return;
-    }
-    //if argument 2 is wildcard or actual name, then we only need to return either a trueTable or a falseTable
-    if (r1.isTrueTable()) {
-        resultTable->setTrueTable();
-        return;
-    }
-    evaluateUsesP(&r2);
-    resultTable->replace(&r2);
-}
-
-void RelationClauseEvaluator::evaluateModify(QPS::ResultTable *resultTable) {
-    //Modifies_P only
-    if (relationClause->getFirstArgument().argumentType == Argument::PROCEDURE_ACTUAL_NAME
-        || relationClause->getFirstArgument().argumentType == Argument::PROCEDURE_SYNONYM) {
-        evaluateModifiesP(resultTable);
-        return;
-    }
-    //Modifies_S only
-    if (relationClause->getFirstArgument().argumentType != Argument::WILDCARD) {
-        evaluateModifiesS(resultTable);
-        return;
-    }
-    //argument 1 is wildcard, can be both Modifies_P and Modifies_S
-    QPS::ResultTable r1 = QPS::ResultTable();
-    QPS::ResultTable r2 = QPS::ResultTable();
-    evaluateModifiesS(&r1);
-    //if argument 2 is synonym, then merge both tables
-    if (Argument::isSynonym(relationClause->getSecondArgument().argumentType)) {
-        evaluateModifiesP(&r2);
-        ResultTable* resultTable1 = QPS::ResultTable::mergeTable(&r1, &r2);;
-        resultTable->replace(resultTable1);
-        return;
-    }
-    //if argument 2 is wildcard or actual name, then we only need to return either a trueTable or a falseTable
-    if (r1.isTrueTable()) {
-        resultTable->setTrueTable();
-        return;
-    }
-    evaluateModifiesP(&r2);
-    resultTable->replace(&r2);
-}
-void RelationClauseEvaluator::evaluateCalls(QPS::ResultTable *resultTable) {
-    filterRelations(QPS_Interface::getAllCallRelations(), resultTable);
-}
 
 
-void RelationClauseEvaluator::evaluateCallsT(QPS::ResultTable *resultTable) {
-    filterRelations(QPS_Interface::getAllCallTRelations(), resultTable);
-};
-void RelationClauseEvaluator::evaluateAffectsT(QPS::ResultTable *resultTable) {
-    Argument assignArgument = {"", Argument::ASSIGN_SYNONYM};
-    std::unordered_set<std::string> assigns = QPS_Interface::getAllEntity(&assignArgument);
-    Argument arg1 = this->relationClause->getFirstArgument();
-    Argument arg2 = this->relationClause->getSecondArgument();
-    // ensure both synonyms are assigns
-    if (!validateAffectsParameter(resultTable)) {
-        return;
+
+bool isStatementTypeMatched(StatementType::StmtType stmtType, Argument::ArgumentType argumentType) {
+    if (argumentType == Argument::STMT_SYNONYM) {
+        return true;
     }
-    // start evaluation
-    if (arg1.argumentType == Argument::NUMBER) {
-        int stmt1 = stoi(arg1.argumentName);
-        std::unordered_set<STMT_NUM> s1 = QPS_Interface::getAffectsStar(stmt1);
-        // ACTUAL_NAME, ACTUAL_NAME
-        if (arg2.argumentType == Argument::NUMBER) {
-            int stmt2 = stoi(arg2.argumentName);
-            if (s1.find(stmt2) != s1.end()) {
-                resultTable->setTrueTable();
-            } else {
-                resultTable->setFalseTable();
-            }
-            return;
-        }
-        // ACTUAL_NAME, WILDCARD
-        if (arg2.argumentType == Argument::WILDCARD) {
-            if (s1.size() > 0) {
-                resultTable->setTrueTable();
-            } else {
-                resultTable->setFalseTable();
-            }
-            return;
-        }
-        // ACTUAL_NAME, SYNONYM
-        std::vector<std::string> synonyms = {arg2.argumentName};
-        std::unordered_set<std::vector<std::string>, QPS::StringVectorHash> lines;
-        for (auto stmt2 : s1) {
-            std::vector<std::string> currLine;
-            currLine.push_back(std::to_string(stmt2));
-            lines.insert(currLine);
-        }
-        ResultTable *table = new ResultTable(synonyms, lines);
-        resultTable->replace(table);
-        return;
+    if (stmtType == StatementType::READ && argumentType == Argument::READ_SYNONYM) {
+        return true;
     }
-    if (arg1.argumentType == Argument::WILDCARD && arg2.argumentType == Argument::WILDCARD) {
-        for (auto a: assigns) {
-            std::unordered_set<STMT_NUM> affects = QPS_Interface::getAffectsStar(stoi(a));
-            if (affects.size() > 0) {
-                resultTable->setTrueTable();
-                return;
+    if (stmtType == StatementType::ASSIGN && argumentType == Argument::ASSIGN_SYNONYM) {
+        return true;
+    }
+    if (stmtType == StatementType::WHILE && argumentType == Argument::WHILE_SYNONYM) {
+        return true;
+    }
+    if (stmtType == StatementType::IF && argumentType == Argument::IF_SYNONYM) {
+        return true;
+    }
+    if (stmtType == StatementType::PRINT && argumentType == Argument::PRINT_SYNONYM) {
+        return true;
+    }
+    if (stmtType == StatementType::CALL && argumentType == Argument::CALL_SYNONYM) {
+        return true;
+    }
+    return false;
+}
+
+std::vector<std::vector<Statement>>& filterStmtList(const std::vector<std::vector<Statement>>& stmtList, Argument& arg) {
+    std::vector<std::vector<Statement>>* resultStmtList = new std::vector<std::vector<Statement>>();
+    for (auto iter = stmtList.begin(); iter != stmtList.end(); iter++) {
+        std::vector<Statement> lineResult;
+        for (auto stmt = iter->begin(); stmt != iter->end(); stmt++) {
+            bool matched = true;
+            if (Argument::isSynonym(arg.argumentType)) {
+                matched = isStatementTypeMatched(stmt->type, arg.argumentType);
+            }
+            if (arg.argumentType == Argument::NUMBER) {
+                matched = (stmt->lineNumber == stoi(arg.argumentName));
+            }
+            if (matched) {
+                lineResult.push_back(*stmt);
             }
         }
-        resultTable->setFalseTable();
-        return;
+        resultStmtList->push_back(lineResult);
     }
-    if (arg1.argumentType == Argument::WILDCARD && arg2.argumentType == Argument::NUMBER) {
-        for (auto a: assigns) {
-            std::unordered_set<STMT_NUM> affects = QPS_Interface::getAffectsStar(stoi(a));
-            if (affects.find(stoi(arg2.argumentName)) != affects.end()) {
-                resultTable->setTrueTable();
-                return;
-            }
-        }
-        resultTable->setFalseTable();
-        return;
-    }
-    std::vector<std::string> synonyms = {};
-    std::unordered_set<std::vector<std::string>, QPS::StringVectorHash> lines;
-    if (Argument::isSynonym(arg1.argumentType) && arg2.argumentType == Argument::NUMBER) {
-        synonyms.push_back(arg1.argumentName);
-        for (auto a: assigns) {
-            std::unordered_set<STMT_NUM> affects = QPS_Interface::getAffectsStar(stoi(a));
-            if (affects.find(stoi(arg2.argumentName)) != affects.end()) {
-                lines.insert({a});
-            }
-        }
-    }
-    if (Argument::isSynonym(arg1.argumentType) && arg2.argumentType == Argument::WILDCARD) {
-        synonyms.push_back(arg1.argumentName);
-        for (auto a: assigns) {
-            std::unordered_set<STMT_NUM> affects = QPS_Interface::getAffectsStar(stoi(a));
-            if (affects.size() > 0) {
-                lines.insert({a});
-            }
-        }
-    }
-    if (arg1.argumentType == Argument::WILDCARD && Argument::isSynonym(arg2.argumentType)) {
-        synonyms.push_back(arg2.argumentName);
-        for (auto a: assigns) {
-            std::unordered_set<STMT_NUM> affects = QPS_Interface::getAffectsStar(stoi(a));
-            for (auto second: affects) {
-                lines.insert({std::to_string(second)});
-            }
-        }
-    }
-    if (Argument::isSynonym(arg1.argumentType) && Argument::isSynonym(arg2.argumentType)) {
-        synonyms.push_back(arg1.argumentName);
-        if (arg1.argumentName != arg2.argumentName) {
-            synonyms.push_back(arg2.argumentName);
-        }
-        for (auto a: assigns) {
-            std::unordered_set<STMT_NUM> affects = QPS_Interface::getAffectsStar(stoi(a));
-            for (auto second: affects) {
-                if (arg1.argumentName == arg2.argumentName) {
-                    if (a == std::to_string(second)) {
-                        lines.insert({a});
-                    }
-                } else {
-                    lines.insert({a, std::to_string(second)});
-                }
-            }
-        }
-    }
-    ResultTable *table = new ResultTable(synonyms, lines);
-    resultTable->replace(table);
-    return;
-};
+    return *resultStmtList;
+}
+
 void RelationClauseEvaluator::evaluateAffects(QPS::ResultTable *resultTable) {
     Argument assignArgument = {"", Argument::ASSIGN_SYNONYM};
     std::unordered_set<std::string> assigns = QPS_Interface::getAllEntity(&assignArgument);
@@ -361,54 +222,187 @@ void RelationClauseEvaluator::evaluateAffects(QPS::ResultTable *resultTable) {
     resultTable->replace(table);
     return;
 };
-void RelationClauseEvaluator::evaluateFollows(QPS::ResultTable *resultTable) {
-    filterRelations(QPS_Interface::getAllFollowsRelations(), resultTable);
-};
 
-bool isStatementTypeMatched(StatementType::StmtType stmtType, Argument::ArgumentType argumentType) {
-    if (argumentType == Argument::STMT_SYNONYM) {
-        return true;
+void RelationClauseEvaluator::evaluateAffectsT(QPS::ResultTable *resultTable) {
+    Argument assignArgument = {"", Argument::ASSIGN_SYNONYM};
+    std::unordered_set<std::string> assigns = QPS_Interface::getAllEntity(&assignArgument);
+    Argument arg1 = this->relationClause->getFirstArgument();
+    Argument arg2 = this->relationClause->getSecondArgument();
+    // ensure both synonyms are assigns
+    if (!validateAffectsParameter(resultTable)) {
+        return;
     }
-    if (stmtType == StatementType::READ && argumentType == Argument::READ_SYNONYM) {
-        return true;
-    }
-    if (stmtType == StatementType::ASSIGN && argumentType == Argument::ASSIGN_SYNONYM) {
-        return true;
-    }
-    if (stmtType == StatementType::WHILE && argumentType == Argument::WHILE_SYNONYM) {
-        return true;
-    }
-    if (stmtType == StatementType::IF && argumentType == Argument::IF_SYNONYM) {
-        return true;
-    }
-    if (stmtType == StatementType::PRINT && argumentType == Argument::PRINT_SYNONYM) {
-        return true;
-    }
-    if (stmtType == StatementType::CALL && argumentType == Argument::CALL_SYNONYM) {
-        return true;
-    }
-    return false;
-}
-
-std::vector<std::vector<Statement>>& filterStmtList(const std::vector<std::vector<Statement>>& stmtList, Argument& arg) {
-    std::vector<std::vector<Statement>>* resultStmtList = new std::vector<std::vector<Statement>>();
-    for (auto iter = stmtList.begin(); iter != stmtList.end(); iter++) {
-        std::vector<Statement> lineResult;
-        for (auto stmt = iter->begin(); stmt != iter->end(); stmt++) {
-            bool matched = true;
-            if (Argument::isSynonym(arg.argumentType)) {
-                matched = isStatementTypeMatched(stmt->type, arg.argumentType);
+    // start evaluation
+    if (arg1.argumentType == Argument::NUMBER) {
+        int stmt1 = stoi(arg1.argumentName);
+        std::unordered_set<STMT_NUM> s1 = QPS_Interface::getAffectsStar(stmt1);
+        // ACTUAL_NAME, ACTUAL_NAME
+        if (arg2.argumentType == Argument::NUMBER) {
+            int stmt2 = stoi(arg2.argumentName);
+            if (s1.find(stmt2) != s1.end()) {
+                resultTable->setTrueTable();
+            } else {
+                resultTable->setFalseTable();
             }
-            if (arg.argumentType == Argument::NUMBER) {
-                matched = (stmt->lineNumber == stoi(arg.argumentName));
+            return;
+        }
+        // ACTUAL_NAME, WILDCARD
+        if (arg2.argumentType == Argument::WILDCARD) {
+            if (s1.size() > 0) {
+                resultTable->setTrueTable();
+            } else {
+                resultTable->setFalseTable();
             }
-            if (matched) {
-                lineResult.push_back(*stmt);
+            return;
+        }
+        // ACTUAL_NAME, SYNONYM
+        std::vector<std::string> synonyms = {arg2.argumentName};
+        std::unordered_set<std::vector<std::string>, QPS::StringVectorHash> lines;
+        for (auto stmt2 : s1) {
+            std::vector<std::string> currLine;
+            currLine.push_back(std::to_string(stmt2));
+            lines.insert(currLine);
+        }
+        ResultTable *table = new ResultTable(synonyms, lines);
+        resultTable->replace(table);
+        return;
+    }
+    if (arg1.argumentType == Argument::WILDCARD && arg2.argumentType == Argument::WILDCARD) {
+        for (auto a: assigns) {
+            std::unordered_set<STMT_NUM> affects = QPS_Interface::getAffectsStar(stoi(a));
+            if (affects.size() > 0) {
+                resultTable->setTrueTable();
+                return;
             }
         }
-        resultStmtList->push_back(lineResult);
+        resultTable->setFalseTable();
+        return;
     }
-    return *resultStmtList;
+    if (arg1.argumentType == Argument::WILDCARD && arg2.argumentType == Argument::NUMBER) {
+        for (auto a: assigns) {
+            std::unordered_set<STMT_NUM> affects = QPS_Interface::getAffectsStar(stoi(a));
+            if (affects.find(stoi(arg2.argumentName)) != affects.end()) {
+                resultTable->setTrueTable();
+                return;
+            }
+        }
+        resultTable->setFalseTable();
+        return;
+    }
+    std::vector<std::string> synonyms = {};
+    std::unordered_set<std::vector<std::string>, QPS::StringVectorHash> lines;
+    if (Argument::isSynonym(arg1.argumentType) && arg2.argumentType == Argument::NUMBER) {
+        synonyms.push_back(arg1.argumentName);
+        for (auto a: assigns) {
+            std::unordered_set<STMT_NUM> affects = QPS_Interface::getAffectsStar(stoi(a));
+            if (affects.find(stoi(arg2.argumentName)) != affects.end()) {
+                lines.insert({a});
+            }
+        }
+    }
+    if (Argument::isSynonym(arg1.argumentType) && arg2.argumentType == Argument::WILDCARD) {
+        synonyms.push_back(arg1.argumentName);
+        for (auto a: assigns) {
+            std::unordered_set<STMT_NUM> affects = QPS_Interface::getAffectsStar(stoi(a));
+            if (affects.size() > 0) {
+                lines.insert({a});
+            }
+        }
+    }
+    if (arg1.argumentType == Argument::WILDCARD && Argument::isSynonym(arg2.argumentType)) {
+        synonyms.push_back(arg2.argumentName);
+        for (auto a: assigns) {
+            std::unordered_set<STMT_NUM> affects = QPS_Interface::getAffectsStar(stoi(a));
+            for (auto second: affects) {
+                lines.insert({std::to_string(second)});
+            }
+        }
+    }
+    if (Argument::isSynonym(arg1.argumentType) && Argument::isSynonym(arg2.argumentType)) {
+        synonyms.push_back(arg1.argumentName);
+        if (arg1.argumentName != arg2.argumentName) {
+            synonyms.push_back(arg2.argumentName);
+        }
+        for (auto a: assigns) {
+            std::unordered_set<STMT_NUM> affects = QPS_Interface::getAffectsStar(stoi(a));
+            for (auto second: affects) {
+                if (arg1.argumentName == arg2.argumentName) {
+                    if (a == std::to_string(second)) {
+                        lines.insert({a});
+                    }
+                } else {
+                    lines.insert({a, std::to_string(second)});
+                }
+            }
+        }
+    }
+    ResultTable *table = new ResultTable(synonyms, lines);
+    resultTable->replace(table);
+    return;
+};
+
+void RelationClauseEvaluator::evaluateUse(QPS::ResultTable *resultTable) {
+    //Uses_P only
+    if (relationClause->getFirstArgument().argumentType == Argument::PROCEDURE_ACTUAL_NAME
+        || relationClause->getFirstArgument().argumentType == Argument::PROCEDURE_SYNONYM) {
+        filterRelations(QPS_Interface::getAllUsesProcRelations(), resultTable);
+        return;
+    }
+    //Uses_S only
+    if (relationClause->getFirstArgument().argumentType != Argument::WILDCARD) {
+        filterRelations(QPS_Interface::getAllUsesRelations(), resultTable);
+        return;
+    }
+    //argument 1 is wildcard, can be both Uses_P and Uses_S
+    QPS::ResultTable r1 = QPS::ResultTable();
+    QPS::ResultTable r2 = QPS::ResultTable();
+    filterRelations(QPS_Interface::getAllUsesRelations(), &r1);
+    //if argument 2 is synonym, then merge both tables
+    if (Argument::isSynonym(relationClause->getSecondArgument().argumentType)) {
+        filterRelations(QPS_Interface::getAllUsesProcRelations(), &r2);
+        ResultTable* resultTable1 = QPS::ResultTable::mergeTable(&r1, &r2);
+        resultTable->replace(resultTable1);
+        return;
+    }
+    //if argument 2 is wildcard or actual name, then we only need to return either a trueTable or a falseTable
+    if (r1.isTrueTable()) {
+        resultTable->setTrueTable();
+        return;
+    }
+    filterRelations(QPS_Interface::getAllUsesProcRelations(), &r2);
+    resultTable->replace(&r2);
+}
+
+void RelationClauseEvaluator::evaluateModify(QPS::ResultTable *resultTable) {
+    //Modifies_P only
+    if (relationClause->getFirstArgument().argumentType == Argument::PROCEDURE_ACTUAL_NAME
+        || relationClause->getFirstArgument().argumentType == Argument::PROCEDURE_SYNONYM) {
+        filterRelations(QPS_Interface::getAllModifiesProcRelations(), resultTable);
+        return;
+    }
+    //Modifies_S only
+    if (relationClause->getFirstArgument().argumentType != Argument::WILDCARD) {
+        filterRelations(QPS_Interface::getAllModifiesRelations(), resultTable);
+        return;
+    }
+    //argument 1 is wildcard, can be both Modifies_P and Modifies_S
+    QPS::ResultTable r1 = QPS::ResultTable();
+    QPS::ResultTable r2 = QPS::ResultTable();
+    filterRelations(QPS_Interface::getAllModifiesRelations(), &r1);
+    //if argument 2 is synonym, then merge both tables
+    if (Argument::isSynonym(relationClause->getSecondArgument().argumentType)) {
+        filterRelations(QPS_Interface::getAllModifiesProcRelations(), &r2);
+        ResultTable* resultTable1 = QPS::ResultTable::mergeTable(&r1, &r2);;
+        resultTable->replace(resultTable1);
+        return;
+    }
+    //if argument 2 is wildcard or actual name, then we only need to return either a trueTable or a falseTable
+    if (r1.isTrueTable()) {
+        resultTable->setTrueTable();
+        return;
+    }
+    filterRelations(QPS_Interface::getAllModifiesProcRelations(), &r2);
+    resultTable->replace(&r2);
 }
 
 void RelationClauseEvaluator::evaluateFollowsT(QPS::ResultTable *resultTable) {
@@ -460,14 +454,6 @@ void RelationClauseEvaluator::evaluateFollowsT(QPS::ResultTable *resultTable) {
     } else {
         resultTable->replace(new ResultTable(*synonyms, result));
     }
-};
-
-void RelationClauseEvaluator::evaluateModifiesS(QPS::ResultTable *resultTable) {
-    filterRelations(QPS_Interface::getAllModifiesRelations(), resultTable);
-};
-
-void RelationClauseEvaluator::evaluateModifiesP(QPS::ResultTable *resultTable) {
-    filterRelations(QPS_Interface::getAllModifiesProcRelations(), resultTable);
 };
 
 void RelationClauseEvaluator::evaluateNext(QPS::ResultTable *resultTable) {
@@ -773,21 +759,6 @@ void RelationClauseEvaluator::evaluateNextT(QPS::ResultTable *resultTable) {
     resultTable->replace(new ResultTable(synonyms, lines));
 };
 
-void RelationClauseEvaluator::evaluateParent(QPS::ResultTable *resultTable) {
-    filterRelations(QPS_Interface::getAllParentRelations(), resultTable);
-};
-
-void RelationClauseEvaluator::evaluateParentT(QPS::ResultTable *resultTable) {
-    filterRelations(QPS_Interface::getAllParentTRelations(), resultTable);
-};
-
-void RelationClauseEvaluator::evaluateUsesP(QPS::ResultTable *resultTable) {
-    filterRelations(QPS_Interface::getAllUsesProcRelations(), resultTable);
-};
-
-void RelationClauseEvaluator::evaluateUsesS(QPS::ResultTable *resultTable) {
-    filterRelations(QPS_Interface::getAllUsesRelations(), resultTable);
-};
 
 bool RelationClauseEvaluator::existInStringVector(std::string s, std::vector<std::string> v) {
     return std::find(v.begin(), v.end(), s) != v.end();
