@@ -546,14 +546,15 @@ namespace QPS {
             return {pos, INVALID_PATTERN_SYNTAX};
         }
 
+        bool is_semantic_correct = true;
         if (tokens[pos].tokenType == NAME) {
             Argument::ArgumentType argumentType = container.getSynonymType(tokens[pos].nameValue);
             if (argumentType == Argument::VAR_SYNONYM) {
                 arg = {tokens[pos].nameValue, Argument::VAR_SYNONYM};
-                pos++;
             } else {
-                return {pos, INVALID_PATTERN_TYPE};
+                is_semantic_correct = false;
             }
+            pos++;
         } else if (pos + 2 < tokens.size() && tokens[pos].tokenType == DOUBLE_QUOTE && tokens[pos+2].tokenType == DOUBLE_QUOTE
                    && tokens[pos + 1].tokenType == NAME) {
             arg = {tokens[pos + 1].nameValue, Argument::ACTUAL_NAME};
@@ -566,9 +567,12 @@ namespace QPS {
         if (pos + 4 <tokens.size() && tokens[pos].tokenType == COMMA && tokens[pos+1].tokenType == UNDERSCORE
             && tokens[pos+2].tokenType == COMMA && tokens[pos+3].tokenType == UNDERSCORE && tokens[pos+4].tokenType == RPAREN) {
             pos +=4;
-            return {pos, VALID};
         } else {
             return {pos, INVALID_PATTERN_CONTENT};
+        }
+
+        if (!is_semantic_correct) {
+            return {pos, INVALID_PATTERN_TYPE};
         }
     }
 
@@ -578,15 +582,16 @@ namespace QPS {
         } else {
             return {pos, INVALID_PATTERN_SYNTAX};
         }
+        bool is_semantic_correct = true;
 
         if (tokens[pos].tokenType == NAME) {
             Argument::ArgumentType argumentType = container.getSynonymType(tokens[pos].nameValue);
             if (argumentType == Argument::VAR_SYNONYM) {
                 arg = {tokens[pos].nameValue, Argument::VAR_SYNONYM};
-                pos++;
             } else {
-                return {pos, INVALID_PATTERN_TYPE};
+                is_semantic_correct = false;
             }
+            pos++;
         } else if (pos + 2 < tokens.size() && tokens[pos].tokenType == DOUBLE_QUOTE && tokens[pos+2].tokenType == DOUBLE_QUOTE
                    && tokens[pos + 1].tokenType == NAME) {
             arg = {tokens[pos + 1].nameValue, Argument::ACTUAL_NAME};
@@ -599,9 +604,12 @@ namespace QPS {
         if (pos + 2 <tokens.size() && tokens[pos].tokenType == COMMA && tokens[pos+1].tokenType == UNDERSCORE
                 &&tokens[pos+2].tokenType == RPAREN) {
             pos +=2;
-            return {pos, VALID};
         } else {
             return {pos, INVALID_PATTERN_CONTENT};
+        }
+
+        if (!is_semantic_correct) {
+            return {pos, INVALID_PATTERN_TYPE};
         }
     }
 
