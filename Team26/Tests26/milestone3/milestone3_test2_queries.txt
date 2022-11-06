@@ -2098,3 +2098,53 @@ while w; call c;
 Select w such that Parent (w, c)
 14,33
 5000
+416 - ms2 81
+while w1, w2;
+Select w2 such that Parent (w1, w2)
+20,14
+5000
+417 - ms2 82
+if ifs; while w;
+Select ifs such that Parent (ifs, w)
+5,9
+5000
+418 - ms2 83
+if ifs1, ifs2;
+Select ifs1 such that Parent (ifs1, ifs2)
+none
+5000
+419 - ms2 84
+stmt n;
+Select n such that Parent (n, 3)
+1
+5000
+420 - ms2 85
+print pr; while w;
+Select pr such that Parent (w, pr)
+13,22
+5000
+421 - ms2 86
+print pr; if ifs;
+Select pr such that Parent (ifs, pr)
+none
+5000
+422 - ms2 87
+print pr;
+Select pr such that Parent (pr, _)
+none
+5000
+423 - ms2 88
+read r;
+Select r such that Parent (r, _)
+none
+5000
+424 - ms2 89
+stmt s;
+Select s such that Parent* (s, 17)
+5,8,9,11,14
+5000
+425 - ms2 90
+stmt s;
+Select s such that Parent* (79, s)
+none
+5000
