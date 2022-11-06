@@ -1,11 +1,9 @@
-//
-// Created by QMS on 13/9/2022.
-//
-
 #ifndef SPA_CALLTABLE_H
 #define SPA_CALLTABLE_H
 
-#include <stdio.h>
+#include <algorithm>
+#include <unordered_map>
+#include <utility>
 #include <string>
 #include <unordered_set>
 #include <unordered_map>
@@ -21,4 +19,4 @@ public:
     void clear();
 };
 
-#endif //SPA_CALLTABLE_H
+#endif  // SPA_CALLTABLE_H

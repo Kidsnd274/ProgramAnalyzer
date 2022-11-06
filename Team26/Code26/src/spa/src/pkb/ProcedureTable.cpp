@@ -1,13 +1,4 @@
-//
-// Created by QMS on 4/9/2022.
-//
-#include <stdio.h>
-#include <string>
-#include "Procedure.h"
 #include "ProcedureTable.h"
-#include "ProcedureNotFoundException.h"
-
-using namespace std;
 
 class ProcedureTable;
 
@@ -15,15 +6,15 @@ void ProcedureTable::insertProc(Procedure proc) {
     this->procList.insert(&proc);
 }
 
-unordered_set<string> ProcedureTable::getAllProcedures() {
-    unordered_set<string> result;
+std::unordered_set<std::string> ProcedureTable::getAllProcedures() {
+    std::unordered_set<std::string> result;
     for (auto &proc: this->procList) {
         result.insert(proc->name);
     }
     return result;
 }
 
-unordered_set<Procedure*> ProcedureTable::getProcList() {
+std::unordered_set<Procedure*> ProcedureTable::getProcList() {
     return this->procList;
 }
 

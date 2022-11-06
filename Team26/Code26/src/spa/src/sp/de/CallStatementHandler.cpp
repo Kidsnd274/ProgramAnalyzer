@@ -20,7 +20,7 @@ void CallStatementHandler::dfs(int i, PKBInterface *pkb) {
     nameToIndex[indexToName[i]].second = 1;
 
     for (int j = 0; j < callList[i].size(); ++j) {
-        string procedureCalled = callList[i][j].getProcedureCalled();
+        std::string procedureCalled = callList[i][j].getProcedureCalled();
 
         if (nameToIndex.find(procedureCalled) == nameToIndex.end()) {
             throw SemanticErrorException("Call to non-existent procedure " + procedureCalled);

@@ -44,7 +44,6 @@ public:
      */
     static std::unordered_map<int, std::unordered_set<int>> getAllParentTRelations();
 
-
     /**
      * Call PKB interface to get all call relations in CallsTable.
      * @return a vector containing all the calls relations.
@@ -85,13 +84,13 @@ public:
      * Call PKB interface to get all affects relations in AffectsTable.
      * @return a vector containing all the affects relations.
      */
-    static std::vector<pair<int, int>> getAllAffectsRelations();
+    static std::vector<std::pair<int, int>> getAllAffectsRelations();
 
     /**
      * Call PKB interface to get all procedure affects relations in AffectsTable.
      * @return a vector containing all the procedure affects relations.
      */
-    static std::vector<pair<int, int>> getAllAffectsTRelations();
+    static std::vector<std::pair<int, int>> getAllAffectsTRelations();
 
     /**
      * Call PKB interface to get all next relations in NextTable.
@@ -103,7 +102,7 @@ public:
      * Call PKB interface to get all procedure xt relations in NextTable.
      * @return a vector containing all the procedure next relations.
      */
-    static std::vector<pair<int, int>> getAllNextTRelations();
+    static std::vector<std::pair<int, int>> getAllNextTRelations();
 
     /**
      * Call PKB interface to get all assignments in StatementTable.

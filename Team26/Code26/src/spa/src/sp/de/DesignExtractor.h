@@ -18,10 +18,10 @@ private:
     std::unordered_map<int, std::string> indexToName;
 public:
     explicit DesignExtractor(PKBInterface* pkb) {
-        std::shared_ptr<FollowsExtractor> followsExtractor = make_shared<FollowsExtractor>(pkb);
-        std::shared_ptr<ParentExtractor> parentExtractor = make_shared<ParentExtractor>(pkb);
-        std::shared_ptr<ModifiesExtractor> modifiesExtractor = make_shared<ModifiesExtractor>(pkb);
-        std::shared_ptr<UsesExtractor> usesExtractor = make_shared<UsesExtractor>(pkb);
+        std::shared_ptr<FollowsExtractor> followsExtractor = std::make_shared<FollowsExtractor>(pkb);
+        std::shared_ptr<ParentExtractor> parentExtractor = std::make_shared<ParentExtractor>(pkb);
+        std::shared_ptr<ModifiesExtractor> modifiesExtractor = std::make_shared<ModifiesExtractor>(pkb);
+        std::shared_ptr<UsesExtractor> usesExtractor = std::make_shared<UsesExtractor>(pkb);
         extractorList = {followsExtractor, parentExtractor, modifiesExtractor, usesExtractor};
         pkbInterface = pkb;
     }

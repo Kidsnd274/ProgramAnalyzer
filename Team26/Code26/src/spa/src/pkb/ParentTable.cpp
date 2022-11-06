@@ -1,5 +1,3 @@
-#include <unordered_set>
-#include <algorithm>
 #include "ParentTable.h"
 
 void ParentTable::insertParent(int parentStmtLineNumber, int childStmtLineNumber) {
@@ -31,7 +29,7 @@ bool ParentTable::existParent(int parentStmtLineNumber, int childStmtLineNumber)
             return list[parentStmtLineNumber].size() != 0;
         }
     }
-    //Both not wildcard
+    // Both not wildcard
     if (list.find(parentStmtLineNumber) != list.end()) {
         std::unordered_set<int> children = list[parentStmtLineNumber];
         if (children.find(childStmtLineNumber) != children.end()) {

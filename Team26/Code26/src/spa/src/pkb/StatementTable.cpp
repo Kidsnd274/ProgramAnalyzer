@@ -1,13 +1,4 @@
-//
-// Created by QMS on 30/8/2022.
-//
-#include <stdio.h>
-#include <string>
-#include <unordered_set>
-#include <unordered_set>
 #include "StatementTable.h"
-
-using namespace std;
 
 void StatementTable::insertStmt(Statement stmt) {
     this->statementList.insert(&stmt);
@@ -60,7 +51,7 @@ std::unordered_set<std::string> StatementTable::getAllCalls() {
 }
 
 std::unordered_set<Statement*> StatementTable::getAllCallStatements() {
-    unordered_set<Statement*> result;
+    std::unordered_set<Statement*> result;
     for (auto &stmt: this->statementList) {
         if (stmt->type == StatementType::CALL) {
             result.insert(stmt);

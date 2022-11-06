@@ -1,16 +1,6 @@
-//
-// Created by QMS on 13/9/2022.
-//
-#include <stdio.h>
-#include <string>
-#include <utility>
-#include <unordered_set>
-#include <algorithm>
 #include "ModifiesTable.h"
 
-using namespace std;
-
-void ModifiesTable::insertModifies(int stmtLineNumber, string varName) {
+void ModifiesTable::insertModifies(int stmtLineNumber, std::string varName) {
     if (this->modifiesList.find(stmtLineNumber) != this->modifiesList.end()) {
         this->modifiesList.find(stmtLineNumber)->second.insert(varName);
     } else {
@@ -28,7 +18,7 @@ void ModifiesTable::insertProcModifies(std::string procedureName, std::string va
     }
 }
 
-bool ModifiesTable::existModifies(int stmtLineNumber, string varName) {
+bool ModifiesTable::existModifies(int stmtLineNumber, std::string varName) {
     if (stmtLineNumber == 0) {
         for (auto & stmt: this->modifiesList) {
             if (varName == std::string() || stmt.second.find(varName) != stmt.second.end()) {
@@ -36,7 +26,7 @@ bool ModifiesTable::existModifies(int stmtLineNumber, string varName) {
             }
         }
     }
-    unordered_map<int,std::unordered_set<std::string>> list = this->modifiesList;
+    std::unordered_map<int,std::unordered_set<std::string>> list = this->modifiesList;
     if (list.find(stmtLineNumber) != list.end() &&
         (varName == std::string() ||
         list[stmtLineNumber].find(varName) != list[stmtLineNumber].end())) {
@@ -46,7 +36,7 @@ bool ModifiesTable::existModifies(int stmtLineNumber, string varName) {
 }
 
 bool ModifiesTable::existStatement(int stmtLineNumber) {
-    unordered_map<int,std::unordered_set<std::string>> list = this->modifiesList;
+    std::unordered_map<int,std::unordered_set<std::string>> list = this->modifiesList;
     if (list.find(stmtLineNumber) != list.end()) {
         return true;
     }
@@ -74,7 +64,7 @@ std::unordered_map<std::string, std::unordered_set<std::string>> ModifiesTable::
 }
 
 bool ModifiesTable::doesStatementModify(int stmt, std::string varModified) {
-    unordered_map<int,std::unordered_set<std::string>> list = this->modifiesList;
+    std::unordered_map<int,std::unordered_set<std::string>> list = this->modifiesList;
     if (list.find(stmt) == list.end()) {
         return false;
     } else {

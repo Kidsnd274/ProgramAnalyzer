@@ -1,16 +1,7 @@
-//
-// Created by QMS on 13/9/2022.
-//
-#include <stdio.h>
-#include <string>
-#include <unordered_set>
-#include <algorithm>
 #include "UsesTable.h"
 
-using namespace std;
-
-void UsesTable::insertUses(int stmtLineNumber, string varName) {
-    std::pair<int,unordered_set<string>> uses (stmtLineNumber, {varName});
+void UsesTable::insertUses(int stmtLineNumber, std::string varName) {
+    std::pair<int, std::unordered_set<std::string>> uses(stmtLineNumber, {varName});
     if (this->usesList.find(stmtLineNumber) != this->usesList.end()) {
         this->usesList.find(stmtLineNumber)->second.insert(varName);
     } else {
@@ -19,7 +10,7 @@ void UsesTable::insertUses(int stmtLineNumber, string varName) {
 }
 
 void UsesTable::insertProcUses(std::string procedureName, std::string varName) {
-    std::pair<std::string,unordered_set<string>> uses (procedureName, {varName});
+    std::pair<std::string, std::unordered_set<std::string>> uses(procedureName, {varName});
     if (this->usesProcList.find(procedureName) != this->usesProcList.end()) {
         this->usesProcList.find(procedureName)->second.insert(varName);
     } else {
@@ -27,15 +18,15 @@ void UsesTable::insertProcUses(std::string procedureName, std::string varName) {
     }
 }
 
-bool UsesTable::existUses(int stmtLineNumber, string varName) {
+bool UsesTable::existUses(int stmtLineNumber, std::string varName) {
     if (stmtLineNumber == 0) {
-        for (auto & stmt: this->usesList) {
+        for (auto & stmt : this->usesList) {
             if (varName == std::string() || std::find(stmt.second.begin(), stmt.second.end(), varName) != stmt.second.end()) {
                 return true;
             }
         }
     }
-    unordered_map<int,unordered_set<string>> list = this->usesList;
+    std::unordered_map<int, std::unordered_set<std::string>> list = this->usesList;
     if (list.find(stmtLineNumber) != list.end() &&
         (varName == std::string() ||
          list[stmtLineNumber].find(varName) != list[stmtLineNumber].end())) {
@@ -44,7 +35,7 @@ bool UsesTable::existUses(int stmtLineNumber, string varName) {
     return false;
 }
 
-unordered_set<string> UsesTable::getAllVarUsedByProc(string procedureName) {
+std::unordered_set<std::string> UsesTable::getAllVarUsedByProc(std::string procedureName) {
     return this->usesProcList[procedureName];
 }
 
@@ -57,7 +48,7 @@ std::unordered_map<std::string, std::unordered_set<std::string>> UsesTable::getA
 }
 
 bool UsesTable::doesStatementUse(int stmt, std::string varUsed) {
-    unordered_map<int,std::unordered_set<std::string>> list = this->usesList;
+    std::unordered_map<int, std::unordered_set<std::string>> list = this->usesList;
     if (list.find(stmt) == list.end()) {
         return false;
     } else {

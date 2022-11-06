@@ -1,24 +1,19 @@
-//
-// Created by QMS on 30/8/2022.
-//
-
 #ifndef SPA_VARTABLE_H
 #define SPA_VARTABLE_H
 
-//#pragma once
-#include <string>
 #include <unordered_set>
+#include <string>
 
 using namespace std;
 
 class VarTable {
 private:
-    unordered_set<string> varList;
+    std::unordered_set<std::string> varList;
 
 public:
-    void insertVar(string var);
-    unordered_set<string> getAllVariables();
+    void insertVar(std::string var);
+    std::unordered_set<std::string> getAllVariables();
     void clear();
 };
 
-#endif //SPA_VARTABLE_H
+#endif  // SPA_VARTABLE_H

@@ -1,14 +1,11 @@
-//
-// Created by QMS on 13/9/2022.
-//
-
 #ifndef SPA_MODIFIESTABLE_H
 #define SPA_MODIFIESTABLE_H
 
-#include <stdio.h>
+#include <algorithm>
 #include <string>
 #include <unordered_set>
 #include <unordered_map>
+#include <utility>
 
 class ModifiesTable {
 private:
@@ -28,4 +25,4 @@ public:
     void clear();
 };
 
-#endif //SPA_MODIFIESTABLE_H
+#endif  // SPA_MODIFIESTABLE_H

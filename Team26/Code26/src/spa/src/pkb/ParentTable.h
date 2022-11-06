@@ -1,9 +1,10 @@
 #ifndef SPA_PARENTTABLE_H
 
-#include <stdio.h>
+#include <algorithm>
 #include <string>
 #include <unordered_set>
 #include <unordered_map>
+#include <utility>
 
 class ParentTable {
 private:
@@ -15,4 +16,4 @@ public:
     void clear();
 };
 
-#endif //SPA_PARENTTABLE_H
+#endif  // SPA_PARENTTABLE_H

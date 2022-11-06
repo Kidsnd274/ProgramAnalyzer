@@ -82,16 +82,16 @@ void WithClauseEvaluator::evaluate(QPS::ResultTable *resultTable) {
     }
     if (Argument::isSynonym(arg1.argument.argumentType)) {
         std::vector<std::string> synonyms = {arg1.argument.argumentName};
-        unordered_set<vector<std::string>, QPS::StringVectorHash> lines;
-        std::vector<string> valuesList1 = QPS_Interface::getAllEntity(&arg1.argument);
+        std::unordered_set<std::vector<std::string>, QPS::StringVectorHash> lines;
+        std::vector<std::string> valuesList1 = QPS_Interface::getAllEntity(&arg1.argument);
         // SYNONYM, SYNONYM
         if (Argument::isSynonym(arg2.argument.argumentType)) {
             synonyms.push_back(arg2.argument.argumentName);
-            std::vector<string> valuesList2 = QPS_Interface::getAllEntity(&arg2.argument);
+            std::vector<std::string> valuesList2 = QPS_Interface::getAllEntity(&arg2.argument);
             for (auto value1 : valuesList1) {
                 for (auto value2 : valuesList2) {
                     if (QPS_Interface::getAttrName(value1, arg1) == QPS_Interface::getAttrName(value2, arg2)) {
-                        lines.insert(vector<string> {value1, value2});
+                        lines.insert(std::vector<std::string> {value1, value2});
                     }
                 }
             }
@@ -101,7 +101,7 @@ void WithClauseEvaluator::evaluate(QPS::ResultTable *resultTable) {
         // SYNONYM, ACTUAL_NAME or NUMBER
         for (auto value1 : valuesList1) {
             if (QPS_Interface::getAttrName(value1, arg1) == arg2.argument.argumentName) {
-                lines.insert(vector<string> {value1});
+                lines.insert(std::vector<std::string> {value1});
             }
         }
         resultTable = new ResultTable(synonyms, lines);

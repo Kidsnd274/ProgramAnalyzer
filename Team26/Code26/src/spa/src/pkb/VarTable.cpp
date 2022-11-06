@@ -1,18 +1,12 @@
-//
-// Created by QMS on 30/8/2022.
-//
-#include <stdio.h>
-#include <string>
-#include <unordered_set>
 #include "VarTable.h"
 
 using namespace std;
 
-void VarTable::insertVar(string var) {
+void VarTable::insertVar(std::string var) {
     this->varList.insert(var);
 }
 
-unordered_set<string> VarTable::getAllVariables() {
+std::unordered_set<std::string> VarTable::getAllVariables() {
     return this->varList;
 }
 
