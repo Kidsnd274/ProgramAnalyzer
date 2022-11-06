@@ -106,7 +106,7 @@ TEST_CASE("Follows Validation Test - follows(stmt, number) - valid") {
 TEST_CASE("Follows Validation Test - follows(stmt, var) - invalid") {
     Argument arg1 = Argument("s1", Argument::STMT_SYNONYM);
     Argument arg2 = Argument("s2", Argument::VAR_SYNONYM);
-    Follows follows1 = Follows(arg1, arg2);
+    Follows follows1 = Follows(arg1, arg2, FOLLOWS);
     REQUIRE(follows1.isValid() == false);
 }
 
