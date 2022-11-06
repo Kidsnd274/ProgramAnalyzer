@@ -46,11 +46,12 @@ protected:
 
 public:
     RelationType relationType = INVALID_RELATION_TYPE;
-    RelationClause(Argument& arg1, Argument& arg2) :
+    RelationClause(Argument& arg1, Argument& arg2, RelationType relationType) :
             argument1(Argument("", Argument::INVALID_ARGUMENT_TYPE)),
             argument2(Argument("", Argument::INVALID_ARGUMENT_TYPE)) {
         this->argument1 = arg1;
         this->argument2 = arg2;
+        this->relationType = relationType;
     }
 
     RelationClause(RelationClause& relationClause) :

@@ -1,5 +1,5 @@
 #include "QueryManager.h"
-
+#include <chrono>
 
 std::string exceptionToStringQPS(Exception e) {
     switch (e) {
@@ -73,10 +73,19 @@ std::string exceptionToStringQPS(Exception e) {
 }
 
 void QueryManager::handleQuery(PKBInterface *pkb, std::string queryString, std::list<std::string> &results) {
+
     QPS_Interface::setPKBInterface(pkb);
     QPS_Interface::createRuntimeExtractor();
+    auto start = std::chrono::steady_clock::now();
+
     std::vector<QPS::Token> tokens; // Initialize a vector of SPToken to store the tokens.
     QPS::tokenize(std::move(queryString), tokens); // Call tokenizer to read in PQL and tokenize it into tokens.
+    auto stop = std::chrono::steady_clock::now();
+    auto duration = duration_cast<std::chrono::milliseconds>(stop - start);
+
+    std::cout << "Time taken by initializing: "
+         << duration.count() << " milliseconds" << std::endl;
+    start = std::chrono::steady_clock::now();
 
     QPS::Container* container = new QPS::Container(tokens); // Initialize a container to store the result of tokenization.
     Exception parsingException = QPS::parseToken(tokens, *container); // Call QPS parser to parse the tokens into Query Structure. Store the result in container.queryStruct.
@@ -116,11 +125,34 @@ void QueryManager::handleQuery(PKBInterface *pkb, std::string queryString, std::
             query.setStatus(VALID_QUERY);;
         }
     }
+    stop = std::chrono::steady_clock::now();
+    duration = duration_cast<std::chrono::milliseconds>(stop - start);
+
+    std::cout << "Time taken by parsing: "
+         << duration.count() << " milliseconds" << std::endl;
+    start = std::chrono::steady_clock::now();
     query.validate();
+    stop = std::chrono::steady_clock::now();
+    duration = duration_cast<std::chrono::milliseconds>(stop - start);
+
+    std::cout << "Time taken by validating: "
+         << duration.count() << " milliseconds" << std::endl;
+    start = std::chrono::steady_clock::now();
     QueryEvaluator::evaluate(&query); // Call QueryEvaluator to evaluate the query. Store the result in query.resultTable.
+    stop = std::chrono::steady_clock::now();
+    duration = duration_cast<std::chrono::milliseconds>(stop - start);
+
+    std::cout << "Time taken by evaluating: "
+         << duration.count() << " milliseconds" << std::endl;
+    start = std::chrono::steady_clock::now();
     QPS_Interface::clearRuntimeExtractor();
     QueryResultProjector* queryResultProjector = new QueryResultProjector();
     queryResultProjector->getSelectTuples(query, results); // Call queryResultProjector to format and print out the query result.
+    stop = std::chrono::steady_clock::now();
+    duration = duration_cast<std::chrono::milliseconds>(stop - start);
+
+    std::cout << "Time taken by evaluating: "
+              << duration.count() << " milliseconds" << std::endl;
 }
 
 
