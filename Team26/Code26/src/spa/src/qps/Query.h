@@ -18,15 +18,9 @@ enum QueryStatus {
 };
 
 class Query {
-public:
-    struct CandidateStruct {
-        Argument argument;
-        AttributeType attributeType;
-    };
-
 private:
     std::unordered_map<std::string, Argument>* synonymMap;
-    std::vector<CandidateStruct>* candidateList;
+    std::vector<ArgAttrStruct>* candidateList;
     QueryStatus status;
 
 public:
@@ -36,7 +30,7 @@ public:
 public:
     Query() {
         this->synonymMap = new std::unordered_map<std::string, Argument>();
-        this->candidateList = new std::vector<CandidateStruct>;
+        this->candidateList = new std::vector<ArgAttrStruct>;
         this->clauseList = new std::vector<Clause*>();
         this->resultTable = new QPS::ResultTable();
         this->status = VALID_QUERY;
@@ -44,7 +38,7 @@ public:
 
     void addSynonym(Argument& synonym);
 
-    void addCandidate(CandidateStruct& candidate);
+    void addCandidate(ArgAttrStruct& candidate);
 
     void addClause(Clause* clause);
 
@@ -58,7 +52,7 @@ public:
 
     std::unordered_map<std::string, Argument>& getSynonymMap();
 
-    std::vector<CandidateStruct>& getCandidateList();
+    std::vector<ArgAttrStruct>& getCandidateList();
 
     bool isBooleanQuery();
 

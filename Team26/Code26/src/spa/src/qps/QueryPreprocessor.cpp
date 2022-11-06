@@ -4,7 +4,7 @@
 namespace QPS {
     std::pair<int, Exception> parseDeclaration(std::vector<QPS::Token> &tokens,int pos,Entity::EntityType entityType,Container &container);
     std::pair<int, Exception> parseSelect(std::vector<QPS::Token> &tokens, int pos, Container &container);
-    std::pair<int, Exception> parseWithObject (std::vector<QPS::Token> &tokens, int pos, Container &container, Argument& argument1, WithClause::WithClauseArgument& arg1);
+    std::pair<int, Exception> parseWithObject (std::vector<QPS::Token> &tokens, int pos, Container &container, Argument& argument1, ArgAttrStruct& arg1);
     std::pair<int, Exception> parseRelation(std::vector<QPS::Token> &tokens, int tokenPos, Container &container, RelationType relationType);
     std::pair<int, Exception> parseEntity(std::vector<QPS::Token> &tokens, int pos, Container &container, Entity::EntityType entityType);
     std::pair<int, Exception> parsePattern(std::vector<QPS::Token> &tokens, int pos, Container &container);
@@ -247,7 +247,7 @@ namespace QPS {
         }
     }
 
-    std::pair<int, Exception> parseWithObject (std::vector<QPS::Token> &tokens, int pos, Container &container, Argument& argument1, WithClause::WithClauseArgument& arg1) {
+    std::pair<int, Exception> parseWithObject (std::vector<QPS::Token> &tokens, int pos, Container &container, Argument& argument1, ArgAttrStruct& arg1) {
         if (pos < tokens.size() && tokens[pos].tokenType == NAME) {
             Argument::ArgumentType argumentType = container.getSynonymType(tokens[pos].nameValue);
             if (argumentType == Argument::INVALID_ARGUMENT_TYPE) {
@@ -284,7 +284,7 @@ namespace QPS {
     }
 
     std::pair<int, Exception> parseWithClause(std::vector<QPS::Token> &tokens, int pos, Container &container) {
-        WithClause::WithClauseArgument arg1, arg2;
+        ArgAttrStruct arg1, arg2;
         Argument argument1, argument2;
         std::pair<int, Exception> result;
         bool is_integer = false;
@@ -741,7 +741,7 @@ namespace QPS {
                 is_select_parsed = true;
                 pos++;
             } else if (pos + 1 < tokens.size() && curr.tokenType == QPS::NAME && tokens[pos + 1].tokenType == DOT) {
-                WithClause::WithClauseArgument arg;
+                ArgAttrStruct arg;
                 Argument argument;
                 std::pair<int, Exception> result = parseWithObject(tokens, pos, container, argument, arg);
                 auto iter1 = WithClause::withClauseValidationTableArg1
@@ -755,7 +755,7 @@ namespace QPS {
                 }
                 if (result.second == VALID) {
                     pos = result.first;
-                    Query::CandidateStruct candidateStruct = {argument, arg.attributeType};
+                    ArgAttrStruct candidateStruct = {argument, arg.attributeType};
                     container.addCandidateList(candidateStruct);
                     continue;
                 } else {
@@ -770,7 +770,7 @@ namespace QPS {
                     return {pos, UNDECLARED_SELECT_ENTITY};
                 }
                 Argument argument = Argument(curr.nameValue, argumentType);
-                Query::CandidateStruct candidateStruct = {argument, INAPPLICABLE};
+                ArgAttrStruct candidateStruct = {argument, INAPPLICABLE};
                 container.addCandidateList(candidateStruct);
                 pos++;
 

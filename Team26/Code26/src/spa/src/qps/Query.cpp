@@ -9,7 +9,7 @@ void Query::addSynonym(Argument& synonym) {
     }
 }
 
-void Query::addCandidate(Query::CandidateStruct &candidate) {
+void Query::addCandidate(ArgAttrStruct &candidate) {
     this->candidateList->push_back(candidate);
 }
 
@@ -62,13 +62,13 @@ std::unordered_map<std::string, Argument>& Query::getSynonymMap() {
     return *this->synonymMap;
 }
 
-std::vector<Query::CandidateStruct>& Query::getCandidateList() {
+std::vector<ArgAttrStruct>& Query::getCandidateList() {
     return *this->candidateList;
 }
 
 bool Query::isBooleanQuery() {
     if (this->candidateList->size() == 1) {
-        CandidateStruct candidate = this->candidateList->at(0);
+        ArgAttrStruct candidate = this->candidateList->at(0);
         if (candidate.argument.argumentType == Argument::BOOLEAN_ARG) {
             return true;
         }
