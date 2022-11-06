@@ -2468,4 +2468,54 @@ if ifs;
 Select ifs such that Modifies (ifs, "line")
 none
 5000
+490 - Modifies 11
+while w;
+Select w such that Modifies (w, "normSq")
+8,11,14
+5000
+491 - Modifies 12
+while w;
+Select w such that Modifies (w, "y")
+none
+5000
+492 - Modifies 13
+call c;
+Select c such that Modifies (c, "d")
+none
+5000
+493 - Modifies 14
+call c;
+Select c such that Modifies (c, "x")
+none
+5000
+494 - Modifies 15
+variable v;
+Select v such that Modifies ("if", v)
+none
+5000
+495 - Modifies 16
+variable v;
+Select v such that Modifies ("else", v)
+none
+5000
+496 - Modifies 17
+variable v;
+Select v such that Modifies ("var1234", v)
+none
+5000
+497 - Modifies 18
+procedure p;
+Select p such that Modifies (p, "count")
+computeCentroid,milestone3test2
+5000
+498 - Modifies 19
+procedure p;
+Select p such that Modifies (p, "print")
+computeCentroid,milestone3test2
+5000
+499 - Modifies 20
+procedure p;
+Select p such that Modifies (p, "pointy")
+computeCentroid,milestone3test2,readPoint
+5000
 
