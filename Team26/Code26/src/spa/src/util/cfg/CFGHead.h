@@ -8,13 +8,13 @@
 #include <unordered_map>
 #include <unordered_set>
 #include <vector>
+#include "util/Common.h"
 #include "CFGNode.h"
 #include "CFGNotInitializedException.h"
 
 class CFGHead;
 
 typedef std::shared_ptr<CFGHead> CFGHeadPtr;
-typedef int STMT_NUM;
 typedef std::vector<CFGNode> EDGES;
 typedef std::unordered_map<STMT_NUM, EDGES> CFGMap;
 typedef std::unordered_map<STMT_NUM, CFGNode> CFGDummyMap;

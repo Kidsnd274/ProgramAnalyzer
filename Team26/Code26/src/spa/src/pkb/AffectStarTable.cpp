@@ -1,7 +1,7 @@
 #include "AffectStarTable.h"
 
 void AffectStarTable::insertAffectStar(int stmt, std::unordered_set<int> affectStarSet) {
-    std::pair<int, std::unordered_set<int>> affectStar (stmt, affectStarSet);
+    std::pair<int, std::unordered_set<int>> affectStar(stmt, affectStarSet);
     this->affectStarList.insert(affectStar);
 }
 

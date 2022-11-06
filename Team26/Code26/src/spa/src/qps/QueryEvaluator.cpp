@@ -13,7 +13,7 @@ void QueryEvaluator::evaluate(Query* query) {
 //    query->clauseList = QueryEvaluator::groupClauses(query->clauseList);
 
     // Add synonyms to the map
-    unordered_map<string, int> synonymCount = countSynonym(query);
+    std::unordered_map<std::string, int> synonymCount = countSynonym(query);
 
     // Evaluate the clauses
     for (auto iter = query->clauseList->begin(); iter != query->clauseList->end(); iter++) {
@@ -32,9 +32,9 @@ void QueryEvaluator::evaluate(Query* query) {
 }
 
 void QueryEvaluator::getAllEntity(Argument argument, QPS::ResultTable *resultTable) {
-    vector<string> synonym = {argument.argumentName};
-    unordered_set<vector<string>, StringVectorHash> results;
-    vector<string> entities = QPS_Interface::getAllEntity(&argument);
+    std::vector<std::string> synonym = {argument.argumentName};
+    std::unordered_set<std::vector<std::string>, StringVectorHash> results;
+    std::vector<std::string> entities = QPS_Interface::getAllEntity(&argument);
     for (auto e: entities) {
         results.insert({e});
     }
@@ -72,7 +72,7 @@ std::vector<Clause*>* QueryEvaluator::groupClauses(std::vector<Clause*>* clauseL
             if (iter != synonymClausesMap.end()) {
                 iter->second.insert(i);
             } else {
-                synonymClausesMap.insert(make_pair(arg1.argumentName, unordered_set<int> {i}));
+                synonymClausesMap.insert(make_pair(arg1.argumentName, std::unordered_set<int> {i}));
             }
         }
         if (Argument::isSynonym(arg2.argumentType)) {
@@ -81,7 +81,7 @@ std::vector<Clause*>* QueryEvaluator::groupClauses(std::vector<Clause*>* clauseL
             if (iter != synonymClausesMap.end()) {
                 iter->second.insert(i);
             } else {
-                synonymClausesMap.insert(make_pair(arg2.argumentName, unordered_set<int> {i}));
+                synonymClausesMap.insert(make_pair(arg2.argumentName, std::unordered_set<int> {i}));
             }
         }
         if (numOfSynonyms == 0) { // Clauses without synonym will be put into group 1 directly.
@@ -104,14 +104,14 @@ std::vector<Clause*>* QueryEvaluator::groupClauses(std::vector<Clause*>* clauseL
 
     // Iterate through clauseList and put clauses into corresponding group list.
     int numOfGroups = ufds->getNumberOfGroups();
-    unordered_map<int, std::vector<int>> groups;
+    std::unordered_map<int, std::vector<int>> groups;
     for (int i = 0; i < clauseList->size(); i++) {
         int groupNumber = ufds->find(i);
         auto iter = groups.find(groupNumber);
         if (iter != groups.end()) {
             iter->second.push_back(i);
         } else {
-            groups.insert(make_pair(groupNumber, i));
+            groups.insert(std::make_pair(groupNumber, i));
         }
     }
 
@@ -131,7 +131,7 @@ std::unordered_map<std::string, int>
 QueryEvaluator::countSynonym(Query* query) {
     std::vector<Clause *> *clauseList = query->clauseList;
     std::unordered_set<std::string> candidates = query->getCandidates();
-    unordered_map<string, int> synonymCount = {};
+    std::unordered_map<std::string, int> synonymCount = {};
     for (auto clause: *clauseList) {
         Argument arg1 = clause->getFirstArgument();
         Argument arg2 = clause->getSecondArgument();

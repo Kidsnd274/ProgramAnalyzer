@@ -1,7 +1,7 @@
 #include "NextStarTable.h"
 
 void NextStarTable::insertNextStar(STMT_NUM stmt, std::unordered_set<STMT_NUM> nextStarSet) {
-    std::pair<STMT_NUM, std::unordered_set<STMT_NUM>> nextStar (stmt, nextStarSet);
+    std::pair<STMT_NUM, std::unordered_set<STMT_NUM>> nextStar(stmt, nextStarSet);
     this->nextStarList.insert(nextStar);
 }
 

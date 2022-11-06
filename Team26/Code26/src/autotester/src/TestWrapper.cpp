@@ -22,10 +22,10 @@ TestWrapper::TestWrapper() {
 void TestWrapper::parse(std::string filename) {
     try {
         // Read the file first
-        ifstream sourceFile;
+        std::ifstream sourceFile;
         sourceFile.open(filename);
         if (!sourceFile) {
-            std::cout << "No such file!" << endl;
+            std::cout << "No such file!" << std::endl;
             exit(1);
         }
         std::string sourceProgram;

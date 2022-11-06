@@ -1,22 +1,17 @@
-//
-// Created by QMS on 4/9/2022.
-//
-
 #ifndef SPA_PROCEDURE_H
 #define SPA_PROCEDURE_H
 
-#include <stdio.h>
+#include <memory>
 #include <string>
+#include <utility>
 #include "util/cfg/CFGHead.h"
-
-using namespace std;
 
 class Procedure {
 public:
-    string name;
-    int startingStmtNo;
-    int endingStmtNo;
+    std::string name;
+    STMT_NUM startingStmtNo;
+    STMT_NUM endingStmtNo;
     std::shared_ptr<CFGHead> cfg;
 };
 
-#endif //SPA_PROCEDURE_H
+#endif  // SPA_PROCEDURE_H
