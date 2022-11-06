@@ -37,7 +37,7 @@ void QueryEvaluator::evaluate(Query* query) {
 
     // Group the clauses
     QueryEvaluator::groupClauses(query->clauseList->size(), clauseStruct);
-    sort(clauseStruct, clauseStruct + query->clauseList->size(), lessThan);
+    std::sort(clauseStruct, clauseStruct + query->clauseList->size(), lessThan);
 
     // Merge the result tables
     ResultTable* resultOfEvaluation = new ResultTable();
