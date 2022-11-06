@@ -4,4 +4,4 @@
 typedef int STMT_NUM;
 typedef int STMT_LIST_NUM;
 
-#endif //SPA_COMMON_H
+#endif  // SPA_COMMON_H

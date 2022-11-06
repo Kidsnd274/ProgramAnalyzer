@@ -1,8 +1,5 @@
 #include "Parser.h"
 
-#include <utility>
-#include "pkb/PKB.h"
-
 void Parser::parseSimple() {
     int numOfProcedures = 0;
     std::vector<std::shared_ptr<ProcedureNode>> procedures;
@@ -161,22 +158,6 @@ std::shared_ptr<TNode> Parser::parseRel() {
     std::shared_ptr<TNode> relFactor2 = std::move(parseExpression());
 
     return TNode::createRelationalExpression(statementCount, relToken, relFactor, relFactor2);
-}
-
-std::shared_ptr<TNode> Parser::parseRelFactor() {
-    if (tokenStack->isNextTokenNonTerminal()) {
-        std::string name = tokenStack->checkAndReturnNextToken(SPTokenType::NameToken);
-        pkbInterface->addVariable(name);
-
-        return TNode::createVariableName(statementCount, name);
-    } else if (tokenStack->isNextTokenOfType(SPTokenType::ConstToken)) {
-        std::string constant = tokenStack->checkAndReturnNextToken(SPTokenType::ConstToken);
-        pkbInterface->addConst(std::stoi(constant));
-
-        return TNode::createConstantValue(statementCount, constant);
-    } else {
-        return parseExpression();
-    }
 }
 
 std::shared_ptr<WhileNode> Parser::parseWhile(STMT_LIST_NUM stmtListNum) {
