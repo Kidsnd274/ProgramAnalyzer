@@ -117,11 +117,8 @@ namespace QPS {
          */
         void deleteDuplicateRows(const std::vector<std::string>& sNames);
 
-        void printTable();
         std::vector<std::vector<std::string>> getTable();
         std::unordered_map<std::string, int> getSynonymColRef();
-        static void printStringVector(const std::vector<std::string>& v);
-        void printIntVector(const std::vector<int>& v);
         void emptyTable();
         void replace(ResultTable* otherTable);
         void setTable(std::vector<std::vector<std::string>>& newTable);

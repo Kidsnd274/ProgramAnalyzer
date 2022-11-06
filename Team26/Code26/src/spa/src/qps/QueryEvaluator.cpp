@@ -35,6 +35,8 @@ void QueryEvaluator::evaluate(Query* query) {
         clauseAssigner->assignClause(resultTable, query->clauseList->at(i));
         if (resultTable->isFalseTable() || resultTable->isEmptyTable()) {
             query->resultTable->setFalseTable();
+            delete resultTable;
+            delete clauseAssigner;
             return;
         }
         clauseStruct[i] = {
@@ -61,6 +63,7 @@ void QueryEvaluator::evaluate(Query* query) {
     }
     delete[] clauseStruct;
 
+
     // For candidates not in result table, get all entities and merge.
     for (auto synonym : query->getCandidateList()) {
         if (!resultOfEvaluation->isSynonymPresent(synonym.argument.argumentName)) {
@@ -69,6 +72,9 @@ void QueryEvaluator::evaluate(Query* query) {
     }
 
     query->resultTable->replace(resultOfEvaluation);
+    delete resultOfEvaluation;
+    delete clauseAssigner;
+
 }
 
 void QueryEvaluator::getAllEntity(Argument argument, QPS::ResultTable *resultTable) {
@@ -80,6 +86,7 @@ void QueryEvaluator::getAllEntity(Argument argument, QPS::ResultTable *resultTab
     }
     ResultTable* entityTable = new ResultTable(synonym, results);
     resultTable->mergeTable(*entityTable);
+    delete entityTable;
 }
 
 void QueryEvaluator::groupClauses(int n, ClauseStruct* clauseStruct) {

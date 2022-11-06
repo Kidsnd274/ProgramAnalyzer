@@ -1,20 +1,6 @@
 #include "QueryResultProjector.h"
 #include "QPS_Interface.h"
 
-void QueryResultProjector::projectResult(Query query, std::list<std::string> &results) {
-    QPS::ResultTable* resultTable = query.resultTable;
-    auto candidateList = query.getCandidateList();
-    std::vector<std::string> synonyms;
-    for (auto &candidate : candidateList) {
-        synonyms.push_back(candidate.argument.argumentName);
-    }
-    std::unordered_set<std::vector<std::string>, QPS::StringVectorHash> values;
-    resultTable->getSynonymsValues(synonyms, values);
-    QPS::ResultTable result = QPS::ResultTable(synonyms, values);
-    result.deleteDuplicateRows({});
-    result.printTable();
-}
-
 
 std::string QueryResultProjector::getSelectTuples(Query query, std::list<std::string> &results) {
     if (query.getStatus() == SYNTAX_ERROR) {
