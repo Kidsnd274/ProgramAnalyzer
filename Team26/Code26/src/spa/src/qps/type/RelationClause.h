@@ -13,8 +13,6 @@ enum RelationType {
     PARENT_T,   // Parent*(stmtRef, stmtRef)
     USES_S,
     MODIFIES_S,
-    USES_P,
-    MODIFIES_P,
     CALLS,
     CALLS_T,
     NEXT,

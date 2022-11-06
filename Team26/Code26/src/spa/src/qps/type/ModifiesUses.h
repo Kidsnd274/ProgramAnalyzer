@@ -3,15 +3,15 @@
 
 #include "RelationClause.h"
 
-class Modifies : public RelationClause {
+class ModifiesUses : public RelationClause {
 protected:
     const static std::unordered_map<
             Argument::ArgumentType,
             std::unordered_set<Argument::ArgumentType>
-            > modifiesValidationTable;
+    > modifiesValidationTable;
 
 public:
-    Modifies(Argument arg1, Argument arg2, RelationType relationType) : RelationClause(arg1, arg2, relationType) {
+    ModifiesUses(Argument arg1, Argument arg2, RelationType relationType) : RelationClause(arg1, arg2, relationType) {
         this->relationType = relationType;
     }
 

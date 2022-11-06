@@ -9,11 +9,10 @@
 #include "qps/type/WithClause.h"
 #include "qps/type/Follows.h"
 #include "qps/type/Parent.h"
-#include "qps/type/Uses.h"
-#include "qps/type/Modifies.h"
 #include "qps/type/Calls.h"
 #include "qps/type/Next.h"
 #include "qps/type/Affects.h"
+#include "qps/type/ModifiesUses.h"
 #include <list>
 #include <vector>
 #include <string>
@@ -96,22 +95,12 @@ namespace QPS {
                     break;
                 }
                 case USES_S:{
-                    Uses* clause = new Uses(arg1, arg2, USES_S);
+                    ModifiesUses* clause = new ModifiesUses(arg1, arg2, USES_S);
                     this->queryStruct.addClause(clause);
                     break;
                 }
                 case MODIFIES_S:{
-                    Modifies* clause = new Modifies(arg1, arg2, MODIFIES_S);
-                    this->queryStruct.addClause(clause);
-                    break;
-                }
-                case USES_P:{
-                    Uses* clause = new Uses(arg1, arg2, USES_S);
-                    this->queryStruct.addClause(clause);
-                    break;
-                }
-                case MODIFIES_P:{
-                    Modifies* clause = new Modifies(arg1, arg2, MODIFIES_S);
+                    ModifiesUses* clause = new ModifiesUses(arg1, arg2, MODIFIES_S);
                     this->queryStruct.addClause(clause);
                     break;
                 }
