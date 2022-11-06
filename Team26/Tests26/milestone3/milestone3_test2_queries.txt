@@ -2198,3 +2198,103 @@ while w;
 Select w such that Parent* (w, _)
 1,8,11,14,20,33
 5000
+436 - ms2 101
+if ifs;
+Select ifs such that Parent*(_, ifs)
+9
+5000
+437 - ms2 102
+if ifs;
+Select ifs such that Parent* (ifs, _)
+5,9,38
+5000
+438 - ms2 103
+assign a;
+Select a such that Parent* (_, a)
+2,3,6,7,10,12,15,17,19,21,34,35,36,39,40,41
+5000
+439 - ms2 104
+call c;
+Select c such that Parent* (_, c)
+18,37
+5000
+440 - ms2 105
+while w; call c;
+Select w such that Parent* (w, c)
+8,11,14,33
+5000
+441 - ms2 106
+assign a; while w;
+Select w such that Parent* (w, a)
+1,8,11,14,20,33
+5000
+442 - ms2 107
+if ifs; assign a;
+Select a such that Parent* (ifs, a)
+6,7,10,12,15,17,19,21,39,40,41
+5000
+443 - ms2 108
+while w1, w2;
+Select w2 such that Parent* (w1, w2)
+11,14,20
+5000
+444 - ms2 109
+if ifs; while w;
+Select ifs such that Parent* (ifs, w)
+5,9
+5000
+445 - ms2 110
+if ifs1, ifs2;
+Select ifs1 such that Parent* (ifs1, ifs2)
+5
+5000
+446 - ms2 111
+print pr; while w;
+Select pr such that Parent* (w, pr)
+13,22
+5000
+447 - ms2 112
+print pr; if ifs;
+Select pr such that Parent* (ifs, pr)
+13,22
+5000
+448 - ms2 113
+variable v;
+Select v such that Uses (19, v)
+call
+5000
+449 - ms2 114
+variable v;
+Select v such that Uses (42, v)
+cenX,cenY
+5000
+450 - ms2 115
+variable v;
+Select v such that Uses (16, v)
+none
+5000
+451 - ms2 116
+variable v;
+Select v such that Uses (9, v)
+call,cenX,cenY,count,d,else,if,k,kkk,normSq,pointx,pointy,print,while,x,xy,y,zy
+5000
+452 - ms2 117
+variable v;
+Select v such that Uses (27, v)
+cenY
+5000
+453 - ms2 118
+stmt s;
+Select s such that Uses (s, "var1234")
+1,3,5,8
+5000
+454 - ms2 119
+stmt s;
+Select s such that Uses (s, "if")
+5,8,9
+5000
+455 - ms2 120
+assign a;
+Select a such that Uses (a, "d")
+17
+5000
