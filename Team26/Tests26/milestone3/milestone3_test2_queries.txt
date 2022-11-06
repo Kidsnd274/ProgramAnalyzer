@@ -2298,3 +2298,8 @@ assign a;
 Select a such that Uses (a, "d")
 17
 5000
+456 - semanticerorr pattern
+while w; procedure p;
+Select w pattern w(p,_)
+SemanticError
+5000
