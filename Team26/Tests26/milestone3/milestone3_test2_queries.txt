@@ -2318,3 +2318,53 @@ if ifs; procedure p;
 Select ifs pattern ifs(p,_)
 SyntaxError
 5000
+460 - uses 1
+assign a;
+Select a such that Uses (a, "x")
+2,15,17
+5000
+461 - uses 2
+if ifs;
+Select ifs such that Uses (ifs, "pointx")
+5,9
+5000
+462 - uses 3
+if ifs;
+Select ifs such that Uses (ifs, "else")
+5,9
+5000
+463 - uses 4
+while w;
+Select w such that Uses (w, "cenY")
+8,11,14,33
+5000
+464 - uses 5
+while w;
+Select w such that Uses (w, "cenX")
+8,11,14,33
+5000
+465 - uses 6
+call c;
+Select c such that Uses (c, "count")
+18
+5000
+466 - uses 7
+call c;
+Select c such that Uses (c, "while")
+none
+5000
+467 - uses 8
+variable v;
+Select v such that Uses ("var1234", v)
+none
+5000
+468 - uses 9
+variable v;
+Select v such that Uses ("Random", v)
+none
+5000
+469 - uses 10
+variable v;
+Select v such that Uses ("if", v)
+none
+5000
