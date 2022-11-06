@@ -16,9 +16,6 @@ void QPS_Interface::clearRuntimeExtractor() {
     QPS_Interface::runtimeExtractor->clearCache();
 }
 
-std::shared_ptr<AssignNode> getAssignTNode(std::string assignRef) {
-    return QPS_Interface::pkbInterface->getAssignTNode(assignRef);
-}
 
 
 std::unordered_map<int, int> QPS_Interface::getAllFollowsRelations() {
