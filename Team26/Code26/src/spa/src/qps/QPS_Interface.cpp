@@ -25,24 +25,24 @@ std::unordered_map<int, int> QPS_Interface::getAllFollowsRelations() {
     return QPS_Interface::pkbInterface->getAllFollow();
 }
 
+std::unordered_map<int, std::vector<std::string>> QPS_Interface::getAllUsesRelations() {
+    return QPS_Interface::pkbInterface->getAllUseByStmt();
+}
+
+std::unordered_map<int, std::vector<std::string>> QPS_Interface::getAllModifiesRelations() {
+    return QPS_Interface::pkbInterface->getAllModifyByStmt();
+}
+
 std::unordered_map<std::string, std::vector<std::string>> QPS_Interface::getAllCallRelations() {
     return QPS_Interface::pkbInterface->getAllCall();
 }
 
 std::unordered_map<std::string, std::vector<std::string>> QPS_Interface::getAllCallTRelations() {
-        return QPS_Interface::pkbInterface->getAllCallStar();
-}
-
-std::unordered_map<int, std::vector<std::string>> QPS_Interface::getAllUsesRelations() {
-    return QPS_Interface::pkbInterface->getAllUseByStmt();
+    return QPS_Interface::pkbInterface->getAllCallStar();
 }
 
 std::unordered_map<std::string, std::vector<std::string>> QPS_Interface::getAllUsesProcRelations() {
     return QPS_Interface::pkbInterface->getAllUseByProc();
-}
-
-std::unordered_map<int, std::vector<std::string>> QPS_Interface::getAllModifiesRelations() {
-    return QPS_Interface::pkbInterface->getAllModifyByStmt();
 }
 
 std::unordered_map<std::string, std::vector<std::string>> QPS_Interface::getAllModifiesProcRelations() {
@@ -105,64 +105,28 @@ std::unordered_set<std::string> QPS_Interface::getAllEntity(Argument *argument) 
     return resultSet;
 }
 
-std::string QPS_Interface::getProcLineNumberByName(std::string procName) {
-    return pkbInterface->getProcLineNumberByName(procName);
-}
 
-std::string QPS_Interface::getCallProcName(std::string callLineNumber) {
-    return pkbInterface->getCallProcName(callLineNumber);
-}
-
-std::string QPS_Interface::getReadVarName(std::string readLineNumber) {
-    return pkbInterface->getReadVarName(readLineNumber);
-}
-
-std::string QPS_Interface::getPrintVarName(std::string printLineNumber) {
-    return pkbInterface->getPrintVarName(printLineNumber);
-}
 
 std::vector<std::string> QPS_Interface::getConditionVarNameByStmtNum(std::string containerLineNumber) {
     return pkbInterface->getConditionVar(containerLineNumber);
 }
 
-std::string QPS_Interface::getAttrName(std::string value, WithClause::WithClauseArgument candidate) {
+std::string QPS_Interface::getAttrName(std::string value, ArgAttrStruct candidate) {
     if (candidate.attributeType == AttributeType::STMT_LINE_NUMBER
         && candidate.argument.argumentType == Argument::PROCEDURE_SYNONYM) {
-        std::string temp = QPS_Interface::getProcLineNumberByName(value);
-        return QPS_Interface::getProcLineNumberByName(value);
+        return pkbInterface->getProcLineNumberByName(value);
     }
     if (candidate.attributeType == AttributeType::PROC_NAME
         && candidate.argument.argumentType == Argument::CALL_SYNONYM) {
-        return QPS_Interface::getCallProcName(value);
+        return pkbInterface->getCallProcName(value);
     }
     if (candidate.attributeType == AttributeType::WITH_VAR_NAME
         && candidate.argument.argumentType == Argument::READ_SYNONYM) {
-        return QPS_Interface::getReadVarName(value);
+        return pkbInterface->getReadVarName(value);
     }
     if (candidate.attributeType == AttributeType::WITH_VAR_NAME
         && candidate.argument.argumentType == Argument::PRINT_SYNONYM) {
-        return QPS_Interface::getPrintVarName(value);
-    }
-    return value;
-}
-
-std::string QPS_Interface::getAttrName(std::string value, Query::CandidateStruct candidate) {
-    if (candidate.attributeType == AttributeType::STMT_LINE_NUMBER
-        && candidate.argument.argumentType == Argument::PROCEDURE_SYNONYM) {
-        std::string temp = QPS_Interface::getProcLineNumberByName(value);
-        return QPS_Interface::getProcLineNumberByName(value);
-    }
-    if (candidate.attributeType == AttributeType::PROC_NAME
-        && candidate.argument.argumentType == Argument::CALL_SYNONYM) {
-        return QPS_Interface::getCallProcName(value);
-    }
-    if (candidate.attributeType == AttributeType::WITH_VAR_NAME
-        && candidate.argument.argumentType == Argument::READ_SYNONYM) {
-        return QPS_Interface::getReadVarName(value);
-    }
-    if (candidate.attributeType == AttributeType::WITH_VAR_NAME
-        && candidate.argument.argumentType == Argument::PRINT_SYNONYM) {
-        return QPS_Interface::getPrintVarName(value);
+        return pkbInterface->getPrintVarName(value);
     }
     return value;
 }

@@ -14,7 +14,7 @@ public:
     static void evaluate(Query* query);
     static void getAllEntity(Argument argument, QPS::ResultTable* resultTable);
     static void changeToAttrName(Query* query, QPS::ResultTable* resultTable);
-    static std::string getAttrName(std::string value, Query::CandidateStruct candidate);
+    static std::string getAttrName(std::string value, ArgAttrStruct candidate);
 
     // For optimization
     static void groupClauses(int n, ClauseStruct* clauseStruct);

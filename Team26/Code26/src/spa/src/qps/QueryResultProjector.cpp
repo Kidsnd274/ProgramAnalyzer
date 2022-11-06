@@ -42,15 +42,6 @@ std::string QueryResultProjector::getSelectTuples(Query query, std::list<std::st
         for (auto &candidate: query.getCandidateList()) {
             synonyms.push_back(candidate.argument.argumentName);
         }
-//        query.resultTable->getSynonymsValues(synonyms, tupleValues);
-//        for (auto row: tupleValues) {
-//            std::string rowString;
-//            std::for_each(row.begin(), row.end(), [&](const std::string &piece) { rowString += piece + " "; });
-//            std::string trimmedRowString = rowString.substr(0, rowString.length() - 1);
-//            resultString += trimmedRowString + ", ";
-//            rowStringSet.insert(trimmedRowString);
-//            results.push_back(trimmedRowString);
-//        }
         for (auto row : query.resultTable->getTable()) {
             std::string rowString;
             for (auto &candidate : query.getCandidateList()) {
