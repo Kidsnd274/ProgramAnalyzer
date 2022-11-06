@@ -39,11 +39,11 @@ void RelationClauseEvaluator::evaluate(QPS::ResultTable *resultTable) {
             break;
         }
         case (::RelationType::PARENT): {
-            filterRelations(QPS_Interface::getAllParentRelations(), resultTable);
+            filterRelations(QPS_Interface::getAllParentRelations(PARENT), resultTable);
             break;
         }
         case (::RelationType::PARENT_T): {
-            filterRelations(QPS_Interface::getAllParentTRelations(), resultTable);
+            filterRelations(QPS_Interface::getAllParentRelations(PARENT_T), resultTable);
             break;
         }
         case (::RelationType::USES_S): {
