@@ -31,7 +31,7 @@ std::string ProcedureTable::getProcedureNameOf(CFGHeadPtr cfg) {
 
 Procedure ProcedureTable::getProcedureByName(std::string name) {
     Procedure result;
-    for (Procedure proc : this->procList) {
+    for (Procedure &proc : this->procList) {
         if (proc.name == name)  {
             return proc;
         }
@@ -40,7 +40,7 @@ Procedure ProcedureTable::getProcedureByName(std::string name) {
 }
 
 Procedure* ProcedureTable::getProcByStmt(int stmt) {
-    for (Procedure proc : this->procList) {
+    for (Procedure &proc : this->procList) {
         if ((stmt >= proc.startingStmtNo) && (stmt <= proc.endingStmtNo))  {
             return &proc;
         }

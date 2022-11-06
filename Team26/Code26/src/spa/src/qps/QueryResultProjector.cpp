@@ -33,7 +33,7 @@ std::string QueryResultProjector::getSelectTuples(Query query, std::list<std::st
     std::unordered_set<std::vector<std::string>, QPS::StringVectorHash> tupleValues;
 
     if (query.isBooleanQuery()) {
-        if (!table.empty() || query.clauseList->empty()) {
+        if (!table.empty() || query.clauseList->empty() || query.resultTable->isTrueTable()) {
             results.push_back("TRUE");
         } else {
             results.push_back("FALSE");

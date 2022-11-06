@@ -20,7 +20,11 @@ void Query::addClause(Clause* clause) {
 void Query::validate() {
     for (auto clause : *this->clauseList) {
         if (!clause->isValid()) {
-            this->setStatus(SEMANTIC_ERROR);
+            if (typeid(*clause) == typeid(WithClause)) {
+                this->setStatus(SYNTAX_ERROR);
+            } else {
+                this->setStatus(SEMANTIC_ERROR);
+            }
         }
     }
 }
@@ -74,7 +78,7 @@ bool Query::isBooleanQuery() {
 
 std::unordered_set<std::string> Query::getCandidates() {
     std::unordered_set<std::string> candidates;
-    for (auto c: *this->candidateList) {
+    for (auto c : *this->candidateList) {
         if (Argument::isSynonym(c.argument.argumentType)) {
             candidates.insert(c.argument.argumentName);
         }

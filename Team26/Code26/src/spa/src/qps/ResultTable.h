@@ -48,7 +48,7 @@ namespace QPS {
             return this->type == TRUE;
         }
         ResultTable(){
-            type = NORMAL;
+            type = TRUE;
             isInitialized = false;
             colNum = 0;
             rowNum = 1;
@@ -56,7 +56,7 @@ namespace QPS {
             this->table.emplace_back(emptyRow);
         }
         ResultTable(const std::vector<std::string>& sNames, const std::unordered_set<std::vector<std::string>, StringVectorHash>& entries);
-        bool deleteColFromTable(const std::string& sName);
+        bool deleteColFromTable(const std::vector<std::string>& sName);
 
         /**
          * Delete a row indicated by row number.
@@ -125,6 +125,8 @@ namespace QPS {
         void emptyTable();
         void replace(ResultTable* otherTable);
         void setTable(std::vector<std::vector<std::string>>& newTable);
+        int getColNum();
+        bool isEmptyTable();
     };
 
     void suspendExecution(const std::string& errorMsg);

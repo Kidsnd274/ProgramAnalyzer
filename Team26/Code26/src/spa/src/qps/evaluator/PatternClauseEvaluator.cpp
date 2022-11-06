@@ -58,7 +58,7 @@ WildcardPosition PatternClauseEvaluator::getWildcardPosition() {
 }
 
 void PatternClauseEvaluator::evaluateContainer(QPS::ResultTable *resultTable) {
-    std::vector<std::string> stmtNumbers = QPS_Interface::getAllEntity(&this->patternClause->argument1);
+    std::unordered_set<std::string> stmtNumbers = QPS_Interface::getAllEntity(&this->patternClause->argument1);
     std::unordered_set<std::vector<std::string>, StringVectorHash> result;
     for (auto s: stmtNumbers) {
         std::vector<std::string> varNames = QPS_Interface::getConditionVarNameByStmtNum(s);

@@ -5,6 +5,7 @@
 #include "pkb/Statement.h"
 #include "sp/rte/RuntimeExtractor.h"
 #include "type/Argument.h"
+#include "type/RelationClause.h"
 #include "Query.h"
 
 class QPS_Interface {
@@ -17,6 +18,8 @@ public:
 
     static void createRuntimeExtractor();
 
+    static void clearRuntimeExtractor();
+
     /**
      * Call PKB interface to get the AST TNode of a certain assign statement.
      *
@@ -26,22 +29,18 @@ public:
     static std::shared_ptr<AssignNode> getAssignTNode(std::string assignRef);
 
     /**
+     * Call PKB interface to get all parent relations in ParentTable.
+     * @return a vector containing all the parent relations.
+     */
+    static std::unordered_map<int, std::vector<int>> getAllParentRelations(RelationType relationType);
+
+
+    /**
      * Call PKB interface to get all follows relations in FollowsTable.
      * @return a vector containing all the follows relations.
      */
     static std::unordered_map<int, int> getAllFollowsRelations();
 
-    /**
-     * Call PKB interface to get all parent relations in ParentTable.
-     * @return a vector containing all the parent relations.
-     */
-    static std::unordered_map<int, std::vector<int>> getAllParentRelations();
-
-    /**
-     * Call PKB interface to get all parent* relations in ParentTable.
-     * @return a vector containing all the parent* relations.
-     */
-    static std::unordered_map<int, std::vector<int>> getAllParentTRelations();
 
 
     /**
@@ -80,29 +79,6 @@ public:
      */
     static std::unordered_map<std::string, std::vector<std::string>> getAllUsesProcRelations();
 
-    /**
-     * Call PKB interface to get all affects relations in AffectsTable.
-     * @return a vector containing all the affects relations.
-     */
-    static std::vector<std::pair<int, int>> getAllAffectsRelations();
-
-    /**
-     * Call PKB interface to get all procedure affects relations in AffectsTable.
-     * @return a vector containing all the procedure affects relations.
-     */
-    static std::vector<std::pair<int, int>> getAllAffectsTRelations();
-
-    /**
-     * Call PKB interface to get all next relations in NextTable.
-     * @return a vector containing all the next relations.
-     */
-    static std::unordered_map<int, std::vector<int>> getAllNextRelations();
-
-    /**
-     * Call PKB interface to get all procedure xt relations in NextTable.
-     * @return a vector containing all the procedure next relations.
-     */
-    static std::vector<std::pair<int, int>> getAllNextTRelations();
 
     /**
      * Call PKB interface to get all assignments in StatementTable.
@@ -122,7 +98,7 @@ public:
      * @param argument
      * @return
      */
-    static std::vector<std::string> getAllEntity(Argument* argument);
+    static std::unordered_set<std::string> getAllEntity(Argument* argument);
 
     /**
      * Call PKB interface to get the line number of a certain procedure.

@@ -83,11 +83,11 @@ void WithClauseEvaluator::evaluate(QPS::ResultTable *resultTable) {
     if (Argument::isSynonym(arg1.argument.argumentType)) {
         std::vector<std::string> synonyms = {arg1.argument.argumentName};
         std::unordered_set<std::vector<std::string>, QPS::StringVectorHash> lines;
-        std::vector<std::string> valuesList1 = QPS_Interface::getAllEntity(&arg1.argument);
+        std::unordered_set<std::string> valuesList1 = QPS_Interface::getAllEntity(&arg1.argument);
         // SYNONYM, SYNONYM
         if (Argument::isSynonym(arg2.argument.argumentType)) {
             synonyms.push_back(arg2.argument.argumentName);
-            std::vector<std::string> valuesList2 = QPS_Interface::getAllEntity(&arg2.argument);
+            std::unordered_set<std::string> valuesList2 = QPS_Interface::getAllEntity(&arg2.argument);
             for (auto value1 : valuesList1) {
                 for (auto value2 : valuesList2) {
                     if (QPS_Interface::getAttrName(value1, arg1) == QPS_Interface::getAttrName(value2, arg2)) {
@@ -95,7 +95,7 @@ void WithClauseEvaluator::evaluate(QPS::ResultTable *resultTable) {
                     }
                 }
             }
-            resultTable = new ResultTable(synonyms, lines);
+            resultTable->replace(new ResultTable(synonyms, lines));
             return;
         }
         // SYNONYM, ACTUAL_NAME or NUMBER
@@ -104,7 +104,7 @@ void WithClauseEvaluator::evaluate(QPS::ResultTable *resultTable) {
                 lines.insert(std::vector<std::string> {value1});
             }
         }
-        resultTable = new ResultTable(synonyms, lines);
+        resultTable->replace(new ResultTable(synonyms, lines));
         return;
     }
 }

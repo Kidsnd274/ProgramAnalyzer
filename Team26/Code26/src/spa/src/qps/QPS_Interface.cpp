@@ -12,20 +12,17 @@ void QPS_Interface::createRuntimeExtractor() {
     QPS_Interface::runtimeExtractor = new RuntimeExtractor(QPS_Interface::pkbInterface);
 }
 
+void QPS_Interface::clearRuntimeExtractor() {
+    QPS_Interface::runtimeExtractor->clearCache();
+}
+
 std::shared_ptr<AssignNode> getAssignTNode(std::string assignRef) {
     return QPS_Interface::pkbInterface->getAssignTNode(assignRef);
 }
 
+
 std::unordered_map<int, int> QPS_Interface::getAllFollowsRelations() {
     return QPS_Interface::pkbInterface->getAllFollow();
-}
-
-std::unordered_map<int, std::vector<int>> QPS_Interface::getAllParentRelations() {
-    return QPS_Interface::pkbInterface->getAllParent();
-}
-
-std::unordered_map<int, std::vector<int>> QPS_Interface::getAllParentTRelations() {
-    return QPS_Interface::pkbInterface->getAllParentStar();
 }
 
 std::unordered_map<std::string, std::vector<std::string>> QPS_Interface::getAllCallRelations() {
@@ -52,24 +49,7 @@ std::unordered_map<std::string, std::vector<std::string>> QPS_Interface::getAllM
     return QPS_Interface::pkbInterface->getAllModifyByProc();
 }
 
-std::vector<std::pair<int, int>> QPS_Interface::getAllAffectsRelations() {
-//    return QPS_Interface::pkbInterface->getAllAffects();
-    return {};
-}
 
-std::vector<std::pair<int, int>> QPS_Interface::getAllAffectsTRelations() {
-//    return QPS_Interface::pkbInterface->getAllAffectsProc();
-    return {};
-}
-
-std::unordered_map<int, std::vector<int>> QPS_Interface::getAllNextRelations() {
-    return QPS_Interface::pkbInterface->getAllNext();
-}
-
-std::vector<std::pair<int, int>> QPS_Interface::getAllNextTRelations() {
-//    return QPS_Interface::pkbInterface->getAllNextProc();
-    return {};
-}
 std::vector<std::string> QPS_Interface::getAllAssigns() {
     return QPS_Interface::pkbInterface->getAllAssigns();
 }
@@ -82,31 +62,47 @@ std::shared_ptr<AssignNode> QPS_Interface::getAssignTNode(std::string assignRef)
     return pkbInterface->getAssignTNode(assignRef);
 }
 
-std::vector<std::string> QPS_Interface::getAllEntity(Argument *argument) {
+std::unordered_set<std::string> QPS_Interface::getAllEntity(Argument *argument) {
+    std::vector<std::string> result;
+    std::unordered_set<std::string> resultSet;
     switch (argument->argumentType) {
         case Argument::STMT_SYNONYM:
-            return pkbInterface->getAllStmts();
+            result = pkbInterface->getAllStmts();
+            break;
         case Argument::READ_SYNONYM:
-            return pkbInterface->getAllReads();
+            result = pkbInterface->getAllReads();
+            break;
         case Argument::PRINT_SYNONYM:
-            return pkbInterface->getAllPrints();
+            result = pkbInterface->getAllPrints();
+            break;
         case Argument::CALL_SYNONYM:
-            return pkbInterface->getAllCalls();
+            result = pkbInterface->getAllCalls();
+            break;
         case Argument::WHILE_SYNONYM:
-            return pkbInterface->getAllWhiles();
+            result = pkbInterface->getAllWhiles();
+            break;
         case Argument::IF_SYNONYM:
-            return pkbInterface->getAllIfs();
+            result = pkbInterface->getAllIfs();
+            break;
         case Argument::ASSIGN_SYNONYM:
-            return pkbInterface->getAllAssigns();
+            result = pkbInterface->getAllAssigns();
+            break;
         case Argument::VAR_SYNONYM:
-            return pkbInterface->getAllVariables();
+            result = pkbInterface->getAllVariables();
+            break;
         case Argument::CONST_SYNONYM:
-            return pkbInterface->getAllConstants();
+            result = pkbInterface->getAllConstants();
+            break;
         case Argument::PROCEDURE_SYNONYM:
-            return pkbInterface->getAllProcedures();
+            result = pkbInterface->getAllProcedures();
+            break;
         default:
             return {};
     }
+    for (auto i : result) {
+        resultSet.insert(i);
+    }
+    return resultSet;
 }
 
 std::string QPS_Interface::getProcLineNumberByName(std::string procName) {
@@ -173,7 +169,6 @@ std::string QPS_Interface::getAttrName(std::string value, Query::CandidateStruct
 
 CFGHeadPtr QPS_Interface::getCFGHeadPtrByProc(STMT_NUM stmt) {
     return QPS_Interface::pkbInterface->getCFGHeadPtrByProc(stmt);
-    return nullptr;
 }
 
 Procedure* QPS_Interface::getProcByStmt(STMT_NUM stmt) {
@@ -213,3 +208,15 @@ std::unordered_set<STMT_NUM> QPS_Interface::getAffectsStar(STMT_NUM stmt) {
     }
     return QPS_Interface::pkbInterface->getAffectsStar(stmt);
 }
+
+std::unordered_map<int, std::vector<int>> QPS_Interface::getAllParentRelations(RelationType relationType) {
+    if (relationType == PARENT) {
+        return QPS_Interface::pkbInterface->getAllParent();
+    } else if (relationType == PARENT_T) {
+        return QPS_Interface::pkbInterface->getAllParentStar();
+    } else {
+        return {};
+    }
+}
+
+
