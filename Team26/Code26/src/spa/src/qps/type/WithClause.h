@@ -17,10 +17,6 @@ enum AttributeType {
 
 class WithClause : public Clause {
 protected:
-    const static std::unordered_map<
-         Argument::ArgumentType,
-         std::unordered_set<AttributeType>
-         > withClauseValidationTableArg1;
 
     const static std::unordered_map<
             Argument::ArgumentType,
@@ -54,6 +50,11 @@ public:
 
     Argument getFirstArgument() override;
     Argument getSecondArgument() override;
+
+    const static std::unordered_map<
+         Argument::ArgumentType,
+         std::unordered_set<AttributeType>
+         > withClauseValidationTableArg1;
 };
 
 #endif //SPA_WITHCLAUSE_H

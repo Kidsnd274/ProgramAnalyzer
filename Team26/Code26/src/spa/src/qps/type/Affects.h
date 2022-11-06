@@ -12,8 +12,8 @@ protected:
     > affectsValidationTable;
 
 public:
-    Affects(Argument arg1, Argument arg2) : RelationClause(arg1, arg2) {
-        relationType = AFFECTS;
+    Affects(Argument arg1, Argument arg2, RelationType relationType) : RelationClause(arg1, arg2, relationType) {
+        this->relationType = relationType;
     }
 
     bool isValid() override;

@@ -8,18 +8,11 @@
 #include "qps/type/RelationClause.h"
 #include "qps/type/WithClause.h"
 #include "qps/type/Follows.h"
-#include "qps/type/FollowStar.h"
 #include "qps/type/Parent.h"
-#include "qps/type/ParentStar.h"
-#include "qps/type/Uses.h"
-#include "qps/type/ParentStar.h"
-#include "qps/type/Modifies.h"
 #include "qps/type/Calls.h"
-#include "qps/type/CallsStar.h"
 #include "qps/type/Next.h"
-#include "qps/type/NextStar.h"
 #include "qps/type/Affects.h"
-#include "qps/type/AffectsStar.h"
+#include "qps/type/ModifiesUses.h"
 #include <list>
 #include <vector>
 #include <string>
@@ -82,72 +75,62 @@ namespace QPS {
         void addSuchThatClause(RelationType relationType, Argument arg1, Argument arg2) {
             switch (relationType) {
                 case FOLLOWS: {
-                    Follows* clause = new Follows(arg1, arg2);
+                    Follows* clause = new Follows(arg1, arg2, FOLLOWS);
                     this->queryStruct.addClause(clause);
                     break;
                 }
                 case FOLLOWS_T:{
-                    FollowStar* clause = new FollowStar(arg1, arg2);
+                    Follows* clause = new Follows(arg1, arg2, FOLLOWS_T);
                     this->queryStruct.addClause(clause);
                     break;
                 }
                 case PARENT:{
-                    Parent* clause = new Parent(arg1, arg2);
+                    Parent* clause = new Parent(arg1, arg2, PARENT);
                     this->queryStruct.addClause(clause);
                     break;
                 }
                 case PARENT_T:{
-                    ParentStar* clause = new ParentStar(arg1, arg2);
+                    Parent* clause = new Parent(arg1, arg2, PARENT_T);
                     this->queryStruct.addClause(clause);
                     break;
                 }
                 case USES_S:{
-                    Uses* clause = new Uses(arg1, arg2);
+                    ModifiesUses* clause = new ModifiesUses(arg1, arg2, USES_S);
                     this->queryStruct.addClause(clause);
                     break;
                 }
                 case MODIFIES_S:{
-                    Modifies* clause = new Modifies(arg1, arg2);
-                    this->queryStruct.addClause(clause);
-                    break;
-                }
-                case USES_P:{
-                    Uses* clause = new Uses(arg1, arg2);
-                    this->queryStruct.addClause(clause);
-                    break;
-                }
-                case MODIFIES_P:{
-                    Modifies* clause = new Modifies(arg1, arg2);
+                    ModifiesUses* clause = new ModifiesUses(arg1, arg2, MODIFIES_S);
                     this->queryStruct.addClause(clause);
                     break;
                 }
                 case CALLS:{
-                    Calls* clause = new Calls(arg1, arg2);
+                    Calls* clause = new Calls(arg1, arg2, CALLS);
                     this->queryStruct.addClause(clause);
                     break;
                 }
                 case CALLS_T:{
-                    CallsStar* clause = new CallsStar(arg1, arg2);
+                    Calls* clause = new Calls(arg1, arg2, CALLS_T);
                     this->queryStruct.addClause(clause);
                     break;
                 }
                 case NEXT:{
-                    Next* clause = new Next(arg1, arg2);
+                    Next* clause = new Next(arg1, arg2,NEXT);
                     this->queryStruct.addClause(clause);
                     break;
                 }
                 case NEXT_T:{
-                    NextStar* clause = new NextStar(arg1, arg2);
+                    Next* clause = new Next(arg1, arg2,NEXT_T);
                     this->queryStruct.addClause(clause);
                     break;
                 }
                 case AFFECTS:{
-                    Affects* clause = new Affects(arg1, arg2);
+                    Affects* clause = new Affects(arg1, arg2, AFFECTS);
                     this->queryStruct.addClause(clause);
                     break;
                 }
                 case AFFECTS_T:{
-                    AffectsStar* clause = new AffectsStar(arg1, arg2);
+                    Affects* clause = new Affects(arg1, arg2, AFFECTS_T);
                     this->queryStruct.addClause(clause);
                     break;
                 }

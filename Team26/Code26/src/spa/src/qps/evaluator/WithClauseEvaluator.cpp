@@ -95,7 +95,7 @@ void WithClauseEvaluator::evaluate(QPS::ResultTable *resultTable) {
                     }
                 }
             }
-            resultTable = new ResultTable(synonyms, lines);
+            resultTable->replace(new ResultTable(synonyms, lines));
             return;
         }
         // SYNONYM, ACTUAL_NAME or NUMBER
@@ -104,7 +104,7 @@ void WithClauseEvaluator::evaluate(QPS::ResultTable *resultTable) {
                 lines.insert(std::vector<std::string> {value1});
             }
         }
-        resultTable = new ResultTable(synonyms, lines);
+        resultTable->replace(new ResultTable(synonyms, lines));
         return;
     }
 }

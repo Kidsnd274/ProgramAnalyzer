@@ -12,9 +12,10 @@ const static std::unordered_map<
 > callsValidationTable;
 
 public:
-    Calls(Argument arg1, Argument arg2) : RelationClause(arg1, arg2) {
-        relationType = CALLS;
+    Calls(Argument arg1, Argument arg2, RelationType relationType) : RelationClause(arg1, arg2, relationType) {
+        this->relationType = relationType;
     }
+
 
     bool isValid() override;
 };

@@ -18,6 +18,7 @@ namespace QPS {
     std::pair<int, Exception> parsePatternLeft (std::vector<QPS::Token> &tokens,int pos,Container &container, std::pair<Argument, bool> &ARG1);
     std::pair<int, Exception> parsePatternIF (std::vector<QPS::Token> &tokens,int pos,Container &container, Argument& arg);
     std::pair<int, Exception> parsePatternWHILE (std::vector<QPS::Token> &tokens,int pos,Container &container, Argument& arg);
+    bool validateActualName(std::string s);
 
     Exception parseToken(std::vector<QPS::Token> &tokens, Container& container) {
         int tokenPos = 0;
@@ -95,6 +96,7 @@ namespace QPS {
                 container.setStatus(START_PARSE_PATTERN_CLAUSE);
             } else if (curr.tokenType == QPS::NAME && ((curr.nameValue == "with"
                             && (container.getStatus() == FINISH_PARSE_SELECT
+                                || container.getStatus() == FINISH_PARSE_WITH_CLAUSE
                                 || container.getStatus() == FINISH_PARSE_PATTERN_CLAUSE
                                 || container.getStatus() == FINISH_PARSE_SUCH_CLAUSE))
                                 || (tokenPos + 2 < tokens.size() && tokens[tokenPos+1].tokenType == NAME && tokens[tokenPos+2].tokenType == DOT)) ) {
@@ -205,14 +207,6 @@ namespace QPS {
                 result = parseRelationStmtEnt(tokens, tokenPos,MODIFIES_S, container);
                 break;
             }
-            case USES_P: {
-                result = parseRelationStmtEnt(tokens, tokenPos,USES_P, container);
-                break;
-            }
-            case MODIFIES_P:{
-                result = parseRelationStmtEnt(tokens, tokenPos,MODIFIES_P, container);
-                break;
-            }
             case CALLS:{
                 result = parseRelationCalls(tokens, tokenPos,CALLS, container);
                 break;
@@ -293,8 +287,12 @@ namespace QPS {
         WithClause::WithClauseArgument arg1, arg2;
         Argument argument1, argument2;
         std::pair<int, Exception> result;
+        bool is_integer = false;
         if (pos + 2 < tokens.size() && tokens[pos].tokenType == DOUBLE_QUOTE && tokens[pos+2].tokenType == DOUBLE_QUOTE
             && (tokens[pos + 1].tokenType == NAME)) {
+            if (!validateActualName(tokens[pos+1].nameValue)) {
+                return {pos, INVALID_WITH_SYNTAX};
+            }
             argument1 = Argument(tokens[pos + 1].nameValue, Argument::ACTUAL_NAME);
             arg1 = {argument1, INAPPLICABLE};
             pos+=3;
@@ -302,10 +300,19 @@ namespace QPS {
             argument1 = Argument(tokens[pos].nameValue, Argument::NUMBER);
             arg1 = {argument1, INAPPLICABLE};
             pos++;
+            is_integer = true;
+        } else if (pos + 1 < tokens.size() && tokens[pos].tokenType == MINUS && tokens[pos + 1].tokenType == INTEGER) {
+            argument1 = Argument("-" + tokens[pos+1].nameValue, Argument::NUMBER);
+            arg1 = {argument1, INAPPLICABLE};
+            pos+=2;
+            is_integer = true;
         } else {
             result = parseWithObject(tokens, pos, container, argument1, arg1);
             if (result.second == VALID) {
                 pos = result.first;
+                if (arg1.attributeType == WITH_CONST_VALUE || arg1.attributeType == STMT_LINE_NUMBER) {
+                    is_integer = true;
+                }
             } else {
                 return {pos, result.second};
             }
@@ -317,9 +324,14 @@ namespace QPS {
         }
         pos++;
 
-        //p.procName = "xxx"
         if (pos + 2 < tokens.size() && tokens[pos].tokenType == DOUBLE_QUOTE && tokens[pos+2].tokenType == DOUBLE_QUOTE
             && (tokens[pos + 1].tokenType == NAME)) {
+            if (is_integer) {
+                return {pos, UNPAIRED_WITH_TYPE};
+            }
+            if (!validateActualName(tokens[pos+1].nameValue)) {
+                return {pos, INVALID_WITH_SYNTAX};
+            }
             switch (arg1.argument.argumentType) {
                 case Argument::READ_SYNONYM:
                 case Argument::PRINT_SYNONYM:
@@ -348,6 +360,9 @@ namespace QPS {
             }
             pos += 3;
         } else if (pos < tokens.size() && tokens[pos].tokenType == INTEGER) {
+            if (!is_integer) {
+                return {pos, UNPAIRED_WITH_TYPE};
+            }
             switch (arg1.argument.argumentType) {
                 case Argument::READ_SYNONYM:
                 case Argument::PRINT_SYNONYM:
@@ -375,12 +390,51 @@ namespace QPS {
 
             }
             pos++;
+        } else if (pos + 1 < tokens.size() && tokens[pos].tokenType == MINUS && tokens[pos + 1].tokenType == INTEGER)  {
+            switch (arg1.argument.argumentType) {
+                if (!is_integer) {
+                    return {pos, UNPAIRED_WITH_TYPE};
+                }
+                case Argument::READ_SYNONYM:
+                case Argument::PRINT_SYNONYM:
+                case Argument::CALL_SYNONYM:
+                case Argument::WHILE_SYNONYM:
+                case Argument::IF_SYNONYM:
+                case Argument::NUMBER:
+                case Argument::STMT_SYNONYM:
+                case Argument::ASSIGN_SYNONYM:
+                case Argument::CONST_SYNONYM: {
+                    argument2 = Argument("-"+tokens[pos+1].nameValue, Argument::NUMBER);
+                    arg2 = {argument2, INAPPLICABLE};
+                    break;
+                }
+                case Argument::ACTUAL_NAME:
+                case Argument::WILDCARD:
+                case Argument::EXPRESSION:
+                case Argument::PROCEDURE_ACTUAL_NAME:
+                case Argument::BOOLEAN_ARG:
+                case Argument::VAR_SYNONYM:
+                case Argument::PROCEDURE_SYNONYM:
+                case Argument::INVALID_ARGUMENT_TYPE: {
+                    return {pos, INVALID_WITH_SYNTAX};
+                }
+
+            }
+            pos+=2;
         } else if (pos < tokens.size() && tokens[pos].tokenType == NAME) {
             result = parseWithObject(tokens, pos, container, argument2, arg2);
+            bool is_integer_second = false;
+            if (arg2.attributeType == WITH_CONST_VALUE || arg2.attributeType == STMT_LINE_NUMBER) {
+                is_integer_second = true;
+            }
             if (result.second == VALID) {
                 pos = result.first;
             } else {
                 return {pos, result.second};
+            }
+
+            if ((is_integer && !is_integer_second) || (!is_integer && is_integer_second)) {
+                return {pos, UNPAIRED_WITH_TYPE};
             }
 
         } else {
@@ -445,7 +499,7 @@ namespace QPS {
         if (pos < tokens.size() && tokens[pos].tokenType == NAME) {
             Argument::ArgumentType argumentType = container.getSynonymType(tokens[pos].nameValue);
             if (argumentType == Argument::INVALID_ARGUMENT_TYPE) {
-                return {pos, UNDECLARED_ENTITY_WITH};
+                return {pos, UNDECLARED_ENTITY_PATTERN};
             } else if (argumentType == Argument::ASSIGN_SYNONYM || argumentType == Argument::IF_SYNONYM || argumentType == Argument::WHILE_SYNONYM) {
                 pattern_syn = tokens[pos].nameValue;
                 typeOfPattern = argumentType;
@@ -476,6 +530,9 @@ namespace QPS {
                 actualName += tokens[pos].nameValue;
                 pos++;
             }
+            if (!validateActualName(actualName)) {
+                return {pos, INVALID_PATTERN_SYNTAX};
+            }
             ARG1 = {{actualName, Argument::ACTUAL_NAME}, true};
             pos++;
         } else {
@@ -491,11 +548,20 @@ namespace QPS {
             return {pos, INVALID_PATTERN_SYNTAX};
         }
 
+        bool is_semantic_correct = true;
         if (tokens[pos].tokenType == NAME) {
-            arg = {tokens[pos].nameValue, Argument::VAR_SYNONYM};
+            Argument::ArgumentType argumentType = container.getSynonymType(tokens[pos].nameValue);
+            if (argumentType == Argument::VAR_SYNONYM) {
+                arg = {tokens[pos].nameValue, Argument::VAR_SYNONYM};
+            } else {
+                is_semantic_correct = false;
+            }
             pos++;
         } else if (pos + 2 < tokens.size() && tokens[pos].tokenType == DOUBLE_QUOTE && tokens[pos+2].tokenType == DOUBLE_QUOTE
                    && tokens[pos + 1].tokenType == NAME) {
+            if (!validateActualName(tokens[pos + 1].nameValue)) {
+                return {pos, INVALID_PATTERN_SYNTAX};
+            }
             arg = {tokens[pos + 1].nameValue, Argument::ACTUAL_NAME};
             pos += 3;
         } else if(tokens[pos].tokenType == UNDERSCORE) {
@@ -506,10 +572,14 @@ namespace QPS {
         if (pos + 4 <tokens.size() && tokens[pos].tokenType == COMMA && tokens[pos+1].tokenType == UNDERSCORE
             && tokens[pos+2].tokenType == COMMA && tokens[pos+3].tokenType == UNDERSCORE && tokens[pos+4].tokenType == RPAREN) {
             pos +=4;
-            return {pos, VALID};
         } else {
             return {pos, INVALID_PATTERN_CONTENT};
         }
+
+        if (!is_semantic_correct) {
+            return {pos, INVALID_PATTERN_TYPE};
+        }
+        return {pos, VALID};
     }
 
     std::pair<int, Exception> parsePatternWHILE (std::vector<QPS::Token> &tokens,int pos,Container &container, Argument& arg) {
@@ -518,12 +588,21 @@ namespace QPS {
         } else {
             return {pos, INVALID_PATTERN_SYNTAX};
         }
+        bool is_semantic_correct = true;
 
         if (tokens[pos].tokenType == NAME) {
-            arg = {tokens[pos].nameValue, Argument::VAR_SYNONYM};
+            Argument::ArgumentType argumentType = container.getSynonymType(tokens[pos].nameValue);
+            if (argumentType == Argument::VAR_SYNONYM) {
+                arg = {tokens[pos].nameValue, Argument::VAR_SYNONYM};
+            } else {
+                is_semantic_correct = false;
+            }
             pos++;
         } else if (pos + 2 < tokens.size() && tokens[pos].tokenType == DOUBLE_QUOTE && tokens[pos+2].tokenType == DOUBLE_QUOTE
                    && tokens[pos + 1].tokenType == NAME) {
+            if (!validateActualName(tokens[pos + 1].nameValue)) {
+                return {pos, INVALID_PATTERN_SYNTAX};
+            }
             arg = {tokens[pos + 1].nameValue, Argument::ACTUAL_NAME};
             pos += 3;
         } else if(tokens[pos].tokenType == UNDERSCORE) {
@@ -534,10 +613,14 @@ namespace QPS {
         if (pos + 2 <tokens.size() && tokens[pos].tokenType == COMMA && tokens[pos+1].tokenType == UNDERSCORE
                 &&tokens[pos+2].tokenType == RPAREN) {
             pos +=2;
-            return {pos, VALID};
         } else {
             return {pos, INVALID_PATTERN_CONTENT};
         }
+
+        if (!is_semantic_correct) {
+            return {pos, INVALID_PATTERN_TYPE};
+        }
+        return {pos, VALID};
     }
 
     std::pair<int, Exception> parsePattern (std::vector<QPS::Token> &tokens,int pos,Container &container) {
@@ -661,6 +744,15 @@ namespace QPS {
                 WithClause::WithClauseArgument arg;
                 Argument argument;
                 std::pair<int, Exception> result = parseWithObject(tokens, pos, container, argument, arg);
+                auto iter1 = WithClause::withClauseValidationTableArg1
+                        .find(arg.argument.argumentType);
+                if (iter1 == WithClause::withClauseValidationTableArg1.end()) {
+                    return {pos, INVALID_SELECT};
+                }
+                auto iter3 = iter1->second.find(arg.attributeType);
+                if (iter3 == iter1->second.end()) {
+                    return {pos, INVALID_SELECT};
+                }
                 if (result.second == VALID) {
                     pos = result.first;
                     Query::CandidateStruct candidateStruct = {argument, arg.attributeType};
@@ -774,6 +866,9 @@ namespace QPS {
             pos++;
         } else if (pos + 2 < tokens.size() && tokens[pos].tokenType == DOUBLE_QUOTE && tokens[pos+2].tokenType == DOUBLE_QUOTE
                    && tokens[pos + 1].tokenType == NAME) {
+            if (!validateActualName(tokens[pos + 1].nameValue)) {
+                return {pos, INVALID_CALL_SYNTAX};
+            }
             std::string actual_name = tokens[pos + 1].nameValue;
             ARG1 = {{actual_name, Argument::PROCEDURE_ACTUAL_NAME}, VALID};
             pos += 3;
@@ -847,6 +942,9 @@ namespace QPS {
             pos++;
         } else if (pos + 2 < tokens.size() && tokens[pos].tokenType == DOUBLE_QUOTE && tokens[pos+2].tokenType == DOUBLE_QUOTE
                    && tokens[pos + 1].tokenType == NAME) {
+            if (!validateActualName(tokens[pos + 1].nameValue)) {
+                return {pos, INVALID_RELATION_SYNTAX};
+            }
             std::string actual_name = tokens[pos + 1].nameValue;
             ARG1 = {{actual_name, Argument::PROCEDURE_ACTUAL_NAME}, VALID};
             pos += 3;
@@ -864,6 +962,9 @@ namespace QPS {
 
         if (pos + 2 < tokens.size() && tokens[pos].tokenType == DOUBLE_QUOTE && tokens[pos+2].tokenType == DOUBLE_QUOTE
             && tokens[pos + 1].tokenType == NAME) {
+            if (!validateActualName(tokens[pos + 1].nameValue)) {
+                return {pos, INVALID_RELATION_SYNTAX};
+            }
             std::string actual_name = tokens[pos + 1].nameValue;
             ARG2 = {{actual_name, Argument::ACTUAL_NAME}, VALID};
             pos += 3;
@@ -910,8 +1011,6 @@ namespace QPS {
         }
     }
 
-
-
     std::pair<Argument, Exception> convertStringToARG (Token &token, Container &container) {
         if (token.tokenType == INTEGER) {
             return {{token.nameValue, Argument::NUMBER}, VALID};
@@ -925,8 +1024,6 @@ namespace QPS {
             return {{"", Argument::INVALID_ARGUMENT_TYPE}, INVALID_RELATION_SYNTAX};
         }
     }
-
-
 
     std::pair<AttributeType, Exception> convertStringToWithType (Token &token) {
         if (token.tokenType != NAME) {
@@ -991,6 +1088,15 @@ namespace QPS {
         }
     }
 
+    bool validateActualName(std::string s) {
+        for (int i = 0; i < s.length(); i++) {
+            int asc_code = int(s[i]);
+            if ((asc_code < 48 || (asc_code > 57 && asc_code<65) || (asc_code > 90 && asc_code <97) || asc_code > 122) && s[i] != ' ') {
+                return false;
+            }
+        }
+        return true;
+    }
 
 
 }

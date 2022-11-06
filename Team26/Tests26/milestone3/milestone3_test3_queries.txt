@@ -1,0 +1,5 @@
+9 - check if statement is parent of statement
+stmt s;
+Select s such that Parent(8, 9) and Follows(8,9)
+none
+5000

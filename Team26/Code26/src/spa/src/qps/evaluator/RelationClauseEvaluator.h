@@ -9,20 +9,12 @@
 class RelationClauseEvaluator: public ClauseEvaluator{
 private:
     RelationClause* relationClause;
-    void evaluateCalls(QPS::ResultTable *resultTable);
-    void evaluateCallsT(QPS::ResultTable *resultTable);
     void evaluateAffects(QPS::ResultTable *resultTable);
     void evaluateAffectsT(QPS::ResultTable *resultTable);
-    void evaluateFollows(QPS::ResultTable *resultTable);
     void evaluateFollowsT(QPS::ResultTable *resultTable);
-    void evaluateModifiesS(QPS::ResultTable *resultTable);
-    void evaluateModifiesP(QPS::ResultTable *resultTable);
     void evaluateNext(QPS::ResultTable *resultTable);
     void evaluateNextT(QPS::ResultTable *resultTable);
-    void evaluateParent(QPS::ResultTable *resultTable);
-    void evaluateParentT(QPS::ResultTable *resultTable);
-    void evaluateUsesP(QPS::ResultTable *resultTable);
-    void evaluateUsesS(QPS::ResultTable *resultTable);
+
 
     /**
      * Handles whether to call evaluateUsesP or evaluateUsesS.
@@ -62,6 +54,8 @@ private:
     bool existInStringUnorderedSet(std::string s, std::unordered_set<std::string> set);
     bool existInIntVector(int s, std::vector<int> v);
     bool existInIntUnorderedSet(int s, std::unordered_set<int> set);
+
+    bool validateAffectsParameter(QPS::ResultTable* resultTable);
 
     QPS::ResultTable* filterTable(std::unordered_set<std::vector<std::string>, QPS::StringVectorHash> *result);
 public:

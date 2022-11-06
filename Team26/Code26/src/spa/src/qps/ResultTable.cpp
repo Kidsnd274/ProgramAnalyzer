@@ -31,21 +31,37 @@ namespace QPS {
     }
 
 
-    bool ResultTable::deleteColFromTable(const std::string &sName) {
-        if (!isSynonymPresent(sName)) {
-            return false;
-        }
-        int pos = synonymColRef.at(sName);
-        synonymColRef.erase(sName);
-        for (auto& synonym: synonymColRef) {
-            if (synonym.second > pos) {
-                synonym.second --;
+    bool ResultTable::deleteColFromTable(const std::vector<std::string> &sNames) {
+        std::vector <std::vector<std::string>> newTable;
+        std::vector <int> positions;
+        std::unordered_set<std::string> addedRows;
+        for (auto s: sNames) {
+            if (synonymColRef.find(s) != synonymColRef.end()) {
+                synonymColRef.erase(s);
             }
         }
-        for (auto& entry: table) {
-            entry.erase(entry.begin() + pos);
+        int colPos = 0;
+        std::unordered_map<std::string, int> newSynonymColRef;
+        for (auto synonym: synonymColRef) {
+            positions.push_back(synonym.second);
+            newSynonymColRef[synonym.first] = colPos;
+            colPos++;
         }
-        colNum--;
+        for (auto& entry: table) {
+            std::vector<std::string> newRow;
+            std::string addedRow;
+            for (auto pos: positions) {
+                newRow.push_back(entry[pos]);
+                addedRow = addedRow + "|" + entry[pos];
+            }
+            if (addedRows.find(addedRow) == addedRows.end()) {
+                newTable.push_back(newRow);
+                addedRows.insert(addedRow);
+            }
+        }
+        colNum = newSynonymColRef.size();
+        this->synonymColRef = newSynonymColRef;
+        this->table = newTable;
         return true;
     }
 
@@ -112,10 +128,18 @@ namespace QPS {
         resultTable->synonymColRef = t1->synonymColRef;
         resultTable->table = t1->table;
         resultTable->isInitialized = t1->isInitialized;
+        resultTable->type = t1->type;
         resultTable->mergeTable(*t2);
         return resultTable;
     }
 
+    int ResultTable::getColNum() {
+        return this->synonymColRef.size();
+    }
+
+    bool ResultTable::isEmptyTable() {
+        return this->table.size() == 0;
+    }
     void ResultTable::emptyTable() {
         this->table = {};
     }

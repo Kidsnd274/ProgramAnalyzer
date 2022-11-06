@@ -51,42 +51,4 @@ Argument::ArgumentType Entity::mapToArgument(Entity::EntityType entityType) {
     }
 }
 
-std::string Entity::entityToString(Entity::EntityType entityType) {
-    switch (entityType) {
-        case Entity::STATEMENT: {
-            return "stmt";
-        }
-        case Entity::READ_ENTITY: {
-            return "read";
-        }
-        case Entity::PRINT_ENTITY: {
-            return "print";
-        }
-        case Entity::CALL_ENTITY: {
-            return "call";
-        }
-        case Entity::WHILE_ENTITY: {
-            return "while";
-        }
-        case Entity::IF_ENTITY: {
-            return "if";
-        }
-        case Entity::ASSIGN_ENTITY: {
-            return "assign";
-        }
-        case Entity::VARIABLE: {
-            return "variable";
-        }
-
-        case Entity::CONSTANT: {
-            return "constant";
-        }
-        case Entity::PROCEDURE: {
-            return "procedure";
-        }
-        case Entity::INVALID_ENTITY_TYPE:
-            return "invalid";
-
-    }
-}
 
