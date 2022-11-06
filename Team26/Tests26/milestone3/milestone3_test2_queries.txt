@@ -2303,3 +2303,18 @@ while w; procedure p;
 Select w pattern w(p,_)
 SemanticError
 5000
+457 - semanticerror pattern 2
+if ifs; procedure p;
+Select ifs pattern ifs(p,_,_)
+SemanticError
+5000
+458 - syntax error pattern 1
+while w; procedure p;
+Select w pattern w(p,_, _)
+SyntaxError
+5000
+459 - syntax error pattern 2
+if ifs; procedure p;
+Select ifs pattern ifs(p,_)
+SyntaxError
+5000
