@@ -1,5 +1,5 @@
 #include "ProcedureNotFoundException.h"
 
 char *ProcedureNotFoundException::what() {
-    return (char*) "Procedure not found in the Procedure Table!";
+    return const_cast<char*>("Procedure not found in the Procedure Table!");
 }

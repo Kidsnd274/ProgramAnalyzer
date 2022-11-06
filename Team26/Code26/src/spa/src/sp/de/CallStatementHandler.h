@@ -15,6 +15,9 @@ private:
     std::vector<std::vector<CallStruct>> callList;
     std::unordered_map<std::string, std::pair<int, int>> nameToIndex;
     std::unordered_map<int, std::string> indexToName;
+    void checkIfProcedureExist(std::string& procedureCalled);
+    void checkCyclicProcedureCall(std::string& procedureCalled);
+    void addToPkb(CallStruct& cs, PKBInterface *pkb, std::string& procedureName);
 
 public:
     CallStatementHandler(std::vector<std::vector<CallStruct>> &cl,
