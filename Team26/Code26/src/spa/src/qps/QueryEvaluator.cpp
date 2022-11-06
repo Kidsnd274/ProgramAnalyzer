@@ -176,9 +176,6 @@ void QueryEvaluator::removeSynonym(Clause &clause, std::unordered_map<std::strin
             (*synonymCount)[arg1.argumentName] -= 1;
         }
         if (synonymCount->find(arg1.argumentName)->second == 0) {
-            if (resultTable->getColNum() == 1 && !resultTable->isEmptyTable()) {
-                resultTable->setTrueTable();
-            }
             sToDelete.push_back(arg1.argumentName);
         }
     }
@@ -187,11 +184,11 @@ void QueryEvaluator::removeSynonym(Clause &clause, std::unordered_map<std::strin
             (*synonymCount)[arg2.argumentName] -= 1;
         }
         if (synonymCount->find(arg2.argumentName)->second == 0) {
-            if (resultTable->getColNum() == 1 && !resultTable->isEmptyTable()) {
-                resultTable->setTrueTable();
-            }
             sToDelete.push_back(arg2.argumentName);
         }
+    }
+    if (resultTable->getColNum() == sToDelete.size() && !resultTable->isEmptyTable()) {
+        resultTable->setTrueTable();
     }
     resultTable->deleteColFromTable(sToDelete);
 //    resultTable->deleteDuplicateRows({});
