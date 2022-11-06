@@ -63,11 +63,6 @@ namespace QPS {
             this->table.emplace_back(emptyRow);
         }
 
-        ~ResultTable() {
-            this->table.clear();
-            this->synonymColRef.clear();
-        }
-
         ResultTable(const std::vector<std::string>& sNames, const std::unordered_set<std::vector<std::string>, StringVectorHash>& entries);
         bool deleteColFromTable(const std::vector<std::string>& sName);
 
