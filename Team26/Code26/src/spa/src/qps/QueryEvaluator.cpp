@@ -131,6 +131,8 @@ void QueryEvaluator::groupClauses(int n, ClauseStruct* clauseStruct) {
     for (int i = 0; i < n; i++) {
         clauseStruct->groupNumber = ufds->find(i);
     }
+
+    delete ufds;
 }
 
 std::unordered_map<std::string, int>
