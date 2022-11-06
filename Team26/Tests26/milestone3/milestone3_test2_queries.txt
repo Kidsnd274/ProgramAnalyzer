@@ -2418,4 +2418,54 @@ variable v;
 Select v such that Modifies (19, v)
 if
 5000
+480 - Modifies 1
+variable v;
+Select v such that Modifies (29, v)
+count
+5000
+481 - Modifies 2
+variable v;
+Select v such that Modifies (16, v)
+zy
+5000
+482 - Modifies 3
+variable v;
+Select v such that Modifies (10, v)
+else
+5000
+483 - Modifies 4
+variable v;
+Select v such that Modifies (18, v)
+cenX,cenY,count,normSq,pointx,pointy,print
+5000
+484 - Modifies 5
+stmt s;
+Select s such that Modifies (s, "tmp")
+none
+5000
+485 - Modifies 6
+stmt s;
+Select s such that Modifies (s, "temporary")
+none
+5000
+486 - Modifies 7
+assign a;
+Select a such that Modifies (a, "incre")
+none
+5000
+487 - Modifies 8
+assign a;
+Select a such that Modifies (a, "temporary")
+none
+5000
+488 - Modifies 9
+if ifs;
+Select ifs such that Modifies (ifs, "x1")
+none
+5000
+489 - Modifies 10
+if ifs;
+Select ifs such that Modifies (ifs, "line")
+none
+5000
 
