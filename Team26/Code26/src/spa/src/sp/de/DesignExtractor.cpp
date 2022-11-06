@@ -66,7 +66,7 @@ void DesignExtractor::traverse(std::shared_ptr<StatementNode> ptr, std::shared_p
 
         e->popFromStack();
     } else if (ptr->getStatementType() == statementType::WHILE) {
-        shared_ptr<WhileNode> t = std::static_pointer_cast<WhileNode>(ptr);
+        std::shared_ptr<WhileNode> t = std::static_pointer_cast<WhileNode>(ptr);
         e->extractFromWhile(t);
 
         std::vector<std::shared_ptr<StatementNode>> stmtList = t->getStatementList();

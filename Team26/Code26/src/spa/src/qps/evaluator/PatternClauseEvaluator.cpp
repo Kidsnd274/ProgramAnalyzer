@@ -1,6 +1,6 @@
 #include "PatternClauseEvaluator.h"
 void PatternClauseEvaluator::evaluate(ResultTable* resultTable) {
-    //initialize result table
+    // initialize result table
     if (this->patternClause->argument1.argumentType == Argument::IF_SYNONYM
     || this->patternClause->argument1.argumentType == Argument::WHILE_SYNONYM) {
         evaluateContainer(resultTable);
@@ -11,8 +11,8 @@ void PatternClauseEvaluator::evaluate(ResultTable* resultTable) {
     if (patternClause->argument2.argumentType == Argument::VAR_SYNONYM) {
         synonyms.push_back(patternClause->argument2.argumentName);
     }
-    //insert rows into table
-    vector<string> allAssigns = QPS_Interface::getAllAssigns();
+    // insert rows into table
+    std::vector<std::string> allAssigns = QPS_Interface::getAllAssigns();
     WildcardPosition pos = getWildcardPosition();
     std::shared_ptr<TNode> patternNode = getPatternNode(pos);
     bool useActualName = this->patternClause->argument2.argumentType == Argument::ACTUAL_NAME;
@@ -24,7 +24,7 @@ void PatternClauseEvaluator::evaluate(ResultTable* resultTable) {
         bool isPatternMatched = this->patternClause->argument3.argumentType == Argument::WILDCARD
                                 || TNode::matchSubTree(assignNode->getExpression(), patternNode, pos);
         if (isPatternMatched) {
-            vector<string> tableRow = {assign};
+            std::vector<std::string> tableRow = {assign};
             if (this->patternClause->argument2.argumentType == Argument::VAR_SYNONYM) {
                 tableRow.push_back(assignNode->getVariableName());
             }
@@ -58,10 +58,10 @@ WildcardPosition PatternClauseEvaluator::getWildcardPosition() {
 }
 
 void PatternClauseEvaluator::evaluateContainer(QPS::ResultTable *resultTable) {
-    vector<string> stmtNumbers = QPS_Interface::getAllEntity(&this->patternClause->argument1);
-    unordered_set<vector<string>, StringVectorHash> result;
+    std::vector<std::string> stmtNumbers = QPS_Interface::getAllEntity(&this->patternClause->argument1);
+    std::unordered_set<std::vector<std::string>, StringVectorHash> result;
     for (auto s: stmtNumbers) {
-        std::vector<string> varNames = QPS_Interface::getConditionVarNameByStmtNum(s);
+        std::vector<std::string> varNames = QPS_Interface::getConditionVarNameByStmtNum(s);
         for (auto varName: varNames) {
             if (this->patternClause->argument2.argumentType == Argument::ACTUAL_NAME) {
                 if (varName != this->patternClause->argument2.argumentName) {
@@ -75,7 +75,7 @@ void PatternClauseEvaluator::evaluateContainer(QPS::ResultTable *resultTable) {
             }
         }
     }
-    vector<string> synonyms;
+    std::vector<std::string> synonyms;
     synonyms.push_back(this->patternClause->argument1.argumentName);
     if (this->patternClause->argument2.argumentType == Argument::VAR_SYNONYM) {
         synonyms.push_back(this->patternClause->argument2.argumentName);
@@ -84,7 +84,7 @@ void PatternClauseEvaluator::evaluateContainer(QPS::ResultTable *resultTable) {
     resultTable->replace(&tableToReturn);
 }
 
-shared_ptr<TNode> PatternClauseEvaluator::getPatternNode(WildcardPosition pos) {
+std::shared_ptr<TNode> PatternClauseEvaluator::getPatternNode(WildcardPosition pos) {
     std::string trimmedString;
     Argument arg2 = this->patternClause->argument3;
     std::string argumentName = arg2.argumentName;
@@ -106,7 +106,7 @@ shared_ptr<TNode> PatternClauseEvaluator::getPatternNode(WildcardPosition pos) {
             break;
         }
     }
-    shared_ptr<TNode> node = nullptr;
+    std::shared_ptr<TNode> node = nullptr;
     if (trimmedString != "") {
         node = SourceProcessor::parseExpressionFromString(trimmedString);
     }

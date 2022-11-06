@@ -201,7 +201,7 @@ TEST_CASE("Main Extract Interface") {
         auto *pkbInterface = new PKBInterfaceStubForDE();
         DesignExtractor designExtractor = DesignExtractor(pkbInterface);
         std::shared_ptr<ProcedureNode> mainNode = std::move(generateMilestone1TestNestlevel1());
-        std::vector<shared_ptr<ProcedureNode>> procedures = {mainNode};
+        std::vector<std::shared_ptr<ProcedureNode>> procedures = {mainNode};
         designExtractor.extract(procedures);
 
         auto correctFollowsMap = std::unordered_map<int, int>();
@@ -301,7 +301,7 @@ TEST_CASE("Main Extract Interface") {
         auto *pkbInterface = new PKBInterfaceStubForDE();
         DesignExtractor designExtractor = DesignExtractor(pkbInterface);
         std::shared_ptr<ProcedureNode> mainNode = std::move(generateMilestone1TestNestlevel2());
-        std::vector<shared_ptr<ProcedureNode>> procedures = {mainNode};
+        std::vector<std::shared_ptr<ProcedureNode>> procedures = {mainNode};
         designExtractor.extract(procedures);
 
         std::unordered_map<int, int> correctFollowsMap = {
@@ -491,7 +491,7 @@ TEST_CASE("Main Extract Interface") {
         auto *pkbInterface = new PKBInterfaceStubForDE();
         DesignExtractor designExtractor = DesignExtractor(pkbInterface);
         std::shared_ptr<ProcedureNode> mainNode = std::move(generateMilestone1TestNestlevel3());
-        std::vector<shared_ptr<ProcedureNode>> procedures = {mainNode};
+        std::vector<std::shared_ptr<ProcedureNode>> procedures = {mainNode};
         designExtractor.extract(procedures);
 
         std::unordered_map<int, int> correctFollowsMap = {
@@ -804,7 +804,7 @@ TEST_CASE("Test multiple procedures") {
         DesignExtractor designExtractor = DesignExtractor(pkbInterface);
         std::shared_ptr<ProcedureNode> proc1 = std::move(generateSimpleProcedureNode("main1"));
         std::shared_ptr<ProcedureNode> proc2 = std::move(generateSimpleProcedureNode("second2131"));
-        std::vector<shared_ptr<ProcedureNode>> procedures = {proc1, proc2};
+        std::vector<std::shared_ptr<ProcedureNode>> procedures = {proc1, proc2};
         designExtractor.extract(procedures);
 
         std::unordered_multimap<std::string, std::string> usesMapStringString = {
