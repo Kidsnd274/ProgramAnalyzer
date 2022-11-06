@@ -33,7 +33,7 @@ public:
      * Call PKB interface to get all parent relations in ParentTable.
      * @return a vector containing all the parent relations.
      */
-    static std::unordered_map<int, std::vector<int>> getAllParentRelations(RelationType relationType);
+    static std::unordered_map<int, std::unordered_set<int>> getAllParentRelations(RelationType relationType);
 
     /**
      * Call PKB interface to get all follows relations in FollowsTable.

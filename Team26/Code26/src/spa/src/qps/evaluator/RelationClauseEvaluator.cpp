@@ -84,11 +84,11 @@ bool isStatementTypeMatched(StatementType::StmtType stmtType, Argument::Argument
     return false;
 }
 
-std::vector<std::vector<Statement>>& filterStmtList(const std::vector<std::vector<Statement>>& stmtList, Argument& arg) {
+std::vector<std::vector<Statement>>& filterStmtList(const std::unordered_set<std::unordered_set<Statement*>*>& stmtList, Argument& arg) {
     std::vector<std::vector<Statement>>* resultStmtList = new std::vector<std::vector<Statement>>();
-    for (auto iter = stmtList.begin(); iter != stmtList.end(); iter++) {
+    for (auto iter : stmtList) {
         std::vector<Statement> lineResult;
-        for (auto stmt = iter->begin(); stmt != iter->end(); stmt++) {
+        for (auto stmt : *iter) {
             bool matched = true;
             if (Argument::isSynonym(arg.argumentType)) {
                 matched = isStatementTypeMatched(stmt->type, arg.argumentType);
@@ -563,7 +563,7 @@ void RelationClauseEvaluator::evaluateNext(QPS::ResultTable *resultTable) {
                 if (actualNames.find(std::to_string(i))== actualNames.end()) {
                     continue;
                 }
-                if (!QPS_Interface::runtimeExtractor->getNextNodes(proc.cfg, i).empty()) {
+                if (!QPS_Interface::runtimeExtractor->getNextNodes(proc->cfg, i).empty()) {
                     lines.insert(std::vector<std::string> {std::to_string(i)});
                 }
             }
@@ -579,7 +579,7 @@ void RelationClauseEvaluator::evaluateNext(QPS::ResultTable *resultTable) {
                 if (actualNames.find(std::to_string(i)) == actualNames.end()) {
                     continue;
                 }
-                if (QPS_Interface::runtimeExtractor->isNext(proc.cfg, i, stmt2)) {
+                if (QPS_Interface::runtimeExtractor->isNext(proc->cfg, i, stmt2)) {
                     lines.insert(std::vector<std::string> {std::to_string(i)});
                 }
             }
@@ -595,7 +595,7 @@ void RelationClauseEvaluator::evaluateNext(QPS::ResultTable *resultTable) {
             if (actualNames.find(std::to_string(i)) == actualNames.end()) {
                 continue;
             }
-            for (auto stmt2 : QPS_Interface::runtimeExtractor->getNextNodes(proc.cfg, i)) {
+            for (auto stmt2 : QPS_Interface::runtimeExtractor->getNextNodes(proc->cfg, i)) {
                 if (actualNames2.find(std::to_string(stmt2)) == actualNames2.end()) {
                     continue;
                 }

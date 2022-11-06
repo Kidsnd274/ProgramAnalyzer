@@ -32,30 +32,30 @@ void PKBInterfaceStubForDE::addUses(std::string procedureName, std::string varia
     this->usesMapStringString.insert(newPair);
 }
 
-void PKBInterfaceStubForDE::addReadStatement(int statementNumber, int stmtListNum) {
-    this->statements.insert({statementNumber, stmtListNum});
-    statementTypeMap.insert({statementNumber, StmtType::READ});
-}
+//void PKBInterfaceStubForDE::addReadStatement(int statementNumber, int stmtListNum) {
+//    this->statements.insert({statementNumber, stmtListNum});
+//    statementTypeMap.insert({statementNumber, StmtType::READ});
+//}
 
 void PKBInterfaceStubForDE::addAssignStatement(int statementNumber, int stmtListNum, std::shared_ptr<TNode> ptr) {
     this->statements.insert({statementNumber, stmtListNum});
     statementTypeMap.insert({statementNumber, StmtType::ASSIGN});
 }
 
-void PKBInterfaceStubForDE::addWhileStatement(int statementNumber, int stmtListNum) {
-    this->statements.insert({statementNumber, stmtListNum});
-    statementTypeMap.insert({statementNumber, StmtType::WHILE});
-}
-
-void PKBInterfaceStubForDE::addIfStatement(int statementNumber, int stmtListNum) {
-    this->statements.insert({statementNumber, stmtListNum});
-    statementTypeMap.insert({statementNumber, StmtType::IF});
-}
-
-void PKBInterfaceStubForDE::addPrintStatement(int statementNumber, int stmtListNum) {
-    this->statements.insert({statementNumber, stmtListNum});
-    statementTypeMap.insert({statementNumber, StmtType::PRINT});
-}
+//void PKBInterfaceStubForDE::addWhileStatement(int statementNumber, int stmtListNum) {
+//    this->statements.insert({statementNumber, stmtListNum});
+//    statementTypeMap.insert({statementNumber, StmtType::WHILE});
+//}
+//
+//void PKBInterfaceStubForDE::addIfStatement(int statementNumber, int stmtListNum) {
+//    this->statements.insert({statementNumber, stmtListNum});
+//    statementTypeMap.insert({statementNumber, StmtType::IF});
+//}
+//
+//void PKBInterfaceStubForDE::addPrintStatement(int statementNumber, int stmtListNum) {
+//    this->statements.insert({statementNumber, stmtListNum});
+//    statementTypeMap.insert({statementNumber, StmtType::PRINT});
+//}
 
 void PKBInterfaceStubForDE::addCallStatement(int statementNumber, int statementListNumber, std::string calleeProcName) {
     this->statements.insert({statementNumber, statementListNumber});

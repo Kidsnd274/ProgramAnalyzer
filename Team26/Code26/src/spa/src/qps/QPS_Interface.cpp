@@ -25,7 +25,7 @@ std::unordered_map<int, int> QPS_Interface::getAllFollowsRelations() {
     return QPS_Interface::pkbInterface->getAllFollow();
 }
 
-std::unordered_map<std::string, std::vector<std::string>> QPS_Interface::getAllCallRelations() {
+std::unordered_map<std::string, std::unordered_set<std::string>> QPS_Interface::getAllCallRelations() {
     return QPS_Interface::pkbInterface->getAllCall();
 }
 
@@ -50,7 +50,7 @@ std::unordered_map<std::string, std::unordered_set<std::string>> QPS_Interface::
 }
 
 std::unordered_set<string> QPS_Interface::getAllAssigns() {
-    return QPS_Interface::pkbInterface->getAllAssigns();
+    return QPS_Interface::pkbInterface->getAllEntity(Argument::ASSIGN_SYNONYM);
 }
 
 std::unordered_set<unordered_set<Statement*>*> QPS_Interface::getAllStmtLists() {
@@ -192,7 +192,7 @@ std::unordered_set<STMT_NUM> QPS_Interface::getAffectsStar(STMT_NUM stmt) {
     return QPS_Interface::pkbInterface->getAffectsStar(stmt);
 }
 
-std::unordered_map<int, std::vector<int>> QPS_Interface::getAllParentRelations(RelationType relationType) {
+std::unordered_map<int, std::unordered_set<int>> QPS_Interface::getAllParentRelations(RelationType relationType) {
     if (relationType == PARENT) {
         return QPS_Interface::pkbInterface->getAllParent();
     } else if (relationType == PARENT_T) {

@@ -36,11 +36,11 @@ public:
     void addUses(int stmtNumber, std::string variableUsed) override;
     void addUses(std::string procedureName, std::string variableUsed) override;
     //Temporary methods to test Follows*
-    void addReadStatement(int statementNumber, int stmtListNum) override;
+//    void addReadStatement(int statementNumber, int stmtListNum) override;
     void addAssignStatement(int statementNumber, int stmtListNum, std::shared_ptr<TNode> ptr) override;
-    void addWhileStatement(int statementNumber, int stmtListNum) override;
-    void addIfStatement(int statementNumber, int stmtListNum) override;
-    void addPrintStatement(int statementNumber, int stmtListNum) override;
+//    void addWhileStatement(int statementNumber, int stmtListNum) override;
+//    void addIfStatement(int statementNumber, int stmtListNum) override;
+//    void addPrintStatement(int statementNumber, int stmtListNum) override;
     void addCallStatement(int statementNumber, int statementListNumber, std::string calleeProcName) override;
     void addCall(std::string procedureName, std::string procedureCalled) override;
     void addCallStar(std::string procedureName, std::string procedureCalled) override;
