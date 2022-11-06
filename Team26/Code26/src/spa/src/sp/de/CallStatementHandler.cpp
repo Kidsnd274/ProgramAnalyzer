@@ -20,28 +20,28 @@ void CallStatementHandler::addToPkb(CallStruct& cs, PKBInterface *pkb, std::stri
     std::unordered_set<std::string> callStar = pkb->getCallStar(cs.getProcedureCalled());
 
     for (auto &var : modified) {
-        pkb->addModifies(procedureName, var);
-        pkb->addModifies(cs.getStatementNumber(), var);
+        pkb->addRelation(RelationType::MODIFIES_S, procedureName, var);
+        pkb->addRelation(RelationType::MODIFIES_S, cs.getStatementNumber(), var);
         for (auto p : parentStar) {
-            pkb->addModifies(p, var);
+            pkb->addRelation(RelationType::MODIFIES_S, p, var);
         }
     }
 
     for (auto &var : used) {
-        pkb->addUses(procedureName, var);
-        pkb->addUses(cs.getStatementNumber(), var);
+        pkb->addRelation(RelationType::USES_S, procedureName, var);
+        pkb->addRelation(RelationType::USES_S, cs.getStatementNumber(), var);
         for (auto p : parentStar) {
-            pkb->addUses(p, var);
+            pkb->addRelation(RelationType::USES_S, p, var);
         }
     }
 
     // handle calls and callstar
     for (auto &proc : callStar) {
-        pkb->addCallStar(procedureName, proc);
+        pkb->addRelation(RelationType::CALLS_T, procedureName, proc);
     }
 
-    pkb->addCallStar(procedureName, cs.getProcedureCalled());
-    pkb->addCall(procedureName, cs.getProcedureCalled());
+    pkb->addRelation(RelationType::CALLS_T, procedureName, cs.getProcedureCalled());
+    pkb->addRelation(RelationType::CALLS, procedureName, cs.getProcedureCalled());
 }
 
 void CallStatementHandler::handleCalls(PKBInterface *pkb) {

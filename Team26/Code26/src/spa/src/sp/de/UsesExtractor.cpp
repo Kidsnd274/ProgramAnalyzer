@@ -9,9 +9,9 @@ void UsesExtractor::addToPkb(std::unordered_set<std::string> &varSet, bool isCon
             pkb->addCondVar(v[0], var);
         }
 
-        pkb->addUses(getProcedureName(), var);
+        pkb->addRelation(RelationType::USES_S, getProcedureName(), var);
         for (auto i : v) {
-            pkb->addUses(i, var);
+            pkb->addRelation(RelationType::USES_S, i, var);
         }
     }
 }
@@ -57,11 +57,11 @@ void UsesExtractor::extractFromExpressionTree(const std::shared_ptr<TNode>& ptr,
 
 void UsesExtractor::extractFromPrint(std::shared_ptr<PrintNode> ptr) {
     std::string varUsed = ptr->getVariableName();
-    pkb->addUses(getProcedureName(), varUsed);
-    pkb->addUses(ptr->getStatementNumber(), varUsed);
+    pkb->addRelation(RelationType::USES_S,getProcedureName(), varUsed);
+    pkb->addRelation(RelationType::USES_S,ptr->getStatementNumber(), varUsed);
     std::vector<int> v = getAllItemsInStack();
     for (auto i : v) {
-        pkb->addUses(i, varUsed);
+        pkb->addRelation(RelationType::USES_S,i, varUsed);
     }
 }
 

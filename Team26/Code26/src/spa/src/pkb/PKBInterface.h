@@ -10,6 +10,7 @@
 #include <utility>
 #include "qps/QueryProcessorTypes.h"
 #include "qps/type/Argument.h"
+#include "qps/type/RelationClause.h"
 #include "PKB.h"
 #include "Statement.h"
 #include "util/ast/AssignNode.h"
@@ -44,6 +45,9 @@ public:
     virtual void addCallStatement(int statementNumber, int statementListNumber, std::string calleeProcName);
     virtual void addCondVar(int statementNumber, std::string varName);
 
+    virtual void addRelation(RelationType type, int statementNumber, std::string varName);
+    virtual void addRelation(RelationType type, std::string procedureName, std::string name);
+    virtual void addRelation(RelationType type, int firstStatementNumber, int SecondStatementNumber);
     virtual void addModifies(int statementNumber, std::string varName);
     virtual void addModifies(std::string procedureName, std::string varName);
     virtual void addUses(int statementNumber, std::string varName);

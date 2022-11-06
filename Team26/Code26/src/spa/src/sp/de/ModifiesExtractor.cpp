@@ -9,11 +9,11 @@ void ModifiesExtractor::extractFromAssign(std::shared_ptr<AssignNode> ptr) {
 }
 
 void ModifiesExtractor::extractFromModifiesStatements(std::string varModified, int stmtNumber) {
-    pkb->addModifies(stmtNumber, varModified);
-    pkb->addModifies(getProcedureName(), varModified);
+    pkb->addRelation(RelationType::MODIFIES_S, stmtNumber, varModified);
+    pkb->addRelation(RelationType::MODIFIES_S, getProcedureName(), varModified);
     std::vector<int> v = getAllItemsInStack();
     for (auto i : v) {
-        pkb->addModifies(i, varModified);
+        pkb->addRelation(RelationType::MODIFIES_S, i, varModified);
     }
 }
 

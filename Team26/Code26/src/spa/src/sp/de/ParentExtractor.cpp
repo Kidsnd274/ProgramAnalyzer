@@ -16,9 +16,9 @@ void ParentExtractor::extractFromStatementsWithStatementList(int stmtNum, std::v
     pushToStack(stmtNum);
     std::vector<int> v = getAllItemsInStack();
     for (auto &stmt : stmtList) {
-        pkb->addParent(v.front(), stmt->getStatementNumber());
+        pkb->addRelation(RelationType::PARENT, v.front(), stmt->getStatementNumber());
         for (auto p : v) {
-            pkb->addParentStar(p, stmt->getStatementNumber());  // <- let qps handle O(n^2)
+            pkb->addRelation(RelationType::PARENT_T, p, stmt->getStatementNumber());  // <- let qps handle O(n^2)
         }
     }
 }

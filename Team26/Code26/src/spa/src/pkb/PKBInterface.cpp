@@ -44,29 +44,37 @@ void PKBInterface::addCallStatement(int statementNumber, int statementListNumber
     pkb->statementTable->insertStmt(stmt);
 }
 
-//void PKBInterface::addReadStatement(int statementNumber, int statementListNumber) {
-//    return addStatement(StatementType::READ, statementNumber, statementListNumber, nullptr, "");
-//}
-//
-//void PKBInterface::addAssignStatement(int statementNumber, int statementListNumber, std::shared_ptr<TNode> rootNode) {
-//    return addStatement(StatementType::ASSIGN, statementNumber, statementListNumber, rootNode, "");
-//}
-//
-//void PKBInterface::addWhileStatement(int statementNumber, int statementListNumber) {
-//    return addStatement(StatementType::WHILE, statementNumber, statementListNumber, nullptr, "");
-//}
-//
-//void PKBInterface::addIfStatement(int statementNumber, int statementListNumber) {
-//    return addStatement(StatementType::IF, statementNumber, statementListNumber, nullptr, "");
-//}
-//
-//void PKBInterface::addPrintStatement(int statementNumber, int statementListNumber) {
-//    return addStatement(StatementType::PRINT, statementNumber, statementListNumber, nullptr, "");
-//}
-//
-//void PKBInterface::addCallStatement(int statementNumber, int statementListNumber, std::string calleeProcName) {
-//    return addStatement(StatementType::CALL, statementNumber, statementListNumber, nullptr, calleeProcName);
-//}
+void PKBInterface::addRelation(RelationType type, int statementNumber, std::string varName) {
+    switch (type) {
+        case RelationType::MODIFIES_S:
+            pkb->modifiesTable->insertModifies(statementNumber, varName);
+        case RelationType::USES_S:
+            pkb->usesTable->insertUses(statementNumber, varName);
+    }
+}
+
+void PKBInterface::addRelation(RelationType type, std::string procedureName, std::string name) {
+    switch (type) {
+        case RelationType::MODIFIES_S:
+            pkb->modifiesTable->insertProcModifies(procedureName, name);
+        case RelationType::USES_S:
+            pkb->usesTable->insertProcUses(procedureName, name);
+        case RelationType::CALLS:
+            pkb->callTable->insertCall(procedureName, name);
+        case RelationType::CALLS_T:
+            pkb->callStarTable->insertCallStar(procedureName, name);
+    }
+}
+void PKBInterface::addRelation(RelationType type, int firstStatementNumber, int secondStatementNumber) {
+    switch (type) {
+        case RelationType::PARENT:
+            pkb->parentTable->insertParent(firstStatementNumber, secondStatementNumber);
+        case RelationType::PARENT_T:
+            pkb->parentStarTable->insertParentStar(firstStatementNumber, secondStatementNumber);
+        case RelationType::FOLLOWS:
+            pkb->followsTable->insertFollows(firstStatementNumber, secondStatementNumber);
+    }
+}
 
 void PKBInterface::addModifies(int statementNumber, std::string varName) {
     pkb->modifiesTable->insertModifies(statementNumber, std::move(varName));
@@ -94,10 +102,6 @@ void PKBInterface::addParentStar(int parentStatementNumber, int childStatementNu
 
 void PKBInterface::addFollows(int frontStatementNumber, int backStatementNumber) {
     pkb->followsTable->insertFollows(frontStatementNumber, backStatementNumber);
-}
-
-void PKBInterface::addFollowsStar(int frontStatementNumber, int backStatementNumber) {
-    pkb->followsStarTable->insertFollowsStar(frontStatementNumber, backStatementNumber);
 }
 
 void PKBInterface::addCall(std::string procedureName, std::string procedureCalled) {
@@ -161,10 +165,6 @@ std::unordered_map<std::string, std::unordered_set<std::string>> PKBInterface::g
 
 std::unordered_map<int, int> PKBInterface::getAllFollow() {
     return pkb->followsTable->getAllFollows();
-}
-
-std::unordered_map<int, int> PKBInterface::getAllFollowStar() {
-    return pkb->followsStarTable->getAllFollowStars();
 }
 
 std::unordered_map<int, unordered_set<int>> PKBInterface::getAllNext() {

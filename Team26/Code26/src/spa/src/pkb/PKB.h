@@ -13,7 +13,6 @@
 #include "ParentTable.h"
 #include "ParentStarTable.h"
 #include "FollowsTable.h"
-#include "FollowsStarTable.h"
 #include "CallTable.h"
 #include "CallStarTable.h"
 #include "ContainerTable.h"
@@ -35,7 +34,6 @@ public:
     ParentTable* parentTable;
     ParentStarTable* parentStarTable;
     FollowsTable* followsTable;
-    FollowsStarTable* followsStarTable;
     CallTable* callTable;
     CallStarTable* callStarTable;
     ContainerTable* containerTable;
@@ -53,7 +51,6 @@ public:
         parentTable = new ParentTable();
         parentStarTable = new ParentStarTable();
         followsTable = new FollowsTable;
-        followsStarTable = new FollowsStarTable();
         callTable = new CallTable();
         callStarTable = new CallStarTable();
         containerTable = new ContainerTable();

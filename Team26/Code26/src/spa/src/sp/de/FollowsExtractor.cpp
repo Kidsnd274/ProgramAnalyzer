@@ -2,7 +2,7 @@
 
 void FollowsExtractor::addToPkb(std::vector<std::shared_ptr<StatementNode>> stmtList) {
     for (int i = stmtList.size()-1; i > 0; --i) {
-        pkb->addFollows(stmtList[i-1]->getStatementNumber(), stmtList[i]->getStatementNumber());
+        pkb->addRelation(RelationType::FOLLOWS, stmtList[i-1]->getStatementNumber(), stmtList[i]->getStatementNumber());
     }
 }
 
