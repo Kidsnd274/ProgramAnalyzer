@@ -194,7 +194,7 @@ void RelationClauseEvaluator::evaluateAffects(QPS::ResultTable *resultTable) {
         synonyms.push_back(arg2.argumentName);
         for (auto a : assigns) {
             std::unordered_set<STMT_NUM> affects = QPS_Interface::getAffects(stoi(a));
-            for (auto second: affects) {
+            for (auto second : affects) {
                 lines.insert({std::to_string(second)});
             }
         }
@@ -312,7 +312,7 @@ void RelationClauseEvaluator::evaluateAffectsT(QPS::ResultTable *resultTable) {
         synonyms.push_back(arg2.argumentName);
         for (auto a : assigns) {
             std::unordered_set<STMT_NUM> affects = QPS_Interface::getAffectsStar(stoi(a));
-            for (auto second: affects) {
+            for (auto second : affects) {
                 lines.insert({std::to_string(second)});
             }
         }
@@ -338,32 +338,32 @@ void RelationClauseEvaluator::evaluateAffectsT(QPS::ResultTable *resultTable) {
     ResultTable *table = new ResultTable(synonyms, lines);
     resultTable->replace(table);
     return;
-};
+}
 
 void RelationClauseEvaluator::evaluateUse(QPS::ResultTable *resultTable) {
-    //Uses_P only
+    // Uses_P only
     if (relationClause->getFirstArgument().argumentType == Argument::PROCEDURE_ACTUAL_NAME
         || relationClause->getFirstArgument().argumentType == Argument::PROCEDURE_SYNONYM) {
         filterRelations(QPS_Interface::getAllUsesProcRelations(), resultTable);
         return;
     }
-    //Uses_S only
+    // Uses_S only
     if (relationClause->getFirstArgument().argumentType != Argument::WILDCARD) {
         filterRelations(QPS_Interface::getAllUsesRelations(), resultTable);
         return;
     }
-    //argument 1 is wildcard, can be both Uses_P and Uses_S
+    // argument 1 is wildcard, can be both Uses_P and Uses_S
     QPS::ResultTable r1 = QPS::ResultTable();
     QPS::ResultTable r2 = QPS::ResultTable();
     filterRelations(QPS_Interface::getAllUsesRelations(), &r1);
-    //if argument 2 is synonym, then merge both tables
+    // if argument 2 is synonym, then merge both tables
     if (Argument::isSynonym(relationClause->getSecondArgument().argumentType)) {
         filterRelations(QPS_Interface::getAllUsesProcRelations(), &r2);
         ResultTable* resultTable1 = QPS::ResultTable::mergeTable(&r1, &r2);
         resultTable->replace(resultTable1);
         return;
     }
-    //if argument 2 is wildcard or actual name, then we only need to return either a trueTable or a falseTable
+    // if argument 2 is wildcard or actual name, then we only need to return either a trueTable or a falseTable
     if (r1.isTrueTable()) {
         resultTable->setTrueTable();
         return;
@@ -373,29 +373,29 @@ void RelationClauseEvaluator::evaluateUse(QPS::ResultTable *resultTable) {
 }
 
 void RelationClauseEvaluator::evaluateModify(QPS::ResultTable *resultTable) {
-    //Modifies_P only
+    // Modifies_P only
     if (relationClause->getFirstArgument().argumentType == Argument::PROCEDURE_ACTUAL_NAME
         || relationClause->getFirstArgument().argumentType == Argument::PROCEDURE_SYNONYM) {
         filterRelations(QPS_Interface::getAllModifiesProcRelations(), resultTable);
         return;
     }
-    //Modifies_S only
+    // Modifies_S only
     if (relationClause->getFirstArgument().argumentType != Argument::WILDCARD) {
         filterRelations(QPS_Interface::getAllModifiesRelations(), resultTable);
         return;
     }
-    //argument 1 is wildcard, can be both Modifies_P and Modifies_S
+    // argument 1 is wildcard, can be both Modifies_P and Modifies_S
     QPS::ResultTable r1 = QPS::ResultTable();
     QPS::ResultTable r2 = QPS::ResultTable();
     filterRelations(QPS_Interface::getAllModifiesRelations(), &r1);
-    //if argument 2 is synonym, then merge both tables
+    // if argument 2 is synonym, then merge both tables
     if (Argument::isSynonym(relationClause->getSecondArgument().argumentType)) {
         filterRelations(QPS_Interface::getAllModifiesProcRelations(), &r2);
         ResultTable* resultTable1 = QPS::ResultTable::mergeTable(&r1, &r2);;
         resultTable->replace(resultTable1);
         return;
     }
-    //if argument 2 is wildcard or actual name, then we only need to return either a trueTable or a falseTable
+    // if argument 2 is wildcard or actual name, then we only need to return either a trueTable or a falseTable
     if (r1.isTrueTable()) {
         resultTable->setTrueTable();
         return;
@@ -839,7 +839,7 @@ void RelationClauseEvaluator::filterRelations(std::unordered_map<int, std::vecto
     Argument arg1 = relationClause->getFirstArgument();
     Argument arg2 = relationClause->getSecondArgument();
     std::unordered_set<std::vector<std::string>, StringVectorHash> result;
-    for (auto relation: map) { //e.g. "p1" calls "p2, p3"
+    for (auto relation: map) {  // e.g. "p1" calls "p2, p3"
         if (arg1.argumentType == Argument::NUMBER) {
             if (relation.first != stoi(arg1.argumentName)) {
                 continue;
@@ -872,7 +872,7 @@ void RelationClauseEvaluator::filterRelations(std::unordered_map<int, int> map, 
     Argument arg1 = relationClause->getFirstArgument();
     Argument arg2 = relationClause->getSecondArgument();
     std::unordered_set<std::vector<std::string>, StringVectorHash> result;
-    for (auto relation: map) { //e.g. "p1" calls "p2, p3"
+    for (auto relation: map) {  // e.g. "p1" calls "p2, p3"
         if (arg1.argumentType == Argument::NUMBER) {
             if (relation.first != stoi(arg1.argumentName)) {
                 continue;
