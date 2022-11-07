@@ -26,40 +26,6 @@ std::vector<std::string> StatementTable::getAllStmtsByType(StatementType::StmtTy
     return result;
 }
 
-std::vector<std::string> StatementTable::getAllReads() {
-    return getAllStmtsByType(StatementType::READ);
-}
-
-std::vector<std::string> StatementTable::getAllAssigns() {
-    return getAllStmtsByType(StatementType::ASSIGN);
-}
-
-std::vector<std::string> StatementTable::getAllWhiles() {
-    return getAllStmtsByType(StatementType::WHILE);
-}
-
-std::vector<std::string> StatementTable::getAllIfs() {
-    return getAllStmtsByType(StatementType::IF);
-}
-
-std::vector<std::string> StatementTable::getAllPrints() {
-    return getAllStmtsByType(StatementType::PRINT);
-}
-
-std::vector<std::string> StatementTable::getAllCalls() {
-    return getAllStmtsByType(StatementType::CALL);
-}
-
-std::vector<Statement> StatementTable::getAllCallStatements() {
-    std::vector<Statement> result;
-    for (Statement stmt : this->statementList) {
-        if (stmt.type == StatementType::CALL) {
-            result.push_back(stmt);
-        }
-    }
-    return result;
-}
-
 Statement StatementTable::getStmtByLineNumber(int stmtNo) {
     Statement result;
     for (Statement stmt : this->statementList) {

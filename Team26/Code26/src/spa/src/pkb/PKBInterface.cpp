@@ -9,6 +9,16 @@ void PKBInterface::addProcedure(std::string name, int startingStmtNo, int ending
     pkb->procedureTable->insertProc(proc);
 }
 
+void PKBInterface::addItem(Entity::EntityType type, std::string name, int value) {
+    switch (type) {
+        case Entity::VARIABLE:
+            pkb->varTable->insertVar(name);
+        case Entity::CONSTANT:
+            pkb->constantTable->insertConst(value);
+        default:;
+    }
+}
+
 void PKBInterface::addVariable(std::string name) {
     pkb->varTable->insertVar(name);
 }
@@ -226,32 +236,36 @@ std::vector<std::vector<Statement>> PKBInterface::getAllStmtLists() {
     return result;
 }
 
-std::vector<std::string> PKBInterface::getAllStmts() {
-    return pkb->statementTable->getAllStmts();
-}
 
-std::vector<std::string> PKBInterface::getAllReads() {
-    return pkb->statementTable->getAllReads();
-}
-
-std::vector<std::string> PKBInterface::getAllPrints() {
-    return pkb->statementTable->getAllPrints();
-}
-
-std::vector<std::string> PKBInterface::getAllCalls() {
-    return pkb->statementTable->getAllCalls();
-}
-
-std::vector<std::string> PKBInterface::getAllWhiles() {
-    return pkb->statementTable->getAllWhiles();
-}
-
-std::vector<std::string> PKBInterface::getAllIfs() {
-    return pkb->statementTable->getAllIfs();
+std::vector<std::string> PKBInterface::getAllEntity(Argument::ArgumentType type) {
+    switch (type) {
+        case Argument::STMT_SYNONYM:
+            return pkb->statementTable->getAllStmts();
+        case Argument::READ_SYNONYM:
+            return pkb->statementTable->getAllStmtsByType(StatementType::READ);
+        case Argument::PRINT_SYNONYM:
+            return pkb->statementTable->getAllStmtsByType(StatementType::PRINT);
+        case Argument::CALL_SYNONYM:
+            return pkb->statementTable->getAllStmtsByType(StatementType::CALL);
+        case Argument::WHILE_SYNONYM:
+            return pkb->statementTable->getAllStmtsByType(StatementType::WHILE);
+        case Argument::IF_SYNONYM:
+            return pkb->statementTable->getAllStmtsByType(StatementType::IF);
+        case Argument::ASSIGN_SYNONYM:
+            return pkb->statementTable->getAllStmtsByType(StatementType::ASSIGN);
+        case Argument::VAR_SYNONYM:
+            return pkb->varTable->getAllVariables();
+        case Argument::CONST_SYNONYM:
+            return pkb->constantTable->getAllConstants();
+        case Argument::PROCEDURE_SYNONYM:
+            return pkb->procedureTable->getAllProcedures();
+        default:
+            return {};
+    }
 }
 
 std::vector<std::string> PKBInterface::getAllAssigns() {
-    return pkb->statementTable->getAllAssigns();
+    return pkb->statementTable->getAllStmtsByType(StatementType::ASSIGN);
 }
 
 std::vector<std::string> PKBInterface::getAllVariables() {

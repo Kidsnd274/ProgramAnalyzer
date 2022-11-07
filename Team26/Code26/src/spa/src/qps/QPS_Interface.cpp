@@ -60,42 +60,42 @@ std::shared_ptr<AssignNode> QPS_Interface::getAssignTNode(std::string assignRef)
 }
 
 std::unordered_set<std::string> QPS_Interface::getAllEntity(Argument *argument) {
-    std::vector<std::string> result;
+    std::vector<std::string> result = pkbInterface->getAllEntity(argument->argumentType);
     std::unordered_set<std::string> resultSet;
-    switch (argument->argumentType) {
-        case Argument::STMT_SYNONYM:
-            result = pkbInterface->getAllStmts();
-            break;
-        case Argument::READ_SYNONYM:
-            result = pkbInterface->getAllReads();
-            break;
-        case Argument::PRINT_SYNONYM:
-            result = pkbInterface->getAllPrints();
-            break;
-        case Argument::CALL_SYNONYM:
-            result = pkbInterface->getAllCalls();
-            break;
-        case Argument::WHILE_SYNONYM:
-            result = pkbInterface->getAllWhiles();
-            break;
-        case Argument::IF_SYNONYM:
-            result = pkbInterface->getAllIfs();
-            break;
-        case Argument::ASSIGN_SYNONYM:
-            result = pkbInterface->getAllAssigns();
-            break;
-        case Argument::VAR_SYNONYM:
-            result = pkbInterface->getAllVariables();
-            break;
-        case Argument::CONST_SYNONYM:
-            result = pkbInterface->getAllConstants();
-            break;
-        case Argument::PROCEDURE_SYNONYM:
-            result = pkbInterface->getAllProcedures();
-            break;
-        default:
-            return {};
-    }
+//    switch (argument->argumentType) {
+//        case Argument::STMT_SYNONYM:
+//            result = pkbInterface->getAllStmts();
+//            break;
+//        case Argument::READ_SYNONYM:
+//            result = pkbInterface->getAllReads();
+//            break;
+//        case Argument::PRINT_SYNONYM:
+//            result = pkbInterface->getAllPrints();
+//            break;
+//        case Argument::CALL_SYNONYM:
+//            result = pkbInterface->getAllCalls();
+//            break;
+//        case Argument::WHILE_SYNONYM:
+//            result = pkbInterface->getAllWhiles();
+//            break;
+//        case Argument::IF_SYNONYM:
+//            result = pkbInterface->getAllIfs();
+//            break;
+//        case Argument::ASSIGN_SYNONYM:
+//            result = pkbInterface->getAllAssigns();
+//            break;
+//        case Argument::VAR_SYNONYM:
+//            result = pkbInterface->getAllVariables();
+//            break;
+//        case Argument::CONST_SYNONYM:
+//            result = pkbInterface->getAllConstants();
+//            break;
+//        case Argument::PROCEDURE_SYNONYM:
+//            result = pkbInterface->getAllProcedures();
+//            break;
+//        default:
+//            return {};
+//    }
     for (auto i : result) {
         resultSet.insert(i);
     }

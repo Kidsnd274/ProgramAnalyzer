@@ -14,13 +14,6 @@ public:
     std::vector<Statement> getStatementList();
     std::vector<std::string> getAllStmts();
     std::vector<std::string> getAllStmtsByType(StatementType::StmtType type);
-    std::vector<std::string> getAllReads();
-    std::vector<std::string> getAllAssigns();
-    std::vector<std::string> getAllWhiles();
-    std::vector<std::string> getAllIfs();
-    std::vector<std::string> getAllPrints();
-    std::vector<std::string> getAllCalls();
-    std::vector<Statement> getAllCallStatements();
     Statement getStmtByLineNumber(int stmtNo);
     std::unordered_set<int> getAllAssignFromProcedure(int startStmt, int endStmt);
     void clear();

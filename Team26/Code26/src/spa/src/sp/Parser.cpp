@@ -92,7 +92,7 @@ std::shared_ptr<AssignNode> Parser::parseAssign(STMT_LIST_NUM stmtListNum) {
 
     // consume non-terminal token
     std::string varAssigned = tokenStack->checkAndReturnNextToken(SPTokenType::NameToken);
-    pkbInterface->addVariable(varAssigned);
+    pkbInterface->addItem(Entity::VARIABLE, varAssigned, 0);
     tokenStack->checkAndUseNextToken(SPTokenType::AssignToken);
     std::shared_ptr<TNode> expr = std::move(parseExpression());
     tokenStack->checkAndUseNextToken(SPTokenType::SemiColonToken);
@@ -182,7 +182,7 @@ std::shared_ptr<StatementNode> Parser::parseReadAndPrint(SPTokenType type, STMT_
     tokenStack->checkAndUseNextToken(type);  // consume token
     STMT_NUM currStatement = statementCount++;
     std::string varName = tokenStack->checkAndReturnNextToken(SPTokenType::NameToken);
-    pkbInterface->addVariable(varName);
+    pkbInterface->addItem(Entity::VARIABLE, varName, 0);
     tokenStack->checkAndUseNextToken(SPTokenType::SemiColonToken);
 
     cfgManager->addStandardNode(currStatement);
@@ -276,12 +276,12 @@ std::shared_ptr<TNode> Parser::parseExpressionFromString(std::string exprString)
 
 void Parser::addVariableToPkbIfExist(std::string var) {
     if (pkbInterface) {
-        pkbInterface->addVariable(var);
+        pkbInterface->addItem(Entity::VARIABLE, var, 0);
     }
 }
 
 void Parser::addConstToPkbIfExist(std::string cons) {
     if (pkbInterface) {
-        pkbInterface->addConst(std::stoi(cons));
+        pkbInterface->addItem(Entity::CONSTANT, "", std::stoi(cons));
     }
 }

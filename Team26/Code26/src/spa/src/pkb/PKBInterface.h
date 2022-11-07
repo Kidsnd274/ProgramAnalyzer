@@ -9,6 +9,9 @@
 #include <unordered_set>
 #include <utility>
 #include "qps/QueryProcessorTypes.h"
+#include "qps/type/Argument.h"
+#include "qps/type/RelationClause.h"
+#include "qps/type/Entity.h"
 #include "PKB.h"
 #include "Statement.h"
 #include "util/ast/AssignNode.h"
@@ -29,6 +32,7 @@ public:
     PKB* pkb = new PKB();
 
     virtual void addProcedure(std::string name, int startingStmtNo, int endingStmtNo, std::shared_ptr<CFGHead> cfg);
+    void addItem(Entity::EntityType type, std::string name, int value);
     void addVariable(std::string name);
     void addConst(int value);
 
@@ -80,6 +84,13 @@ public:
     virtual std::unordered_map<std::string, std::vector<std::string>> getAllUseByProc();
     virtual std::vector<std::vector<Statement>> getAllStmtLists();
 
+    /**
+     * Get all entities of given type.
+     * @param type type of entity
+     * @teturn an unordered_set of statement line number, if/while/assign/call/read/print statement line number,
+     * variable name, procedure name or constant (as string).
+     */
+    std::vector<std::string> getAllEntity(Argument::ArgumentType type);
     std::vector<std::string> getAllStmts();
     std::vector<std::string> getAllReads();
     std::vector<std::string> getAllPrints();
