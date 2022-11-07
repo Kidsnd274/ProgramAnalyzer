@@ -28,42 +28,42 @@ public:
     std::unordered_map<STMT_NUM, std::unordered_set<STMT_NUM>> affectsStarMap;
     std::unordered_map<std::string, std::pair<STMT_NUM, STMT_NUM>> procToStmtNums;
 
-    void addFollows(int stmt1Number, int stmt2Number) override;
-    void addParent(int parentStmtNumber, int stmtNumber) override;
-    void addParentStar(int parentStmtNumber, int stmtNumber) override; // might let qps handle in the future
-    void addModifies(int stmtNumber, std::string varModified) override;
-    void addModifies(std::string procedureName, std::string varModified) override;
-    void addUses(int stmtNumber, std::string variableUsed) override;
-    void addUses(std::string procedureName, std::string variableUsed) override;
+    void addFollows(int stmt1Number, int stmt2Number);
+    void addParent(int parentStmtNumber, int stmtNumber);
+    void addParentStar(int parentStmtNumber, int stmtNumber); // might let qps handle in the future
+    void addModifies(int stmtNumber, std::string varModified);
+    void addModifies(std::string procedureName, std::string varModified);
+    void addUses(int stmtNumber, std::string variableUsed);
+    void addUses(std::string procedureName, std::string variableUsed);
     //Temporary methods to test Follows*
-//    void addReadStatement(int statementNumber, int stmtListNum) override;
+    void addReadStatement(int statementNumber, int stmtListNum);
     void addAssignStatement(int statementNumber, int stmtListNum, std::shared_ptr<TNode> ptr) override;
-//    void addWhileStatement(int statementNumber, int stmtListNum) override;
-//    void addIfStatement(int statementNumber, int stmtListNum) override;
-//    void addPrintStatement(int statementNumber, int stmtListNum) override;
+    void addWhileStatement(int statementNumber, int stmtListNum);
+    void addIfStatement(int statementNumber, int stmtListNum);
+    void addPrintStatement(int statementNumber, int stmtListNum);
     void addCallStatement(int statementNumber, int statementListNumber, std::string calleeProcName) override;
-    void addCall(std::string procedureName, std::string procedureCalled) override;
-    void addCallStar(std::string procedureName, std::string procedureCalled) override;
-    std::unordered_set<std::string> getAllVariablesModified(std::string procedureName) override;
-    std::unordered_set<std::string> getAllVariablesUsed(std::string procedureName) override;
+    void addCall(std::string procedureName, std::string procedureCalled);
+    void addCallStar(std::string procedureName, std::string procedureCalled);
+    std::unordered_set<std::string> getAllVariablesModified(std::string procedureName);
+    std::unordered_set<std::string> getAllVariablesUsed(std::string procedureName);
     std::unordered_set<int> getParentStar(int statementNumber) override;
-    std::unordered_set<std::string> getCall(std::string procedure) override;
-    std::unordered_set<std::string> getCallStar(std::string procedure) override;
+    std::unordered_set<std::string> getCall(std::string procedure);
+    std::unordered_set<std::string> getCallStar(std::string procedure);
 
     //for testing Next*
-    bool hasNextStar(STMT_NUM stmt) override;
-    void addNextStar(STMT_NUM stmt, std::unordered_set<STMT_NUM> nextStarSet) override;
+    bool hasNextStar(STMT_NUM stmt);
+    void addNextStar(STMT_NUM stmt, std::unordered_set<STMT_NUM> nextStarSet);
     bool isStatementContainer(STMT_NUM stmt) override;
-    bool doesStatementModify(STMT_NUM stmt, std::string varModified) override;
-    bool hasAffects(STMT_NUM stmt) override;
+    bool doesStatementModify(STMT_NUM stmt, std::string varModified);
+    bool hasAffects(STMT_NUM stmt);
     std::string getModifiedVariable(STMT_NUM stmt) override;
-    bool isStatementAssign(STMT_NUM stmt) override;
-    bool doesStatementUse(STMT_NUM stmt, std::string varUsed) override;
-    void addAffects(STMT_NUM stmt, STMT_NUM affectedStmt) override;
+    bool isStatementAssign(STMT_NUM stmt);
+    bool doesStatementUse(STMT_NUM stmt, std::string varUsed);
+    void addAffects(STMT_NUM stmt, STMT_NUM affectedStmt);
     void addProcedure(std::string name, int startingStmtNo, int endingStmtNo, std::shared_ptr<CFGHead> cfg) override;
     std::string getProcedureNameOf(CFGHeadPtr cfg) override;
-    bool hasAffectsStar(STMT_NUM stmt) override;
-    void addAffectsStar(STMT_NUM stmt, std::unordered_set<STMT_NUM> affectsStarSet) override;
+    bool hasAffectsStar(STMT_NUM stmt);
+    void addAffectsStar(STMT_NUM stmt, std::unordered_set<STMT_NUM> affectsStarSet);
     std::unordered_set<STMT_NUM> getAllAssignFromProcedure(std::string procName) override;
-    std::unordered_set<STMT_NUM> getAffects(STMT_NUM stmt) override;
+    std::unordered_set<STMT_NUM> getAffects(STMT_NUM stmt);
 };
