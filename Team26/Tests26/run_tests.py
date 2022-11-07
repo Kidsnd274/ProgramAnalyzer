@@ -146,7 +146,8 @@ milestone3 = testdir / "milestone3"
 tests = [TestCase("milestone3_test1", milestone3),
          TestCase("milestone3_test2", milestone3),
          TestCase("milestone3_test3", milestone3),
-         TestCase("affectstest", milestone3)]
+         TestCase("affectstest", milestone3),
+         TestCase("stresstest_pattern", milestone3)]
 
 run_multiple_tests(tests)
 
