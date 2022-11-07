@@ -14,38 +14,37 @@ const std::map<std::string, Entity::EntityType> Entity::entityMap = {{"stmt",   
 
 Argument::ArgumentType Entity::mapToArgument(Entity::EntityType entityType) {
     switch (entityType) {
-
         case Entity::STATEMENT: {
             return Argument::STMT_SYNONYM;
         }
-        case Entity::READ_ENTITY:{
+        case Entity::READ_ENTITY: {
             return Argument::READ_SYNONYM;
         }
-        case Entity::PRINT_ENTITY:{
+        case Entity::PRINT_ENTITY: {
             return Argument::PRINT_SYNONYM;
         }
-        case Entity::CALL_ENTITY:{
+        case Entity::CALL_ENTITY: {
             return Argument::CALL_SYNONYM;
         }
-        case Entity::WHILE_ENTITY:{
+        case Entity::WHILE_ENTITY: {
             return Argument::WHILE_SYNONYM;
         }
-        case Entity::IF_ENTITY:{
+        case Entity::IF_ENTITY: {
             return Argument::IF_SYNONYM;
         }
-        case Entity::ASSIGN_ENTITY:{
+        case Entity::ASSIGN_ENTITY: {
             return Argument::ASSIGN_SYNONYM;
         }
-        case Entity::VARIABLE:{
+        case Entity::VARIABLE: {
             return Argument::VAR_SYNONYM;
         }
-        case Entity::CONSTANT:{
+        case Entity::CONSTANT: {
             return Argument::CONST_SYNONYM;
         }
-        case Entity::PROCEDURE:{
+        case Entity::PROCEDURE: {
             return Argument::PROCEDURE_SYNONYM;
         }
-        case Entity::INVALID_ENTITY_TYPE:{
+        case Entity::INVALID_ENTITY_TYPE: {
             return Argument::INVALID_ARGUMENT_TYPE;
         }
     }

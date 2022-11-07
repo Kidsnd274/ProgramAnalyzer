@@ -26,7 +26,7 @@ public:
         BOOLEAN_ARG
     };
 
-    const static std::map<std::string, ArgumentType> argumentMap;
+    static const std::map<std::string, ArgumentType> argumentMap;
 
     static bool isSynonym(ArgumentType);
 
@@ -47,4 +47,4 @@ public:
 };
 
 
-#endif //SPA_ARGUMENT_H
+#endif  // SPA_ARGUMENT_H
