@@ -86,20 +86,19 @@ public:
 
     CFGHeadPtr getCfgOfProcedure(std::string procedureName);
 
-    virtual bool hasRelation(RelationType type, STMT_NUM stmt);
 
+    virtual bool hasRelation(RelationType type, STMT_NUM stmt);
 
     virtual bool isStatementType(StatementType::StmtType type, STMT_NUM stmt);
     virtual bool isStatementContainer(STMT_NUM stmt);
 
     virtual bool doesStatementUseOrModify(RelationType type, STMT_NUM stmt, std::string var);
 
-    virtual std::string getModifiedVariable(STMT_NUM stmt);
-
 
     virtual std::unordered_set<STMT_NUM> getStmtSet(RelationType type, STMT_NUM stmt);
 
     virtual std::string getProcedureNameOf(CFGHeadPtr cfg);
+    virtual std::string getModifiedVariable(STMT_NUM stmt);
 
     virtual std::unordered_set<STMT_NUM> getAllAssignFromProcedure(std::string procName);
 
