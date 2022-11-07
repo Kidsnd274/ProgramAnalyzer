@@ -23,7 +23,7 @@ void AffectsExtractor::computeDDG(std::string& procName, const CFGHeadPtr& cfg, 
             computeAffects(cfg, pkb, stmt);
         }
 
-        std::unordered_set<STMT_NUM> affectedSet = pkb->getAffects(stmt);
+        std::unordered_set<STMT_NUM> affectedSet = pkb->getStmtSet(RelationType::AFFECTS, stmt);
         addEdgesToDDG(procName, stmt, affectedSet);
     }
 }

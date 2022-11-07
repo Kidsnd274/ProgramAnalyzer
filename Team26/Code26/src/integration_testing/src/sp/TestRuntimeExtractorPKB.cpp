@@ -260,14 +260,14 @@ TEST_CASE("Simple affects test") {
     REQUIRE(affectsMap[9] == stmt9);
     REQUIRE(affectsMap[10] == stmt10);
 
-    REQUIRE(pkbInterface->getAffects(1) == stmt1);
-    REQUIRE(pkbInterface->getAffects(2) == stmt2);
-    REQUIRE(pkbInterface->getAffects(4) == stmt4);
-    REQUIRE(pkbInterface->getAffects(5) == stmt5);
-    REQUIRE(pkbInterface->getAffects(7) == stmt7);
-    REQUIRE(pkbInterface->getAffects(8) == stmt8);
-    REQUIRE(pkbInterface->getAffects(9) == stmt9);
-    REQUIRE(pkbInterface->getAffects(10) == stmt10);
+    REQUIRE(pkbInterface->getStmtSet(RelationType::AFFECTS, 1) == stmt1);
+    REQUIRE(pkbInterface->getStmtSet(RelationType::AFFECTS, 2) == stmt2);
+    REQUIRE(pkbInterface->getStmtSet(RelationType::AFFECTS, 4) == stmt4);
+    REQUIRE(pkbInterface->getStmtSet(RelationType::AFFECTS, 5) == stmt5);
+    REQUIRE(pkbInterface->getStmtSet(RelationType::AFFECTS, 7) == stmt7);
+    REQUIRE(pkbInterface->getStmtSet(RelationType::AFFECTS, 8) == stmt8);
+    REQUIRE(pkbInterface->getStmtSet(RelationType::AFFECTS, 9) == stmt9);
+    REQUIRE(pkbInterface->getStmtSet(RelationType::AFFECTS, 10) == stmt10);
 
     delete pkbInterface;
     pkbInterface = nullptr;
@@ -528,23 +528,23 @@ TEST_CASE("2 procedure affects/affects* test") {
         auto affectsMap = pkbInterface->getAllStmtRelation(RelationType::AFFECTS);
 
         REQUIRE(affectsMap[1] == stmt1);
-        REQUIRE(pkbInterface->getAffects(1) == stmt1);
+        REQUIRE(pkbInterface->getStmtSet(RelationType::AFFECTS, 1) == stmt1);
         REQUIRE(affectsMap[2] == stmt2);
-        REQUIRE(pkbInterface->getAffects(2) == stmt2);
+        REQUIRE(pkbInterface->getStmtSet(RelationType::AFFECTS, 2) == stmt2);
         REQUIRE(affectsMap[4] == stmt4);
-        REQUIRE(pkbInterface->getAffects(4) == stmt4);
+        REQUIRE(pkbInterface->getStmtSet(RelationType::AFFECTS, 4) == stmt4);
         REQUIRE(affectsMap[6] == stmt6);
-        REQUIRE(pkbInterface->getAffects(6) == stmt6);
+        REQUIRE(pkbInterface->getStmtSet(RelationType::AFFECTS, 6) == stmt6);
         REQUIRE(affectsMap[8] == stmt8);
-        REQUIRE(pkbInterface->getAffects(8) == stmt8);
+        REQUIRE(pkbInterface->getStmtSet(RelationType::AFFECTS, 8) == stmt8);
         REQUIRE(affectsMap[9] == stmt9);
-        REQUIRE(pkbInterface->getAffects(9) == stmt9);
+        REQUIRE(pkbInterface->getStmtSet(RelationType::AFFECTS, 9) == stmt9);
         REQUIRE(affectsMap[10] == stmt10);
-        REQUIRE(pkbInterface->getAffects(10) == stmt10);
+        REQUIRE(pkbInterface->getStmtSet(RelationType::AFFECTS, 10) == stmt10);
         REQUIRE(affectsMap[11] == stmt11);
-        REQUIRE(pkbInterface->getAffects(11) == stmt11);
+        REQUIRE(pkbInterface->getStmtSet(RelationType::AFFECTS, 11) == stmt11);
         REQUIRE(affectsMap[12] == stmt12);
-        REQUIRE(pkbInterface->getAffects(12) == stmt12);
+        REQUIRE(pkbInterface->getStmtSet(RelationType::AFFECTS, 12) == stmt12);
     }
 
     SECTION("Affects* tests") {
@@ -769,17 +769,17 @@ TEST_CASE("if-if and while-while loop") {
         REQUIRE(affectsMap[18] == stmt18);
         REQUIRE(affectsMap[19] == stmt19);
 
-        REQUIRE(pkbInterface->getAffects(1) == stmt1);
-        REQUIRE(pkbInterface->getAffects(2) == stmt2);
-        REQUIRE(pkbInterface->getAffects(4) == stmt4);
-        REQUIRE(pkbInterface->getAffects(6) == stmt6);
-        REQUIRE(pkbInterface->getAffects(8) == stmt8);
-        REQUIRE(pkbInterface->getAffects(10) == stmt10);
-        REQUIRE(pkbInterface->getAffects(11) == stmt11);
-        REQUIRE(pkbInterface->getAffects(12) == stmt12);
-        REQUIRE(pkbInterface->getAffects(14) == stmt14);
-        REQUIRE(pkbInterface->getAffects(18) == stmt18);
-        REQUIRE(pkbInterface->getAffects(19) == stmt19);
+        REQUIRE(pkbInterface->getStmtSet(RelationType::AFFECTS, 1) == stmt1);
+        REQUIRE(pkbInterface->getStmtSet(RelationType::AFFECTS, 2) == stmt2);
+        REQUIRE(pkbInterface->getStmtSet(RelationType::AFFECTS, 4) == stmt4);
+        REQUIRE(pkbInterface->getStmtSet(RelationType::AFFECTS, 6) == stmt6);
+        REQUIRE(pkbInterface->getStmtSet(RelationType::AFFECTS, 8) == stmt8);
+        REQUIRE(pkbInterface->getStmtSet(RelationType::AFFECTS, 10) == stmt10);
+        REQUIRE(pkbInterface->getStmtSet(RelationType::AFFECTS, 11) == stmt11);
+        REQUIRE(pkbInterface->getStmtSet(RelationType::AFFECTS, 12) == stmt12);
+        REQUIRE(pkbInterface->getStmtSet(RelationType::AFFECTS, 14) == stmt14);
+        REQUIRE(pkbInterface->getStmtSet(RelationType::AFFECTS, 18) == stmt18);
+        REQUIRE(pkbInterface->getStmtSet(RelationType::AFFECTS, 19) == stmt19);
     }
 
     SECTION("Affects* Test") {

@@ -171,7 +171,7 @@ std::unordered_set<STMT_NUM> QPS_Interface::getNextStar(STMT_NUM stmt) {
         CFGHeadPtr cfgHeadPtr = QPS_Interface::getCFGHeadPtrByProc(stmt);
         QPS_Interface::runtimeExtractor->computeNextStar(cfgHeadPtr, stmt);
     }
-    return QPS_Interface::pkbInterface->getNextStar(stmt);
+    return QPS_Interface::pkbInterface->getStmtSet(RelationType::NEXT_T, stmt);
 }
 
 std::unordered_set<STMT_NUM> QPS_Interface::getAffects(STMT_NUM stmt) {
@@ -180,7 +180,7 @@ std::unordered_set<STMT_NUM> QPS_Interface::getAffects(STMT_NUM stmt) {
         CFGHeadPtr cfgHeadPtr = QPS_Interface::getCFGHeadPtrByProc(stmt);
         runtimeExtractor->computeAffects(cfgHeadPtr, stmt);
     }
-    return QPS_Interface::pkbInterface->getAffects(stmt);
+    return QPS_Interface::pkbInterface->getStmtSet(RelationType::AFFECTS, stmt);
 }
 
 std::unordered_set<STMT_NUM> QPS_Interface::getAffectsStar(STMT_NUM stmt) {
@@ -189,7 +189,7 @@ std::unordered_set<STMT_NUM> QPS_Interface::getAffectsStar(STMT_NUM stmt) {
         CFGHeadPtr cfgHeadPtr = QPS_Interface::getCFGHeadPtrByProc(stmt);
         runtimeExtractor->computeAffectsStar(cfgHeadPtr, stmt);
     }
-    return QPS_Interface::pkbInterface->getAffectsStar(stmt);
+    return QPS_Interface::pkbInterface->getStmtSet(RelationType::AFFECTS_T, stmt);
 }
 
 std::unordered_map<int, std::unordered_set<int>> QPS_Interface::getAllParentRelations(RelationType relationType) {

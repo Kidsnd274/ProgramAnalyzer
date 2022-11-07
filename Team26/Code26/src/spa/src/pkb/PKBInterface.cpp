@@ -306,16 +306,17 @@ std::unordered_set<STMT_NUM> PKBInterface::getAllAssignFromProcedure(std::string
     return pkb->statementTable->getAllAssignFromProcedure(startStmt, endStmt);
 }
 
-std::unordered_set<STMT_NUM> PKBInterface::getAffects(STMT_NUM stmt) {
-    return pkb->affectTable->getAffectedSet(stmt);
-}
-
-std::unordered_set<STMT_NUM> PKBInterface::getAffectsStar(STMT_NUM stmt) {
-    return pkb->affectStarTable->getAffectedStarSet(stmt);
-}
-
-std::unordered_set<STMT_NUM> PKBInterface::getNextStar(STMT_NUM stmt) {
-    return pkb->nextStarTable->getNextStar(stmt);
+std::unordered_set<STMT_NUM> PKBInterface::getStmtSet(RelationType type, STMT_NUM stmt) {
+    switch (type) {
+        case RelationType::AFFECTS:
+            return pkb->affectTable->getAffectedSet(stmt);
+        case RelationType::AFFECTS_T:
+            return pkb->affectStarTable->getAffectedStarSet(stmt);
+        case RelationType::NEXT_T:
+            return pkb->nextStarTable->getNextStar(stmt);
+        default:
+            return {};
+    }
 }
 
 CFGHeadPtr PKBInterface::getCFGHeadPtrByProc(STMT_NUM stmt) {

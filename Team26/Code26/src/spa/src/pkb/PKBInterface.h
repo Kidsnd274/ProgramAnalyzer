@@ -97,9 +97,7 @@ public:
     virtual std::string getModifiedVariable(STMT_NUM stmt);
 
 
-    virtual std::unordered_set<STMT_NUM> getAffects(STMT_NUM stmt);
-    virtual std::unordered_set<STMT_NUM> getAffectsStar(STMT_NUM stmt);
-    virtual std::unordered_set<STMT_NUM> getNextStar(STMT_NUM stmt);
+    virtual std::unordered_set<STMT_NUM> getStmtSet(RelationType type, STMT_NUM stmt);
 
     virtual std::string getProcedureNameOf(CFGHeadPtr cfg);
 
