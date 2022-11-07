@@ -1,6 +1,12 @@
 #ifndef SPA_QUERYEVALUATOR_H
 #define SPA_QUERYEVALUATOR_H
 
+#include <algorithm>
+#include <string>
+#include <unordered_map>
+#include <unordered_set>
+#include <utility>
+#include <vector>
 #include "Query.h"
 
 struct ClauseStruct {
@@ -33,7 +39,7 @@ private:
     int* rank;
 
 public:
-    UnionFindDisjointSet(int numOfElements) {
+    explicit UnionFindDisjointSet(int numOfElements) {
         this->numOfElements = numOfElements;
         this->parent = new int[numOfElements];
         this->rank = new int[numOfElements];
@@ -84,4 +90,4 @@ public:
         return this->numOfGroups;
     }
 };
-#endif //SPA_QUERYEVALUATOR_H
+#endif  // SPA_QUERYEVALUATOR_H

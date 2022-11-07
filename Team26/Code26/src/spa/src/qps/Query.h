@@ -65,5 +65,4 @@ public:
     std::unordered_set<std::string> getCandidates();
 };
 
-
-#endif //SPA_QUERY_H
+#endif  // SPA_QUERY_H

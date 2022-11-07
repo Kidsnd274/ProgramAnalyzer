@@ -1,15 +1,14 @@
 #include "QueryManager.h"
 
 void QueryManager::handleQuery(PKBInterface *pkb, std::string queryString, std::list<std::string> &results) {
-
     QPS_Interface::setPKBInterface(pkb);
     QPS_Interface::createRuntimeExtractor();
 
-    std::vector<QPS::Token> tokens; // Initialize a vector of SPToken to store the tokens.
-    QPS::tokenize(std::move(queryString), tokens); // Call tokenizer to read in PQL and tokenize it into tokens.
+    std::vector<QPS::Token> tokens;  // Initialize a vector of SPToken to store the tokens.
+    QPS::tokenize(std::move(queryString), tokens);  // Call tokenizer to read in PQL and tokenize it into tokens.
 
-    QPS::Container* container = new QPS::Container(tokens); // Initialize a container to store the result of tokenization.
-    Exception parsingException = QPS::parseToken(tokens, *container); // Call QPS parser to parse the tokens into Query Structure. Store the result in container.queryStruct.
+    QPS::Container* container = new QPS::Container(tokens);  // Initialize a container to store the result of tokenization.
+    Exception parsingException = QPS::parseToken(tokens, *container);  // Call QPS parser to parse the tokens into Query Structure. Store the result in container.queryStruct.
 
     Query query = container->getQueryStruct();
 
@@ -39,7 +38,7 @@ void QueryManager::handleQuery(PKBInterface *pkb, std::string queryString, std::
         case UNDECLARED_SELECT_ENTITY:
         case INVALID_RELATION_CONTENT:
         case UNPAIRED_WITH_TYPE:
-        case INVALID_PATTERN_TYPE:{
+        case INVALID_PATTERN_TYPE: {
             query.setStatus(SEMANTIC_ERROR);;
             break;
         }
@@ -51,14 +50,12 @@ void QueryManager::handleQuery(PKBInterface *pkb, std::string queryString, std::
 
     query.validate();
 
-    QueryEvaluator::evaluate(&query); // Call QueryEvaluator to evaluate the query. Store the result in query.resultTable.
+    QueryEvaluator::evaluate(&query);  // Call QueryEvaluator to evaluate the query. Store the result in query.resultTable.
 
     QPS_Interface::clearRuntimeExtractor();
 
     QueryResultProjector* queryResultProjector = new QueryResultProjector();
-    queryResultProjector->getSelectTuples(query, results); // Call queryResultProjector to format and print out the query result.
+    queryResultProjector->getSelectTuples(query, results);  // Call queryResultProjector to format and print out the query result.
     delete container;
     delete queryResultProjector;
 }
-
-

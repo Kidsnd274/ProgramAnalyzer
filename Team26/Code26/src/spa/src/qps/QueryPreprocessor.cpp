@@ -2,9 +2,9 @@
 #include "sp/SourceProcessor.h"
 
 namespace QPS {
-    std::pair<int, Exception> parseDeclaration(std::vector<QPS::Token> &tokens,int pos,Entity::EntityType entityType,Container &container);
+    std::pair<int, Exception> parseDeclaration(std::vector<QPS::Token> &tokens, int pos, Entity::EntityType entityType, Container &container);
     std::pair<int, Exception> parseSelect(std::vector<QPS::Token> &tokens, int pos, Container &container);
-    std::pair<int, Exception> parseWithObject (std::vector<QPS::Token> &tokens, int pos, Container &container, Argument& argument1, ArgAttrStruct& arg1);
+    std::pair<int, Exception> parseWithObject(std::vector<QPS::Token> &tokens, int pos, Container &container, Argument& argument1, ArgAttrStruct& arg1);
     std::pair<int, Exception> parseRelation(std::vector<QPS::Token> &tokens, int tokenPos, Container &container, RelationType relationType);
     std::pair<int, Exception> parseEntity(std::vector<QPS::Token> &tokens, int pos, Container &container, Entity::EntityType entityType);
     std::pair<int, Exception> parsePattern(std::vector<QPS::Token> &tokens, int pos, Container &container);
@@ -13,11 +13,11 @@ namespace QPS {
     std::pair<int, Exception> parseRelationCalls(std::vector<QPS::Token> &tokens, int pos, RelationType relationType, Container &container);
     std::pair<int, Exception> parseWithClause(std::vector<QPS::Token> &tokens, int pos, Container &container);
     std::pair<int, Exception> parseCallArg(std::vector<QPS::Token> &tokens, int pos, std::pair<Argument, Exception>& ARG1, Container &container);
-    std::pair<int, Exception> parsePatternExpression (std::vector<QPS::Token> &tokens,int pos,Container &container, std::string &expression,  std::string &trimString);
-    std::pair<int, Exception> parsePatternType (std::vector<QPS::Token> &tokens,int pos,Container &container, Argument::ArgumentType &typeOfPattern, std::string &pattern_syn);
-    std::pair<int, Exception> parsePatternLeft (std::vector<QPS::Token> &tokens,int pos,Container &container, std::pair<Argument, bool> &ARG1);
-    std::pair<int, Exception> parsePatternIF (std::vector<QPS::Token> &tokens,int pos,Container &container, Argument& arg);
-    std::pair<int, Exception> parsePatternWHILE (std::vector<QPS::Token> &tokens,int pos,Container &container, Argument& arg);
+    std::pair<int, Exception> parsePatternExpression(std::vector<QPS::Token> &tokens, int pos, Container &container, std::string &expression, std::string &trimString);
+    std::pair<int, Exception> parsePatternType(std::vector<QPS::Token> &tokens, int pos, Container &container, Argument::ArgumentType &typeOfPattern, std::string &pattern_syn);
+    std::pair<int, Exception> parsePatternLeft(std::vector<QPS::Token> &tokens, int pos, Container &container, std::pair<Argument, bool> &ARG1);
+    std::pair<int, Exception> parsePatternIF(std::vector<QPS::Token> &tokens, int pos, Container &container, Argument& arg);
+    std::pair<int, Exception> parsePatternWHILE(std::vector<QPS::Token> &tokens, int pos, Container &container, Argument& arg);
     bool validateActualName(std::string s);
 
     Exception parseToken(std::vector<QPS::Token> &tokens, Container& container) {
@@ -123,43 +123,43 @@ namespace QPS {
         tokenPos++;
         switch (entityType) {
             case Entity::STATEMENT: {
-                result = parseDeclaration(tokens, tokenPos, Entity::STATEMENT,container);
+                result = parseDeclaration(tokens, tokenPos, Entity::STATEMENT, container);
                 break;
             }
             case Entity::READ_ENTITY: {
-                result = parseDeclaration(tokens, tokenPos, Entity::READ_ENTITY,container);
+                result = parseDeclaration(tokens, tokenPos, Entity::READ_ENTITY, container);
                 break;
             }
             case Entity::PRINT_ENTITY: {
-                result = parseDeclaration(tokens, tokenPos, Entity::PRINT_ENTITY,container);
+                result = parseDeclaration(tokens, tokenPos, Entity::PRINT_ENTITY, container);
                 break;
             }
             case Entity::CALL_ENTITY: {
-                result = parseDeclaration(tokens, tokenPos, Entity::CALL_ENTITY,container);
+                result = parseDeclaration(tokens, tokenPos, Entity::CALL_ENTITY, container);
                 break;
             }
             case Entity::WHILE_ENTITY: {
-                result = parseDeclaration(tokens, tokenPos, Entity::WHILE_ENTITY,container);
+                result = parseDeclaration(tokens, tokenPos, Entity::WHILE_ENTITY, container);
                 break;
             }
             case Entity::IF_ENTITY: {
-                result = parseDeclaration(tokens, tokenPos, Entity::IF_ENTITY,container);
+                result = parseDeclaration(tokens, tokenPos, Entity::IF_ENTITY, container);
                 break;
             }
             case Entity::ASSIGN_ENTITY: {
-                result = parseDeclaration(tokens, tokenPos, Entity::ASSIGN_ENTITY,container);
+                result = parseDeclaration(tokens, tokenPos, Entity::ASSIGN_ENTITY, container);
                 break;
             }
             case Entity::VARIABLE: {
-                result = parseDeclaration(tokens, tokenPos,Entity::VARIABLE,container);
+                result = parseDeclaration(tokens, tokenPos, Entity::VARIABLE, container);
                 break;
             }
-            case Entity::CONSTANT:{
-                result = parseDeclaration(tokens, tokenPos,Entity::CONSTANT,container);
+            case Entity::CONSTANT: {
+                result = parseDeclaration(tokens, tokenPos, Entity::CONSTANT, container);
                 break;
             }
             case Entity::PROCEDURE: {
-                result = parseDeclaration(tokens, tokenPos,Entity::PROCEDURE,container);
+                result = parseDeclaration(tokens, tokenPos, Entity::PROCEDURE, container);
                 break;
             }
             case Entity::INVALID_ENTITY_TYPE: {
@@ -176,62 +176,61 @@ namespace QPS {
         }
     }
 
-
     std::pair<int, Exception> parseRelation(std::vector<QPS::Token> &tokens, int tokenPos, Container &container, RelationType relationType) {
         std::pair<int, Exception> result;
         tokenPos++;
         switch (relationType) {
             case FOLLOWS: {
-                result = parseRelationStmtStmt(tokens, tokenPos,FOLLOWS, container);
+                result = parseRelationStmtStmt(tokens, tokenPos, FOLLOWS, container);
                 break;
             }
             case FOLLOWS_T: {
                 tokenPos += 1;
-                result = parseRelationStmtStmt(tokens, tokenPos,FOLLOWS_T, container);
+                result = parseRelationStmtStmt(tokens, tokenPos, FOLLOWS_T, container);
                 break;
             }
             case PARENT: {
-                result = parseRelationStmtStmt(tokens, tokenPos,PARENT, container);
+                result = parseRelationStmtStmt(tokens, tokenPos, PARENT, container);
                 break;
             }
             case PARENT_T: {
                 tokenPos += 1;
-                result = parseRelationStmtStmt(tokens, tokenPos,PARENT_T, container);
+                result = parseRelationStmtStmt(tokens, tokenPos, PARENT_T, container);
                 break;
             }
             case USES_S: {
-                result = parseRelationStmtEnt(tokens, tokenPos,USES_S, container);
+                result = parseRelationStmtEnt(tokens, tokenPos, USES_S, container);
                 break;
             }
-            case MODIFIES_S:{
-                result = parseRelationStmtEnt(tokens, tokenPos,MODIFIES_S, container);
+            case MODIFIES_S: {
+                result = parseRelationStmtEnt(tokens, tokenPos, MODIFIES_S, container);
                 break;
             }
-            case CALLS:{
-                result = parseRelationCalls(tokens, tokenPos,CALLS, container);
+            case CALLS: {
+                result = parseRelationCalls(tokens, tokenPos, CALLS, container);
                 break;
             }
-            case CALLS_T:{
+            case CALLS_T: {
                 tokenPos += 1;
-                result = parseRelationCalls(tokens, tokenPos,CALLS_T, container);
+                result = parseRelationCalls(tokens, tokenPos, CALLS_T, container);
                 break;
             }
-            case NEXT:{
-                result = parseRelationStmtStmt(tokens, tokenPos,NEXT, container);
+            case NEXT: {
+                result = parseRelationStmtStmt(tokens, tokenPos, NEXT, container);
                 break;
             }
-            case NEXT_T:{
+            case NEXT_T: {
                 tokenPos += 1;
-                result = parseRelationStmtStmt(tokens, tokenPos,NEXT_T, container);
+                result = parseRelationStmtStmt(tokens, tokenPos, NEXT_T, container);
                 break;
             }
-            case AFFECTS:{
-                result = parseRelationStmtStmt(tokens, tokenPos,AFFECTS, container);
+            case AFFECTS: {
+                result = parseRelationStmtStmt(tokens, tokenPos, AFFECTS, container);
                 break;
             }
-            case AFFECTS_T:{
+            case AFFECTS_T: {
                 tokenPos += 1;
-                result = parseRelationStmtStmt(tokens, tokenPos,AFFECTS_T, container);
+                result = parseRelationStmtStmt(tokens, tokenPos, AFFECTS_T, container);
                 break;
             }
             case INVALID_RELATION_TYPE: {
@@ -247,7 +246,7 @@ namespace QPS {
         }
     }
 
-    std::pair<int, Exception> parseWithObject (std::vector<QPS::Token> &tokens, int pos, Container &container, Argument& argument1, ArgAttrStruct& arg1) {
+    std::pair<int, Exception> parseWithObject(std::vector<QPS::Token> &tokens, int pos, Container &container, Argument& argument1, ArgAttrStruct& arg1) {
         if (pos < tokens.size() && tokens[pos].tokenType == NAME) {
             Argument::ArgumentType argumentType = container.getSynonymType(tokens[pos].nameValue);
             if (argumentType == Argument::INVALID_ARGUMENT_TYPE) {
@@ -296,7 +295,7 @@ namespace QPS {
             argument1 = Argument(tokens[pos + 1].nameValue, Argument::ACTUAL_NAME);
             arg1 = {argument1, INAPPLICABLE};
             pos+=3;
-        } else if (pos < tokens.size() && tokens[pos].tokenType == INTEGER ) {
+        } else if (pos < tokens.size() && tokens[pos].tokenType == INTEGER) {
             argument1 = Argument(tokens[pos].nameValue, Argument::NUMBER);
             arg1 = {argument1, INAPPLICABLE};
             pos++;
@@ -316,7 +315,6 @@ namespace QPS {
             } else {
                 return {pos, result.second};
             }
-
         }
 
         if (pos < tokens.size() && tokens[pos].tokenType != SINGLE_EQ) {
@@ -338,7 +336,7 @@ namespace QPS {
                 case Argument::VAR_SYNONYM:
                 case Argument::CALL_SYNONYM:
                 case Argument::ACTUAL_NAME:
-                case Argument::PROCEDURE_SYNONYM:{
+                case Argument::PROCEDURE_SYNONYM: {
                     argument2 = Argument(tokens[pos + 1].nameValue, Argument::ACTUAL_NAME);
                     arg2 = {argument2, INAPPLICABLE};
                     break;
@@ -356,7 +354,6 @@ namespace QPS {
                 case Argument::INVALID_ARGUMENT_TYPE: {
                     return {pos, INVALID_WITH_SYNTAX};
                 }
-
             }
             pos += 3;
         } else if (pos < tokens.size() && tokens[pos].tokenType == INTEGER) {
@@ -372,7 +369,7 @@ namespace QPS {
                 case Argument::NUMBER:
                 case Argument::STMT_SYNONYM:
                 case Argument::ASSIGN_SYNONYM:
-                case Argument::CONST_SYNONYM:{
+                case Argument::CONST_SYNONYM: {
                     argument2 = Argument(tokens[pos].nameValue, Argument::NUMBER);
                     arg2 = {argument2, INAPPLICABLE};
                     break;
@@ -387,7 +384,6 @@ namespace QPS {
                 case Argument::INVALID_ARGUMENT_TYPE: {
                     return {pos, INVALID_WITH_SYNTAX};
                 }
-
             }
             pos++;
         } else if (pos + 1 < tokens.size() && tokens[pos].tokenType == MINUS && tokens[pos + 1].tokenType == INTEGER)  {
@@ -418,7 +414,6 @@ namespace QPS {
                 case Argument::INVALID_ARGUMENT_TYPE: {
                     return {pos, INVALID_WITH_SYNTAX};
                 }
-
             }
             pos+=2;
         } else if (pos < tokens.size() && tokens[pos].tokenType == NAME) {
@@ -441,11 +436,10 @@ namespace QPS {
             return {pos, INVALID_WITH_SYNTAX};
         }
         container.addWithClause(arg1, arg2);
-        return {pos,VALID};
-
+        return {pos, VALID};
     }
 
-    std::pair<int, Exception> parsePatternExpression (std::vector<QPS::Token> &tokens,int pos,Container &container, std::string &expression, std::string &trimString) {
+    std::pair<int, Exception> parsePatternExpression(std::vector<QPS::Token> &tokens, int pos, Container &container, std::string &expression, std::string &trimString) {
         // string without doubt quote is invalid for expression
         if (tokens[pos].tokenType == NAME) {
             return {pos, INVALID_PATTERN_CONTENT};
@@ -483,7 +477,7 @@ namespace QPS {
 
             if (tokens[pos].tokenType == UNDERSCORE) {
                 expression += "_";
-                partial_match ++;
+                partial_match++;
                 pos++;
             }
         }
@@ -495,7 +489,7 @@ namespace QPS {
         return {pos, VALID};
     }
 
-    std::pair<int, Exception> parsePatternType (std::vector<QPS::Token> &tokens,int pos,Container &container, Argument::ArgumentType &typeOfPattern, std::string &pattern_syn) {
+    std::pair<int, Exception> parsePatternType(std::vector<QPS::Token> &tokens, int pos, Container &container, Argument::ArgumentType &typeOfPattern, std::string &pattern_syn) {
         if (pos < tokens.size() && tokens[pos].tokenType == NAME) {
             Argument::ArgumentType argumentType = container.getSynonymType(tokens[pos].nameValue);
             if (argumentType == Argument::INVALID_ARGUMENT_TYPE) {
@@ -513,7 +507,7 @@ namespace QPS {
         return {pos, VALID};
     }
 
-    std::pair<int, Exception> parsePatternLeft (std::vector<QPS::Token> &tokens,int pos,Container &container, std::pair<Argument, bool> &ARG1) {
+    std::pair<int, Exception> parsePatternLeft(std::vector<QPS::Token> &tokens, int pos, Container &container, std::pair<Argument, bool> &ARG1) {
         if (pos < tokens.size() && (tokens[pos].tokenType == NAME)) {
             ARG1 = convertStringToARG(tokens[pos], container);
             pos++;
@@ -541,7 +535,7 @@ namespace QPS {
         return {pos, VALID};
     }
 
-    std::pair<int, Exception> parsePatternIF (std::vector<QPS::Token> &tokens,int pos,Container &container, Argument& arg) {
+    std::pair<int, Exception> parsePatternIF(std::vector<QPS::Token> &tokens, int pos, Container &container, Argument& arg) {
         if (pos < tokens.size() && tokens[pos].tokenType == LPAREN) {
             pos++;
         } else {
@@ -564,14 +558,14 @@ namespace QPS {
             }
             arg = {tokens[pos + 1].nameValue, Argument::ACTUAL_NAME};
             pos += 3;
-        } else if(tokens[pos].tokenType == UNDERSCORE) {
+        } else if (tokens[pos].tokenType == UNDERSCORE) {
             arg = {"_", Argument::WILDCARD};
-            pos ++;
+            pos++;
         }
 
         if (pos + 4 <tokens.size() && tokens[pos].tokenType == COMMA && tokens[pos+1].tokenType == UNDERSCORE
             && tokens[pos+2].tokenType == COMMA && tokens[pos+3].tokenType == UNDERSCORE && tokens[pos+4].tokenType == RPAREN) {
-            pos +=4;
+            pos += 4;
         } else {
             return {pos, INVALID_PATTERN_CONTENT};
         }
@@ -582,7 +576,7 @@ namespace QPS {
         return {pos, VALID};
     }
 
-    std::pair<int, Exception> parsePatternWHILE (std::vector<QPS::Token> &tokens,int pos,Container &container, Argument& arg) {
+    std::pair<int, Exception> parsePatternWHILE(std::vector<QPS::Token> &tokens, int pos, Container &container, Argument& arg) {
         if (pos < tokens.size() && tokens[pos].tokenType == LPAREN) {
             pos++;
         } else {
@@ -605,14 +599,14 @@ namespace QPS {
             }
             arg = {tokens[pos + 1].nameValue, Argument::ACTUAL_NAME};
             pos += 3;
-        } else if(tokens[pos].tokenType == UNDERSCORE) {
+        } else if (tokens[pos].tokenType == UNDERSCORE) {
             arg = {"_", Argument::WILDCARD};
-            pos ++;
+            pos++;
         }
 
         if (pos + 2 <tokens.size() && tokens[pos].tokenType == COMMA && tokens[pos+1].tokenType == UNDERSCORE
                 &&tokens[pos+2].tokenType == RPAREN) {
-            pos +=2;
+            pos += 2;
         } else {
             return {pos, INVALID_PATTERN_CONTENT};
         }
@@ -623,7 +617,7 @@ namespace QPS {
         return {pos, VALID};
     }
 
-    std::pair<int, Exception> parsePattern (std::vector<QPS::Token> &tokens,int pos,Container &container) {
+    std::pair<int, Exception> parsePattern(std::vector<QPS::Token> &tokens, int pos, Container &container) {
         std::string pattern_syn;
         std::string expression;
         std::string trimmedString;
@@ -710,7 +704,7 @@ namespace QPS {
                                           Entity::EntityType entityType,
                                           Container &container) {
         std::vector<std::string> entityNames;
-        while (pos < tokens.size() && tokens[pos].tokenType != QPS::SEMICOLON ) {
+        while (pos < tokens.size() && tokens[pos].tokenType != QPS::SEMICOLON) {
             QPS::Token curr = tokens[pos];
             if (curr.tokenType == QPS::COMMA) {
             } else if (curr.tokenType == QPS::NAME) {
@@ -726,7 +720,6 @@ namespace QPS {
         } else {
             return {pos, VALID};
         }
-
     }
 
     std::pair<int, Exception> parseSelect(std::vector<QPS::Token> &tokens, int pos, Container &container) {
@@ -774,13 +767,13 @@ namespace QPS {
                 container.addCandidateList(candidateStruct);
                 pos++;
 
-            } else if (curr.tokenType == QPS::NAME && curr.nameValue == "BOOLEAN" && !is_entity_select && !is_boolean_select){
+            } else if (curr.tokenType == QPS::NAME && curr.nameValue == "BOOLEAN" && !is_entity_select && !is_boolean_select) {
                 container.addCandidateListBoolean();
                 is_boolean_select = true;
                 pos++;
-            } else if (curr.tokenType == QPS::COMMA && !is_boolean_select && is_multiple_select){
+            } else if (curr.tokenType == QPS::COMMA && !is_boolean_select && is_multiple_select) {
                 pos++;
-            } else if (curr.tokenType == QPS::NAME && (curr.nameValue == "such" || curr.nameValue == "pattern" || curr.nameValue == "with")){
+            } else if (curr.tokenType == QPS::NAME && (curr.nameValue == "such" || curr.nameValue == "pattern" || curr.nameValue == "with")) {
                 break;
             } else if (curr.tokenType == GT && !is_boolean_select) {
                 pos++;
@@ -792,9 +785,8 @@ namespace QPS {
             } else {
                 return {pos, INVALID_SELECT};
             }
-
         }
-        if (pos <= tokens.size() && ((is_multiple_select && is_closed) || !is_multiple_select) ) {
+        if (pos <= tokens.size() && ((is_multiple_select && is_closed) || !is_multiple_select)) {
             return {pos, VALID};
         } else {
             return {pos, INVALID_SELECT};
@@ -993,9 +985,8 @@ namespace QPS {
         return {pos, VALID};
     }
 
-    std::pair<Argument, Exception> convertStringToStmtRefCalls (Token &token, Container &container) {
+    std::pair<Argument, Exception> convertStringToStmtRefCalls(Token &token, Container &container) {
         if (token.tokenType == NAME) {
-
             Argument::ArgumentType argumentType = container.getSynonymType(token.nameValue);
             if (argumentType == Argument::INVALID_ARGUMENT_TYPE) {
                 return {{"", Argument::INVALID_ARGUMENT_TYPE}, UNDECLARED_ENTITY_SUCH_THAT};
@@ -1011,7 +1002,7 @@ namespace QPS {
         }
     }
 
-    std::pair<Argument, Exception> convertStringToARG (Token &token, Container &container) {
+    std::pair<Argument, Exception> convertStringToARG(Token &token, Container &container) {
         if (token.tokenType == INTEGER) {
             return {{token.nameValue, Argument::NUMBER}, VALID};
         } else if (token.tokenType == NAME) {
@@ -1025,7 +1016,7 @@ namespace QPS {
         }
     }
 
-    std::pair<AttributeType, Exception> convertStringToWithType (Token &token) {
+    std::pair<AttributeType, Exception> convertStringToWithType(Token &token) {
         if (token.tokenType != NAME) {
             return {INVALID_ATTR_TYPE, INVALID_WITH_TYPE_EXCEPTION};
         }
@@ -1090,16 +1081,11 @@ namespace QPS {
 
     bool validateActualName(std::string s) {
         for (int i = 0; i < s.length(); i++) {
-            int asc_code = int(s[i]);
-            if ((asc_code < 48 || (asc_code > 57 && asc_code<65) || (asc_code > 90 && asc_code <97) || asc_code > 122) && s[i] != ' ') {
+            int asc_code = static_cast<int>(s[i]);
+            if ((asc_code < 48 || (asc_code > 57 && asc_code< 65) || (asc_code > 90 && asc_code < 97) || asc_code > 122) && s[i] != ' ') {
                 return false;
             }
         }
         return true;
     }
-
-
-}
-
-
-
+}  // namespace QPS

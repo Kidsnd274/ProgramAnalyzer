@@ -1,6 +1,4 @@
 #include "QueryResultProjector.h"
-#include "QPS_Interface.h"
-
 
 std::string QueryResultProjector::getSelectTuples(Query query, std::list<std::string> &results) {
     if (query.getStatus() == SYNTAX_ERROR) {
@@ -25,7 +23,7 @@ std::string QueryResultProjector::getSelectTuples(Query query, std::list<std::st
             results.push_back("FALSE");
         }
     } else {
-        for (auto &candidate: query.getCandidateList()) {
+        for (auto &candidate : query.getCandidateList()) {
             synonyms.push_back(candidate.argument.argumentName);
         }
         for (auto row : query.resultTable->getTable()) {
