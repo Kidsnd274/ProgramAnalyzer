@@ -136,7 +136,7 @@ TEST_CASE("Simple Next* test") {
     rte.computeNextStar(createdCFG, 10);
     rte.computeNextStar(createdCFG, 11);
 
-    REQUIRE(pkbInterface->getAllNextStar() == correctMap);
+    REQUIRE(pkbInterface->getAllStmtRelation(RelationType::NEXT_T) == correctMap);
 
     delete pkbInterface;
     pkbInterface = nullptr;
@@ -249,7 +249,7 @@ TEST_CASE("Simple affects test") {
     rte.computeAffects(createdCFG, 9);
     rte.computeAffects(createdCFG, 10);
 
-    auto affectsMap = pkbInterface->getAllAffects();
+    auto affectsMap = pkbInterface->getAllStmtRelation(RelationType::AFFECTS);
 
     REQUIRE(affectsMap[1] == stmt1);
     REQUIRE(affectsMap[2] == stmt2);
@@ -382,7 +382,7 @@ TEST_CASE("Simple affects Star test") {
     rte.computeAffectsStar(createdCFG, 10);
     rte.computeAffectsStar(createdCFG, 11);
 
-    auto affectsStarMap = pkbInterface->getAllAffectsStar();
+    auto affectsStarMap = pkbInterface->getAllStmtRelation(RelationType::AFFECTS_T);
 
     REQUIRE(affectsStarMap[1] == stmt1);
     REQUIRE(affectsStarMap[2] == stmt2);
@@ -525,7 +525,7 @@ TEST_CASE("2 procedure affects/affects* test") {
         rte.computeAffects(createdCFG, 11);
         rte.computeAffects(createdCFG, 12);
 
-        auto affectsMap = pkbInterface->getAllAffects();
+        auto affectsMap = pkbInterface->getAllStmtRelation(RelationType::AFFECTS);
 
         REQUIRE(affectsMap[1] == stmt1);
         REQUIRE(pkbInterface->getAffects(1) == stmt1);
@@ -568,7 +568,7 @@ TEST_CASE("2 procedure affects/affects* test") {
         rte.computeAffectsStar(createdCFG, 11);
         rte.computeAffectsStar(createdCFG, 12);
 
-        auto affectsStarMap = pkbInterface->getAllAffectsStar();
+        auto affectsStarMap = pkbInterface->getAllStmtRelation(RelationType::AFFECTS_T);
 
         REQUIRE(affectsStarMap[1] == stmt1);
         REQUIRE(affectsStarMap[2] == stmt2);
@@ -755,7 +755,7 @@ TEST_CASE("if-if and while-while loop") {
         rte.computeAffects(createdCFG, 18);
         rte.computeAffects(createdCFG, 19);
 
-        auto affectsMap = pkbInterface->getAllAffects();
+        auto affectsMap = pkbInterface->getAllStmtRelation(RelationType::AFFECTS);
 
         REQUIRE(affectsMap[1] == stmt1);
         REQUIRE(affectsMap[2] == stmt2);
@@ -808,7 +808,7 @@ TEST_CASE("if-if and while-while loop") {
         rte.computeAffectsStar(createdCFG, 18);
         rte.computeAffectsStar(createdCFG, 19);
 
-        auto affectsStarMap = pkbInterface->getAllAffectsStar();
+        auto affectsStarMap = pkbInterface->getAllStmtRelation(RelationType::AFFECTS_T);
 
         REQUIRE(affectsStarMap[1] == stmt1);
         REQUIRE(affectsStarMap[2] == stmt2);

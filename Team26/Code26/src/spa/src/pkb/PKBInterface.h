@@ -60,19 +60,13 @@ public:
     std::shared_ptr<AssignNode> getAssignTNode(const std::string& assignRef);
     std::unordered_set<std::string> getConditionVar(const std::string& containerRef);
 
-    virtual std::unordered_map<std::string, std::unordered_set<std::string>> getAllCall();
-    virtual std::unordered_map<std::string, std::unordered_set<std::string>> getAllCallStar();
+
+    virtual std::unordered_map<std::string, std::unordered_set<std::string>> getAllProcVarRelation(RelationType type);
+    virtual std::unordered_map<int, std::unordered_set<int>> getAllStmtRelation(RelationType type);
+    virtual std::unordered_map<int, std::unordered_set<std::string>> getAllStmtVarRelation(RelationType type);
+
+
     virtual std::unordered_map<int, int> getAllFollow();
-    virtual std::unordered_map<int, std::unordered_set<int>> getAllNext();
-    virtual std::unordered_map<STMT_NUM, std::unordered_set<STMT_NUM>> getAllNextStar();
-    virtual std::unordered_map<int, std::unordered_set<int>> getAllAffects();
-    virtual std::unordered_map<int, std::unordered_set<int>> getAllAffectsStar();
-    virtual std::unordered_map<int, std::unordered_set<std::string>> getAllModifyByStmt();
-    virtual std::unordered_map<std::string, std::unordered_set<std::string>> getAllModifyByProc();
-    virtual std::unordered_map<int, std::unordered_set<int>> getAllParent();
-    virtual std::unordered_map<int, std::unordered_set<int>> getAllParentStar();
-    virtual std::unordered_map<int, std::unordered_set<std::string>> getAllUseByStmt();
-    virtual std::unordered_map<std::string, std::unordered_set<std::string>> getAllUseByProc();
     virtual std::unordered_set<std::unordered_set<Statement*>*> getAllStmtLists();
 
     /**

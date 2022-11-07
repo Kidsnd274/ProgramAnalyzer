@@ -26,27 +26,27 @@ std::unordered_map<int, int> QPS_Interface::getAllFollowsRelations() {
 }
 
 std::unordered_map<std::string, std::unordered_set<std::string>> QPS_Interface::getAllCallRelations() {
-    return QPS_Interface::pkbInterface->getAllCall();
+    return QPS_Interface::pkbInterface->getAllProcVarRelation(RelationType::CALLS);
 }
 
 std::unordered_map<std::string, std::unordered_set<std::string>> QPS_Interface::getAllCallTRelations() {
-    return QPS_Interface::pkbInterface->getAllCallStar();
+    return QPS_Interface::pkbInterface->getAllProcVarRelation(RelationType::CALLS_T);
 }
 
 std::unordered_map<int, std::unordered_set<std::string>> QPS_Interface::getAllUsesRelations() {
-    return QPS_Interface::pkbInterface->getAllUseByStmt();
+    return QPS_Interface::pkbInterface->getAllStmtVarRelation(RelationType::USES_S);
 }
 
 std::unordered_map<std::string, std::unordered_set<std::string>> QPS_Interface::getAllUsesProcRelations() {
-    return QPS_Interface::pkbInterface->getAllUseByProc();
+    return QPS_Interface::pkbInterface->getAllProcVarRelation(RelationType::USES_S);
 }
 
 std::unordered_map<int, std::unordered_set<std::string>> QPS_Interface::getAllModifiesRelations() {
-    return QPS_Interface::pkbInterface->getAllModifyByStmt();
+    return QPS_Interface::pkbInterface->getAllStmtVarRelation(RelationType::MODIFIES_S);
 }
 
 std::unordered_map<std::string, std::unordered_set<std::string>> QPS_Interface::getAllModifiesProcRelations() {
-    return QPS_Interface::pkbInterface->getAllModifyByProc();
+    return QPS_Interface::pkbInterface->getAllProcVarRelation(RelationType::MODIFIES_S);
 }
 
 std::unordered_set<string> QPS_Interface::getAllAssigns() {
@@ -194,9 +194,9 @@ std::unordered_set<STMT_NUM> QPS_Interface::getAffectsStar(STMT_NUM stmt) {
 
 std::unordered_map<int, std::unordered_set<int>> QPS_Interface::getAllParentRelations(RelationType relationType) {
     if (relationType == PARENT) {
-        return QPS_Interface::pkbInterface->getAllParent();
+        return QPS_Interface::pkbInterface->getAllStmtRelation(RelationType::PARENT);
     } else if (relationType == PARENT_T) {
-        return QPS_Interface::pkbInterface->getAllParentStar();
+        return QPS_Interface::pkbInterface->getAllStmtRelation(RelationType::PARENT_T);
     } else {
         return {};
     }

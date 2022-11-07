@@ -124,56 +124,51 @@ std::unordered_set<string> PKBInterface::getCallStar(std::string procedure) {
     return procsStarCalled;
 }
 
-std::unordered_map<std::string, std::unordered_set<std::string>> PKBInterface::getAllCall() {
-    return pkb->callTable->getAllCalls();
+std::unordered_map<std::string, std::unordered_set<std::string>> PKBInterface::getAllProcVarRelation(RelationType type) {
+    switch (type) {
+        case RelationType::CALLS:
+            return pkb->callTable->getAllCalls();
+        case RelationType::CALLS_T:
+            return pkb->callStarTable->getAllCallStars();
+        case RelationType::USES_S:
+            return pkb->usesTable->getAllUsesByProc();
+        case RelationType::MODIFIES_S:
+            return pkb->modifiesTable->getAllModifiesByProc();
+        default:
+            return {};
+    }
 }
 
-std::unordered_map<std::string, std::unordered_set<std::string>> PKBInterface::getAllCallStar() {
-    return pkb->callStarTable->getAllCallStars();
+std::unordered_map<int, std::unordered_set<int>> PKBInterface::getAllStmtRelation(RelationType type) {
+    switch (type) {
+        case RelationType::AFFECTS:
+            return pkb->affectTable->getAllAffect();
+        case RelationType::AFFECTS_T:
+            return pkb->affectStarTable->getAllAffectStar();
+        case RelationType::PARENT:
+            return pkb->parentTable->getAllParents();
+        case RelationType::PARENT_T:
+            return pkb->parentStarTable->getAllParentStars();
+        case RelationType::NEXT_T:
+            return pkb->nextStarTable->getAllNextStar();
+        default:
+            return {};
+    }
+}
+
+std::unordered_map<int, std::unordered_set<std::string>> PKBInterface::getAllStmtVarRelation(RelationType type) {
+    switch (type) {
+        case RelationType::USES_S:
+            return pkb->usesTable->getAllUsesByStmt();
+        case RelationType::MODIFIES_S:
+            return pkb->modifiesTable->getAllModifiesByStmt();
+        default:
+            return {};
+    }
 }
 
 std::unordered_map<int, int> PKBInterface::getAllFollow() {
     return pkb->followsTable->getAllFollows();
-}
-
-std::unordered_map<int, unordered_set<int>> PKBInterface::getAllNext() {
-    return pkb->nextTable->getAllNext();
-}
-
-std::unordered_map<STMT_NUM, std::unordered_set<STMT_NUM>> PKBInterface::getAllNextStar() {
-    return pkb->nextStarTable->getAllNextStar();
-}
-
-std::unordered_map<int, std::unordered_set<int>> PKBInterface::getAllAffects() {
-    return pkb->affectTable->getAllAffect();
-}
-
-std::unordered_map<int, std::unordered_set<int>> PKBInterface::getAllAffectsStar() {
-    return pkb->affectStarTable->getAllAffectStar();
-}
-
-std::unordered_map<int, std::unordered_set<std::string>> PKBInterface::getAllModifyByStmt() {
-    return pkb->modifiesTable->getAllModifiesByStmt();
-}
-
-std::unordered_map<std::string, std::unordered_set<std::string>> PKBInterface::getAllModifyByProc() {
-    return pkb->modifiesTable->getAllModifiesByProc();
-}
-
-std::unordered_map<int, std::unordered_set<int>> PKBInterface::getAllParent() {
-    return pkb->parentTable->getAllParents();
-}
-
-std::unordered_map<int, std::unordered_set<int>> PKBInterface::getAllParentStar() {
-    return pkb->parentStarTable->getAllParentStars();
-}
-
-std::unordered_map<int, std::unordered_set<std::string>> PKBInterface::getAllUseByStmt() {
-    return pkb->usesTable->getAllUsesByStmt();
-}
-
-std::unordered_map<std::string, std::unordered_set<std::string>> PKBInterface::getAllUseByProc() {
-    return pkb->usesTable->getAllUsesByProc();
 }
 
 std::unordered_set<std::unordered_set<Statement*>*> PKBInterface::getAllStmtLists() {
