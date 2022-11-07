@@ -8,7 +8,6 @@
 
 class QueryResultProjector {
 public:
-    void projectResult(Query query, std::list<std::string>& results);
     std::string getSelectTuples(Query query, std::list<std::string>& results);
 };
 

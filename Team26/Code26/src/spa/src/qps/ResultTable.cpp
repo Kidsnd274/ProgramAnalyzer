@@ -288,64 +288,10 @@ namespace QPS {
     void ResultTable::replace(QPS::ResultTable *otherTable) {
         this->table = otherTable->table;
         this->synonymColRef = otherTable->synonymColRef;
-//        this->synonymColRef.clear();
-//        for (auto ref: otherTable->synonymColRef) {
-//            this->synonymColRef.insert(ref);
-//        }
-//        this->table.clear();
-//        for (auto row: otherTable->table) {
-//            this->table.push_back(row);
-//        }
         this->colNum = otherTable->colNum;
         this->rowNum = otherTable->rowNum;
         this->isInitialized = otherTable->isInitialized;
         this->type = otherTable->type;
-    }
-
-    //The following methods are to print out a table or a vector for testing purpose.
-    void ResultTable::printTable() {
-        std::cout << "Printing Table ... \n";
-        std::string header = "| ";
-        std::string content;
-        struct {
-            bool operator()(std::pair<std::string, int> a, const std::pair<std::string, int>& b) const { return a.second < b.second; }
-        } customLess;
-        std::vector<std::pair<std::string, int>> sorted(synonymColRef.begin(), synonymColRef.end());
-        std::sort(sorted.begin(), sorted.end(), customLess);
-        for (auto& sName: sorted) {
-            if (!sName.first.empty()) {
-                header += sName.first + " | ";
-            }
-        }
-        header += "\n";
-        std::cout << header;
-        for (auto& entry: table) {
-            std::stringstream ss;
-            ss << "| ";
-            for (auto& str: entry) {
-                ss << str;
-                ss << " | ";
-            }
-            std::cout << ss.str() << std::endl;
-        }
-    }
-
-    void ResultTable::printStringVector(const std::vector<std::string>& v) {
-        std::cout << "Printing vector ... \n";
-        std::string s = "| ";
-        for (auto& str: v) {
-            s += str + " | ";
-        }
-        std::cout << s + "\n";
-    }
-
-    void ResultTable::printIntVector(const std::vector<int>& v) {
-        std::cout << "Printing vector ... \n";
-        std::string s = "| ";
-        for (auto& str: v) {
-            s += std::to_string(str) + " | ";
-        }
-        std::cout << s + "\n";
     }
 
     std::vector<std::vector<std::string>> ResultTable::getTable() {

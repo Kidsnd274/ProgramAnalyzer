@@ -34,6 +34,13 @@ namespace QPS {
         std::vector <std::vector<std::string> > table;
 
     public:
+        ~ResultTable() {
+            this->synonymColRef.clear();
+            std::unordered_map<std::string, int>().swap(this->synonymColRef);
+            this->table.clear();
+            std::vector<std::vector<std::string>>().swap(this->table);
+        }
+
         void setFalseTable() {
             this->type = FALSE;
             this->emptyTable();
@@ -55,6 +62,7 @@ namespace QPS {
             std::vector<std::string> emptyRow;
             this->table.emplace_back(emptyRow);
         }
+
         ResultTable(const std::vector<std::string>& sNames, const std::unordered_set<std::vector<std::string>, StringVectorHash>& entries);
         bool deleteColFromTable(const std::vector<std::string>& sName);
 
@@ -117,11 +125,8 @@ namespace QPS {
          */
         void deleteDuplicateRows(const std::vector<std::string>& sNames);
 
-        void printTable();
         std::vector<std::vector<std::string>> getTable();
         std::unordered_map<std::string, int> getSynonymColRef();
-        static void printStringVector(const std::vector<std::string>& v);
-        void printIntVector(const std::vector<int>& v);
         void emptyTable();
         void replace(ResultTable* otherTable);
         void setTable(std::vector<std::vector<std::string>>& newTable);
