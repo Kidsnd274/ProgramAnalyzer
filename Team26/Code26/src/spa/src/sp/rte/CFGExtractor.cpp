@@ -10,7 +10,7 @@ bool CFGExtractor::toExclude(PKBInterface* pkb, STMT_NUM stmt, std::string varMo
         return false;
     }
 
-    return pkb->doesStatementModify(stmt, varModified);
+    return pkb->doesStatementUseOrModify(RelationType::MODIFIES_S, stmt, varModified);
 }
 
 std::unordered_set<STMT_NUM> CFGExtractor::getReachableNodes(CFGHeadPtr cfg, PKBInterface* pkb, STMT_NUM stmt, std::string varModified) {

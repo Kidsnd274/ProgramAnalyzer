@@ -1,7 +1,7 @@
 #include "AffectsExtractor.h"
 
 void AffectsExtractor::computeAffects(CFGHeadPtr cfg, PKBInterface* pkb, STMT_NUM stmt) {
-    if (pkb->hasAffects(stmt)) {
+    if (pkb->hasRelation(RelationType::AFFECTS, stmt)) {
         return;
     }
 
@@ -9,8 +9,9 @@ void AffectsExtractor::computeAffects(CFGHeadPtr cfg, PKBInterface* pkb, STMT_NU
     std::unordered_set<STMT_NUM> affectedSet = getReachableNodes(std::move(cfg), pkb, stmt, varModified);
 
     for (auto i : affectedSet) {
-        if (pkb->isStatementAssign(i) && pkb->doesStatementUse(i, varModified)) {
-            pkb->addAffects(stmt, i);
+        if (pkb->isStatementType(StatementType::ASSIGN, i)
+            && pkb->doesStatementUseOrModify(RelationType::USES_S, i, varModified)) {
+            pkb->addRelation(RelationType::AFFECTS, stmt, i);
         }
     }
 }
@@ -18,7 +19,7 @@ void AffectsExtractor::computeAffects(CFGHeadPtr cfg, PKBInterface* pkb, STMT_NU
 void AffectsExtractor::computeDDG(std::string& procName, const CFGHeadPtr& cfg, PKBInterface *pkb) {
     std::unordered_set<STMT_NUM> assignSet = pkb->getAllAssignFromProcedure(procName);
     for (auto stmt : assignSet) {
-        if (!pkb->hasAffects(stmt)) {
+        if (!pkb->hasRelation(RelationType::AFFECTS, stmt)) {
             computeAffects(cfg, pkb, stmt);
         }
 
@@ -34,7 +35,7 @@ void AffectsExtractor::addEdgesToDDG(std::string& procName, STMT_NUM stmt, std::
 }
 
 void AffectsExtractor::computeAffectsStar(const CFGHeadPtr& cfg, PKBInterface *pkb, STMT_NUM stmt) {
-    if (pkb->hasAffectsStar(stmt)) {
+    if (pkb->hasRelation(RelationType::AFFECTS_T, stmt)) {
         return;
     }
 
@@ -45,7 +46,7 @@ void AffectsExtractor::computeAffectsStar(const CFGHeadPtr& cfg, PKBInterface *p
     }
     std::unordered_set<STMT_NUM> visited;
     dfsOnNeighbours(procName, stmt, visited);
-    pkb->addAffectsStar(stmt, visited);
+    pkb->addRelation(RelationType::AFFECTS_T, stmt, visited);
 }
 
 void AffectsExtractor::dfs(std::string& procName, STMT_NUM stmt, std::unordered_set<STMT_NUM>& visited) {

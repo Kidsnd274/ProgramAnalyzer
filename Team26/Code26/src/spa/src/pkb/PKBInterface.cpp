@@ -77,6 +77,18 @@ void PKBInterface::addRelation(RelationType type, int firstStatementNumber, int 
             pkb->parentStarTable->insertParentStar(firstStatementNumber, secondStatementNumber);
         case RelationType::FOLLOWS:
             pkb->followsTable->insertFollows(firstStatementNumber, secondStatementNumber);
+        case RelationType::AFFECTS:
+            pkb->affectTable->insertAffect(firstStatementNumber, secondStatementNumber);
+        default:;
+    }
+}
+
+void PKBInterface::addRelation(RelationType type, STMT_NUM stmt, std::unordered_set<STMT_NUM> set) {
+    switch (type) {
+        case RelationType::AFFECTS_T:
+            pkb->affectStarTable->insertAffectStar(stmt, set);
+        case RelationType::NEXT_T:
+            pkb->nextStarTable->insertNextStar(stmt, set);
         default:;
     }
 }
@@ -244,59 +256,47 @@ CFGHeadPtr PKBInterface::getCfgOfProcedure(std::string procedureName) {
         }
     }
     throw ProcedureNotFoundException();
-    return nullptr;
 }
 
-bool PKBInterface::hasNextStar(STMT_NUM stmt) {
-    return pkb->nextStarTable->existNextStar(stmt);
+bool PKBInterface::hasRelation(RelationType type, STMT_NUM stmt) {
+    switch (type) {
+        case RelationType::NEXT_T:
+            return pkb->nextStarTable->existNextStar(stmt);
+        case RelationType::AFFECTS:
+            return pkb->affectTable->existAffect(stmt);
+        case RelationType::AFFECTS_T:
+            return pkb->affectStarTable->existAffectStar(stmt);
+        default:
+            return false;
+    }
 }
 
-void PKBInterface::addNextStar(STMT_NUM stmt, std::unordered_set<STMT_NUM> nextStarSet) {
-    pkb->nextStarTable->insertNextStar(stmt, nextStarSet);
+bool PKBInterface::isStatementType(StatementType::StmtType type, STMT_NUM stmt) {
+    Statement* statement = pkb->statementTable->getStmtByLineNumber(stmt);
+    return statement->type == type;
 }
 
 bool PKBInterface::isStatementContainer(STMT_NUM stmt) {
-    Statement* statement = pkb->statementTable->getStmtByLineNumber(stmt);
-    StatementType::StmtType type = statement->type;
-    return (type == StatementType::IF) || (type == StatementType::WHILE);
+    return isStatementType(StatementType::IF, stmt) || isStatementType(StatementType::WHILE, stmt);
 }
 
-bool PKBInterface::doesStatementModify(STMT_NUM stmt, std::string varModified) {
-    return pkb->modifiesTable->doesStatementModify(stmt, varModified);
-}
-
-bool PKBInterface::hasAffects(STMT_NUM stmt) {
-    return pkb->affectTable->existAffect(stmt);
+bool PKBInterface::doesStatementUseOrModify(RelationType type, STMT_NUM stmt, std::string var) {
+    switch (type) {
+        case RelationType::MODIFIES_S:
+            return pkb->modifiesTable->doesStatementModify(stmt, var);
+        case RelationType::USES_S:
+            return pkb->usesTable->doesStatementUse(stmt, var);
+        default:
+            return false;
+    }
 }
 
 std::string PKBInterface::getModifiedVariable(STMT_NUM stmt) {
     return pkb->modifiesTable->getFirstModifiedVar(stmt);
 }
 
-bool PKBInterface::isStatementAssign(STMT_NUM stmt) {
-    Statement* statement = pkb->statementTable->getStmtByLineNumber(stmt);
-    StatementType::StmtType type = statement->type;
-    return type == StatementType::ASSIGN;
-}
-
-bool PKBInterface::doesStatementUse(STMT_NUM stmt, std::string varUsed) {
-    return pkb->usesTable->doesStatementUse(stmt, varUsed);
-}
-
-void PKBInterface::addAffects(STMT_NUM stmt, STMT_NUM affectedStmt) {
-    pkb->affectTable->insertAffect(stmt, affectedStmt);
-}
-
 std::string PKBInterface::getProcedureNameOf(CFGHeadPtr cfg) {
     return pkb->procedureTable->getProcedureNameOf(cfg);
-}
-
-bool PKBInterface::hasAffectsStar(STMT_NUM stmt) {
-    return pkb->affectStarTable->existAffectStar(stmt);
-}
-
-void PKBInterface::addAffectsStar(STMT_NUM stmt, std::unordered_set<STMT_NUM> affectsStarSet) {
-    pkb->affectStarTable->insertAffectStar(stmt, affectsStarSet);
 }
 
 std::unordered_set<STMT_NUM> PKBInterface::getAllAssignFromProcedure(std::string procName) {

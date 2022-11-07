@@ -163,7 +163,7 @@ std::unordered_set<Procedure*> QPS_Interface::getProcList() {
 }
 
 bool QPS_Interface::hasNextStar(STMT_NUM stmt) {
-    return QPS_Interface::pkbInterface->hasNextStar(stmt);
+    return QPS_Interface::pkbInterface->hasRelation(RelationType::NEXT_T, stmt);
 }
 
 std::unordered_set<STMT_NUM> QPS_Interface::getNextStar(STMT_NUM stmt) {
@@ -175,7 +175,7 @@ std::unordered_set<STMT_NUM> QPS_Interface::getNextStar(STMT_NUM stmt) {
 }
 
 std::unordered_set<STMT_NUM> QPS_Interface::getAffects(STMT_NUM stmt) {
-    bool hasAffects = QPS_Interface::pkbInterface->hasAffects(stmt);
+    bool hasAffects = QPS_Interface::pkbInterface->hasRelation(RelationType::AFFECTS, stmt);
     if (!hasAffects) {
         CFGHeadPtr cfgHeadPtr = QPS_Interface::getCFGHeadPtrByProc(stmt);
         runtimeExtractor->computeAffects(cfgHeadPtr, stmt);
@@ -184,7 +184,7 @@ std::unordered_set<STMT_NUM> QPS_Interface::getAffects(STMT_NUM stmt) {
 }
 
 std::unordered_set<STMT_NUM> QPS_Interface::getAffectsStar(STMT_NUM stmt) {
-    bool hasAffectsStar = QPS_Interface::pkbInterface->hasAffectsStar(stmt);
+    bool hasAffectsStar = QPS_Interface::pkbInterface->hasRelation(RelationType::AFFECTS_T, stmt);
     if (!hasAffectsStar) {
         CFGHeadPtr cfgHeadPtr = QPS_Interface::getCFGHeadPtrByProc(stmt);
         runtimeExtractor->computeAffectsStar(cfgHeadPtr, stmt);
