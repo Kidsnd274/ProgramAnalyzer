@@ -21,4 +21,4 @@ public:
 };
 
 
-#endif //  SPA_MODIFIES_H
+#endif  // SPA_MODIFIES_H

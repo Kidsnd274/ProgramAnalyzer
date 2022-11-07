@@ -18,7 +18,7 @@ public:
         this->relationType = relationType;
     }
 
-    virtual bool isValid() override;
+    bool isValid() override;
 };
 
 #endif  // SPA_PARENT_H
