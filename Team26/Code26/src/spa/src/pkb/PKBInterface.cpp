@@ -226,18 +226,16 @@ std::string PKBInterface::getCallProcName(std::string callLineNumber) {
     return callStmt->calleeProcName;
 }
 
-std::string PKBInterface::getReadVarName(std::string readLineNumber) {
-    int readLine = std::stoi(readLineNumber);
-    std::unordered_map<int, std::unordered_set<std::string>> modifiesList = pkb->modifiesTable->getAllModifiesByStmt();
-    return *begin(modifiesList[readLine]);
+std::string PKBInterface::getVarName(StatementType::StmtType type, std::string lineNumber) {
+    int line = std::stoi(lineNumber);
+    std::unordered_map<int, std::unordered_set<std::string>> list;
+    if (type == StatementType::READ) {
+        list = pkb->modifiesTable->getAllModifiesByStmt();
+    } else {
+        list = pkb->usesTable->getAllUsesByStmt();
+    }
+    return *begin(list[line]);
 }
-
-std::string PKBInterface::getPrintVarName(std::string printLineNumber) {
-    int printLine = std::stoi(printLineNumber);
-    std::unordered_map<int, std::unordered_set<std::string>> usesList = pkb->usesTable->getAllUsesByStmt();
-    return *begin(usesList[printLine]);
-}
-
 
 CFGHeadPtr PKBInterface::getCfgOfProcedure(std::string procedureName) {
     for (Procedure* currentProcedure : pkb->procedureTable->getProcList()) {

@@ -97,11 +97,11 @@ std::string QPS_Interface::getCallProcName(std::string callLineNumber) {
 }
 
 std::string QPS_Interface::getReadVarName(std::string readLineNumber) {
-    return pkbInterface->getReadVarName(readLineNumber);
+    return pkbInterface->getVarName(StatementType::READ, readLineNumber);
 }
 
 std::string QPS_Interface::getPrintVarName(std::string printLineNumber) {
-    return pkbInterface->getPrintVarName(printLineNumber);
+    return pkbInterface->getVarName(StatementType::PRINT, printLineNumber);
 }
 
 std::unordered_set<std::string> QPS_Interface::getConditionVarNameByStmtNum(std::string containerLineNumber) {

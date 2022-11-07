@@ -45,6 +45,7 @@ public:
     virtual void addCallStatement(int statementNumber, int statementListNumber, std::string calleeProcName);
     virtual void addCondVar(int statementNumber, std::string varName);
 
+
     virtual void addRelation(RelationType type, int statementNumber, std::string varName);
     virtual void addRelation(RelationType type, std::string procedureName, std::string name);
     virtual void addRelation(RelationType type, int firstStatementNumber, int SecondStatementNumber);
@@ -77,8 +78,9 @@ public:
 
     virtual std::string getProcLineNumberByName(std::string procName);
     virtual std::string getCallProcName(std::string callLineNumber);
-    virtual std::string getReadVarName(std::string readLineNumber);
-    virtual std::string getPrintVarName(std::string printLineNumber);
+
+
+    virtual std::string getVarName(StatementType::StmtType type, std::string lineNumber);
 
 
     CFGHeadPtr getCfgOfProcedure(std::string procedureName);
