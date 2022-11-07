@@ -2668,4 +2668,84 @@ read r; while w;
 Select w such that Next* (w, r)
 1,8,11,14,20
 5000
+530 - random 1
+assign a; variable v;
+Select a such that Uses (a, v)
+2,3,7,10,12,15,17,19,21,34,35,36,40,41,42
+5000
+531 - random 2
+if ifs; variable v;
+Select ifs such that Uses (ifs, v)
+5,9,38
+5000
+532 - random 3
+while w; variable v;
+Select w such that Uses (w, v)
+1,8,11,14,20,33
+5000
+533 - random 4
+call c; variable v;
+Select c such that Uses (c, v)
+18,43
+5000
+534 - random 5
+procedure p; variable v;
+Select p such that Uses (p, v)
+computeCentroid,milestone3test2,printResults
+5000
+535 - random 6
+assign a; variable v;
+Select a such that Modifies (a, v)
+2,3,6,7,10,12,15,17,19,21,29,30,31,34,35,36,39,40,41,42
+5000
+536 - random 7
+if ifs; variable v;
+Select ifs such that Modifies (ifs, v)
+5,9,38
+5000
+537 - random 8
+while w; variable v;
+Select w such that Modifies (w, v)
+1,8,11,14,20,33
+5000
+538 - random 9
+call c; variable v;
+Select c such that Modifies (c, v)
+18,32,37
+5000
+539 - random 10
+procedure p; variable v;
+Select p such that Modifies (p, v)
+computeCentroid,milestone3test2,readPoint
+5000
+540 - random 11
+assign a2; variable v;
+Select a2 such that Modifies (a2, v)
+2,3,6,7,10,12,15,17,19,21,29,30,31,34,35,36,39,40,41,42
+5000
+541 - random 12
+procedure p1, p2;
+Select p1 such that Calls (p1, p2)
+computeCentroid,milestone3test2
+5000
+542 - random 13
+procedure p;
+Select p such that Calls (_, _)
+computeCentroid,milestone3test2,printResults,readPoint
+5000
+543 - random 14
+procedure p;
+Select p such that Calls (_, p)
+computeCentroid,printResults,readPoint
+5000
+544 - random 15
+procedure p1, p2;
+Select p1 such that Calls* (p1, p2)
+computeCentroid,milestone3test2
+5000
+545 - random 16
+procedure p;
+Select p such that Calls* (p, p)
+none
+5000
 
