@@ -623,3 +623,53 @@ assign a; call r;
 Select BOOLEAN such that Affects(a, r)
 FALSE
 5000
+124 - Empty case 1
+assign a; read r;
+Select BOOLEAN such that Affects*(r, a)
+FALSE
+5000
+125 - Empty case 2
+assign a; read r;
+Select BOOLEAN such that Affects*(a, r)
+FALSE
+5000
+126 - Empty case 3
+assign a; print r;
+Select BOOLEAN such that Affects*(r, a)
+FALSE
+5000
+127 - Empty case 4
+assign a; print r;
+Select BOOLEAN such that Affects*(a, r)
+FALSE
+5000
+128 - Empty case 5
+assign a; if r;
+Select BOOLEAN such that Affects*(r, a)
+FALSE
+5000
+129 - Empty case 6
+assign a; if r;
+Select BOOLEAN such that Affects*(a, r)
+FALSE
+5000
+130 - Empty case 7
+assign a; while r;
+Select BOOLEAN such that Affects*(r, a)
+FALSE
+5000
+131 - Empty case 8
+assign a; while r;
+Select BOOLEAN such that Affects*(a, r)
+FALSE
+5000
+132 - Empty case 9
+assign a; call r;
+Select BOOLEAN such that Affects*(r, a)
+FALSE
+5000
+133 - Empty case 10
+assign a; call r;
+Select BOOLEAN such that Affects*(a, r)
+FALSE
+5000
