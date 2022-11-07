@@ -453,7 +453,7 @@ void RelationClauseEvaluator::evaluateFollowsT(QPS::ResultTable *resultTable) {
     } else {
         resultTable->replace(new ResultTable(*synonyms, result));
     }
-};
+}
 
 void RelationClauseEvaluator::evaluateNext(QPS::ResultTable *resultTable) {
     Argument arg1 = this->relationClause->getFirstArgument();
@@ -464,7 +464,7 @@ void RelationClauseEvaluator::evaluateNext(QPS::ResultTable *resultTable) {
         // ACTUAL_NAME, ACTUAL_NAME
         if (arg2.argumentType == Argument::NUMBER) {
             int stmt2 = stoi(arg2.argumentName);
-            if (QPS_Interface::runtimeExtractor->isNext(cfgHeadPtr, stmt1, stmt2) == true) {
+            if (QPS_Interface::runtimeExtractor->isNext(cfgHeadPtr, stmt1, stmt2)) {
                 resultTable->setTrueTable();
             } else {
                 resultTable->setFalseTable();
@@ -603,7 +603,7 @@ void RelationClauseEvaluator::evaluateNext(QPS::ResultTable *resultTable) {
         }
     }
     resultTable->replace(new ResultTable(synonyms, lines));
-};
+}
 
 void RelationClauseEvaluator::evaluateNextT(QPS::ResultTable *resultTable) {
     Argument arg1 = this->relationClause->getFirstArgument();
@@ -648,7 +648,7 @@ void RelationClauseEvaluator::evaluateNextT(QPS::ResultTable *resultTable) {
         if (arg2.argumentType == Argument::WILDCARD) {
             std::vector<Procedure> procList = QPS_Interface::getProcList();
             // If there exist a procedure with more than 1 statements, next*(_, _) is always true
-            for (auto proc: procList) {
+            for (auto proc : procList) {
                 if (proc.endingStmtNo - proc.startingStmtNo > 0) {
                     resultTable->setTrueTable();
                     return;
@@ -756,8 +756,7 @@ void RelationClauseEvaluator::evaluateNextT(QPS::ResultTable *resultTable) {
         }
     }
     resultTable->replace(new ResultTable(synonyms, lines));
-};
-
+}
 
 bool RelationClauseEvaluator::existInStringVector(std::string s, std::vector<std::string> v) {
     return std::find(v.begin(), v.end(), s) != v.end();
@@ -772,7 +771,7 @@ void RelationClauseEvaluator::filterRelations(std::unordered_map<std::string, st
     Argument arg1 = relationClause->getFirstArgument();
     Argument arg2 = relationClause->getSecondArgument();
     std::unordered_set<std::vector<std::string>, StringVectorHash> result;
-    for (auto relation: map) { //e.g. "p1" calls "p2, p3"
+    for (auto relation : map) {  // e.g. "p1" calls "p2, p3"
         if (arg1.argumentType == Argument::PROCEDURE_ACTUAL_NAME) {
             if (relation.first != arg1.argumentName) {
                 continue;
@@ -786,7 +785,7 @@ void RelationClauseEvaluator::filterRelations(std::unordered_map<std::string, st
                 continue;
             }
         }
-        for (auto s: relation.second) {
+        for (auto s : relation.second) {
             result.insert({relation.first, s});
         }
     }
@@ -806,7 +805,7 @@ void RelationClauseEvaluator::filterRelations(std::unordered_map<int, std::vecto
     Argument arg1 = relationClause->getFirstArgument();
     Argument arg2 = relationClause->getSecondArgument();
     std::unordered_set<std::vector<std::string>, StringVectorHash> result;
-    for (auto relation: map) {  // e.g. "p1" calls "p2, p3"
+    for (auto relation : map) {  // e.g. "p1" calls "p2, p3"
         if (arg1.argumentType == Argument::NUMBER) {
             if (relation.first != stoi(arg1.argumentName)) {
                 continue;
@@ -820,7 +819,7 @@ void RelationClauseEvaluator::filterRelations(std::unordered_map<int, std::vecto
                 continue;
             }
         }
-        for (auto s: relation.second) {
+        for (auto s : relation.second) {
             result.insert({std::to_string(relation.first), std::to_string(s)});
         }
     }
@@ -839,7 +838,7 @@ void RelationClauseEvaluator::filterRelations(std::unordered_map<int, std::vecto
     Argument arg1 = relationClause->getFirstArgument();
     Argument arg2 = relationClause->getSecondArgument();
     std::unordered_set<std::vector<std::string>, StringVectorHash> result;
-    for (auto relation: map) {  // e.g. "p1" calls "p2, p3"
+    for (auto relation : map) {  // e.g. "p1" calls "p2, p3"
         if (arg1.argumentType == Argument::NUMBER) {
             if (relation.first != stoi(arg1.argumentName)) {
                 continue;
@@ -853,7 +852,7 @@ void RelationClauseEvaluator::filterRelations(std::unordered_map<int, std::vecto
                 continue;
             }
         }
-        for (auto s: relation.second) {
+        for (auto s : relation.second) {
             result.insert({std::to_string(relation.first), s});
         }
     }
@@ -872,7 +871,7 @@ void RelationClauseEvaluator::filterRelations(std::unordered_map<int, int> map, 
     Argument arg1 = relationClause->getFirstArgument();
     Argument arg2 = relationClause->getSecondArgument();
     std::unordered_set<std::vector<std::string>, StringVectorHash> result;
-    for (auto relation: map) {  // e.g. "p1" calls "p2, p3"
+    for (auto relation : map) {  // e.g. "p1" calls "p2, p3"
         if (arg1.argumentType == Argument::NUMBER) {
             if (relation.first != stoi(arg1.argumentName)) {
                 continue;
@@ -915,7 +914,7 @@ ResultTable* RelationClauseEvaluator::filterTable(std::unordered_set<std::vector
         isArg2Pushed = true;
     }
     std::unordered_set<std::vector<std::string>, QPS::StringVectorHash> filteredResult;
-    for (auto r: *result) {
+    for (auto r : *result) {
         std::vector<std::string> tableRow;
         if (isArg1Synonym && isArg2Synonym) {
             if (a1.find(r[0]) != a1.end()
@@ -931,14 +930,13 @@ ResultTable* RelationClauseEvaluator::filterTable(std::unordered_set<std::vector
                 }
                 filteredResult.insert(tableRow);
             }
-        } else if (isArg1Synonym && a1.find(r[0]) != a1.end() ) {
+        } else if (isArg1Synonym && a1.find(r[0]) != a1.end()) {
             tableRow.push_back(r[0]);
             filteredResult.insert(tableRow);
         } else if (isArg2Synonym && a2.find(r[1]) != a2.end()) {
             tableRow.push_back(r[1]);
             filteredResult.insert(tableRow);
         }
-
     }
 
     ResultTable* r = new ResultTable(synonyms, filteredResult);
