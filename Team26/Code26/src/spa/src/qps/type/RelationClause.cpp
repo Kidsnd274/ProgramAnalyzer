@@ -6,7 +6,7 @@ Argument RelationClause::getFirstArgument() {
 
 Argument RelationClause::getSecondArgument() {
     return this->argument2;
-};
+}
 
 void RelationClause::setFirstArgument(const Argument& argument) {
     this->argument1 = argument;

@@ -74,14 +74,13 @@ void QueryEvaluator::evaluate(Query* query) {
     query->resultTable->replace(resultOfEvaluation);
     delete resultOfEvaluation;
     delete clauseAssigner;
-
 }
 
 void QueryEvaluator::getAllEntity(Argument argument, QPS::ResultTable *resultTable) {
     std::vector<std::string> synonym = {argument.argumentName};
     std::unordered_set<std::vector<std::string>, StringVectorHash> results;
     std::unordered_set<std::string> entities = QPS_Interface::getAllEntity(&argument);
-    for (auto e: entities) {
+    for (auto e : entities) {
         results.insert({e});
     }
     ResultTable* entityTable = new ResultTable(synonym, results);
@@ -116,7 +115,7 @@ void QueryEvaluator::groupClauses(int n, ClauseStruct* clauseStruct) {
                 synonymClausesMap.insert(std::make_pair(arg2.argumentName, std::unordered_set<int> {i}));
             }
         }
-        if (numOfSynonyms == 0) { // clause with no synonym will be put into group 0 directly.
+        if (numOfSynonyms == 0) {  // clause with no synonym will be put into group 0 directly.
             clauseStruct[i].groupNumber = 0;
         }
     }
@@ -147,7 +146,7 @@ QueryEvaluator::countSynonym(Query* query) {
     std::vector<Clause *> *clauseList = query->clauseList;
     std::unordered_set<std::string> candidates = query->getCandidates();
     std::unordered_map<std::string, int> synonymCount = {};
-    for (auto clause: *clauseList) {
+    for (auto clause : *clauseList) {
         Argument arg1 = clause->getFirstArgument();
         Argument arg2 = clause->getSecondArgument();
         if (Argument::isSynonym(arg1.argumentType)) {
@@ -165,7 +164,7 @@ QueryEvaluator::countSynonym(Query* query) {
             }
         }
     }
-    for (auto candidate: candidates) {
+    for (auto candidate : candidates) {
         if (synonymCount.count(candidate) == 0) {
             synonymCount[candidate] = 1;
         } else {
@@ -200,5 +199,4 @@ void QueryEvaluator::removeSynonym(Clause &clause, std::unordered_map<std::strin
         resultTable->setTrueTable();
     }
     resultTable->deleteColFromTable(sToDelete);
-//    resultTable->deleteDuplicateRows({});
 }

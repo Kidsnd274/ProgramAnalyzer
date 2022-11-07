@@ -1,6 +1,11 @@
 #ifndef SPA_QPS_INTERFACE_H
 #define SPA_QPS_INTERFACE_H
 
+#include <memory>
+#include <unordered_map>
+#include <unordered_set>
+#include <string>
+#include <vector>
 #include "pkb/PKBInterface.h"
 #include "pkb/Statement.h"
 #include "sp/rte/RuntimeExtractor.h"
@@ -41,8 +46,6 @@ public:
      */
     static std::unordered_map<int, int> getAllFollowsRelations();
 
-
-
     /**
      * Call PKB interface to get all call relations in CallsTable.
      * @return a vector containing all the calls relations.
@@ -79,13 +82,11 @@ public:
      */
     static std::unordered_map<std::string, std::vector<std::string>> getAllUsesProcRelations();
 
-
     /**
      * Call PKB interface to get all assignments in StatementTable.
      * @return a vector containing the line number of all the assignments.
      */
     static std::vector<std::string> getAllAssigns();
-
 
     /**
      * Call PKB interface to get all statement lists.
@@ -108,7 +109,6 @@ public:
     static std::vector<std::string> getConditionVarNameByStmtNum(std::string containerLineNumber);
 
     static std::string getAttrName(std::string value, ArgAttrStruct candidate);
-
 
     /**
      * Call PKB interface to get the CFGHead of the procedure by passing in
@@ -151,5 +151,4 @@ public:
     static std::unordered_set<STMT_NUM> getAffectsStar(STMT_NUM stmt);
 };
 
-
-#endif //SPA_QPS_INTERFACE_H
+#endif  // SPA_QPS_INTERFACE_H

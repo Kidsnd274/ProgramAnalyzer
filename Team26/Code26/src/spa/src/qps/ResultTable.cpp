@@ -1,26 +1,17 @@
 #include "ResultTable.h"
 
-#include <string>
-#include <unordered_map>
-#include <unordered_set>
-#include <vector>
-#include <sstream>
-#include <iostream>
-#include <algorithm>
-
-
 namespace QPS {
     ResultTable::ResultTable(const std::vector<std::string>& sNames, const std::unordered_set<std::vector<std::string>, StringVectorHash >& entries) {
         type = ResultTable::NORMAL;
         colNum = 0;
-        for (const std::string& sName: sNames) {
+        for (const std::string& sName : sNames) {
             if (isSynonymPresent(sName)) {
                 suspendExecution("ResultTable: Try to insert duplicate synonym name to the table.");
             }
             synonymColRef[sName] = colNum;
             colNum++;
         }
-        for (const std::vector<std::string>& entry: entries) {
+        for (const std::vector<std::string>& entry : entries) {
             if (entry.size() != colNum) {
                 suspendExecution("ResultTable: entry inserted to the table is of incompatible length.");
             }
@@ -30,27 +21,26 @@ namespace QPS {
         isInitialized = true;
     }
 
-
     bool ResultTable::deleteColFromTable(const std::vector<std::string> &sNames) {
         std::vector <std::vector<std::string>> newTable;
         std::vector <int> positions;
         std::unordered_set<std::string> addedRows;
-        for (auto s: sNames) {
+        for (auto s : sNames) {
             if (synonymColRef.find(s) != synonymColRef.end()) {
                 synonymColRef.erase(s);
             }
         }
         int colPos = 0;
         std::unordered_map<std::string, int> newSynonymColRef;
-        for (auto synonym: synonymColRef) {
+        for (auto synonym : synonymColRef) {
             positions.push_back(synonym.second);
             newSynonymColRef[synonym.first] = colPos;
             colPos++;
         }
-        for (auto& entry: table) {
+        for (auto& entry : table) {
             std::vector<std::string> newRow;
             std::string addedRow;
-            for (auto pos: positions) {
+            for (auto pos : positions) {
                 newRow.push_back(entry[pos]);
                 addedRow = addedRow + "|" + entry[pos];
             }
@@ -79,7 +69,7 @@ namespace QPS {
         }
         values.clear();
         int pos = synonymColRef.at(sName);
-        for (const auto& entry: table) {
+        for (const auto& entry : table) {
             values.push_back(entry[pos]);
         }
         return true;
@@ -87,7 +77,7 @@ namespace QPS {
 
     bool ResultTable::getSynonymsValues(const std::vector<std::string>& sNames, std::unordered_set<std::vector<std::string>, StringVectorHash>& values) {
         std::vector<int> positions;
-        for (const auto& sName: sNames) {
+        for (const auto& sName : sNames) {
             if (!isSynonymPresent(sName)) {
                 return false;
             } else {
@@ -95,9 +85,9 @@ namespace QPS {
             }
         }
         values.clear();
-        for (auto& entry: table) {
+        for (auto& entry : table) {
             std::vector<std::string> returnValue;
-            for (int i: positions) {
+            for (int i : positions) {
                 returnValue.push_back(entry[i]);
             }
             values.insert(returnValue);
@@ -106,7 +96,7 @@ namespace QPS {
     }
 
 
-    bool ResultTable::isSynonymPresent(const std::string &sName) const{
+    bool ResultTable::isSynonymPresent(const std::string &sName) const {
         return synonymColRef.find(sName) != synonymColRef.end();
     }
 
@@ -157,14 +147,14 @@ namespace QPS {
         std::vector<int> otherUniqueCols, thisUniqueCols, otherCommonCols, thisCommonCols;
         std::vector<std::string> commonSynonyms, otherUniqueSynonyms;
         this->compareTableSynonyms(otherTable, commonSynonyms, otherUniqueCols, otherCommonCols, thisCommonCols, otherUniqueSynonyms);
-        //No common synonyms
+        // No common synonyms
         if (commonSynonyms.empty()) {
             mergeWithoutSameSynonym(otherTable, otherUniqueCols);
             updateSynonymColRef(otherUniqueSynonyms);
             return;
         }
-        //Got common synonyms
-        //Categorize values of the common synonyms into groups and then compare with the other table to be merged with
+        // Got common synonyms
+        // Categorize values of the common synonyms into groups and then compare with the other table to be merged with
         std::unordered_map<std::vector<std::string>, std::vector<int>, StringVectorHash> resultSet;
         this->commonSynonymValueSet(thisCommonCols, resultSet);
         mergeWithSameSynonyms(resultSet, otherTable, otherUniqueCols, otherCommonCols);
@@ -174,9 +164,9 @@ namespace QPS {
     void ResultTable::commonSynonymValueSet(const std::vector<int> &commonSynonymCols,
                                             std::unordered_map<std::vector<std::string>, std::vector<int>, StringVectorHash> &resultSet) {
         int currRowNum = 0;
-        for (auto &row: this->table) {
+        for (auto &row : this->table) {
             std::vector<std::string> newValue;
-            for (auto &col: commonSynonymCols) {
+            for (auto &col : commonSynonymCols) {
                 newValue.push_back(row[col]);
             }
             if (resultSet.find(newValue) == resultSet.end()) {
@@ -189,7 +179,7 @@ namespace QPS {
     }
 
     void ResultTable::updateSynonymColRef(const std::vector<std::string> &otherUniqueSynonyms) {
-        for (auto &synonym: otherUniqueSynonyms) {
+        for (auto &synonym : otherUniqueSynonyms) {
             synonymColRef[synonym] = colNum;
             colNum++;
         }
@@ -199,16 +189,16 @@ namespace QPS {
             std::unordered_map<std::vector<std::string>, std::vector<int>, StringVectorHash> &resultSet,
             const QPS::ResultTable &otherTable, std::vector<int> &otherUniqueCols, std::vector<int> &otherCommonCols) {
         std::vector<std::vector<std::string>> newTable;
-        for (auto &otherRow: otherTable.table) {
+        for (auto &otherRow : otherTable.table) {
             std::vector<std::string> newValue;
-            for (auto &col: otherCommonCols) {
+            for (auto &col : otherCommonCols) {
                 newValue.push_back(otherRow[col]);
             }
             if (resultSet.find(newValue) != resultSet.end()) {
-                for (auto &sameValueRow: resultSet.at(newValue)) {
+                for (auto &sameValueRow : resultSet.at(newValue)) {
                     std::vector<std::string> newRow;
                     newRow.insert(newRow.end(), table[sameValueRow].begin(), table[sameValueRow].end());
-                    for (auto &diffSynonymCol: otherUniqueCols) {
+                    for (auto &diffSynonymCol : otherUniqueCols) {
                         newRow.push_back(otherRow[diffSynonymCol]);
                     }
                     newTable.push_back(newRow);
@@ -221,11 +211,11 @@ namespace QPS {
 
     void ResultTable::mergeWithoutSameSynonym(const QPS::ResultTable &otherTable, const std::vector<int>& otherUniqueCols) {
         std::vector<std::vector<std::string>> newTable;
-        for (const auto &thisRow: table) {
-            for (const auto &otherRow: otherTable.table) {
+        for (const auto &thisRow : table) {
+            for (const auto &otherRow : otherTable.table) {
                 std::vector<std::string> newRow;
                 newRow.insert(newRow.end(), thisRow.begin(), thisRow.end());
-                for (const auto &col: otherUniqueCols) {
+                for (const auto &col : otherUniqueCols) {
                     newRow.push_back(otherRow[col]);
                 }
                 newTable.push_back(newRow);
@@ -239,14 +229,14 @@ namespace QPS {
                                            std::vector<int> &otherUniqueCols, std::vector<int> &otherCommonCols,
                                            std::vector<int> &thisCommonCols,
                                            std::vector<std::string> &otherUniqueSynonyms) {
-        for (const auto& synonym: synonymColRef) {
+        for (const auto& synonym : synonymColRef) {
             if (otherTable.isSynonymPresent(synonym.first)) {
                 commonSynonyms.push_back(synonym.first);
                 thisCommonCols.push_back(synonym.second);
                 otherCommonCols.push_back(otherTable.synonymColRef.at(synonym.first));
             }
         }
-        for (auto &synonym: otherTable.synonymColRef) {
+        for (auto &synonym : otherTable.synonymColRef) {
             bool otherSynonymNotPresent = std::find(commonSynonyms.begin(), commonSynonyms.end(), synonym.first) == commonSynonyms.end();
             if (otherSynonymNotPresent) {
                 otherUniqueCols.push_back(synonym.second);
@@ -260,7 +250,7 @@ namespace QPS {
         std::vector<int> sPos;
         bool sNamesSelected = false;
         if (!sNames.empty()) {
-            for (const auto& sName: sNames) {
+            for (const auto& sName : sNames) {
                 sPos.push_back(synonymColRef.find(sName)->second);
             }
             sNamesSelected = true;
@@ -269,11 +259,11 @@ namespace QPS {
         for (int row = rows - 1; row >= 0; row--) {
             std::string s;
             if (sNamesSelected) {
-                for (auto col: sPos) {
+                for (auto col : sPos) {
                     s += table[row][col] + "|";
                 }
             } else {
-                for (auto &entry: table[row]) {
+                for (auto &entry : table[row]) {
                     s += entry + "|";
                 }
             }
@@ -305,4 +295,4 @@ namespace QPS {
     void ResultTable::setTable(std::vector<std::vector<std::string>>& newTable) {
         this->table = newTable;
     }
-}
+}  // namespace QPS

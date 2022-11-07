@@ -1,4 +1,5 @@
 #include "PatternClauseEvaluator.h"
+
 void PatternClauseEvaluator::evaluate(ResultTable* resultTable) {
     // initialize result table
     if (this->patternClause->argument1.argumentType == Argument::IF_SYNONYM
@@ -16,7 +17,7 @@ void PatternClauseEvaluator::evaluate(ResultTable* resultTable) {
     WildcardPosition pos = getWildcardPosition();
     std::shared_ptr<TNode> patternNode = getPatternNode(pos);
     bool useActualName = this->patternClause->argument2.argumentType == Argument::ACTUAL_NAME;
-    for (auto assign: allAssigns) {
+    for (auto assign : allAssigns) {
         std::shared_ptr<AssignNode> assignNode = QPS_Interface::getAssignTNode(assign);
         if (useActualName && this->patternClause->argument2.argumentName != assignNode->getVariableName()) {
             continue;
@@ -60,9 +61,9 @@ WildcardPosition PatternClauseEvaluator::getWildcardPosition() {
 void PatternClauseEvaluator::evaluateContainer(QPS::ResultTable *resultTable) {
     std::unordered_set<std::string> stmtNumbers = QPS_Interface::getAllEntity(&this->patternClause->argument1);
     std::unordered_set<std::vector<std::string>, StringVectorHash> result;
-    for (auto s: stmtNumbers) {
+    for (auto s : stmtNumbers) {
         std::vector<std::string> varNames = QPS_Interface::getConditionVarNameByStmtNum(s);
-        for (auto varName: varNames) {
+        for (auto varName : varNames) {
             if (this->patternClause->argument2.argumentType == Argument::ACTUAL_NAME) {
                 if (varName != this->patternClause->argument2.argumentName) {
                     continue;
@@ -70,7 +71,7 @@ void PatternClauseEvaluator::evaluateContainer(QPS::ResultTable *resultTable) {
                 result.insert({s});
             } else if (this->patternClause->argument2.argumentType == Argument::VAR_SYNONYM) {
                 result.insert({s, varName});
-            } else { //wildcard
+            } else {  // wildcard
                 result.insert({s});
             }
         }

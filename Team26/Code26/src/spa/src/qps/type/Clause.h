@@ -12,4 +12,4 @@ public:
 };
 
 
-#endif //SPA_CLAUSE_H
+#endif  // SPA_CLAUSE_H

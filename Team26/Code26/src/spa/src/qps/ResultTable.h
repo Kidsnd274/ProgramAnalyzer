@@ -1,7 +1,9 @@
 #pragma once
 
+#include <algorithm>
 #include <unordered_map>
 #include <unordered_set>
+#include <utility>
 #include <vector>
 #include <string>
 
@@ -14,7 +16,7 @@ namespace QPS {
             std::hash<std::string> h;
             size_t seed = 0;
             for (auto& i : s) {
-                seed ^= h(i) + 0x9e3779b9 + (seed<<6) + (seed>>2);
+                seed ^= h(i) + 0x9e3779b9 + (seed << 6) + (seed >> 2);
             }
             return seed;
         }
@@ -54,7 +56,7 @@ namespace QPS {
         bool isTrueTable() {
             return this->type == TRUE;
         }
-        ResultTable(){
+        ResultTable() {
             type = TRUE;
             isInitialized = false;
             colNum = 0;
@@ -135,7 +137,4 @@ namespace QPS {
     };
 
     void suspendExecution(const std::string& errorMsg);
-
-//    ResultTable* const trueTable = new ResultTable();
-//    ResultTable* const falseTable = new ResultTable();
-}
+}  // namespace QPS

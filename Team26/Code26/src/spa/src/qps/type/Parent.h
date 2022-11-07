@@ -2,11 +2,13 @@
 #define SPA_PARENT_H
 
 #include "RelationClause.h"
+#include <unordered_set>
+#include <unordered_map>
 
 class Parent : public RelationClause {
 protected:
-    const static std::unordered_set<Argument::ArgumentType> stmtSet;
-    const static std::unordered_map<
+    static const std::unordered_set<Argument::ArgumentType> stmtSet;
+    static const std::unordered_map<
             Argument::ArgumentType,
             std::unordered_set<Argument::ArgumentType>
             > parentValidationTable;
@@ -16,7 +18,7 @@ public:
         this->relationType = relationType;
     }
 
-    virtual bool isValid() override;
+    bool isValid() override;
 };
 
-#endif //SPA_PARENT_H
+#endif  // SPA_PARENT_H

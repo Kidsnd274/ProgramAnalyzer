@@ -8,10 +8,10 @@
 class ClauseEvaluator {
 private:
     Clause* clause;
+
 public:
     virtual void evaluate(QPS::ResultTable* resultTable);
-    ClauseEvaluator(Clause* clause);
+    explicit ClauseEvaluator(Clause* clause);
 };
 
-
-#endif //SPA_CLAUSEEVALUATOR_H
+#endif  // SPA_CLAUSEEVALUATOR_H

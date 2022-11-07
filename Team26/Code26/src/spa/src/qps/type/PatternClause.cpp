@@ -19,7 +19,6 @@ const std::unordered_map<
                         Argument::ACTUAL_NAME,
                         Argument::WILDCARD
                 },
-
         },
         {
                 Argument::WHILE_SYNONYM,

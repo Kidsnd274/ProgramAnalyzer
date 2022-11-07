@@ -1,7 +1,6 @@
 #include "ClauseAssigner.h"
 
 void ClauseAssigner::assignClause(QPS::ResultTable *resultTable, Clause *clause) {
-
     if (clauseMap.find(typeid(*clause).name()) != clauseMap.end()) {
         switch (clauseMap.find(typeid(*clause).name())->second) {
             case (Pattern): {

@@ -8,7 +8,7 @@
 
 class PatternClause : public Clause {
 protected:
-    const static std::unordered_map<
+    static const std::unordered_map<
             Argument::ArgumentType,
             std::unordered_set<Argument::ArgumentType>
             > patternClauseValidationTable;
@@ -35,4 +35,4 @@ public:
 };
 
 
-#endif //SPA_PATTERNCLAUSE_H
+#endif  // SPA_PATTERNCLAUSE_H

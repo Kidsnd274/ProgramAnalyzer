@@ -1,10 +1,13 @@
 #ifndef SPA_RELATIONCLAUSEEVALUATOR_H
 #define SPA_RELATIONCLAUSEEVALUATOR_H
 
+#include <string>
+#include <unordered_map>
+#include <unordered_set>
+#include <vector>
 #include "ClauseEvaluator.h"
 #include "../type/RelationClause.h"
 #include "../QPS_Interface.h"
-
 
 class RelationClauseEvaluator: public ClauseEvaluator{
 private:
@@ -14,7 +17,6 @@ private:
     void evaluateFollowsT(QPS::ResultTable *resultTable);
     void evaluateNext(QPS::ResultTable *resultTable);
     void evaluateNextT(QPS::ResultTable *resultTable);
-
 
     /**
      * Handles whether to call evaluateUsesP or evaluateUsesS.
@@ -56,12 +58,12 @@ private:
     bool validateAffectsParameter(QPS::ResultTable* resultTable);
 
     QPS::ResultTable* filterTable(std::unordered_set<std::vector<std::string>, QPS::StringVectorHash> *result);
+
 public:
     void evaluate(QPS::ResultTable* resultTable);
-    RelationClauseEvaluator(Clause* clause): ClauseEvaluator(clause){
-        this->relationClause = (RelationClause*)clause;
-    };
+    explicit RelationClauseEvaluator(Clause* clause): ClauseEvaluator(clause){
+        this->relationClause = reinterpret_cast<RelationClause*>(clause);
+    }
 };
 
-
-#endif //SPA_RELATIONCLAUSEEVALUATOR_H
+#endif  // SPA_RELATIONCLAUSEEVALUATOR_H

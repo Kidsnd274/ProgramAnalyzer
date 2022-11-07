@@ -35,7 +35,6 @@ namespace QPS {
         std::vector<Token> tokenizedResult;
         std::smatch match;
         while (!queryString.empty()) {
-
             bool regex_match = std::regex_search(queryString, match, std::regex(matchingRules[0].second));
             if (regex_match) {
                 queryString.erase(0, match.str().size());
@@ -56,8 +55,6 @@ namespace QPS {
                 tokenizedResult.push_back(t);
                 continue;
             }
-
-
 
             if (queryString[0] == ';') {
                 t = createToken(SEMICOLON, ";");
@@ -99,7 +96,7 @@ namespace QPS {
                     if (queryString[pos_next_qoute] != ' ') {
                         empty_expression = false;
                     }
-                    pos_next_qoute ++;
+                    pos_next_qoute++;
                 }
                 std::string expression = queryString.substr(0, pos_next_qoute);
                 if (!empty_expression) {
@@ -111,11 +108,9 @@ namespace QPS {
             }
             tokenizedResult.push_back(t);
             queryString.erase(0, 1);
-
-
         }
         std::copy(tokenizedResult.begin(), tokenizedResult.end(), std::back_inserter(tokens));
         return true;
     }
 
-} // Tokenization
+}  // namespace QPS
