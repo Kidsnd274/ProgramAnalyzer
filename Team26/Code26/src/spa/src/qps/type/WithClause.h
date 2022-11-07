@@ -34,7 +34,7 @@ struct ArgAttrStruct {
 
 class WithClause : public Clause {
 protected:
-    const static std::unordered_map<
+    static const std::unordered_map<
             Argument::ArgumentType,
             std::unordered_set<AttributeType>
         > withClauseValidationTableArg2;
@@ -53,10 +53,10 @@ public:
     Argument getFirstArgument() override;
     Argument getSecondArgument() override;
 
-    const static std::unordered_map<
+    static const std::unordered_map<
          Argument::ArgumentType,
          std::unordered_set<AttributeType>
          > withClauseValidationTableArg1;
 };
 
-#endif //SPA_WITHCLAUSE_H
+#endif  // SPA_WITHCLAUSE_H
