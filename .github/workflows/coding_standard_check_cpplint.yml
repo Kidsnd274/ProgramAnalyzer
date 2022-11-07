@@ -11,4 +11,4 @@ jobs:
 
       - name: Run cpplint check
         #continue-on-error: true # Allow coding standard check to fail for now
-        run: cpplint --recursive ./Team26/Code26/src
+        run: cpplint --recursive ./Team26/Code26/src/spa/src
