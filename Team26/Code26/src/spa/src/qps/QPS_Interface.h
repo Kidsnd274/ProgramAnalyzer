@@ -99,28 +99,14 @@ public:
     static std::unordered_set<std::string> getAllEntity(Argument* argument);
 
     /**
-     * Call PKB interface to get the line number of a certain procedure.
-     * @param procName the name of procedure
-     * @return a string, the line number of given procedure
-     */
-    static std::string getProcLineNumberByName(std::string procName);
-
-    static std::string getCallProcName(std::string callLineNumber);
-
-    static std::string getReadVarName(std::string readLineNumber);
-
-    static std::string getPrintVarName(std::string printLineNumber);
-
-    /**
      * Call PKB interface to return the variable used in if/while condition statement.
      * @param containerLineNumber the statement line number of if/while.
      * @return the variable name.
      */
     static std::unordered_set<std::string> getConditionVarNameByStmtNum(std::string containerLineNumber);
 
-    static std::string getAttrName(std::string value, WithClause::WithClauseArgument candidate);
+    static std::string getAttrName(std::string value, ArgAttrStruct candidate);
 
-    static std::string getAttrName(std::string value, Query::CandidateStruct candidate);
 
     /**
      * Call PKB interface to get the CFGHead of the procedure by passing in

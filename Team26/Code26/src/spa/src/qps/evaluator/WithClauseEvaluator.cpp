@@ -53,8 +53,8 @@
 //}
 
 void WithClauseEvaluator::evaluate(QPS::ResultTable *resultTable) {
-    WithClause::WithClauseArgument arg1 = this->withClause->arg1;
-    WithClause::WithClauseArgument arg2 = this->withClause->arg2;
+    ArgAttrStruct arg1 = this->withClause->arg1;
+    ArgAttrStruct arg2 = this->withClause->arg2;
     // If arg1 is not a synonym, swap(arg1, arg2)
     if (arg1.argument.argumentType == Argument::ACTUAL_NAME || arg1.argument.argumentType == Argument::NUMBER) {
         arg1 = this->withClause->arg2;

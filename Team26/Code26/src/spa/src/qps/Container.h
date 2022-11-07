@@ -43,6 +43,11 @@ namespace QPS {
     public:
         Container() = default;
 
+        ~Container() {
+            this->tokens.clear();
+            std::vector<QPS::Token>().swap(tokens);
+        }
+
         explicit Container(std::vector<QPS::Token> &tokens) : queryStruct(Query()) {
             this->tokens = tokens;
             this->status = INITIALIZED;
@@ -62,13 +67,13 @@ namespace QPS {
             this->queryStruct.addSynonym(argument);
         }
 
-        void addCandidateList(Query::CandidateStruct candidateStruct) {
+        void addCandidateList(ArgAttrStruct candidateStruct) {
             this->queryStruct.addCandidate(candidateStruct);
         }
 
         void addCandidateListBoolean() {
             Argument argument = Argument("boolean", Argument::BOOLEAN_ARG);
-            Query::CandidateStruct candidateStruct = {argument, INAPPLICABLE};
+            ArgAttrStruct candidateStruct = {argument, INAPPLICABLE};
             this->queryStruct.addCandidate(candidateStruct);
         }
 
@@ -146,7 +151,7 @@ namespace QPS {
             this->queryStruct.addClause(patternClause);
         }
 
-        void addWithClause (WithClause::WithClauseArgument arg1, WithClause::WithClauseArgument arg2) {
+        void addWithClause (ArgAttrStruct arg1, ArgAttrStruct arg2) {
             WithClause* withClause = new WithClause(arg1, arg2);
             this->queryStruct.addClause(withClause);
         }

@@ -1,20 +1,6 @@
 #include "QueryResultProjector.h"
 #include "QPS_Interface.h"
 
-void QueryResultProjector::projectResult(Query query, std::list<std::string> &results) {
-    QPS::ResultTable* resultTable = query.resultTable;
-    auto candidateList = query.getCandidateList();
-    std::vector<std::string> synonyms;
-    for (auto &candidate : candidateList) {
-        synonyms.push_back(candidate.argument.argumentName);
-    }
-    std::unordered_set<std::vector<std::string>, QPS::StringVectorHash> values;
-    resultTable->getSynonymsValues(synonyms, values);
-    QPS::ResultTable result = QPS::ResultTable(synonyms, values);
-    result.deleteDuplicateRows({});
-    result.printTable();
-}
-
 
 std::string QueryResultProjector::getSelectTuples(Query query, std::list<std::string> &results) {
     if (query.getStatus() == SYNTAX_ERROR) {
@@ -42,15 +28,6 @@ std::string QueryResultProjector::getSelectTuples(Query query, std::list<std::st
         for (auto &candidate: query.getCandidateList()) {
             synonyms.push_back(candidate.argument.argumentName);
         }
-//        query.resultTable->getSynonymsValues(synonyms, tupleValues);
-//        for (auto row: tupleValues) {
-//            std::string rowString;
-//            std::for_each(row.begin(), row.end(), [&](const std::string &piece) { rowString += piece + " "; });
-//            std::string trimmedRowString = rowString.substr(0, rowString.length() - 1);
-//            resultString += trimmedRowString + ", ";
-//            rowStringSet.insert(trimmedRowString);
-//            results.push_back(trimmedRowString);
-//        }
         for (auto row : query.resultTable->getTable()) {
             std::string rowString;
             for (auto &candidate : query.getCandidateList()) {
