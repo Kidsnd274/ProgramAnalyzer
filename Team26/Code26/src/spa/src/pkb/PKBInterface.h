@@ -50,11 +50,8 @@ public:
     virtual void addRelation(RelationType type, int firstStatementNumber, int SecondStatementNumber);
 
 
-    virtual std::unordered_set<std::string> getAllVariablesModified(std::string procedureName);
-    virtual std::unordered_set<std::string> getAllVariablesUsed(std::string procedureName);
+    virtual std::unordered_set<std::string> getAllUsedOrCalled(RelationType type, std::string procedureName);
     virtual std::unordered_set<int> getParentStar(int statementNumber);
-    virtual std::unordered_set<std::string> getCall(std::string procedure);
-    virtual std::unordered_set<std::string> getCallStar(std::string procedure);
 
 
     std::shared_ptr<AssignNode> getAssignTNode(const std::string& assignRef);

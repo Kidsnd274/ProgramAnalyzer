@@ -100,28 +100,23 @@ void PKBInterface::addCondVar(int statementNumber, std::string varName) {
     this->pkb->containerTable->addCondVar(statementNumber, varName);
 }
 
-std::unordered_set<std::string> PKBInterface::getAllVariablesModified(std::string procedureName) {
-    std::unordered_set<std::string> varsModified = pkb->modifiesTable->getAllModifiedVarByProc(procedureName);
-    return varsModified;
-}
-
-std::unordered_set<std::string> PKBInterface::getAllVariablesUsed(std::string procedureName) {
-    std::unordered_set<std::string> varsUsed = pkb->usesTable->getAllVarUsedByProc(procedureName);
-    return varsUsed;
+std::unordered_set<std::string> PKBInterface::getAllUsedOrCalled(RelationType type, std::string procedureName) {
+    switch (type) {
+        case RelationType::MODIFIES_S:
+            return pkb->modifiesTable->getAllModifiedVarByProc(procedureName);
+        case RelationType::USES_S:
+            return pkb->usesTable->getAllVarUsedByProc(procedureName);
+        case RelationType::CALLS:
+            return pkb->callTable->getProcsCalled(procedureName);
+        case RelationType::CALLS_T:
+            return pkb->callStarTable->getProcsStarCalled(procedureName);
+        default:
+            return {};
+    }
 }
 
 std::unordered_set<int> PKBInterface::getParentStar(int statementNumber) {
     return pkb->parentStarTable->getAllParentStar(statementNumber);
-}
-
-std::unordered_set<string> PKBInterface::getCall(std::string procedure) {
-    std::unordered_set<std::string> procsCalled = pkb->callTable->getProcsCalled(procedure);
-    return procsCalled;
-}
-
-std::unordered_set<string> PKBInterface::getCallStar(std::string procedure) {
-    std::unordered_set<std::string> procsStarCalled = pkb->callStarTable->getProcsStarCalled(procedure);
-    return procsStarCalled;
 }
 
 std::unordered_map<std::string, std::unordered_set<std::string>> PKBInterface::getAllProcVarRelation(RelationType type) {

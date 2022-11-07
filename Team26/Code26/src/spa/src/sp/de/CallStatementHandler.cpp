@@ -14,10 +14,10 @@ void CallStatementHandler::checkCyclicProcedureCall(std::string& procedureCalled
 
 void CallStatementHandler::addToPkb(CallStruct& cs, PKBInterface *pkb, std::string& procedureName) {
     // now add all modified and used variable to procedure and parent*
-    std::unordered_set<std::string> modified = pkb->getAllVariablesModified(cs.getProcedureCalled());
-    std::unordered_set<std::string> used = pkb->getAllVariablesUsed(cs.getProcedureCalled());
+    std::unordered_set<std::string> modified = pkb->getAllUsedOrCalled(RelationType::MODIFIES_S, cs.getProcedureCalled());
+    std::unordered_set<std::string> used = pkb->getAllUsedOrCalled(RelationType::USES_S, cs.getProcedureCalled());
     std::unordered_set<int> parentStar = pkb->getParentStar(cs.getStatementNumber());
-    std::unordered_set<std::string> callStar = pkb->getCallStar(cs.getProcedureCalled());
+    std::unordered_set<std::string> callStar = pkb->getAllUsedOrCalled(RelationType::CALLS_T, cs.getProcedureCalled());
 
     for (auto &var : modified) {
         pkb->addRelation(RelationType::MODIFIES_S, procedureName, var);

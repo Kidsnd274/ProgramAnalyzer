@@ -887,29 +887,29 @@ TEST_CASE("Test call procedures with call statements") {
         std::unordered_set<std::string> proc2CalledStar = { "last" };
         std::unordered_set<std::string> proc3CalledStar = { };
 
-        REQUIRE(proc1Modified == pkbInterface->getAllVariablesModified("testCalls"));
-        REQUIRE(proc2Modified == pkbInterface->getAllVariablesModified("next"));
-        REQUIRE(proc3Modified == pkbInterface->getAllVariablesModified("last"));
+        REQUIRE(proc1Modified == pkbInterface->getAllUsedOrCalled(RelationType::MODIFIES_S, "testCalls"));
+        REQUIRE(proc2Modified == pkbInterface->getAllUsedOrCalled(RelationType::MODIFIES_S, "next"));
+        REQUIRE(proc3Modified == pkbInterface->getAllUsedOrCalled(RelationType::MODIFIES_S, "last"));
 
-        REQUIRE(proc1Used == pkbInterface->getAllVariablesUsed("testCalls"));
-        REQUIRE(proc2Used == pkbInterface->getAllVariablesUsed("next"));
-        REQUIRE(proc3Used == pkbInterface->getAllVariablesUsed("last"));
+        REQUIRE(proc1Used == pkbInterface->getAllUsedOrCalled(RelationType::USES_S, "testCalls"));
+        REQUIRE(proc2Used == pkbInterface->getAllUsedOrCalled(RelationType::USES_S, "next"));
+        REQUIRE(proc3Used == pkbInterface->getAllUsedOrCalled(RelationType::USES_S, "last"));
 
-        REQUIRE(proc1Called == pkbInterface->getCall("testCalls"));
-        REQUIRE(proc2Called == pkbInterface->getCall("next"));
-        REQUIRE(proc3Called == pkbInterface->getCall("last"));
+        REQUIRE(proc1Called == pkbInterface->getAllUsedOrCalled(RelationType::CALLS, "testCalls"));
+        REQUIRE(proc2Called == pkbInterface->getAllUsedOrCalled(RelationType::CALLS, "next"));
+        REQUIRE(proc3Called == pkbInterface->getAllUsedOrCalled(RelationType::CALLS, "last"));
 
-        REQUIRE(proc1CalledStar == pkbInterface->getCallStar("testCalls"));
-        REQUIRE(proc2CalledStar == pkbInterface->getCallStar("next"));
-        REQUIRE(proc3CalledStar == pkbInterface->getCallStar("last"));
+        REQUIRE(proc1CalledStar == pkbInterface->getAllUsedOrCalled(RelationType::CALLS_T, "testCalls"));
+        REQUIRE(proc2CalledStar == pkbInterface->getAllUsedOrCalled(RelationType::CALLS_T, "next"));
+        REQUIRE(proc3CalledStar == pkbInterface->getAllUsedOrCalled(RelationType::CALLS_T, "last"));
 
-        REQUIRE(call1Modified == pkbInterface->getAllVariablesModified("next"));
-        REQUIRE(call2Modified == pkbInterface->getAllVariablesModified("next2"));
-        REQUIRE(call3Modified == pkbInterface->getAllVariablesModified("last"));
+        REQUIRE(call1Modified == pkbInterface->getAllUsedOrCalled(RelationType::MODIFIES_S, "next"));
+        REQUIRE(call2Modified == pkbInterface->getAllUsedOrCalled(RelationType::MODIFIES_S, "next2"));
+        REQUIRE(call3Modified == pkbInterface->getAllUsedOrCalled(RelationType::MODIFIES_S, "last"));
 
-        REQUIRE(call1Used == pkbInterface->getAllVariablesUsed("next"));
-        REQUIRE(call2Used == pkbInterface->getAllVariablesUsed("next2"));
-        REQUIRE(call3Used == pkbInterface->getAllVariablesUsed("last"));
+        REQUIRE(call1Used == pkbInterface->getAllUsedOrCalled(RelationType::USES_S, "next"));
+        REQUIRE(call2Used == pkbInterface->getAllUsedOrCalled(RelationType::USES_S, "next2"));
+        REQUIRE(call3Used == pkbInterface->getAllUsedOrCalled(RelationType::USES_S, "last"));
 
     }
 }
