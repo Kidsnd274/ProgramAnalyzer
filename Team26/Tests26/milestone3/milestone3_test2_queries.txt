@@ -2748,4 +2748,53 @@ procedure p;
 Select p such that Calls* (p, p)
 none
 5000
-
+546 - Empty case 1
+assign a; read r;
+Select BOOLEAN such that Affects(r, a)
+FALSE
+5000
+547 - Empty case 2
+assign a; read r;
+Select BOOLEAN such that Affects(a, r)
+FALSE
+5000
+548 - Empty case 3
+assign a; print r;
+Select BOOLEAN such that Affects(r, a)
+FALSE
+5000
+549 - Empty case 4
+assign a; print r;
+Select BOOLEAN such that Affects(a, r)
+FALSE
+5000
+550 - Empty case 5
+assign a; if r;
+Select BOOLEAN such that Affects(r, a)
+FALSE
+5000
+551 - Empty case 6
+assign a; if r;
+Select BOOLEAN such that Affects(a, r)
+FALSE
+5000
+552 - Empty case 7
+assign a; while r;
+Select BOOLEAN such that Affects(r, a)
+FALSE
+5000
+553 - Empty case 8
+assign a; while r;
+Select BOOLEAN such that Affects(a, r)
+FALSE
+5000
+554 - Empty case 9
+assign a; call r;
+Select BOOLEAN such that Affects(r, a)
+FALSE
+5000
+555 - Empty case 10
+assign a; call r;
+Select BOOLEAN such that Affects(a, r)
+FALSE
+5000
