@@ -448,3 +448,178 @@ assign a;
 Select BOOLEAN such that Affects*(19, 20)
 FALSE
 5000
+89 - Affects use statement synonym 1
+stmt s;
+Select s such that Affects(8, s)
+none
+5000
+90 - Affects use statement synonym 2
+stmt s;
+Select s such that Affects(s, 4)
+1,2
+5000
+91 - Affects* use statement synonym 1
+stmt s;
+Select s such that Affects*(16, s)
+none
+5000
+92 - Affects* use statement synonym 2
+stmt s;
+Select s such that Affects*(s, 20)
+none
+5000
+93 - Wildcard Affects 1
+stmt s;
+Select BOOLEAN such that Affects(_, _)
+TRUE
+5000
+94 - Wildcard Affects 2
+stmt s;
+Select BOOLEAN such that Affects(_, s)
+TRUE
+5000
+95 - Wildcard Affects 3
+stmt s;
+Select BOOLEAN such that Affects(s, _)
+TRUE
+5000
+96 - Affects with with clause 1
+assign a, a1;
+Select BOOLEAN such that Affects(a, a1) with a.stmt# = 5
+FALSE
+5000
+97 - Wildcard Affects* 1
+stmt s;
+Select BOOLEAN such that Affects*(_, _)
+TRUE
+5000
+98 - Wildcard Affects* 2
+stmt s;
+Select BOOLEAN such that Affects*(_, s)
+TRUE
+5000
+99 - Wildcard Affects* 3
+stmt s;
+Select BOOLEAN such that Affects*(s, _)
+TRUE
+5000
+100 - Affects* with with clause 1
+assign a, a1;
+Select BOOLEAN such that Affects*(a, a1) with a.stmt# = 4
+TRUE
+5000
+101 - Affects with with clause 2
+assign a, a1; constant c;
+Select a such that Affects(a, a1) with c.value = a.stmt#
+1
+5000
+102 - Affects* with with clause 2
+assign a, a1; constant c;
+Select a such that Affects*(a, a1) with c.value = a.stmt#
+1
+5000
+103 - Affects with attribute 1
+assign a, a1;
+Select a.stmt# such that Affects(a1, a)
+4,6,11,14,10,19,16
+5000
+104 - Affects* with attribute 1
+assign a, a1;
+Select a.stmt# such that Affects*(a1, a)
+4,6,10,11,14,19,16
+5000
+105 - Affects with attribute and with clause 1
+procedure p, p1;
+Select p.procName such that Affects(_,12) with p1.procName = "one"
+none
+5000
+106 - Affects with attribute and with clause 2
+assign a, a1; constant c;
+Select c.value such that Affects(a, a1) with c.value = a1.stmt#
+none
+5000
+107 - Affects* with attribute and with clause 1
+procedure p, p1;
+Select p.procName such that Affects*(_,12) with p1.procName = "one"
+none
+5000
+108 - Affects* with attribute and with clause 2
+assign a, a1; constant c;
+Select c.value such that Affects*(a, a1) with c.value = a1.stmt#
+none
+5000
+109 - Tuple Affects* 1
+assign a, a1;
+Select <a, a1> such that Affects*(_, a) and Affects*(a, a1)
+4 10,4 14,4 19,6 14,11 14,11 19,19 14
+5000
+110 - Tuple Affects* 2
+assign a, a1;
+Select <a, a1> such that Affects*(_, a1) and Affects*(a, a1)
+1 4,1 6,1 10,1 11,1 14,1 19,2 4,2 6,2 10,2 11,2 14,2 19,4 10,4 14,4 19,6 14,11 14,11 19,12 16,18 14,18 19,19 14
+5000
+111 - Tuple Affects* 3
+assign a, a1;
+Select <a, a1> such that Affects*(a, a1) and Affects*(10, 12)
+none
+5000
+112 - Tuple Affects* 4
+assign a, a1;
+Select<a.stmt#, a1> such that Affects*(_, a1) and Affects*(a, a1)
+1 4,1 6,1 10,1 11,1 14,1 19,2 4,2 6,2 10,2 11,2 14,2 19,4 10,4 14,4 19,6 14,11 14,11 19,12 16,18 14,18 19,19 14
+5000
+113 - Tuple Affects* 5
+assign a, a1, a2;
+Select<a, a1, a2> such that Affects*(a, a1) and Affects*(a1, a2)
+1 4 10,1 4 14,1 4 19,1 6 14,1 11 14,1 11 19,1 19 14,2 4 10,2 4 14,2 4 19,2 6 14,2 11 14,2 11 19,2 19 14,4 19 14,11 19 14,18 19 14
+5000
+114 - Empty case 1
+assign a; read r;
+Select BOOLEAN such that Affects(r, a)
+FALSE
+5000
+115 - Empty case 2
+assign a; read r;
+Select BOOLEAN such that Affects(a, r)
+FALSE
+5000
+116 - Empty case 3
+assign a; print r;
+Select BOOLEAN such that Affects(r, a)
+FALSE
+5000
+117 - Empty case 4
+assign a; print r;
+Select BOOLEAN such that Affects(a, r)
+FALSE
+5000
+118 - Empty case 5
+assign a; if r;
+Select BOOLEAN such that Affects(r, a)
+FALSE
+5000
+119 - Empty case 6
+assign a; if r;
+Select BOOLEAN such that Affects(a, r)
+FALSE
+5000
+120 - Empty case 7
+assign a; while r;
+Select BOOLEAN such that Affects(r, a)
+FALSE
+5000
+121 - Empty case 8
+assign a; while r;
+Select BOOLEAN such that Affects(a, r)
+FALSE
+5000
+122 - Empty case 9
+assign a; call r;
+Select BOOLEAN such that Affects(r, a)
+FALSE
+5000
+123 - Empty case 10
+assign a; call r;
+Select BOOLEAN such that Affects(a, r)
+FALSE
+5000
