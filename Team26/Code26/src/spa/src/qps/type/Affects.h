@@ -3,10 +3,12 @@
 
 
 #include "RelationClause.h"
+#include <unordered_map>
+#include <unordered_set>
 
 class Affects : public RelationClause {
 protected:
-    const static std::unordered_map<
+    static const std::unordered_map<
             Argument::ArgumentType,
             std::unordered_set<Argument::ArgumentType>
     > affectsValidationTable;
@@ -21,4 +23,4 @@ public:
 
 
 
-#endif //SPA_AFFECTS_H
+#endif  // SPA_AFFECTS_H

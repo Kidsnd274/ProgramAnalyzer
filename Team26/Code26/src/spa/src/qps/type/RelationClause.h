@@ -1,6 +1,8 @@
 #ifndef SPA_RELATIONCLAUSE_H
 #define SPA_RELATIONCLAUSE_H
 
+#include <map>
+#include <string>
 #include <unordered_map>
 #include <unordered_set>
 #include "Argument.h"
@@ -9,7 +11,7 @@
 enum RelationType {
     FOLLOWS,    // Follows(stmtRef, stmtRef)
     FOLLOWS_T,  // Follows*(stmtRef, stmtRef)
-    PARENT, // Parent(stmtRef, stmtRef)
+    PARENT,  // Parent(stmtRef, stmtRef)
     PARENT_T,   // Parent*(stmtRef, stmtRef)
     USES_S,
     MODIFIES_S,
@@ -70,4 +72,4 @@ public:
     virtual bool isValid() = 0;
 };
 
-#endif //SPA_RELATIONCLAUSE_H
+#endif  // SPA_RELATIONCLAUSE_H

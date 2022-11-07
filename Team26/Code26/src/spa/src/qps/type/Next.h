@@ -2,10 +2,12 @@
 #define SPA_NEXT_H
 
 #include "RelationClause.h"
+#include <unordered_map>
+#include <unordered_set>
 
 class Next : public RelationClause {
 protected:
-    const static std::unordered_map<
+    static const std::unordered_map<
             Argument::ArgumentType,
             std::unordered_set<Argument::ArgumentType>
     > nextValidationTable;
@@ -19,4 +21,4 @@ public:
 };
 
 
-#endif //SPA_NEXT_H
+#endif  // SPA_NEXT_H

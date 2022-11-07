@@ -22,7 +22,6 @@ const std::unordered_map<
                 Argument::PROCEDURE_SYNONYM,
                 secondARGs
         },
-
 };
 
 bool Calls::isValid() {

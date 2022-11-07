@@ -3,10 +3,12 @@
 
 
 #include "RelationClause.h"
+#include <unordered_set>
+#include <unordered_map>
 
 class Calls : public RelationClause {
 protected:
-const static std::unordered_map<
+    static const std::unordered_map<
         Argument::ArgumentType,
         std::unordered_set<Argument::ArgumentType>
 > callsValidationTable;
@@ -21,4 +23,4 @@ public:
 };
 
 
-#endif //SPA_CALLS_H
+#endif  // SPA_CALLS_H

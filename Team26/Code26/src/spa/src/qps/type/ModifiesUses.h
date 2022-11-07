@@ -2,10 +2,12 @@
 #define SPA_MODIFIES_H
 
 #include "RelationClause.h"
+#include <unordered_set>
+#include <unordered_map>
 
 class ModifiesUses : public RelationClause {
 protected:
-    const static std::unordered_map<
+    static const std::unordered_map<
             Argument::ArgumentType,
             std::unordered_set<Argument::ArgumentType>
     > modifiesValidationTable;
@@ -19,4 +21,4 @@ public:
 };
 
 
-#endif //SPA_MODIFIES_H
+#endif //  SPA_MODIFIES_H

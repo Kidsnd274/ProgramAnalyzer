@@ -2,11 +2,13 @@
 #define SPA_FOLLOWS_H
 
 #include "RelationClause.h"
+#include <unordered_map>
+#include <unordered_set>
 
 class Follows : public RelationClause {
 protected:
-    const static std::unordered_set<Argument::ArgumentType> stmtSet;
-    const static std::unordered_map<
+    static const std::unordered_set<Argument::ArgumentType> stmtSet;
+    static const std::unordered_map<
             Argument::ArgumentType,
             std::unordered_set<Argument::ArgumentType>
             > followsValidationTable;
@@ -19,4 +21,4 @@ public:
     bool isValid() override;
 };
 
-#endif //SPA_FOLLOWS_H
+#endif  // SPA_FOLLOWS_H

@@ -28,4 +28,4 @@ public:
 };
 
 
-#endif //SPA_ENTITY_H
+#endif  // SPA_ENTITY_H
