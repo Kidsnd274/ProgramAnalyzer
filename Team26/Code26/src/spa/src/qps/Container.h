@@ -1,6 +1,9 @@
 #ifndef SPA_CONTAINER_H
 #define SPA_CONTAINER_H
 
+#include <list>
+#include <vector>
+#include <string>
 #include "Tokenizer.h"
 #include "qps/Query.h"
 #include "qps/type/Entity.h"
@@ -13,9 +16,6 @@
 #include "qps/type/Next.h"
 #include "qps/type/Affects.h"
 #include "qps/type/ModifiesUses.h"
-#include <list>
-#include <vector>
-#include <string>
 
 namespace QPS {
     enum Status{
