@@ -2,8 +2,9 @@
 #define SPA_CONTAINER_H
 
 #include <list>
-#include <vector>
 #include <string>
+#include <vector>
+#include <unordered_map>
 #include "Tokenizer.h"
 #include "qps/Query.h"
 #include "qps/type/Entity.h"
@@ -84,57 +85,57 @@ namespace QPS {
                     this->queryStruct.addClause(clause);
                     break;
                 }
-                case FOLLOWS_T:{
+                case FOLLOWS_T: {
                     Follows* clause = new Follows(arg1, arg2, FOLLOWS_T);
                     this->queryStruct.addClause(clause);
                     break;
                 }
-                case PARENT:{
+                case PARENT: {
                     Parent* clause = new Parent(arg1, arg2, PARENT);
                     this->queryStruct.addClause(clause);
                     break;
                 }
-                case PARENT_T:{
+                case PARENT_T: {
                     Parent* clause = new Parent(arg1, arg2, PARENT_T);
                     this->queryStruct.addClause(clause);
                     break;
                 }
-                case USES_S:{
+                case USES_S: {
                     ModifiesUses* clause = new ModifiesUses(arg1, arg2, USES_S);
                     this->queryStruct.addClause(clause);
                     break;
                 }
-                case MODIFIES_S:{
+                case MODIFIES_S: {
                     ModifiesUses* clause = new ModifiesUses(arg1, arg2, MODIFIES_S);
                     this->queryStruct.addClause(clause);
                     break;
                 }
-                case CALLS:{
+                case CALLS: {
                     Calls* clause = new Calls(arg1, arg2, CALLS);
                     this->queryStruct.addClause(clause);
                     break;
                 }
-                case CALLS_T:{
+                case CALLS_T: {
                     Calls* clause = new Calls(arg1, arg2, CALLS_T);
                     this->queryStruct.addClause(clause);
                     break;
                 }
-                case NEXT:{
-                    Next* clause = new Next(arg1, arg2,NEXT);
+                case NEXT: {
+                    Next* clause = new Next(arg1, arg2, NEXT);
                     this->queryStruct.addClause(clause);
                     break;
                 }
-                case NEXT_T:{
-                    Next* clause = new Next(arg1, arg2,NEXT_T);
+                case NEXT_T: {
+                    Next* clause = new Next(arg1, arg2, NEXT_T);
                     this->queryStruct.addClause(clause);
                     break;
                 }
-                case AFFECTS:{
+                case AFFECTS: {
                     Affects* clause = new Affects(arg1, arg2, AFFECTS);
                     this->queryStruct.addClause(clause);
                     break;
                 }
-                case AFFECTS_T:{
+                case AFFECTS_T: {
                     Affects* clause = new Affects(arg1, arg2, AFFECTS_T);
                     this->queryStruct.addClause(clause);
                     break;
@@ -142,7 +143,6 @@ namespace QPS {
                 case INVALID_RELATION_TYPE:
                     break;
             }
-
         }
 
         void addPatternClause(Argument::ArgumentType typeOfPattern, std::string pattern_syn, Argument arg1, Argument arg2) {
@@ -151,7 +151,7 @@ namespace QPS {
             this->queryStruct.addClause(patternClause);
         }
 
-        void addWithClause (ArgAttrStruct arg1, ArgAttrStruct arg2) {
+        void addWithClause(ArgAttrStruct arg1, ArgAttrStruct arg2) {
             WithClause* withClause = new WithClause(arg1, arg2);
             this->queryStruct.addClause(withClause);
         }
@@ -169,7 +169,6 @@ namespace QPS {
             return this->queryStruct;
         }
     };
-}
+}  // namespace QPS
 
-
-#endif //SPA_CONTAINER_H
+#endif  // SPA_CONTAINER_H

@@ -3,6 +3,7 @@
 
 #include <list>
 #include <vector>
+#include <utility>
 #include <string>
 #include "pkb/PKBInterface.h"
 #include "QPS_Interface.h"
@@ -20,4 +21,4 @@ namespace QPS {
 
 }
 
-#endif //SPA_QUERYMANAGER_H
+#endif  // SPA_QUERYMANAGER_H

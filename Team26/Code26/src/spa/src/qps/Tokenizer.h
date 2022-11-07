@@ -1,6 +1,7 @@
 #ifndef SPA_TOKENIZER_H
 #define SPA_TOKENIZER_H
 
+#include <algorithm>
 #include <vector>
 #include <string>
 #include <iostream>
@@ -63,6 +64,6 @@ namespace QPS {
 
     bool tokenize(std::string queryString, std::vector<Token> &tokens);
     Token createToken(TokenType t, std::string nameValue);
-}
+}  // namespace QPS
 
-#endif //SPA_TOKENIZER_H
+#endif  // SPA_TOKENIZER_H

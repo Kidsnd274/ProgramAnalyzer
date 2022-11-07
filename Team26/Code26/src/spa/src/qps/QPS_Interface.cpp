@@ -7,7 +7,6 @@ void QPS_Interface::setPKBInterface(PKBInterface *myPKBInterface) {
     QPS_Interface::pkbInterface = myPKBInterface;
 }
 
-
 void QPS_Interface::createRuntimeExtractor() {
     QPS_Interface::runtimeExtractor = new RuntimeExtractor(QPS_Interface::pkbInterface);
 }
@@ -15,8 +14,6 @@ void QPS_Interface::createRuntimeExtractor() {
 void QPS_Interface::clearRuntimeExtractor() {
     QPS_Interface::runtimeExtractor->clearCache();
 }
-
-
 
 std::unordered_map<int, int> QPS_Interface::getAllFollowsRelations() {
     return QPS_Interface::pkbInterface->getAllFollow();
@@ -45,7 +42,6 @@ std::unordered_map<std::string, std::vector<std::string>> QPS_Interface::getAllU
 std::unordered_map<std::string, std::vector<std::string>> QPS_Interface::getAllModifiesProcRelations() {
     return QPS_Interface::pkbInterface->getAllModifyByProc();
 }
-
 
 std::vector<std::string> QPS_Interface::getAllAssigns() {
     return QPS_Interface::pkbInterface->getAllAssigns();
@@ -179,5 +175,3 @@ std::unordered_map<int, std::vector<int>> QPS_Interface::getAllParentRelations(R
         return {};
     }
 }
-
-

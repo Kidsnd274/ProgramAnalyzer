@@ -1,13 +1,12 @@
 #ifndef QUERYPROCESSORTYPES_H
 #define QUERYPROCESSORTYPES_H
 
-#include<string>
-#include<unordered_map>
-#include<vector>
-#include<map>
+#include <string>
+#include <unordered_map>
+#include <vector>
+#include <map>
 
 namespace QPS {
-
     enum Exception {
         INVALID_ENTITY,
         INVALID_RELATION_SYNTAX,
@@ -34,9 +33,6 @@ namespace QPS {
         INVALID_MULTIPLE_CLAUSE,
         VALID
     };
+}  // namespace QPS
 
-
-
-
-}
-#endif // QUERYPROCESSOPES_H
+#endif  // QUERYPROCESSOPES_H
