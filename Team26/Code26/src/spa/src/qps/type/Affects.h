@@ -6,6 +6,7 @@
 #include <unordered_map>
 #include <unordered_set>
 
+// S1 (Major): DRY - Class structure and methods are similar to Next.h, Parent.h and Follows.h in type folder
 class Affects : public RelationClause {
 protected:
     static const std::unordered_map<

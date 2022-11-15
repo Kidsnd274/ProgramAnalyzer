@@ -1,5 +1,7 @@
 #include "AffectStarTable.h"
 
+// S1 (Major): DRY - Code structure of class and methods are similar to other relationship classes e.g. AffectsTable, NextTable, FollowsTable, FollowStarTable
+
 void AffectStarTable::insertAffectStar(int stmt, std::unordered_set<int> affectStarSet) {
     std::pair<int, std::unordered_set<int>> affectStar(stmt, affectStarSet);
     this->affectStarList.insert(affectStar);

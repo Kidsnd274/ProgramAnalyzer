@@ -1,5 +1,7 @@
 #include "ConstantTable.h"
 
+// S1 (Major): DRY - Class structure and methods are similar to VarTable
+
 void ConstantTable::insertConst(int constant) {
     this->constList.push_back(constant);
 }

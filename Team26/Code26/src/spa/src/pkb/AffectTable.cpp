@@ -1,5 +1,7 @@
 #include "AffectTable.h"
 
+// S1 (Major): DRY - Code structure of class and methods similar to other relationship classes e.g. AffectsStarTable, NextTable, FollowsTable, FollowStarTable
+
 void AffectTable::insertAffect(int stmt, int affectedStmt) {
     if (this->affectList.find(stmt) != this->affectList.end()) {
         this->affectList.find(stmt)->second.insert(affectedStmt);

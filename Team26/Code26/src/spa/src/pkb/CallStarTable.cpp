@@ -1,5 +1,7 @@
 #include "CallStarTable.h"
 
+// S1 (Major): DRY - Code structure of class and methods are similar to CallTable
+
 void CallStarTable::insertCallStar(std::string procedureName, std::string procedureCalled) {
     if (this->callStarList.find(procedureName) != this->callStarList.end()) {
         this->callStarList.find(procedureName)->second.push_back(procedureCalled);

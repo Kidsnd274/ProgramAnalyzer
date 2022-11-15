@@ -19,26 +19,32 @@ std::unordered_map<int, int> QPS_Interface::getAllFollowsRelations() {
     return QPS_Interface::pkbInterface->getAllFollow();
 }
 
+// S1 (Major): DRY - Code structure of method is similar to getAllModifiesRelations
 std::unordered_map<int, std::vector<std::string>> QPS_Interface::getAllUsesRelations() {
     return QPS_Interface::pkbInterface->getAllUseByStmt();
 }
 
+// S1 (Major): DRY - Code structure of method is similar to getAllUsesRelations
 std::unordered_map<int, std::vector<std::string>> QPS_Interface::getAllModifiesRelations() {
     return QPS_Interface::pkbInterface->getAllModifyByStmt();
 }
 
+// S1 (Major): DRY - Code structure of method is similar to getAllCallsTRelations, getAllUsesProcRelations and getAllModifiesProcRelations
 std::unordered_map<std::string, std::vector<std::string>> QPS_Interface::getAllCallRelations() {
     return QPS_Interface::pkbInterface->getAllCall();
 }
 
+// S1 (Major): DRY - Code structure of method is similar to getAllCallsRelations, getAllUsesProcRelations and getAllModifiesProcRelations
 std::unordered_map<std::string, std::vector<std::string>> QPS_Interface::getAllCallTRelations() {
     return QPS_Interface::pkbInterface->getAllCallStar();
 }
 
+// S1 (Major): DRY - Code structure of method is similar to getAllCallsTRelations, getAllCallsRelations and getAllModifiesProcRelations
 std::unordered_map<std::string, std::vector<std::string>> QPS_Interface::getAllUsesProcRelations() {
     return QPS_Interface::pkbInterface->getAllUseByProc();
 }
 
+// S1 (Major): DRY - Code structure of method is similar to getAllCallsTRelations, getAllCallsRelations and getAllUsesProcRelations
 std::unordered_map<std::string, std::vector<std::string>> QPS_Interface::getAllModifiesProcRelations() {
     return QPS_Interface::pkbInterface->getAllModifyByProc();
 }
@@ -140,6 +146,7 @@ bool QPS_Interface::hasNextStar(STMT_NUM stmt) {
     return QPS_Interface::pkbInterface->hasNextStar(stmt);
 }
 
+// S1 (Major): DRY - Code structure of method is similar to getAffects and getAffectsStar
 std::unordered_set<STMT_NUM> QPS_Interface::getNextStar(STMT_NUM stmt) {
     if (!QPS_Interface::hasNextStar(stmt)) {
         CFGHeadPtr cfgHeadPtr = QPS_Interface::getCFGHeadPtrByProc(stmt);
@@ -148,6 +155,7 @@ std::unordered_set<STMT_NUM> QPS_Interface::getNextStar(STMT_NUM stmt) {
     return QPS_Interface::pkbInterface->getNextStar(stmt);
 }
 
+// S1 (Major): DRY - Code structure of method is similar to getNextStar and getAffectsStar
 std::unordered_set<STMT_NUM> QPS_Interface::getAffects(STMT_NUM stmt) {
     bool hasAffects = QPS_Interface::pkbInterface->hasAffects(stmt);
     if (!hasAffects) {
@@ -157,6 +165,7 @@ std::unordered_set<STMT_NUM> QPS_Interface::getAffects(STMT_NUM stmt) {
     return QPS_Interface::pkbInterface->getAffects(stmt);
 }
 
+// S1 (Major): DRY - Code structure of method is similar to getAffects and getNextStar
 std::unordered_set<STMT_NUM> QPS_Interface::getAffectsStar(STMT_NUM stmt) {
     bool hasAffectsStar = QPS_Interface::pkbInterface->hasAffectsStar(stmt);
     if (!hasAffectsStar) {

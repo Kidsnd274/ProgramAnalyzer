@@ -1,5 +1,6 @@
 #include "ParentTable.h"
 
+// S1 (Major): DRY - Class structure and methods are similar to ParentStarTable
 void ParentTable::insertParent(int parentStmtLineNumber, int childStmtLineNumber) {
     std::pair<int, std::vector<int>> parent(parentStmtLineNumber, {childStmtLineNumber});
     if (this->parentList.find(parentStmtLineNumber) != parentList.end()) {

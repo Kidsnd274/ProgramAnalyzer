@@ -1,5 +1,6 @@
 #include "FollowsTable.h"
 
+// S1 (Major): DRY - Class structure and methods are similar to FollowsStarTable
 void FollowsTable::insertFollows(int frontStmtLineNumber, int backStmtLineNumber) {
     std::pair<int, int> follows(frontStmtLineNumber, backStmtLineNumber);
     this->followsList.insert(follows);

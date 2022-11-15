@@ -1,5 +1,8 @@
 #include "ModifiesTable.h"
 
+
+// S1 (Major): DRY - Class structure and methods are similar to UsesTable
+
 void ModifiesTable::insertModifies(int stmtLineNumber, std::string varName) {
     if (this->modifiesList.find(stmtLineNumber) != this->modifiesList.end()) {
         this->modifiesList.find(stmtLineNumber)->second.push_back(varName);

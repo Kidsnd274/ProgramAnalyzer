@@ -5,6 +5,7 @@
 #include <unordered_map>
 #include <unordered_set>
 
+// S1 (Major): DRY - Class structure and methods are similar to Next.h, Affects.h and Parent.h in type folder
 class Follows : public RelationClause {
 protected:
     static const std::unordered_set<Argument::ArgumentType> stmtSet;

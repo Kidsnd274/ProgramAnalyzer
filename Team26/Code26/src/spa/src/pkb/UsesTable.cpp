@@ -1,5 +1,7 @@
 #include "UsesTable.h"
 
+// S1 (Major): DRY - Class structure and methods are similar to ModifiesTable
+
 void UsesTable::insertUses(int stmtLineNumber, std::string varName) {
     std::pair<int, std::vector<std::string>> uses(stmtLineNumber, {varName});
     if (this->usesList.find(stmtLineNumber) != this->usesList.end()) {

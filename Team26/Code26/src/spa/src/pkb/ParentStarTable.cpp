@@ -1,5 +1,6 @@
 #include "ParentStarTable.h"
 
+// S1 (Major): DRY - Class structure and methods are similar to ParentStar
 void ParentStarTable::insertParentStar(int frontStmtLineNumber, int backStmtLineNumber) {
     std::pair<int, std::vector<int>> parentStar(frontStmtLineNumber, {backStmtLineNumber});
     if (this->parentStarList.find(frontStmtLineNumber) != parentStarList.end()) {

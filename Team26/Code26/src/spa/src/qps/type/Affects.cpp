@@ -1,6 +1,6 @@
 #include "Affects.h"
 
-
+// S1 (Major): DRY - Class structure and methods are similar to Next.cpp, Parent.cpp and Follow.cpp in type folder
 const std::unordered_set<Argument::ArgumentType> secondARGs = {
         Argument::STMT_SYNONYM,
         Argument::ASSIGN_SYNONYM,

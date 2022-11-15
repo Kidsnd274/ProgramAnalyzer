@@ -8,6 +8,8 @@ std::vector<Statement> StatementTable::getStatementList() {
     return this->statementList;
 }
 
+
+// S1 (Major): DRY - Code structure of methods are similar to other getAll methods
 std::vector<std::string> StatementTable::getAllStmts() {
     std::vector<std::string> result;
     for (Statement stmt : this->statementList) {
@@ -26,30 +28,37 @@ std::vector<std::string> StatementTable::getAllStmtsByType(StatementType::StmtTy
     return result;
 }
 
+// S1 (Major): DRY - Code structure of methods are similar to other getAll methods
 std::vector<std::string> StatementTable::getAllReads() {
     return getAllStmtsByType(StatementType::READ);
 }
 
+// S1 (Major): DRY - Code structure of methods are similar to other getAll methods
 std::vector<std::string> StatementTable::getAllAssigns() {
     return getAllStmtsByType(StatementType::ASSIGN);
 }
 
+// S1 (Major): DRY - Code structure of methods are similar to other getAll methods
 std::vector<std::string> StatementTable::getAllWhiles() {
     return getAllStmtsByType(StatementType::WHILE);
 }
 
+// S1 (Major): DRY - Code structure of methods are similar to other getAll methods
 std::vector<std::string> StatementTable::getAllIfs() {
     return getAllStmtsByType(StatementType::IF);
 }
 
+// S1 (Major): DRY - Code structure of methods are similar to other getAll methods
 std::vector<std::string> StatementTable::getAllPrints() {
     return getAllStmtsByType(StatementType::PRINT);
 }
 
+// S1 (Major): DRY - Code structure of methods are similar to other getAll methods
 std::vector<std::string> StatementTable::getAllCalls() {
     return getAllStmtsByType(StatementType::CALL);
 }
 
+// S1 (Major): DRY - Code structure of methods are similar to other getAll methods
 std::vector<Statement> StatementTable::getAllCallStatements() {
     std::vector<Statement> result;
     for (Statement stmt : this->statementList) {
