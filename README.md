@@ -1,4 +1,4 @@
-# A certain program analyzer
+# A certain static program analyzer
 
 ## Team 26
 [![CI for Cmake Project - MacOS](https://github.com/Kidsnd274/ProgramAnalyzer/actions/workflows/build_cp_mac.yml/badge.svg)](https://github.com/Kidsnd274/ProgramAnalyzer/actions/workflows/build_cp_mac.yml)
